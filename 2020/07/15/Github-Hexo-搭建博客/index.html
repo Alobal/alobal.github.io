@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
   </script>
 
-  <meta name="description" content="github Pages + Hexo 博客搭建 参考地址  1. 安装环境1.1 node.JS官网下载安装程序，默认安装即可 命令行运行node -v npm -v检查安装效果 1.2 安装hexo注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。  可以使用cmd，但我遇到了中文问题。 powershell运行会提示 “在此系统上禁止运行脚本”， 也有相">
+  <meta name="description" content="github Pages + Hexo 博客搭建1. 安装环境1.1 node.JS官网下载安装程序，默认安装即可 命令行运行node -v npm -v检查安装效果 1.2 安装hexo注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。  可以使用cmd，但我遇到了中文问题。 powershell运行会提示 “在此系统上禁止运行脚本”， 也有相关方法解决，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Github+Hexo 搭建博客">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="github Pages + Hexo 博客搭建 参考地址  1. 安装环境1.1 node.JS官网下载安装程序，默认安装即可 命令行运行node -v npm -v检查安装效果 1.2 安装hexo注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。  可以使用cmd，但我遇到了中文问题。 powershell运行会提示 “在此系统上禁止运行脚本”， 也有相">
+<meta property="og:description" content="github Pages + Hexo 博客搭建1. 安装环境1.1 node.JS官网下载安装程序，默认安装即可 命令行运行node -v npm -v检查安装效果 1.2 安装hexo注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。  可以使用cmd，但我遇到了中文问题。 powershell运行会提示 “在此系统上禁止运行脚本”， 也有相关方法解决，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-14T17:01:11.000Z">
-<meta property="article:modified_time" content="2020-07-14T17:06:55.930Z">
+<meta property="article:modified_time" content="2020-07-14T17:14:55.634Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="Sitch">
 <meta property="article:tag" content="Blog">
@@ -150,7 +150,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#github-Pages-Hexo-博客搭建"><span class="nav-number">1.</span> <span class="nav-text">github Pages + Hexo 博客搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装环境"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-node-JS"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 node.JS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-安装hexo"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-配置项目"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 配置项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-测试发布效果"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 测试发布效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-选一个你喜欢的主题"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 选一个你喜欢的主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-hello，blog！"><span class="nav-number">1.2.</span> <span class="nav-text">2.hello，blog！</span></a></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#github-Pages-Hexo-博客搭建"><span class="nav-number">1.</span> <span class="nav-text">github Pages + Hexo 博客搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装环境"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-node-JS"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 node.JS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-安装hexo"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-配置项目"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 配置项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-测试发布效果"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 测试发布效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-选一个你喜欢的主题"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 选一个你喜欢的主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-hello，blog！"><span class="nav-number">1.2.</span> <span class="nav-text">2.hello，blog！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-参考"><span class="nav-number">1.3.</span> <span class="nav-text">3. 参考</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-15 01:01:11 / 修改时间：01:06:55" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
+              <time title="创建时间：2020-07-15 01:01:11 / 修改时间：01:14:55" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
             </span>
 
           
@@ -239,10 +239,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">参考地址</a></p>
-</blockquote>
-<h2 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h2><h3 id="1-1-node-JS"><a href="#1-1-node-JS" class="headerlink" title="1.1 node.JS"></a>1.1 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
+        <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><h2 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h2><h3 id="1-1-node-JS"><a href="#1-1-node-JS" class="headerlink" title="1.1 node.JS"></a>1.1 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
 <p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
 <h3 id="1-2-安装hexo"><a href="#1-2-安装hexo" class="headerlink" title="1.2 安装hexo"></a>1.2 安装hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。</p>
 <blockquote>
@@ -284,7 +281,8 @@
 <p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
 </blockquote>
 <h2 id="2-hello，blog！"><a href="#2-hello，blog！" class="headerlink" title="2.hello，blog！"></a>2.hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
-<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> ,可以在 项目名/source/_posts/ 下面找到新建的markdown文件。</p>
+<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> ,可以在 项目名/source/_posts/ 下面找到新建的markdown文件,文件头不动的情况下，写入你的markdown格式内容即可。</p>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
 
     </div>
 
