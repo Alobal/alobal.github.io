@@ -209,6 +209,7 @@
 
 
       </section>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
@@ -250,7 +251,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/07/15/hexo%E5%8D%9A%E5%AE%A2%E6%A0%B7%E5%BC%8F%E6%90%AD%E9%85%8D/" class="post-title-link" itemprop="url">hexo博客样式搭配</a>
+            <a href="/Blog/2020/07/15/hexo%E5%8D%9A%E5%AE%A2%E6%A0%B7%E5%BC%8F%E6%90%AD%E9%85%8D/" class="post-title-link" itemprop="url">自定义next主题博客</a>
         </h2>
 
         <div class="post-meta">
@@ -261,7 +262,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-15 01:36:25 / 修改时间：01:36:26" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
+              <time title="创建时间：2020-07-15 01:36:25 / 修改时间：10:34:08" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
+                </span>
             </span>
 
           
@@ -275,7 +285,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="1-概览描述"><a href="#1-概览描述" class="headerlink" title="1. 概览描述"></a>1. 概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是next主题，会显示在侧边栏中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line">title: Sitch<span class="string">'s Blog</span></span><br><span class="line"><span class="string">subtitle: '</span><span class="string">'</span></span><br><span class="line"><span class="string">description: '</span>做什么，想做什么，为了什么去做，谁知道呢 随便了<span class="string">'</span></span><br><span class="line"><span class="string">keywords: Sitch,Blog</span></span><br><span class="line"><span class="string">author: Sitch</span></span><br><span class="line"><span class="string">language: zh-CN</span></span><br><span class="line"><span class="string">timezone: '</span><span class="string">'</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-Next的分类和标签"><a href="#2-Next的分类和标签" class="headerlink" title="2. Next的分类和标签"></a>2. Next的分类和标签</h2><p>在next主题配置里，选择下列字段进行注释和取消注释即可打开相关页面，例如分类页和标签页。</p>
+<blockquote>
+<p>分类有层级，标签没有层级。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || fa fa-home</span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  categories: /categories/ || fa fa-th</span><br><span class="line">  archives: /archives/ || fa fa-archive</span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line">- 博客搭建</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-网易云音乐"><a href="#3-网易云音乐" class="headerlink" title="3. 网易云音乐"></a>3. 网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
+<p>在 项目/themes/next/layout/_macro/sidebar.njk中， 插入复制的代码，比如插入在最下面某一段,示例如下，注意<iframe>的位置。</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;%- <span class="name"><span class="keyword">if</span></span> theme.back2top.enable and theme.back2top.sidebar %&#125;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"back-to-top animated"</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-arrow-up"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">span</span>&gt;</span>0%<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="template-tag">&#123;%- <span class="name"><span class="keyword">endif</span></span> %&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">marginheight</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">330</span> <span class="attr">height</span>=<span class="string">86</span> <span class="attr">src</span>=<span class="string">"//music.163.com/outchain/player?type=2&amp;id=528484544&amp;auto=1&amp;height=66"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">aside</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"sidebar-dimmer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="keyword">endmacro</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
