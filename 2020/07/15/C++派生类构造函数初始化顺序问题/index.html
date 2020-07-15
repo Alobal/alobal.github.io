@@ -20,32 +20,37 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sitch&#39;s Blog">
-<meta property="og:url" content="https://alobal.github.io/Blog/index.html">
+  <meta name="description" content="众所周知，派生类构造时先会初始化构造基类，然后构造自身。1. 派生类私有成员 和 基类 同时初始化假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？测试背景： 1234567891011121314151617181920212223242526272829303132333435#include&lt;iostream&gt;using namesp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++派生类构造函数初始化顺序问题">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/07/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+<meta property="og:description" content="众所周知，派生类构造时先会初始化构造基类，然后构造自身。1. 派生类私有成员 和 基类 同时初始化假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？测试背景： 1234567891011121314151617181920212223242526272829303132333435#include&lt;iostream&gt;using namesp">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-53e396616e132279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-d4e08b4d2eb86f08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-07-14T17:01:11.000Z">
+<meta property="article:modified_time" content="2020-07-15T16:04:57.707Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="Sitch">
 <meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19387483-53e396616e132279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
-<link rel="canonical" href="https://alobal.github.io/Blog/">
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/07/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Sitch's Blog</title>
+  <title>C++派生类构造函数初始化顺序问题 | Sitch's Blog</title>
   
 
 
@@ -149,97 +154,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">自定义next主题博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-07-15 01:36:25 / 修改时间：23:58:06" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-概览描述"><a href="#1-概览描述" class="headerlink" title="1. 概览描述"></a>1. 概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是next主题，会显示在侧边栏中。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Site</span><br>title: Sitch<span class="hljs-string">'s Blog</span><br><span class="hljs-string">subtitle: '</span><span class="hljs-string">'</span><br><span class="hljs-string">description: '</span>做什么，想做什么，为了什么去做，谁知道呢 随便了<span class="hljs-string">'</span><br><span class="hljs-string">keywords: Sitch,Blog</span><br><span class="hljs-string">author: Sitch</span><br><span class="hljs-string">language: zh-CN</span><br><span class="hljs-string">timezone: '</span><span class="hljs-string">'</span><br></code></pre></td></tr></table></figure>
-<h2 id="2-Next的分类和标签"><a href="#2-Next的分类和标签" class="headerlink" title="2. Next的分类和标签"></a>2. Next的分类和标签</h2><p>在next主题配置里，选择下列字段进行注释和取消注释即可打开相关页面，例如分类页和标签页。</p>
-<blockquote>
-<p>分类有层级，标签没有层级。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">menu:<br>  home: / || fa fa-home<br>  <span class="hljs-comment">#about: /about/ || fa fa-user</span><br>  <span class="hljs-comment">#tags: /tags/ || fa fa-tags</span><br>  categories: /categories/ || fa fa-th<br>  archives: /archives/ || fa fa-archive<br>  <span class="hljs-comment"># schedule: /schedule/ || fa fa-calendar</span><br>  <span class="hljs-comment"># sitemap: /sitemap.xml || fa fa-sitemap</span><br>  <span class="hljs-comment">#commonweal: /404/ || fa fa-heartbeat</span><br></code></pre></td></tr></table></figure>
-
-<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">categories: <br>- 博客搭建<br></code></pre></td></tr></table></figure>
-
-<h2 id="3-网易云音乐"><a href="#3-网易云音乐" class="headerlink" title="3. 网易云音乐"></a>3. 网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
-<p>在 项目/themes/next/layout/_macro/sidebar.swig中， 插入复制的代码，比如插入在最下面某一段.</p>
-<blockquote>
-<p>注意20版本后缀不是swig</p>
-</blockquote>
-<h2 id="4-代码高亮BUG"><a href="#4-代码高亮BUG" class="headerlink" title="4. 代码高亮BUG"></a>4. 代码高亮BUG</h2><p>打扰，hexo自带的hljs简直是个巨坑，找了一整天的解决方案都没用</p>
-<blockquote>
-<p>正确配置了项目设置里的highlight字段，和 next主题设置里的codeblock风格</p>
-</blockquote>
-<p>跑路保平安，改用prism</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -255,10 +173,9 @@
       <meta itemprop="name" content="Sitch's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          C++派生类构造函数初始化顺序问题
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -297,7 +214,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"><a href="#众所周知，派生类构造时先会初始化构造基类，然后构造自身。" class="headerlink" title="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"></a>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</h5><h3 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h3><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
+        <h5 id="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"><a href="#众所周知，派生类构造时先会初始化构造基类，然后构造自身。" class="headerlink" title="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"></a>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</h5><h3 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h3><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs Cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">base</span></span><br><span class="hljs-class">&#123;</span><br>	<span class="hljs-keyword">int</span> x;<br><span class="hljs-keyword">public</span>:<br>	base(<span class="hljs-keyword">int</span> i) :x(i) &#123; &#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dispb</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"x="</span> &lt;&lt; x &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; <span class="hljs-string">"base</span><br><span class="hljs-string">"</span>;<br>	&#125;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">derived</span> :</span> <span class="hljs-keyword">public</span> base<br>&#123;<br>	<span class="hljs-keyword">int</span> a=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">public</span>:<br>	derived(<span class="hljs-keyword">int</span> i) :a(i), base(a) &#123;  &#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dispd</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"a="</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; <span class="hljs-string">"derived</span><br><span class="hljs-string">"</span>;<br>	&#125;<br>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-function">derived <span class="hljs-title">obj</span><span class="hljs-params">(<span class="hljs-number">8</span>)</span></span>;<br>	base*p =&amp;obj;<br>	p-&gt;dispb();<br>	system(<span class="hljs-string">"PAUSE"</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：<br><img src="https://upload-images.jianshu.io/upload_images/19387483-53e396616e132279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="x!=i"></p>
@@ -315,152 +232,33 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Cpp">base(<span class="hljs-keyword">int</span> i) :x(i) &#123; <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"base(int i): "</span>&lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>; &#125;<br>base() &#123; <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"This is base()"</span>&lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>; &#125;<br>......<br>derived(<span class="hljs-keyword">int</span> i)：a(i)&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"a:"</span> &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>; base(a); &#125;<br></code></pre></td></tr></table></figure>
 <h5 id="derived-8-运行，猜猜运行结果是什么？"><a href="#derived-8-运行，猜猜运行结果是什么？" class="headerlink" title="derived(8)运行，猜猜运行结果是什么？"></a>derived(8)运行，猜猜运行结果是什么？</h5><p>我们知道初始化a时，先会调用base（）<br>然后初始化a<br>然后进入函数体内输出a值<br>然后a传参给base（int i）<br>Really？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-d4e08b4d2eb86f08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运行结果:"></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 00:04:20" itemprop="dateModified" datetime="2020-07-16T00:04:20+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><p><strong>前置知识：git使用方法，github建库方法，会在命令行里敲东西</strong></p>
-<h2 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h2><h3 id="1-1-node-JS"><a href="#1-1-node-JS" class="headerlink" title="1.1 node.JS"></a>1.1 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
-<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
-<h3 id="1-2-安装hexo"><a href="#1-2-安装hexo" class="headerlink" title="1.2 安装hexo"></a>1.2 安装hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。</p>
-<blockquote>
-<p>可以使用cmd，但我遇到了中文问题。</p>
-<p>powershell运行会提示 “在此系统上禁止运行脚本”， 也有相关方法解决， 但麻烦。</p>
-</blockquote>
-<p>运行<code>npm install -g hexo-cli</code>进行安装</p>
-<p>再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
-<h3 id="1-3-配置项目"><a href="#1-3-配置项目" class="headerlink" title="1.3 配置项目"></a>1.3 配置项目</h3><p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
-<p>运行<code>hexo init</code>初始化</p>
-<p>运行以下命令部署默认网页进行测试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo new test_my_site<br><br>hexo g<br><br>hexo s<br></code></pre></td></tr></table></figure>
-
-<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
-<p>最后一段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">deploy:<br>type: git<br>repo: 仓库的完整路径，例如我的https://github.com/Alobal/Blog.git<br>branch: master<br></code></pre></td></tr></table></figure>
-
-<p>URL小段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># URL</span><br><span class="hljs-comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span><br>url: 访问网址，例如https://alobal.github.io/Blog/<br>root: 仓库名，例如/Blog<br></code></pre></td></tr></table></figure>
-
-<p>保存关闭该文件</p>
-<p>安装hexo的git部署插件<code>npm install hexo-deployer-git --save</code></p>
-<h3 id="1-4-测试发布效果"><a href="#1-4-测试发布效果" class="headerlink" title="1.4 测试发布效果"></a>1.4 测试发布效果</h3><p>运行以下命令进行测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo clean<br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure>
-
-<p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:</code>大概就成功了。</p>
-<p>此时可以在github仓库看到hexo提交的文件<br>以及能通过访问网址查看你发布的默认博客</p>
-<h3 id="1-5-选一个你喜欢的主题"><a href="#1-5-选一个你喜欢的主题" class="headerlink" title="1.5 选一个你喜欢的主题"></a>1.5 选一个你喜欢的主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题库</a></p>
-<p>挑选一个合适的主题，比如很常见的Next，复制git地址，在本地项目文件夹下，命令行输入进行git clone</p>
-<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
-<blockquote>
-<p>注意next主题在2020之前是theme-next项目，2020版本是next-theme项目，配置字段有点不同，根据需要选择。19版本网上教程比较健全了。</p>
-</blockquote>
-<p>打开_config.yml，修改theme字段：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Extensions</span><br><span class="hljs-comment">## Plugins: https://hexo.io/plugins/</span><br><span class="hljs-comment">## Themes: https://hexo.io/themes/</span><br>theme: 主题名，例如next<br></code></pre></td></tr></table></figure>
-
-<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。<br>比如next主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Schemes</span><br>scheme: Muse<br><span class="hljs-comment">#scheme: Mist</span><br><span class="hljs-comment">#scheme: Pisces</span><br><span class="hljs-comment">#scheme: Gemini</span><br></code></pre></td></tr></table></figure>
-
-<p>重新<code>hexo g</code> <code>hexo d</code> 发布出去，让我们来看看效果。</p>
-<blockquote>
-<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
-</blockquote>
-<h2 id="2-hello，blog！"><a href="#2-hello，blog！" class="headerlink" title="2.hello，blog！"></a>2.hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
-<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> ,可以在 项目名/source/_posts/ 下面找到新建的markdown文件,文件头不动的情况下，写入你的markdown格式内容即可。</p>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
-<h2 id="4-错误汇总"><a href="#4-错误汇总" class="headerlink" title="4. 错误汇总"></a>4. 错误汇总</h2><p>4.1 can not find module xxx</p>
-<ul>
-<li>命令行<code>npm install</code> 安装所有依赖包完事。</li>
-</ul>
-<p>4.2 代码高亮无效</p>
-<ul>
-<li>根目录config里，修改配置如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">highlight:<br>  enable: true<br>  line_number: true<br>  auto_detect: true<br>  tab_replace: <span class="hljs-string">''</span><br>  wrap: true<br>  hljs: true<br></code></pre></td></tr></table></figure></li>
-<li>next主题配置里，选择自己要的高亮样式：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">codeblock:<br>  <span class="hljs-comment"># Code Highlight theme</span><br>  <span class="hljs-comment"># All available themes: https://theme-next.js.org/highlight/</span><br>  theme:<br>    light:  tomorrow-night-blue<br>    dark:  tomorrow-night-blue<br>  prism:<br>    light: tomorrow-night-blue<br>    dark: tomorrow-night-blue<br>  <span class="hljs-comment"># Add copy button on codeblock</span><br>  copy_button:<br>    enable: true<br>    <span class="hljs-comment"># Available values: default | flat | mac</span><br>    style:<br></code></pre></td></tr></table></figure>
-</li>
-</ul>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="Github+Hexo 搭建博客">
+      <i class="fa fa-chevron-left"></i> Github+Hexo 搭建博客
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/" rel="next" title="自定义next主题博客">
+      自定义next主题博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -513,6 +311,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#众所周知，派生类构造时先会初始化构造基类，然后构造自身。"><span class="nav-number">1.</span> <span class="nav-text">众所周知，派生类构造时先会初始化构造基类，然后构造自身。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-派生类私有成员-和-基类-同时初始化"><span class="nav-number"></span> <span class="nav-text">1. 派生类私有成员 和 基类 同时初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-派生类初始化私有成员，基类在函数体内构造"><span class="nav-number"></span> <span class="nav-text">2. 派生类初始化私有成员，基类在函数体内构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><span class="nav-number"></span> <span class="nav-text">2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#会提示类base不存在默认构造函数。"><span class="nav-number">1.</span> <span class="nav-text">会提示类base不存在默认构造函数。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？"><span class="nav-number"></span> <span class="nav-text">2.2 假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#报错：形参-i-重定义——明明只声明了一次-i-，怎么就重定义了呢？把a-i-删去？还是报错重定义"><span class="nav-number">1.</span> <span class="nav-text">报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”"><span class="nav-number">2.</span> <span class="nav-text">“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里面存在-声明-语句-定义-等根本性语法的规则定义-具体了解得看其他详细资料，不过我们知道了报错是因为在-base-i-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。"><span class="nav-number">3.</span> <span class="nav-text">这里面存在 声明  语句 定义 等根本性语法的规则定义&#x3D; &#x3D;具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？"><span class="nav-number"></span> <span class="nav-text">2.3 i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#derived-8-运行，猜猜运行结果是什么？"><span class="nav-number">1.</span> <span class="nav-text">derived(8)运行，猜猜运行结果是什么？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
