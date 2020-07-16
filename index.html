@@ -178,10 +178,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-15 01:36:25 / 修改时间：23:58:06" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
+              <time title="创建时间：2020-07-15 01:36:25" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 16:34:35" itemprop="dateModified" datetime="2020-07-16T16:34:35+08:00">2020-07-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -204,26 +210,42 @@
 
       
           <h2 id="1-概览描述"><a href="#1-概览描述" class="headerlink" title="1. 概览描述"></a>1. 概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是next主题，会显示在侧边栏中。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Site</span><br>title: Sitch<span class="hljs-string">'s Blog</span><br><span class="hljs-string">subtitle: '</span><span class="hljs-string">'</span><br><span class="hljs-string">description: '</span>做什么，想做什么，为了什么去做，谁知道呢 随便了<span class="hljs-string">'</span><br><span class="hljs-string">keywords: Sitch,Blog</span><br><span class="hljs-string">author: Sitch</span><br><span class="hljs-string">language: zh-CN</span><br><span class="hljs-string">timezone: '</span><span class="hljs-string">'</span><br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Site</span>
+title<span class="token punctuation">:</span> Sitch's Blog
+subtitle<span class="token punctuation">:</span> <span class="token string">''</span>
+description<span class="token punctuation">:</span> <span class="token string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span>
+keywords<span class="token punctuation">:</span> Sitch<span class="token punctuation">,</span>Blog
+author<span class="token punctuation">:</span> Sitch
+language<span class="token punctuation">:</span> zh<span class="token operator">-</span>CN
+timezone<span class="token punctuation">:</span> <span class="token string">''</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="2-Next的分类和标签"><a href="#2-Next的分类和标签" class="headerlink" title="2. Next的分类和标签"></a>2. Next的分类和标签</h2><p>在next主题配置里，选择下列字段进行注释和取消注释即可打开相关页面，例如分类页和标签页。</p>
 <blockquote>
 <p>分类有层级，标签没有层级。</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">menu:<br>  home: / || fa fa-home<br>  <span class="hljs-comment">#about: /about/ || fa fa-user</span><br>  <span class="hljs-comment">#tags: /tags/ || fa fa-tags</span><br>  categories: /categories/ || fa fa-th<br>  archives: /archives/ || fa fa-archive<br>  <span class="hljs-comment"># schedule: /schedule/ || fa fa-calendar</span><br>  <span class="hljs-comment"># sitemap: /sitemap.xml || fa fa-sitemap</span><br>  <span class="hljs-comment">#commonweal: /404/ || fa fa-heartbeat</span><br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">menu<span class="token punctuation">:</span>
+  home<span class="token punctuation">:</span> <span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>home
+  <span class="token comment" spellcheck="true">#about: /about/ || fa fa-user</span>
+  <span class="token comment" spellcheck="true">#tags: /tags/ || fa fa-tags</span>
+  categories<span class="token punctuation">:</span> <span class="token operator">/</span>categories<span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>th
+  archives<span class="token punctuation">:</span> <span class="token operator">/</span>archives<span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>archive
+  <span class="token comment" spellcheck="true"># schedule: /schedule/ || fa fa-calendar</span>
+  <span class="token comment" spellcheck="true"># sitemap: /sitemap.xml || fa fa-sitemap</span>
+  <span class="token comment" spellcheck="true">#commonweal: /404/ || fa fa-heartbeat</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">categories: <br>- 博客搭建<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">categories<span class="token punctuation">:</span> 
+<span class="token operator">-</span> 博客搭建<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="3-网易云音乐"><a href="#3-网易云音乐" class="headerlink" title="3. 网易云音乐"></a>3. 网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
 <p>在 项目/themes/next/layout/_macro/sidebar.swig中， 插入复制的代码，比如插入在最下面某一段.</p>
 <blockquote>
 <p>注意20版本后缀不是swig</p>
 </blockquote>
-<h2 id="4-代码高亮BUG"><a href="#4-代码高亮BUG" class="headerlink" title="4. 代码高亮BUG"></a>4. 代码高亮BUG</h2><p>打扰，hexo自带的hljs简直是个巨坑，找了一整天的解决方案都没用</p>
+<h2 id="4-代码高亮BUG"><a href="#4-代码高亮BUG" class="headerlink" title="4. 代码高亮BUG"></a>4. 代码高亮BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
+<p>打扰，hexo自带的hljs简直是个巨坑，找了一整天的解决方案都没用</p>
 <blockquote>
 <p>正确配置了项目设置里的highlight字段，和 next主题设置里的codeblock风格</p>
 </blockquote>
-<p>跑路保平安，改用prism</p>
+<p>跑路保平安，改用prism-plugin。</p>
+<p><strong>意外的是，prism设置了custom_css的无效路径后，即使hexo自带highlight是关闭状态，代码高亮居然被hexo的highlight接管了，除了行号没有一切正常。</strong></p>
 
       
     </div>
@@ -310,20 +332,28 @@
 <h3 id="1-3-配置项目"><a href="#1-3-配置项目" class="headerlink" title="1.3 配置项目"></a>1.3 配置项目</h3><p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
 <p>运行<code>hexo init</code>初始化</p>
 <p>运行以下命令部署默认网页进行测试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo new test_my_site<br><br>hexo g<br><br>hexo s<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-python"><code class="language-python">hexo new test_my_site
 
+hexo g
+
+hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在文件夹根路径下面，找到_config.yml，打开修改</p>
 <p>最后一段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">deploy:<br>type: git<br>repo: 仓库的完整路径，例如我的https://github.com/Alobal/Blog.git<br>branch: master<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">deploy<span class="token punctuation">:</span>
+type<span class="token punctuation">:</span> git
+repo<span class="token punctuation">:</span> 仓库的完整路径，例如我的https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>Alobal<span class="token operator">/</span>Blog<span class="token punctuation">.</span>git
+branch<span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>URL小段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># URL</span><br><span class="hljs-comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span><br>url: 访问网址，例如https://alobal.github.io/Blog/<br>root: 仓库名，例如/Blog<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># URL</span>
+<span class="token comment" spellcheck="true">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span>
+url<span class="token punctuation">:</span> 访问网址，例如https<span class="token punctuation">:</span><span class="token operator">//</span>alobal<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token operator">/</span>Blog<span class="token operator">/</span>
+root<span class="token punctuation">:</span> 仓库名，例如<span class="token operator">/</span>Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>保存关闭该文件</p>
 <p>安装hexo的git部署插件<code>npm install hexo-deployer-git --save</code></p>
 <h3 id="1-4-测试发布效果"><a href="#1-4-测试发布效果" class="headerlink" title="1.4 测试发布效果"></a>1.4 测试发布效果</h3><p>运行以下命令进行测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo clean<br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">hexo clean
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:</code>大概就成功了。</p>
 <p>此时可以在github仓库看到hexo提交的文件<br>以及能通过访问网址查看你发布的默认博客</p>
 <h3 id="1-5-选一个你喜欢的主题"><a href="#1-5-选一个你喜欢的主题" class="headerlink" title="1.5 选一个你喜欢的主题"></a>1.5 选一个你喜欢的主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题库</a></p>
@@ -333,11 +363,16 @@
 <p>注意next主题在2020之前是theme-next项目，2020版本是next-theme项目，配置字段有点不同，根据需要选择。19版本网上教程比较健全了。</p>
 </blockquote>
 <p>打开_config.yml，修改theme字段：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Extensions</span><br><span class="hljs-comment">## Plugins: https://hexo.io/plugins/</span><br><span class="hljs-comment">## Themes: https://hexo.io/themes/</span><br>theme: 主题名，例如next<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Extensions</span>
+<span class="token comment" spellcheck="true">## Plugins: https://hexo.io/plugins/</span>
+<span class="token comment" spellcheck="true">## Themes: https://hexo.io/themes/</span>
+theme<span class="token punctuation">:</span> 主题名，例如next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。<br>比如next主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Schemes</span><br>scheme: Muse<br><span class="hljs-comment">#scheme: Mist</span><br><span class="hljs-comment">#scheme: Pisces</span><br><span class="hljs-comment">#scheme: Gemini</span><br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Schemes</span>
+scheme<span class="token punctuation">:</span> Muse
+<span class="token comment" spellcheck="true">#scheme: Mist</span>
+<span class="token comment" spellcheck="true">#scheme: Pisces</span>
+<span class="token comment" spellcheck="true">#scheme: Gemini</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重新<code>hexo g</code> <code>hexo d</code> 发布出去，让我们来看看效果。</p>
 <blockquote>
 <p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
@@ -351,8 +386,28 @@
 </ul>
 <p>4.2 代码高亮无效</p>
 <ul>
-<li>根目录config里，修改配置如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">highlight:<br>  enable: true<br>  line_number: true<br>  auto_detect: true<br>  tab_replace: <span class="hljs-string">''</span><br>  wrap: true<br>  hljs: true<br></code></pre></td></tr></table></figure></li>
-<li>next主题配置里，选择自己要的高亮样式：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">codeblock:<br>  <span class="hljs-comment"># Code Highlight theme</span><br>  <span class="hljs-comment"># All available themes: https://theme-next.js.org/highlight/</span><br>  theme:<br>    light:  tomorrow-night-blue<br>    dark:  tomorrow-night-blue<br>  prism:<br>    light: tomorrow-night-blue<br>    dark: tomorrow-night-blue<br>  <span class="hljs-comment"># Add copy button on codeblock</span><br>  copy_button:<br>    enable: true<br>    <span class="hljs-comment"># Available values: default | flat | mac</span><br>    style:<br></code></pre></td></tr></table></figure>
+<li>根目录config里，修改配置如下：<pre class="line-numbers language-python"><code class="language-python">highlight<span class="token punctuation">:</span>
+enable<span class="token punctuation">:</span> true
+line_number<span class="token punctuation">:</span> true
+auto_detect<span class="token punctuation">:</span> true
+tab_replace<span class="token punctuation">:</span> <span class="token string">''</span>
+wrap<span class="token punctuation">:</span> true
+hljs<span class="token punctuation">:</span> true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>next主题配置里，选择自己要的高亮样式：<pre class="line-numbers language-python"><code class="language-python">codeblock<span class="token punctuation">:</span>
+<span class="token comment" spellcheck="true"># Code Highlight theme</span>
+<span class="token comment" spellcheck="true"># All available themes: https://theme-next.js.org/highlight/</span>
+theme<span class="token punctuation">:</span>
+  light<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+  dark<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+prism<span class="token punctuation">:</span>
+  light<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+  dark<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+<span class="token comment" spellcheck="true"># Add copy button on codeblock</span>
+copy_button<span class="token punctuation">:</span>
+  enable<span class="token punctuation">:</span> true
+  <span class="token comment" spellcheck="true"># Available values: default | flat | mac</span>
+  style<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 
@@ -405,7 +460,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 00:14:19" itemprop="dateModified" datetime="2020-07-16T00:14:19+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 16:07:00" itemprop="dateModified" datetime="2020-07-16T16:07:00+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -429,21 +484,59 @@
 
       
           <h5 id="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"><a href="#众所周知，派生类构造时先会初始化构造基类，然后构造自身。" class="headerlink" title="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"></a>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</h5><h3 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h3><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs Cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">base</span></span><br><span class="hljs-class">&#123;</span><br>	<span class="hljs-keyword">int</span> x;<br><span class="hljs-keyword">public</span>:<br>	base(<span class="hljs-keyword">int</span> i) :x(i) &#123; &#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dispb</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"x="</span> &lt;&lt; x &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; <span class="hljs-string">"base</span><br><span class="hljs-string">"</span>;<br>	&#125;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">derived</span> :</span> <span class="hljs-keyword">public</span> base<br>&#123;<br>	<span class="hljs-keyword">int</span> a=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">public</span>:<br>	derived(<span class="hljs-keyword">int</span> i) :a(i), base(a) &#123;  &#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dispd</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"a="</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; <span class="hljs-string">"derived</span><br><span class="hljs-string">"</span>;<br>	&#125;<br>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-function">derived <span class="hljs-title">obj</span><span class="hljs-params">(<span class="hljs-number">8</span>)</span></span>;<br>	base*p =&amp;obj;<br>	p-&gt;dispb();<br>	system(<span class="hljs-string">"PAUSE"</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">base</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
 
+    <span class="token keyword">void</span> <span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x="</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "base
+"<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> base
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">dispd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a="</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "derived
+"<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    derived <span class="token function">obj</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    base<span class="token operator">*</span>p <span class="token operator">=</span><span class="token operator">&amp;</span>obj<span class="token punctuation">;</span>
+    p<span class="token operator">-</span><span class="token operator">></span><span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"PAUSE"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：<br><img src="https://upload-images.jianshu.io/upload_images/19387483-53e396616e132279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="x!=i"></p>
 <p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
 <blockquote>
 <p>想要正常构造，把base（a)改成base（i）即可。</p>
 </blockquote>
 <hr>
-<h3 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h3><h3 id="2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Cpp">derived(<span class="hljs-keyword">int</span> i) :a(i) &#123; base(i); &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h3><h3 id="2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h5 id="会提示类base不存在默认构造函数。"><a href="#会提示类base不存在默认构造函数。" class="headerlink" title="会提示类base不存在默认构造函数。"></a>会提示类base不存在默认构造函数。</h5><p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
 <h3 id="2-2-假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？"><a href="#2-2-假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？" class="headerlink" title="2.2 假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？"></a>2.2 假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？</h3><p>增加一个无参数的基类构造函数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Cpp">base() &#123; <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"This is base()"</span>&lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>; &#125;<br>.....<br>derived(<span class="hljs-keyword">int</span> i) :a(i) &#123; base(i); &#125;<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h5 id="报错：形参-i-重定义——明明只声明了一次-i-，怎么就重定义了呢？把a-i-删去？还是报错重定义"><a href="#报错：形参-i-重定义——明明只声明了一次-i-，怎么就重定义了呢？把a-i-删去？还是报错重定义" class="headerlink" title="报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义"></a>报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义</h5><p>——<a href="https://segmentfault.com/q/1010000014553913" target="_blank" rel="noopener">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：</p>
 <h5 id="“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”"><a href="#“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”" class="headerlink" title="“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”"></a>“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</h5><h5 id="这里面存在-声明-语句-定义-等根本性语法的规则定义-具体了解得看其他详细资料，不过我们知道了报错是因为在-base-i-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。"><a href="#这里面存在-声明-语句-定义-等根本性语法的规则定义-具体了解得看其他详细资料，不过我们知道了报错是因为在-base-i-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。" class="headerlink" title="这里面存在 声明  语句 定义 等根本性语法的规则定义= =具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。"></a>这里面存在 声明  语句 定义 等根本性语法的规则定义= =具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</h5><h3 id="2-3-i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？"><a href="#2-3-i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？" class="headerlink" title="2.3 i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？"></a>2.3 i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</h3><p>派生类构造函数改成：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Cpp">base(<span class="hljs-keyword">int</span> i) :x(i) &#123; <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"base(int i): "</span>&lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>; &#125;<br>base() &#123; <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"This is base()"</span>&lt;&lt; x &lt;&lt; <span class="hljs-built_in">endl</span>; &#125;<br>......<br>derived(<span class="hljs-keyword">int</span> i)：a(i)&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"a:"</span> &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>; base(a); &#125;<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"base(int i): "</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>：<span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a:"</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h5 id="derived-8-运行，猜猜运行结果是什么？"><a href="#derived-8-运行，猜猜运行结果是什么？" class="headerlink" title="derived(8)运行，猜猜运行结果是什么？"></a>derived(8)运行，猜猜运行结果是什么？</h5><p>我们知道初始化a时，先会调用base（）<br>然后初始化a<br>然后进入函数体内输出a值<br>然后a传参给base（int i）<br>Really？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-d4e08b4d2eb86f08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运行结果:"></p>
 
       

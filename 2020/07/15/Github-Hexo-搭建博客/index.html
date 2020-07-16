@@ -224,20 +224,28 @@
 <h3 id="1-3-配置项目"><a href="#1-3-配置项目" class="headerlink" title="1.3 配置项目"></a>1.3 配置项目</h3><p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
 <p>运行<code>hexo init</code>初始化</p>
 <p>运行以下命令部署默认网页进行测试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo new test_my_site<br><br>hexo g<br><br>hexo s<br></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-python"><code class="language-python">hexo new test_my_site
 
+hexo g
+
+hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在文件夹根路径下面，找到_config.yml，打开修改</p>
 <p>最后一段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">deploy:<br>type: git<br>repo: 仓库的完整路径，例如我的https://github.com/Alobal/Blog.git<br>branch: master<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">deploy<span class="token punctuation">:</span>
+type<span class="token punctuation">:</span> git
+repo<span class="token punctuation">:</span> 仓库的完整路径，例如我的https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>Alobal<span class="token operator">/</span>Blog<span class="token punctuation">.</span>git
+branch<span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>URL小段为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># URL</span><br><span class="hljs-comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span><br>url: 访问网址，例如https://alobal.github.io/Blog/<br>root: 仓库名，例如/Blog<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># URL</span>
+<span class="token comment" spellcheck="true">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span>
+url<span class="token punctuation">:</span> 访问网址，例如https<span class="token punctuation">:</span><span class="token operator">//</span>alobal<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token operator">/</span>Blog<span class="token operator">/</span>
+root<span class="token punctuation">:</span> 仓库名，例如<span class="token operator">/</span>Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>保存关闭该文件</p>
 <p>安装hexo的git部署插件<code>npm install hexo-deployer-git --save</code></p>
 <h3 id="1-4-测试发布效果"><a href="#1-4-测试发布效果" class="headerlink" title="1.4 测试发布效果"></a>1.4 测试发布效果</h3><p>运行以下命令进行测试</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo clean<br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">hexo clean
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:</code>大概就成功了。</p>
 <p>此时可以在github仓库看到hexo提交的文件<br>以及能通过访问网址查看你发布的默认博客</p>
 <h3 id="1-5-选一个你喜欢的主题"><a href="#1-5-选一个你喜欢的主题" class="headerlink" title="1.5 选一个你喜欢的主题"></a>1.5 选一个你喜欢的主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题库</a></p>
@@ -247,11 +255,16 @@
 <p>注意next主题在2020之前是theme-next项目，2020版本是next-theme项目，配置字段有点不同，根据需要选择。19版本网上教程比较健全了。</p>
 </blockquote>
 <p>打开_config.yml，修改theme字段：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Extensions</span><br><span class="hljs-comment">## Plugins: https://hexo.io/plugins/</span><br><span class="hljs-comment">## Themes: https://hexo.io/themes/</span><br>theme: 主题名，例如next<br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Extensions</span>
+<span class="token comment" spellcheck="true">## Plugins: https://hexo.io/plugins/</span>
+<span class="token comment" spellcheck="true">## Themes: https://hexo.io/themes/</span>
+theme<span class="token punctuation">:</span> 主题名，例如next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。<br>比如next主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Schemes</span><br>scheme: Muse<br><span class="hljs-comment">#scheme: Mist</span><br><span class="hljs-comment">#scheme: Pisces</span><br><span class="hljs-comment">#scheme: Gemini</span><br></code></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Schemes</span>
+scheme<span class="token punctuation">:</span> Muse
+<span class="token comment" spellcheck="true">#scheme: Mist</span>
+<span class="token comment" spellcheck="true">#scheme: Pisces</span>
+<span class="token comment" spellcheck="true">#scheme: Gemini</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重新<code>hexo g</code> <code>hexo d</code> 发布出去，让我们来看看效果。</p>
 <blockquote>
 <p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
@@ -265,8 +278,28 @@
 </ul>
 <p>4.2 代码高亮无效</p>
 <ul>
-<li>根目录config里，修改配置如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">highlight:<br>  enable: true<br>  line_number: true<br>  auto_detect: true<br>  tab_replace: <span class="hljs-string">''</span><br>  wrap: true<br>  hljs: true<br></code></pre></td></tr></table></figure></li>
-<li>next主题配置里，选择自己要的高亮样式：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">codeblock:<br>  <span class="hljs-comment"># Code Highlight theme</span><br>  <span class="hljs-comment"># All available themes: https://theme-next.js.org/highlight/</span><br>  theme:<br>    light:  tomorrow-night-blue<br>    dark:  tomorrow-night-blue<br>  prism:<br>    light: tomorrow-night-blue<br>    dark: tomorrow-night-blue<br>  <span class="hljs-comment"># Add copy button on codeblock</span><br>  copy_button:<br>    enable: true<br>    <span class="hljs-comment"># Available values: default | flat | mac</span><br>    style:<br></code></pre></td></tr></table></figure>
+<li>根目录config里，修改配置如下：<pre class="line-numbers language-python"><code class="language-python">highlight<span class="token punctuation">:</span>
+enable<span class="token punctuation">:</span> true
+line_number<span class="token punctuation">:</span> true
+auto_detect<span class="token punctuation">:</span> true
+tab_replace<span class="token punctuation">:</span> <span class="token string">''</span>
+wrap<span class="token punctuation">:</span> true
+hljs<span class="token punctuation">:</span> true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>next主题配置里，选择自己要的高亮样式：<pre class="line-numbers language-python"><code class="language-python">codeblock<span class="token punctuation">:</span>
+<span class="token comment" spellcheck="true"># Code Highlight theme</span>
+<span class="token comment" spellcheck="true"># All available themes: https://theme-next.js.org/highlight/</span>
+theme<span class="token punctuation">:</span>
+  light<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+  dark<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+prism<span class="token punctuation">:</span>
+  light<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+  dark<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
+<span class="token comment" spellcheck="true"># Add copy button on codeblock</span>
+copy_button<span class="token punctuation">:</span>
+  enable<span class="token punctuation">:</span> true
+  <span class="token comment" spellcheck="true"># Available values: default | flat | mac</span>
+  style<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 
