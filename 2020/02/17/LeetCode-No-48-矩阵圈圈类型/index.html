@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="旋转矩阵 给定一个 n × n 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明： 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。  示例 1: 给定 matrix &#x3D;[  [1,2,3],  [4,5,6],  [7,8,9]], 原地旋转输入矩阵，使其变为:[  [7,4,1],  [8,5,2],  [9,6,3]]   示例 2:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-No-48-矩阵圈圈类型">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="旋转矩阵 给定一个 n × n 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明： 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。  示例 1: 给定 matrix &#x3D;[  [1,2,3],  [4,5,6],  [7,8,9]], 原地旋转输入矩阵，使其变为:[  [7,4,1],  [8,5,2],  [9,6,3]]   示例 2:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:34:55.235Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode-No-48-矩阵圈圈类型 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-No-48-矩阵圈圈类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:55" itemprop="dateModified" datetime="2020-07-16T19:34:55+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a><a href="https://leetcode-cn.com/problems/rotate-image" target="_blank" rel="noopener">旋转矩阵</a></h1><blockquote>
+<p>给定一个 n × n 的二维矩阵表示一个图像。</p>
+<p>将图像顺时针旋转 90 度。</p>
+<p>说明：</p>
+<p>你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>给定 matrix =<br>[<br>  [1,2,3],<br>  [4,5,6],<br>  [7,8,9]<br>],</p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [7,4,1],<br>  [8,5,2],<br>  [9,6,3]<br>]</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>给定 matrix =<br>[<br>  [ 5, 1, 9,11],<br>  [ 2, 4, 8,10],<br>  [13, 3, 6, 7],<br>  [15,14,12,16]<br>], </p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [15,13, 2, 5],<br>  [14, 3, 4, 1],<br>  [12, 6, 8, 9],<br>  [16, 7,10,11]<br>]</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="矩阵圈圈式问题主要在于怎么确定问题需要的-圈"><a href="#矩阵圈圈式问题主要在于怎么确定问题需要的-圈" class="headerlink" title="矩阵圈圈式问题主要在于怎么确定问题需要的 圈"></a>矩阵圈圈式问题主要在于怎么确定问题需要的 圈</h3><h3 id="例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推"><a href="#例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推" class="headerlink" title="例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推."></a>例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推.</h3><h3 id="那么其实只要我们找到四个边界-然后以边界去for遍历就好了"><a href="#那么其实只要我们找到四个边界-然后以边界去for遍历就好了" class="headerlink" title="那么其实只要我们找到四个边界, 然后以边界去for遍历就好了."></a>那么其实只要我们找到四个边界, 然后以边界去for遍历就好了.</h3><h3 id="遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合"><a href="#遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合" class="headerlink" title="遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合."></a>遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合.</h3><hr>
+<blockquote>
+<p>之后的顺时针遍历问题也是一样, 以边界为中心去做遍历.不断收缩边界, 注意单行单列的圈 需要做避免重复处理, 旋转问题这里不需要, 因为是n x n.</p>
+</blockquote>
+<hr>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    void rotate(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) 
+    {       
+            //确定四个边界,因为是nxn其实可以两个数就够了,但是为了可读性用四个数
+            int left=0;
+            int top=0;
+            int right=matrix[0].size()-1;
+            int bottom=matrix.size()-1;
+            int temp;
+            while(left&lt;right)//每次旋转外围四边,旋转完缩小外围定义
+            {   for(int i=0;i&lt;right-left;i++)
+                {
+                    //上到右
+                    temp=matrix[top+i][right];
+                    matrix[top+i][right]=matrix[top][left+i];
+                    //左到上
+                    matrix[top][left+i]=matrix[bottom-i][left];
+                    //下到左
+                    matrix[bottom-i][left]=matrix[bottom][right-i];
+                    //右到下
+                    matrix[bottom][right-i]=temp;
+                }
+
+                left++;
+                right--;
+                top++;
+                bottom--;
+            }
+    }
+};</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-31/" rel="prev" title="LeetCode-No-31">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-31
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-46-47/" rel="next" title="LeetCode-No-46-47">
+      LeetCode-No-46-47 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#旋转矩阵"><span class="nav-number">1.</span> <span class="nav-text">旋转矩阵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目分析"><span class="nav-number">2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵圈圈式问题主要在于怎么确定问题需要的-圈"><span class="nav-number">2.0.1.</span> <span class="nav-text">矩阵圈圈式问题主要在于怎么确定问题需要的 圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推"><span class="nav-number">2.0.2.</span> <span class="nav-text">例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么其实只要我们找到四个边界-然后以边界去for遍历就好了"><span class="nav-number">2.0.3.</span> <span class="nav-text">那么其实只要我们找到四个边界, 然后以边界去for遍历就好了.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合"><span class="nav-number">2.0.4.</span> <span class="nav-text">遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解代码"><span class="nav-number">3.</span> <span class="nav-text">题解代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

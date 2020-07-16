@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1 创造数据%matplotlib inline from pylab import * import numpy as np  # N 个人 K 个簇 def CreateClusteredData(n,k):     pointPerCluster&#x3D;float(n)&#x2F;k     x&#x3D;[]     y&#x3D;[]     for i in range(k):         incomeCentroi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM——人员聚集">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="1 创造数据%matplotlib inline from pylab import * import numpy as np  # N 个人 K 个簇 def CreateClusteredData(n,k):     pointPerCluster&#x3D;float(n)&#x2F;k     x&#x3D;[]     y&#x3D;[]     for i in range(k):         incomeCentroi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-af236da1dc4077eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:34:47.770Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19387483-af236da1dc4077eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SVM——人员聚集 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SVM——人员聚集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:47" itemprop="dateModified" datetime="2020-07-16T19:34:47+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><pre><code>%matplotlib inline
+from pylab import *
+import numpy as np
+
+# N 个人 K 个簇
+def CreateClusteredData(n,k):
+    pointPerCluster=float(n)/k
+    x=[]
+    y=[]
+    for i in range(k):
+        incomeCentroid=np.random.uniform(20000.0,200000.0)
+        ageCentroid=np.random.uniform(20.0,70.0)
+        for j in range(int(pointPerCluster)):
+            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])
+            y.append(i)# 保存已知簇信息
+    x=np.array(x)
+    y=np.array(y)
+    return x,y
+
+(x,y)=CreateClusteredData(100,5)
+
+plt.scatter(x[:,0],x[:,1],c=y.astype(np.float))</code></pre><h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><pre><code>from sklearn import svm,datasets
+C=1.0
+svc=svm.SVC(kernel=&#39;linear&#39;,C=C).fit(x,y)</code></pre><h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
+<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
+<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
+<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
+</blockquote>
+<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
+<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
+</blockquote>
+<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
+<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
+</blockquote>
+<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><pre><code>def plotPredictions(clf,x,y,color):
+    xx,yy=np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx=有age行的income,yy=有income列的age
+    z=clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息
+    plt.figure(figsize=(8,6))
+    z=z.reshape(xx.shape)
+    plt.contourf(xx,yy,z,cmap=plt.cm.Paired,alpha=0.8)
+    plt.scatter(x,y,c=color)
+    plt.show()
+
+plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/19387483-af236da1dc4077eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结果图"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/" rel="prev" title="Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件">
+      <i class="fa fa-chevron-left"></i> Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" rel="next" title="C++-值得注意的点">
+      C++-值得注意的点 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创造数据"><span class="nav-number">1.</span> <span class="nav-text">1 创造数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线性SVC分簇"><span class="nav-number">2.</span> <span class="nav-text">2 线性SVC分簇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-可视化处理"><span class="nav-number">3.</span> <span class="nav-text">3 可视化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><span class="nav-number">4.</span> <span class="nav-text">- [X,Y]&#x3D;meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><span class="nav-number">5.</span> <span class="nav-text">- numpy.ravel(array-like,order&#x3D;’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><span class="nav-number">6.</span> <span class="nav-text">- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><span class="nav-number">7.</span> <span class="nav-text">- contourf(x,y,z,cmap&#x3D;)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

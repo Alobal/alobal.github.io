@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="文本左右对齐给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。 你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。 要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-No-68">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="文本左右对齐给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。 你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。 要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:34:59.007Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode-No-68 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-No-68
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="文本左右对齐"><a href="#文本左右对齐" class="headerlink" title="文本左右对齐"></a><a href="https://leetcode-cn.com/problems/text-justification" target="_blank" rel="noopener">文本左右对齐</a></h1><p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。<br>每个单词的长度大于 0，小于等于 maxWidth。<br>输入单词数组 words 至少包含一个单词。<br>示例:</p>
+<p>输入:<br>words = [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”]<br>maxWidth = 16<br>输出:<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]<br>示例 2:</p>
+<p>输入:<br>words = [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”]<br>maxWidth = 16<br>输出:<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]<br>解释: 注意最后一行的格式应为 “shall be    “ 而不是 “shall     be”,<br>     因为最后一行应为左对齐，而不是左右两端对齐。<br>     第二行同样为左对齐，这是因为这行只包含一个单词。<br>示例 3:</p>
+<p>输入:<br>words = [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,<br>         “to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]<br>maxWidth = 20<br>输出:<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>也是没有突出思路的困难题….考验代码实现细节的功底。<h4 id="进入每行一轮的循环："><a href="#进入每行一轮的循环：" class="headerlink" title="进入每行一轮的循环："></a>进入每行一轮的循环：</h4></li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
+</ol>
+<p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) 
+    {
+        vector&lt;string&gt;  result;
+        int wordsFlag=0;//处理到的最远的单词
+        int StartFlag=0;
+        int SpaceNum=0;
+        int wordsNum=0;//每行单词数
+        int CurrentLength=0;
+        bool isLast=false;
+        vector&lt;int&gt; spaces;//存储每行每处的空格数
+        while(wordsFlag&lt;words.size())//行循环
+        {   
+            StartFlag=wordsFlag;
+            wordsNum=0;
+            CurrentLength=0;
+            while(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词
+            {   
+                CurrentLength+=words[wordsFlag].size();
+
+                if(CurrentLength+wordsNum&gt;maxWidth)//超过了 退掉最后一次
+                {
+                    CurrentLength-=words[wordsFlag].size();
+                    // wordsFlag--; wordsFlag 停在下一行第一个
+                    break;
+                }
+                wordsNum++;
+                wordsFlag++;
+
+                //末行判定
+                if(wordsFlag&gt;=words.size())
+                {
+                    isLast=true;
+                    break;
+                }
+            }
+
+            //计算所需空格数
+            SpaceNum=maxWidth-CurrentLength;
+
+            if(wordsNum&gt;1)//1判断，wordsNum-1=0时不能当除数
+            {
+                 spaces= vector&lt;int&gt;(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个
+                    for (int j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的
+                        spaces[j] += 1;
+                spaces.push_back(0);//最后一个数不要空格
+            }
+            else
+                spaces= vector&lt;int&gt;(1,SpaceNum);
+
+            //末行处理
+            if(isLast==true &amp;&amp; wordsNum&gt;1)
+            {
+                int j= 0;
+                for (; j &lt;wordsNum-1; j++)
+                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =
+                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格
+            }
+
+            string temp;
+            int j=0;
+            while(StartFlag&lt;wordsFlag)
+            {   
+                //填充单词
+                temp+=words[StartFlag];//填词
+                //填充空格
+                for(int i=0;i&lt;spaces[j];i++)//填空格
+                    temp.push_back(&#39; &#39;);
+                StartFlag++;
+                j++;
+            }
+
+            result.push_back(temp);
+
+        }
+
+        return result;
+    }
+};</code></pre>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-75/" rel="prev" title="LeetCode-No-75">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-75
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-53/" rel="next" title="LeetCode-No-53">
+      LeetCode-No-53 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文本左右对齐"><span class="nav-number">1.</span> <span class="nav-text">文本左右对齐</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目分析"><span class="nav-number">2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进入每行一轮的循环："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">进入每行一轮的循环：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解代码"><span class="nav-number">3.</span> <span class="nav-text">题解代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

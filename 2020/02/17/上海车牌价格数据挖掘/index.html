@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:%matplotlib inline">
+<meta property="og:type" content="article">
+<meta property="og:title" content="上海车牌价格数据挖掘">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:%matplotlib inline">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-79e6c7ed7665c38c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-a2685e588dd87f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-93094a9dad1122da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-973d136a27d32986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-08fdfdf8a2b90849.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-0e54a435a4136f1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:34:49.116Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>上海车牌价格数据挖掘 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          上海车牌价格数据挖掘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据"></p>
+<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
+from pylab import *
+import numpy as np
+import pandas as pd
+from dateutil.parser import parse
+import matplotlib.pyplot as plt
+
+
+df=pd.read_csv(&quot;./上海车牌价格.csv&quot;)
+# 整理时间数据类型
+for i in range(0,len(df)):
+    df.loc[i,&#39;Date&#39;]=&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]
+df[&#39;Date&#39;]=pd.to_datetime(df[&#39;Date&#39;])</code></pre><h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
+<pre><code>plt.figure(figsize=[12.8,9.6])
+plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw=5)
+scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
+plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://upload-images.jianshu.io/upload_images/19387483-79e6c7ed7665c38c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原杂交图"></p>
+<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
+<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-a2685e588dd87f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新杂交图"></p>
+<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-93094a9dad1122da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="x-最低价格 y-平均价格"></p>
+<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-973d136a27d32986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
+<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
+trainx=totalx[:-12]
+testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
+testdf=df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</code></pre><h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
+<pre><code>x=np.array(trainx)
+y=np.array(traindf[&#39;avg price&#39;])
+p=np.poly1d(np.polyfit(x,y,4))</code></pre><h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
+<pre><code># 制图
+plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])
+plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
+
+# r2检验
+checky=np.array(testdf[&#39;avg price&#39;])
+print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
+print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-08fdfdf8a2b90849.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分别4,3,2 次的多项式拟合"></p>
+<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
+<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+# 数据导入
+feature_cols=[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]
+x=df[feature_cols]
+y=df[&#39;avg price&#39;]
+x[&#39;time&#39;]=totalx
+# 数据分割测试集和训练集
+x_train=x[:-48]
+x_test=x[-48:]
+y_train=y[:-48]
+y_test=y[-48:]
+linreg=LinearRegression()
+linreg.fit(x_train,y_train)
+
+# 观察线性回归模型系数
+print (linreg.intercept_)
+print(linreg.coef_)</code></pre><h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
+<pre><code># 检验线性回归
+from sklearn import metrics
+y_pre=linreg.predict(x_test)
+print(metrics.r2_score(y_test,y_pre))
+
+y_pred=linreg.predict(x)
+plt.figure(figsize=[12.8,9.6])
+plot(df[&#39;Date&#39;],y_pred,lw=3)
+plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
+plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
+plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-0e54a435a4136f1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="线性回归拟合"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/" rel="prev" title="考研数学冷门杂记-（持续不定期更新)">
+      <i class="fa fa-chevron-left"></i> 考研数学冷门杂记-（持续不定期更新)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" rel="next" title="决策树——录用决策">
+      决策树——录用决策 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-导入数据"><span class="nav-number">1.</span> <span class="nav-text">1.导入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-数据格式如图"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 数据格式如图:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-pd-read-csv-注意读取的csv文件的编码"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 pd.read_csv() 注意读取的csv文件的编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-注意到时间数据是字符串-想办法转换为date格式"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 注意到时间数据是字符串, 想办法转换为date格式:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">1.0.4.</span> <span class="nav-text">代码:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-制作概览图"><span class="nav-number"></span> <span class="nav-text">2. 制作概览图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><span class="nav-number">0.0.1.</span> <span class="nav-text">2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><span class="nav-number">0.0.2.</span> <span class="nav-text">2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-制作各属性与平均价格的相关图"><span class="nav-number"></span> <span class="nav-text">3. 制作各属性与平均价格的相关图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-最低价格与平均价格"><span class="nav-number">0.0.1.</span> <span class="nav-text">3.1 最低价格与平均价格:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-供需比与平均价格"><span class="nav-number">0.0.2.</span> <span class="nav-text">3.2 供需比与平均价格:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-多项式拟合-试探时间与价格的关系"><span class="nav-number"></span> <span class="nav-text">4. 多项式拟合 试探时间与价格的关系:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><span class="nav-number">0.0.1.</span> <span class="nav-text">4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><span class="nav-number">0.0.2.</span> <span class="nav-text">4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-多项式拟合"><span class="nav-number">0.0.3.</span> <span class="nav-text">4.3 多项式拟合:</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#4-5-制图观察效果-同时用r2检验评估"><span class="nav-number">0.0.3.1.</span> <span class="nav-text">4.5 制图观察效果, 同时用r2检验评估:</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-线性回归"><span class="nav-number"></span> <span class="nav-text">5. 线性回归:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-线性回归即用1次多系数的多项式拟合Y"><span class="nav-number">0.0.1.</span> <span class="nav-text">1. 线性回归即用1次多系数的多项式拟合Y</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-同样划分测试训练集-然后使用fit进行拟合"><span class="nav-number">0.0.2.</span> <span class="nav-text">2. 同样划分测试训练集, 然后使用fit进行拟合:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-制图观察效果"><span class="nav-number">0.0.3.</span> <span class="nav-text">3. 制图观察效果:</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

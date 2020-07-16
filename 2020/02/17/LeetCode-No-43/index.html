@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 示例 1:  输入: num1 &#x3D; “2”, num2 &#x3D; “3”输出: “6”  示例 2:  输入: num1 &#x3D; “123”, num2 &#x3D; “456”输出: “56088”  说明： num1 和 num2 的长度小于110。num1 和 num2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-No-43">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="字符串相乘 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。 示例 1:  输入: num1 &#x3D; “2”, num2 &#x3D; “3”输出: “6”  示例 2:  输入: num1 &#x3D; “123”, num2 &#x3D; “456”输出: “56088”  说明： num1 和 num2 的长度小于110。num1 和 num2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
+<meta property="article:modified_time" content="2020-07-16T11:34:53.519Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode-No-43 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-No-43
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="字符串相乘"><a href="#字符串相乘" class="headerlink" title="字符串相乘"></a><a href="https://leetcode-cn.com/problems/multiply-strings" target="_blank" rel="noopener">字符串相乘</a></h1><blockquote>
+<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: num1 = “2”, num2 = “3”<br>输出: “6”</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: num1 = “123”, num2 = “456”<br>输出: “56088”</p>
+</blockquote>
+<p>说明：</p>
+<p>num1 和 num2 的长度小于110。<br>num1 和 num2 只包含数字 0-9。<br>num1 和 num2 均不以零开头，除非是数字 0 本身。<br>不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><blockquote>
+<p>//1 2 3 num1<br>//4 5 6 num2<br>//7 3 8+6 1 5 * 10+….. reverseresult</p>
+</blockquote>
+<h2 id="1-竖式暴力模拟"><a href="#1-竖式暴力模拟" class="headerlink" title="1. 竖式暴力模拟"></a>1. 竖式暴力模拟</h2><blockquote>
+<p>因为现实竖式乘法是从右到左落位, 程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
+<p>当然这个可以优化</p>
+</blockquote>
+<h4 id="1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><a href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1" class="headerlink" title="1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1"></a>1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4><h4 id="1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><a href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果" class="headerlink" title="1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果."></a>1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</h4><h4 id="1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><a href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数" class="headerlink" title="1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数"></a>1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4><h4 id="1-4-因为最后一位乘过了就没用了-num2-pop-back"><a href="#1-4-因为最后一位乘过了就没用了-num2-pop-back" class="headerlink" title="1.4  因为最后一位乘过了就没用了,num2.pop_back(),"></a>1.4  因为最后一位乘过了就没用了,num2.pop_back(),</h4><h4 id="1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><a href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数" class="headerlink" title="1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数"></a>1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数</h4><h4 id="1-6-num2所有数都用过了即num2-””-结束循环"><a href="#1-6-num2所有数都用过了即num2-””-结束循环" class="headerlink" title="1.6 num2所有数都用过了即num2=””,结束循环"></a>1.6 num2所有数都用过了即num2=””,结束循环</h4><h4 id="1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><a href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位" class="headerlink" title="1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位"></a>1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</h4><h4 id="1-8-将累加结果result反转-得到真实结果"><a href="#1-8-将累加结果result反转-得到真实结果" class="headerlink" title="1.8 将累加结果result反转, 得到真实结果"></a>1.8 将累加结果result反转, 得到真实结果</h4><p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想, 权当一个编码锻炼.</p>
+<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><pre><code>class Solution {
+public:
+    string multiply(string num1, string num2)
+    {
+        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
+            return &quot;0&quot;;
+
+        string result;
+        string tempresult;
+        string zerostring;
+        int i;
+        int cflag = 0;
+        while (num2 != &quot;&quot;)//num1对num2每个数逐个相乘,每次result=result+currentresult*10
+        {
+            for (i = num1.size() - 1; i &gt;= 0; i--)
+            {
+                tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);
+                cflag = ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) / 10;
+            }
+            //乘到最后一个数还剩下cflag
+            if (cflag &gt; 0)
+                tempresult.push_back(&#39;0&#39; + cflag);
+            //用零串移位
+            tempresult = zerostring + tempresult;
+            //相加上下两个字符串
+            ADDstring(result, tempresult);
+            //乘完num2的一个数num2把用过的数pop
+            num2.pop_back();
+            //临时数据清空
+            tempresult.clear();
+            zerostring += &quot;0&quot;;
+            cflag = 0;
+        }
+        //1 2 3
+        //4 5 6
+        //7 3 8+6 1 5 * 10
+        string reverseresult;
+        for (int j = result.size() - 1; j &gt;= 0; j--)
+            reverseresult.push_back(result[j]);
+        return reverseresult;
+    }
+
+    void ADDstring(string&amp; up, string&amp; down)//up和down字符串数值相加,结果存在up里,仅适用倒序存储
+    {
+        int j = 0;
+        int cflag = 0;
+        int temp = 0;
+        //result接在up上面
+        while (j &lt; down.size())
+        {
+            if (j &lt; up.size())//up[j]存在
+            {
+                temp = (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;
+                up[j] = (temp) % 10 + &#39;0&#39;;
+                cflag = (temp) / 10;
+            }
+            else//up[j]不存在
+            {
+                up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);
+                cflag = ((down[j] - &#39;0&#39;) + cflag) / 10;
+            }
+
+            j++;
+        }
+        while (cflag != 0)
+        {
+            if (j &lt; up.size())//up[j]存在
+            {
+                temp = (up[j] - &#39;0&#39;) + cflag;
+                up[j] = (temp) % 10 + &#39;0&#39;;
+                cflag = (temp) / 10;
+            }
+            else//up[j]不存在
+            {
+                up.push_back(cflag % 10 + &#39;0&#39;);
+                cflag = cflag / 10;
+            }
+        }
+
+
+    }
+
+};</code></pre><h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
+<p>//1 2 3 num1[i]   //为示范简单,这里序号从右往左编码,程序中需要转换<br>//4 5 6 num2[j]<br>//例如num1[0]和num2[0]相乘 : 3X6=18<br>肯定影响到了result[0+0],有进位则会影响到result[0+0+1], result其他的值则肯定不会改变</p>
+</blockquote>
+<h4 id="2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><a href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果" class="headerlink" title="2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,"></a>2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</h4><h4 id="2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><a href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可" class="headerlink" title="2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可"></a>2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</h4><h4 id="2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><a href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop" class="headerlink" title="2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop"></a>2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4><blockquote>
+<p>事实证明对于一些修改字符串的操作还是小心为慎, 虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 , <strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%= =.</p>
+</blockquote>
+<h4 id="2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><a href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转" class="headerlink" title="2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转."></a>2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</h4><blockquote>
+<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
+</blockquote>
+<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><pre><code>class Solution {
+public:
+    string multiply(string num1, string num2)
+    {
+        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
+            return &quot;0&quot;;
+
+
+        string result;
+        int totallength=num1.size()+num2.size();//result最大可能长度
+        int i;
+        int j=0;
+        int cflag =0;
+        int temp=0;//i+j位和存储器
+
+
+        for(i=0;i&lt;totallength;i++)//初始化填充
+        {
+            result.push_back(&#39;0&#39;);
+        }
+        //反向填充,可以不需要在最后reverse,....好像对效率影响不大
+        //把num2.pop()删掉了,终于从8ms提到了4ms......
+        while (j&lt;num2.size())//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤
+        {
+            for (i = num1.size() - 1; i &gt;= 0; i--)
+            {   //因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)
+                temp=(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);
+                //连续进位怎么办?临时存储?循环清理干净?
+                //临时存储试试
+                result[totallength-1-((num1.size()-i-1)+j+1)]+=temp/10;
+                result[totallength-1-((num1.size()-i-1)+j)]=&#39;0&#39;+temp%10;
+            }
+
+
+            j++;
+        }
+        //不需要检查最后一位要不要进位
+
+        //1 2 3
+        //4 5 6
+        //7 3 8+6 1 5 * 10
+
+        //跳过头部的0
+        if(result[0]!=&#39;0&#39;)
+            return result;
+        else
+            return result.substr(1);
+    }
+
+
+};</code></pre><hr>
+<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-44/" rel="prev" title="LeetCode-No-44">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-44
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/02/17/LeetCode-No-32/" rel="next" title="LeetCode-No-32">
+      LeetCode-No-32 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串相乘"><span class="nav-number">1.</span> <span class="nav-text">字符串相乘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目分析"><span class="nav-number">2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-竖式暴力模拟"><span class="nav-number">2.1.</span> <span class="nav-text">1. 竖式暴力模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-因为最后一位乘过了就没用了-num2-pop-back"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">1.4  因为最后一位乘过了就没用了,num2.pop_back(),</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><span class="nav-number">2.1.0.5.</span> <span class="nav-text">1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i&#x3D;pop次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-num2所有数都用过了即num2-””-结束循环"><span class="nav-number">2.1.0.6.</span> <span class="nav-text">1.6 num2所有数都用过了即num2&#x3D;””,结束循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><span class="nav-number">2.1.0.7.</span> <span class="nav-text">1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-将累加结果result反转-得到真实结果"><span class="nav-number">2.1.0.8.</span> <span class="nav-text">1.8 将累加结果result反转, 得到真实结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力代码"><span class="nav-number">2.2.</span> <span class="nav-text">暴力代码:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-优化思路——每一位数的乘法运算对result影响分析"><span class="nav-number">2.3.</span> <span class="nav-text">2. 优化思路——每一位数的乘法运算对result影响分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><span class="nav-number">2.3.0.3.</span> <span class="nav-text">2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><span class="nav-number">2.3.0.4.</span> <span class="nav-text">2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-另外还有一些小细节思考"><span class="nav-number">2.3.0.5.</span> <span class="nav-text">2.5 另外还有一些小细节思考:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比如连续进位有没有问题"><span class="nav-number">2.3.0.6.</span> <span class="nav-text">比如连续进位有没有问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环结束需不需要有收尾整理"><span class="nav-number">2.3.0.7.</span> <span class="nav-text">循环结束需不需要有收尾整理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><span class="nav-number">2.3.0.8.</span> <span class="nav-text">我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化代码-超越97-时间-86-内存"><span class="nav-number">3.</span> <span class="nav-text">优化代码, 超越97%时间,86%内存</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=1&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
