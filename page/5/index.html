@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" class="post-title-link" itemprop="url">KNN实例——预测电影评分</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
         </h2>
 
         <div class="post-meta">
@@ -186,7 +186,389 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:22:15" itemprop="dateModified" datetime="2020-07-17T11:22:15+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">颜色分类</a></h1><p>给定一个包含红色、白色和蓝色，一共 <em>n <em>个元素的数组，</em></em><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">原地</a>**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入:** [2,0,2,1,1,0]<br><strong>输出:</strong> [0,0,1,1,2,2]</pre></p>
+</blockquote>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li>
+<li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li>
+</ul>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000…111….2222的顺序。<blockquote>
+<p>正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。</p>
+</blockquote>
+</li>
+<li>对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。<blockquote>
+<p>三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。</p>
+</blockquote>
+</li>
+<li>确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。</li>
+</ol>
+<h5 id="针对cur的分类处理："><a href="#针对cur的分类处理：" class="headerlink" title="针对cur的分类处理："></a>针对cur的分类处理：</h5><ol>
+<li><p>是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。</p>
+</li>
+<li><p>是2，则和2的flag，right交换，同时right–。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。<br>同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。<br>因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。</p>
+</li>
+<li><p>是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了</p>
+</li>
+<li><p>那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？</p>
+<p> <strong>只有当left会在cur右边时</strong>，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。</p>
+<p>   <strong>当left在cur左边时，即left指向的必定经过了cur的洗礼</strong>，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。</p>
+</li>
+<li><p>当cur遇到right，即到达2的边界，则说明不需要处理了，结束。</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    void sortColors(vector&lt;int&gt;&amp; nums) 
+    {
+        int left=0;
+        int right=nums.size()-1;
+        int cur=0;
+        while(cur&lt;=right)
+        {   
+            if(nums[cur]==0)//这个数字是0，移动0区域内，
+            {
+                swap(nums[cur],nums[left]);
+                //假如cur&gt;left，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？
+                //jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。
+                //假如cur==left==0，没啥好说的，下一个
+                //假如cur&lt;left, 可能吗？cur++的机会 &gt;= left++的机会
+                left++;
+            }
+            else if(nums[cur]==2)//这个数字是2，移到2区域内
+            {
+                swap(nums[cur],nums[right]);
+                right--;
+                //交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变
+                cur--;
+            }
+            cur++;
+        }
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-86/" class="post-title-link" itemprop="url">LeetCode-No-86</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="分隔链表"><a href="#分隔链表" class="headerlink" title="分隔链表"></a><a href="https://leetcode-cn.com/problems/partition-list/" target="_blank" rel="noopener">分隔链表</a></h1><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
+<p>你应当保留两个分区中每个节点的初始相对位置。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>直接思路是第一次遍历找到中间节点，并且划分为左右两边，然后再重新遍历链表元素，按大小分类到两边去。</li>
+<li>但这样要来回遍历链表，还要不停的交换节点很麻烦，换个<strong>逆向思路：既然是一个链表分成两个区域，不就相当于两个链表合成一个区域</strong></li>
+<li>因此，即构造两个链表，遍历原链表元素，分类接在两个链表上。</li>
+<li>遍历结束合成两个链表。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) 
+    {   
+        //逆向想问题，既然分成了两段，那也可以是两段连成了一段
+
+        ListNode lefthead(0);
+        ListNode* left=&amp;lefthead;
+        ListNode righthead(0);
+        ListNode* right=&amp;righthead;
+
+
+        while(head!=NULL)
+        {
+           if(head-&gt;val&lt;x)
+           {
+               left-&gt;next=head;
+               left=left-&gt;next;
+           }
+           else
+           {
+               right-&gt;next=head;
+               right=right-&gt;next;
+           }
+           head=head-&gt;next;
+
+
+        }
+        right-&gt;next=NULL;//注意赋值null，否则下面的链表连接会无限循环超时
+        left-&gt;next=righthead.next;
+        return lefthead.next;
+
+
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">LeetCode-No-94-二叉树中序遍历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="二叉树中序遍历"><a href="#二叉树中序遍历" class="headerlink" title="二叉树中序遍历"></a><a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal" target="_blank" rel="noopener">二叉树中序遍历</a></h1><p>给定一个二叉树，返回它的中序 遍历。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: [1,null,2,3]<br>1<br>       \ <br>       2<br>    /<br>   3</p>
+<p>输出: [1,3,2]</p>
+</blockquote>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><p>1.<strong>递归法</strong>很简单，跳过进入<strong>迭代法</strong>。<br>2. 分析中序遍历顺序：左子树 父节点 右子树，<br>3. 且对左子树还要以 左子树的左子树 左子树 左子树的右子树的顺序递归下去<br>4. 因此表现出来就是，<strong>一直左到底</strong>，然后输出左 返回父节点并输出，然后输出右子节点<br>然后再返回到父节点的父节点，以此类推。</p>
+<blockquote>
+<p>父节点同时也是父父节点的左子树，因此回溯上去的时候顺序是<strong>”父（左）-右“、”父（左）-右“</strong>。<br>5. 先进后出，存储结构使用<strong>栈</strong><br>6. 对root先往左压栈到底，然后出栈输出，并输出右节点，然后继续出栈。</p>
+</blockquote>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) 
+    {
+        vector&lt;int&gt; result;
+        if(root==NULL)
+            return result;
+        stack&lt;TreeNode*&gt; mem;
+        TreeNode* current=root;
+        while(!mem.empty() || current)
+        {
+            //循环先把左树压栈
+            while(current)
+            {
+                mem.push(current);
+                current=current-&gt;left;
+            }
+
+            current=mem.top();//父节点（同时是父父节点左节点） 出栈
+            result.push_back(current-&gt;val);//输出父节点（同时是父父节点左节点）
+            current=current-&gt;right;//输出右节点
+            mem.pop();//上去一层
+        }
+        return result;
+    }
+
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Pandas-DataFrame-OLS入门问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:25:29" itemprop="dateModified" datetime="2020-07-17T11:25:29+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,256 +591,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="7-KNN实例——K最近邻预测电影评分"><a href="#7-KNN实例——K最近邻预测电影评分" class="headerlink" title="7 KNN实例——K最近邻预测电影评分"></a>7 KNN实例——K最近邻预测电影评分</h1><h3 id="KNN即先确定散点距离的定义-然后对每个新点选取K个距离最近的点-想象一个图-以新点为中心-不断扩大中心圆的面积-直到覆盖到k个点-用他们对新点进行投票"><a href="#KNN即先确定散点距离的定义-然后对每个新点选取K个距离最近的点-想象一个图-以新点为中心-不断扩大中心圆的面积-直到覆盖到k个点-用他们对新点进行投票" class="headerlink" title="KNN即先确定散点距离的定义,然后对每个新点选取K个距离最近的点(想象一个图, 以新点为中心,不断扩大中心圆的面积,直到覆盖到k个点),用他们对新点进行投票."></a>KNN即先确定散点距离的定义,然后对每个新点选取K个距离最近的点(想象一个图, 以新点为中心,不断扩大中心圆的面积,直到覆盖到k个点),用他们对新点进行投票.</h3><h3 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1.数据准备"></a>1.数据准备</h3><pre><code>import pandas as pd
-import numpy as np
+          <h1 id="一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响"><a href="#一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响" class="headerlink" title="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响"></a>一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响</h1><blockquote>
+<p>对于Price列,值为字符串类型, 形同 “单价12345元/平米”<br>怎么把12345提取出来并且替换原字符串值</p>
+</blockquote>
+<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><pre><code>import re
+import pandas as pd
+def Str2Price(oristr):# 提取oristr中的数字并返回int结果
+    pattern=re.compile(&quot;\d+&quot;)
+    result=pattern.findall(oristr)
+    return int(result[0])
 
-r_cols=[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]
-# uid,mid,rating的dataFrame
-ratings=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep=&#39;    &#39;,names=r_cols,usecols=range(3),encoding=&quot;ISO-8859-1&quot;)
-# 创建movie属性表,属性有size(评价数/流行度),mean均分
-movieProperties=ratings.groupby(&#39;movie_id&#39;).agg({&#39;rating&#39;:[np.size,np.mean]})
+oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</code></pre><h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><pre><code>for i in oridata[&#39;unitPrice&#39;]:
+    i=Str2Price(i)
 
-# 标准化流行度,用来定义距离
-movieNumRatings=pd.DataFrame(movieProperties[&#39;rating&#39;][&#39;size&#39;])
-movieNormalizedNumRatings=movieNumRatings.apply(lambda x:(x-np.min(x))/(np.max(x)-np.min(x)))</code></pre><ul>
-<li><h4 id="df-loc-‘label1’-’label1’…-‘label2’-label1列表指定行-label2指定列-可选-没有指定列则返回Series-1个label1-DataFrame"><a href="#df-loc-‘label1’-’label1’…-‘label2’-label1列表指定行-label2指定列-可选-没有指定列则返回Series-1个label1-DataFrame" class="headerlink" title="df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1列表指定行,label2指定列(可选),没有指定列则返回Series(1个label1)/DataFrame"></a>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1列表指定行,label2指定列(可选),没有指定列则返回Series(1个label1)/DataFrame</h4></li>
-<li><h4 id="xxx-get-‘mean’-和xxx-mean的区别"><a href="#xxx-get-‘mean’-和xxx-mean的区别" class="headerlink" title="xxx.get(‘mean’)和xxx.mean的区别:"></a>xxx.get(‘mean’)和xxx.mean的区别:</h4></li>
-<li><ul>
-<li><h4 id="get返回对应数值"><a href="#get返回对应数值" class="headerlink" title="get返回对应数值"></a>get返回对应数值</h4></li>
-</ul>
-</li>
-<li><ul>
-<li><h4 id="返回method-Series"><a href="#返回method-Series" class="headerlink" title=".返回method/Series"></a>.返回method/Series</h4></li>
-</ul>
-</li>
-<li><h4 id="Python3-x的map返回的是迭代器-Python2-x的map返回list"><a href="#Python3-x的map返回的是迭代器-Python2-x的map返回list" class="headerlink" title="Python3.x的map返回的是迭代器,Python2.x的map返回list"></a>Python3.x的map返回的是迭代器,Python2.x的map返回list</h4></li>
-</ul>
-<pre><code>movieDict={}
-with open(r&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,encoding=&quot;ISO-8859-1&quot;) as f:
-    temp=&#39;&#39;
-    for line in f:
-        fields=line.rstrip(&#39;
-&#39;).split(&#39;|&#39;)# 除去line末尾的换行符,以|分割
-        movieID=int(fields[0])
-        name=fields[1]
-        genres=fields[5:25]
-        genres=map(int,genres)
-        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get(&#39;size&#39;),movieProperties.loc[movieID].rating.get(&#39;mean&#39;))
+oridata.head()</code></pre><h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].size):
+    oridata[&#39;unitPrice&#39;][i]=Str2Price(oridata[&#39;unitPrice&#39;][i])</code></pre><h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
+    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])</code></pre><h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
+<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><pre><code>import re
+import pandas as pd
+import statsmodels.api as sm
+def Str2Price(oristr):
+    pattern=re.compile(&quot;\d+&quot;)
+    result=pattern.findall(oristr)
+    return int(result[0])
 
-# 获得了movieid对应的name,分类向量,标准化size,均分
-print(movieDict[1])</code></pre><h3 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h3><ul>
-<li><h4 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h4></li>
-<li><h4 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h4><pre><code>from scipy import spatial
-def ComputeDistance(a,b):# a,b分别为moviedict的索引号,即movieid
-  a=movieDict[a]
-  b=movieDict[b]
-  # x[1]为类型向量
-  genreDistance=spatial.distance.cosine(a[1],b[1])
-  # x[2]为size
-  popularityDistance=abs(a[2]-b[2])
-  return genreDistance+popularityDistance
-</code></pre></li>
-</ul>
-<p>print(ComputeDistance(2,4))<br>print(movieDict[2])<br>print(movieDict[4])</p>
-<pre><code>###    3. 获取最近邻
-- ####     key=operator.itemgetter(1).因为list里是tuple,要选取tuple\[1]进行排序, itemgetter(i)返回一个函数func,func(x)是取x\[i],即这里通过传递取值函数,实现了取tuple\[1]进行排序.</code></pre><p>import operator<br>def getNeighbors(movieID,k):<br>    distances=[]# 距离集合,(movieid,distance)<br>    for movie in movieDict:<br>        if(movie!=movieID):<br>            distances.append((movie,ComputeDistance(movieID,movie)))</p>
-<pre><code>distances.sort(key=operator.itemgetter(1))
-neighbors=[]# 距离排序后,选入前k个最近的
-for x in range(k):
-    neighbors.append(distances[x][0])
-return neighbors</code></pre><p>k=20<br>def PredictByKNN(movieID,k):<br>    avgRating=0<br>    for neighbor in getNeighbors(movieID,k):<br>        avgRating+=movieDict[neighbor][3]<br>        print(movieDict[neighbor])<br>    print(“Predict rating is : “+str(avgRating/k))<br>    print(“Actual Rating is : “+str(movieDict[movieID][3]))</p>
-<p>PredictByKNN(20,50)</p>
-<pre><code># 预测实例
-###    预测3.28,实际3.41
-###    一定程度上还是挺准确的, 仅仅利用了分类和流行度作为相似标准,实现简单但是效果挺好.
-![示例运行](https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg)</code></pre>
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
+for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
+    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
+for i in range(0,oridata[&#39;attentionNum&#39;].values.size):
+    oridata[&#39;attentionNum&#39;].values[i]=Str2Price(oridata[&#39;attentionNum&#39;].values[i])
+oridata.head()
+x=oridata[[&#39;attentionNum&#39;]]
+y=oridata[[&#39;unitPrice&#39;]]
+x1=sm.add_constant(x)
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">K折交叉验证</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:21:16" itemprop="dateModified" datetime="2020-07-17T11:21:16+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><pre><code>import numpy as np
-from sklearn.model_selection import cross_val_score,train_test_split
-from sklearn import datasets
-from sklearn import svm
-
-iris=datasets.load_iris()
-# 测试集有40%数据    
-x_train,x_test,y_train,y_test=train_test_split(iris.data,iris.target,test_size=0.4,random_state=0)
-
-clf=svm.SVC(kernel=&#39;linear&#39;,C=1).fit(x_train,y_train)
-
-clf.score(x_test,y_test)
-</code></pre><h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
-<li><h4 id="cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit"><a href="#cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit" class="headerlink" title="cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit."></a>cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit.</h4></li>
-<li><h4 id="返回评分结果列表"><a href="#返回评分结果列表" class="headerlink" title="返回评分结果列表"></a>返回评分结果列表</h4></li>
-</ul>
-<pre><code>scores=cross_val_score(clf,iris.data,iris.target,cv=5)
-
-print(scores)
-print(scores.mean())</code></pre><br>
-![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" class="post-title-link" itemprop="url">C++-值得注意的点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:03" itemprop="dateModified" datetime="2020-07-16T19:35:03+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="explicit-说明符——Cppreference"><a href="#explicit-说明符——Cppreference" class="headerlink" title="explicit 说明符——Cppreference"></a><a href="https://zh.cppreference.com/w/cpp/language/explicit" target="_blank" rel="noopener">explicit 说明符——Cppreference</a></h1><p>指定构造函数 (及转换函数或推导指引) 为显式, <strong>不能被隐式调用</strong></p>
-<pre><code>//from Cpp reference
-struct B
-{
-    explicit B(int) { }
-    explicit B(int, int) { }
-    explicit operator bool() const { return true; }
-};
-
-int main()
-{ 
-    B b1 = 1;      // 错误：复制初始化不考虑 B::B(int)
-    B b2(2);       // OK：直接初始化选择 B::B(int)
-    B b3 {4, 5};   // OK：直接列表初始化选择 B::B(int, int)
-    B b4 = {4, 5}; // 错误：复制列表初始化不考虑 B::B(int,int)
-    B b5 = (B)1;   // OK：显式转型进行 static_cast
-    if (b2) ;      // OK：B::operator bool()
-    bool nb1 = b2; // 错误：复制初始化不考虑 B::operator bool()
-    bool nb2 = static_cast&lt;bool&gt;(b2); // OK：static_cast 进行直接初始化
-}
-</code></pre>
+est=sm.OLS(y,x1).fit()
+est.summary()</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
+<h2 id="解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float"><a href="#解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float" class="headerlink" title="解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)"></a>解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)</h2><blockquote>
+<p>但是字符串直接转成float时依然有这个错误, 有点奇怪 理应和astype(float)作用相同<br>——查看类型发现float是float类型,astype(float)是numpy.float64类型…..</p>
+</blockquote>
+<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><pre><code>est=sm.OLS(y.astype(float),x1.astype(float)).fit()</code></pre><h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
+<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><pre><code>import statsmodels.api as sm #  最小二乘
+from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息
+x = sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y=kx+b
+y = daily_data[&#39;cnt&#39;]
+regr = sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model
+res = regr.fit()    # res.model.endog
+#  从模型获得拟合数据
+st, data, ss2 = summary_table(res, alpha=0.05) #  置信水平alpha=5%，st数据汇总，data数据详情，ss2数据列名
+fitted_values = data[:,2]  # 等价于res.fittedvalues
+————————————————
+模型原文链接：https://blog.csdn.net/cymy001/article/details/78364652</code></pre>
       
     </div>
 
@@ -595,105 +781,6 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:04" itemprop="dateModified" datetime="2020-07-16T19:35:04+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h4 id="1-SSH-root-remotenode"><a href="#1-SSH-root-remotenode" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出:<br>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win"><a href="#2-scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用ch找到目录和文件</p>
-<h4 id="1-SSH-root-remotenode-1"><a href="#1-SSH-root-remotenode-1" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出: </p>
-<blockquote>
-<p>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>配置的免密登录远程主机也不能用</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win-1"><a href="#2-scp-test-txt-root-remotenode-root-test-win-1" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用chcp 65001换成utf-8也不行</p>
-<p>当然也不可能重命名用户名文件夹..一大堆程序数据都在下面呢= =</p>
-<h1 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h1><h4 id="1-使用git-bash-代替-cmd-PowerShel"><a href="#1-使用git-bash-代替-cmd-PowerShel" class="headerlink" title="1. 使用git bash 代替[cmd/PowerShel]"></a>1. 使用git bash 代替[cmd/PowerShel]</h4><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
-<p>环境什么的完全没变, <strong>可以正常找到.ssh目录 , 可以正常写入 known_host ,除了在第一次登的时候询问写入known_host, 之后免密登录也可以正常使用.</strong></p>
-<p> scp可以正常发送用户名目录下的文件, 不会找不到.</p>
-<p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
-<h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -789,7 +876,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -803,7 +890,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
+            <a href="/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件</a>
         </h2>
 
         <div class="post-meta">
@@ -820,7 +907,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-16 19:35:04" itemprop="dateModified" datetime="2020-07-16T19:35:04+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -828,7 +915,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
                 </span>
             </span>
 
@@ -843,62 +930,33 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
-<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
-import pandas as pd
-from sklearn import tree
-</code></pre></li>
-</ul>
-<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
-<pre><code>&lt;br/&gt;
-###       df.head()结果视图:
-![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
-&lt;br/&gt;
-###    2. 整理数据
-- ###    sklearn 要求属性都是数值型,所以要转化整理数据
-- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
-- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
-- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
-</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
-<p>df.head()</p>
-<pre><code>&lt;br/&gt;
-###   处理后视图:
-![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
+          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h4 id="1-SSH-root-remotenode"><a href="#1-SSH-root-remotenode" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
+<p>输出:<br>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
+</blockquote>
+<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
+<h4 id="2-scp-test-txt-root-remotenode-root-test-win"><a href="#2-scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
+<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
+<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
+<p>使用ch找到目录和文件</p>
+<h4 id="1-SSH-root-remotenode-1"><a href="#1-SSH-root-remotenode-1" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
+<p>输出: </p>
+<blockquote>
+<p>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
+</blockquote>
+<p>配置的免密登录远程主机也不能用</p>
+</blockquote>
+<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
+<h4 id="2-scp-test-txt-root-remotenode-root-test-win-1"><a href="#2-scp-test-txt-root-remotenode-root-test-win-1" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
+<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
+<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
+<p>使用chcp 65001换成utf-8也不行</p>
+<p>当然也不可能重命名用户名文件夹..一大堆程序数据都在下面呢= =</p>
+<h1 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h1><h4 id="1-使用git-bash-代替-cmd-PowerShel"><a href="#1-使用git-bash-代替-cmd-PowerShel" class="headerlink" title="1. 使用git bash 代替[cmd/PowerShel]"></a>1. 使用git bash 代替[cmd/PowerShel]</h4><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
+<p>环境什么的完全没变, <strong>可以正常找到.ssh目录 , 可以正常写入 known_host ,除了在第一次登的时候询问写入known_host, 之后免密登录也可以正常使用.</strong></p>
+<p> scp可以正常发送用户名目录下的文件, 不会找不到.</p>
+<p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
+<h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
 
-###    3. 分离决策属性和目标列
-  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
-<pre><code>&lt;br/&gt;
-###    4. 显示图形数据
-&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
-----------------------
-&lt;br/&gt;
-- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
-- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
-- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
-&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
-
-- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
-
-- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
-- ###    samples是包含的样本数
-- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
-<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
-<pre><code>&lt;br/&gt;
-###    显示结果:
-![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
-
-###    集成学习——随机森林
-
-###    一棵决策树可能会对样本过拟合,所以用随机森林投票
-- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
-<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
-<pre><code>&lt;br/&gt;
-&lt;br/&gt;
------------------------------------------------
-
-#  另附学代码惨痛反思:
-###    以后学敲代码报错 先!
-###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
       
     </div>
 
@@ -1062,7 +1120,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1076,7 +1134,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/" class="post-title-link" itemprop="url">考研数学冷门杂记-（持续不定期更新)</a>
+            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
         </h2>
 
         <div class="post-meta">
@@ -1093,125 +1151,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:03" itemprop="dateModified" datetime="2020-07-16T19:35:03+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">考研数学</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-多项式处理"><a href="#1-多项式处理" class="headerlink" title="1. 多项式处理"></a>1. 多项式处理</h1><p>$$1^2+2^2+…+n^2=rac{1}{6} n(n+1)(2n+1) $$<br>$$a^n-b^n=(a-b)(a^0b^{n-1}+…+a^{n-1}b^0)$$<br>$$a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})$$</p>
-<hr>
-<h1 id="2-极限等价无穷小-和-重要极限公式"><a href="#2-极限等价无穷小-和-重要极限公式" class="headerlink" title="2. 极限等价无穷小 和 重要极限公式"></a>2. 极限等价无穷小 和 重要极限公式</h1><blockquote>
-<p>~在公式编辑里打不出， 用≈代替</p>
-</blockquote>
-<h3 id="2-1-等价无穷小"><a href="#2-1-等价无穷小" class="headerlink" title="2.1 等价无穷小"></a>2.1 等价无穷小</h3><p>$$x→0<del>~</del>sinx ≈x$$</p>
-<p>$$x→0<del>~</del>tanx≈x$$</p>
-<p>$$x→0<del>~</del>arcsinx≈x$$</p>
-<p>$$x→0<del>~</del>arctanx≈x$$</p>
-<p>$$x→0<del>~</del>1-cosx≈rac{1}{2}x^ 2$$</p>
-<p>$$x→0<del>~</del>e^x-1≈x$$</p>
-<p>$$x→0<del>~</del>ln(1+x)≈x$$</p>
-<p>$$x→0<del>~</del>(1+x)^α-1≈αx$$</p>
-<h3 id="2-2-重要极限公式"><a href="#2-2-重要极限公式" class="headerlink" title="2.2 重要极限公式"></a>2.2 重要极限公式</h3><p>$$\lim_{x    o0}rac{sinx}{x}=1$$</p>
-<p>$$\lim_{n    o∞}(1+rac{1}{n})^n=e$$</p>
-<p>$$\lim_{x    o∞}(1+rac{1}{x})^x=e$$</p>
-<p>$$\lim_{u    o0}(1+u)^rac{1}{u}=e$$</p>
-<hr>
-<h1 id="3-导数冷门公式"><a href="#3-导数冷门公式" class="headerlink" title="3. 导数冷门公式"></a>3. 导数冷门公式</h1><p>$$(tanx)’ = sec^2x=rac{1}{cos^2x}$$</p>
-<p>$$(cotx)’ = -csc^2x=-rac{1}{sin^2x}$$</p>
-<p>$$(secx)’ = secx tanx=rac{sinx}{cos^2x}$$</p>
-<p>$$(cscx)’ =-cscxcotx=-rac{ cosx}{sin^2x}$$</p>
-<p>$$(arcsinx)’ =rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arccosx)’ =-rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arctanx)’ =rac{1}{1+x^2}$$</p>
-<p>$$(arccotx)’ =-rac{1}{1+x^2}$$</p>
-<p>$$(x^x)’ =x^x(lnx+1) ······（对数求导）$$</p>
-<h4 id="导函数的连续性："><a href="#导函数的连续性：" class="headerlink" title="导函数的连续性："></a>导函数的连续性：</h4><h5 id="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："><a href="#函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：" class="headerlink" title="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："></a>函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-370520d94e31c91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源自知乎"></p>
-<h4 id="变上限积分函数可导性："><a href="#变上限积分函数可导性：" class="headerlink" title="变上限积分函数可导性："></a>变上限积分函数可导性：</h4><h5 id="1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"><a href="#1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。" class="headerlink" title="1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"></a>1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。</h5><h5 id="2）-连续函数的变上限积分函数一定可导。"><a href="#2）-连续函数的变上限积分函数一定可导。" class="headerlink" title="2）      连续函数的变上限积分函数一定可导。"></a>2）      连续函数的变上限积分函数一定可导。</h5><hr>
-<h1 id="4-积分冷门公式"><a href="#4-积分冷门公式" class="headerlink" title="4. 积分冷门公式"></a>4. 积分冷门公式</h1><h5 id="4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"><a href="#4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来" class="headerlink" title="4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"></a>4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来</h5><p>$$\int sin(x^2)dx  、\int cos(x^2)dx、  \int rac{sinx}{x}dx、\int rac{cosx}{x}dx、\int rac{1}{lnx}dx、\int e^{-x^2}dx、$$</p>
-<h5 id="4-2-冷门积分函数"><a href="#4-2-冷门积分函数" class="headerlink" title="4.2 冷门积分函数"></a>4.2 冷门积分函数</h5><p>$$\int a^xdx=rac{1}{lna}a^x+C $$</p>
-<p>$$\int sec^2xdx=\int rac{1}{cos^2x}dx=tanx+C $$</p>
-<p>$$\int csc^2xdx=\int rac{1}{sin^2x}dx=-cotx+C$$</p>
-<p>$$\int tanxsecxdx=secx+C$$</p>
-<p>$$\int cotxcscxdx=-cscx+C$$</p>
-<p>$$\int tanxdx=-ln|cosx|+C$$</p>
-<p>$$\int cotxdx=ln|sinx|+C$$</p>
-<p>$$\int secxdx=ln|secx+tanx|+C$$</p>
-<p>$$\int cscxdx=ln|cscx-cotx|+C$$</p>
-<p>$$\int rac{1}{\sqrt{a^2-x^2}}dx=arcsin rac{x}{a} +C $$</p>
-<p>$$\int rac{1}{a^2+x^2}dx=rac{1}{a} arctan rac{x}{a} +C $$</p>
-<hr>
-<p>$$\int rac{1}{a^2-x^2}dx=rac{1}{2a} ln rac{a+x}{a-x} +C $$</p>
-<p>$$\int   rac{1}{\sqrt {x^2 \pm a^2}}dx=ln|x+\sqrt{x^2 \pm a^2}| +C $$</p>
-<p>$$\int rac{1}{e^x+1}dx=\int rac{e^x}{e^x(e^x+1)}dx=\int rac{1}{e^x}-rac{1}{e^x+1}de^x $$</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Pandas-DataFrame-OLS入门问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:25:29" itemprop="dateModified" datetime="2020-07-17T11:25:29+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1234,60 +1174,168 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响"><a href="#一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响" class="headerlink" title="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响"></a>一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响</h1><blockquote>
-<p>对于Price列,值为字符串类型, 形同 “单价12345元/平米”<br>怎么把12345提取出来并且替换原字符串值</p>
-</blockquote>
-<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><pre><code>import re
+          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
+<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
 import pandas as pd
-def Str2Price(oristr):# 提取oristr中的数字并返回int结果
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
+from sklearn import tree
+</code></pre></li>
+</ul>
+<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
+<pre><code>&lt;br/&gt;
+###       df.head()结果视图:
+![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
+&lt;br/&gt;
+###    2. 整理数据
+- ###    sklearn 要求属性都是数值型,所以要转化整理数据
+- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
+- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
+- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
+</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
+<p>df.head()</p>
+<pre><code>&lt;br/&gt;
+###   处理后视图:
+![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
 
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</code></pre><h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><pre><code>for i in oridata[&#39;unitPrice&#39;]:
-    i=Str2Price(i)
+###    3. 分离决策属性和目标列
+  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
+<pre><code>&lt;br/&gt;
+###    4. 显示图形数据
+&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
+----------------------
+&lt;br/&gt;
+- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
+- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
+- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
+&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
 
-oridata.head()</code></pre><h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].size):
-    oridata[&#39;unitPrice&#39;][i]=Str2Price(oridata[&#39;unitPrice&#39;][i])</code></pre><h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])</code></pre><h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
-<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><pre><code>import re
-import pandas as pd
-import statsmodels.api as sm
-def Str2Price(oristr):
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
+- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
 
+- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
+- ###    samples是包含的样本数
+- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
+<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
+<pre><code>&lt;br/&gt;
+###    显示结果:
+![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
 
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)
+###    集成学习——随机森林
 
-for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])
+###    一棵决策树可能会对样本过拟合,所以用随机森林投票
+- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
+<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
+<pre><code>&lt;br/&gt;
+&lt;br/&gt;
+-----------------------------------------------
 
-for i in range(0,oridata[&#39;attentionNum&#39;].values.size):
-    oridata[&#39;attentionNum&#39;].values[i]=Str2Price(oridata[&#39;attentionNum&#39;].values[i])
-oridata.head()
-x=oridata[[&#39;attentionNum&#39;]]
-y=oridata[[&#39;unitPrice&#39;]]
-x1=sm.add_constant(x)
+#  另附学代码惨痛反思:
+###    以后学敲代码报错 先!
+###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
+      
+    </div>
 
-est=sm.OLS(y,x1).fit()
-est.summary()</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
-<h2 id="解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float"><a href="#解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float" class="headerlink" title="解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)"></a>解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)</h2><blockquote>
-<p>但是字符串直接转成float时依然有这个错误, 有点奇怪 理应和astype(float)作用相同<br>——查看类型发现float是float类型,astype(float)是numpy.float64类型…..</p>
-</blockquote>
-<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><pre><code>est=sm.OLS(y.astype(float),x1.astype(float)).fit()</code></pre><h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
-<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><pre><code>import statsmodels.api as sm #  最小二乘
-from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息
-x = sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y=kx+b
-y = daily_data[&#39;cnt&#39;]
-regr = sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model
-res = regr.fit()    # res.model.endog
-#  从模型获得拟合数据
-st, data, ss2 = summary_table(res, alpha=0.05) #  置信水平alpha=5%，st数据汇总，data数据详情，ss2数据列名
-fitted_values = data[:,2]  # 等价于res.fittedvalues
-————————————————
-模型原文链接：https://blog.csdn.net/cymy001/article/details/78364652</code></pre>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" class="post-title-link" itemprop="url">多项式朴素贝叶斯学习——垃圾邮件分类器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="读入文件存入dataframe"><a href="#读入文件存入dataframe" class="headerlink" title="读入文件存入dataframe"></a>读入文件存入dataframe</h3><ul>
+<li><h4 id="readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><a href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’" class="headerlink" title="readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’"></a>readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</h4>‘的格式存储在message中,每读完一个文件便返回该文件完整路径path和message</li>
+<li><h4 id="dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><a href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息" class="headerlink" title="dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息"></a>dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息</h4></li>
+<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><pre><code>import os
+import io
+import numpy
+from pandas import DataFrame
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+</code></pre></li>
+</ul>
+<p>def readFiles(path):<br>    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件<br>        for filename in filenames:<br>            path=os.path.join(root,filename)    # 创建path</p>
+<pre><code>        inBody=False    # 标记头部信息
+        lines=[]
+        f=io.open(path,&#39;r&#39;,encoding=&#39;latin1&#39;)# 打开文件
+        for line in f:
+            if inBody:
+                lines.append(line)
+            elif line==&#39;</code></pre><p>‘:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束<br>                    inBody=True<br>            f.close()<br>            message=’<br>‘.join(lines)<br>            yield path,message</p>
+<p>def dataFrameFromDirectory(path,classification):<br>    rows=[]<br>    index=[]<br>    for filename,message in readFiles(path):<br>        rows.append({‘message’:message,’class’:classification})<br>        index.append(filename)</p>
+<pre><code>return DataFrame(rows,index=index)</code></pre><p>data=DataFrame({‘message’:[],’class’:[]})</p>
+<p>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam’, ‘spam’))<br>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham’, ‘ham’))</p>
+<p>data.head()</p>
+<pre><code>###    计算朴素贝叶斯
+- ####     CountVectorizer是特征数值计算类
+- ####     CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a\[i\]\[j\] 表示j词在第i个文本下的词频。
+- ####     MultinomialNB是先验为多项式分布的朴素贝叶斯类
+- ####     MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}\[i]\[j],i组j维向量,y=array-like\[i]</code></pre><p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(data[‘message’].values)# 将单词转换为哈希数,然后计算个数</p>
+<p>classifier=MultinomialNB()<br>targets=data[‘class’].values    # 分类信息<br>classifier.fit(counts,targets)</p>
+<pre><code>###    测试分类器</code></pre><p>examples=[‘Free Money now!!!!’,”Hi,I’m Sitch,how about make a friend?”]<br>example_counts=vectorizer.transform(examples)<br>predictions=classifier.predict(example_counts)</p>
+<pre><code>###    划分训练集和测试集再实验</code></pre><p>train_data=data.sample(frac=0.6)<br>test_data=data[~data.index.isin(train_data.index)]</p>
+<p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(train_data[‘message’].values)<br>classifier=MultinomialNB()<br>targets=train_data[‘class’].values<br>classifier.fit(counts,targets)</p>
+<p>i=0<br>SC=0<br>test_counts=vectorizer.transform(test_data[‘message’].values)<br>predictions=classifier.predict(test_counts)<br>for i in range(0,predictions.size):<br>    if test_data[‘class’].values[i]==predictions[i]:<br>        SC+=1<br>print(“测试集成功率 “,end=’ : ‘)<br>print(SC/predictions.size)</p>
+<pre><code></code></pre>
       
     </div>
 
