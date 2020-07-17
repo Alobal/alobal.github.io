@@ -74,9 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
-</head>
+<link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -151,6 +152,134 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
+<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
+<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><pre><code>import pandas as pd
+# user评分表
+r_cols=[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]
+ratings=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep=&#39;    &#39;,names=r_cols,usecols=range(3),encoding=&quot;ISO-8859-1&quot;)
+# movie的id和title对应表
+m_cols=[&#39;movie_id&#39;,&#39;title&#39;]
+movies=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep=&#39;|&#39;,names=m_cols,usecols=range(2),encoding=&quot;ISO-8859-1&quot;)
+# 连接两表
+ratings=pd.merge(ratings,movies)
+ratings.head()</code></pre></li>
+</ul>
+<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
+<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><pre><code>movieRatings=ratings.pivot_table(index=[&#39;user_id&#39;],columns=[&#39;title&#39;],values=&#39;rating&#39;)
+movieRatings.head()</code></pre></li>
+</ul>
+<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
+<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
+<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
+</ul>
+<pre><code>starWarsRatings=movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表
+similar2starWars=movieRatings.corrwith(starWarsRatings)
+similar2starWars=similar2starWars.dropna()
+df=pd.DataFrame(similar2starWars)
+df.sort_values(0,ascending=False)</code></pre><h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
+<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
+<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><pre><code>import numpy as np
+movieStats=ratings.groupby(&#39;title&#39;).agg({&#39;rating&#39;:[np.size,np.mean]})
+movieStats.head()</code></pre></li>
+</ul>
+<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
+<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><pre><code>popularMovies=movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;=100 # size大于100的index+T/F列表
+#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending=False)[:15] #显示筛选后的表 , mutiindex需要指定两层
+similar2starWars.name=&#39;similarity&#39;
+df=movieStats[popularMovies].join(similar2starWars)
+df.sort_values([&#39;similarity&#39;],ascending=False)[:15]
+</code></pre></li>
+</ul>
+<pre><code>
+###    5. 整理成推荐电影系统
+- ####     df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量
+- - ####     method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</code></pre><p>import pandas as pd</p>
+<h1 id="user评分表"><a href="#user评分表" class="headerlink" title="user评分表"></a>user评分表</h1><p>r_cols=[‘user_id’,’movie_id’,’rating’]<br>ratings=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data”,sep=’    ‘,names=r_cols,usecols=range(3),encoding=”ISO-8859-1”)</p>
+<h1 id="movie的id和title对应表"><a href="#movie的id和title对应表" class="headerlink" title="movie的id和title对应表"></a>movie的id和title对应表</h1><p>m_cols=[‘movie_id’,’title’]<br>movies=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item”,sep=’|’,names=m_cols,usecols=range(2),encoding=”ISO-8859-1”)</p>
+<h1 id="连接两表"><a href="#连接两表" class="headerlink" title="连接两表"></a>连接两表</h1><p>ratings=pd.merge(ratings,movies)</p>
+<h1 id="按user-id生成聚合图"><a href="#按user-id生成聚合图" class="headerlink" title="按user_id生成聚合图"></a>按user_id生成聚合图</h1><p>userRatings=ratings.pivot_table(index=[‘user_id’],columns=[‘title’],values=’rating’)</p>
+<h1 id="生成相关系数矩阵"><a href="#生成相关系数矩阵" class="headerlink" title="生成相关系数矩阵"></a>生成相关系数矩阵</h1><p>corrMatrix=userRatings.corr(method=’pearson’,min_periods=150)</p>
+<p>testuser=userRatings.loc[0].dropna()</p>
+<p>def GenerateSimCandidates(myRatings):<br>    simCandidates=pd.Series()<br>    for i in range(0,len(myRatings.index)):<br>        print(“Adding sims for “+ myRatings.index[i]+”…”)<br>        # 筛选出myRatings.index[i]作为列标题的一整列<br>        sims=corrMatrix[myRatings.index[i]].dropna()<br>        # 评分加权,这一列所有value乘上评分<br>        sims=sims.map(lambda x:x*myRatings[i])<br>        simCandidates=simCandidates.append(sims)</p>
+<pre><code># 聚合重复项
+simCandidates=simCandidates.groupby(simCandidates.index).sum()
+# 整理排序    
+simCandidates.sort_values(inplace=True,ascending=False)
+return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(10))</p>
+<pre><code></code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -273,7 +402,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -287,7 +416,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
         </h2>
 
         <div class="post-meta">
@@ -304,7 +433,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:37:09" itemprop="dateModified" datetime="2020-07-17T11:37:09+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -312,7 +441,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
                 </span>
             </span>
 
@@ -327,62 +456,193 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
-<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
-<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><pre><code>import pandas as pd
-# user评分表
-r_cols=[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]
-ratings=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep=&#39;    &#39;,names=r_cols,usecols=range(3),encoding=&quot;ISO-8859-1&quot;)
-# movie的id和title对应表
-m_cols=[&#39;movie_id&#39;,&#39;title&#39;]
-movies=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep=&#39;|&#39;,names=m_cols,usecols=range(2),encoding=&quot;ISO-8859-1&quot;)
-# 连接两表
-ratings=pd.merge(ratings,movies)
-ratings.head()</code></pre></li>
-</ul>
-<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
-<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><pre><code>movieRatings=ratings.pivot_table(index=[&#39;user_id&#39;],columns=[&#39;title&#39;],values=&#39;rating&#39;)
-movieRatings.head()</code></pre></li>
-</ul>
-<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
-<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
-<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
-</ul>
-<pre><code>starWarsRatings=movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表
-similar2starWars=movieRatings.corrwith(starWarsRatings)
-similar2starWars=similar2starWars.dropna()
-df=pd.DataFrame(similar2starWars)
-df.sort_values(0,ascending=False)</code></pre><h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
-<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
-<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><pre><code>import numpy as np
-movieStats=ratings.groupby(&#39;title&#39;).agg({&#39;rating&#39;:[np.size,np.mean]})
-movieStats.head()</code></pre></li>
-</ul>
-<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
-<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><pre><code>popularMovies=movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;=100 # size大于100的index+T/F列表
-#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending=False)[:15] #显示筛选后的表 , mutiindex需要指定两层
-similar2starWars.name=&#39;similarity&#39;
-df=movieStats[popularMovies].join(similar2starWars)
-df.sort_values([&#39;similarity&#39;],ascending=False)[:15]
+          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
+<h5 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h5><ul>
+<li><p>root: path根路径</p>
+</li>
+<li><p>dirs:  path下的所有文件夹, 不递归</p>
+</li>
+<li><p>files: path下的所有文件, 不递归</p>
+<pre><code># %%
+from cv2 import cv2
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+import re
+def readimgs(path):# 读取所有文件
+  imgs=[]
+  labels=[]
+  for root,dirnames,f, in os.walk(path):# 取得所有文件夹
+      for dir in dirnames:# 遍历子文件夹
+          path2=os.path.join(path,dir)
+          for r,d,files, in os.walk(path2):# 对文件夹取所有文件
+              for onefile in files:# 对每个文件添加到列表中
+                  path3=os.path.join(path2,onefile)
+                  img=cv2.imread(path3)
+                  img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
+                  imgs.append(img)# 添加到图片集
+                  labels.append(int(re.sub(&quot;\D&quot;,&quot;&quot;,dir)))# 文件夹名作为标签
+
+  return imgs,labels
 </code></pre></li>
 </ul>
 <pre><code>
-###    5. 整理成推荐电影系统
-- ####     df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量
-- - ####     method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</code></pre><p>import pandas as pd</p>
-<h1 id="user评分表"><a href="#user评分表" class="headerlink" title="user评分表"></a>user评分表</h1><p>r_cols=[‘user_id’,’movie_id’,’rating’]<br>ratings=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data”,sep=’    ‘,names=r_cols,usecols=range(3),encoding=”ISO-8859-1”)</p>
-<h1 id="movie的id和title对应表"><a href="#movie的id和title对应表" class="headerlink" title="movie的id和title对应表"></a>movie的id和title对应表</h1><p>m_cols=[‘movie_id’,’title’]<br>movies=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item”,sep=’|’,names=m_cols,usecols=range(2),encoding=”ISO-8859-1”)</p>
-<h1 id="连接两表"><a href="#连接两表" class="headerlink" title="连接两表"></a>连接两表</h1><p>ratings=pd.merge(ratings,movies)</p>
-<h1 id="按user-id生成聚合图"><a href="#按user-id生成聚合图" class="headerlink" title="按user_id生成聚合图"></a>按user_id生成聚合图</h1><p>userRatings=ratings.pivot_table(index=[‘user_id’],columns=[‘title’],values=’rating’)</p>
-<h1 id="生成相关系数矩阵"><a href="#生成相关系数矩阵" class="headerlink" title="生成相关系数矩阵"></a>生成相关系数矩阵</h1><p>corrMatrix=userRatings.corr(method=’pearson’,min_periods=150)</p>
-<p>testuser=userRatings.loc[0].dropna()</p>
-<p>def GenerateSimCandidates(myRatings):<br>    simCandidates=pd.Series()<br>    for i in range(0,len(myRatings.index)):<br>        print(“Adding sims for “+ myRatings.index[i]+”…”)<br>        # 筛选出myRatings.index[i]作为列标题的一整列<br>        sims=corrMatrix[myRatings.index[i]].dropna()<br>        # 评分加权,这一列所有value乘上评分<br>        sims=sims.map(lambda x:x*myRatings[i])<br>        simCandidates=simCandidates.append(sims)</p>
-<pre><code># 聚合重复项
-simCandidates=simCandidates.groupby(simCandidates.index).sum()
-# 整理排序    
-simCandidates.sort_values(inplace=True,ascending=False)
-return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(10))</p>
-<pre><code></code></pre>
+# 2. cv2.Eigenfaces训练 
+&gt;也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA
+
+**分割好训练集和测试集**, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.
+#####     EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):
+- num_components, 保留的主成分数
+- threshold,  预测时的阈值设置
+- 返回一个识别模型
+#####     model.train(src, labels): 
+- src: 数据组, 具体到图像就是图像顺序容器, 例如vector&lt;Mat&gt;, [img1,img2,....]
+- labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行...)</code></pre><h1 id="主函数训练"><a href="#主函数训练" class="headerlink" title="%%主函数训练"></a>%%主函数训练</h1><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    # 读取全部文件<br>    imgs,labels=readimgs(“./att_faces”)<br>    # 划分训练集 测试集<br>    testimgs=[]<br>    testlabels=[]<br>    trainimgs=[]<br>    trainlabels=[]<br>    for i in range(len(labels)):<br>        if(i%10==0):# 每10张, 即每一组留一张作为测试集<br>            testimgs.append(imgs[i])<br>            testlabels.append(labels[i])<br>        else:<br>            trainimgs.append(imgs[i])<br>            trainlabels.append(labels[i])</p>
+<pre><code>trainlabels=np.asarray(trainlabels)
+
+model = cv2.face.EigenFaceRecognizer_create()
+model.train(trainimgs,trainlabels)</code></pre><pre><code>
+# 3. Eigenfaces预测
+预测就是对之前保留的测试集, 一一预测并且检验正确率.
+#####      model.predict(data): 模型对data进行预测, 返回output[2]
+- output[0], label, 即预测的标签.
+- output[1], confidence, 即置信度, 注意confidence是越高越不相似
+</code></pre><h1 id="验证"><a href="#验证" class="headerlink" title="%% 验证"></a>%% 验证</h1><pre><code>count=0
+for i in range(0,len(testlabels)):
+    test_img=testimgs[i]
+    output=model.predict(test_img)# 对测试集每个图片进行预测
+    if(output[0]==testlabels[i]):# 结果和真实标签比较
+        count+=1
+
+print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准确率达到0.975
+
+存在一个错误样例: 
+![唯一一个错判样例, 左为原图, 右为预测标签所属图](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg)</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
+<pre><code>def Hybrid(catimg,dogimg,hole=10):
+    # cat过滤低频
+    # 傅里叶变换
+    f_catimg=np.fft.fft2(catimg)
+    f_catimg=np.fft.fftshift(f_catimg)
+
+    # 取得中孔位置, 挖掉中孔, 过滤低频量
+    h,w=catimg.shape
+    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
+<pre><code># dog保留低频
+    # 傅里叶变换
+    f_dogimg=np.fft.fft2(dogimg)
+    f_dogimg=np.fft.fftshift(f_dogimg)
+
+    # 仅保留中孔, 过滤高频量
+    h,w=dogimg.shape
+    f_dogimg[:int(h/2-hole),:]=0
+    f_dogimg[int(h/2+hole):,:]=0
+    f_dogimg[:,:int(w/2-hole)]=0
+    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
+<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
+<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
+</blockquote>
+<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
+    catimg=cv2.imread(&quot;./cat.jpg&quot;)
+    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
+    # 彩色猫狗图像分别对三通道进行处理
+    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
+    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
+    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
+    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
+    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
+    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
+
+    # 合并三通道显示 猫狗
+    img_merge=cv2.merge([B_merge,G_merge,R_merge])
+    print(img_merge)
+    plt.subplot(224),plt.imshow(img_merge)
+    plt.show()
+
+
+    # 人像合成
+    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
+    h,w=wholeimg.shape
+    first_img=wholeimg[:,:int(w/3)]
+    second_img=wholeimg[:,int(w/3):int(2*w/3)]
+    img_hybrid=Hybrid(first_img,second_img,30)
+
+    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
+    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
+
       
     </div>
 
@@ -533,265 +793,6 @@ for i in range(y,y+h):
         if(cv2.pointPolygonTest(contours[treei],(j,i),False)==1):# 测试点是否在轮廓内的函数
             img[i+10,j-500]=img[i,j].copy()# 偏移左边</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<pre><code>def Hybrid(catimg,dogimg,hole=10):
-    # cat过滤低频
-    # 傅里叶变换
-    f_catimg=np.fft.fft2(catimg)
-    f_catimg=np.fft.fftshift(f_catimg)
-
-    # 取得中孔位置, 挖掉中孔, 过滤低频量
-    h,w=catimg.shape
-    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<pre><code># dog保留低频
-    # 傅里叶变换
-    f_dogimg=np.fft.fft2(dogimg)
-    f_dogimg=np.fft.fftshift(f_dogimg)
-
-    # 仅保留中孔, 过滤高频量
-    h,w=dogimg.shape
-    f_dogimg[:int(h/2-hole),:]=0
-    f_dogimg[int(h/2+hole):,:]=0
-    f_dogimg[:,:int(w/2-hole)]=0
-    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
-</blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
-    catimg=cv2.imread(&quot;./cat.jpg&quot;)
-    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
-    # 彩色猫狗图像分别对三通道进行处理
-    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
-    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
-    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
-    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
-    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
-    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
-
-    # 合并三通道显示 猫狗
-    img_merge=cv2.merge([B_merge,G_merge,R_merge])
-    print(img_merge)
-    plt.subplot(224),plt.imshow(img_merge)
-    plt.show()
-
-
-    # 人像合成
-    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
-    h,w=wholeimg.shape
-    first_img=wholeimg[:,:int(w/3)]
-    second_img=wholeimg[:,int(w/3):int(2*w/3)]
-    img_hybrid=Hybrid(first_img,second_img,30)
-
-    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
-    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:37:09" itemprop="dateModified" datetime="2020-07-17T11:37:09+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
-<h5 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h5><ul>
-<li><p>root: path根路径</p>
-</li>
-<li><p>dirs:  path下的所有文件夹, 不递归</p>
-</li>
-<li><p>files: path下的所有文件, 不递归</p>
-<pre><code># %%
-from cv2 import cv2
-import matplotlib.pyplot as plt
-import os
-import numpy as np
-import re
-def readimgs(path):# 读取所有文件
-  imgs=[]
-  labels=[]
-  for root,dirnames,f, in os.walk(path):# 取得所有文件夹
-      for dir in dirnames:# 遍历子文件夹
-          path2=os.path.join(path,dir)
-          for r,d,files, in os.walk(path2):# 对文件夹取所有文件
-              for onefile in files:# 对每个文件添加到列表中
-                  path3=os.path.join(path2,onefile)
-                  img=cv2.imread(path3)
-                  img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
-                  imgs.append(img)# 添加到图片集
-                  labels.append(int(re.sub(&quot;\D&quot;,&quot;&quot;,dir)))# 文件夹名作为标签
-
-  return imgs,labels
-</code></pre></li>
-</ul>
-<pre><code>
-# 2. cv2.Eigenfaces训练 
-&gt;也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA
-
-**分割好训练集和测试集**, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.
-#####     EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):
-- num_components, 保留的主成分数
-- threshold,  预测时的阈值设置
-- 返回一个识别模型
-#####     model.train(src, labels): 
-- src: 数据组, 具体到图像就是图像顺序容器, 例如vector&lt;Mat&gt;, [img1,img2,....]
-- labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行...)</code></pre><h1 id="主函数训练"><a href="#主函数训练" class="headerlink" title="%%主函数训练"></a>%%主函数训练</h1><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    # 读取全部文件<br>    imgs,labels=readimgs(“./att_faces”)<br>    # 划分训练集 测试集<br>    testimgs=[]<br>    testlabels=[]<br>    trainimgs=[]<br>    trainlabels=[]<br>    for i in range(len(labels)):<br>        if(i%10==0):# 每10张, 即每一组留一张作为测试集<br>            testimgs.append(imgs[i])<br>            testlabels.append(labels[i])<br>        else:<br>            trainimgs.append(imgs[i])<br>            trainlabels.append(labels[i])</p>
-<pre><code>trainlabels=np.asarray(trainlabels)
-
-model = cv2.face.EigenFaceRecognizer_create()
-model.train(trainimgs,trainlabels)</code></pre><pre><code>
-# 3. Eigenfaces预测
-预测就是对之前保留的测试集, 一一预测并且检验正确率.
-#####      model.predict(data): 模型对data进行预测, 返回output[2]
-- output[0], label, 即预测的标签.
-- output[1], confidence, 即置信度, 注意confidence是越高越不相似
-</code></pre><h1 id="验证"><a href="#验证" class="headerlink" title="%% 验证"></a>%% 验证</h1><pre><code>count=0
-for i in range(0,len(testlabels)):
-    test_img=testimgs[i]
-    output=model.predict(test_img)# 对测试集每个图片进行预测
-    if(output[0]==testlabels[i]):# 结果和真实标签比较
-        count+=1
-
-print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准确率达到0.975
-
-存在一个错误样例: 
-![唯一一个错判样例, 左为原图, 右为预测标签所属图](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg)</code></pre>
       
     </div>
 
