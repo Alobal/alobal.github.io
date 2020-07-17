@@ -27,20 +27,20 @@
 <meta property="og:site_name" content="Sitch&#39;s Blog">
 <meta property="og:description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:%matplotlib inline">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-79e6c7ed7665c38c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-a2685e588dd87f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-93094a9dad1122da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-973d136a27d32986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-08fdfdf8a2b90849.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19387483-0e54a435a4136f1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg">
+<meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg">
 <meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
-<meta property="article:modified_time" content="2020-07-16T11:34:49.116Z">
+<meta property="article:modified_time" content="2020-07-17T03:19:52.397Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="Sitch">
 <meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg">
 
 <link rel="canonical" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
 
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,7 +219,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-c712d7a456c67e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据"></p>
+        <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
 <h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
 <h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
 from pylab import *
@@ -240,11 +240,11 @@ scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
 scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
 scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
 scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
-plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://upload-images.jianshu.io/upload_images/19387483-79e6c7ed7665c38c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原杂交图"></p>
+plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
 <h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-a2685e588dd87f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新杂交图"></p>
-<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-93094a9dad1122da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="x-最低价格 y-平均价格"></p>
-<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-973d136a27d32986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
+<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
+<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
+<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
 <h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
 trainx=totalx[:-12]
 testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
@@ -259,7 +259,7 @@ plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
 # r2检验
 checky=np.array(testdf[&#39;avg price&#39;])
 print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
-print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-08fdfdf8a2b90849.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分别4,3,2 次的多项式拟合"></p>
+print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
 <h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
 <h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
 from sklearn.model_selection import train_test_split
@@ -290,7 +290,7 @@ plt.figure(figsize=[12.8,9.6])
 plot(df[&#39;Date&#39;],y_pred,lw=3)
 plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
 plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
-plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://upload-images.jianshu.io/upload_images/19387483-0e54a435a4136f1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="线性回归拟合"></p>
+plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
 
     </div>
 
