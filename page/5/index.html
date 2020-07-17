@@ -156,133 +156,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-86/" class="post-title-link" itemprop="url">LeetCode-No-86</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="分隔链表"><a href="#分隔链表" class="headerlink" title="分隔链表"></a><a href="https://leetcode-cn.com/problems/partition-list/" target="_blank" rel="noopener">分隔链表</a></h1><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
-<p>你应当保留两个分区中每个节点的初始相对位置。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>直接思路是第一次遍历找到中间节点，并且划分为左右两边，然后再重新遍历链表元素，按大小分类到两边去。</li>
-<li>但这样要来回遍历链表，还要不停的交换节点很麻烦，换个<strong>逆向思路：既然是一个链表分成两个区域，不就相当于两个链表合成一个区域</strong></li>
-<li>因此，即构造两个链表，遍历原链表元素，分类接在两个链表上。</li>
-<li>遍历结束合成两个链表。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* partition(ListNode* head, int x) 
-    {   
-        //逆向想问题，既然分成了两段，那也可以是两段连成了一段
-
-        ListNode lefthead(0);
-        ListNode* left=&amp;lefthead;
-        ListNode righthead(0);
-        ListNode* right=&amp;righthead;
-
-
-        while(head!=NULL)
-        {
-           if(head-&gt;val&lt;x)
-           {
-               left-&gt;next=head;
-               left=left-&gt;next;
-           }
-           else
-           {
-               right-&gt;next=head;
-               right=right-&gt;next;
-           }
-           head=head-&gt;next;
-
-
-        }
-        right-&gt;next=NULL;//注意赋值null，否则下面的链表连接会无限循环超时
-        left-&gt;next=righthead.next;
-        return lefthead.next;
-
-
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -389,6 +262,133 @@ public:
         }
 
         return First.next;
+
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-86/" class="post-title-link" itemprop="url">LeetCode-No-86</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="分隔链表"><a href="#分隔链表" class="headerlink" title="分隔链表"></a><a href="https://leetcode-cn.com/problems/partition-list/" target="_blank" rel="noopener">分隔链表</a></h1><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
+<p>你应当保留两个分区中每个节点的初始相对位置。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>直接思路是第一次遍历找到中间节点，并且划分为左右两边，然后再重新遍历链表元素，按大小分类到两边去。</li>
+<li>但这样要来回遍历链表，还要不停的交换节点很麻烦，换个<strong>逆向思路：既然是一个链表分成两个区域，不就相当于两个链表合成一个区域</strong></li>
+<li>因此，即构造两个链表，遍历原链表元素，分类接在两个链表上。</li>
+<li>遍历结束合成两个链表。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) 
+    {   
+        //逆向想问题，既然分成了两段，那也可以是两段连成了一段
+
+        ListNode lefthead(0);
+        ListNode* left=&amp;lefthead;
+        ListNode righthead(0);
+        ListNode* right=&amp;righthead;
+
+
+        while(head!=NULL)
+        {
+           if(head-&gt;val&lt;x)
+           {
+               left-&gt;next=head;
+               left=left-&gt;next;
+           }
+           else
+           {
+               right-&gt;next=head;
+               right=right-&gt;next;
+           }
+           head=head-&gt;next;
+
+
+        }
+        right-&gt;next=NULL;//注意赋值null，否则下面的链表连接会无限循环超时
+        left-&gt;next=righthead.next;
+        return lefthead.next;
+
 
     }
 };</code></pre>
@@ -966,7 +966,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -980,7 +980,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
+            <a href="/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" class="post-title-link" itemprop="url">多项式朴素贝叶斯学习——垃圾邮件分类器</a>
         </h2>
 
         <div class="post-meta">
@@ -997,7 +997,7 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1020,79 +1020,40 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
-<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
-from pylab import *
-import numpy as np
-import pandas as pd
-from dateutil.parser import parse
-import matplotlib.pyplot as plt
-
-
-df=pd.read_csv(&quot;./上海车牌价格.csv&quot;)
-# 整理时间数据类型
-for i in range(0,len(df)):
-    df.loc[i,&#39;Date&#39;]=&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]
-df[&#39;Date&#39;]=pd.to_datetime(df[&#39;Date&#39;])</code></pre><h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
-<pre><code>plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw=5)
-scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
-plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
-<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
-<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
-<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
-<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
-trainx=totalx[:-12]
-testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
-testdf=df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</code></pre><h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
-<pre><code>x=np.array(trainx)
-y=np.array(traindf[&#39;avg price&#39;])
-p=np.poly1d(np.polyfit(x,y,4))</code></pre><h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
-<pre><code># 制图
-plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])
-plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
-
-# r2检验
-checky=np.array(testdf[&#39;avg price&#39;])
-print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
-print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
-<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
-<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-# 数据导入
-feature_cols=[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]
-x=df[feature_cols]
-y=df[&#39;avg price&#39;]
-x[&#39;time&#39;]=totalx
-# 数据分割测试集和训练集
-x_train=x[:-48]
-x_test=x[-48:]
-y_train=y[:-48]
-y_test=y[-48:]
-linreg=LinearRegression()
-linreg.fit(x_train,y_train)
-
-# 观察线性回归模型系数
-print (linreg.intercept_)
-print(linreg.coef_)</code></pre><h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
-<pre><code># 检验线性回归
-from sklearn import metrics
-y_pre=linreg.predict(x_test)
-print(metrics.r2_score(y_test,y_pre))
-
-y_pred=linreg.predict(x)
-plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],y_pred,lw=3)
-plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
-plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
-plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
-
+          <h3 id="读入文件存入dataframe"><a href="#读入文件存入dataframe" class="headerlink" title="读入文件存入dataframe"></a>读入文件存入dataframe</h3><ul>
+<li><h4 id="readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><a href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’" class="headerlink" title="readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’"></a>readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</h4>‘的格式存储在message中,每读完一个文件便返回该文件完整路径path和message</li>
+<li><h4 id="dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><a href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息" class="headerlink" title="dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息"></a>dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息</h4></li>
+<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><pre><code>import os
+import io
+import numpy
+from pandas import DataFrame
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+</code></pre></li>
+</ul>
+<p>def readFiles(path):<br>    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件<br>        for filename in filenames:<br>            path=os.path.join(root,filename)    # 创建path</p>
+<pre><code>        inBody=False    # 标记头部信息
+        lines=[]
+        f=io.open(path,&#39;r&#39;,encoding=&#39;latin1&#39;)# 打开文件
+        for line in f:
+            if inBody:
+                lines.append(line)
+            elif line==&#39;</code></pre><p>‘:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束<br>                    inBody=True<br>            f.close()<br>            message=’<br>‘.join(lines)<br>            yield path,message</p>
+<p>def dataFrameFromDirectory(path,classification):<br>    rows=[]<br>    index=[]<br>    for filename,message in readFiles(path):<br>        rows.append({‘message’:message,’class’:classification})<br>        index.append(filename)</p>
+<pre><code>return DataFrame(rows,index=index)</code></pre><p>data=DataFrame({‘message’:[],’class’:[]})</p>
+<p>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam’, ‘spam’))<br>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham’, ‘ham’))</p>
+<p>data.head()</p>
+<pre><code>###    计算朴素贝叶斯
+- ####     CountVectorizer是特征数值计算类
+- ####     CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a\[i\]\[j\] 表示j词在第i个文本下的词频。
+- ####     MultinomialNB是先验为多项式分布的朴素贝叶斯类
+- ####     MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}\[i]\[j],i组j维向量,y=array-like\[i]</code></pre><p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(data[‘message’].values)# 将单词转换为哈希数,然后计算个数</p>
+<p>classifier=MultinomialNB()<br>targets=data[‘class’].values    # 分类信息<br>classifier.fit(counts,targets)</p>
+<pre><code>###    测试分类器</code></pre><p>examples=[‘Free Money now!!!!’,”Hi,I’m Sitch,how about make a friend?”]<br>example_counts=vectorizer.transform(examples)<br>predictions=classifier.predict(example_counts)</p>
+<pre><code>###    划分训练集和测试集再实验</code></pre><p>train_data=data.sample(frac=0.6)<br>test_data=data[~data.index.isin(train_data.index)]</p>
+<p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(train_data[‘message’].values)<br>classifier=MultinomialNB()<br>targets=train_data[‘class’].values<br>classifier.fit(counts,targets)</p>
+<p>i=0<br>SC=0<br>test_counts=vectorizer.transform(test_data[‘message’].values)<br>predictions=classifier.predict(test_counts)<br>for i in range(0,predictions.size):<br>    if test_data[‘class’].values[i]==predictions[i]:<br>        SC+=1<br>print(“测试集成功率 “,end=’ : ‘)<br>print(SC/predictions.size)</p>
+<pre><code></code></pre>
       
     </div>
 
@@ -1239,7 +1200,7 @@ from sklearn import tree
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1253,7 +1214,7 @@ from sklearn import tree
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" class="post-title-link" itemprop="url">多项式朴素贝叶斯学习——垃圾邮件分类器</a>
+            <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
         </h2>
 
         <div class="post-meta">
@@ -1270,7 +1231,7 @@ from sklearn import tree
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1293,40 +1254,79 @@ from sklearn import tree
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="读入文件存入dataframe"><a href="#读入文件存入dataframe" class="headerlink" title="读入文件存入dataframe"></a>读入文件存入dataframe</h3><ul>
-<li><h4 id="readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><a href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’" class="headerlink" title="readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’"></a>readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</h4>‘的格式存储在message中,每读完一个文件便返回该文件完整路径path和message</li>
-<li><h4 id="dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><a href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息" class="headerlink" title="dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息"></a>dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息</h4></li>
-<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><pre><code>import os
-import io
-import numpy
-from pandas import DataFrame
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-</code></pre></li>
-</ul>
-<p>def readFiles(path):<br>    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件<br>        for filename in filenames:<br>            path=os.path.join(root,filename)    # 创建path</p>
-<pre><code>        inBody=False    # 标记头部信息
-        lines=[]
-        f=io.open(path,&#39;r&#39;,encoding=&#39;latin1&#39;)# 打开文件
-        for line in f:
-            if inBody:
-                lines.append(line)
-            elif line==&#39;</code></pre><p>‘:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束<br>                    inBody=True<br>            f.close()<br>            message=’<br>‘.join(lines)<br>            yield path,message</p>
-<p>def dataFrameFromDirectory(path,classification):<br>    rows=[]<br>    index=[]<br>    for filename,message in readFiles(path):<br>        rows.append({‘message’:message,’class’:classification})<br>        index.append(filename)</p>
-<pre><code>return DataFrame(rows,index=index)</code></pre><p>data=DataFrame({‘message’:[],’class’:[]})</p>
-<p>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam’, ‘spam’))<br>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham’, ‘ham’))</p>
-<p>data.head()</p>
-<pre><code>###    计算朴素贝叶斯
-- ####     CountVectorizer是特征数值计算类
-- ####     CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a\[i\]\[j\] 表示j词在第i个文本下的词频。
-- ####     MultinomialNB是先验为多项式分布的朴素贝叶斯类
-- ####     MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}\[i]\[j],i组j维向量,y=array-like\[i]</code></pre><p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(data[‘message’].values)# 将单词转换为哈希数,然后计算个数</p>
-<p>classifier=MultinomialNB()<br>targets=data[‘class’].values    # 分类信息<br>classifier.fit(counts,targets)</p>
-<pre><code>###    测试分类器</code></pre><p>examples=[‘Free Money now!!!!’,”Hi,I’m Sitch,how about make a friend?”]<br>example_counts=vectorizer.transform(examples)<br>predictions=classifier.predict(example_counts)</p>
-<pre><code>###    划分训练集和测试集再实验</code></pre><p>train_data=data.sample(frac=0.6)<br>test_data=data[~data.index.isin(train_data.index)]</p>
-<p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(train_data[‘message’].values)<br>classifier=MultinomialNB()<br>targets=train_data[‘class’].values<br>classifier.fit(counts,targets)</p>
-<p>i=0<br>SC=0<br>test_counts=vectorizer.transform(test_data[‘message’].values)<br>predictions=classifier.predict(test_counts)<br>for i in range(0,predictions.size):<br>    if test_data[‘class’].values[i]==predictions[i]:<br>        SC+=1<br>print(“测试集成功率 “,end=’ : ‘)<br>print(SC/predictions.size)</p>
-<pre><code></code></pre>
+          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
+<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
+from pylab import *
+import numpy as np
+import pandas as pd
+from dateutil.parser import parse
+import matplotlib.pyplot as plt
+
+
+df=pd.read_csv(&quot;./上海车牌价格.csv&quot;)
+# 整理时间数据类型
+for i in range(0,len(df)):
+    df.loc[i,&#39;Date&#39;]=&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]
+df[&#39;Date&#39;]=pd.to_datetime(df[&#39;Date&#39;])</code></pre><h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
+<pre><code>plt.figure(figsize=[12.8,9.6])
+plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw=5)
+scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
+scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
+plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
+<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
+<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
+<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
+<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
+<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
+trainx=totalx[:-12]
+testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
+testdf=df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</code></pre><h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
+<pre><code>x=np.array(trainx)
+y=np.array(traindf[&#39;avg price&#39;])
+p=np.poly1d(np.polyfit(x,y,4))</code></pre><h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
+<pre><code># 制图
+plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])
+plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
+
+# r2检验
+checky=np.array(testdf[&#39;avg price&#39;])
+print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
+print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
+<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
+<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+# 数据导入
+feature_cols=[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]
+x=df[feature_cols]
+y=df[&#39;avg price&#39;]
+x[&#39;time&#39;]=totalx
+# 数据分割测试集和训练集
+x_train=x[:-48]
+x_test=x[-48:]
+y_train=y[:-48]
+y_test=y[-48:]
+linreg=LinearRegression()
+linreg.fit(x_train,y_train)
+
+# 观察线性回归模型系数
+print (linreg.intercept_)
+print(linreg.coef_)</code></pre><h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
+<pre><code># 检验线性回归
+from sklearn import metrics
+y_pre=linreg.predict(x_test)
+print(metrics.r2_score(y_test,y_pre))
+
+y_pred=linreg.predict(x)
+plt.figure(figsize=[12.8,9.6])
+plot(df[&#39;Date&#39;],y_pred,lw=3)
+plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
+plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
+plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
+
       
     </div>
 

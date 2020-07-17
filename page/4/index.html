@@ -156,116 +156,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
-<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
-</blockquote>
-<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
-<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) 
-    {   
-        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
-
-        //动态规划
-        //当累积到第i个数时,有两种情况:
-        //1.吃掉之前的sum,变得更大
-        //2.之前的sum为负,要它干嘛,不吃,自立门户
-        int sum=nums[0];
-        int maxResult=nums[0];
-        int L=nums.size();
-        for(int i=1;i&lt;L;i++)
-        {
-            if(sum&gt;0)
-                sum+=nums[i];
-            else
-                sum=nums[i];
-
-            if(sum&gt;maxResult)
-                maxResult=sum;
-        }
-
-        return maxResult;
-
-
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-56-&-No-57/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -452,146 +342,6 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
-<ol>
-<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
-<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
-</ol>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
-<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
-</ol>
-<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
-<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
-<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
-</li>
-<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
-</li>
-<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
-</li>
-</ol>
-<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
-<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
-<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) 
-    {
-        //动态规划
-        int m=obstacleGrid.size();
-        int n=obstacleGrid[0].size();
-        long temp[n];//注意要用long 有样例爆int....
-        int i;
-        if(obstacleGrid[0][0]!=1)
-            temp[0]=1;
-        else
-            return 0;
-        for(i=1;i&lt;n;i++)//首行处理
-        {
-            if(obstacleGrid[0][i]!=1)
-                temp[i]=temp[i-1];
-            else
-                temp[i]=0;
-        }
-
-        int row=1;
-        for(;row&lt;m;row++)
-        {
-
-            if(obstacleGrid[row][0]==1)//首列障碍物处理
-                temp[0]=0;
-
-            for(i=1;i&lt;n;i++)
-            {   
-                if(obstacleGrid[row][i]==1)
-                    temp[i]=0;
-                else
-                    temp[i]+=temp[i-1];
-            }
-        }
-
-        return temp[n-1];    
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -713,6 +463,274 @@ public:
 
 
        return head;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-60/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a><a href="https://leetcode-cn.com/problems/permutation-sequence" target="_blank" rel="noopener">第K个排列</a></h1><blockquote>
+<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
+<p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: n = 3, k = 3<br>输出: “213”</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: n = 4, k = 9<br>输出: “2314”</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用"><a href="#1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用" class="headerlink" title="1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用.."></a>1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</h5><h5 id="2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"><a href="#2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。" class="headerlink" title="2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"></a>2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</h5><h5 id="3-数学计算"><a href="#3-数学计算" class="headerlink" title="3. 数学计算"></a>3. 数学计算</h5><p>全排列每个位置的每个数其实是有数学特征的。<br>比如对 1 2 3<br>3.1 <strong>首位情况</strong>： 肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。<br>3.2 <strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现 <strong>尾部排列次数</strong> 次，然后是nums[1]…依次类推。</p>
+<h5 id="综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。"><a href="#综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。" class="headerlink" title="综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。"></a>综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。</h5><h5 id="再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。"><a href="#再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。" class="headerlink" title="再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。"></a>再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。</h5><h5 id="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"><a href="#即我们可以直接计算出每一位应该是什么数字。然后组成result即可。" class="headerlink" title="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"></a>即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</h5><h5 id="4-细节"><a href="#4-细节" class="headerlink" title="4.细节"></a>4.细节</h5><p>1.当前位 每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。<br>2. k/fac[n-1] 向上取整得i，此时该位应该是 nums里的第i个数（下标i-1），同时对nums删除这个数。<br>3. n==1  时，nums只剩一个数，直接连上并返回。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    string getPermutation(int n, int k) 
+    {   
+        //题解数组
+        const vector&lt;int&gt; fac = {0,1,2,6,24,120,720,5040,40320,362880,3628800};
+        string result(n,&#39;0&#39;);
+        string nums(n,&#39;0&#39;);
+        for(int i=0;i&lt;n;i++)
+            nums[i]=&#39;1&#39;+i;
+
+        for(int i=0;n&gt;0;i++)
+        {   
+            int a;
+            int left=0;
+            if(n&gt;=2) //计算每个首位有多少个排列,跳过这些排列
+            {   
+                left=fac[n-1];
+                a=k/left;
+                if(k%left!=0)
+                    a++;
+                result[i]=nums[a-1];
+                k-=(a-1)*left;
+                nums.erase(a-1,1);
+                n--;
+
+            }
+            else //只剩一个数,直接修改返回
+            {
+                result[i]=nums[0];
+                return result;   
+            }
+
+        }
+        return result;
+    }
+
+
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<ol>
+<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
+<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
+</ol>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
+<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
+</ol>
+<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
+<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
+</li>
+<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
+</li>
+<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
+</li>
+</ol>
+<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
+<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
+<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) 
+    {
+        //动态规划
+        int m=obstacleGrid.size();
+        int n=obstacleGrid[0].size();
+        long temp[n];//注意要用long 有样例爆int....
+        int i;
+        if(obstacleGrid[0][0]!=1)
+            temp[0]=1;
+        else
+            return 0;
+        for(i=1;i&lt;n;i++)//首行处理
+        {
+            if(obstacleGrid[0][i]!=1)
+                temp[i]=temp[i-1];
+            else
+                temp[i]=0;
+        }
+
+        int row=1;
+        for(;row&lt;m;row++)
+        {
+
+            if(obstacleGrid[row][0]==1)//首列障碍物处理
+                temp[0]=0;
+
+            for(i=1;i&lt;n;i++)
+            {   
+                if(obstacleGrid[row][i]==1)
+                    temp[i]=0;
+                else
+                    temp[i]+=temp[i-1];
+            }
+        }
+
+        return temp[n-1];    
     }
 };</code></pre>
       
@@ -880,128 +898,6 @@ public:
 
         return result;
     }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a><a href="https://leetcode-cn.com/problems/sqrtx" target="_blank" rel="noopener">x的平方根</a></h1><p>实现 int sqrt(int x) 函数。</p>
-<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
-<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: 4<br>输出: 2</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: 8<br>输出: 2<br>说明: 8 的平方根是 2.82842…,<br>     由于返回类型是整数，小数部分将被舍去。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
-<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
-<li><strong>递归缩小求解：</strong><br>$$\sqrt{x}=2*\sqrt{rac{x}{4}}$$<br>因此可以递归找到易解的小x，然后再回溯整合到原x。<blockquote>
-<p>注意为什么选择2作为系数进行递归呢？<br>——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</p>
-</blockquote>
-</li>
-</ol>
-<p>递归式为：<code>mySqrt(x)=mySqrt(x&gt;&gt;2)&lt;&lt;1</code><br>4. 针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：</p>
-<blockquote>
-<p><strong>牛顿法</strong>（英语：Newton’s method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数$f(x)$ 的泰勒级数的前面几项来寻找方程的根。</p>
-</blockquote>
-<p>$$x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]$$<br>根据精度要求，$x_k$和$x_{k+1}$收敛后差距小于1即可返回结果。</p>
-<p><strong>迭代求解示意</strong>：<img src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="迭代示意图，图源
-(https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)"></p>
-<p>如上图所示，想求$\sqrt{a}$，图示a=2<br>先随便取xi=4，然后找到过(xi,yi)的切线，且$f(x)=x^2-a$的导数是$2x$<br>即切线方程$f(x)-(x_i^2-a)=2x_i(x-xi)$<br>显而易见这个切线与x轴的交点得$x_{i+1}=rac {2x_i^2-(x_i^2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $<br>即得$x_{i+1}$比$x_{i}$更接近解$\sqrt{a}$。</p>
-<h1 id="牛顿迭代题解代码"><a href="#牛顿迭代题解代码" class="headerlink" title="牛顿迭代题解代码"></a>牛顿迭代题解代码</h1><pre><code>class Solution 
-{
-public:
-    int mySqrt(int x) 
-    {
-        //牛顿迭代
-        if(x&lt;=1)
-            return x;
-        //注意long类型
-        long last=x/2;
-        long cur =(last+x/last)/2;
-        while(abs(last-cur)&gt;=1)
-        {   
-            last=cur;
-            cur=(cur +x/ cur) / 2.0 ;
-            if(cur&lt;=x/cur)
-                return cur;
-        }
-
-        return cur;
-    }
-
 };</code></pre>
       
     </div>
@@ -1194,6 +1090,128 @@ public:
 
         return HasNum;
     }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a><a href="https://leetcode-cn.com/problems/sqrtx" target="_blank" rel="noopener">x的平方根</a></h1><p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: 4<br>输出: 2</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: 8<br>输出: 2<br>说明: 8 的平方根是 2.82842…,<br>     由于返回类型是整数，小数部分将被舍去。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
+<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
+<li><strong>递归缩小求解：</strong><br>$$\sqrt{x}=2*\sqrt{rac{x}{4}}$$<br>因此可以递归找到易解的小x，然后再回溯整合到原x。<blockquote>
+<p>注意为什么选择2作为系数进行递归呢？<br>——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</p>
+</blockquote>
+</li>
+</ol>
+<p>递归式为：<code>mySqrt(x)=mySqrt(x&gt;&gt;2)&lt;&lt;1</code><br>4. 针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：</p>
+<blockquote>
+<p><strong>牛顿法</strong>（英语：Newton’s method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数$f(x)$ 的泰勒级数的前面几项来寻找方程的根。</p>
+</blockquote>
+<p>$$x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]$$<br>根据精度要求，$x_k$和$x_{k+1}$收敛后差距小于1即可返回结果。</p>
+<p><strong>迭代求解示意</strong>：<img src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="迭代示意图，图源
+(https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)"></p>
+<p>如上图所示，想求$\sqrt{a}$，图示a=2<br>先随便取xi=4，然后找到过(xi,yi)的切线，且$f(x)=x^2-a$的导数是$2x$<br>即切线方程$f(x)-(x_i^2-a)=2x_i(x-xi)$<br>显而易见这个切线与x轴的交点得$x_{i+1}=rac {2x_i^2-(x_i^2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $<br>即得$x_{i+1}$比$x_{i}$更接近解$\sqrt{a}$。</p>
+<h1 id="牛顿迭代题解代码"><a href="#牛顿迭代题解代码" class="headerlink" title="牛顿迭代题解代码"></a>牛顿迭代题解代码</h1><pre><code>class Solution 
+{
+public:
+    int mySqrt(int x) 
+    {
+        //牛顿迭代
+        if(x&lt;=1)
+            return x;
+        //注意long类型
+        long last=x/2;
+        long cur =(last+x/last)/2;
+        while(abs(last-cur)&gt;=1)
+        {   
+            last=cur;
+            cur=(cur +x/ cur) / 2.0 ;
+            if(cur&lt;=x/cur)
+                return cur;
+        }
+
+        return cur;
+    }
+
 };</code></pre>
       
     </div>

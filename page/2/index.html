@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-15-/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -170,7 +170,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-11/" class="post-title-link" itemprop="url">LeetCode-No-11</a>
         </h2>
 
         <div class="post-meta">
@@ -210,96 +210,199 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a><a href="https://leetcode-cn.com/problems/3sum" target="_blank" rel="noopener">三数之和</a></h1><blockquote>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
+          <h1 id="盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water"><a href="#盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water" class="headerlink" title="(盛最多水的容器)[https://leetcode-cn.com/problems/container-with-most-water]"></a>(盛最多水的容器)[<a href="https://leetcode-cn.com/problems/container-with-most-water]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water]</a></h1><blockquote>
+<p>给定 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
+<p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19387483-4f82d6d77b0bc922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <blockquote>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<p>示例:</p>
+<p>输入: [1,8,6,2,5,4,8,3,7]<br>输出: 49</p>
 </blockquote>
 </blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
-<li>暴力O(n3) 这样做还不如不做kj</li>
-<li>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</li>
+<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
+<li>双循环暴力法是人类本能,就不侃了,直接放上辣眼睛的效率结果</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>通过情况</th>
+<th>时间</th>
+<th>内存</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通过</td>
+<td>2436 ms</td>
+<td>9.8 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody></table>
 <ul>
-<li><p><strong>牺牲O(Nlog N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p>
-</li>
-<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c–。</p>
+<li><strong>正解</strong>:<br>双指针向内收缩法.即一指针在头部,一指针在尾部,<br>而收缩时面积由两端之短决定,我们要找到更大的面积,则必定要改变两端之短,所以每次将短的那边往里收缩,遍历O(n).</li>
+<li><strong>正确性</strong>:<br>S=min(ai,aj) * (j-i),假如大的那一边往里收缩则S=min(bi,bj) * (j-i-1). 则min(bi,bj)要么是比收缩前最小值还小的值,要么是收缩前的最小值,所以S必定变小.<br>因此双指针移动大的一端时,得到的S2&lt;=S1,肯定不是正确方向,所以可以省略掉这一系列的遍历,即只移动每对中小的那一端即可,省下O(n)的遍历不需要尝试,最终的遍历效率是O(n).</li>
+</ul>
+<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><pre><code>
+class Solution {
+public:
+    int maxArea(vector&lt;int&gt;&amp; height) 
+    {   //双指针 思考正确性
+        int i=0;
+        int j=height.size()-1;
+        int Area;
+        int MaxArea=0;
+
+        while(i&lt;j)
+        {
+            int minvalue=min(height[i],height[j]);
+            Area=minvalue*(j-i);
+            if(Area&gt;MaxArea)
+                MaxArea=Area;
+
+            if(height[i]==minvalue)
+                i++;
+            else
+                j--;
+        }
+
+        return MaxArea;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-22/" class="post-title-link" itemprop="url">LeetCode-No-22</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a><a href="https://leetcode-cn.com/problems/generate-parentheses" target="_blank" rel="noopener">括号生成</a></h1><blockquote>
+<p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
 <blockquote>
-<p>这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p>
+<p>例如，给出 n = 3，生成结果为：</p>
+<p>[<br>  “((()))”,<br>  “(()())”,<br>  “(())()”,<br>  “()(())”,<br>  “()()()”<br>]</p>
 </blockquote>
-</li>
-<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p>
-</li>
-<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p>
+</blockquote>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li><p>一开始我想创建一个2n的string数组<br>因为string（包括子串）第一个空位一定会是’ ( ‘<br>因此我的算法思路是 第一位肯定是’ ( ‘ 不变，然后在剩下的length-1空位中遍历选一处插入’)’<br>然后递归进入子串插入，也是子串第一位 ‘( ‘ 不变，遍历剩下的空位一次次插入 ‘)’ ，直到递归完成括号串。<br>这种算法不能避免重复，而且我在创建动态长度的字符串这里就失败了=。=<br>但没看到相似的思路，因此写下来说不定以后能够优化一下。</p>
+<ul>
+<li><h3 id="标准思路"><a href="#标准思路" class="headerlink" title="标准思路"></a>标准思路</h3>递归对每一位进行检测，如果’ ( ‘数量少，则这一位插入’ ( ‘进入递归，否则插入’ ）’进行递归，直到填满。</li>
+</ul>
 </li>
 </ul>
-<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><pre><code>class Solution 
-{
+<p>因为这种方法会遍历完所有’（’可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
+<ul>
+<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><pre><code>class Solution {
 public:
-    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) 
-    {   
-        vector&lt;vector&lt;int&gt;&gt; result;
-        set&lt;vector&lt;int&gt;&gt; resultset;
-        //剪枝
-        if (nums.size() &lt;= 2)
-            return result;
+  vector&lt;string&gt; generateParenthesis(int n)
+  {
+      vector&lt;string&gt; result;
 
-        sort(nums.begin(), nums.end());
+      Recursion(n,&quot;&quot;,0,0,result);
+      return result;
+  }
 
-        //不剪枝会被0吓死=.=
-        if (nums[0]&gt;=0 ||nums[nums.size()-1]&lt;=0)
-        {
-            if (nums[0] == 0 &amp;&amp;nums[nums.size()-1]==0)
-                result.push_back({ 0,0,0 });
-            return result;
-        }
-        int i;
-        int j;
-        int center;
+</code></pre></li>
+</ul>
+<p> void  Recursion(int n,string temp,int left ,int right,vector<string>&amp; result)<br>    {<br>        if(temp.size()== 2*n)<br>        {<br>            result.push_back(temp);<br>            return;<br>        }</p>
+<pre><code>    if(left&lt;n)
+        Recursion(n,temp+&#39;(&#39;,left+1,right,result);
 
-
-        for(center=0;center&lt;nums.size();center++)
-        {
-            i=0;
-            j=nums.size()-1;
+    if(right&lt;left)
+        Recursion(n,temp+&#39;)&#39;,left,right+1,result);
+}</code></pre><p>};</p>
+<pre><code>|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
+| --- | --- | --- | --- | --- |
+| 2 天前 | 通过 | 20 ms | 17 MB | Cpp |
 
 
-            while(i!=center &amp;&amp;j!=center)
-            {
-                if(nums[i]&gt;0 || nums[j]&lt;0)
-                    break;
+- ###    动态规划
+因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
+给上链接 ：
+###    [闭合数的合理解释-Jerry Peng]([https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/))
 
-                int sum=nums[i]+nums[center]+nums[j];
-                if(sum==0)
-                {
-                    vector&lt;int&gt; temp ={nums[i],nums[center],nums[j]};
-                    if(resultset.count(temp)==0)
-                    {   
-                        result.push_back(temp);
-                        resultset.insert(temp);
-                    }
-                    i++;
-                    j--;
-                }
+- 算法分析
+ 对于每个n对括号的括号串S[n] 都可以划分为两个部分
+```S[n] = &#39;(&#39; + S[c] + &#39;)&#39; + S[n-c-1];```
+第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
+**自底向上，存储子问题结果，逐步合并到n长度的问题**。
+因为要找到所有可能结果，因此c的取值需要遍历所有可能。
 
-                else if(sum&lt;0)
-                    i++;
-                else if(sum&gt;0)
-                    j--;
-            }
-        }
+- ###   动态规划代码</code></pre><p>class Solution {<br>public:<br>    vector<string> generateParenthesis(int n)<br>    {<br>       map&lt;int,vector<string>&gt; resultmap;<br>        resultmap[0].push_back(“”);<br>        for(int i=1;i&lt;=n;i++)<br>            for(int j=0;j&lt;i;j++)<br>                for(string left: resultmap[j])<br>                    for(string right: resultmap[i-j-1])<br>                    resultmap[i].push_back(“(“+left+”)”+right);</p>
+<pre><code>    return resultmap[n];
+}</code></pre><p>};</p>
+<pre><code>|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
+| --- | --- | --- | --- | --- |
+| 2 天前 | 通过 | 12 ms | 9.6 MB | Cpp |
 
-
-
-        return result;
-    }
-};</code></pre><hr>
-<p>执行用时 :  424 ms, 在所有 C++ 提交中击败了5.01%的用户<br>内存消耗 :24.3 MB, 在所有 C++ 提交中击败了7.53%的用户</p>
-<p>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题。<br>看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。<br>挖个坑，搞懂了再回来看看。</p>
-<hr>
-
+-------
+**有想过为什么不直接分为left 和 right 两个部分，一定要套个括号**
+      　——假如只分两半left 和 right，那在求解S[n]遍历的时候肯定要遍历到S[n]自身，因此需要先固定好一对括号，这样遍历会停止在S[n-1]的子问题，然后合并出待解的S[n]问题。</code></pre>
       
     </div>
 
@@ -492,140 +595,6 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-22/" class="post-title-link" itemprop="url">LeetCode-No-22</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a><a href="https://leetcode-cn.com/problems/generate-parentheses" target="_blank" rel="noopener">括号生成</a></h1><blockquote>
-<p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
-<blockquote>
-<p>例如，给出 n = 3，生成结果为：</p>
-<p>[<br>  “((()))”,<br>  “(()())”,<br>  “(())()”,<br>  “()(())”,<br>  “()()()”<br>]</p>
-</blockquote>
-</blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
-<li><p>一开始我想创建一个2n的string数组<br>因为string（包括子串）第一个空位一定会是’ ( ‘<br>因此我的算法思路是 第一位肯定是’ ( ‘ 不变，然后在剩下的length-1空位中遍历选一处插入’)’<br>然后递归进入子串插入，也是子串第一位 ‘( ‘ 不变，遍历剩下的空位一次次插入 ‘)’ ，直到递归完成括号串。<br>这种算法不能避免重复，而且我在创建动态长度的字符串这里就失败了=。=<br>但没看到相似的思路，因此写下来说不定以后能够优化一下。</p>
-<ul>
-<li><h3 id="标准思路"><a href="#标准思路" class="headerlink" title="标准思路"></a>标准思路</h3>递归对每一位进行检测，如果’ ( ‘数量少，则这一位插入’ ( ‘进入递归，否则插入’ ）’进行递归，直到填满。</li>
-</ul>
-</li>
-</ul>
-<p>因为这种方法会遍历完所有’（’可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
-<ul>
-<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><pre><code>class Solution {
-public:
-  vector&lt;string&gt; generateParenthesis(int n)
-  {
-      vector&lt;string&gt; result;
-
-      Recursion(n,&quot;&quot;,0,0,result);
-      return result;
-  }
-
-</code></pre></li>
-</ul>
-<p> void  Recursion(int n,string temp,int left ,int right,vector<string>&amp; result)<br>    {<br>        if(temp.size()== 2*n)<br>        {<br>            result.push_back(temp);<br>            return;<br>        }</p>
-<pre><code>    if(left&lt;n)
-        Recursion(n,temp+&#39;(&#39;,left+1,right,result);
-
-    if(right&lt;left)
-        Recursion(n,temp+&#39;)&#39;,left,right+1,result);
-}</code></pre><p>};</p>
-<pre><code>|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
-| --- | --- | --- | --- | --- |
-| 2 天前 | 通过 | 20 ms | 17 MB | Cpp |
-
-
-- ###    动态规划
-因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
-给上链接 ：
-###    [闭合数的合理解释-Jerry Peng]([https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/))
-
-- 算法分析
- 对于每个n对括号的括号串S[n] 都可以划分为两个部分
-```S[n] = &#39;(&#39; + S[c] + &#39;)&#39; + S[n-c-1];```
-第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
-**自底向上，存储子问题结果，逐步合并到n长度的问题**。
-因为要找到所有可能结果，因此c的取值需要遍历所有可能。
-
-- ###   动态规划代码</code></pre><p>class Solution {<br>public:<br>    vector<string> generateParenthesis(int n)<br>    {<br>       map&lt;int,vector<string>&gt; resultmap;<br>        resultmap[0].push_back(“”);<br>        for(int i=1;i&lt;=n;i++)<br>            for(int j=0;j&lt;i;j++)<br>                for(string left: resultmap[j])<br>                    for(string right: resultmap[i-j-1])<br>                    resultmap[i].push_back(“(“+left+”)”+right);</p>
-<pre><code>    return resultmap[n];
-}</code></pre><p>};</p>
-<pre><code>|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
-| --- | --- | --- | --- | --- |
-| 2 天前 | 通过 | 12 ms | 9.6 MB | Cpp |
-
--------
-**有想过为什么不直接分为left 和 right 两个部分，一定要套个括号**
-      　——假如只分两半left 和 right，那在求解S[n]遍历的时候肯定要遍历到S[n]自身，因此需要先固定好一对括号，这样遍历会停止在S[n-1]的子问题，然后合并出待解的S[n]问题。</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -754,154 +723,6 @@ public:
           another-&gt;next=(l1==NULL)?l2:l1;
           return (&amp;result)-&gt;next;
       }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
-<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
-<blockquote>
-<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
-</blockquote>
-</blockquote>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
-<ol>
-<li><p>判断重复字符</p>
-<blockquote>
-<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
-</blockquote>
-<ol start="2">
-<li>子串检测<blockquote>
-<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>后事处理</p>
-<blockquote>
-<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
-<blockquote>
-<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
-</blockquote>
-</blockquote>
-</li>
-</ol>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
-public:
-    int lengthOfLongestSubstring(string s) 
-    {   
-        int flag[127];
-        for(int i=0;i&lt;127;i++)
-            flag[i]=-1;
-        int result=0;  
-        int max=0;
-        int temp=0;
-        int start=0;
-
-        for(int i=0;i&lt;s.length();i++)
-        {
-            temp=getNO(s[i]);
-            if(flag[temp]&lt;start)
-            {
-                result++;
-                flag[temp]=i;
-            }
-            else
-            {
-                if(result&gt;=max)
-                    max=result;
-
-                start=flag[temp]+1;
-                result=i-flag[temp];
-                flag[temp]=i;
-            }
-
-        }
-        if(result&gt;=max)
-            return result;
-        else
-            return max;
-    }
-
-    int getNO(char originchar)
-    {
-        return originchar-&#39; &#39;;
-    }
 };</code></pre>
       
     </div>
@@ -1100,7 +921,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1114,7 +935,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
         </h2>
 
         <div class="post-meta">
@@ -1154,105 +975,80 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
+          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
 <blockquote>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
+<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
 </blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
 <blockquote>
-<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
+<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
 </blockquote>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
 <blockquote>
-<p>如  <strong>[1,2,5,4,3,6]</strong></p>
+<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
 </blockquote>
-<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
+</blockquote>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<ol>
+<li><p>判断重复字符</p>
 <blockquote>
-<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
+<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
 </blockquote>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
+<ol start="2">
+<li>子串检测<blockquote>
+<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
 </blockquote>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
+</li>
+</ol>
+</li>
+<li><p>后事处理</p>
 <blockquote>
-<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
+<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
+<blockquote>
+<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
 </blockquote>
-<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><pre><code>class Solution {
+</blockquote>
+</li>
+</ol>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
 public:
-    void nextPermutation(vector&lt;int&gt;&amp; nums) 
-    {
-        if(nums.size()&lt;=1)
-            return ;
+    int lengthOfLongestSubstring(string s) 
+    {   
+        int flag[127];
+        for(int i=0;i&lt;127;i++)
+            flag[i]=-1;
+        int result=0;  
+        int max=0;
+        int temp=0;
+        int start=0;
 
-        int flag=0;
-        int nextid=nums.size()-1;
-        int currentid=nextid-1;
-
-        while(currentid&gt;=0)
+        for(int i=0;i&lt;s.length();i++)
         {
-            if(nums[nextid]&gt;nums[currentid])
-            {   
-                //从后往前，找到第一组 升序对
-               flag=1;
-                break;
+            temp=getNO(s[i]);
+            if(flag[temp]&lt;start)
+            {
+                result++;
+                flag[temp]=i;
+            }
+            else
+            {
+                if(result&gt;=max)
+                    max=result;
+
+                start=flag[temp]+1;
+                result=i-flag[temp];
+                flag[temp]=i;
             }
 
-            nextid--;
-            currentid--;
         }
-
-        if(flag==1)//存在下一个更大排列
-        {
-                //交换生成新排列
-            while(nextid+1&lt;nums.size())
-            {
-                if(nums[nextid+1]&gt;nums[currentid] )
-                    nextid++;
-                else
-                    break;
-            }
-            tempswap(nums[currentid],nums[nextid]);
-            //currentid右边必然是降序
-            //将currentid右边升序处理
-            nextid=nums.size()-1;
-            while(currentid+1&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid+1]);
-                nextid--;
-                currentid++;
-            }
-        }   
+        if(result&gt;=max)
+            return result;
         else
-        {   //不存在，则倒序
-            nextid=nums.size()-1;
-            currentid=0;
-            while(currentid&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid]);
-                nextid--;
-                currentid++;
-            }
-
-        }
-
-        return ;
-
-
-
+            return max;
     }
 
-    void tempswap(int&amp; a,int&amp; b)
+    int getNO(char originchar)
     {
-        int temp=b;
-            b=a;
-            a=temp;
+        return originchar-&#39; &#39;;
     }
 };</code></pre>
       
@@ -1421,6 +1217,179 @@ public:
 <li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
 </ul>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
+<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
+<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
+<blockquote>
+<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
+</blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
+<blockquote>
+<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
+</blockquote>
+<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
+<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
+<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
+<blockquote>
+<p>如  <strong>[1,2,5,4,3,6]</strong></p>
+</blockquote>
+<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
+<blockquote>
+<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
+</blockquote>
+<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
+<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
+<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
+</blockquote>
+<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
+<blockquote>
+<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
+</blockquote>
+<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><pre><code>class Solution {
+public:
+    void nextPermutation(vector&lt;int&gt;&amp; nums) 
+    {
+        if(nums.size()&lt;=1)
+            return ;
+
+        int flag=0;
+        int nextid=nums.size()-1;
+        int currentid=nextid-1;
+
+        while(currentid&gt;=0)
+        {
+            if(nums[nextid]&gt;nums[currentid])
+            {   
+                //从后往前，找到第一组 升序对
+               flag=1;
+                break;
+            }
+
+            nextid--;
+            currentid--;
+        }
+
+        if(flag==1)//存在下一个更大排列
+        {
+                //交换生成新排列
+            while(nextid+1&lt;nums.size())
+            {
+                if(nums[nextid+1]&gt;nums[currentid] )
+                    nextid++;
+                else
+                    break;
+            }
+            tempswap(nums[currentid],nums[nextid]);
+            //currentid右边必然是降序
+            //将currentid右边升序处理
+            nextid=nums.size()-1;
+            while(currentid+1&lt;nextid)
+            {
+                tempswap(nums[nextid],nums[currentid+1]);
+                nextid--;
+                currentid++;
+            }
+        }   
+        else
+        {   //不存在，则倒序
+            nextid=nums.size()-1;
+            currentid=0;
+            while(currentid&lt;nextid)
+            {
+                tempswap(nums[nextid],nums[currentid]);
+                nextid--;
+                currentid++;
+            }
+
+        }
+
+        return ;
+
+
+
+    }
+
+    void tempswap(int&amp; a,int&amp; b)
+    {
+        int temp=b;
+            b=a;
+            a=temp;
+    }
+};</code></pre>
       
     </div>
 
