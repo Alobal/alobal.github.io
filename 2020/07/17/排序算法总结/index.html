@@ -28,7 +28,7 @@
 <meta property="og:description" content="1. 快速排序1.1 原理：在数组中选定一个分界数pivot,然后将所有其他的数和它进行比较，大于的小于的分成两部分，pivot放中间，这样这一轮就确定了一个数的位置，然后递归左右两边继续快排即可。 1.2 算法流程 首先确定一个分界数，可以直接固定取最开始或者最后的那个数，也可以用随机算法。随机取数会使效率更加稳定。然后把这个数交换到end，以便前面进行分块。  如何将大于和小于的两部分分开？我">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-17T08:16:30.000Z">
-<meta property="article:modified_time" content="2020-07-17T11:49:44.773Z">
+<meta property="article:modified_time" content="2020-07-19T08:44:01.841Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="排序">
 <meta property="article:tag" content="算法">
@@ -186,10 +186,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-17 16:16:30 / 修改时间：19:49:44" itemprop="dateCreated datePublished" datetime="2020-07-17T16:16:30+08:00">2020-07-17</time>
+              <time title="创建时间：2020-07-17 16:16:30" itemprop="dateCreated datePublished" datetime="2020-07-17T16:16:30+08:00">2020-07-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-19 16:44:01" itemprop="dateModified" datetime="2020-07-19T16:44:01+08:00">2020-07-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -281,8 +287,8 @@
 <li><p>空间复杂度即堆栈空间的大小，最优O(log_2 n),最坏 O(n), 平均O(lg n)</p>
 </li>
 </ul>
-<h1 id="2-堆排序"><a href="#2-堆排序" class="headerlink" title="2. 堆排序"></a>2. 堆排序</h1><h2 id="3-1-原理"><a href="#3-1-原理" class="headerlink" title="3.1 原理"></a>3.1 原理</h2><p>通过构建一个最大堆，这样从最大堆每次弹出root，即可获得最大数，然后重新整理剩下的堆，循环类推。</p>
-<h2 id="3-2-算法流程"><a href="#3-2-算法流程" class="headerlink" title="3.2 算法流程"></a>3.2 算法流程</h2><ol>
+<h1 id="2-堆排序"><a href="#2-堆排序" class="headerlink" title="2. 堆排序"></a>2. 堆排序</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p>通过构建一个最大堆，这样从最大堆每次弹出root，即可获得最大数，然后重新整理剩下的堆，循环类推。</p>
+<h2 id="2-2-算法流程"><a href="#2-2-算法流程" class="headerlink" title="2.2 算法流程"></a>2.2 算法流程</h2><ol>
 <li><p>构建最大堆，最大堆本身是二叉树结构，只不过维护了父结点比子节点大的特征。而二叉树本身也可以通过数组的形式实现，因此我们这里可以直接用数组实现最大堆。当然，另建数据结构也行，理解上会更简单点。</p>
 </li>
 <li><p>首先明确，在数组结构的二叉树中，i 结点的父结点是(i-1)/2，子结点是 2i+1, 2i+2。</p>
@@ -297,7 +303,7 @@
 <li><p>重建好堆后即可再次弹出，如此循环。</p>
 </li>
 </ol>
-<h2 id="3-3-示例代码"><a href="#3-3-示例代码" class="headerlink" title="3.3 示例代码"></a>3.3 示例代码</h2><p>注意重建堆的实现细节，需要考虑到子节点是否越界，还有递归重建的终止条件是否正确。</p>
+<h2 id="2-3-示例代码"><a href="#2-3-示例代码" class="headerlink" title="2.3 示例代码"></a>2.3 示例代码</h2><p>注意重建堆的实现细节，需要考虑到子节点是否越界，还有递归重建的终止条件是否正确。</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">sortArray</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//堆排序</span>
     <span class="token punctuation">{</span>   
 
@@ -349,19 +355,19 @@
         <span class="token punctuation">}</span>
 
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-4-性能分析"><a href="#3-4-性能分析" class="headerlink" title="3.4 性能分析"></a>3.4 性能分析</h2><ul>
+<h2 id="2-4-性能分析"><a href="#2-4-性能分析" class="headerlink" title="2.4 性能分析"></a>2.4 性能分析</h2><ul>
 <li>不稳定，构建堆和重建堆难以控制交换</li>
 <li>时间复杂度O(nlog n),构建堆和重建堆时，每个元素都需要经历等于 <strong>O(log n)层数</strong> 的比较，因此所有元素的代价是O(nlog n)。</li>
 <li>空间复杂度使用原数组构建堆时，O(1)。</li>
 </ul>
-<h1 id="3-冒泡排序"><a href="#3-冒泡排序" class="headerlink" title="3. 冒泡排序"></a>3. 冒泡排序</h1><h2 id="3-1-原理-1"><a href="#3-1-原理-1" class="headerlink" title="3.1 原理"></a>3.1 原理</h2><p>第n轮遍历，找出一个第n大，放在最后或最前，这样n-1轮下来即全部排好</p>
-<h2 id="3-2-算法流程-1"><a href="#3-2-算法流程-1" class="headerlink" title="3.2 算法流程"></a>3.2 算法流程</h2><ol>
+<h1 id="3-冒泡排序"><a href="#3-冒泡排序" class="headerlink" title="3. 冒泡排序"></a>3. 冒泡排序</h1><h2 id="3-1-原理"><a href="#3-1-原理" class="headerlink" title="3.1 原理"></a>3.1 原理</h2><p>第n轮遍历，找出一个第n大，放在最后或最前，这样n-1轮下来即全部排好</p>
+<h2 id="3-2-算法流程"><a href="#3-2-算法流程" class="headerlink" title="3.2 算法流程"></a>3.2 算法流程</h2><ol>
 <li><p>外层循环控制冒泡轮数</p>
 </li>
 <li><p>内层循环为每次遍历，假如当前的比后一个大，则交换，最终一轮走下来会冒泡出最大的一个。</p>
 </li>
 </ol>
-<h2 id="3-3-示例代码-1"><a href="#3-3-示例代码-1" class="headerlink" title="3.3 示例代码"></a>3.3 示例代码</h2><pre class="line-numbers language-cpp"><code class="language-cpp">vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">sortArray</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> 
+<h2 id="3-3-示例代码"><a href="#3-3-示例代码" class="headerlink" title="3.3 示例代码"></a>3.3 示例代码</h2><pre class="line-numbers language-cpp"><code class="language-cpp">vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">sortArray</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> 
     <span class="token punctuation">{</span>
         <span class="token keyword">int</span> length<span class="token operator">=</span>nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>length<span class="token number">-1</span><span class="token punctuation">;</span>i<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span>
@@ -375,7 +381,7 @@
 
         <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-4-性能分析-1"><a href="#3-4-性能分析-1" class="headerlink" title="3.4 性能分析"></a>3.4 性能分析</h2><ul>
+<h2 id="3-4-性能分析"><a href="#3-4-性能分析" class="headerlink" title="3.4 性能分析"></a>3.4 性能分析</h2><ul>
 <li>稳定，不需要交换 等值数</li>
 <li>时间复杂度O(n^2),冒泡轮数固定，冒泡时比较次数也固定，因此T(n)=n+n-1+…1=(1+n)*n/2=O(n)</li>
 <li>空间复杂度O(1),不需要额外空间</li>
@@ -466,7 +472,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-快速排序"><span class="nav-number">1.</span> <span class="nav-text">1. 快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-原理："><span class="nav-number">1.1.</span> <span class="nav-text">1.1 原理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-算法流程"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-示例代码"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-性能分析"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-堆排序"><span class="nav-number">2.</span> <span class="nav-text">2. 堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-原理"><span class="nav-number">2.1.</span> <span class="nav-text">3.1 原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-算法流程"><span class="nav-number">2.2.</span> <span class="nav-text">3.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-示例代码"><span class="nav-number">2.3.</span> <span class="nav-text">3.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-性能分析"><span class="nav-number">2.4.</span> <span class="nav-text">3.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-冒泡排序"><span class="nav-number">3.</span> <span class="nav-text">3. 冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-原理-1"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-算法流程-1"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-示例代码-1"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-性能分析-1"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐资料"><span class="nav-number">4.</span> <span class="nav-text">推荐资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-快速排序"><span class="nav-number">1.</span> <span class="nav-text">1. 快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-原理："><span class="nav-number">1.1.</span> <span class="nav-text">1.1 原理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-算法流程"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-示例代码"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-性能分析"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-堆排序"><span class="nav-number">2.</span> <span class="nav-text">2. 堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-原理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-算法流程"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-示例代码"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-性能分析"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-冒泡排序"><span class="nav-number">3.</span> <span class="nav-text">3. 冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-原理"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-算法流程"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-示例代码"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-性能分析"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐资料"><span class="nav-number">4.</span> <span class="nav-text">推荐资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
