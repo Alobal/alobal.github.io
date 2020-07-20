@@ -161,6 +161,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<blockquote>
+<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+</blockquote>
+<blockquote>
+<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
+</blockquote>
+<blockquote>
+<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+</blockquote>
+</blockquote>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<ol>
+<li><p>判断重复字符</p>
+<blockquote>
+<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
+</blockquote>
+<ol start="2">
+<li>子串检测<blockquote>
+<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>后事处理</p>
+<blockquote>
+<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
+<blockquote>
+<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
+public:
+    int lengthOfLongestSubstring(string s) 
+    {   
+        int flag[127];
+        for(int i=0;i&lt;127;i++)
+            flag[i]=-1;
+        int result=0;  
+        int max=0;
+        int temp=0;
+        int start=0;
+
+        for(int i=0;i&lt;s.length();i++)
+        {
+            temp=getNO(s[i]);
+            if(flag[temp]&lt;start)
+            {
+                result++;
+                flag[temp]=i;
+            }
+            else
+            {
+                if(result&gt;=max)
+                    max=result;
+
+                start=flag[temp]+1;
+                result=i-flag[temp];
+                flag[temp]=i;
+            }
+
+        }
+        if(result&gt;=max)
+            return result;
+        else
+            return max;
+    }
+
+    int getNO(char originchar)
+    {
+        return originchar-&#39; &#39;;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1407,116 +1555,6 @@ public:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
-<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
-</blockquote>
-<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
-<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) 
-    {   
-        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
-
-        //动态规划
-        //当累积到第i个数时,有两种情况:
-        //1.吃掉之前的sum,变得更大
-        //2.之前的sum为负,要它干嘛,不吃,自立门户
-        int sum=nums[0];
-        int maxResult=nums[0];
-        int L=nums.size();
-        for(int i=1;i&lt;L;i++)
-        {
-            if(sum&gt;0)
-                sum+=nums[i];
-            else
-                sum=nums[i];
-
-            if(sum&gt;maxResult)
-                maxResult=sum;
-        }
-
-        return maxResult;
-
-
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1586,7 +1624,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1599,7 +1637,7 @@ public:
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
