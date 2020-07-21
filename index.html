@@ -74,10 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 <link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -157,6 +157,135 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/21/%E7%9D%BF%E6%9B%A6%E8%A7%86%E9%A2%91%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/21/%E7%9D%BF%E6%9B%A6%E8%A7%86%E9%A2%91%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">睿曦视频面试总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-21 16:57:11 / 修改时间：23:02:42" itemprop="dateCreated datePublished" datetime="2020-07-21T16:57:11+08:00">2020-07-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。</p>
+<h1 id="C-部分"><a href="#C-部分" class="headerlink" title="C++部分"></a>C++部分</h1><h3 id="数组-和-链表-区别，操作效率"><a href="#数组-和-链表-区别，操作效率" class="headerlink" title="数组 和 链表 区别，操作效率"></a>数组 和 链表 区别，操作效率</h3><p>增删链表优势，访问数组优势</p>
+<h3 id="float-和-double-的表示范围"><a href="#float-和-double-的表示范围" class="headerlink" title="float 和 double 的表示范围"></a>float 和 double 的表示范围</h3><p>float 4字节，double 8字节</p>
+<h3 id="32位整数表示范围"><a href="#32位整数表示范围" class="headerlink" title="32位整数表示范围"></a>32位整数表示范围</h3><p>-2^32~2^32-1</p>
+<h3 id="栈和堆的区别-用户栈和yong’hu堆的区别-，堆分配和栈分配的效率问题。"><a href="#栈和堆的区别-用户栈和yong’hu堆的区别-，堆分配和栈分配的效率问题。" class="headerlink" title="栈和堆的区别/ (用户栈和yong’hu堆的区别)，堆分配和栈分配的效率问题。"></a>栈和堆的区别/ (用户栈和yong’hu堆的区别)，堆分配和栈分配的效率问题。</h3><ul>
+<li><p>系统栈：编译器自动分配，自动清除的变量的存储区，通常是局部变量、函数参数等。</p>
+</li>
+<li><p>系统堆：new分配的内存块，由程序控制。</p>
+</li>
+<li><p>自由存储区：由malloc分配的内存块，和堆十分相似。</p>
+</li>
+<li><p>全局/静态存储区：全局变量和静态变量分配到的内存。</p>
+</li>
+<li><p>常量存储区：存放常量，不允许修改。</p>
+</li>
+<li><p>分配效率：计算机底层对栈提供支持，决定了栈的效率比较高。堆是C/C++提供的，由库函数按照一定算法在堆内存中搜索可用的空间（考虑操作系统内存分配）。</p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_35637562/article/details/78550953" target="_blank" rel="noopener">参考博客</a></p>
+</li>
+</ul>
+<h3 id="new的效率问题"><a href="#new的效率问题" class="headerlink" title="new的效率问题"></a>new的效率问题</h3><h3 id="多态实现问题，静态绑定-动态绑定的机制原理"><a href="#多态实现问题，静态绑定-动态绑定的机制原理" class="headerlink" title="多态实现问题，静态绑定/动态绑定的机制原理"></a>多态实现问题，静态绑定/动态绑定的机制原理</h3><ul>
+<li>对象的静态类型：声明时的类型，编译期确定的，无法更改。</li>
+<li>对象的动态类型：目前所指对象的类型，运行期决定，可更改。</li>
+<li>静态绑定：通过对象调用绑定，发生在编译期。</li>
+<li>动态绑定：通过地址实现，即基类的指针或引用，绑定到不同的派生类上，调用不同的函数，发生在运行期，虚函数是动态绑定的基础。</li>
+</ul>
+<p>动态绑定需要两个条件：</p>
+<ul>
+<li>虚函数才进行动态绑定</li>
+<li>是通过基类的引用或指针来进行函数调用的</li>
+</ul>
+<h3 id="引用-指针"><a href="#引用-指针" class="headerlink" title="引用 指针"></a>引用 指针</h3><p>引用和指针的区别？</p>
+<ul>
+<li>引用不能更换目标</li>
+<li>引用需要初始化</li>
+<li>C++底层引用是通过指针实现，是一个常量指针，提供了比指针更高的安全性。</li>
+</ul>
+<p>引用占用的空间？</p>
+<ul>
+<li>引用是个常量指针，在内存中占用4个字节，可以通过sizeof一个只含有引用的类进行测量。</li>
+</ul>
+<p>引用能为空吗？引用能引用解指针对象吗？引用到解空指针会发生什么？</p>
+<ul>
+<li>引用不能为空，但可以通过绑定到解空指针上，认为实现空引用。</li>
+<li>但是我测试的时候,如下：<br>  编译器会在第二个<code>*p</code>处报错，<strong>无法用A类型的值初始化 int &amp; 类型的引用 (非常量限定)</strong>。<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token operator">&amp;</span>a <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h3><p>异常处理有吗？程序不能只考虑正确运行。</p>
+<h1 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
+<h3 id="补码，反码"><a href="#补码，反码" class="headerlink" title="补码，反码"></a>补码，反码</h3><p>整数补码与原码相同</p>
+<p>负整数的补码，将其原码除符号位外的所有位取反后加1</p>
+<p>+0 ，-0 补码都是0</p>
+<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p>区别是什么？TCP保障可靠性</p>
+<p>举个现实例子类比这两个？…</p>
+<p>具体的三次握手什么的没有问。</p>
+<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h3 id="导数-微分计算，问的很基础"><a href="#导数-微分计算，问的很基础" class="headerlink" title="导数/微分计算，问的很基础"></a>导数/微分计算，问的很基础</h3><h3 id="向量点乘，叉乘，（一时没反应过来叉乘是什么"><a href="#向量点乘，叉乘，（一时没反应过来叉乘是什么" class="headerlink" title="向量点乘，叉乘，（一时没反应过来叉乘是什么"></a>向量点乘，叉乘，（一时没反应过来叉乘是什么</h3><p>a X b = ||a|| ||b|| sinθ n， </p>
+<ul>
+<li>a，b是向量</li>
+<li>n是和ab平面垂直的单位向量，可用右手定理确定。</li>
+<li>θ是ab夹角。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -696,10 +825,16 @@ int main()
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-16 19:02:54 / 修改时间：19:34:24" itemprop="dateCreated datePublished" datetime="2020-07-16T19:02:54+08:00">2020-07-16</time>
+              <time title="创建时间：2020-07-16 19:02:54" itemprop="dateCreated datePublished" datetime="2020-07-16T19:02:54+08:00">2020-07-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-21 09:29:34" itemprop="dateModified" datetime="2020-07-21T09:29:34+08:00">2020-07-21</time>
+              </span>
 
           
 
@@ -754,6 +889,7 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <h1 id="4-存在问题"><a href="#4-存在问题" class="headerlink" title="4.存在问题"></a>4.存在问题</h1><ol>
 <li>无法维护时间</li>
 <li>简书代码块不需要注明语言，但是这样hexo的一些highlight就无法识别，想不到自动注明语言的办法。</li>
+<li>简述博客图片链接会失效，简书通过判断http请求头中的referer的值，如果来自本站才返回成功请求。因此可以通过修改referer复原图片链接，但是博客有些依赖referer的功能就会受影响。<br> 可以选用外部图床，但收费的挺贵，不收费的也难用，常规的发文网如微博、CSDN、简书都限制外链，挺难找图床的。</li>
 </ol>
 
       
@@ -1390,141 +1526,6 @@ int main()
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" class="post-title-link" itemprop="url">KNN实例——预测电影评分</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:22:15" itemprop="dateModified" datetime="2020-07-17T11:22:15+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="7-KNN实例——K最近邻预测电影评分"><a href="#7-KNN实例——K最近邻预测电影评分" class="headerlink" title="7 KNN实例——K最近邻预测电影评分"></a>7 KNN实例——K最近邻预测电影评分</h1><h3 id="KNN即先确定散点距离的定义-然后对每个新点选取K个距离最近的点-想象一个图-以新点为中心-不断扩大中心圆的面积-直到覆盖到k个点-用他们对新点进行投票"><a href="#KNN即先确定散点距离的定义-然后对每个新点选取K个距离最近的点-想象一个图-以新点为中心-不断扩大中心圆的面积-直到覆盖到k个点-用他们对新点进行投票" class="headerlink" title="KNN即先确定散点距离的定义,然后对每个新点选取K个距离最近的点(想象一个图, 以新点为中心,不断扩大中心圆的面积,直到覆盖到k个点),用他们对新点进行投票."></a>KNN即先确定散点距离的定义,然后对每个新点选取K个距离最近的点(想象一个图, 以新点为中心,不断扩大中心圆的面积,直到覆盖到k个点),用他们对新点进行投票.</h3><h3 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1.数据准备"></a>1.数据准备</h3><pre><code>import pandas as pd
-import numpy as np
-
-r_cols=[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]
-# uid,mid,rating的dataFrame
-ratings=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep=&#39;    &#39;,names=r_cols,usecols=range(3),encoding=&quot;ISO-8859-1&quot;)
-# 创建movie属性表,属性有size(评价数/流行度),mean均分
-movieProperties=ratings.groupby(&#39;movie_id&#39;).agg({&#39;rating&#39;:[np.size,np.mean]})
-
-# 标准化流行度,用来定义距离
-movieNumRatings=pd.DataFrame(movieProperties[&#39;rating&#39;][&#39;size&#39;])
-movieNormalizedNumRatings=movieNumRatings.apply(lambda x:(x-np.min(x))/(np.max(x)-np.min(x)))</code></pre><ul>
-<li><h4 id="df-loc-‘label1’-’label1’…-‘label2’-label1列表指定行-label2指定列-可选-没有指定列则返回Series-1个label1-DataFrame"><a href="#df-loc-‘label1’-’label1’…-‘label2’-label1列表指定行-label2指定列-可选-没有指定列则返回Series-1个label1-DataFrame" class="headerlink" title="df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1列表指定行,label2指定列(可选),没有指定列则返回Series(1个label1)/DataFrame"></a>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1列表指定行,label2指定列(可选),没有指定列则返回Series(1个label1)/DataFrame</h4></li>
-<li><h4 id="xxx-get-‘mean’-和xxx-mean的区别"><a href="#xxx-get-‘mean’-和xxx-mean的区别" class="headerlink" title="xxx.get(‘mean’)和xxx.mean的区别:"></a>xxx.get(‘mean’)和xxx.mean的区别:</h4></li>
-<li><ul>
-<li><h4 id="get返回对应数值"><a href="#get返回对应数值" class="headerlink" title="get返回对应数值"></a>get返回对应数值</h4></li>
-</ul>
-</li>
-<li><ul>
-<li><h4 id="返回method-Series"><a href="#返回method-Series" class="headerlink" title=".返回method/Series"></a>.返回method/Series</h4></li>
-</ul>
-</li>
-<li><h4 id="Python3-x的map返回的是迭代器-Python2-x的map返回list"><a href="#Python3-x的map返回的是迭代器-Python2-x的map返回list" class="headerlink" title="Python3.x的map返回的是迭代器,Python2.x的map返回list"></a>Python3.x的map返回的是迭代器,Python2.x的map返回list</h4></li>
-</ul>
-<pre><code>movieDict={}
-with open(r&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,encoding=&quot;ISO-8859-1&quot;) as f:
-    temp=&#39;&#39;
-    for line in f:
-        fields=line.rstrip(&#39;
-&#39;).split(&#39;|&#39;)# 除去line末尾的换行符,以|分割
-        movieID=int(fields[0])
-        name=fields[1]
-        genres=fields[5:25]
-        genres=map(int,genres)
-        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get(&#39;size&#39;),movieProperties.loc[movieID].rating.get(&#39;mean&#39;))
-
-# 获得了movieid对应的name,分类向量,标准化size,均分
-print(movieDict[1])</code></pre><h3 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h3><ul>
-<li><h4 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h4></li>
-<li><h4 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h4><pre><code>from scipy import spatial
-def ComputeDistance(a,b):# a,b分别为moviedict的索引号,即movieid
-  a=movieDict[a]
-  b=movieDict[b]
-  # x[1]为类型向量
-  genreDistance=spatial.distance.cosine(a[1],b[1])
-  # x[2]为size
-  popularityDistance=abs(a[2]-b[2])
-  return genreDistance+popularityDistance
-</code></pre></li>
-</ul>
-<p>print(ComputeDistance(2,4))<br>print(movieDict[2])<br>print(movieDict[4])</p>
-<pre><code>###    3. 获取最近邻
-- ####     key=operator.itemgetter(1).因为list里是tuple,要选取tuple\[1]进行排序, itemgetter(i)返回一个函数func,func(x)是取x\[i],即这里通过传递取值函数,实现了取tuple\[1]进行排序.</code></pre><p>import operator<br>def getNeighbors(movieID,k):<br>    distances=[]# 距离集合,(movieid,distance)<br>    for movie in movieDict:<br>        if(movie!=movieID):<br>            distances.append((movie,ComputeDistance(movieID,movie)))</p>
-<pre><code>distances.sort(key=operator.itemgetter(1))
-neighbors=[]# 距离排序后,选入前k个最近的
-for x in range(k):
-    neighbors.append(distances[x][0])
-return neighbors</code></pre><p>k=20<br>def PredictByKNN(movieID,k):<br>    avgRating=0<br>    for neighbor in getNeighbors(movieID,k):<br>        avgRating+=movieDict[neighbor][3]<br>        print(movieDict[neighbor])<br>    print(“Predict rating is : “+str(avgRating/k))<br>    print(“Actual Rating is : “+str(movieDict[movieID][3]))</p>
-<p>PredictByKNN(20,50)</p>
-<pre><code># 预测实例
-###    预测3.28,实际3.41
-###    一定程度上还是挺准确的, 仅仅利用了分类和流行度作为相似标准,实现简单但是效果挺好.
-![示例运行](https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg)</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1594,20 +1595,20 @@ return neighbors</code></pre><p>k=20<br>def PredictByKNN(movieID,k):<br>    avgR
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
