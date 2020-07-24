@@ -74,10 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 <link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -157,6 +157,128 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a><a href="https://leetcode-cn.com/problems/sqrtx" target="_blank" rel="noopener">x的平方根</a></h1><p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: 4<br>输出: 2</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: 8<br>输出: 2<br>说明: 8 的平方根是 2.82842…,<br>     由于返回类型是整数，小数部分将被舍去。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
+<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
+<li><strong>递归缩小求解：</strong><br>$$\sqrt{x}=2*\sqrt{rac{x}{4}}$$<br>因此可以递归找到易解的小x，然后再回溯整合到原x。<blockquote>
+<p>注意为什么选择2作为系数进行递归呢？<br>——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</p>
+</blockquote>
+</li>
+</ol>
+<p>递归式为：<code>mySqrt(x)=mySqrt(x&gt;&gt;2)&lt;&lt;1</code><br>4. 针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：</p>
+<blockquote>
+<p><strong>牛顿法</strong>（英语：Newton’s method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数$f(x)$ 的泰勒级数的前面几项来寻找方程的根。</p>
+</blockquote>
+<p>$$x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]$$<br>根据精度要求，$x_k$和$x_{k+1}$收敛后差距小于1即可返回结果。</p>
+<p><strong>迭代求解示意</strong>：<img src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="迭代示意图，图源
+(https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)"></p>
+<p>如上图所示，想求$\sqrt{a}$，图示a=2<br>先随便取xi=4，然后找到过(xi,yi)的切线，且$f(x)=x^2-a$的导数是$2x$<br>即切线方程$f(x)-(x_i^2-a)=2x_i(x-xi)$<br>显而易见这个切线与x轴的交点得$x_{i+1}=rac {2x_i^2-(x_i^2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $<br>即得$x_{i+1}$比$x_{i}$更接近解$\sqrt{a}$。</p>
+<h1 id="牛顿迭代题解代码"><a href="#牛顿迭代题解代码" class="headerlink" title="牛顿迭代题解代码"></a>牛顿迭代题解代码</h1><pre><code>class Solution 
+{
+public:
+    int mySqrt(int x) 
+    {
+        //牛顿迭代
+        if(x&lt;=1)
+            return x;
+        //注意long类型
+        long last=x/2;
+        long cur =(last+x/last)/2;
+        while(abs(last-cur)&gt;=1)
+        {   
+            last=cur;
+            cur=(cur +x/ cur) / 2.0 ;
+            if(cur&lt;=x/cur)
+                return cur;
+        }
+
+        return cur;
+    }
+
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1301,124 +1423,6 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:22:48" itemprop="dateModified" datetime="2020-07-17T11:22:48+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><pre><code>%matplotlib inline
-from pylab import *
-import numpy as np
-
-# N 个人 K 个簇
-def CreateClusteredData(n,k):
-    pointPerCluster=float(n)/k
-    x=[]
-    y=[]
-    for i in range(k):
-        incomeCentroid=np.random.uniform(20000.0,200000.0)
-        ageCentroid=np.random.uniform(20.0,70.0)
-        for j in range(int(pointPerCluster)):
-            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])
-            y.append(i)# 保存已知簇信息
-    x=np.array(x)
-    y=np.array(y)
-    return x,y
-
-(x,y)=CreateClusteredData(100,5)
-
-plt.scatter(x[:,0],x[:,1],c=y.astype(np.float))</code></pre><h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><pre><code>from sklearn import svm,datasets
-C=1.0
-svc=svm.SVC(kernel=&#39;linear&#39;,C=C).fit(x,y)</code></pre><h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
-<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
-<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
-<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
-</blockquote>
-<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
-<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
-</blockquote>
-<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
-<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
-</blockquote>
-<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><pre><code>def plotPredictions(clf,x,y,color):
-    xx,yy=np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx=有age行的income,yy=有income列的age
-    z=clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息
-    plt.figure(figsize=(8,6))
-    z=z.reshape(xx.shape)
-    plt.contourf(xx,yy,z,cmap=plt.cm.Paired,alpha=0.8)
-    plt.scatter(x,y,c=color)
-    plt.show()
-
-plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
-</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1488,20 +1492,20 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

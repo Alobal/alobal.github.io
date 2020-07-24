@@ -74,10 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 <link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -157,6 +157,132 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-5/" class="post-title-link" itemprop="url">LeetCode-No-5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:55" itemprop="dateModified" datetime="2020-07-16T19:34:55+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a><a href="https://leetcode-cn.com/problems/longest-palindromic-substring" target="_blank" rel="noopener">最长回文子串</a></h1><blockquote>
+<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
+<blockquote>
+<p>示例 1：<br>输入: “babad”<br>输出: “bab”<br>注意: “aba” 也是一个有效答案。</p>
+</blockquote>
+<blockquote>
+<p>示例 2：<br>输入: “cbbd”<br>输出: “bb”</p>
+</blockquote>
+</blockquote>
+<h2 id="仿No-4切入"><a href="#仿No-4切入" class="headerlink" title="仿No.4切入"></a>仿No.4切入</h2><ul>
+<li>回文序列本质上还是一个切割问题</li>
+<li>以切割点为起始,逐步比较两边是否相等即可判断回文.</li>
+<li>注意切割处可以是数, 也可以是两数之间</li>
+</ul>
+<h2 id="求解代码"><a href="#求解代码" class="headerlink" title="求解代码"></a>求解代码</h2><p>题目思路较为简单,直接放出一遍撸过的代码.</p>
+<pre><code>class Solution {
+public:
+    string longestPalindrome(string s)
+    {
+        string result;
+        int center;
+        int left;
+        int right;
+        if (s.length() == 0)
+            return &quot;&quot;;
+        //参考题4扩展
+        //[1,2,3] [1,# ,2,#,3]
+         //[2,1,1,2] [2,# ,1,#,1,#,2]
+        for (center = 0; center &lt; 2*s.length()-1; center++)
+        {
+            left = center / 2;
+            right = (center + 1) / 2;
+            while (1)
+            {
+                if (left &lt; 0 || right &gt;= s.length() || s[left] != s[right])
+                {
+                    left++;
+                    right--;
+                    break;
+                }
+                left--;
+                right++;
+            }
+            if (right - left + 1 &gt; result.length())
+                result.assign(s, left, right - left + 1);
+        }
+
+        return result;
+    }
+};</code></pre><hr>
+<h2 id="错误思路反省"><a href="#错误思路反省" class="headerlink" title="错误思路反省"></a>错误思路反省</h2><h4 id="1-条件定义错误"><a href="#1-条件定义错误" class="headerlink" title="1.条件定义错误"></a>1.<strong>条件定义错误</strong></h4><p>简单的将回文定义为  一个数在中间,两边相等 的序列, 实际上回文序列最中间可能是<strong>空</strong>而不是<strong>数</strong>.</p>
+<h4 id="2-边界特殊情况考虑不周"><a href="#2-边界特殊情况考虑不周" class="headerlink" title="2.边界特殊情况考虑不周"></a>2.<strong>边界特殊情况考虑不周</strong></h4><p>比如空字符串,比如没想到”aaaaa”这种字符串, 当然使用扩展分割的算法时这些情况都可以求解, 只不过如果自己能早点注意到这些特殊情况,就不需要绕弯子 , 可以直接上来就撸分割了.</p>
+<h4 id="3-自行测试"><a href="#3-自行测试" class="headerlink" title="3. 自行测试"></a>3. <strong>自行测试</strong></h4><p>自己在提交给OJ之前,应该自己尽量想出各种各样的测试样例, 不能写出什么就随便丢上去跑, 只有自己用心测试了之后才会发现自己的初始算法有那么多的错误.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1440,128 +1566,6 @@ public:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a><a href="https://leetcode-cn.com/problems/sqrtx" target="_blank" rel="noopener">x的平方根</a></h1><p>实现 int sqrt(int x) 函数。</p>
-<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
-<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: 4<br>输出: 2</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: 8<br>输出: 2<br>说明: 8 的平方根是 2.82842…,<br>     由于返回类型是整数，小数部分将被舍去。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
-<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
-<li><strong>递归缩小求解：</strong><br>$$\sqrt{x}=2*\sqrt{rac{x}{4}}$$<br>因此可以递归找到易解的小x，然后再回溯整合到原x。<blockquote>
-<p>注意为什么选择2作为系数进行递归呢？<br>——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</p>
-</blockquote>
-</li>
-</ol>
-<p>递归式为：<code>mySqrt(x)=mySqrt(x&gt;&gt;2)&lt;&lt;1</code><br>4. 针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：</p>
-<blockquote>
-<p><strong>牛顿法</strong>（英语：Newton’s method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数$f(x)$ 的泰勒级数的前面几项来寻找方程的根。</p>
-</blockquote>
-<p>$$x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]$$<br>根据精度要求，$x_k$和$x_{k+1}$收敛后差距小于1即可返回结果。</p>
-<p><strong>迭代求解示意</strong>：<img src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="迭代示意图，图源
-(https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)"></p>
-<p>如上图所示，想求$\sqrt{a}$，图示a=2<br>先随便取xi=4，然后找到过(xi,yi)的切线，且$f(x)=x^2-a$的导数是$2x$<br>即切线方程$f(x)-(x_i^2-a)=2x_i(x-xi)$<br>显而易见这个切线与x轴的交点得$x_{i+1}=rac {2x_i^2-(x_i^2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $<br>即得$x_{i+1}$比$x_{i}$更接近解$\sqrt{a}$。</p>
-<h1 id="牛顿迭代题解代码"><a href="#牛顿迭代题解代码" class="headerlink" title="牛顿迭代题解代码"></a>牛顿迭代题解代码</h1><pre><code>class Solution 
-{
-public:
-    int mySqrt(int x) 
-    {
-        //牛顿迭代
-        if(x&lt;=1)
-            return x;
-        //注意long类型
-        long last=x/2;
-        long cur =(last+x/last)/2;
-        while(abs(last-cur)&gt;=1)
-        {   
-            last=cur;
-            cur=(cur +x/ cur) / 2.0 ;
-            if(cur&lt;=x/cur)
-                return cur;
-        }
-
-        return cur;
-    }
-
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1631,20 +1635,20 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
