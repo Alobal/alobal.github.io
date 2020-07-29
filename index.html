@@ -514,7 +514,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-28 12:28:17" itemprop="dateModified" datetime="2020-07-28T12:28:17+08:00">2020-07-28</time>
+                <time title="修改时间：2020-07-30 00:07:17" itemprop="dateModified" datetime="2020-07-30T00:07:17+08:00">2020-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -539,9 +539,16 @@
       
           <p>C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。</p>
 <h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><h3 id="然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）"><a href="#然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）" class="headerlink" title="然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）"></a>然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）</h3><h3 id="python用过哪些包"><a href="#python用过哪些包" class="headerlink" title="python用过哪些包"></a>python用过哪些包</h3><p>opencv，numpy，sklearn…</p>
-<h3 id="四六级成绩（一般般。"><a href="#四六级成绩（一般般。" class="headerlink" title="四六级成绩（一般般。"></a>四六级成绩（一般般。</h3><h3 id="介绍一个LeetCode的算法思路"><a href="#介绍一个LeetCode的算法思路" class="headerlink" title="介绍一个LeetCode的算法思路"></a>介绍一个LeetCode的算法思路</h3><h3 id="看你有写选修数字图像处理，对渲染有了解吗？"><a href="#看你有写选修数字图像处理，对渲染有了解吗？" class="headerlink" title="看你有写选修数字图像处理，对渲染有了解吗？"></a>看你有写选修数字图像处理，对渲染有了解吗？</h3><p>…弱弱地说出来数字图像处理是视觉方向。</p>
-<h1 id="C-部分"><a href="#C-部分" class="headerlink" title="C++部分"></a>C++部分</h1><h3 id="对a-5-int-a-1-和-int-amp-a-1-的区别"><a href="#对a-5-int-a-1-和-int-amp-a-1-的区别" class="headerlink" title="对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别"></a>对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</h3><p>a+1会指向a[1]<br>&amp;a+1等同于a[4]后面一个位置，即跳过了整个数组</p>
-<h3 id="const有哪几种作用"><a href="#const有哪几种作用" class="headerlink" title="const有哪几种作用"></a>const有哪几种作用</h3><h3 id="memset实现memcopy"><a href="#memset实现memcopy" class="headerlink" title="memset实现memcopy"></a>memset实现memcopy</h3><h3 id="数组-和-链表-区别，操作效率"><a href="#数组-和-链表-区别，操作效率" class="headerlink" title="数组 和 链表 区别，操作效率"></a>数组 和 链表 区别，操作效率</h3><p>增删链表优势，访问数组优势</p>
+<h3 id="四六级成绩（一般般。"><a href="#四六级成绩（一般般。" class="headerlink" title="四六级成绩（一般般。"></a>四六级成绩（一般般。</h3><h3 id="介绍一个LeetCode的算法思路"><a href="#介绍一个LeetCode的算法思路" class="headerlink" title="介绍一个LeetCode的算法思路"></a>介绍一个LeetCode的算法思路</h3><h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h3 id="整数的二进制位操作"><a href="#整数的二进制位操作" class="headerlink" title="整数的二进制位操作"></a>整数的二进制位操作</h3><p>&lt;&lt; 左移位操作，右边开始用0补位<br>&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决定（gcc的编译器是补符号位）</p>
+<p>expr |=(1 &lt;&lt; n);将第n位置1<br>expr &amp;=( ~(1 &lt;&lt; n) );将第n位置0</p>
+<h3 id="const有哪几种作用"><a href="#const有哪几种作用" class="headerlink" title="const有哪几种作用"></a>const有哪几种作用</h3><ul>
+<li>修饰成员函数：<code>int Fun() const;</code> 成员函数不可修改类成员数据</li>
+<li>修饰一般常量，如<code>const type x;</code> <code>const type x[5];</code></li>
+<li>修饰指针指向的对象,<code>const int * A;</code> </li>
+<li>修饰指针本身，<code>int * const A;</code> ，指针本身不能修改，但是指针指向对象可修改。</li>
+<li>修饰引用常量类型，<code>const int &amp;refer=A;</code>，注意这里把const int看作一个类型，A 必须是const int类型。</li>
+</ul>
+<h3 id="数组-和-链表-区别，操作效率"><a href="#数组-和-链表-区别，操作效率" class="headerlink" title="数组 和 链表 区别，操作效率"></a>数组 和 链表 区别，操作效率</h3><p>增删链表优势，访问数组优势</p>
 <h3 id="float-和-double-的表示范围"><a href="#float-和-double-的表示范围" class="headerlink" title="float 和 double 的表示范围"></a>float 和 double 的表示范围</h3><p>float 4字节，double 8字节</p>
 <h3 id="32位整数表示范围"><a href="#32位整数表示范围" class="headerlink" title="32位整数表示范围"></a>32位整数表示范围</h3><p>-2^32~2^32-1</p>
 <h3 id="list判断环"><a href="#list判断环" class="headerlink" title="list判断环"></a>list判断环</h3><p>可以用快慢指针方式判断。（对不起，一时只想到了存储指针方式</p>
@@ -568,7 +575,8 @@
 <li><p><a href="https://blog.csdn.net/qq_35637562/article/details/78550953" target="_blank" rel="noopener">参考博客</a></p>
 </li>
 </ul>
-<h3 id="new的效率问题"><a href="#new的效率问题" class="headerlink" title="new的效率问题"></a>new的效率问题</h3><h3 id="多态实现问题，静态绑定-动态绑定的机制原理"><a href="#多态实现问题，静态绑定-动态绑定的机制原理" class="headerlink" title="多态实现问题，静态绑定/动态绑定的机制原理"></a>多态实现问题，静态绑定/动态绑定的机制原理</h3><ul>
+<h3 id="new，operator-new相关"><a href="#new，operator-new相关" class="headerlink" title="new，operator new相关"></a>new，operator new相关</h3><p><a href="https://www.jianshu.com/p/b52a5df69c88" target="_blank" rel="noopener">参考</a></p>
+<h3 id="多态实现问题，静态绑定-动态绑定的机制原理"><a href="#多态实现问题，静态绑定-动态绑定的机制原理" class="headerlink" title="多态实现问题，静态绑定/动态绑定的机制原理"></a>多态实现问题，静态绑定/动态绑定的机制原理</h3><ul>
 <li>对象的静态类型：声明时的类型，编译期确定的，无法更改。</li>
 <li>对象的动态类型：目前所指对象的类型，运行期决定，可更改。</li>
 <li>静态绑定：通过对象调用绑定，发生在编译期。</li>
@@ -596,8 +604,13 @@
 <span class="token keyword">int</span> <span class="token operator">&amp;</span>a <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ul>
+<h3 id="对a-5-int-a-1-和-int-amp-a-1-的区别"><a href="#对a-5-int-a-1-和-int-amp-a-1-的区别" class="headerlink" title="对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别"></a>对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</h3><p>a+1会指向a[1]<br>&amp;a+1等同于a[4]后面一个位置，即跳过了整个数组</p>
 <h3 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h3><p>异常处理有吗？程序不能只考虑正确运行。</p>
-<h3 id="异常处理-try-catch-finally"><a href="#异常处理-try-catch-finally" class="headerlink" title="异常处理 try catch finally"></a>异常处理 try catch finally</h3><h1 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
+<h3 id="异常处理-try-catch-finally"><a href="#异常处理-try-catch-finally" class="headerlink" title="异常处理 try catch (finally)"></a>异常处理 try catch (finally)</h3><ul>
+<li>try ：包裹需要检测的代码块，使用throw抛出异常。</li>
+<li>catch ： 捕捉异常信息，可指定想要捕捉的异常类型，省略号…表示捕捉所有类型。</li>
+</ul>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
 <h3 id="补码，反码"><a href="#补码，反码" class="headerlink" title="补码，反码"></a>补码，反码</h3><p>整数补码与原码相同</p>
 <p>负整数的补码，将其原码除符号位外的所有位取反后加1</p>
 <p>+0 ，-0 补码都是0</p>
