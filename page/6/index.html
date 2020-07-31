@@ -161,6 +161,228 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">反转链表</a></h1><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
+<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4<br>输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>反转一段区域，首先肯定想到是一个一个反转<blockquote>
+<p>比如2-&gt;3-&gt;4  先3插前面去 3-&gt;2-&gt;4 ，然后4插前面去 4-&gt;3-&gt;2</p>
+</blockquote>
+</li>
+<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
+<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
+<li>遍历反转区域元素current，令temp=current-&gt;next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-&gt;next即可。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) 
+    {
+        int count=1;
+        ListNode* temp;
+        ListNode* current;
+
+        ListNode First(0);
+        First.next=head;
+        ListNode* pre=&amp;First;
+        while(count&lt;m)//pre停在原第m-1个数
+        {
+            pre=pre-&gt;next;
+            count++;   
+        }
+        current=pre-&gt;next;//current指向当前处理数
+
+        while(count&lt;n)//count计数位，每次将current-&gt;next插入到pre-&gt;next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current=2 pre=1
+        {
+            temp=current-&gt;next;//保留current后节点，temp=3
+            current-&gt;next=temp-&gt;next;//2-&gt;next=4
+            temp-&gt;next=pre-&gt;next;//逆转temp和current的前后关系。3-&gt;next=2
+            pre-&gt;next=temp;//更新pre的后节点，1-&gt;next=3
+            //current
+            count++;//完成[1,3,2,4,5]
+        }
+
+        return First.next;
+
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:31:44" itemprop="dateModified" datetime="2020-07-17T11:31:44+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><h5 id="前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"><a href="#前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。" class="headerlink" title="前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"></a>前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。</h5><h2 id="解决步骤："><a href="#解决步骤：" class="headerlink" title="解决步骤："></a>解决步骤：</h2><ol>
+<li><p>打开windows【服务】面板</p>
+<p> 1.1 可以WIN+R 输入 services.msc 打开</p>
+<p> 1.2 也可以在win10的搜索框中直接搜索 “服务”</p>
+</li>
+<li><p>按【v】键，快速找到vmware相关服务，全部 右键-属性-禁用，且停止运行。</p>
+</li>
+<li><p>全部停止运行后，任务管理器已经可以关掉vm的主进程，但其实后台还有一个vmware-vmx没关掉，也关不掉。</p>
+</li>
+<li><p>此时【重启】电脑，注意是重启，不是关机再开机，可以发现vmware-vmx已经没有了</p>
+</li>
+<li><p>但和其他博客说的不同，此时恢复vmware相关服务，再开虚拟机一样是卡死，同样的问题。</p>
+</li>
+<li><p>因此打开vmware的安装程序，准备修复，先别点下修复= =（文件夹里找，或者控制面板-卸载或更改程序里找）</p>
+</li>
+<li><p>我修复运行的时候，提示无法写入文件glib-2.0.dll，vmPerfmon.dll，所以修复之前可以手动先删除这两个文件看看= =在vmware安装目录下面，假如无法删除可以把后缀名改为.txt，这样就不会阻碍vmware的修复程序。</p>
+</li>
+<li><p>修复程序运行完成，打开vmware，提示你更新新版本，或者你自己选项里检查更新一下= =，换到新版本。当然你直接卸载下一个应该也是一样。</p>
+</li>
+<li><p>我升级到15.5.1，重启之后可以正常运行，并且之前的虚拟机信息没有丢失。</p>
+</li>
+</ol>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h5 id="应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧"><a href="#应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧" class="headerlink" title="应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= ="></a>应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= =</h5>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1157,249 +1379,6 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/" class="post-title-link" itemprop="url">考研数学冷门杂记-（持续不定期更新)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:03" itemprop="dateModified" datetime="2020-07-16T19:35:03+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">考研数学</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-多项式处理"><a href="#1-多项式处理" class="headerlink" title="1. 多项式处理"></a>1. 多项式处理</h1><p>$$1^2+2^2+…+n^2=rac{1}{6} n(n+1)(2n+1) $$<br>$$a^n-b^n=(a-b)(a^0b^{n-1}+…+a^{n-1}b^0)$$<br>$$a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})$$</p>
-<hr>
-<h1 id="2-极限等价无穷小-和-重要极限公式"><a href="#2-极限等价无穷小-和-重要极限公式" class="headerlink" title="2. 极限等价无穷小 和 重要极限公式"></a>2. 极限等价无穷小 和 重要极限公式</h1><blockquote>
-<p>~在公式编辑里打不出， 用≈代替</p>
-</blockquote>
-<h3 id="2-1-等价无穷小"><a href="#2-1-等价无穷小" class="headerlink" title="2.1 等价无穷小"></a>2.1 等价无穷小</h3><p>$$x→0<del>~</del>sinx ≈x$$</p>
-<p>$$x→0<del>~</del>tanx≈x$$</p>
-<p>$$x→0<del>~</del>arcsinx≈x$$</p>
-<p>$$x→0<del>~</del>arctanx≈x$$</p>
-<p>$$x→0<del>~</del>1-cosx≈rac{1}{2}x^ 2$$</p>
-<p>$$x→0<del>~</del>e^x-1≈x$$</p>
-<p>$$x→0<del>~</del>ln(1+x)≈x$$</p>
-<p>$$x→0<del>~</del>(1+x)^α-1≈αx$$</p>
-<h3 id="2-2-重要极限公式"><a href="#2-2-重要极限公式" class="headerlink" title="2.2 重要极限公式"></a>2.2 重要极限公式</h3><p>$$\lim_{x    o0}rac{sinx}{x}=1$$</p>
-<p>$$\lim_{n    o∞}(1+rac{1}{n})^n=e$$</p>
-<p>$$\lim_{x    o∞}(1+rac{1}{x})^x=e$$</p>
-<p>$$\lim_{u    o0}(1+u)^rac{1}{u}=e$$</p>
-<hr>
-<h1 id="3-导数冷门公式"><a href="#3-导数冷门公式" class="headerlink" title="3. 导数冷门公式"></a>3. 导数冷门公式</h1><p>$$(tanx)’ = sec^2x=rac{1}{cos^2x}$$</p>
-<p>$$(cotx)’ = -csc^2x=-rac{1}{sin^2x}$$</p>
-<p>$$(secx)’ = secx tanx=rac{sinx}{cos^2x}$$</p>
-<p>$$(cscx)’ =-cscxcotx=-rac{ cosx}{sin^2x}$$</p>
-<p>$$(arcsinx)’ =rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arccosx)’ =-rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arctanx)’ =rac{1}{1+x^2}$$</p>
-<p>$$(arccotx)’ =-rac{1}{1+x^2}$$</p>
-<p>$$(x^x)’ =x^x(lnx+1) ······（对数求导）$$</p>
-<h4 id="导函数的连续性："><a href="#导函数的连续性：" class="headerlink" title="导函数的连续性："></a>导函数的连续性：</h4><h5 id="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："><a href="#函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：" class="headerlink" title="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："></a>函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-370520d94e31c91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源自知乎"></p>
-<h4 id="变上限积分函数可导性："><a href="#变上限积分函数可导性：" class="headerlink" title="变上限积分函数可导性："></a>变上限积分函数可导性：</h4><h5 id="1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"><a href="#1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。" class="headerlink" title="1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"></a>1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。</h5><h5 id="2）-连续函数的变上限积分函数一定可导。"><a href="#2）-连续函数的变上限积分函数一定可导。" class="headerlink" title="2）      连续函数的变上限积分函数一定可导。"></a>2）      连续函数的变上限积分函数一定可导。</h5><hr>
-<h1 id="4-积分冷门公式"><a href="#4-积分冷门公式" class="headerlink" title="4. 积分冷门公式"></a>4. 积分冷门公式</h1><h5 id="4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"><a href="#4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来" class="headerlink" title="4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"></a>4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来</h5><p>$$\int sin(x^2)dx  、\int cos(x^2)dx、  \int rac{sinx}{x}dx、\int rac{cosx}{x}dx、\int rac{1}{lnx}dx、\int e^{-x^2}dx、$$</p>
-<h5 id="4-2-冷门积分函数"><a href="#4-2-冷门积分函数" class="headerlink" title="4.2 冷门积分函数"></a>4.2 冷门积分函数</h5><p>$$\int a^xdx=rac{1}{lna}a^x+C $$</p>
-<p>$$\int sec^2xdx=\int rac{1}{cos^2x}dx=tanx+C $$</p>
-<p>$$\int csc^2xdx=\int rac{1}{sin^2x}dx=-cotx+C$$</p>
-<p>$$\int tanxsecxdx=secx+C$$</p>
-<p>$$\int cotxcscxdx=-cscx+C$$</p>
-<p>$$\int tanxdx=-ln|cosx|+C$$</p>
-<p>$$\int cotxdx=ln|sinx|+C$$</p>
-<p>$$\int secxdx=ln|secx+tanx|+C$$</p>
-<p>$$\int cscxdx=ln|cscx-cotx|+C$$</p>
-<p>$$\int rac{1}{\sqrt{a^2-x^2}}dx=arcsin rac{x}{a} +C $$</p>
-<p>$$\int rac{1}{a^2+x^2}dx=rac{1}{a} arctan rac{x}{a} +C $$</p>
-<hr>
-<p>$$\int rac{1}{a^2-x^2}dx=rac{1}{2a} ln rac{a+x}{a-x} +C $$</p>
-<p>$$\int   rac{1}{\sqrt {x^2 \pm a^2}}dx=ln|x+\sqrt{x^2 \pm a^2}| +C $$</p>
-<p>$$\int rac{1}{e^x+1}dx=\int rac{e^x}{e^x(e^x+1)}dx=\int rac{1}{e^x}-rac{1}{e^x+1}de^x $$</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<pre><code>def Hybrid(catimg,dogimg,hole=10):
-    # cat过滤低频
-    # 傅里叶变换
-    f_catimg=np.fft.fft2(catimg)
-    f_catimg=np.fft.fftshift(f_catimg)
-
-    # 取得中孔位置, 挖掉中孔, 过滤低频量
-    h,w=catimg.shape
-    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<pre><code># dog保留低频
-    # 傅里叶变换
-    f_dogimg=np.fft.fft2(dogimg)
-    f_dogimg=np.fft.fftshift(f_dogimg)
-
-    # 仅保留中孔, 过滤高频量
-    h,w=dogimg.shape
-    f_dogimg[:int(h/2-hole),:]=0
-    f_dogimg[int(h/2+hole):,:]=0
-    f_dogimg[:,:int(w/2-hole)]=0
-    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
-</blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
-    catimg=cv2.imread(&quot;./cat.jpg&quot;)
-    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
-    # 彩色猫狗图像分别对三通道进行处理
-    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
-    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
-    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
-    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
-    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
-    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
-
-    # 合并三通道显示 猫狗
-    img_merge=cv2.merge([B_merge,G_merge,R_merge])
-    print(img_merge)
-    plt.subplot(224),plt.imshow(img_merge)
-    plt.show()
-
-
-    # 人像合成
-    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
-    h,w=wholeimg.shape
-    first_img=wholeimg[:,:int(w/3)]
-    second_img=wholeimg[:,int(w/3):int(2*w/3)]
-    img_hybrid=Hybrid(first_img,second_img,30)
-
-    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
-    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1469,7 +1448,7 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1482,7 +1461,7 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

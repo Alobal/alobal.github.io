@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/Blog/css/main.css">
+
+
+<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="丑数II编写一个程序，找出第 n 个丑数。 丑数就是质因数只包含 2, 3, 5 的正整数。 示例:  输入: n &#x3D; 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。  说明:   1 是丑数。n 不超过1690。 算法思想显而易见，我们要找分解式为 2 3 5 构成的数。也容易想到，后面的丑数必然是由前面的丑数乘 2 3 5 得到的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode No.264">
+<meta property="og:url" content="https://alobal.github.io/Blog/2020/07/31/LeetCode-No-264/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="丑数II编写一个程序，找出第 n 个丑数。 丑数就是质因数只包含 2, 3, 5 的正整数。 示例:  输入: n &#x3D; 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。  说明:   1 是丑数。n 不超过1690。 算法思想显而易见，我们要找分解式为 2 3 5 构成的数。也容易想到，后面的丑数必然是由前面的丑数乘 2 3 5 得到的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-31T09:01:41.000Z">
+<meta property="article:modified_time" content="2020-07-31T09:21:58.956Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alobal.github.io/Blog/2020/07/31/LeetCode-No-264/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode No.264 | Sitch's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/Blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/Blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/31/LeetCode-No-264/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode No.264
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-31 17:01:41 / 修改时间：17:21:58" itemprop="dateCreated datePublished" datetime="2020-07-31T17:01:41+08:00">2020-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a><a href="https://leetcode-cn.com/problems/ugly-number-ii" target="_blank" rel="noopener">丑数II</a></h1><p>编写一个程序，找出第 n 个丑数。</p>
+<p>丑数就是质因数只包含 2, 3, 5 的正整数。</p>
+<p>示例:</p>
+<blockquote>
+<p>输入: n = 10<br>输出: 12<br>解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。</p>
+</blockquote>
+<p>说明:  </p>
+<p>1 是丑数。<br>n 不超过1690。</p>
+<h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>显而易见，我们要找分解式为 2 3 5 构成的数。也容易想到，<strong>后面的丑数必然是由前面的丑数乘 2 3 5 得到的</strong>。</p>
+<p>但是从前往后顺序计算乘积，并且顺序存放的话，例如<code>2*5 &gt; 3*3</code>。可以看出先后顺序错位了，10先存放，而9后存放。</p>
+<p>因此要取计算的所有乘积的最小值, 这个最小值必然是从小到大的下一个ugly，解决了存放的错位问题。</p>
+<h3 id="但是对哪些乘积取最小值呢？"><a href="#但是对哪些乘积取最小值呢？" class="headerlink" title="但是对哪些乘积取最小值呢？"></a>但是对哪些乘积取最小值呢？</h3><p>前面的数都计算一遍乘积的话计算量太大</p>
+<p>想一下，假如有 2*3， 那么对所有x&gt;2,x*3必然没有2*3小，因此对 3 这个因子，只需要计算它和2的乘积即可。后面的肯定不是我们要找的最小乘积。</p>
+<p>因此，其实只要<strong>为每个因子找到当前最小的乘数即可</strong>。</p>
+<h3 id="怎么确定每个因子的当前最小乘数呢？"><a href="#怎么确定每个因子的当前最小乘数呢？" class="headerlink" title="怎么确定每个因子的当前最小乘数呢？"></a>怎么确定每个因子的当前最小乘数呢？</h3><p>要找当前最小的，首先要确定这个因子的候选乘数有哪些，然后在里面找最小的。</p>
+<h4 id="哪些是候选乘数？"><a href="#哪些是候选乘数？" class="headerlink" title="哪些是候选乘数？"></a>哪些是候选乘数？</h4><p>我们找当前最小乘数是为了找出下一个最小的丑数。假如要生成所有丑数的话，每个因子都必然要遍历去乘每一个数。</p>
+<p>换句话说，对这个因子，所有数都是要乘的，跑不了的，即所有没乘过的数，都是它的候选乘数。</p>
+<h4 id="最小的候选乘数"><a href="#最小的候选乘数" class="headerlink" title="最小的候选乘数"></a>最小的候选乘数</h4><p>既然所有数都要乘，而我们的数又是从小到大排列的，那么从前往后，第一个没有乘过的就是当前最小乘数。</p>
+<p>代码角度来看，即当前乘数为nums[i]，每乘一次，即i++,准备乘下一个数即可。</p>
+<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><p>注意我们有三个因子，因此需要用三个指针对三个因子维护他们的最小乘数。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">nthUglyNumber</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//动态规划，后面的数必然是前面的数乘 2 3 5得到</span>
+        <span class="token comment" spellcheck="true">//但是顺序进行的话 2*5 > 3*3 ，可以看出大小顺序不能保证，因此要取几个乘积的最小值,这个最小值必然是从小到大的下一个ugly</span>
+        <span class="token comment" spellcheck="true">//但是对哪些乘积取最小值呢？前面的数都计算一遍的话计算量太大。</span>
+        <span class="token comment" spellcheck="true">//想一下，假如有 2*3， 那么对所有x>2,x*3必然没有2*3小，因此对 3 这个乘积，其实只要找到最小的乘数即可，其他乘积也是一样</span>
+        <span class="token comment" spellcheck="true">//怎么确定每个乘积的最小乘数呢？显然每个乘积都要乘每个数，那么从前往后找没乘过的 就是当前最小乘数</span>
+
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">nums</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> p2<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>p3<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>p5<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//除1外 生成n-1个丑数</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> ugly_i<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token function">min</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>p2<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>p3<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>p5<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//取当前乘积最小值</span>
+            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>ugly_i<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//判断用的是哪个乘积，它的最小乘数要变了，注意重复的也算</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p2<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> p2<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p3<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span> p3<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p5<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">)</span> p5<span class="token operator">++</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>n<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/Blog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Blog/2020/07/28/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="prev" title="哈希表">
+      <i class="fa fa-chevron-left"></i> 哈希表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Blog/2020/07/31/LeetCode-No-221/" rel="next" title="LeetCode No.221">
+      LeetCode No.221 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#丑数II"><span class="nav-number">1.</span> <span class="nav-text">丑数II</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法思想"><span class="nav-number">2.</span> <span class="nav-text">算法思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#但是对哪些乘积取最小值呢？"><span class="nav-number">2.0.1.</span> <span class="nav-text">但是对哪些乘积取最小值呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么确定每个因子的当前最小乘数呢？"><span class="nav-number">2.0.2.</span> <span class="nav-text">怎么确定每个因子的当前最小乘数呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#哪些是候选乘数？"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">哪些是候选乘数？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最小的候选乘数"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">最小的候选乘数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/Blog/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/Blog/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/Blog/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=0&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/Blog/lib/anime.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.min.js"></script>
+  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/Blog/js/utils.js"></script>
+
+<script src="/Blog/js/motion.js"></script>
+
+
+<script src="/Blog/js/schemes/muse.js"></script>
+
+
+<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

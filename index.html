@@ -161,6 +161,247 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/31/LeetCode-No-221/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/31/LeetCode-No-221/" class="post-title-link" itemprop="url">LeetCode No.221</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-31 17:01:51 / 修改时间：17:50:49" itemprop="dateCreated datePublished" datetime="2020-07-31T17:01:51+08:00">2020-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最大正方形"><a href="#最大正方形" class="headerlink" title="最大正方形"></a><a href="https://leetcode-cn.com/problems/maximal-square" target="_blank" rel="noopener">最大正方形</a></h1><p>在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。</p>
+<p>示例:</p>
+<blockquote>
+<p>输入: </p>
+<p>1 0 1 0 0<br>1 0 1 1 1<br>1 1 1 1 1<br>1 0 0 1 0</p>
+<p>输出: 4</p>
+</blockquote>
+<h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>大正方形必然是由小正方形迭代上来的。因此这题是个明显的动态规划题，但是我们怎么去确定状态转移方程呢？</p>
+<h3 id="状态转移方程的理解"><a href="#状态转移方程的理解" class="headerlink" title="状态转移方程的理解"></a>状态转移方程的理解</h3><p>首先我们确定，正方形是从左上往右下进行延展(其他延展方向也行)。</p>
+<h5 id="我们什么时候可以延展这个正方形呢？"><a href="#我们什么时候可以延展这个正方形呢？" class="headerlink" title="我们什么时候可以延展这个正方形呢？"></a>我们什么时候可以延展这个正方形呢？</h5><p>首先新找到的点肯定得是 <code>1</code>，要不然不可能构成正方形。以matrix[i][j]位为1，我们可以得到示例如下：</p>
+<blockquote>
+<p>a a a x<br>a a a x<br>a a a x<br>x x x 1</p>
+</blockquote>
+<p>因为是正方形，所以假如 [i][j]位要构成新的正方形，那必然是从左上角的 a 区域延展下来的。</p>
+<p>但是即使 a 区域是正方形，[i][j]位是1，就一定形成新正方形吗？并没有</p>
+<p>当我们把正方形延展到[i][j]位时，其实[i]行和[j]列对应边也都扩展进去了，也就是上例的 x 区域，也要是1才能延展构成新正方形。</p>
+<h5 id="即我们现在知道延展正方形受限于哪些环境："><a href="#即我们现在知道延展正方形受限于哪些环境：" class="headerlink" title="即我们现在知道延展正方形受限于哪些环境："></a>即我们现在知道延展正方形受限于哪些环境：</h5><ul>
+<li><p>左上角的 a 区域的正方形有多大，新正方形则是边长++</p>
+</li>
+<li><p>x 区域，从[i][j]分别往左和往上走，能提供的最大边长。</p>
+<p>  如下，虽然 a 区域是边长3的正方形，本来想要以[i][j]为新顶点扩展成边长4的正方形，但是由于新的两条边长度只有1，满足不了边长4的正方形的要求。</p>
+<p>  因此[i][j]只能构成边长2的正方形。</p>
+</li>
+</ul>
+<blockquote>
+<p>受限于 x 区域新边长的延展<br>1 1 1 0<br>1 1 1 0<br>1 1 1 1<br>0 0 1 1</p>
+</blockquote>
+<h5 id="得出状态转移方程"><a href="#得出状态转移方程" class="headerlink" title="得出状态转移方程"></a>得出状态转移方程</h5><p>因此总结一下状态转移方程：</p>
+<p><code>[i][j]位的正方形边长=min( [i-1][j-1]的正方形边长，新的两边边长 ) + 1</code></p>
+<p>伪代码即 <code>dp[i][j]=min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1</code></p>
+<p>其中dp[i][j]表示[i][j]位作为左下角时，形成正方形的边长。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">maximalSquare</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">>></span><span class="token operator">&amp;</span> matrix<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//动态规划，如何理解dp的递归式</span>
+        <span class="token keyword">int</span> width<span class="token operator">=</span>matrix<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">if</span><span class="token punctuation">(</span>width<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> length<span class="token operator">=</span>matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">if</span><span class="token punctuation">(</span>length<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> <span class="token function">dp</span><span class="token punctuation">(</span>width<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token function">vector</span><span class="token punctuation">(</span>length<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> result<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>width<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+                    dp<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>dp<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    dp<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">></span>result<span class="token punctuation">)</span>
+                    result<span class="token operator">=</span>dp<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> result<span class="token operator">*</span>result<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/31/LeetCode-No-264/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/31/LeetCode-No-264/" class="post-title-link" itemprop="url">LeetCode No.264</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-31 17:01:41 / 修改时间：17:21:58" itemprop="dateCreated datePublished" datetime="2020-07-31T17:01:41+08:00">2020-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="丑数II"><a href="#丑数II" class="headerlink" title="丑数II"></a><a href="https://leetcode-cn.com/problems/ugly-number-ii" target="_blank" rel="noopener">丑数II</a></h1><p>编写一个程序，找出第 n 个丑数。</p>
+<p>丑数就是质因数只包含 2, 3, 5 的正整数。</p>
+<p>示例:</p>
+<blockquote>
+<p>输入: n = 10<br>输出: 12<br>解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。</p>
+</blockquote>
+<p>说明:  </p>
+<p>1 是丑数。<br>n 不超过1690。</p>
+<h1 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h1><p>显而易见，我们要找分解式为 2 3 5 构成的数。也容易想到，<strong>后面的丑数必然是由前面的丑数乘 2 3 5 得到的</strong>。</p>
+<p>但是从前往后顺序计算乘积，并且顺序存放的话，例如<code>2*5 &gt; 3*3</code>。可以看出先后顺序错位了，10先存放，而9后存放。</p>
+<p>因此要取计算的所有乘积的最小值, 这个最小值必然是从小到大的下一个ugly，解决了存放的错位问题。</p>
+<h3 id="但是对哪些乘积取最小值呢？"><a href="#但是对哪些乘积取最小值呢？" class="headerlink" title="但是对哪些乘积取最小值呢？"></a>但是对哪些乘积取最小值呢？</h3><p>前面的数都计算一遍乘积的话计算量太大</p>
+<p>想一下，假如有 2*3， 那么对所有x&gt;2,x*3必然没有2*3小，因此对 3 这个因子，只需要计算它和2的乘积即可。后面的肯定不是我们要找的最小乘积。</p>
+<p>因此，其实只要<strong>为每个因子找到当前最小的乘数即可</strong>。</p>
+<h3 id="怎么确定每个因子的当前最小乘数呢？"><a href="#怎么确定每个因子的当前最小乘数呢？" class="headerlink" title="怎么确定每个因子的当前最小乘数呢？"></a>怎么确定每个因子的当前最小乘数呢？</h3><p>要找当前最小的，首先要确定这个因子的候选乘数有哪些，然后在里面找最小的。</p>
+<h4 id="哪些是候选乘数？"><a href="#哪些是候选乘数？" class="headerlink" title="哪些是候选乘数？"></a>哪些是候选乘数？</h4><p>我们找当前最小乘数是为了找出下一个最小的丑数。假如要生成所有丑数的话，每个因子都必然要遍历去乘每一个数。</p>
+<p>换句话说，对这个因子，所有数都是要乘的，跑不了的，即所有没乘过的数，都是它的候选乘数。</p>
+<h4 id="最小的候选乘数"><a href="#最小的候选乘数" class="headerlink" title="最小的候选乘数"></a>最小的候选乘数</h4><p>既然所有数都要乘，而我们的数又是从小到大排列的，那么从前往后，第一个没有乘过的就是当前最小乘数。</p>
+<p>代码角度来看，即当前乘数为nums[i]，每乘一次，即i++,准备乘下一个数即可。</p>
+<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><p>注意我们有三个因子，因此需要用三个指针对三个因子维护他们的最小乘数。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">nthUglyNumber</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//动态规划，后面的数必然是前面的数乘 2 3 5得到</span>
+        <span class="token comment" spellcheck="true">//但是顺序进行的话 2*5 > 3*3 ，可以看出大小顺序不能保证，因此要取几个乘积的最小值,这个最小值必然是从小到大的下一个ugly</span>
+        <span class="token comment" spellcheck="true">//但是对哪些乘积取最小值呢？前面的数都计算一遍的话计算量太大。</span>
+        <span class="token comment" spellcheck="true">//想一下，假如有 2*3， 那么对所有x>2,x*3必然没有2*3小，因此对 3 这个乘积，其实只要找到最小的乘数即可，其他乘积也是一样</span>
+        <span class="token comment" spellcheck="true">//怎么确定每个乘积的最小乘数呢？显然每个乘积都要乘每个数，那么从前往后找没乘过的 就是当前最小乘数</span>
+
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">nums</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> p2<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>p3<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>p5<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//除1外 生成n-1个丑数</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> ugly_i<span class="token operator">=</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token function">min</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>p2<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>p3<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>nums<span class="token punctuation">[</span>p5<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//取当前乘积最小值</span>
+            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>ugly_i<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//判断用的是哪个乘积，它的最小乘数要变了，注意重复的也算</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p2<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span> p2<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p3<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">3</span><span class="token punctuation">)</span> p3<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>ugly_i<span class="token operator">==</span>nums<span class="token punctuation">[</span>p5<span class="token punctuation">]</span><span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">)</span> p5<span class="token operator">++</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>n<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/28/%E5%93%88%E5%B8%8C%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1410,298 +1651,6 @@ custom_file_path<span class="token punctuation">:</span>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 16:15:57" itemprop="dateModified" datetime="2020-07-17T16:15:57+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><p><strong>前置知识：git使用方法，github建库方法，会在命令行里敲东西</strong></p>
-<h2 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h2><h3 id="1-1-node-JS"><a href="#1-1-node-JS" class="headerlink" title="1.1 node.JS"></a>1.1 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
-<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
-<h3 id="1-2-安装hexo"><a href="#1-2-安装hexo" class="headerlink" title="1.2 安装hexo"></a>1.2 安装hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。</p>
-<blockquote>
-<p>可以使用cmd，但我遇到了中文问题。</p>
-<p>powershell运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入 <code>set-executionpolicy remotesigned</code> 更改安全策略，允许运行脚本。</p>
-</blockquote>
-<p>运行<code>npm install -g hexo-cli</code>进行安装</p>
-<p>再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
-<h3 id="1-3-配置项目"><a href="#1-3-配置项目" class="headerlink" title="1.3 配置项目"></a>1.3 配置项目</h3><p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
-<p>运行<code>hexo init</code>初始化</p>
-<p>运行以下命令部署默认网页进行测试：</p>
-<pre class="line-numbers language-python"><code class="language-python">hexo new test_my_site
-
-hexo g
-
-hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
-<p>最后一段为：</p>
-<pre class="line-numbers language-python"><code class="language-python">deploy<span class="token punctuation">:</span>
-type<span class="token punctuation">:</span> git
-repo<span class="token punctuation">:</span> 仓库的完整路径，例如我的https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>Alobal<span class="token operator">/</span>Blog<span class="token punctuation">.</span>git
-branch<span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>URL小段为：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># URL</span>
-<span class="token comment" spellcheck="true">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span>
-url<span class="token punctuation">:</span> 访问网址，例如https<span class="token punctuation">:</span><span class="token operator">//</span>alobal<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token operator">/</span>Blog<span class="token operator">/</span>
-root<span class="token punctuation">:</span> 仓库名，例如<span class="token operator">/</span>Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>保存关闭该文件</p>
-<p>安装hexo的git部署插件<code>npm install hexo-deployer-git --save</code></p>
-<h3 id="1-4-测试发布效果"><a href="#1-4-测试发布效果" class="headerlink" title="1.4 测试发布效果"></a>1.4 测试发布效果</h3><p>运行以下命令进行测试</p>
-<pre class="line-numbers language-python"><code class="language-python">hexo clean
-hexo g
-hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:</code>大概就成功了。</p>
-<p>此时可以在github仓库看到hexo提交的文件<br>以及能通过访问网址查看你发布的默认博客</p>
-<h3 id="1-5-选一个你喜欢的主题"><a href="#1-5-选一个你喜欢的主题" class="headerlink" title="1.5 选一个你喜欢的主题"></a>1.5 选一个你喜欢的主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题库</a></p>
-<p>挑选一个合适的主题，比如很常见的Next，复制git地址，在本地项目文件夹下，命令行输入进行git clone</p>
-<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
-<blockquote>
-<p>注意next主题在2020之前是theme-next项目，2020版本是next-theme项目，配置字段有点不同，根据需要选择。19版本网上教程比较健全了。</p>
-</blockquote>
-<p>打开_config.yml，修改theme字段：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Extensions</span>
-<span class="token comment" spellcheck="true">## Plugins: https://hexo.io/plugins/</span>
-<span class="token comment" spellcheck="true">## Themes: https://hexo.io/themes/</span>
-theme<span class="token punctuation">:</span> 主题名，例如next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。<br>比如next主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Schemes</span>
-scheme<span class="token punctuation">:</span> Muse
-<span class="token comment" spellcheck="true">#scheme: Mist</span>
-<span class="token comment" spellcheck="true">#scheme: Pisces</span>
-<span class="token comment" spellcheck="true">#scheme: Gemini</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>重新<code>hexo g</code> <code>hexo d</code> 发布出去，让我们来看看效果。</p>
-<blockquote>
-<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
-</blockquote>
-<h2 id="2-hello，blog！"><a href="#2-hello，blog！" class="headerlink" title="2.hello，blog！"></a>2.hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
-<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> ,可以在 项目名/source/_posts/ 下面找到新建的markdown文件,文件头不动的情况下，写入你的markdown格式内容即可。</p>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
-<h2 id="4-错误汇总"><a href="#4-错误汇总" class="headerlink" title="4. 错误汇总"></a>4. 错误汇总</h2><p>4.1 can not find module xxx</p>
-<ul>
-<li>命令行<code>npm install</code> 安装所有依赖包完事。</li>
-</ul>
-<p>4.2 代码高亮无效</p>
-<ul>
-<li>根目录config里，修改配置如下：<pre class="line-numbers language-python"><code class="language-python">highlight<span class="token punctuation">:</span>
-enable<span class="token punctuation">:</span> true
-line_number<span class="token punctuation">:</span> true
-auto_detect<span class="token punctuation">:</span> true
-tab_replace<span class="token punctuation">:</span> <span class="token string">''</span>
-wrap<span class="token punctuation">:</span> true
-hljs<span class="token punctuation">:</span> true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li>next主题配置里，选择自己要的高亮样式：<pre class="line-numbers language-python"><code class="language-python">codeblock<span class="token punctuation">:</span>
-<span class="token comment" spellcheck="true"># Code Highlight theme</span>
-<span class="token comment" spellcheck="true"># All available themes: https://theme-next.js.org/highlight/</span>
-theme<span class="token punctuation">:</span>
-  light<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-  dark<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-prism<span class="token punctuation">:</span>
-  light<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-  dark<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-<span class="token comment" spellcheck="true"># Add copy button on codeblock</span>
-copy_button<span class="token punctuation">:</span>
-  enable<span class="token punctuation">:</span> true
-  <span class="token comment" spellcheck="true"># Available values: default | flat | mac</span>
-  style<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-05-15T01:01:11+08:00">2020-05-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:28:42" itemprop="dateModified" datetime="2020-07-17T11:28:42+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"><a href="#众所周知，派生类构造时先会初始化构造基类，然后构造自身。" class="headerlink" title="众所周知，派生类构造时先会初始化构造基类，然后构造自身。"></a>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</h5><h3 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h3><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-<span class="token keyword">class</span> <span class="token class-name">base</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-
-    <span class="token keyword">void</span> <span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x="</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "base
-"<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">class</span> <span class="token class-name">derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> base
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token punctuation">}</span>
-
-    <span class="token keyword">void</span> <span class="token function">dispd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a="</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "derived
-"<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    derived <span class="token function">obj</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    base<span class="token operator">*</span>p <span class="token operator">=</span><span class="token operator">&amp;</span>obj<span class="token punctuation">;</span>
-    p<span class="token operator">-</span><span class="token operator">></span><span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"PAUSE"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtt5j2vutj204p02f3yb.jpg" alt="x!=i"></p>
-<p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
-<blockquote>
-<p>想要正常构造，把base（a)改成base（i）即可。</p>
-</blockquote>
-<hr>
-<h3 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h3><h3 id="2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#2-1-假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>2.1 假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="会提示类base不存在默认构造函数。"><a href="#会提示类base不存在默认构造函数。" class="headerlink" title="会提示类base不存在默认构造函数。"></a>会提示类base不存在默认构造函数。</h5><p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
-<h3 id="2-2-假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？"><a href="#2-2-假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？" class="headerlink" title="2.2 假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？"></a>2.2 假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？</h3><p>增加一个无参数的基类构造函数：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h5 id="报错：形参-i-重定义——明明只声明了一次-i-，怎么就重定义了呢？把a-i-删去？还是报错重定义"><a href="#报错：形参-i-重定义——明明只声明了一次-i-，怎么就重定义了呢？把a-i-删去？还是报错重定义" class="headerlink" title="报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义"></a>报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义</h5><p>——<a href="https://segmentfault.com/q/1010000014553913" target="_blank" rel="noopener">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：</p>
-<h5 id="“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”"><a href="#“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”" class="headerlink" title="“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”"></a>“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</h5><h5 id="这里面存在-声明-语句-定义-等根本性语法的规则定义-具体了解得看其他详细资料，不过我们知道了报错是因为在-base-i-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。"><a href="#这里面存在-声明-语句-定义-等根本性语法的规则定义-具体了解得看其他详细资料，不过我们知道了报错是因为在-base-i-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。" class="headerlink" title="这里面存在 声明  语句 定义 等根本性语法的规则定义= =具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。"></a>这里面存在 声明  语句 定义 等根本性语法的规则定义= =具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</h5><h3 id="2-3-i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？"><a href="#2-3-i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？" class="headerlink" title="2.3 i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？"></a>2.3 i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</h3><p>派生类构造函数改成：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"base(int i): "</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>：<span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a:"</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="derived-8-运行，猜猜运行结果是什么？"><a href="#derived-8-运行，猜猜运行结果是什么？" class="headerlink" title="derived(8)运行，猜猜运行结果是什么？"></a>derived(8)运行，猜猜运行结果是什么？</h5><p>我们知道初始化a时，先会调用base（）<br>然后初始化a<br>然后进入函数体内输出a值<br>然后a传参给base（int i）<br>Really？<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtt5j06rmj20mi05hgln.jpg" alt="运行结果:"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1771,7 +1720,7 @@ copy_button<span class="token punctuation">:</span>
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1784,7 +1733,7 @@ copy_button<span class="token punctuation">:</span>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
