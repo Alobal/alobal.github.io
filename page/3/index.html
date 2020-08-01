@@ -161,6 +161,180 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a><a href="https://leetcode-cn.com/problems/3sum-closest" target="_blank" rel="noopener">最接近的三数之和</a></h1><blockquote>
+<p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+<blockquote>
+<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
+<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
+</blockquote>
+</blockquote>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
+<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
+<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
+</ul>
+<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3><pre><code>while(i&lt;j)
+{
+  if(sum&lt;target)
+    i++;
+  else if(sum&gt;target)
+    j--;
+  else if(sum==target)
+}
+</code></pre><ul>
+<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
+</ul>
+<blockquote>
+<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
+<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
+</blockquote>
+<ul>
+<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
+</ul>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    int threeSumClosest(vector&lt;int&gt;&amp; nums, int target)
+    {
+        int result;
+        sort(nums.begin(), nums.end());
+        vector&lt;int&gt; sums;
+        int a;
+        int b;
+        int c;
+        int sum;
+        int resultdistance = INT_MAX;
+
+        for (a = 0; a &lt; nums.size() - 2; a++)
+        {
+            b = a + 1;
+            c = nums.size() - 1;
+
+            while (b &lt; c)
+            {
+                sum = nums[a] + nums[b] + nums[c];
+
+
+                sums.push_back(sum);
+                if (sum &lt; target)
+                    b++;
+                else if (sum &gt; target)
+                    c--;
+                else
+                    return sum;
+            }
+
+        }
+
+        for(int i=0;i&lt;sums.size();i++)
+        {
+            if(abs(target - sums[i]) &lt; resultdistance)
+                {
+                    result = sums[i];
+                    resultdistance = abs(target - result);
+                }
+        }
+
+        return result;
+    }
+
+
+};</code></pre><hr>
+<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
+<table>
+<thead>
+<tr>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019.9.15</td>
+<td>通过</td>
+<td>12 ms</td>
+<td>8.7 MB</td>
+</tr>
+<tr>
+<td>2019.9.11</td>
+<td>通过</td>
+<td>16 ms</td>
+<td>12.9 MB</td>
+</tr>
+</tbody></table>
+<p>8ms可能是做不到了，量级上应该一样。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1545,243 +1719,6 @@ public:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-43/" class="post-title-link" itemprop="url">LeetCode-No-43</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字符串相乘"><a href="#字符串相乘" class="headerlink" title="字符串相乘"></a><a href="https://leetcode-cn.com/problems/multiply-strings" target="_blank" rel="noopener">字符串相乘</a></h1><blockquote>
-<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: num1 = “2”, num2 = “3”<br>输出: “6”</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: num1 = “123”, num2 = “456”<br>输出: “56088”</p>
-</blockquote>
-<p>说明：</p>
-<p>num1 和 num2 的长度小于110。<br>num1 和 num2 只包含数字 0-9。<br>num1 和 num2 均不以零开头，除非是数字 0 本身。<br>不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><blockquote>
-<p>//1 2 3 num1<br>//4 5 6 num2<br>//7 3 8+6 1 5 * 10+….. reverseresult</p>
-</blockquote>
-<h2 id="1-竖式暴力模拟"><a href="#1-竖式暴力模拟" class="headerlink" title="1. 竖式暴力模拟"></a>1. 竖式暴力模拟</h2><blockquote>
-<p>因为现实竖式乘法是从右到左落位, 程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
-<p>当然这个可以优化</p>
-</blockquote>
-<h4 id="1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><a href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1" class="headerlink" title="1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1"></a>1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4><h4 id="1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><a href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果" class="headerlink" title="1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果."></a>1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</h4><h4 id="1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><a href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数" class="headerlink" title="1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数"></a>1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4><h4 id="1-4-因为最后一位乘过了就没用了-num2-pop-back"><a href="#1-4-因为最后一位乘过了就没用了-num2-pop-back" class="headerlink" title="1.4  因为最后一位乘过了就没用了,num2.pop_back(),"></a>1.4  因为最后一位乘过了就没用了,num2.pop_back(),</h4><h4 id="1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><a href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数" class="headerlink" title="1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数"></a>1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数</h4><h4 id="1-6-num2所有数都用过了即num2-””-结束循环"><a href="#1-6-num2所有数都用过了即num2-””-结束循环" class="headerlink" title="1.6 num2所有数都用过了即num2=””,结束循环"></a>1.6 num2所有数都用过了即num2=””,结束循环</h4><h4 id="1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><a href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位" class="headerlink" title="1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位"></a>1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</h4><h4 id="1-8-将累加结果result反转-得到真实结果"><a href="#1-8-将累加结果result反转-得到真实结果" class="headerlink" title="1.8 将累加结果result反转, 得到真实结果"></a>1.8 将累加结果result反转, 得到真实结果</h4><p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想, 权当一个编码锻炼.</p>
-<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
-
-        string result;
-        string tempresult;
-        string zerostring;
-        int i;
-        int cflag = 0;
-        while (num2 != &quot;&quot;)//num1对num2每个数逐个相乘,每次result=result+currentresult*10
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {
-                tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);
-                cflag = ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) / 10;
-            }
-            //乘到最后一个数还剩下cflag
-            if (cflag &gt; 0)
-                tempresult.push_back(&#39;0&#39; + cflag);
-            //用零串移位
-            tempresult = zerostring + tempresult;
-            //相加上下两个字符串
-            ADDstring(result, tempresult);
-            //乘完num2的一个数num2把用过的数pop
-            num2.pop_back();
-            //临时数据清空
-            tempresult.clear();
-            zerostring += &quot;0&quot;;
-            cflag = 0;
-        }
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-        string reverseresult;
-        for (int j = result.size() - 1; j &gt;= 0; j--)
-            reverseresult.push_back(result[j]);
-        return reverseresult;
-    }
-
-    void ADDstring(string&amp; up, string&amp; down)//up和down字符串数值相加,结果存在up里,仅适用倒序存储
-    {
-        int j = 0;
-        int cflag = 0;
-        int temp = 0;
-        //result接在up上面
-        while (j &lt; down.size())
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);
-                cflag = ((down[j] - &#39;0&#39;) + cflag) / 10;
-            }
-
-            j++;
-        }
-        while (cflag != 0)
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(cflag % 10 + &#39;0&#39;);
-                cflag = cflag / 10;
-            }
-        }
-
-
-    }
-
-};</code></pre><h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
-<p>//1 2 3 num1[i]   //为示范简单,这里序号从右往左编码,程序中需要转换<br>//4 5 6 num2[j]<br>//例如num1[0]和num2[0]相乘 : 3X6=18<br>肯定影响到了result[0+0],有进位则会影响到result[0+0+1], result其他的值则肯定不会改变</p>
-</blockquote>
-<h4 id="2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><a href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果" class="headerlink" title="2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,"></a>2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</h4><h4 id="2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><a href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可" class="headerlink" title="2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可"></a>2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</h4><h4 id="2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><a href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop" class="headerlink" title="2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop"></a>2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4><blockquote>
-<p>事实证明对于一些修改字符串的操作还是小心为慎, 虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 , <strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%= =.</p>
-</blockquote>
-<h4 id="2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><a href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转" class="headerlink" title="2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转."></a>2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</h4><blockquote>
-<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
-</blockquote>
-<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
-
-
-        string result;
-        int totallength=num1.size()+num2.size();//result最大可能长度
-        int i;
-        int j=0;
-        int cflag =0;
-        int temp=0;//i+j位和存储器
-
-
-        for(i=0;i&lt;totallength;i++)//初始化填充
-        {
-            result.push_back(&#39;0&#39;);
-        }
-        //反向填充,可以不需要在最后reverse,....好像对效率影响不大
-        //把num2.pop()删掉了,终于从8ms提到了4ms......
-        while (j&lt;num2.size())//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {   //因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)
-                temp=(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);
-                //连续进位怎么办?临时存储?循环清理干净?
-                //临时存储试试
-                result[totallength-1-((num1.size()-i-1)+j+1)]+=temp/10;
-                result[totallength-1-((num1.size()-i-1)+j)]=&#39;0&#39;+temp%10;
-            }
-
-
-            j++;
-        }
-        //不需要检查最后一位要不要进位
-
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-
-        //跳过头部的0
-        if(result[0]!=&#39;0&#39;)
-            return result;
-        else
-            return result.substr(1);
-    }
-
-
-};</code></pre><hr>
-<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1851,14 +1788,14 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
