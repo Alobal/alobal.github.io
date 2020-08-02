@@ -161,6 +161,132 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Pandas-DataFrame-OLS入门问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:25:29" itemprop="dateModified" datetime="2020-07-17T11:25:29+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响"><a href="#一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响" class="headerlink" title="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响"></a>一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响</h1><blockquote>
+<p>对于Price列,值为字符串类型, 形同 “单价12345元/平米”<br>怎么把12345提取出来并且替换原字符串值</p>
+</blockquote>
+<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><pre><code>import re
+import pandas as pd
+def Str2Price(oristr):# 提取oristr中的数字并返回int结果
+    pattern=re.compile(&quot;\d+&quot;)
+    result=pattern.findall(oristr)
+    return int(result[0])
+
+oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</code></pre><h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><pre><code>for i in oridata[&#39;unitPrice&#39;]:
+    i=Str2Price(i)
+
+oridata.head()</code></pre><h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].size):
+    oridata[&#39;unitPrice&#39;][i]=Str2Price(oridata[&#39;unitPrice&#39;][i])</code></pre><h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
+    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])</code></pre><h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
+<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><pre><code>import re
+import pandas as pd
+import statsmodels.api as sm
+def Str2Price(oristr):
+    pattern=re.compile(&quot;\d+&quot;)
+    result=pattern.findall(oristr)
+    return int(result[0])
+
+
+oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)
+
+for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
+    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])
+
+for i in range(0,oridata[&#39;attentionNum&#39;].values.size):
+    oridata[&#39;attentionNum&#39;].values[i]=Str2Price(oridata[&#39;attentionNum&#39;].values[i])
+oridata.head()
+x=oridata[[&#39;attentionNum&#39;]]
+y=oridata[[&#39;unitPrice&#39;]]
+x1=sm.add_constant(x)
+
+est=sm.OLS(y,x1).fit()
+est.summary()</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
+<h2 id="解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float"><a href="#解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float" class="headerlink" title="解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)"></a>解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)</h2><blockquote>
+<p>但是字符串直接转成float时依然有这个错误, 有点奇怪 理应和astype(float)作用相同<br>——查看类型发现float是float类型,astype(float)是numpy.float64类型…..</p>
+</blockquote>
+<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><pre><code>est=sm.OLS(y.astype(float),x1.astype(float)).fit()</code></pre><h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
+<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><pre><code>import statsmodels.api as sm #  最小二乘
+from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息
+x = sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y=kx+b
+y = daily_data[&#39;cnt&#39;]
+regr = sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model
+res = regr.fit()    # res.model.endog
+#  从模型获得拟合数据
+st, data, ss2 = summary_table(res, alpha=0.05) #  置信水平alpha=5%，st数据汇总，data数据详情，ss2数据列名
+fitted_values = data[:,2]  # 等价于res.fittedvalues
+————————————————
+模型原文链接：https://blog.csdn.net/cymy001/article/details/78364652</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -406,227 +532,6 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:31:44" itemprop="dateModified" datetime="2020-07-17T11:31:44+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><h5 id="前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"><a href="#前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。" class="headerlink" title="前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"></a>前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。</h5><h2 id="解决步骤："><a href="#解决步骤：" class="headerlink" title="解决步骤："></a>解决步骤：</h2><ol>
-<li><p>打开windows【服务】面板</p>
-<p> 1.1 可以WIN+R 输入 services.msc 打开</p>
-<p> 1.2 也可以在win10的搜索框中直接搜索 “服务”</p>
-</li>
-<li><p>按【v】键，快速找到vmware相关服务，全部 右键-属性-禁用，且停止运行。</p>
-</li>
-<li><p>全部停止运行后，任务管理器已经可以关掉vm的主进程，但其实后台还有一个vmware-vmx没关掉，也关不掉。</p>
-</li>
-<li><p>此时【重启】电脑，注意是重启，不是关机再开机，可以发现vmware-vmx已经没有了</p>
-</li>
-<li><p>但和其他博客说的不同，此时恢复vmware相关服务，再开虚拟机一样是卡死，同样的问题。</p>
-</li>
-<li><p>因此打开vmware的安装程序，准备修复，先别点下修复= =（文件夹里找，或者控制面板-卸载或更改程序里找）</p>
-</li>
-<li><p>我修复运行的时候，提示无法写入文件glib-2.0.dll，vmPerfmon.dll，所以修复之前可以手动先删除这两个文件看看= =在vmware安装目录下面，假如无法删除可以把后缀名改为.txt，这样就不会阻碍vmware的修复程序。</p>
-</li>
-<li><p>修复程序运行完成，打开vmware，提示你更新新版本，或者你自己选项里检查更新一下= =，换到新版本。当然你直接卸载下一个应该也是一样。</p>
-</li>
-<li><p>我升级到15.5.1，重启之后可以正常运行，并且之前的虚拟机信息没有丢失。</p>
-</li>
-</ol>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h5 id="应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧"><a href="#应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧" class="headerlink" title="应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= ="></a>应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= =</h5>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Pandas-DataFrame-OLS入门问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:25:29" itemprop="dateModified" datetime="2020-07-17T11:25:29+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响"><a href="#一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响" class="headerlink" title="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响"></a>一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响</h1><blockquote>
-<p>对于Price列,值为字符串类型, 形同 “单价12345元/平米”<br>怎么把12345提取出来并且替换原字符串值</p>
-</blockquote>
-<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><pre><code>import re
-import pandas as pd
-def Str2Price(oristr):# 提取oristr中的数字并返回int结果
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
-
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</code></pre><h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><pre><code>for i in oridata[&#39;unitPrice&#39;]:
-    i=Str2Price(i)
-
-oridata.head()</code></pre><h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].size):
-    oridata[&#39;unitPrice&#39;][i]=Str2Price(oridata[&#39;unitPrice&#39;][i])</code></pre><h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])</code></pre><h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
-<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><pre><code>import re
-import pandas as pd
-import statsmodels.api as sm
-def Str2Price(oristr):
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
-
-
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)
-
-for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])
-
-for i in range(0,oridata[&#39;attentionNum&#39;].values.size):
-    oridata[&#39;attentionNum&#39;].values[i]=Str2Price(oridata[&#39;attentionNum&#39;].values[i])
-oridata.head()
-x=oridata[[&#39;attentionNum&#39;]]
-y=oridata[[&#39;unitPrice&#39;]]
-x1=sm.add_constant(x)
-
-est=sm.OLS(y,x1).fit()
-est.summary()</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
-<h2 id="解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float"><a href="#解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float" class="headerlink" title="解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)"></a>解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)</h2><blockquote>
-<p>但是字符串直接转成float时依然有这个错误, 有点奇怪 理应和astype(float)作用相同<br>——查看类型发现float是float类型,astype(float)是numpy.float64类型…..</p>
-</blockquote>
-<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><pre><code>est=sm.OLS(y.astype(float),x1.astype(float)).fit()</code></pre><h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
-<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><pre><code>import statsmodels.api as sm #  最小二乘
-from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息
-x = sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y=kx+b
-y = daily_data[&#39;cnt&#39;]
-regr = sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model
-res = regr.fit()    # res.model.endog
-#  从模型获得拟合数据
-st, data, ss2 = summary_table(res, alpha=0.05) #  置信水平alpha=5%，st数据汇总，data数据详情，ss2数据列名
-fitted_values = data[:,2]  # 等价于res.fittedvalues
-————————————————
-模型原文链接：https://blog.csdn.net/cymy001/article/details/78364652</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,6 +650,101 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:31:44" itemprop="dateModified" datetime="2020-07-17T11:31:44+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><h5 id="前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"><a href="#前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。" class="headerlink" title="前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"></a>前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。</h5><h2 id="解决步骤："><a href="#解决步骤：" class="headerlink" title="解决步骤："></a>解决步骤：</h2><ol>
+<li><p>打开windows【服务】面板</p>
+<p> 1.1 可以WIN+R 输入 services.msc 打开</p>
+<p> 1.2 也可以在win10的搜索框中直接搜索 “服务”</p>
+</li>
+<li><p>按【v】键，快速找到vmware相关服务，全部 右键-属性-禁用，且停止运行。</p>
+</li>
+<li><p>全部停止运行后，任务管理器已经可以关掉vm的主进程，但其实后台还有一个vmware-vmx没关掉，也关不掉。</p>
+</li>
+<li><p>此时【重启】电脑，注意是重启，不是关机再开机，可以发现vmware-vmx已经没有了</p>
+</li>
+<li><p>但和其他博客说的不同，此时恢复vmware相关服务，再开虚拟机一样是卡死，同样的问题。</p>
+</li>
+<li><p>因此打开vmware的安装程序，准备修复，先别点下修复= =（文件夹里找，或者控制面板-卸载或更改程序里找）</p>
+</li>
+<li><p>我修复运行的时候，提示无法写入文件glib-2.0.dll，vmPerfmon.dll，所以修复之前可以手动先删除这两个文件看看= =在vmware安装目录下面，假如无法删除可以把后缀名改为.txt，这样就不会阻碍vmware的修复程序。</p>
+</li>
+<li><p>修复程序运行完成，打开vmware，提示你更新新版本，或者你自己选项里检查更新一下= =，换到新版本。当然你直接卸载下一个应该也是一样。</p>
+</li>
+<li><p>我升级到15.5.1，重启之后可以正常运行，并且之前的虚拟机信息没有丢失。</p>
+</li>
+</ol>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h5 id="应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧"><a href="#应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧" class="headerlink" title="应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= ="></a>应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= =</h5>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -826,6 +826,134 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
 <p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
 <h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
+<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
+import pandas as pd
+from sklearn import tree
+</code></pre></li>
+</ul>
+<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
+<pre><code>&lt;br/&gt;
+###       df.head()结果视图:
+![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
+&lt;br/&gt;
+###    2. 整理数据
+- ###    sklearn 要求属性都是数值型,所以要转化整理数据
+- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
+- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
+- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
+</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
+<p>df.head()</p>
+<pre><code>&lt;br/&gt;
+###   处理后视图:
+![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
+
+###    3. 分离决策属性和目标列
+  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
+<pre><code>&lt;br/&gt;
+###    4. 显示图形数据
+&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
+----------------------
+&lt;br/&gt;
+- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
+- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
+- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
+&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
+
+- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
+
+- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
+- ###    samples是包含的样本数
+- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
+<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
+<pre><code>&lt;br/&gt;
+###    显示结果:
+![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
+
+###    集成学习——随机森林
+
+###    一棵决策树可能会对样本过拟合,所以用随机森林投票
+- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
+<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
+<pre><code>&lt;br/&gt;
+&lt;br/&gt;
+-----------------------------------------------
+
+#  另附学代码惨痛反思:
+###    以后学敲代码报错 先!
+###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
       
     </div>
 
@@ -1095,7 +1223,7 @@ from sklearn.naive_bayes import MultinomialNB
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1109,7 +1237,7 @@ from sklearn.naive_bayes import MultinomialNB
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/" class="post-title-link" itemprop="url">计算机视觉实验2-1——目标轮廓提取,-复制目标</a>
+            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
         </h2>
 
         <div class="post-meta">
@@ -1126,157 +1254,7 @@ from sklearn.naive_bayes import MultinomialNB
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:33:42" itemprop="dateModified" datetime="2020-07-17T11:33:42+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="原图"></p>
-<h1 id="目标-复制图中的这棵树"><a href="#目标-复制图中的这棵树" class="headerlink" title="目标: 复制图中的这棵树"></a>目标: 复制图中的这棵树</h1><ol>
-<li>我们肯定先要提取树, 然后才能复制<ol start="2">
-<li>怎么提取呢?我想的是先找到树的轮廓, 然后把树的轮廓内所有像素都遍历复制一遍就好了.<blockquote>
-<p>好像更应该使用连通域的概念, 而不是轮廓查找. 有兴趣可以试试</p>
-</blockquote>
-</li>
-<li>轮廓怎么识别呢? 有个findContours函数可以自动查找轮廓, 但是很容易就把各种树叶缝隙, 各种坑坑洼洼识别成了轮廓, 所以要预处理一下, 清理不必要的信息.</li>
-</ol>
-</li>
-</ol>
-<h1 id="1-图像预处理"><a href="#1-图像预处理" class="headerlink" title="1. 图像预处理"></a>1. 图像预处理</h1><p>findContours要求传入的图像是二值的, 因此我们先要对原图灰度化, 并且进行阈值分割成二值图像.</p>
-<p><strong>读取图片, 灰度化处理:</strong></p>
-<pre><code>from cv2 import cv2
-import matplotlib.pyplot as plt
-img=cv2.imread(&quot;./tree.jpg&quot;)
-
-# 灰度 阈值分割二值化处理
-grey=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-cv2.imshow(&quot;grey&quot;,grey)</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
-<p><strong>阈值分割:</strong><br>这里注意用了个<strong>高斯模糊</strong>去噪, 可以在分割时避免坑坑洼洼的噪音, 和树叶的不完整性.</p>
-<p>cv2.THRESH_BINARY_INV, cv2.THRESH_OTSU 是一些处理参数: </p>
-<ul>
-<li>前者决定了阈值反转处理, 即超过阈值的置0, 低于阈值的置255</li>
-<li>后者决定了使用OTSU阈值进行分割<pre><code>grey=cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪
-ret,theimg=cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</code></pre><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
-</ul>
-<h1 id="2-运用findContours轮廓识别"><a href="#2-运用findContours轮廓识别" class="headerlink" title="2. 运用findContours轮廓识别"></a>2. 运用findContours轮廓识别</h1><h5 id="contours-hier-findContours-srcimg-mode-method"><a href="#contours-hier-findContours-srcimg-mode-method" class="headerlink" title="contours, hier=findContours(srcimg, mode, method)"></a>contours, hier=findContours(srcimg, mode, method)</h5><ul>
-<li>返回值contours,是查找到的所有轮廓信息</li>
-<li>返回值hier, 是所有轮廓信息的层级关系, 这里因为是找外轮廓, 不需要</li>
-<li>srcimg, 输入的二值图像</li>
-<li>mode, 查找模式, 例如RETR_EXTERNAL是仅查找外轮廓, 其他的模式自行了解</li>
-<li>method, 轮廓信息的近似方法, 就决定怎么存下查找的轮廓, 例如CHAIN_APPROX_NONE 是存储所有轮廓点</li>
-<li>CHAIN_APPROX_SIMPLE 压缩, 将每个方向的所有点由 起点 和 终点 , 两个点代替</li>
-</ul>
-<blockquote>
-<p>实际切割的时候发现树根和地面难以分割, 会识别成一个大轮廓, 腐蚀膨胀操作也没能处理好, 因此用上了简单粗暴的办法, 手动把土地部分切掉.</p>
-</blockquote>
-<pre><code># 因为树和地连在一起不好分离, 手动切割
-height,width=theimg.shape
-treeimg=theimg[:int(2*height/3)-30,:]# 提取出不包含地面的上部分
-# 轮廓提取
-contours,hier=cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</code></pre><h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
-<p>cv2.contourArea(contour) , 计算轮廓面积<br>cv2.drawContours(drawimg,contours,i,color,thick), 绘制函数</p>
-<ul>
-<li>在drawimg图上直接绘制</li>
-<li>contours即传入所有轮廓</li>
-<li>i为绘制的轮廓在contours中的下标, 如果为负则绘制所有轮廓</li>
-<li>color, thick ,绘制的颜色 粗细</li>
-</ul>
-<pre><code>#  #在原图上画出轮廓, 并且找出属于树的轮廓
-treei=0
-for i in range(len(contours)):
-    area=cv2.contourArea(contours[i])
-    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号
-        drawimg=img.copy()# 拿张图来画个轮廓示意
-        cv2.drawContours(drawimg,contours,i,(0,0,255),3)
-        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)
-        treei=i
-        break</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
-<h1 id="4-轮廓内像素复制"><a href="#4-轮廓内像素复制" class="headerlink" title="4. 轮廓内像素复制"></a>4. 轮廓内像素复制</h1><p>关键问题在于, 如何判断像素是否在轮廓内:<br>cv2.pointPolygonTest(contour, point, flag):</p>
-<ul>
-<li>contour , 比较的轮廓</li>
-<li>point, 比较的点, 注意图像坐标系, 例如img[i][j] 实际上是(j, i) 点</li>
-<li>flag, True时会计算和轮廓的距离, False则仅判断是否在轮廓内</li>
-<li>返回 1 在轮廓内, 0 在轮廓上, -1 轮廓外</li>
-</ul>
-<p>另外这里注意我们可以通过<code>cv2.boundingRect</code>找到轮廓的边界信息, 返回 x, y , w, h, 分别是轮廓左上角的(x, y), 宽度w, 高度h, 即描述了一个轮廓的外接矩形信息.</p>
-<p>有了边界信息, 就可以在边界内遍历, 不需要遍历整张图片</p>
-<p>最后将轮廓内的点复制到想要的地方即可</p>
-<pre><code>x,y,w,h=cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图
-# 将轮廓内的点复制到左边
-for i in range(y,y+h):
-    for j in range(x,x+w):
-        if(cv2.pointPolygonTest(contours[treei],(j,i),False)==1):# 测试点是否在轮廓内的函数
-            img[i+10,j-500]=img[i,j].copy()# 偏移左边</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1299,62 +1277,62 @@ for i in range(y,y+h):
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
-<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
-import pandas as pd
-from sklearn import tree
+          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
+<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
+<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><pre><code>import pandas as pd
+# user评分表
+r_cols=[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]
+ratings=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep=&#39;    &#39;,names=r_cols,usecols=range(3),encoding=&quot;ISO-8859-1&quot;)
+# movie的id和title对应表
+m_cols=[&#39;movie_id&#39;,&#39;title&#39;]
+movies=pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep=&#39;|&#39;,names=m_cols,usecols=range(2),encoding=&quot;ISO-8859-1&quot;)
+# 连接两表
+ratings=pd.merge(ratings,movies)
+ratings.head()</code></pre></li>
+</ul>
+<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
+<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><pre><code>movieRatings=ratings.pivot_table(index=[&#39;user_id&#39;],columns=[&#39;title&#39;],values=&#39;rating&#39;)
+movieRatings.head()</code></pre></li>
+</ul>
+<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
+<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
+<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
+</ul>
+<pre><code>starWarsRatings=movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表
+similar2starWars=movieRatings.corrwith(starWarsRatings)
+similar2starWars=similar2starWars.dropna()
+df=pd.DataFrame(similar2starWars)
+df.sort_values(0,ascending=False)</code></pre><h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
+<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
+<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><pre><code>import numpy as np
+movieStats=ratings.groupby(&#39;title&#39;).agg({&#39;rating&#39;:[np.size,np.mean]})
+movieStats.head()</code></pre></li>
+</ul>
+<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
+<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><pre><code>popularMovies=movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;=100 # size大于100的index+T/F列表
+#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending=False)[:15] #显示筛选后的表 , mutiindex需要指定两层
+similar2starWars.name=&#39;similarity&#39;
+df=movieStats[popularMovies].join(similar2starWars)
+df.sort_values([&#39;similarity&#39;],ascending=False)[:15]
 </code></pre></li>
 </ul>
-<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
-<pre><code>&lt;br/&gt;
-###       df.head()结果视图:
-![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
-&lt;br/&gt;
-###    2. 整理数据
-- ###    sklearn 要求属性都是数值型,所以要转化整理数据
-- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
-- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
-- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
-</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
-<p>df.head()</p>
-<pre><code>&lt;br/&gt;
-###   处理后视图:
-![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
-
-###    3. 分离决策属性和目标列
-  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
-<pre><code>&lt;br/&gt;
-###    4. 显示图形数据
-&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
-----------------------
-&lt;br/&gt;
-- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
-- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
-- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
-&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
-
-- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
-
-- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
-- ###    samples是包含的样本数
-- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
-<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
-<pre><code>&lt;br/&gt;
-###    显示结果:
-![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
-
-###    集成学习——随机森林
-
-###    一棵决策树可能会对样本过拟合,所以用随机森林投票
-- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
-<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
-<pre><code>&lt;br/&gt;
-&lt;br/&gt;
------------------------------------------------
-
-#  另附学代码惨痛反思:
-###    以后学敲代码报错 先!
-###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
+<pre><code>
+###    5. 整理成推荐电影系统
+- ####     df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量
+- - ####     method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</code></pre><p>import pandas as pd</p>
+<h1 id="user评分表"><a href="#user评分表" class="headerlink" title="user评分表"></a>user评分表</h1><p>r_cols=[‘user_id’,’movie_id’,’rating’]<br>ratings=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data”,sep=’    ‘,names=r_cols,usecols=range(3),encoding=”ISO-8859-1”)</p>
+<h1 id="movie的id和title对应表"><a href="#movie的id和title对应表" class="headerlink" title="movie的id和title对应表"></a>movie的id和title对应表</h1><p>m_cols=[‘movie_id’,’title’]<br>movies=pd.read_csv(“C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item”,sep=’|’,names=m_cols,usecols=range(2),encoding=”ISO-8859-1”)</p>
+<h1 id="连接两表"><a href="#连接两表" class="headerlink" title="连接两表"></a>连接两表</h1><p>ratings=pd.merge(ratings,movies)</p>
+<h1 id="按user-id生成聚合图"><a href="#按user-id生成聚合图" class="headerlink" title="按user_id生成聚合图"></a>按user_id生成聚合图</h1><p>userRatings=ratings.pivot_table(index=[‘user_id’],columns=[‘title’],values=’rating’)</p>
+<h1 id="生成相关系数矩阵"><a href="#生成相关系数矩阵" class="headerlink" title="生成相关系数矩阵"></a>生成相关系数矩阵</h1><p>corrMatrix=userRatings.corr(method=’pearson’,min_periods=150)</p>
+<p>testuser=userRatings.loc[0].dropna()</p>
+<p>def GenerateSimCandidates(myRatings):<br>    simCandidates=pd.Series()<br>    for i in range(0,len(myRatings.index)):<br>        print(“Adding sims for “+ myRatings.index[i]+”…”)<br>        # 筛选出myRatings.index[i]作为列标题的一整列<br>        sims=corrMatrix[myRatings.index[i]].dropna()<br>        # 评分加权,这一列所有value乘上评分<br>        sims=sims.map(lambda x:x*myRatings[i])<br>        simCandidates=simCandidates.append(sims)</p>
+<pre><code># 聚合重复项
+simCandidates=simCandidates.groupby(simCandidates.index).sum()
+# 整理排序    
+simCandidates.sort_values(inplace=True,ascending=False)
+return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(10))</p>
+<pre><code></code></pre>
       
     </div>
 
