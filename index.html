@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">链表</a>
+            <a href="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">é“¾è¡¨</a>
         </h2>
 
         <div class="post-meta">
@@ -184,17 +184,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-04 16:47:11 / 修改时间：23:56:00" itemprop="dateCreated datePublished" datetime="2020-08-04T16:47:11+08:00">2020-08-04</time>
+              <time title="创建时间：2020-08-04 16:47:11" itemprop="dateCreated datePublished" datetime="2020-08-04T16:47:11+08:00">2020-08-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-05 00:08:15" itemprop="dateModified" datetime="2020-08-05T00:08:15+08:00">2020-08-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/" itemprop="url" rel="index"><span itemprop="name">????</span></a>
+                  <a href="/Blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
                 </span>
             </span>
 
@@ -209,96 +215,96 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id=""><a href="#" class="headerlink" title="?????"></a>?????</h1><p>???????????????????????????????????????</p>
-<p>???????:</p>
+          <h1 id="单链表定义"><a href="#单链表定义" class="headerlink" title="单链表定义"></a>单链表定义</h1><p>一种内存中不连续的线性结构，但每个元素是单独的对象，元素之间通过指针链接起来。</p>
+<p>单链表常见定义:</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Definition for singly-linked list.</span>
 <span class="token keyword">struct</span> SinglyListNode <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
     SinglyListNode <span class="token operator">*</span>next<span class="token punctuation">;</span>
     <span class="token function">SinglyListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">val</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="-1"><a href="#-1" class="headerlink" title="?????"></a>?????</h1><h3 id="-2"><a href="#-2" class="headerlink" title="????"></a>????</h3><p>?<code>current</code>???<code>parent-&gt;child</code>?????<code>parent-&gt;current-&gt;child</code></p>
-<p>???????<code>parent-&gt;next=current</code>?<code>current-&gt;next=child</code></p>
-<p>????<code>parent==NULL</code>???</p>
+<h1 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h1><h3 id="插入结点"><a href="#插入结点" class="headerlink" title="插入结点"></a>插入结点</h3><p>将<code>current</code>插入到<code>parent-&gt;child</code>之中，成为<code>parent-&gt;current-&gt;child</code></p>
+<p>其中注意维护好<code>parent-&gt;next=current</code>和<code>current-&gt;next=child</code></p>
+<p>注意考虑<code>parent==NULL</code>的情况</p>
 <ul>
-<li>?????O(1)</li>
+<li>时间复杂度O(1)</li>
 </ul>
-<p>????:</p>
+<p>示意代码:</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token punctuation">{</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>parent<span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         current<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>parent<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
         parent<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>current<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">else</span><span class="token comment" spellcheck="true">//parent?NULL??????</span>
+    <span class="token keyword">else</span><span class="token comment" spellcheck="true">//parent为NULL，即头部插入</span>
     <span class="token punctuation">{</span>
         current<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>child<span class="token punctuation">;</span>
-        head<span class="token operator">=</span>current<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//?????</span>
+        head<span class="token operator">=</span>current<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//更新头结点</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="-3"><a href="#-3" class="headerlink" title="????"></a>????</h3><p><code>parent-&gt;current-&gt;child</code>???<code>current</code>?</p>
-<p>???????<code>parent-&gt;next=child</code>?<code>current-&gt;next=NULL</code></p>
-<p>????<code>parent==NULL</code>???</p>
+<h3 id="删除结点"><a href="#删除结点" class="headerlink" title="删除结点"></a>删除结点</h3><p><code>parent-&gt;current-&gt;child</code>中删除<code>current</code>。</p>
+<p>其中注意维护好<code>parent-&gt;next=child</code>和<code>current-&gt;next=NULL</code></p>
+<p>注意考虑<code>parent==NULL</code>的情况</p>
 <ul>
-<li>?????O(1)</li>
+<li>时间复杂度O(1)</li>
 </ul>
-<p>????:</p>
+<p>示意代码:</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token punctuation">{</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>parent<span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         parent<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>current<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
         current<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">else</span><span class="token comment" spellcheck="true">//????</span>
+    <span class="token keyword">else</span><span class="token comment" spellcheck="true">//头部删除</span>
     <span class="token punctuation">{</span>
         head<span class="token operator">=</span>current<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
         current<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="-4"><a href="#-4" class="headerlink" title="????"></a>????</h1><h3 id="-5"><a href="#-5" class="headerlink" title="????????"></a>????????</h3><p><strong>???</strong>����??????????????????</p>
+<h1 id="相关算法"><a href="#相关算法" class="headerlink" title="相关算法"></a>相关算法</h1><h3 id="判断链表是否有环"><a href="#判断链表是否有环" class="headerlink" title="判断链表是否有环"></a>判断链表是否有环</h3><p><strong>双指针</strong>————假如有环，快指针将迟早能和慢指针相遇</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"> <span class="token keyword">bool</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>head<span class="token punctuation">)</span> 
 <span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>head<span class="token operator">==</span><span class="token constant">NULL</span> <span class="token operator">||</span> head<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//???????</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>head<span class="token operator">==</span><span class="token constant">NULL</span> <span class="token operator">||</span> head<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//空链表或单结点</span>
         <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
     ListNode<span class="token operator">*</span> fast<span class="token operator">=</span>head<span class="token punctuation">;</span>
     <span class="token keyword">while</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//??????</span>
+        <span class="token comment" spellcheck="true">//快慢指针移动</span>
         fast<span class="token operator">=</span>fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
             fast<span class="token operator">=</span>fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
         head<span class="token operator">=</span>head<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
 
-        <span class="token comment" spellcheck="true">//?????????</span>
+        <span class="token comment" spellcheck="true">//检查移动后是否相遇</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>fast<span class="token operator">==</span>head<span class="token punctuation">)</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="-6"><a href="#-6" class="headerlink" title="????????"></a>????????</h3><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/c-shuang-zhi-zhen-z-by-zrita/" target="_blank" rel="noopener">????</a></p>
-<p><strong>???</strong>����?????????????</p>
-<h5 id="-7"><a href="#-7" class="headerlink" title="??????:"></a>??????:</h5><ul>
-<li>???? out</li>
-<li>???? in</li>
-<li>?? circle</li>
-<li>????????: <code>len_s=out+in</code></li>
-<li>????????: <code>len_f= out+in+n*circle</code></li>
+<h3 id="寻找链表环的入口"><a href="#寻找链表环的入口" class="headerlink" title="寻找链表环的入口"></a>寻找链表环的入口</h3><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/c-shuang-zhi-zhen-z-by-zrita/" target="_blank" rel="noopener">参考题解</a></p>
+<p><strong>双指针</strong>————同上方法等待快慢指针相遇。</p>
+<h5 id="第一次相遇时"><a href="#第一次相遇时" class="headerlink" title="第一次相遇时:"></a>第一次相遇时:</h5><ul>
+<li>环外距离 out</li>
+<li>环内距离 in</li>
+<li>环长 circle</li>
+<li>慢指针走过的距离: <code>len_s=out+in</code></li>
+<li>快指针走过的距离: <code>len_f= out+in+n*circle</code></li>
 </ul>
-<p>??<code>len_f=2*len_s</code> ???=?<code>len_s=n * circle</code></p>
-<p>???????????????? out ???</p>
-<h5 id="-8"><a href="#-8" class="headerlink" title="???????"></a>???????</h5><ul>
-<li>????????: <code>len_s=out</code></li>
-<li>????????: <code>len_f= out+n*circle</code></li>
+<p>因为<code>len_f=2*len_s</code> 推导出=》<code>len_s=n * circle</code></p>
+<p>此时把快指针置零，快慢指针同时走 out 距离。</p>
+<h5 id="第二次相遇时："><a href="#第二次相遇时：" class="headerlink" title="第二次相遇时："></a>第二次相遇时：</h5><ul>
+<li>慢指针走过的距离: <code>len_s=out</code></li>
+<li>快指针走过的距离: <code>len_f= out+n*circle</code></li>
 </ul>
-<p>??????out??????????????????????</p>
+<p>即快慢指针在out的末端，也就是环的起点相遇，此时找到环入口。</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"> ListNode <span class="token operator">*</span><span class="token function">detectCycle</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>head<span class="token punctuation">)</span> 
     <span class="token punctuation">{</span>
         ListNode<span class="token operator">*</span> fast<span class="token operator">=</span>head<span class="token punctuation">,</span><span class="token operator">*</span>slow<span class="token operator">=</span>head<span class="token punctuation">;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>fast<span class="token operator">==</span><span class="token constant">NULL</span> <span class="token operator">||</span> fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
             <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span>fast <span class="token operator">&amp;&amp;</span> fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//?????</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>fast <span class="token operator">&amp;&amp;</span> fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//第一次相遇</span>
         <span class="token punctuation">{</span>
             fast<span class="token operator">=</span>fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
             slow<span class="token operator">=</span>slow<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
@@ -307,12 +313,12 @@
                 <span class="token keyword">break</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
-        <span class="token keyword">if</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span>slow<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//??</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span>slow<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//无环</span>
             <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
 
-        <span class="token comment" spellcheck="true">//??</span>
+        <span class="token comment" spellcheck="true">//有环</span>
         fast<span class="token operator">=</span>head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span>slow<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//?????</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>fast<span class="token operator">!=</span>slow<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//第二次相遇</span>
         <span class="token punctuation">{</span>
             fast<span class="token operator">=</span>fast<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
             slow<span class="token operator">=</span>slow<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
@@ -320,8 +326,8 @@
 
         <span class="token keyword">return</span> slow<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="-9"><a href="#-9" class="headerlink" title="????"></a>????</h3><p>???head?????????</p>
-<p>????root????</p>
+<h3 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h3><p>不断将head后一个移到头部去。</p>
+<p>利用一个root维护头部</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp">ListNode<span class="token operator">*</span> <span class="token function">reverseList</span><span class="token punctuation">(</span>ListNode<span class="token operator">*</span> head<span class="token punctuation">)</span> 
 <span class="token punctuation">{</span>
     ListNode<span class="token operator">*</span> root<span class="token operator">=</span><span class="token keyword">new</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -329,10 +335,10 @@
     <span class="token keyword">while</span><span class="token punctuation">(</span>head <span class="token operator">&amp;&amp;</span> head<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
         ListNode<span class="token operator">*</span> temp<span class="token operator">=</span>head<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//[1,2,3] </span>
-        head<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>temp<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//1?? 2???</span>
+        head<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>temp<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//1接上 2的后续</span>
 
-        temp<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>root<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//2?? ???</span>
-        root<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>temp<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//2???????</span>
+        temp<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>root<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//2连上 头结点</span>
+        root<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span>temp<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//2作为新的头结点</span>
 
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> root<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
@@ -1733,7 +1739,7 @@ def log(text):
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
