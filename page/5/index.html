@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-5/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-5/" class="post-title-link" itemprop="url">LeetCode-No-5</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">LeetCode-No-48-矩阵圈圈类型</a>
         </h2>
 
         <div class="post-meta">
@@ -215,60 +215,58 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a><a href="https://leetcode-cn.com/problems/longest-palindromic-substring" target="_blank" rel="noopener">最长回文子串</a></h1><blockquote>
-<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
+          <h1 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a><a href="https://leetcode-cn.com/problems/rotate-image" target="_blank" rel="noopener">旋转矩阵</a></h1><blockquote>
+<p>给定一个 n × n 的二维矩阵表示一个图像。</p>
+<p>将图像顺时针旋转 90 度。</p>
+<p>说明：</p>
+<p>你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。</p>
 <blockquote>
-<p>示例 1：<br>输入: “babad”<br>输出: “bab”<br>注意: “aba” 也是一个有效答案。</p>
+<p>示例 1:</p>
+<p>给定 matrix =<br>[<br>  [1,2,3],<br>  [4,5,6],<br>  [7,8,9]<br>],</p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [7,4,1],<br>  [8,5,2],<br>  [9,6,3]<br>]</p>
 </blockquote>
 <blockquote>
-<p>示例 2：<br>输入: “cbbd”<br>输出: “bb”</p>
+<p>示例 2:</p>
+<p>给定 matrix =<br>[<br>  [ 5, 1, 9,11],<br>  [ 2, 4, 8,10],<br>  [13, 3, 6, 7],<br>  [15,14,12,16]<br>], </p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [15,13, 2, 5],<br>  [14, 3, 4, 1],<br>  [12, 6, 8, 9],<br>  [16, 7,10,11]<br>]</p>
 </blockquote>
 </blockquote>
-<h2 id="仿No-4切入"><a href="#仿No-4切入" class="headerlink" title="仿No.4切入"></a>仿No.4切入</h2><ul>
-<li>回文序列本质上还是一个切割问题</li>
-<li>以切割点为起始,逐步比较两边是否相等即可判断回文.</li>
-<li>注意切割处可以是数, 也可以是两数之间</li>
-</ul>
-<h2 id="求解代码"><a href="#求解代码" class="headerlink" title="求解代码"></a>求解代码</h2><p>题目思路较为简单,直接放出一遍撸过的代码.</p>
-<pre><code>class Solution {
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="矩阵圈圈式问题主要在于怎么确定问题需要的-圈"><a href="#矩阵圈圈式问题主要在于怎么确定问题需要的-圈" class="headerlink" title="矩阵圈圈式问题主要在于怎么确定问题需要的 圈"></a>矩阵圈圈式问题主要在于怎么确定问题需要的 圈</h3><h3 id="例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推"><a href="#例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推" class="headerlink" title="例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推."></a>例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推.</h3><h3 id="那么其实只要我们找到四个边界-然后以边界去for遍历就好了"><a href="#那么其实只要我们找到四个边界-然后以边界去for遍历就好了" class="headerlink" title="那么其实只要我们找到四个边界, 然后以边界去for遍历就好了."></a>那么其实只要我们找到四个边界, 然后以边界去for遍历就好了.</h3><h3 id="遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合"><a href="#遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合" class="headerlink" title="遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合."></a>遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合.</h3><hr>
+<blockquote>
+<p>之后的顺时针遍历问题也是一样, 以边界为中心去做遍历.不断收缩边界, 注意单行单列的圈 需要做避免重复处理, 旋转问题这里不需要, 因为是n x n.</p>
+</blockquote>
+<hr>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
 public:
-    string longestPalindrome(string s)
-    {
-        string result;
-        int center;
-        int left;
-        int right;
-        if (s.length() == 0)
-            return &quot;&quot;;
-        //参考题4扩展
-        //[1,2,3] [1,# ,2,#,3]
-         //[2,1,1,2] [2,# ,1,#,1,#,2]
-        for (center = 0; center &lt; 2*s.length()-1; center++)
-        {
-            left = center / 2;
-            right = (center + 1) / 2;
-            while (1)
-            {
-                if (left &lt; 0 || right &gt;= s.length() || s[left] != s[right])
+    void rotate(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) 
+    {       
+            //确定四个边界,因为是nxn其实可以两个数就够了,但是为了可读性用四个数
+            int left=0;
+            int top=0;
+            int right=matrix[0].size()-1;
+            int bottom=matrix.size()-1;
+            int temp;
+            while(left&lt;right)//每次旋转外围四边,旋转完缩小外围定义
+            {   for(int i=0;i&lt;right-left;i++)
                 {
-                    left++;
-                    right--;
-                    break;
+                    //上到右
+                    temp=matrix[top+i][right];
+                    matrix[top+i][right]=matrix[top][left+i];
+                    //左到上
+                    matrix[top][left+i]=matrix[bottom-i][left];
+                    //下到左
+                    matrix[bottom-i][left]=matrix[bottom][right-i];
+                    //右到下
+                    matrix[bottom][right-i]=temp;
                 }
-                left--;
-                right++;
+
+                left++;
+                right--;
+                top++;
+                bottom--;
             }
-            if (right - left + 1 &gt; result.length())
-                result.assign(s, left, right - left + 1);
-        }
-
-        return result;
     }
-};</code></pre><hr>
-<h2 id="错误思路反省"><a href="#错误思路反省" class="headerlink" title="错误思路反省"></a>错误思路反省</h2><h4 id="1-条件定义错误"><a href="#1-条件定义错误" class="headerlink" title="1.条件定义错误"></a>1.<strong>条件定义错误</strong></h4><p>简单的将回文定义为  一个数在中间,两边相等 的序列, 实际上回文序列最中间可能是<strong>空</strong>而不是<strong>数</strong>.</p>
-<h4 id="2-边界特殊情况考虑不周"><a href="#2-边界特殊情况考虑不周" class="headerlink" title="2.边界特殊情况考虑不周"></a>2.<strong>边界特殊情况考虑不周</strong></h4><p>比如空字符串,比如没想到”aaaaa”这种字符串, 当然使用扩展分割的算法时这些情况都可以求解, 只不过如果自己能早点注意到这些特殊情况,就不需要绕弯子 , 可以直接上来就撸分割了.</p>
-<h4 id="3-自行测试"><a href="#3-自行测试" class="headerlink" title="3. 自行测试"></a>3. <strong>自行测试</strong></h4><p>自己在提交给OJ之前,应该自己尽量想出各种各样的测试样例, 不能写出什么就随便丢上去跑, 只有自己用心测试了之后才会发现自己的初始算法有那么多的错误.</p>
-
+};</code></pre>
       
     </div>
 
@@ -378,116 +376,6 @@ public:
             return half*half;
         else //(n%2!=0)
             return half*half*x;            
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
-<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
-</blockquote>
-<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
-<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) 
-    {   
-        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
-
-        //动态规划
-        //当累积到第i个数时,有两种情况:
-        //1.吃掉之前的sum,变得更大
-        //2.之前的sum为负,要它干嘛,不吃,自立门户
-        int sum=nums[0];
-        int maxResult=nums[0];
-        int L=nums.size();
-        for(int i=1;i&lt;L;i++)
-        {
-            if(sum&gt;0)
-                sum+=nums[i];
-            else
-                sum=nums[i];
-
-            if(sum&gt;maxResult)
-                maxResult=sum;
-        }
-
-        return maxResult;
-
-
     }
 };</code></pre>
       
@@ -662,6 +550,116 @@ public:
     }
 
 
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
+<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
+</blockquote>
+<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
+<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) 
+    {   
+        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
+
+        //动态规划
+        //当累积到第i个数时,有两种情况:
+        //1.吃掉之前的sum,变得更大
+        //2.之前的sum为负,要它干嘛,不吃,自立门户
+        int sum=nums[0];
+        int maxResult=nums[0];
+        int L=nums.size();
+        for(int i=1;i&lt;L;i++)
+        {
+            if(sum&gt;0)
+                sum+=nums[i];
+            else
+                sum=nums[i];
+
+            if(sum&gt;maxResult)
+                maxResult=sum;
+        }
+
+        return maxResult;
+
+
+    }
 };</code></pre>
       
     </div>
@@ -1276,172 +1274,6 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="文本左右对齐"><a href="#文本左右对齐" class="headerlink" title="文本左右对齐"></a><a href="https://leetcode-cn.com/problems/text-justification" target="_blank" rel="noopener">文本左右对齐</a></h1><p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
-<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。</p>
-<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
-<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
-<p>说明:</p>
-<p>单词是指由非空格字符组成的字符序列。<br>每个单词的长度大于 0，小于等于 maxWidth。<br>输入单词数组 words 至少包含一个单词。<br>示例:</p>
-<p>输入:<br>words = [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”]<br>maxWidth = 16<br>输出:<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]<br>示例 2:</p>
-<p>输入:<br>words = [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”]<br>maxWidth = 16<br>输出:<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]<br>解释: 注意最后一行的格式应为 “shall be    “ 而不是 “shall     be”,<br>     因为最后一行应为左对齐，而不是左右两端对齐。<br>     第二行同样为左对齐，这是因为这行只包含一个单词。<br>示例 3:</p>
-<p>输入:<br>words = [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,<br>         “to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]<br>maxWidth = 20<br>输出:<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>也是没有突出思路的困难题….考验代码实现细节的功底。<h4 id="进入每行一轮的循环："><a href="#进入每行一轮的循环：" class="headerlink" title="进入每行一轮的循环："></a>进入每行一轮的循环：</h4></li>
-<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
-</ol>
-<p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) 
-    {
-        vector&lt;string&gt;  result;
-        int wordsFlag=0;//处理到的最远的单词
-        int StartFlag=0;
-        int SpaceNum=0;
-        int wordsNum=0;//每行单词数
-        int CurrentLength=0;
-        bool isLast=false;
-        vector&lt;int&gt; spaces;//存储每行每处的空格数
-        while(wordsFlag&lt;words.size())//行循环
-        {   
-            StartFlag=wordsFlag;
-            wordsNum=0;
-            CurrentLength=0;
-            while(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词
-            {   
-                CurrentLength+=words[wordsFlag].size();
-
-                if(CurrentLength+wordsNum&gt;maxWidth)//超过了 退掉最后一次
-                {
-                    CurrentLength-=words[wordsFlag].size();
-                    // wordsFlag--; wordsFlag 停在下一行第一个
-                    break;
-                }
-                wordsNum++;
-                wordsFlag++;
-
-                //末行判定
-                if(wordsFlag&gt;=words.size())
-                {
-                    isLast=true;
-                    break;
-                }
-            }
-
-            //计算所需空格数
-            SpaceNum=maxWidth-CurrentLength;
-
-            if(wordsNum&gt;1)//1判断，wordsNum-1=0时不能当除数
-            {
-                 spaces= vector&lt;int&gt;(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个
-                    for (int j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的
-                        spaces[j] += 1;
-                spaces.push_back(0);//最后一个数不要空格
-            }
-            else
-                spaces= vector&lt;int&gt;(1,SpaceNum);
-
-            //末行处理
-            if(isLast==true &amp;&amp; wordsNum&gt;1)
-            {
-                int j= 0;
-                for (; j &lt;wordsNum-1; j++)
-                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =
-                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格
-            }
-
-            string temp;
-            int j=0;
-            while(StartFlag&lt;wordsFlag)
-            {   
-                //填充单词
-                temp+=words[StartFlag];//填词
-                //填充空格
-                for(int i=0;i&lt;spaces[j];i++)//填空格
-                    temp.push_back(&#39; &#39;);
-                StartFlag++;
-                j++;
-            }
-
-            result.push_back(temp);
-
-        }
-
-        return result;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-65/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1614,6 +1446,172 @@ public:
         }
 
         return HasNum;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="文本左右对齐"><a href="#文本左右对齐" class="headerlink" title="文本左右对齐"></a><a href="https://leetcode-cn.com/problems/text-justification" target="_blank" rel="noopener">文本左右对齐</a></h1><p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。<br>每个单词的长度大于 0，小于等于 maxWidth。<br>输入单词数组 words 至少包含一个单词。<br>示例:</p>
+<p>输入:<br>words = [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”]<br>maxWidth = 16<br>输出:<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]<br>示例 2:</p>
+<p>输入:<br>words = [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”]<br>maxWidth = 16<br>输出:<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]<br>解释: 注意最后一行的格式应为 “shall be    “ 而不是 “shall     be”,<br>     因为最后一行应为左对齐，而不是左右两端对齐。<br>     第二行同样为左对齐，这是因为这行只包含一个单词。<br>示例 3:</p>
+<p>输入:<br>words = [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,<br>         “to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]<br>maxWidth = 20<br>输出:<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>也是没有突出思路的困难题….考验代码实现细节的功底。<h4 id="进入每行一轮的循环："><a href="#进入每行一轮的循环：" class="headerlink" title="进入每行一轮的循环："></a>进入每行一轮的循环：</h4></li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
+</ol>
+<p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) 
+    {
+        vector&lt;string&gt;  result;
+        int wordsFlag=0;//处理到的最远的单词
+        int StartFlag=0;
+        int SpaceNum=0;
+        int wordsNum=0;//每行单词数
+        int CurrentLength=0;
+        bool isLast=false;
+        vector&lt;int&gt; spaces;//存储每行每处的空格数
+        while(wordsFlag&lt;words.size())//行循环
+        {   
+            StartFlag=wordsFlag;
+            wordsNum=0;
+            CurrentLength=0;
+            while(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词
+            {   
+                CurrentLength+=words[wordsFlag].size();
+
+                if(CurrentLength+wordsNum&gt;maxWidth)//超过了 退掉最后一次
+                {
+                    CurrentLength-=words[wordsFlag].size();
+                    // wordsFlag--; wordsFlag 停在下一行第一个
+                    break;
+                }
+                wordsNum++;
+                wordsFlag++;
+
+                //末行判定
+                if(wordsFlag&gt;=words.size())
+                {
+                    isLast=true;
+                    break;
+                }
+            }
+
+            //计算所需空格数
+            SpaceNum=maxWidth-CurrentLength;
+
+            if(wordsNum&gt;1)//1判断，wordsNum-1=0时不能当除数
+            {
+                 spaces= vector&lt;int&gt;(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个
+                    for (int j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的
+                        spaces[j] += 1;
+                spaces.push_back(0);//最后一个数不要空格
+            }
+            else
+                spaces= vector&lt;int&gt;(1,SpaceNum);
+
+            //末行处理
+            if(isLast==true &amp;&amp; wordsNum&gt;1)
+            {
+                int j= 0;
+                for (; j &lt;wordsNum-1; j++)
+                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =
+                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格
+            }
+
+            string temp;
+            int j=0;
+            while(StartFlag&lt;wordsFlag)
+            {   
+                //填充单词
+                temp+=words[StartFlag];//填词
+                //填充空格
+                for(int i=0;i&lt;spaces[j];i++)//填空格
+                    temp.push_back(&#39; &#39;);
+                StartFlag++;
+                j++;
+            }
+
+            result.push_back(temp);
+
+        }
+
+        return result;
     }
 };</code></pre>
       
