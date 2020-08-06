@@ -885,6 +885,131 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
+<pre><code>def Hybrid(catimg,dogimg,hole=10):
+    # cat过滤低频
+    # 傅里叶变换
+    f_catimg=np.fft.fft2(catimg)
+    f_catimg=np.fft.fftshift(f_catimg)
+
+    # 取得中孔位置, 挖掉中孔, 过滤低频量
+    h,w=catimg.shape
+    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
+<pre><code># dog保留低频
+    # 傅里叶变换
+    f_dogimg=np.fft.fft2(dogimg)
+    f_dogimg=np.fft.fftshift(f_dogimg)
+
+    # 仅保留中孔, 过滤高频量
+    h,w=dogimg.shape
+    f_dogimg[:int(h/2-hole),:]=0
+    f_dogimg[int(h/2+hole):,:]=0
+    f_dogimg[:,:int(w/2-hole)]=0
+    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
+<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
+<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
+</blockquote>
+<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
+    catimg=cv2.imread(&quot;./cat.jpg&quot;)
+    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
+    # 彩色猫狗图像分别对三通道进行处理
+    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
+    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
+    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
+    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
+    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
+    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
+
+    # 合并三通道显示 猫狗
+    img_merge=cv2.merge([B_merge,G_merge,R_merge])
+    print(img_merge)
+    plt.subplot(224),plt.imshow(img_merge)
+    plt.show()
+
+
+    # 人像合成
+    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
+    h,w=wholeimg.shape
+    first_img=wholeimg[:,:int(w/3)]
+    second_img=wholeimg[:,int(w/3):int(2*w/3)]
+    img_hybrid=Hybrid(first_img,second_img,30)
+
+    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
+    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1016,131 +1141,6 @@ for i in range(y,y+h):
     for j in range(x,x+w):
         if(cv2.pointPolygonTest(contours[treei],(j,i),False)==1):# 测试点是否在轮廓内的函数
             img[i+10,j-500]=img[i,j].copy()# 偏移左边</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<pre><code>def Hybrid(catimg,dogimg,hole=10):
-    # cat过滤低频
-    # 傅里叶变换
-    f_catimg=np.fft.fft2(catimg)
-    f_catimg=np.fft.fftshift(f_catimg)
-
-    # 取得中孔位置, 挖掉中孔, 过滤低频量
-    h,w=catimg.shape
-    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<pre><code># dog保留低频
-    # 傅里叶变换
-    f_dogimg=np.fft.fft2(dogimg)
-    f_dogimg=np.fft.fftshift(f_dogimg)
-
-    # 仅保留中孔, 过滤高频量
-    h,w=dogimg.shape
-    f_dogimg[:int(h/2-hole),:]=0
-    f_dogimg[int(h/2+hole):,:]=0
-    f_dogimg[:,:int(w/2-hole)]=0
-    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
-</blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
-    catimg=cv2.imread(&quot;./cat.jpg&quot;)
-    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
-    # 彩色猫狗图像分别对三通道进行处理
-    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
-    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
-    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
-    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
-    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
-    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
-
-    # 合并三通道显示 猫狗
-    img_merge=cv2.merge([B_merge,G_merge,R_merge])
-    print(img_merge)
-    plt.subplot(224),plt.imshow(img_merge)
-    plt.show()
-
-
-    # 人像合成
-    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
-    h,w=wholeimg.shape
-    first_img=wholeimg[:,:int(w/3)]
-    second_img=wholeimg[:,int(w/3):int(2*w/3)]
-    img_hybrid=Hybrid(first_img,second_img,30)
-
-    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
-    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
 
       
     </div>
