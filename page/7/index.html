@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件</a>
+            <a href="/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问</a>
         </h2>
 
         <div class="post-meta">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:04" itemprop="dateModified" datetime="2020-07-16T19:35:04+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:31:44" itemprop="dateModified" datetime="2020-07-17T11:31:44+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,33 +215,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h4 id="1-SSH-root-remotenode"><a href="#1-SSH-root-remotenode" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出:<br>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win"><a href="#2-scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用ch找到目录和文件</p>
-<h4 id="1-SSH-root-remotenode-1"><a href="#1-SSH-root-remotenode-1" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出: </p>
-<blockquote>
-<p>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>配置的免密登录远程主机也不能用</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win-1"><a href="#2-scp-test-txt-root-remotenode-root-test-win-1" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用chcp 65001换成utf-8也不行</p>
-<p>当然也不可能重命名用户名文件夹..一大堆程序数据都在下面呢= =</p>
-<h1 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h1><h4 id="1-使用git-bash-代替-cmd-PowerShel"><a href="#1-使用git-bash-代替-cmd-PowerShel" class="headerlink" title="1. 使用git bash 代替[cmd/PowerShel]"></a>1. 使用git bash 代替[cmd/PowerShel]</h4><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
-<p>环境什么的完全没变, <strong>可以正常找到.ssh目录 , 可以正常写入 known_host ,除了在第一次登的时候询问写入known_host, 之后免密登录也可以正常使用.</strong></p>
-<p> scp可以正常发送用户名目录下的文件, 不会找不到.</p>
-<p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
-<h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
-
+          <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><h5 id="前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"><a href="#前几天win10系统更新到了1909，打开VMware-15-0-2时系统通知该版本可能无法运行-没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。" class="headerlink" title="前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。"></a>前几天win10系统更新到了1909，打开VMware 15.0.2时系统通知该版本可能无法运行= =没管它开了虚拟机，结果就是虚拟机黑屏卡死，vm工作台无法结束，后台vmware-vmx进程拒绝访问。</h5><h2 id="解决步骤："><a href="#解决步骤：" class="headerlink" title="解决步骤："></a>解决步骤：</h2><ol>
+<li><p>打开windows【服务】面板</p>
+<p> 1.1 可以WIN+R 输入 services.msc 打开</p>
+<p> 1.2 也可以在win10的搜索框中直接搜索 “服务”</p>
+</li>
+<li><p>按【v】键，快速找到vmware相关服务，全部 右键-属性-禁用，且停止运行。</p>
+</li>
+<li><p>全部停止运行后，任务管理器已经可以关掉vm的主进程，但其实后台还有一个vmware-vmx没关掉，也关不掉。</p>
+</li>
+<li><p>此时【重启】电脑，注意是重启，不是关机再开机，可以发现vmware-vmx已经没有了</p>
+</li>
+<li><p>但和其他博客说的不同，此时恢复vmware相关服务，再开虚拟机一样是卡死，同样的问题。</p>
+</li>
+<li><p>因此打开vmware的安装程序，准备修复，先别点下修复= =（文件夹里找，或者控制面板-卸载或更改程序里找）</p>
+</li>
+<li><p>我修复运行的时候，提示无法写入文件glib-2.0.dll，vmPerfmon.dll，所以修复之前可以手动先删除这两个文件看看= =在vmware安装目录下面，假如无法删除可以把后缀名改为.txt，这样就不会阻碍vmware的修复程序。</p>
+</li>
+<li><p>修复程序运行完成，打开vmware，提示你更新新版本，或者你自己选项里检查更新一下= =，换到新版本。当然你直接卸载下一个应该也是一样。</p>
+</li>
+<li><p>我升级到15.5.1，重启之后可以正常运行，并且之前的虚拟机信息没有丢失。</p>
+</li>
+</ol>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h5 id="应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧"><a href="#应该是win-1909-和-vmware的15-0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧" class="headerlink" title="应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= ="></a>应该是win 1909 和 vmware的15.0的版本冲突，看其他人说1903也有问题。总之要听信windows为数不多的劝告，换新版本吧= =</h5>
       
     </div>
 
@@ -387,134 +383,6 @@ plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
 plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
 plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
-<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
-import pandas as pd
-from sklearn import tree
-</code></pre></li>
-</ul>
-<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
-<pre><code>&lt;br/&gt;
-###       df.head()结果视图:
-![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
-&lt;br/&gt;
-###    2. 整理数据
-- ###    sklearn 要求属性都是数值型,所以要转化整理数据
-- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
-- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
-- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
-</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
-<p>df.head()</p>
-<pre><code>&lt;br/&gt;
-###   处理后视图:
-![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
-
-###    3. 分离决策属性和目标列
-  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
-<pre><code>&lt;br/&gt;
-###    4. 显示图形数据
-&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
-----------------------
-&lt;br/&gt;
-- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
-- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
-- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
-&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
-
-- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
-
-- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
-- ###    samples是包含的样本数
-- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
-<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
-<pre><code>&lt;br/&gt;
-###    显示结果:
-![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
-
-###    集成学习——随机森林
-
-###    一棵决策树可能会对样本过拟合,所以用随机森林投票
-- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
-<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
-<pre><code>&lt;br/&gt;
-&lt;br/&gt;
------------------------------------------------
-
-#  另附学代码惨痛反思:
-###    以后学敲代码报错 先!
-###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
       
     </div>
 
@@ -1010,6 +878,268 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:37:09" itemprop="dateModified" datetime="2020-07-17T11:37:09+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
+<h5 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h5><ul>
+<li><p>root: path根路径</p>
+</li>
+<li><p>dirs:  path下的所有文件夹, 不递归</p>
+</li>
+<li><p>files: path下的所有文件, 不递归</p>
+<pre><code># %%
+from cv2 import cv2
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+import re
+def readimgs(path):# 读取所有文件
+  imgs=[]
+  labels=[]
+  for root,dirnames,f, in os.walk(path):# 取得所有文件夹
+      for dir in dirnames:# 遍历子文件夹
+          path2=os.path.join(path,dir)
+          for r,d,files, in os.walk(path2):# 对文件夹取所有文件
+              for onefile in files:# 对每个文件添加到列表中
+                  path3=os.path.join(path2,onefile)
+                  img=cv2.imread(path3)
+                  img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
+                  imgs.append(img)# 添加到图片集
+                  labels.append(int(re.sub(&quot;\D&quot;,&quot;&quot;,dir)))# 文件夹名作为标签
+
+  return imgs,labels
+</code></pre></li>
+</ul>
+<pre><code>
+# 2. cv2.Eigenfaces训练 
+&gt;也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA
+
+**分割好训练集和测试集**, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.
+#####     EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):
+- num_components, 保留的主成分数
+- threshold,  预测时的阈值设置
+- 返回一个识别模型
+#####     model.train(src, labels): 
+- src: 数据组, 具体到图像就是图像顺序容器, 例如vector&lt;Mat&gt;, [img1,img2,....]
+- labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行...)</code></pre><h1 id="主函数训练"><a href="#主函数训练" class="headerlink" title="%%主函数训练"></a>%%主函数训练</h1><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    # 读取全部文件<br>    imgs,labels=readimgs(“./att_faces”)<br>    # 划分训练集 测试集<br>    testimgs=[]<br>    testlabels=[]<br>    trainimgs=[]<br>    trainlabels=[]<br>    for i in range(len(labels)):<br>        if(i%10==0):# 每10张, 即每一组留一张作为测试集<br>            testimgs.append(imgs[i])<br>            testlabels.append(labels[i])<br>        else:<br>            trainimgs.append(imgs[i])<br>            trainlabels.append(labels[i])</p>
+<pre><code>trainlabels=np.asarray(trainlabels)
+
+model = cv2.face.EigenFaceRecognizer_create()
+model.train(trainimgs,trainlabels)</code></pre><pre><code>
+# 3. Eigenfaces预测
+预测就是对之前保留的测试集, 一一预测并且检验正确率.
+#####      model.predict(data): 模型对data进行预测, 返回output[2]
+- output[0], label, 即预测的标签.
+- output[1], confidence, 即置信度, 注意confidence是越高越不相似
+</code></pre><h1 id="验证"><a href="#验证" class="headerlink" title="%% 验证"></a>%% 验证</h1><pre><code>count=0
+for i in range(0,len(testlabels)):
+    test_img=testimgs[i]
+    output=model.predict(test_img)# 对测试集每个图片进行预测
+    if(output[0]==testlabels[i]):# 结果和真实标签比较
+        count+=1
+
+print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准确率达到0.975
+
+存在一个错误样例: 
+![唯一一个错判样例, 左为原图, 右为预测标签所属图](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg)</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
+<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><pre><code>import numpy as np
+import pandas as pd
+from sklearn import tree
+</code></pre></li>
+</ul>
+<p>input_file=’D:\Download\DataScienceCourse\PastHires.csv’<br>df=pd.read_csv(input_file,header=0)<br>df.head()</p>
+<pre><code>&lt;br/&gt;
+###       df.head()结果视图:
+![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
+&lt;br/&gt;
+###    2. 整理数据
+- ###    sklearn 要求属性都是数值型,所以要转化整理数据
+- ###    dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index
+- ###    联想到之前的练习,可以用dataframe\[&#39;colum&#39;]=pandas.Categorical(dataframe\[&#39;colum&#39;]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列
+- ###    关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN
+</code></pre><p>d={‘Y’:1,’N’:0}<br>df[‘Hired’]=df[‘Hired’].map(d)<br>df[‘Employed?’]=df[‘Employed?’].map(d)<br>df[‘Interned’]=df[‘Interned’].map(d)<br>df[‘Top-tier school’]=df[‘Top-tier school’].map(d)<br>d={‘BS’:0,’MS’:1,’PhD’:2}<br>df[‘Level of Education’]=df[‘Level of Education’].map(d)</p>
+<p>df.head()</p>
+<pre><code>&lt;br/&gt;
+###   处理后视图:
+![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
+
+###    3. 分离决策属性和目标列
+  ###      分开特征组和目标组,作为参数传给fit拟合函数即可</code></pre><p>features=list(df.columns[:6])# 列名元组<br>y=df[“Hired”]<br>x=df[features]<br>clf=tree.DecisionTreeClassifier()<br>clf=clf.fit(x,y)</p>
+<pre><code>&lt;br/&gt;
+###    4. 显示图形数据
+&gt;这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
+----------------------
+&lt;br/&gt;
+- ###    create_png这一步报错&quot;GraphViz&#39;s executables not found&quot; ————额外安装GraphViz软件,并且添加path
+- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write(&quot;this is a string&quot;), f.getvalue() 返回
+- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
+&gt; 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
+
+- ###    pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象
+
+- ###    决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策
+- ###    samples是包含的样本数
+- ###    value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</code></pre><p>from IPython.display import Image<br>from sklearn.externals.six import StringIO<br>import pydotplus</p>
+<p>dot_data=StringIO()<br>tree.export_graphviz(clf,out_file=dot_data,feature_names=features)<br>graph=pydotplus.graph_from_dot_data(dot_data.getvalue())<br>Image(graph.create_png())</p>
+<pre><code>&lt;br/&gt;
+###    显示结果:
+![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
+
+###    集成学习——随机森林
+
+###    一棵决策树可能会对样本过拟合,所以用随机森林投票
+- ###    注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</code></pre><p>from sklearn.ensemble import RandomForestClassifier<br>clf=RandomForestClassifier(n_estimators=10)# 10棵<br>clf=clf.fit(x,y)</p>
+<h1 id="预测传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#预测传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="预测传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</h1><p>print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</p>
+<pre><code>&lt;br/&gt;
+&lt;br/&gt;
+-----------------------------------------------
+
+#  另附学代码惨痛反思:
+###    以后学敲代码报错 先!
+###    看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1142,140 +1272,6 @@ for i in range(y,y+h):
         if(cv2.pointPolygonTest(contours[treei],(j,i),False)==1):# 测试点是否在轮廓内的函数
             img[i+10,j-500]=img[i,j].copy()# 偏移左边</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:37:09" itemprop="dateModified" datetime="2020-07-17T11:37:09+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
-<h5 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h5><ul>
-<li><p>root: path根路径</p>
-</li>
-<li><p>dirs:  path下的所有文件夹, 不递归</p>
-</li>
-<li><p>files: path下的所有文件, 不递归</p>
-<pre><code># %%
-from cv2 import cv2
-import matplotlib.pyplot as plt
-import os
-import numpy as np
-import re
-def readimgs(path):# 读取所有文件
-  imgs=[]
-  labels=[]
-  for root,dirnames,f, in os.walk(path):# 取得所有文件夹
-      for dir in dirnames:# 遍历子文件夹
-          path2=os.path.join(path,dir)
-          for r,d,files, in os.walk(path2):# 对文件夹取所有文件
-              for onefile in files:# 对每个文件添加到列表中
-                  path3=os.path.join(path2,onefile)
-                  img=cv2.imread(path3)
-                  img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
-                  imgs.append(img)# 添加到图片集
-                  labels.append(int(re.sub(&quot;\D&quot;,&quot;&quot;,dir)))# 文件夹名作为标签
-
-  return imgs,labels
-</code></pre></li>
-</ul>
-<pre><code>
-# 2. cv2.Eigenfaces训练 
-&gt;也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA
-
-**分割好训练集和测试集**, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.
-#####     EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):
-- num_components, 保留的主成分数
-- threshold,  预测时的阈值设置
-- 返回一个识别模型
-#####     model.train(src, labels): 
-- src: 数据组, 具体到图像就是图像顺序容器, 例如vector&lt;Mat&gt;, [img1,img2,....]
-- labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行...)</code></pre><h1 id="主函数训练"><a href="#主函数训练" class="headerlink" title="%%主函数训练"></a>%%主函数训练</h1><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    # 读取全部文件<br>    imgs,labels=readimgs(“./att_faces”)<br>    # 划分训练集 测试集<br>    testimgs=[]<br>    testlabels=[]<br>    trainimgs=[]<br>    trainlabels=[]<br>    for i in range(len(labels)):<br>        if(i%10==0):# 每10张, 即每一组留一张作为测试集<br>            testimgs.append(imgs[i])<br>            testlabels.append(labels[i])<br>        else:<br>            trainimgs.append(imgs[i])<br>            trainlabels.append(labels[i])</p>
-<pre><code>trainlabels=np.asarray(trainlabels)
-
-model = cv2.face.EigenFaceRecognizer_create()
-model.train(trainimgs,trainlabels)</code></pre><pre><code>
-# 3. Eigenfaces预测
-预测就是对之前保留的测试集, 一一预测并且检验正确率.
-#####      model.predict(data): 模型对data进行预测, 返回output[2]
-- output[0], label, 即预测的标签.
-- output[1], confidence, 即置信度, 注意confidence是越高越不相似
-</code></pre><h1 id="验证"><a href="#验证" class="headerlink" title="%% 验证"></a>%% 验证</h1><pre><code>count=0
-for i in range(0,len(testlabels)):
-    test_img=testimgs[i]
-    output=model.predict(test_img)# 对测试集每个图片进行预测
-    if(output[0]==testlabels[i]):# 结果和真实标签比较
-        count+=1
-
-print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准确率达到0.975
-
-存在一个错误样例: 
-![唯一一个错判样例, 左为原图, 右为预测标签所属图](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg)</code></pre>
       
     </div>
 

@@ -161,117 +161,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-50/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="pow-x-n"><a href="#pow-x-n" class="headerlink" title="pow(x,n)"></a><a href="https://leetcode-cn.com/problems/powx-n" target="_blank" rel="noopener">pow(x,n)</a></h1><blockquote>
-<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: 2.00000, 10<br>输出: 1024.00000</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: 2.10000, 3<br>输出: 9.26100</p>
-</blockquote>
-<blockquote>
-<p>示例 3:</p>
-<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25<br>说明:</p>
-</blockquote>
-<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="数学思路-快速幂算法"><a href="#数学思路-快速幂算法" class="headerlink" title="数学思路, 快速幂算法"></a>数学思路, 快速幂算法</h3><h4 id="—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法"><a href="#—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法" class="headerlink" title="—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法"></a>—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法</h4><h4 id="另外注意-数值越界-奇偶的二分的区别"><a href="#另外注意-数值越界-奇偶的二分的区别" class="headerlink" title="另外注意: 数值越界, 奇偶的二分的区别"></a>另外注意: 数值越界, 奇偶的二分的区别</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    double myPow(double x, int n) 
-    {   //????通不过45,90啊
-        //只有奇偶递归的话,数值变大了就有问题
-        if(n==INT_MIN)//注意-n 和 n 的越界范围不一样
-            return 1/(myPow(x,INT_MAX)*x);
-        else if(n&lt;0)
-            return 1/myPow(x,-n);
-
-
-        if(n==0)
-            return 1.0;
-        else if(n==1)
-            return x;
-
-        double half=myPow(x,n/2);
-        if(n%2==0)
-            return half*half;
-        else //(n%2!=0)
-            return half*half*x;            
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -571,6 +460,117 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-50/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pow-x-n"><a href="#pow-x-n" class="headerlink" title="pow(x,n)"></a><a href="https://leetcode-cn.com/problems/powx-n" target="_blank" rel="noopener">pow(x,n)</a></h1><blockquote>
+<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: 2.00000, 10<br>输出: 1024.00000</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: 2.10000, 3<br>输出: 9.26100</p>
+</blockquote>
+<blockquote>
+<p>示例 3:</p>
+<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25<br>说明:</p>
+</blockquote>
+<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="数学思路-快速幂算法"><a href="#数学思路-快速幂算法" class="headerlink" title="数学思路, 快速幂算法"></a>数学思路, 快速幂算法</h3><h4 id="—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法"><a href="#—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法" class="headerlink" title="—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法"></a>—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法</h4><h4 id="另外注意-数值越界-奇偶的二分的区别"><a href="#另外注意-数值越界-奇偶的二分的区别" class="headerlink" title="另外注意: 数值越界, 奇偶的二分的区别"></a>另外注意: 数值越界, 奇偶的二分的区别</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    double myPow(double x, int n) 
+    {   //????通不过45,90啊
+        //只有奇偶递归的话,数值变大了就有问题
+        if(n==INT_MIN)//注意-n 和 n 的越界范围不一样
+            return 1/(myPow(x,INT_MAX)*x);
+        else if(n&lt;0)
+            return 1/myPow(x,-n);
+
+
+        if(n==0)
+            return 1.0;
+        else if(n==1)
+            return x;
+
+        double half=myPow(x,n/2);
+        if(n%2==0)
+            return half*half;
+        else //(n%2!=0)
+            return half*half*x;            
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -681,7 +681,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-56-&-No-57/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -695,7 +695,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-56-&-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
         </h2>
 
         <div class="post-meta">
@@ -712,7 +712,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -735,72 +735,118 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+          <h1 id="合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals"><a href="#合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals" class="headerlink" title="(合并区间 || 插入区间)[https://leetcode-cn.com/problems/merge-intervals]"></a>(合并区间 || 插入区间)[<a href="https://leetcode-cn.com/problems/merge-intervals]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-intervals]</a></h1><blockquote>
+<p>给出一个区间的集合，请合并所有重叠的区间。</p>
 <blockquote>
 <p>示例 1:</p>
-<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
-<ol>
-<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
-<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
-</ol>
+<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
 </blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
-<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><ol>
+<li>[a,b] [c,d]合并条件：b&gt;=c &amp;&amp; a&lt;=d 此时区间存在重复区段，可以合并</li>
+<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
+<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。<h3 id="插入区间"><a href="#插入区间" class="headerlink" title="插入区间"></a>插入区间</h3></li>
+<li>首先需要找到插入位置，即左边界 介于  前一个和后一个的左边界 中间。</li>
+<li>插入之后的收尾工作<br>插入时会不会和前一个发生和合并？<br>因为是按左边界顺序，因此<strong>往前只可能合并一个</strong><br>但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
 </ol>
-<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
-<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
-<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
-</li>
-<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
-</li>
-<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
-</li>
-</ol>
-<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
-<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
-<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><h3 id="合并区间-1"><a href="#合并区间-1" class="headerlink" title="合并区间"></a>合并区间</h3><pre><code>class Solution {
 public:
-    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) 
+    vector&lt;vector&lt;int&gt;&gt; merge(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) 
     {
-        //动态规划
-        int m=obstacleGrid.size();
-        int n=obstacleGrid[0].size();
-        long temp[n];//注意要用long 有样例爆int....
-        int i;
-        if(obstacleGrid[0][0]!=1)
-            temp[0]=1;
-        else
-            return 0;
-        for(i=1;i&lt;n;i++)//首行处理
-        {
-            if(obstacleGrid[0][i]!=1)
-                temp[i]=temp[i-1];
+        vector&lt;vector&lt;int&gt;&gt; result;
+        int Len=intervals.size();
+        if(Len==0)
+            return result;
+
+        sort(intervals.begin(),intervals.end(),cmp);
+        result.push_back(intervals[0]);
+
+        int i=1;
+        while(i&lt;Len)
+        {    //可连接 [1,3] [2,4]
+            if(intervals[i][0]&lt;=result.back()[1])
+                if(intervals[i][1]&gt;result.back()[1])
+                    result.back()[1]=intervals[i][1];
+                else;
+            else//不可连接 
+                result.push_back(intervals[i]);
+            i++;
+        }
+
+        return result;
+    }
+
+    static bool cmp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)
+    {
+        return a[0]&lt;b[0];
+    }
+
+
+};</code></pre><h3 id="插入区间-1"><a href="#插入区间-1" class="headerlink" title="插入区间"></a>插入区间</h3><pre><code>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; insert(vector&lt;vector&lt;int&gt;&gt;&amp; intervals, vector&lt;int&gt;&amp; newInterval) 
+    {
+        int i=0;
+        int Len=intervals.size();
+        bool IsInsert=false;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        while(i&lt;Len)
+        {   //找到插入的位置
+            if(intervals[i][1]&lt;newInterval[0])
+                i++;
             else
-                temp[i]=0;
+                break;
         }
 
-        int row=1;
-        for(;row&lt;m;row++)
+        if(i==Len)//插在末尾之后
         {
-
-            if(obstacleGrid[row][0]==1)//首列障碍物处理
-                temp[0]=0;
-
-            for(i=1;i&lt;n;i++)
-            {   
-                if(obstacleGrid[row][i]==1)
-                    temp[i]=0;
-                else
-                    temp[i]+=temp[i-1];
-            }
+            intervals.push_back(newInterval);
+            return intervals;
         }
 
-        return temp[n-1];    
+        for(int j=0;j&lt;i;j++)//无需检查的项直接插入
+            result.push_back(intervals[j]);
+
+        if(intervals[i][0]&lt;=newInterval[1])//可以合并
+        {
+            intervals[i][0]=min(intervals[i][0],newInterval[0]);
+            intervals[i][1]=max(intervals[i][1],newInterval[1]);
+            result.push_back(intervals[i]);
+            i++;
+        }
+        else//插入 而不是合并
+            result.push_back(newInterval);
+
+        while(i&lt;Len)
+        {
+            //插入项往后 每一项都要检查是否要往前合并,直到不用合并
+            if(intervals[i][0]&lt;=result.back()[1])
+            {
+                if(result.back()[1]&lt;intervals[i][1])
+                    result.back()[1]=intervals[i][1];
+            }
+            else
+                break;
+
+            i++;
+        }
+        //出来的i往后是无法合并的项
+        while(i&lt;Len)
+        {
+            result.push_back(intervals[i]);
+            i++;
+        }
+
+
+        return result;
+
+
+
+
     }
 };</code></pre>
       
@@ -942,6 +988,146 @@ public:
 
 
        return head;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-62-&-No-63-&-No-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<ol>
+<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
+<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
+</ol>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
+<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
+</ol>
+<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
+<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
+</li>
+<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
+</li>
+<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
+</li>
+</ol>
+<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
+<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
+<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) 
+    {
+        //动态规划
+        int m=obstacleGrid.size();
+        int n=obstacleGrid[0].size();
+        long temp[n];//注意要用long 有样例爆int....
+        int i;
+        if(obstacleGrid[0][0]!=1)
+            temp[0]=1;
+        else
+            return 0;
+        for(i=1;i&lt;n;i++)//首行处理
+        {
+            if(obstacleGrid[0][i]!=1)
+                temp[i]=temp[i-1];
+            else
+                temp[i]=0;
+        }
+
+        int row=1;
+        for(;row&lt;m;row++)
+        {
+
+            if(obstacleGrid[row][0]==1)//首列障碍物处理
+                temp[0]=0;
+
+            for(i=1;i&lt;n;i++)
+            {   
+                if(obstacleGrid[row][i]==1)
+                    temp[i]=0;
+                else
+                    temp[i]+=temp[i-1];
+            }
+        }
+
+        return temp[n-1];    
     }
 };</code></pre>
       
@@ -1263,192 +1449,6 @@ public:
     }
 
 
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-56-&-No-57/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-56-&-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals"><a href="#合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals" class="headerlink" title="(合并区间 || 插入区间)[https://leetcode-cn.com/problems/merge-intervals]"></a>(合并区间 || 插入区间)[<a href="https://leetcode-cn.com/problems/merge-intervals]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-intervals]</a></h1><blockquote>
-<p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><ol>
-<li>[a,b] [c,d]合并条件：b&gt;=c &amp;&amp; a&lt;=d 此时区间存在重复区段，可以合并</li>
-<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
-<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。<h3 id="插入区间"><a href="#插入区间" class="headerlink" title="插入区间"></a>插入区间</h3></li>
-<li>首先需要找到插入位置，即左边界 介于  前一个和后一个的左边界 中间。</li>
-<li>插入之后的收尾工作<br>插入时会不会和前一个发生和合并？<br>因为是按左边界顺序，因此<strong>往前只可能合并一个</strong><br>但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><h3 id="合并区间-1"><a href="#合并区间-1" class="headerlink" title="合并区间"></a>合并区间</h3><pre><code>class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; merge(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) 
-    {
-        vector&lt;vector&lt;int&gt;&gt; result;
-        int Len=intervals.size();
-        if(Len==0)
-            return result;
-
-        sort(intervals.begin(),intervals.end(),cmp);
-        result.push_back(intervals[0]);
-
-        int i=1;
-        while(i&lt;Len)
-        {    //可连接 [1,3] [2,4]
-            if(intervals[i][0]&lt;=result.back()[1])
-                if(intervals[i][1]&gt;result.back()[1])
-                    result.back()[1]=intervals[i][1];
-                else;
-            else//不可连接 
-                result.push_back(intervals[i]);
-            i++;
-        }
-
-        return result;
-    }
-
-    static bool cmp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)
-    {
-        return a[0]&lt;b[0];
-    }
-
-
-};</code></pre><h3 id="插入区间-1"><a href="#插入区间-1" class="headerlink" title="插入区间"></a>插入区间</h3><pre><code>class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; insert(vector&lt;vector&lt;int&gt;&gt;&amp; intervals, vector&lt;int&gt;&amp; newInterval) 
-    {
-        int i=0;
-        int Len=intervals.size();
-        bool IsInsert=false;
-        vector&lt;vector&lt;int&gt;&gt; result;
-        while(i&lt;Len)
-        {   //找到插入的位置
-            if(intervals[i][1]&lt;newInterval[0])
-                i++;
-            else
-                break;
-        }
-
-        if(i==Len)//插在末尾之后
-        {
-            intervals.push_back(newInterval);
-            return intervals;
-        }
-
-        for(int j=0;j&lt;i;j++)//无需检查的项直接插入
-            result.push_back(intervals[j]);
-
-        if(intervals[i][0]&lt;=newInterval[1])//可以合并
-        {
-            intervals[i][0]=min(intervals[i][0],newInterval[0]);
-            intervals[i][1]=max(intervals[i][1],newInterval[1]);
-            result.push_back(intervals[i]);
-            i++;
-        }
-        else//插入 而不是合并
-            result.push_back(newInterval);
-
-        while(i&lt;Len)
-        {
-            //插入项往后 每一项都要检查是否要往前合并,直到不用合并
-            if(intervals[i][0]&lt;=result.back()[1])
-            {
-                if(result.back()[1]&lt;intervals[i][1])
-                    result.back()[1]=intervals[i][1];
-            }
-            else
-                break;
-
-            i++;
-        }
-        //出来的i往后是无法合并的项
-        while(i&lt;Len)
-        {
-            result.push_back(intervals[i]);
-            i++;
-        }
-
-
-        return result;
-
-
-
-
-    }
 };</code></pre>
       
     </div>
