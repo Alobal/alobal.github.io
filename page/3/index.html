@@ -1342,7 +1342,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1356,7 +1356,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
         </h2>
 
         <div class="post-meta">
@@ -1373,7 +1373,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1396,105 +1396,111 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
+          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
 <blockquote>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
+<p>示例 1:</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
 </blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
 <blockquote>
-<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
+<p>示例 2:</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
 </blockquote>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
-<blockquote>
-<p>如  <strong>[1,2,5,4,3,6]</strong></p>
+<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
 </blockquote>
-<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
-<blockquote>
-<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
+</ul>
+<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
 </blockquote>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
+<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
+<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
+<ol>
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
 </blockquote>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
-<blockquote>
-<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
+<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
 </blockquote>
-<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><pre><code>class Solution {
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
+设置好跳跃定位标志 k=-1
+对模式串每一位 i
+    假如 i  k 位相同，或者k==-1
+      即看作前后缀目前为止相同
+      i, k 到下一位
+      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
+          假如下一位与跳跃位不同
+              把已经处理好的k作为它的跳跃位即可，jump[i]=k
+          假如下一位与跳跃位相同
+              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
+              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
+   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
+      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
+      k=jump[k]
+</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
 public:
-    void nextPermutation(vector&lt;int&gt;&amp; nums) 
-    {
-        if(nums.size()&lt;=1)
-            return ;
+    int strStr(string haystack, string needle) 
+    {   
+        if(needle==&quot;&quot;)
+            return 0;
 
-        int flag=0;
-        int nextid=nums.size()-1;
-        int currentid=nextid-1;
+        //KMP
 
-        while(currentid&gt;=0)
+        int jump[needle.size()];
+        jump[0]=-1;
+        int k=-1;
+        int i=0;
+        //创建失效数组  abcabcd
+        while(i&lt;needle.size()-1)
         {
-            if(nums[nextid]&gt;nums[currentid])
-            {   
-                //从后往前，找到第一组 升序对
-               flag=1;
-                break;
-            }
-
-            nextid--;
-            currentid--;
-        }
-
-        if(flag==1)//存在下一个更大排列
-        {
-                //交换生成新排列
-            while(nextid+1&lt;nums.size())
+            if(k==-1 || needle[i]==needle[k])
             {
-                if(nums[nextid+1]&gt;nums[currentid] )
-                    nextid++;
+                i++;
+                k++;
+
+                if(needle[i]!=needle[k])
+                    jump[i]=k;
                 else
-                    break;
+                    jump[i]=jump[k];
             }
-            tempswap(nums[currentid],nums[nextid]);
-            //currentid右边必然是降序
-            //将currentid右边升序处理
-            nextid=nums.size()-1;
-            while(currentid+1&lt;nextid)
+            else    //内置kmp
+                k=jump[k];
+        }
+
+
+
+        int x=0;
+        int y=0;
+        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
+        {
+            if(y==-1 ||haystack[x]==needle[y])
             {
-                tempswap(nums[nextid],nums[currentid+1]);
-                nextid--;
-                currentid++;
+                x++;
+                y++;
             }
-        }   
-        else
-        {   //不存在，则倒序
-            nextid=nums.size()-1;
-            currentid=0;
-            while(currentid&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid]);
-                nextid--;
-                currentid++;
-            }
+            else
+               y=jump[y];
 
         }
 
-        return ;
+        if(y==needle.size())
+            return x-y;
+        else
+            return -1;
 
 
 
-    }
-
-    void tempswap(int&amp; a,int&amp; b)
-    {
-        int temp=b;
-            b=a;
-            a=temp;
     }
 };</code></pre>
       

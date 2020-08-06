@@ -161,117 +161,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-50/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="pow-x-n"><a href="#pow-x-n" class="headerlink" title="pow(x,n)"></a><a href="https://leetcode-cn.com/problems/powx-n" target="_blank" rel="noopener">pow(x,n)</a></h1><blockquote>
-<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: 2.00000, 10<br>输出: 1024.00000</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: 2.10000, 3<br>输出: 9.26100</p>
-</blockquote>
-<blockquote>
-<p>示例 3:</p>
-<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25<br>说明:</p>
-</blockquote>
-<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="数学思路-快速幂算法"><a href="#数学思路-快速幂算法" class="headerlink" title="数学思路, 快速幂算法"></a>数学思路, 快速幂算法</h3><h4 id="—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法"><a href="#—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法" class="headerlink" title="—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法"></a>—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法</h4><h4 id="另外注意-数值越界-奇偶的二分的区别"><a href="#另外注意-数值越界-奇偶的二分的区别" class="headerlink" title="另外注意: 数值越界, 奇偶的二分的区别"></a>另外注意: 数值越界, 奇偶的二分的区别</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    double myPow(double x, int n) 
-    {   //????通不过45,90啊
-        //只有奇偶递归的话,数值变大了就有问题
-        if(n==INT_MIN)//注意-n 和 n 的越界范围不一样
-            return 1/(myPow(x,INT_MAX)*x);
-        else if(n&lt;0)
-            return 1/myPow(x,-n);
-
-
-        if(n==0)
-            return 1.0;
-        else if(n==1)
-            return x;
-
-        double half=myPow(x,n/2);
-        if(n%2==0)
-            return half*half;
-        else //(n%2!=0)
-            return half*half*x;            
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-49/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -374,7 +263,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-50/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -388,7 +277,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
         </h2>
 
         <div class="post-meta">
@@ -428,42 +317,43 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
-<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+          <h1 id="pow-x-n"><a href="#pow-x-n" class="headerlink" title="pow(x,n)"></a><a href="https://leetcode-cn.com/problems/powx-n" target="_blank" rel="noopener">pow(x,n)</a></h1><blockquote>
+<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
 <blockquote>
-<p>示例:</p>
-<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
+<p>示例 1:</p>
+<p>输入: 2.00000, 10<br>输出: 1024.00000</p>
 </blockquote>
-<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: 2.10000, 3<br>输出: 9.26100</p>
 </blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
-<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+<blockquote>
+<p>示例 3:</p>
+<p>输入: 2.00000, -2<br>输出: 0.25000<br>解释: 2-2 = 1/22 = 1/4 = 0.25<br>说明:</p>
+</blockquote>
+<p>-100.0 &lt; x &lt; 100.0<br>n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="数学思路-快速幂算法"><a href="#数学思路-快速幂算法" class="headerlink" title="数学思路, 快速幂算法"></a>数学思路, 快速幂算法</h3><h4 id="—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法"><a href="#—-因为x-n-可以分解成x-n-2-x-n-2-所以可以把n二分下去-变成logN的快速幂算法" class="headerlink" title="—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法"></a>—-因为x^n^可以分解成x^n/2^ * x^n/2^, 所以可以把n二分下去 变成logN的快速幂算法</h4><h4 id="另外注意-数值越界-奇偶的二分的区别"><a href="#另外注意-数值越界-奇偶的二分的区别" class="headerlink" title="另外注意: 数值越界, 奇偶的二分的区别"></a>另外注意: 数值越界, 奇偶的二分的区别</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
 public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) 
-    {   
-        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
-
-        //动态规划
-        //当累积到第i个数时,有两种情况:
-        //1.吃掉之前的sum,变得更大
-        //2.之前的sum为负,要它干嘛,不吃,自立门户
-        int sum=nums[0];
-        int maxResult=nums[0];
-        int L=nums.size();
-        for(int i=1;i&lt;L;i++)
-        {
-            if(sum&gt;0)
-                sum+=nums[i];
-            else
-                sum=nums[i];
-
-            if(sum&gt;maxResult)
-                maxResult=sum;
-        }
-
-        return maxResult;
+    double myPow(double x, int n) 
+    {   //????通不过45,90啊
+        //只有奇偶递归的话,数值变大了就有问题
+        if(n==INT_MIN)//注意-n 和 n 的越界范围不一样
+            return 1/(myPow(x,INT_MAX)*x);
+        else if(n&lt;0)
+            return 1/myPow(x,-n);
 
 
+        if(n==0)
+            return 1.0;
+        else if(n==1)
+            return x;
+
+        double half=myPow(x,n/2);
+        if(n%2==0)
+            return half*half;
+        else //(n%2!=0)
+            return half*half*x;            
     }
 };</code></pre>
       
@@ -843,7 +733,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-60/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-53/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -857,7 +747,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
         </h2>
 
         <div class="post-meta">
@@ -874,7 +764,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:56" itemprop="dateModified" datetime="2020-07-16T19:34:56+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -897,61 +787,43 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a><a href="https://leetcode-cn.com/problems/permutation-sequence" target="_blank" rel="noopener">第K个排列</a></h1><blockquote>
-<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
-<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
-<p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p>
-<p>说明：</p>
-<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。</p>
+          <h1 id="最大子序和"><a href="#最大子序和" class="headerlink" title="最大子序和"></a><a href="https://leetcode-cn.com/problems/maximum-subarray" target="_blank" rel="noopener">最大子序和</a></h1><blockquote>
+<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
 <blockquote>
-<p>示例 1:</p>
-<p>输入: n = 3, k = 3<br>输出: “213”</p>
+<p>示例:</p>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],<br>输出: 6<br>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。<br>进阶:</p>
 </blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: n = 4, k = 9<br>输出: “2314”</p>
+<p>如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</p>
 </blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用"><a href="#1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用" class="headerlink" title="1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用.."></a>1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</h5><h5 id="2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"><a href="#2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。" class="headerlink" title="2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"></a>2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</h5><h5 id="3-数学计算"><a href="#3-数学计算" class="headerlink" title="3. 数学计算"></a>3. 数学计算</h5><p>全排列每个位置的每个数其实是有数学特征的。<br>比如对 1 2 3<br>3.1 <strong>首位情况</strong>： 肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。<br>3.2 <strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现 <strong>尾部排列次数</strong> 次，然后是nums[1]…依次类推。</p>
-<h5 id="综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。"><a href="#综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。" class="headerlink" title="综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。"></a>综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。</h5><h5 id="再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。"><a href="#再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。" class="headerlink" title="再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。"></a>再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。</h5><h5 id="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"><a href="#即我们可以直接计算出每一位应该是什么数字。然后组成result即可。" class="headerlink" title="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"></a>即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</h5><h5 id="4-细节"><a href="#4-细节" class="headerlink" title="4.细节"></a>4.细节</h5><p>1.当前位 每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。<br>2. k/fac[n-1] 向上取整得i，此时该位应该是 nums里的第i个数（下标i-1），同时对nums删除这个数。<br>3. n==1  时，nums只剩一个数，直接连上并返回。</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"><a href="#1-一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。" class="headerlink" title="1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。"></a>1. 一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5><h5 id="2-动态规划，当累积到第i个数时-有两种情况"><a href="#2-动态规划，当累积到第i个数时-有两种情况" class="headerlink" title="2. 动态规划，当累积到第i个数时,有两种情况:"></a>2. 动态规划，当累积到第i个数时,有两种情况:</h5><p>2.1 吃掉之前的sum,变得更大<br>2.2 之前的sum为负,要它干嘛,不吃,自立门户</p>
+<h5 id="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"><a href="#所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。" class="headerlink" title="所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。"></a>所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</h5><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
 public:
-    string getPermutation(int n, int k) 
+    int maxSubArray(vector&lt;int&gt;&amp; nums) 
     {   
-        //题解数组
-        const vector&lt;int&gt; fac = {0,1,2,6,24,120,720,5040,40320,362880,3628800};
-        string result(n,&#39;0&#39;);
-        string nums(n,&#39;0&#39;);
-        for(int i=0;i&lt;n;i++)
-            nums[i]=&#39;1&#39;+i;
+        //想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置
 
-        for(int i=0;n&gt;0;i++)
-        {   
-            int a;
-            int left=0;
-            if(n&gt;=2) //计算每个首位有多少个排列,跳过这些排列
-            {   
-                left=fac[n-1];
-                a=k/left;
-                if(k%left!=0)
-                    a++;
-                result[i]=nums[a-1];
-                k-=(a-1)*left;
-                nums.erase(a-1,1);
-                n--;
+        //动态规划
+        //当累积到第i个数时,有两种情况:
+        //1.吃掉之前的sum,变得更大
+        //2.之前的sum为负,要它干嘛,不吃,自立门户
+        int sum=nums[0];
+        int maxResult=nums[0];
+        int L=nums.size();
+        for(int i=1;i&lt;L;i++)
+        {
+            if(sum&gt;0)
+                sum+=nums[i];
+            else
+                sum=nums[i];
 
-            }
-            else //只剩一个数,直接修改返回
-            {
-                result[i]=nums[0];
-                return result;   
-            }
-
+            if(sum&gt;maxResult)
+                maxResult=sum;
         }
-        return result;
+
+        return maxResult;
+
+
     }
-
-
 };</code></pre>
       
     </div>
@@ -1233,6 +1105,134 @@ public:
 
         return temp[n-1];    
     }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-60/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a><a href="https://leetcode-cn.com/problems/permutation-sequence" target="_blank" rel="noopener">第K个排列</a></h1><blockquote>
+<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
+<p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: n = 3, k = 3<br>输出: “213”</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: n = 4, k = 9<br>输出: “2314”</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用"><a href="#1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用" class="headerlink" title="1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用.."></a>1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</h5><h5 id="2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"><a href="#2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。" class="headerlink" title="2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"></a>2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</h5><h5 id="3-数学计算"><a href="#3-数学计算" class="headerlink" title="3. 数学计算"></a>3. 数学计算</h5><p>全排列每个位置的每个数其实是有数学特征的。<br>比如对 1 2 3<br>3.1 <strong>首位情况</strong>： 肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。<br>3.2 <strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现 <strong>尾部排列次数</strong> 次，然后是nums[1]…依次类推。</p>
+<h5 id="综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。"><a href="#综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。" class="headerlink" title="综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。"></a>综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。</h5><h5 id="再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。"><a href="#再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。" class="headerlink" title="再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。"></a>再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。</h5><h5 id="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"><a href="#即我们可以直接计算出每一位应该是什么数字。然后组成result即可。" class="headerlink" title="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"></a>即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</h5><h5 id="4-细节"><a href="#4-细节" class="headerlink" title="4.细节"></a>4.细节</h5><p>1.当前位 每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。<br>2. k/fac[n-1] 向上取整得i，此时该位应该是 nums里的第i个数（下标i-1），同时对nums删除这个数。<br>3. n==1  时，nums只剩一个数，直接连上并返回。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    string getPermutation(int n, int k) 
+    {   
+        //题解数组
+        const vector&lt;int&gt; fac = {0,1,2,6,24,120,720,5040,40320,362880,3628800};
+        string result(n,&#39;0&#39;);
+        string nums(n,&#39;0&#39;);
+        for(int i=0;i&lt;n;i++)
+            nums[i]=&#39;1&#39;+i;
+
+        for(int i=0;n&gt;0;i++)
+        {   
+            int a;
+            int left=0;
+            if(n&gt;=2) //计算每个首位有多少个排列,跳过这些排列
+            {   
+                left=fac[n-1];
+                a=k/left;
+                if(k%left!=0)
+                    a++;
+                result[i]=nums[a-1];
+                k-=(a-1)*left;
+                nums.erase(a-1,1);
+                n--;
+
+            }
+            else //只剩一个数,直接修改返回
+            {
+                result[i]=nums[0];
+                return result;   
+            }
+
+        }
+        return result;
+    }
+
+
 };</code></pre>
       
     </div>
