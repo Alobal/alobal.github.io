@@ -161,6 +161,207 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/06/%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/08/06/%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">队列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-06 13:56:42 / 修改时间：14:33:46" itemprop="dateCreated datePublished" datetime="2020-08-06T13:56:42+08:00">2020-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>FIFO的数据结构，先进入的元素先出来。</p>
+<p>队列操作只能在两端进行。尾部入队，头部出队。</p>
+<p>可以使用 数组，链表 进行实现。</p>
+<h3 id="vector实现"><a href="#vector实现" class="headerlink" title="vector实现"></a>vector实现</h3><p>利用vector往后存储，但是出队后会浪费前面的空间</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">MyQueue</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span><span class="token operator">:</span>
+        <span class="token comment" spellcheck="true">// 元素存储列表</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> data<span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">//需要&lt;vector> </span>
+        <span class="token comment" spellcheck="true">// 头部指针，指向最早的元素</span>
+        <span class="token keyword">int</span> p_start<span class="token punctuation">;</span>            
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token function">MyQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>p_start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">/** 入队,注意p_start仍指向最早的元素 */</span>
+        <span class="token keyword">bool</span> <span class="token function">enQueue</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            data<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">/** 出队,p_start后移 */</span>
+        <span class="token keyword">bool</span> <span class="token function">deQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            p_start<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/** 获取最前元素 */</span>
+        <span class="token keyword">int</span> <span class="token function">Front</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> data<span class="token punctuation">[</span>p_start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/**  */</span>
+        <span class="token keyword">bool</span> <span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> p_start <span class="token operator">>=</span> data<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/" class="post-title-link" itemprop="url">C++构造函数初始化列表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-05 10:55:57 / 修改时间：23:19:39" itemprop="dateCreated datePublished" datetime="2020-08-05T10:55:57+08:00">2020-08-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="C-构造函数初始化语法"><a href="#C-构造函数初始化语法" class="headerlink" title="C++构造函数初始化语法"></a>C++构造函数初始化语法</h1><p>在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">Example</span><span class="token punctuation">(</span>argv<span class="token punctuation">)</span><span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">b</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+    ···
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="初始化作用"><a href="#初始化作用" class="headerlink" title="初始化作用"></a>初始化作用</h1><h3 id="无法赋值的成员，必须使用初始化列表进行初始化"><a href="#无法赋值的成员，必须使用初始化列表进行初始化" class="headerlink" title="无法赋值的成员，必须使用初始化列表进行初始化"></a>无法赋值的成员，必须使用初始化列表进行初始化</h3><p>例如假设有个类成员，它本身是个没有默认构造函数的类。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">CMember</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span><span class="token operator">:</span>
+        <span class="token function">CMember</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们都知道此时<code>CMember* pm=new CMember;</code>是错误的，必须调用有参数的构造函数。</p>
+<p>此时CMember是另一个类的成员时，我们怎么初始化呢？</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">
+<span class="token keyword">class</span> <span class="token class-name">CMyClass</span> <span class="token punctuation">{</span> 
+CMember m_member<span class="token punctuation">;</span> 
+
+<span class="token keyword">public</span><span class="token operator">:</span> 
+
+<span class="token function">CMyClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span> 
+
+<span class="token comment" spellcheck="true">//必须使用成员初始化列表 </span>
+CMyClass<span class="token operator">::</span><span class="token function">CMyClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">m_member</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> 
+<span class="token punctuation">{</span> 
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为m_member不存在默认构造函数，所以不能在构造函数里 默认初始化后再对其赋值，<strong>只能使用初始化列表的方式</strong>。</p>
+<p>常量对象和引用对象也是一样，只能被初始化。</p>
+<h3 id="效率相关"><a href="#效率相关" class="headerlink" title="效率相关"></a>效率相关</h3><p>和上例类似，假如CMember存在默认构造函数呢？那我们是可以在CMyClass函数体内对其赋值的。</p>
+<p>但是此时编译过程是————先调用CMember的默认构造函数，再调用拷贝构造函数，即需两次函数运算。</p>
+<p>而假如是初始化列表，则直接调用相应的带参数的构造函数。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,7 +393,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-05 17:50:53" itemprop="dateModified" datetime="2020-08-05T17:50:53+08:00">2020-08-05</time>
+                <time title="修改时间：2020-08-06 14:14:01" itemprop="dateModified" datetime="2020-08-06T14:14:01+08:00">2020-08-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,8 +417,7 @@
 
       
           <h1 id="单链表定义"><a href="#单链表定义" class="headerlink" title="单链表定义"></a>单链表定义</h1><p>一种内存中不连续的线性结构，但每个元素是单独的对象，元素之间通过指针链接起来。</p>
-<p>常见结构:</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Definition for singly-linked list.</span>
+<h5 id="参考实现"><a href="#参考实现" class="headerlink" title="参考实现:"></a>参考实现:</h5><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Definition for singly-linked list.</span>
 <span class="token keyword">struct</span> SinglyListNode <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
     SinglyListNode <span class="token operator">*</span>next<span class="token punctuation">;</span>
@@ -269,8 +469,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="双向链表定义"><a href="#双向链表定义" class="headerlink" title="双向链表定义"></a>双向链表定义</h1><p>在单链表的基础上，增加了prev指针指向前一个链表节点</p>
-<p>常见结构:</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> DoublyListNode
+<h5 id="参考实现-1"><a href="#参考实现-1" class="headerlink" title="参考实现:"></a>参考实现:</h5><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> DoublyListNode
 <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
     DoublyListNode <span class="token operator">*</span>next<span class="token punctuation">,</span><span class="token operator">*</span>prev<span class="token punctuation">;</span>
@@ -290,6 +489,9 @@
 </ul>
 <p>还要注意parent或者child为NULL的情况</p>
 <p>双链表一般考虑带有头尾结点，单向连接链表本体。</p>
+<ul>
+<li>时间复杂度，找位置O(N)，操作O(1)</li>
+</ul>
 <p>示意代码</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token punctuation">{</span>   <span class="token comment" spellcheck="true">//插入作为第i个结点</span>
     <span class="token comment" spellcheck="true">//带有头结点</span>
@@ -317,10 +519,16 @@
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="删除结点-1"><a href="#删除结点-1" class="headerlink" title="删除结点"></a>删除结点</h3><p>注意维护结点链接，以及注意头尾结点情况</p>
 <ul>
-<li><code>parent-&gt;next=current-&gt;next</code></li>
-<li><code>current-&gt;next-&gt;prev=parent</code></li>
-<li><code>current-&gt;next=NULL</code></li>
-<li><code>current-&gt;prev=NULL</code></li>
+<li><p><code>parent-&gt;next=current-&gt;next</code></p>
+</li>
+<li><p><code>current-&gt;next-&gt;prev=parent</code></p>
+</li>
+<li><p><code>current-&gt;next=NULL</code></p>
+</li>
+<li><p><code>current-&gt;prev=NULL</code></p>
+</li>
+<li><p>时间复杂度，找位置O(N)，操作O(1)</p>
+</li>
 </ul>
 <p>示意代码</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token punctuation">{</span>
@@ -753,7 +961,7 @@ cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuatio
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-04 21:45:31" itemprop="dateModified" datetime="2020-08-04T21:45:31+08:00">2020-08-04</time>
+                <time title="修改时间：2020-08-06 00:29:57" itemprop="dateModified" datetime="2020-08-06T00:29:57+08:00">2020-08-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -781,7 +989,7 @@ cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuatio
 <blockquote>
 <p>不过深度我没咋很懂就是了。</p>
 </blockquote>
-<h5 id="七宗罪"><a href="#七宗罪" class="headerlink" title="七宗罪"></a>七宗罪</h5><hr>
+<h5 id="七宗罪"><a href="#七宗罪" class="headerlink" title="七宗罪"></a>七宗罪</h5><h5 id="两小无猜"><a href="#两小无猜" class="headerlink" title="两小无猜"></a>两小无猜</h5><hr>
 <h1 id="图个爽"><a href="#图个爽" class="headerlink" title="图个爽"></a>图个爽</h1><h5 id="盗梦空间"><a href="#盗梦空间" class="headerlink" title="盗梦空间"></a>盗梦空间</h5><h5 id="头号玩家"><a href="#头号玩家" class="headerlink" title="头号玩家"></a>头号玩家</h5><h5 id="怦然心动"><a href="#怦然心动" class="headerlink" title="怦然心动"></a>怦然心动</h5><p>谈恋爱的最佳共赏电影</p>
 <h5 id="捕蝇纸"><a href="#捕蝇纸" class="headerlink" title="捕蝇纸"></a>捕蝇纸</h5><h5 id="星际穿越"><a href="#星际穿越" class="headerlink" title="星际穿越"></a>星际穿越</h5><h5 id="致命魔术"><a href="#致命魔术" class="headerlink" title="致命魔术"></a>致命魔术</h5><h5 id="误杀"><a href="#误杀" class="headerlink" title="误杀"></a>误杀</h5><h5 id="卓别林系列"><a href="#卓别林系列" class="headerlink" title="卓别林系列"></a>卓别林系列</h5><h5 id="周星驰系列"><a href="#周星驰系列" class="headerlink" title="周星驰系列"></a>周星驰系列</h5><hr>
 <h1 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h1><h5 id="兰戈"><a href="#兰戈" class="headerlink" title="兰戈"></a>兰戈</h5><p>小变色龙的荒野大镖客</p>
@@ -1368,375 +1576,6 @@ cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuatio
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">小试几场面试总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-21 16:57:11" itemprop="dateCreated datePublished" datetime="2020-07-21T16:57:11+08:00">2020-07-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 12:10:58" itemprop="dateModified" datetime="2020-08-03T12:10:58+08:00">2020-08-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。</p>
-<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>自我介绍</p>
-<p>然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）</p>
-<p>四六级成绩（一般般。</p>
-<p>介绍一个LeetCode的算法思路</p>
-<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h3 id="整数的二进制位操作"><a href="#整数的二进制位操作" class="headerlink" title="整数的二进制位操作"></a>整数的二进制位操作</h3><p>&lt;&lt; 左移位操作，右边开始用0补位<br>&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决定（gcc的编译器是补符号位）</p>
-<p>expr |=(1 &lt;&lt; n);将第n位置1<br>expr &amp;=( ~(1 &lt;&lt; n) );将第n位置0</p>
-<h3 id="const有哪几种作用"><a href="#const有哪几种作用" class="headerlink" title="const有哪几种作用"></a>const有哪几种作用</h3><ul>
-<li>修饰成员函数：<code>int Fun() const;</code> 成员函数不可修改类成员数据</li>
-<li>修饰一般常量，如<code>const type x;</code> <code>const type x[5];</code></li>
-<li>修饰指针指向的对象,<code>const int * A;</code> </li>
-<li>修饰指针本身，<code>int * const A;</code> ，指针本身不能修改，但是指针指向对象可修改。</li>
-<li>修饰引用常量类型，<code>const int &amp;refer=A;</code>，注意这里把const int看作一个类型，A 必须是const int类型。</li>
-</ul>
-<h3 id="数组-和-链表-区别，操作效率"><a href="#数组-和-链表-区别，操作效率" class="headerlink" title="数组 和 链表 区别，操作效率"></a>数组 和 链表 区别，操作效率</h3><p>增删链表优势，访问数组优势</p>
-<h3 id="float-和-double-的表示范围"><a href="#float-和-double-的表示范围" class="headerlink" title="float 和 double 的表示范围"></a>float 和 double 的表示范围</h3><p>float 4字节，double 8字节</p>
-<h3 id="32位整数表示范围"><a href="#32位整数表示范围" class="headerlink" title="32位整数表示范围"></a>32位整数表示范围</h3><p>-2^32~2^32-1</p>
-<h3 id="list判断环"><a href="#list判断环" class="headerlink" title="list判断环"></a>list判断环</h3><p>可以用快慢指针方式判断。（对不起，一时只想到了存储指针方式</p>
-<h3 id="stl库vector-list-map的各自适用情景"><a href="#stl库vector-list-map的各自适用情景" class="headerlink" title="stl库vector list map的各自适用情景"></a>stl库vector list map的各自适用情景</h3><h3 id="二叉树的遍历复杂度？"><a href="#二叉树的遍历复杂度？" class="headerlink" title="二叉树的遍历复杂度？"></a>二叉树的遍历复杂度？</h3><p>…查找复杂度是log…面试的时候懵住了，脑袋里在想（是在问 遍历 复杂度？遍历？遍历？）</p>
-<h3 id="哈希表的二次探测解决方案？"><a href="#哈希表的二次探测解决方案？" class="headerlink" title="哈希表的二次探测解决方案？"></a>哈希表的二次探测解决方案？</h3><ul>
-<li>线性探测，就冲突就+1+2+3</li>
-<li>二次探测，+0+1^2+2^2</li>
-<li>开链法，哈希表每个位置保存一个链表头。</li>
-<li></li>
-</ul>
-<h3 id="栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。"><a href="#栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。" class="headerlink" title="栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。"></a>栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。</h3><ul>
-<li><p>系统栈：编译器自动分配，自动清除的变量的存储区，通常是局部变量、函数参数等。</p>
-</li>
-<li><p>系统堆：new分配的内存块，由程序控制。</p>
-</li>
-<li><p>自由存储区：由malloc分配的内存块，和堆十分相似。</p>
-</li>
-<li><p>全局/静态存储区：全局变量和静态变量分配到的内存。</p>
-</li>
-<li><p>常量存储区：存放常量，不允许修改。</p>
-</li>
-<li><p>分配效率：计算机底层对栈提供支持，决定了栈的效率比较高。堆是C/C++提供的，由库函数按照一定算法在堆内存中搜索可用的空间（考虑操作系统内存分配）。</p>
-</li>
-<li><p><a href="https://blog.csdn.net/qq_35637562/article/details/78550953" target="_blank" rel="noopener">参考博客</a></p>
-</li>
-</ul>
-<h3 id="new，operator-new相关"><a href="#new，operator-new相关" class="headerlink" title="new，operator new相关"></a>new，operator new相关</h3><p><a href="https://www.jianshu.com/p/b52a5df69c88" target="_blank" rel="noopener">参考</a></p>
-<h3 id="多态实现问题，静态绑定-动态绑定的机制原理"><a href="#多态实现问题，静态绑定-动态绑定的机制原理" class="headerlink" title="多态实现问题，静态绑定/动态绑定的机制原理"></a>多态实现问题，静态绑定/动态绑定的机制原理</h3><ul>
-<li>对象的静态类型：声明时的类型，编译期确定的，无法更改。</li>
-<li>对象的动态类型：目前所指对象的类型，运行期决定，可更改。</li>
-<li>静态绑定：通过对象调用绑定，发生在编译期。</li>
-<li>动态绑定：通过地址实现，即基类的指针或引用，绑定到不同的派生类上，调用不同的函数，发生在运行期，虚函数是动态绑定的基础。</li>
-</ul>
-<p>动态绑定需要两个条件：</p>
-<ul>
-<li>虚函数才进行动态绑定</li>
-<li>是通过基类的引用或指针来进行函数调用的</li>
-</ul>
-<h3 id="引用-指针"><a href="#引用-指针" class="headerlink" title="引用 指针"></a>引用 指针</h3><p>引用和指针的区别？</p>
-<ul>
-<li>引用不能更换目标</li>
-<li>引用需要初始化</li>
-<li>C++底层引用是通过指针实现，是一个常量指针，提供了比指针更高的安全性。</li>
-</ul>
-<p>引用占用的空间？</p>
-<ul>
-<li>引用是个常量指针，在内存中占用4个字节，可以通过sizeof一个只含有引用的类进行测量。</li>
-</ul>
-<p>引用能为空吗？引用能引用解指针对象吗？引用到解空指针会发生什么？</p>
-<ul>
-<li>引用不能为空，但可以通过绑定到解空指针上，认为实现空引用。</li>
-<li>但是我测试的时候,如下：<br>  编译器会在第二个<code>*p</code>处报错，<strong>无法用A类型的值初始化 int &amp; 类型的引用 (非常量限定)</strong>。<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token operator">&amp;</span>a <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h3 id="对a-5-int-a-1-和-int-amp-a-1-的区别"><a href="#对a-5-int-a-1-和-int-amp-a-1-的区别" class="headerlink" title="对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别"></a>对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</h3><p>a+1会指向a[1]<br>&amp;a+1等同于a[4]后面一个位置，即跳过了整个数组</p>
-<h3 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h3><p>异常处理有吗？程序不能只考虑正确运行。</p>
-<h3 id="异常处理-try-catch-finally"><a href="#异常处理-try-catch-finally" class="headerlink" title="异常处理 try catch (finally)"></a>异常处理 try catch (finally)</h3><ul>
-<li>try ：包裹需要检测的代码块，使用throw抛出异常。</li>
-<li>catch ： 捕捉异常信息，可指定想要捕捉的异常类型，省略号…表示捕捉所有类型。</li>
-</ul>
-<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>python里函数也是对象，可以赋值给变量</p>
-<p>不希望修改函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。</p>
-<p>本质上，decorator就是一个 <strong>接受一个函数作为参数，并返回一个函数</strong> 的高阶函数。</p>
-<p>装饰器示例：</p>
-<pre class="line-numbers language-py"><code class="language-py">import logging
-
-def use_logging(func):
-
-    def wrapper(*args, **kwargs):
-        logging.warn("%s is running" % func.__name__)
-        return func(*args, **kwargs)   # 把 foo 当做参数传递进来时，执行func()就相当于执行foo()
-    return wrapper
-
-@use_logging  #相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。
-def foo():
-    print("i am foo")
-
-
-foo()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>@装饰器修饰相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。</p>
-<h5 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h5><p>假如有传参需求，即构建三层装饰器，最外层获取参数，第二层获取被装饰的函数。</p>
-<p>三层装饰器示例：</p>
-<pre class="line-numbers language-py"><code class="language-py">def log(text):
-    def decorator(func):
-        def wrapper(*args, **kw):
-            print('%s %s():' % (text, func.__name__))
-            return func(*args, **kw)
-        return wrapper
-    return decorator
-
-@log('execute') #相当于now=log('execute')(now)，其中log('execute')返回decorator函数，然后decorator再传参now函数，返回最终函数
-def now():
-    print('2015-3-25')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>@装饰器修饰相当于now=log(‘execute’)(now)，其中log(‘execute’)返回decorator函数，然后decorator再传参now函数，返回最终函数。</p>
-<h5 id="维护签名的装饰器"><a href="#维护签名的装饰器" class="headerlink" title="维护签名的装饰器"></a>维护签名的装饰器</h5><p>装饰器修饰后，因为其实更换了函数对象，此时<code>now.__name__</code>值为<code>wrapper</code>，但有些检查函数签名的功能则会发生错误，因此需要复制签名信息到新函数。</p>
-<p>@functools.wraps(fun)即是用来完成这项工作。</p>
-<p>维护签名的装饰器如下：</p>
-<pre class="line-numbers language-py"><code class="language-py">import functools
-
-def log(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kw):
-        print('call %s():' % func.__name__)
-        return func(*args, **kw)
-    return wrapper<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>维护签名的三层装饰器：</p>
-<pre class="line-numbers language-py"><code class="language-py">import functools
-
-def log(text):
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kw):
-            print('%s %s():' % (text, func.__name__))
-            return func(*args, **kw)
-        return wrapper
-    return decorator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="python用过哪些包"><a href="#python用过哪些包" class="headerlink" title="python用过哪些包"></a>python用过哪些包</h3><p>opencv，numpy，sklearn…</p>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
-<h3 id="补码，反码"><a href="#补码，反码" class="headerlink" title="补码，反码"></a>补码，反码</h3><p>整数补码与原码相同</p>
-<p>负整数的补码，将其原码除符号位外的所有位取反后加1</p>
-<p>+0 ，-0 补码都是0</p>
-<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p>区别是什么？TCP保障可靠性</p>
-<p>举个现实例子类比这两个？…</p>
-<p>具体的三次握手什么的没有问。</p>
-<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h3 id="导数-微分计算，问的很基础"><a href="#导数-微分计算，问的很基础" class="headerlink" title="导数/微分计算，问的很基础"></a>导数/微分计算，问的很基础</h3><h3 id="向量点乘，叉乘，（一时没反应过来叉乘是什么"><a href="#向量点乘，叉乘，（一时没反应过来叉乘是什么" class="headerlink" title="向量点乘，叉乘，（一时没反应过来叉乘是什么"></a>向量点乘，叉乘，（一时没反应过来叉乘是什么</h3><p>a X b = ||a|| ||b|| sinθ n， </p>
-<ul>
-<li>a，b是向量</li>
-<li>n是和ab平面垂直的单位向量，可用右手定理确定。</li>
-<li>θ是ab夹角。</li>
-</ul>
-<h1 id="Unity和C-，Lua"><a href="#Unity和C-，Lua" class="headerlink" title="Unity和C#，Lua"></a>Unity和C#，Lua</h1><h3 id="Unity是在哪进行学习"><a href="#Unity是在哪进行学习" class="headerlink" title="Unity是在哪进行学习"></a>Unity是在哪进行学习</h3><h3 id="Unity的两本手册Manual和Script-API有看吗。"><a href="#Unity的两本手册Manual和Script-API有看吗。" class="headerlink" title="Unity的两本手册Manual和Script API有看吗。"></a>Unity的两本手册Manual和Script API有看吗。</h3><h3 id="做过那么多教程，说一个最值得说的？"><a href="#做过那么多教程，说一个最值得说的？" class="headerlink" title="做过那么多教程，说一个最值得说的？"></a>做过那么多教程，说一个最值得说的？</h3><p>…教程我真没想到能咋说，就一步一步的学习嘛，说不出来。；；</p>
-<h3 id="Unity你所知道的优点和不足？"><a href="#Unity你所知道的优点和不足？" class="headerlink" title="Unity你所知道的优点和不足？"></a>Unity你所知道的优点和不足？</h3><ul>
-<li>优点，有插件化</li>
-</ul>
-<h3 id="C-有了解吗"><a href="#C-有了解吗" class="headerlink" title="C#有了解吗"></a>C#有了解吗</h3><p>在学了在学了…</p>
-<h3 id="Lua脚本语言需要了解一下"><a href="#Lua脚本语言需要了解一下" class="headerlink" title="Lua脚本语言需要了解一下"></a>Lua脚本语言需要了解一下</h3><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h3 id="主键-外键"><a href="#主键-外键" class="headerlink" title="主键 外键"></a>主键 外键</h3><p>外键能为空吗？</p>
-<p>外键保证了数据的完整性？</p>
-<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>联合索引是怎么样的？</p>
-<p>索引对增删查改效率的影响？</p>
-<p>所有查询字段都应该尽量设置索引吗？</p>
-<p>定期分析和重建索引能提高索引查询效率吗？</p>
-<h1 id="HR面"><a href="#HR面" class="headerlink" title="HR面"></a>HR面</h1><h3 id="校园职务给你什么收获"><a href="#校园职务给你什么收获" class="headerlink" title="校园职务给你什么收获"></a>校园职务给你什么收获</h3><h3 id="奖学金相关"><a href="#奖学金相关" class="headerlink" title="奖学金相关"></a>奖学金相关</h3><h3 id="期望薪资"><a href="#期望薪资" class="headerlink" title="期望薪资"></a>期望薪资</h3><h3 id="压力意向"><a href="#压力意向" class="headerlink" title="压力意向"></a>压力意向</h3><h3 id="课程相关，什么课学的好。"><a href="#课程相关，什么课学的好。" class="headerlink" title="课程相关，什么课学的好。"></a>课程相关，什么课学的好。</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" class="post-title-link" itemprop="url">LeetCode_剑指Offer No.39</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-20 23:50:03" itemprop="dateCreated datePublished" datetime="2020-07-20T23:50:03+08:00">2020-07-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-21 00:04:47" itemprop="dateModified" datetime="2020-07-21T00:04:47+08:00">2020-07-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="求数组中的众数"><a href="#求数组中的众数" class="headerlink" title="求数组中的众数"></a><a href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof" target="_blank" rel="noopener">求数组中的众数</a></h1><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
-<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
-<blockquote>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]<br>输出: 2</p>
-</blockquote>
-</blockquote>
-<p>限制：</p>
-<p>1 &lt;= 数组长度 &lt;= 50000</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>题目关键词：<strong>出现次数</strong>，即我们很容易想到对次数进行统计然后查找的暴力方式，当然，没有介绍的必要。</p>
-<p>另一个关键词：<strong>超过一半</strong>，超过一半的性质能带给我们什么优势？暴力法没有顾及到，下面介绍的<strong>抵消法</strong>/<strong>摩尔投票法</strong>则利用了这一性质进行提速。</p>
-<p>再仔细思考题目性质：</p>
-<p><strong>核心性质</strong>————寻找众数，众数次数超过一半————众数次数 - 所有其他数字加起来出现的次数 &gt;0 </p>
-<ol>
-<li><p>我们可以拿出一个 众数，和 一个非众数 匹配抵消。<strong>两两抵消</strong>后，最终剩下的肯定是众数。</p>
-</li>
-<li><p>假设当前数是a，碰到下一个不同的数b，a和b抵消后，不管a b 和众数是什么关系。之后的数组中依然有性质————众数次数 - 所有其他数字加起来出现的次数 &gt;0 ，即a和b的抵消不影响我们在后续数组中找众数。</p>
-</li>
-<li><p>即我们可以按序把两两不相同的数抵消，相同的数累计起来去抵消后续不同的数。并且后续的数组中依然可以继续抵消。</p>
-</li>
-<li><p>这样即可递归下去，最终遍历完整个数组，把所有数抵消了一遍，我们得到剩下的数<code>remain=众数</code>。</p>
-</li>
-</ol>
-<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol>
-<li><p>取第一个数作为当前<code>remain</code></p>
-</li>
-<li><p>遍历到下一个数</p>
-<ul>
-<li>假如不同，则两两抵消，由上面分析可知，不影响后面数组中最后留下的是众数。</li>
-<li>假如相同，则在<code>count</code>中累计起来，后面可以抵消更多的不同的数。</li>
-</ul>
-</li>
-<li><p>遍历完一整遍数组，全部抵消完毕，则最后<code>remain</code>保持为抵消后多余出来的众数</p>
-</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>抵消法做法很简单，值得注意的是理解算法的正确性，为什么这样做是对的。</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token keyword">int</span> <span class="token function">majorityElement</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> 
-    <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//抵消思路，因为次数超过一半————众数次数 - 所有其他数字加起来出现的次数 >0 ,</span>
-        <span class="token comment" spellcheck="true">//即取 众数一次 抵消 非众数一次 最终剩下来的就是众数</span>
-        <span class="token comment" spellcheck="true">//即 假设a是众数，碰到下个数不是a， 那么这两个数抵消，剩下的数组里依然有 众数次数 - 所有其他数字加起来出现的次数 >0</span>
-        <span class="token comment" spellcheck="true">//最终全部抵消后，多余的是众数。</span>
-
-        <span class="token keyword">int</span> remain<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//最后剩下的肯定是全数组的众数</span>
-        <span class="token keyword">int</span> count<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//记录当前假设的众数的次数 用于抵消</span>
-        <span class="token keyword">int</span> length<span class="token operator">=</span>nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>count<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//更新假设对象</span>
-            <span class="token punctuation">{</span>
-                remain<span class="token operator">=</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                count<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">!=</span>remain<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//两两抵消</span>
-                count<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span><span class="token comment" spellcheck="true">//相同数，count++</span>
-                count<span class="token operator">++</span><span class="token punctuation">;</span>
-
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">return</span> remain<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1806,7 +1645,7 @@ def log(text):
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1819,7 +1658,7 @@ def log(text):
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1915,3 +1754,7 @@ def log(text):
 
 </body>
 </html>
+
+<!--崩溃欺骗-->
+
+

@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-72/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
         </h2>
 
         <div class="post-meta">
@@ -215,48 +215,362 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">编辑距离</a></h1><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
-<p>你可以对一个单词进行如下三种操作：</p>
-<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+          <h1 id="文本左右对齐"><a href="#文本左右对齐" class="headerlink" title="文本左右对齐"></a><a href="https://leetcode-cn.com/problems/text-justification" target="_blank" rel="noopener">文本左右对齐</a></h1><p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。<br>每个单词的长度大于 0，小于等于 maxWidth。<br>输入单词数组 words 至少包含一个单词。<br>示例:</p>
+<p>输入:<br>words = [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”]<br>maxWidth = 16<br>输出:<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]<br>示例 2:</p>
+<p>输入:<br>words = [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”]<br>maxWidth = 16<br>输出:<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]<br>解释: 注意最后一行的格式应为 “shall be    “ 而不是 “shall     be”,<br>     因为最后一行应为左对齐，而不是左右两端对齐。<br>     第二行同样为左对齐，这是因为这行只包含一个单词。<br>示例 3:</p>
+<p>输入:<br>words = [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,<br>         “to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]<br>maxWidth = 20<br>输出:<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>也是没有突出思路的困难题….考验代码实现细节的功底。<h4 id="进入每行一轮的循环："><a href="#进入每行一轮的循环：" class="headerlink" title="进入每行一轮的循环："></a>进入每行一轮的循环：</h4></li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
+</ol>
+<p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) 
+    {
+        vector&lt;string&gt;  result;
+        int wordsFlag=0;//处理到的最远的单词
+        int StartFlag=0;
+        int SpaceNum=0;
+        int wordsNum=0;//每行单词数
+        int CurrentLength=0;
+        bool isLast=false;
+        vector&lt;int&gt; spaces;//存储每行每处的空格数
+        while(wordsFlag&lt;words.size())//行循环
+        {   
+            StartFlag=wordsFlag;
+            wordsNum=0;
+            CurrentLength=0;
+            while(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词
+            {   
+                CurrentLength+=words[wordsFlag].size();
+
+                if(CurrentLength+wordsNum&gt;maxWidth)//超过了 退掉最后一次
+                {
+                    CurrentLength-=words[wordsFlag].size();
+                    // wordsFlag--; wordsFlag 停在下一行第一个
+                    break;
+                }
+                wordsNum++;
+                wordsFlag++;
+
+                //末行判定
+                if(wordsFlag&gt;=words.size())
+                {
+                    isLast=true;
+                    break;
+                }
+            }
+
+            //计算所需空格数
+            SpaceNum=maxWidth-CurrentLength;
+
+            if(wordsNum&gt;1)//1判断，wordsNum-1=0时不能当除数
+            {
+                 spaces= vector&lt;int&gt;(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个
+                    for (int j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的
+                        spaces[j] += 1;
+                spaces.push_back(0);//最后一个数不要空格
+            }
+            else
+                spaces= vector&lt;int&gt;(1,SpaceNum);
+
+            //末行处理
+            if(isLast==true &amp;&amp; wordsNum&gt;1)
+            {
+                int j= 0;
+                for (; j &lt;wordsNum-1; j++)
+                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =
+                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格
+            }
+
+            string temp;
+            int j=0;
+            while(StartFlag&lt;wordsFlag)
+            {   
+                //填充单词
+                temp+=words[StartFlag];//填词
+                //填充空格
+                for(int i=0;i&lt;spaces[j];i++)//填空格
+                    temp.push_back(&#39; &#39;);
+                StartFlag++;
+                j++;
+            }
+
+            result.push_back(temp);
+
+        }
+
+        return result;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-75/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">颜色分类</a></h1><p>给定一个包含红色、白色和蓝色，一共 <em>n <em>个元素的数组，</em></em><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">原地</a>**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
 <blockquote>
-<p>输入: word1 = “horse”, word2 = “ros”<br>输出: 3<br>解释:<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)</p>
+<p>输入:** [2,0,2,1,1,0]<br><strong>输出:</strong> [0,0,1,1,2,2]</pre></p>
 </blockquote>
-<p>示例 2:</p>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li>
+<li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li>
+</ul>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000…111….2222的顺序。<blockquote>
+<p>正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。</p>
+</blockquote>
+</li>
+<li>对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。<blockquote>
+<p>三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。</p>
+</blockquote>
+</li>
+<li>确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。</li>
+</ol>
+<h5 id="针对cur的分类处理："><a href="#针对cur的分类处理：" class="headerlink" title="针对cur的分类处理："></a>针对cur的分类处理：</h5><ol>
+<li><p>是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。</p>
+</li>
+<li><p>是2，则和2的flag，right交换，同时right–。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。<br>同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。<br>因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。</p>
+</li>
+<li><p>是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了</p>
+</li>
+<li><p>那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？</p>
+<p> <strong>只有当left会在cur右边时</strong>，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。</p>
+<p>   <strong>当left在cur左边时，即left指向的必定经过了cur的洗礼</strong>，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。</p>
+</li>
+<li><p>当cur遇到right，即到达2的边界，则说明不需要处理了，结束。</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    void sortColors(vector&lt;int&gt;&amp; nums) 
+    {
+        int left=0;
+        int right=nums.size()-1;
+        int cur=0;
+        while(cur&lt;=right)
+        {   
+            if(nums[cur]==0)//这个数字是0，移动0区域内，
+            {
+                swap(nums[cur],nums[left]);
+                //假如cur&gt;left，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？
+                //jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。
+                //假如cur==left==0，没啥好说的，下一个
+                //假如cur&lt;left, 可能吗？cur++的机会 &gt;= left++的机会
+                left++;
+            }
+            else if(nums[cur]==2)//这个数字是2，移到2区域内
+            {
+                swap(nums[cur],nums[right]);
+                right--;
+                //交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变
+                cur--;
+            }
+            cur++;
+        }
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">反转链表</a></h1><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
+<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
 <blockquote>
-<p>输入: word1 = “intention”, word2 = “execution”<br>输出: 5<br>解释:<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p>
+<p>示例:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4<br>输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</p>
 </blockquote>
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>和字符串匹配之类的差不多，都是 <strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
-<li>动态规划  dp[i][j]状态</li>
-<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
-<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
-<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+<li>反转一段区域，首先肯定想到是一个一个反转<blockquote>
+<p>比如2-&gt;3-&gt;4  先3插前面去 3-&gt;2-&gt;4 ，然后4插前面去 4-&gt;3-&gt;2</p>
+</blockquote>
+</li>
+<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
+<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
+<li>遍历反转区域元素current，令temp=current-&gt;next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-&gt;next即可。</li>
 </ol>
-<h1 id="dp题解代码"><a href="#dp题解代码" class="headerlink" title="dp题解代码"></a>dp题解代码</h1><pre><code>class Solution {
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
 public:
-    int minDistance(string word1, string word2) 
+    ListNode* reverseBetween(ListNode* head, int m, int n) 
     {
-        //动态规划  dp[i][j]状态
-        //对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]
-        //对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可
-        //对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。
-        int dp[word1.size()+1][word2.size()+1];
-        dp[0][0]=0;
-        for(int i=1;i&lt;=word1.size();i++)
-            dp[i][0]=i;
-        for(int i=1;i&lt;=word2.size();i++)
-            dp[0][i]=i;
+        int count=1;
+        ListNode* temp;
+        ListNode* current;
 
-        int i;
-        int j;
-        for(i=1;i&lt;=word1.size();i++)
-            for(j=1;j&lt;=word2.size();j++)
-                if(word1[i-1]==word2[j-1])
-                    dp[i][j]=1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]-1);
-                else
-                    dp[i][j]=1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);
+        ListNode First(0);
+        First.next=head;
+        ListNode* pre=&amp;First;
+        while(count&lt;m)//pre停在原第m-1个数
+        {
+            pre=pre-&gt;next;
+            count++;   
+        }
+        current=pre-&gt;next;//current指向当前处理数
 
-        return dp[word1.size()][word2.size()];                    
+        while(count&lt;n)//count计数位，每次将current-&gt;next插入到pre-&gt;next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current=2 pre=1
+        {
+            temp=current-&gt;next;//保留current后节点，temp=3
+            current-&gt;next=temp-&gt;next;//2-&gt;next=4
+            temp-&gt;next=pre-&gt;next;//逆转temp和current的前后关系。3-&gt;next=2
+            pre-&gt;next=temp;//更新pre的后节点，1-&gt;next=3
+            //current
+            count++;//完成[1,3,2,4,5]
+        }
+
+        return First.next;
+
     }
 };</code></pre>
       
@@ -389,6 +703,122 @@ public:
         return result;
 
 
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">编辑距离</a></h1><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+<blockquote>
+<p>输入: word1 = “horse”, word2 = “ros”<br>输出: 3<br>解释:<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: word1 = “intention”, word2 = “execution”<br>输出: 5<br>解释:<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>和字符串匹配之类的差不多，都是 <strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划  dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+</ol>
+<h1 id="dp题解代码"><a href="#dp题解代码" class="headerlink" title="dp题解代码"></a>dp题解代码</h1><pre><code>class Solution {
+public:
+    int minDistance(string word1, string word2) 
+    {
+        //动态规划  dp[i][j]状态
+        //对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]
+        //对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可
+        //对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。
+        int dp[word1.size()+1][word2.size()+1];
+        dp[0][0]=0;
+        for(int i=1;i&lt;=word1.size();i++)
+            dp[i][0]=i;
+        for(int i=1;i&lt;=word2.size();i++)
+            dp[0][i]=i;
+
+        int i;
+        int j;
+        for(i=1;i&lt;=word1.size();i++)
+            for(j=1;j&lt;=word2.size();j++)
+                if(word1[i-1]==word2[j-1])
+                    dp[i][j]=1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]-1);
+                else
+                    dp[i][j]=1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);
+
+        return dp[word1.size()][word2.size()];                    
     }
 };</code></pre>
       
@@ -654,7 +1084,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-92/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -668,7 +1098,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
+            <a href="/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
         </h2>
 
         <div class="post-meta">
@@ -685,7 +1115,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:22:48" itemprop="dateModified" datetime="2020-07-17T11:22:48+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -693,7 +1123,7 @@ public:
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
                 </span>
             </span>
 
@@ -708,61 +1138,52 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">反转链表</a></h1><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
-<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4<br>输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</p>
+          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><pre><code>%matplotlib inline
+from pylab import *
+import numpy as np
+
+# N 个人 K 个簇
+def CreateClusteredData(n,k):
+    pointPerCluster=float(n)/k
+    x=[]
+    y=[]
+    for i in range(k):
+        incomeCentroid=np.random.uniform(20000.0,200000.0)
+        ageCentroid=np.random.uniform(20.0,70.0)
+        for j in range(int(pointPerCluster)):
+            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])
+            y.append(i)# 保存已知簇信息
+    x=np.array(x)
+    y=np.array(y)
+    return x,y
+
+(x,y)=CreateClusteredData(100,5)
+
+plt.scatter(x[:,0],x[:,1],c=y.astype(np.float))</code></pre><h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><pre><code>from sklearn import svm,datasets
+C=1.0
+svc=svm.SVC(kernel=&#39;linear&#39;,C=C).fit(x,y)</code></pre><h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
+<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
+<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
+<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
 </blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>反转一段区域，首先肯定想到是一个一个反转<blockquote>
-<p>比如2-&gt;3-&gt;4  先3插前面去 3-&gt;2-&gt;4 ，然后4插前面去 4-&gt;3-&gt;2</p>
+<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
+<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
 </blockquote>
-</li>
-<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
-<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
-<li>遍历反转区域元素current，令temp=current-&gt;next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-&gt;next即可。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* reverseBetween(ListNode* head, int m, int n) 
-    {
-        int count=1;
-        ListNode* temp;
-        ListNode* current;
+<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
+<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
+</blockquote>
+<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><pre><code>def plotPredictions(clf,x,y,color):
+    xx,yy=np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx=有age行的income,yy=有income列的age
+    z=clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息
+    plt.figure(figsize=(8,6))
+    z=z.reshape(xx.shape)
+    plt.contourf(xx,yy,z,cmap=plt.cm.Paired,alpha=0.8)
+    plt.scatter(x,y,c=color)
+    plt.show()
 
-        ListNode First(0);
-        First.next=head;
-        ListNode* pre=&amp;First;
-        while(count&lt;m)//pre停在原第m-1个数
-        {
-            pre=pre-&gt;next;
-            count++;   
-        }
-        current=pre-&gt;next;//current指向当前处理数
+plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
+</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
 
-        while(count&lt;n)//count计数位，每次将current-&gt;next插入到pre-&gt;next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current=2 pre=1
-        {
-            temp=current-&gt;next;//保留current后节点，temp=3
-            current-&gt;next=temp-&gt;next;//2-&gt;next=4
-            temp-&gt;next=pre-&gt;next;//逆转temp和current的前后关系。3-&gt;next=2
-            pre-&gt;next=temp;//更新pre的后节点，1-&gt;next=3
-            //current
-            count++;//完成[1,3,2,4,5]
-        }
-
-        return First.next;
-
-    }
-};</code></pre>
       
     </div>
 
@@ -907,124 +1328,6 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:22:48" itemprop="dateModified" datetime="2020-07-17T11:22:48+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><pre><code>%matplotlib inline
-from pylab import *
-import numpy as np
-
-# N 个人 K 个簇
-def CreateClusteredData(n,k):
-    pointPerCluster=float(n)/k
-    x=[]
-    y=[]
-    for i in range(k):
-        incomeCentroid=np.random.uniform(20000.0,200000.0)
-        ageCentroid=np.random.uniform(20.0,70.0)
-        for j in range(int(pointPerCluster)):
-            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])
-            y.append(i)# 保存已知簇信息
-    x=np.array(x)
-    y=np.array(y)
-    return x,y
-
-(x,y)=CreateClusteredData(100,5)
-
-plt.scatter(x[:,0],x[:,1],c=y.astype(np.float))</code></pre><h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><pre><code>from sklearn import svm,datasets
-C=1.0
-svc=svm.SVC(kernel=&#39;linear&#39;,C=C).fit(x,y)</code></pre><h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
-<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
-<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
-<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
-</blockquote>
-<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
-<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
-</blockquote>
-<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
-<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
-</blockquote>
-<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><pre><code>def plotPredictions(clf,x,y,color):
-    xx,yy=np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx=有age行的income,yy=有income列的age
-    z=clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息
-    plt.figure(figsize=(8,6))
-    z=z.reshape(xx.shape)
-    plt.contourf(xx,yy,z,cmap=plt.cm.Paired,alpha=0.8)
-    plt.scatter(x,y,c=color)
-    plt.show()
-
-plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
-</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1116,250 +1419,6 @@ plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:04" itemprop="dateModified" datetime="2020-07-16T19:35:04+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h4 id="1-SSH-root-remotenode"><a href="#1-SSH-root-remotenode" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出:<br>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win"><a href="#2-scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用ch找到目录和文件</p>
-<h4 id="1-SSH-root-remotenode-1"><a href="#1-SSH-root-remotenode-1" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
-<p>输出: </p>
-<blockquote>
-<p>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
-</blockquote>
-<p>配置的免密登录远程主机也不能用</p>
-</blockquote>
-<p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win-1"><a href="#2-scp-test-txt-root-remotenode-root-test-win-1" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
-<p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
-<p>使用chcp 65001换成utf-8也不行</p>
-<p>当然也不可能重命名用户名文件夹..一大堆程序数据都在下面呢= =</p>
-<h1 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h1><h4 id="1-使用git-bash-代替-cmd-PowerShel"><a href="#1-使用git-bash-代替-cmd-PowerShel" class="headerlink" title="1. 使用git bash 代替[cmd/PowerShel]"></a>1. 使用git bash 代替[cmd/PowerShel]</h4><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
-<p>环境什么的完全没变, <strong>可以正常找到.ssh目录 , 可以正常写入 known_host ,除了在第一次登的时候询问写入known_host, 之后免密登录也可以正常使用.</strong></p>
-<p> scp可以正常发送用户名目录下的文件, 不会找不到.</p>
-<p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
-<h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
-<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
-from pylab import *
-import numpy as np
-import pandas as pd
-from dateutil.parser import parse
-import matplotlib.pyplot as plt
-
-
-df=pd.read_csv(&quot;./上海车牌价格.csv&quot;)
-# 整理时间数据类型
-for i in range(0,len(df)):
-    df.loc[i,&#39;Date&#39;]=&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]
-df[&#39;Date&#39;]=pd.to_datetime(df[&#39;Date&#39;])</code></pre><h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
-<pre><code>plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw=5)
-scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
-plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
-<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
-<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
-<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
-<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
-trainx=totalx[:-12]
-testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
-testdf=df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</code></pre><h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
-<pre><code>x=np.array(trainx)
-y=np.array(traindf[&#39;avg price&#39;])
-p=np.poly1d(np.polyfit(x,y,4))</code></pre><h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
-<pre><code># 制图
-plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])
-plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
-
-# r2检验
-checky=np.array(testdf[&#39;avg price&#39;])
-print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
-print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
-<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
-<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-# 数据导入
-feature_cols=[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]
-x=df[feature_cols]
-y=df[&#39;avg price&#39;]
-x[&#39;time&#39;]=totalx
-# 数据分割测试集和训练集
-x_train=x[:-48]
-x_test=x[-48:]
-y_train=y[:-48]
-y_test=y[-48:]
-linreg=LinearRegression()
-linreg.fit(x_train,y_train)
-
-# 观察线性回归模型系数
-print (linreg.intercept_)
-print(linreg.coef_)</code></pre><h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
-<pre><code># 检验线性回归
-from sklearn import metrics
-y_pre=linreg.predict(x_test)
-print(metrics.r2_score(y_test,y_pre))
-
-y_pred=linreg.predict(x)
-plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],y_pred,lw=3)
-plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
-plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
-plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1429,7 +1488,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1442,7 +1501,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1538,3 +1597,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
 
 </body>
 </html>
+
+<!--崩溃欺骗-->
+
+

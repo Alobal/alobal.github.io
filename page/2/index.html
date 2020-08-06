@@ -161,6 +161,375 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">小试几场面试总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-21 16:57:11" itemprop="dateCreated datePublished" datetime="2020-07-21T16:57:11+08:00">2020-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-03 12:10:58" itemprop="dateModified" datetime="2020-08-03T12:10:58+08:00">2020-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。</p>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><p>自我介绍</p>
+<p>然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）</p>
+<p>四六级成绩（一般般。</p>
+<p>介绍一个LeetCode的算法思路</p>
+<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h3 id="整数的二进制位操作"><a href="#整数的二进制位操作" class="headerlink" title="整数的二进制位操作"></a>整数的二进制位操作</h3><p>&lt;&lt; 左移位操作，右边开始用0补位<br>&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决定（gcc的编译器是补符号位）</p>
+<p>expr |=(1 &lt;&lt; n);将第n位置1<br>expr &amp;=( ~(1 &lt;&lt; n) );将第n位置0</p>
+<h3 id="const有哪几种作用"><a href="#const有哪几种作用" class="headerlink" title="const有哪几种作用"></a>const有哪几种作用</h3><ul>
+<li>修饰成员函数：<code>int Fun() const;</code> 成员函数不可修改类成员数据</li>
+<li>修饰一般常量，如<code>const type x;</code> <code>const type x[5];</code></li>
+<li>修饰指针指向的对象,<code>const int * A;</code> </li>
+<li>修饰指针本身，<code>int * const A;</code> ，指针本身不能修改，但是指针指向对象可修改。</li>
+<li>修饰引用常量类型，<code>const int &amp;refer=A;</code>，注意这里把const int看作一个类型，A 必须是const int类型。</li>
+</ul>
+<h3 id="数组-和-链表-区别，操作效率"><a href="#数组-和-链表-区别，操作效率" class="headerlink" title="数组 和 链表 区别，操作效率"></a>数组 和 链表 区别，操作效率</h3><p>增删链表优势，访问数组优势</p>
+<h3 id="float-和-double-的表示范围"><a href="#float-和-double-的表示范围" class="headerlink" title="float 和 double 的表示范围"></a>float 和 double 的表示范围</h3><p>float 4字节，double 8字节</p>
+<h3 id="32位整数表示范围"><a href="#32位整数表示范围" class="headerlink" title="32位整数表示范围"></a>32位整数表示范围</h3><p>-2^32~2^32-1</p>
+<h3 id="list判断环"><a href="#list判断环" class="headerlink" title="list判断环"></a>list判断环</h3><p>可以用快慢指针方式判断。（对不起，一时只想到了存储指针方式</p>
+<h3 id="stl库vector-list-map的各自适用情景"><a href="#stl库vector-list-map的各自适用情景" class="headerlink" title="stl库vector list map的各自适用情景"></a>stl库vector list map的各自适用情景</h3><h3 id="二叉树的遍历复杂度？"><a href="#二叉树的遍历复杂度？" class="headerlink" title="二叉树的遍历复杂度？"></a>二叉树的遍历复杂度？</h3><p>…查找复杂度是log…面试的时候懵住了，脑袋里在想（是在问 遍历 复杂度？遍历？遍历？）</p>
+<h3 id="哈希表的二次探测解决方案？"><a href="#哈希表的二次探测解决方案？" class="headerlink" title="哈希表的二次探测解决方案？"></a>哈希表的二次探测解决方案？</h3><ul>
+<li>线性探测，就冲突就+1+2+3</li>
+<li>二次探测，+0+1^2+2^2</li>
+<li>开链法，哈希表每个位置保存一个链表头。</li>
+<li></li>
+</ul>
+<h3 id="栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。"><a href="#栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。" class="headerlink" title="栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。"></a>栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。</h3><ul>
+<li><p>系统栈：编译器自动分配，自动清除的变量的存储区，通常是局部变量、函数参数等。</p>
+</li>
+<li><p>系统堆：new分配的内存块，由程序控制。</p>
+</li>
+<li><p>自由存储区：由malloc分配的内存块，和堆十分相似。</p>
+</li>
+<li><p>全局/静态存储区：全局变量和静态变量分配到的内存。</p>
+</li>
+<li><p>常量存储区：存放常量，不允许修改。</p>
+</li>
+<li><p>分配效率：计算机底层对栈提供支持，决定了栈的效率比较高。堆是C/C++提供的，由库函数按照一定算法在堆内存中搜索可用的空间（考虑操作系统内存分配）。</p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_35637562/article/details/78550953" target="_blank" rel="noopener">参考博客</a></p>
+</li>
+</ul>
+<h3 id="new，operator-new相关"><a href="#new，operator-new相关" class="headerlink" title="new，operator new相关"></a>new，operator new相关</h3><p><a href="https://www.jianshu.com/p/b52a5df69c88" target="_blank" rel="noopener">参考</a></p>
+<h3 id="多态实现问题，静态绑定-动态绑定的机制原理"><a href="#多态实现问题，静态绑定-动态绑定的机制原理" class="headerlink" title="多态实现问题，静态绑定/动态绑定的机制原理"></a>多态实现问题，静态绑定/动态绑定的机制原理</h3><ul>
+<li>对象的静态类型：声明时的类型，编译期确定的，无法更改。</li>
+<li>对象的动态类型：目前所指对象的类型，运行期决定，可更改。</li>
+<li>静态绑定：通过对象调用绑定，发生在编译期。</li>
+<li>动态绑定：通过地址实现，即基类的指针或引用，绑定到不同的派生类上，调用不同的函数，发生在运行期，虚函数是动态绑定的基础。</li>
+</ul>
+<p>动态绑定需要两个条件：</p>
+<ul>
+<li>虚函数才进行动态绑定</li>
+<li>是通过基类的引用或指针来进行函数调用的</li>
+</ul>
+<h3 id="引用-指针"><a href="#引用-指针" class="headerlink" title="引用 指针"></a>引用 指针</h3><p>引用和指针的区别？</p>
+<ul>
+<li>引用不能更换目标</li>
+<li>引用需要初始化</li>
+<li>C++底层引用是通过指针实现，是一个常量指针，提供了比指针更高的安全性。</li>
+</ul>
+<p>引用占用的空间？</p>
+<ul>
+<li>引用是个常量指针，在内存中占用4个字节，可以通过sizeof一个只含有引用的类进行测量。</li>
+</ul>
+<p>引用能为空吗？引用能引用解指针对象吗？引用到解空指针会发生什么？</p>
+<ul>
+<li>引用不能为空，但可以通过绑定到解空指针上，认为实现空引用。</li>
+<li>但是我测试的时候,如下：<br>  编译器会在第二个<code>*p</code>处报错，<strong>无法用A类型的值初始化 int &amp; 类型的引用 (非常量限定)</strong>。<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token operator">&amp;</span>a <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="对a-5-int-a-1-和-int-amp-a-1-的区别"><a href="#对a-5-int-a-1-和-int-amp-a-1-的区别" class="headerlink" title="对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别"></a>对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</h3><p>a+1会指向a[1]<br>&amp;a+1等同于a[4]后面一个位置，即跳过了整个数组</p>
+<h3 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h3><p>异常处理有吗？程序不能只考虑正确运行。</p>
+<h3 id="异常处理-try-catch-finally"><a href="#异常处理-try-catch-finally" class="headerlink" title="异常处理 try catch (finally)"></a>异常处理 try catch (finally)</h3><ul>
+<li>try ：包裹需要检测的代码块，使用throw抛出异常。</li>
+<li>catch ： 捕捉异常信息，可指定想要捕捉的异常类型，省略号…表示捕捉所有类型。</li>
+</ul>
+<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>python里函数也是对象，可以赋值给变量</p>
+<p>不希望修改函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。</p>
+<p>本质上，decorator就是一个 <strong>接受一个函数作为参数，并返回一个函数</strong> 的高阶函数。</p>
+<p>装饰器示例：</p>
+<pre class="line-numbers language-py"><code class="language-py">import logging
+
+def use_logging(func):
+
+    def wrapper(*args, **kwargs):
+        logging.warn("%s is running" % func.__name__)
+        return func(*args, **kwargs)   # 把 foo 当做参数传递进来时，执行func()就相当于执行foo()
+    return wrapper
+
+@use_logging  #相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。
+def foo():
+    print("i am foo")
+
+
+foo()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>@装饰器修饰相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。</p>
+<h5 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h5><p>假如有传参需求，即构建三层装饰器，最外层获取参数，第二层获取被装饰的函数。</p>
+<p>三层装饰器示例：</p>
+<pre class="line-numbers language-py"><code class="language-py">def log(text):
+    def decorator(func):
+        def wrapper(*args, **kw):
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+
+@log('execute') #相当于now=log('execute')(now)，其中log('execute')返回decorator函数，然后decorator再传参now函数，返回最终函数
+def now():
+    print('2015-3-25')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>@装饰器修饰相当于now=log(‘execute’)(now)，其中log(‘execute’)返回decorator函数，然后decorator再传参now函数，返回最终函数。</p>
+<h5 id="维护签名的装饰器"><a href="#维护签名的装饰器" class="headerlink" title="维护签名的装饰器"></a>维护签名的装饰器</h5><p>装饰器修饰后，因为其实更换了函数对象，此时<code>now.__name__</code>值为<code>wrapper</code>，但有些检查函数签名的功能则会发生错误，因此需要复制签名信息到新函数。</p>
+<p>@functools.wraps(fun)即是用来完成这项工作。</p>
+<p>维护签名的装饰器如下：</p>
+<pre class="line-numbers language-py"><code class="language-py">import functools
+
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>维护签名的三层装饰器：</p>
+<pre class="line-numbers language-py"><code class="language-py">import functools
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="python用过哪些包"><a href="#python用过哪些包" class="headerlink" title="python用过哪些包"></a>python用过哪些包</h3><p>opencv，numpy，sklearn…</p>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
+<h3 id="补码，反码"><a href="#补码，反码" class="headerlink" title="补码，反码"></a>补码，反码</h3><p>整数补码与原码相同</p>
+<p>负整数的补码，将其原码除符号位外的所有位取反后加1</p>
+<p>+0 ，-0 补码都是0</p>
+<h3 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h3><p>区别是什么？TCP保障可靠性</p>
+<p>举个现实例子类比这两个？…</p>
+<p>具体的三次握手什么的没有问。</p>
+<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h3 id="导数-微分计算，问的很基础"><a href="#导数-微分计算，问的很基础" class="headerlink" title="导数/微分计算，问的很基础"></a>导数/微分计算，问的很基础</h3><h3 id="向量点乘，叉乘，（一时没反应过来叉乘是什么"><a href="#向量点乘，叉乘，（一时没反应过来叉乘是什么" class="headerlink" title="向量点乘，叉乘，（一时没反应过来叉乘是什么"></a>向量点乘，叉乘，（一时没反应过来叉乘是什么</h3><p>a X b = ||a|| ||b|| sinθ n， </p>
+<ul>
+<li>a，b是向量</li>
+<li>n是和ab平面垂直的单位向量，可用右手定理确定。</li>
+<li>θ是ab夹角。</li>
+</ul>
+<h1 id="Unity和C-，Lua"><a href="#Unity和C-，Lua" class="headerlink" title="Unity和C#，Lua"></a>Unity和C#，Lua</h1><h3 id="Unity是在哪进行学习"><a href="#Unity是在哪进行学习" class="headerlink" title="Unity是在哪进行学习"></a>Unity是在哪进行学习</h3><h3 id="Unity的两本手册Manual和Script-API有看吗。"><a href="#Unity的两本手册Manual和Script-API有看吗。" class="headerlink" title="Unity的两本手册Manual和Script API有看吗。"></a>Unity的两本手册Manual和Script API有看吗。</h3><h3 id="做过那么多教程，说一个最值得说的？"><a href="#做过那么多教程，说一个最值得说的？" class="headerlink" title="做过那么多教程，说一个最值得说的？"></a>做过那么多教程，说一个最值得说的？</h3><p>…教程我真没想到能咋说，就一步一步的学习嘛，说不出来。；；</p>
+<h3 id="Unity你所知道的优点和不足？"><a href="#Unity你所知道的优点和不足？" class="headerlink" title="Unity你所知道的优点和不足？"></a>Unity你所知道的优点和不足？</h3><ul>
+<li>优点，有插件化</li>
+</ul>
+<h3 id="C-有了解吗"><a href="#C-有了解吗" class="headerlink" title="C#有了解吗"></a>C#有了解吗</h3><p>在学了在学了…</p>
+<h3 id="Lua脚本语言需要了解一下"><a href="#Lua脚本语言需要了解一下" class="headerlink" title="Lua脚本语言需要了解一下"></a>Lua脚本语言需要了解一下</h3><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h3 id="主键-外键"><a href="#主键-外键" class="headerlink" title="主键 外键"></a>主键 外键</h3><p>外键能为空吗？</p>
+<p>外键保证了数据的完整性？</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>联合索引是怎么样的？</p>
+<p>索引对增删查改效率的影响？</p>
+<p>所有查询字段都应该尽量设置索引吗？</p>
+<p>定期分析和重建索引能提高索引查询效率吗？</p>
+<h1 id="HR面"><a href="#HR面" class="headerlink" title="HR面"></a>HR面</h1><h3 id="校园职务给你什么收获"><a href="#校园职务给你什么收获" class="headerlink" title="校园职务给你什么收获"></a>校园职务给你什么收获</h3><h3 id="奖学金相关"><a href="#奖学金相关" class="headerlink" title="奖学金相关"></a>奖学金相关</h3><h3 id="期望薪资"><a href="#期望薪资" class="headerlink" title="期望薪资"></a>期望薪资</h3><h3 id="压力意向"><a href="#压力意向" class="headerlink" title="压力意向"></a>压力意向</h3><h3 id="课程相关，什么课学的好。"><a href="#课程相关，什么课学的好。" class="headerlink" title="课程相关，什么课学的好。"></a>课程相关，什么课学的好。</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" class="post-title-link" itemprop="url">LeetCode_剑指Offer No.39</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 23:50:03" itemprop="dateCreated datePublished" datetime="2020-07-20T23:50:03+08:00">2020-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-21 00:04:47" itemprop="dateModified" datetime="2020-07-21T00:04:47+08:00">2020-07-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="求数组中的众数"><a href="#求数组中的众数" class="headerlink" title="求数组中的众数"></a><a href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof" target="_blank" rel="noopener">求数组中的众数</a></h1><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
+<blockquote>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]<br>输出: 2</p>
+</blockquote>
+</blockquote>
+<p>限制：</p>
+<p>1 &lt;= 数组长度 &lt;= 50000</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>题目关键词：<strong>出现次数</strong>，即我们很容易想到对次数进行统计然后查找的暴力方式，当然，没有介绍的必要。</p>
+<p>另一个关键词：<strong>超过一半</strong>，超过一半的性质能带给我们什么优势？暴力法没有顾及到，下面介绍的<strong>抵消法</strong>/<strong>摩尔投票法</strong>则利用了这一性质进行提速。</p>
+<p>再仔细思考题目性质：</p>
+<p><strong>核心性质</strong>————寻找众数，众数次数超过一半————众数次数 - 所有其他数字加起来出现的次数 &gt;0 </p>
+<ol>
+<li><p>我们可以拿出一个 众数，和 一个非众数 匹配抵消。<strong>两两抵消</strong>后，最终剩下的肯定是众数。</p>
+</li>
+<li><p>假设当前数是a，碰到下一个不同的数b，a和b抵消后，不管a b 和众数是什么关系。之后的数组中依然有性质————众数次数 - 所有其他数字加起来出现的次数 &gt;0 ，即a和b的抵消不影响我们在后续数组中找众数。</p>
+</li>
+<li><p>即我们可以按序把两两不相同的数抵消，相同的数累计起来去抵消后续不同的数。并且后续的数组中依然可以继续抵消。</p>
+</li>
+<li><p>这样即可递归下去，最终遍历完整个数组，把所有数抵消了一遍，我们得到剩下的数<code>remain=众数</code>。</p>
+</li>
+</ol>
+<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol>
+<li><p>取第一个数作为当前<code>remain</code></p>
+</li>
+<li><p>遍历到下一个数</p>
+<ul>
+<li>假如不同，则两两抵消，由上面分析可知，不影响后面数组中最后留下的是众数。</li>
+<li>假如相同，则在<code>count</code>中累计起来，后面可以抵消更多的不同的数。</li>
+</ul>
+</li>
+<li><p>遍历完一整遍数组，全部抵消完毕，则最后<code>remain</code>保持为抵消后多余出来的众数</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>抵消法做法很简单，值得注意的是理解算法的正确性，为什么这样做是对的。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">int</span> <span class="token function">majorityElement</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> 
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//抵消思路，因为次数超过一半————众数次数 - 所有其他数字加起来出现的次数 >0 ,</span>
+        <span class="token comment" spellcheck="true">//即取 众数一次 抵消 非众数一次 最终剩下来的就是众数</span>
+        <span class="token comment" spellcheck="true">//即 假设a是众数，碰到下个数不是a， 那么这两个数抵消，剩下的数组里依然有 众数次数 - 所有其他数字加起来出现的次数 >0</span>
+        <span class="token comment" spellcheck="true">//最终全部抵消后，多余的是众数。</span>
+
+        <span class="token keyword">int</span> remain<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//最后剩下的肯定是全数组的众数</span>
+        <span class="token keyword">int</span> count<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//记录当前假设的众数的次数 用于抵消</span>
+        <span class="token keyword">int</span> length<span class="token operator">=</span>nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>count<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//更新假设对象</span>
+            <span class="token punctuation">{</span>
+                remain<span class="token operator">=</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">!=</span>remain<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//两两抵消</span>
+                count<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span><span class="token comment" spellcheck="true">//相同数，count++</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> remain<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1081,6 +1450,99 @@ copy_button<span class="token punctuation">:</span>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" class="post-title-link" itemprop="url">C++-值得注意的点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:03" itemprop="dateModified" datetime="2020-07-16T19:35:03+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="explicit-说明符——Cppreference"><a href="#explicit-说明符——Cppreference" class="headerlink" title="explicit 说明符——Cppreference"></a><a href="https://zh.cppreference.com/w/cpp/language/explicit" target="_blank" rel="noopener">explicit 说明符——Cppreference</a></h1><p>指定构造函数 (及转换函数或推导指引) 为显式, <strong>不能被隐式调用</strong></p>
+<pre><code>//from Cpp reference
+struct B
+{
+    explicit B(int) { }
+    explicit B(int, int) { }
+    explicit operator bool() const { return true; }
+};
+
+int main()
+{ 
+    B b1 = 1;      // 错误：复制初始化不考虑 B::B(int)
+    B b2(2);       // OK：直接初始化选择 B::B(int)
+    B b3 {4, 5};   // OK：直接列表初始化选择 B::B(int, int)
+    B b4 = {4, 5}; // 错误：复制列表初始化不考虑 B::B(int,int)
+    B b5 = (B)1;   // OK：显式转型进行 static_cast
+    if (b2) ;      // OK：B::operator bool()
+    bool nb1 = b2; // 错误：复制初始化不考虑 B::operator bool()
+    bool nb2 = static_cast&lt;bool&gt;(b2); // OK：static_cast 进行直接初始化
+}
+</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1212,360 +1674,6 @@ return neighbors</code></pre><p>k=20<br>def PredictByKNN(movieID,k):<br>    avgR
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" class="post-title-link" itemprop="url">C++-值得注意的点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:03" itemprop="dateModified" datetime="2020-07-16T19:35:03+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="explicit-说明符——Cppreference"><a href="#explicit-说明符——Cppreference" class="headerlink" title="explicit 说明符——Cppreference"></a><a href="https://zh.cppreference.com/w/cpp/language/explicit" target="_blank" rel="noopener">explicit 说明符——Cppreference</a></h1><p>指定构造函数 (及转换函数或推导指引) 为显式, <strong>不能被隐式调用</strong></p>
-<pre><code>//from Cpp reference
-struct B
-{
-    explicit B(int) { }
-    explicit B(int, int) { }
-    explicit operator bool() const { return true; }
-};
-
-int main()
-{ 
-    B b1 = 1;      // 错误：复制初始化不考虑 B::B(int)
-    B b2(2);       // OK：直接初始化选择 B::B(int)
-    B b3 {4, 5};   // OK：直接列表初始化选择 B::B(int, int)
-    B b4 = {4, 5}; // 错误：复制列表初始化不考虑 B::B(int,int)
-    B b5 = (B)1;   // OK：显式转型进行 static_cast
-    if (b2) ;      // OK：B::operator bool()
-    bool nb1 = b2; // 错误：复制初始化不考虑 B::operator bool()
-    bool nb2 = static_cast&lt;bool&gt;(b2); // OK：static_cast 进行直接初始化
-}
-</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-10/" class="post-title-link" itemprop="url">LeetCode-No-10</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="正则表达式匹配"><a href="#正则表达式匹配" class="headerlink" title="正则表达式匹配"></a><a href="https://leetcode-cn.com/problems/regular-expression-matching" target="_blank" rel="noopener">正则表达式匹配</a></h1><blockquote>
-<p>给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 ‘.’ 和 ‘*’ 的正则表达式匹配。</p>
-<p>‘.’ 匹配任意单个字符<br>‘*’ 匹配零个或多个前面的那一个元素<br>所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。</p>
-<p>说明:</p>
-<p>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入:<br>s = “aa”<br>p = “a”<br>输出: false<br>解释: “a” 无法匹配 “aa” 整个字符串。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入:<br>s = “aa”<br>p = “a*”<br>输出: true<br>解释: 因为 ‘*’ 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 ‘a’。因此，字符串 “aa” 可被视为 ‘a’ 重复了一次。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:</p>
-<p>输入:<br>s = “ab”<br>p = “.*”<br>输出: true<br>解释: “.*” 表示可匹配零个或多个（’*’）任意字符（’.’）。</p>
-</blockquote>
-<blockquote>
-<p>示例 4:</p>
-<p>输入:<br>s = “aab”<br>p = “c<em>a</em>b”<br>输出: true<br>解释: 因为 ‘*’ 表示零个或多个，这里 ‘c’ 为 0 个, ‘a’ 被重复一次。因此可以匹配字符串 “aab”。</p>
-</blockquote>
-<blockquote>
-<p>示例 5:</p>
-<p>输入:<br>s = “mississippi”<br>p = “mis<em>is*p</em>.”<br>输出: false</p>
-</blockquote>
-</blockquote>
-<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><h2 id="条件特性"><a href="#条件特性" class="headerlink" title="条件特性"></a>条件特性</h2><ul>
-<li>首先可知”.” 和对应字符的匹配都很容易处理,关键要处理好这个” * “.</li>
-<li>“ * “带来的变化有, 使前一个字符匹配N次,<strong>N可为0</strong>,也就是说也可以忽略前一个字符.<h4 id="错误思路"><a href="#错误思路" class="headerlink" title="错误思路"></a>错误思路</h4><del>由于我一开始没有注意到N可以为0,就采用了一个逐字符匹配的方法,假如遇到一个字符后面有”*”,如果匹配错误则直接返回,匹配正确则维持pi不变,这样一步步推过去,在最后若两个字符串都到了结尾,则成功.后来提交错误后有针对性的修修补补浪费了很长时间,并且发现这种解法下再怎么改也不能AC,最终还是推盘重做T-T</del><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2>每一次带”*”的字符处,都会有两种可能的情况,要么匹配这个字符,要么不匹配这个字符.<br>我们在测试一种情况发现不行之后,需要再退回测试另一种情况下的匹配.因此可以想到可以使用递归返回.</li>
-</ul>
-<h3 id="递归体设置"><a href="#递归体设置" class="headerlink" title="递归体设置"></a>递归体设置</h3><p>1.若pi+1处为” * “,则分情况处理<br> 1.1. 如果pi处可正确匹配,则分两个递归,一个是pi匹配1次,一个是pi匹配0次.<br>1.2. 如果pi处不能匹配,则以pi匹配0次向后递归处理<br>1.3. 考虑特殊情况,s已经被带” * “字符匹配完,s为空,p还有至少两个字符存在,则p向后推进两个字符再和已经空的字符进行递归匹配.</p>
-<p>2.若pi处为”.”或可匹配字符,则正常匹配成功,s和p都往后推进1个字符.</p>
-<p>3.若pi处为无法匹配字符,return false</p>
-<h3 id="递归出口"><a href="#递归出口" class="headerlink" title="递归出口"></a>递归出口</h3><p>因为我们的递归体若能成功匹配,则S在最底层的递归中,必定是一个空串</p>
-<ul>
-<li>此时<strong>若p为空串</strong>,则s和p恰好完全匹配成功,return true</li>
-<li><strong>若p不为空</strong>,则s肯定是被带” * “字符消化掉了,因此参考上面的递归体条件,进入下一次递归中p的带”*”字符被删掉,此时再进行出口判断.如果p仍不为空,即可return false.<blockquote>
-<p>注意p不为空时,有两种情况,并且后一种情况是前一种情况的递归结果<br>因此<strong>不能简单的直接根据plength!=0直接返回false</strong>.<br>要<strong>先判断p是否有字符</strong>,若有字符并且是带” * “字符,则是可匹配范围内的情况,需递归推两个字符进一步判断.<br>若p有字符并且不是带”*”字符,则是无法正确匹配的情况,return false.</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="初版通过代码"><a href="#初版通过代码" class="headerlink" title="初版通过代码"></a>初版通过代码</h1><pre><code>class Solution {
-public:
-    bool isMatch(string s, string p)
-    {
-        int si = 0;
-        int pi = 0;
-        int slength = s.length();
-        int plength = p.length();
-        if (slength != 0 &amp;&amp; plength == 0)
-            return false;
-
-        if (slength == 0 &amp;&amp; plength == 0)
-            return true;
-        else
-        {    
-
-            if (p[pi + 1] == &#39;*&#39;)
-            {
-                if (slength == 0)
-                    return isMatch(s.substr(0, 0), p.substr(pi + 2, plength - pi - 2));
-                else if(p[pi] == &#39;.&#39; || p[pi] == s[si])
-                    //pi匹配1次s前进p不变  pi匹配0次s不变p前进2
-                    return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi, plength - pi)) || isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));
-                else
-                    return isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));
-            }
-
-            else if (slength == 0)
-                return false;
-            else if (p[pi] == &#39;.&#39; || p[pi] == s[si])
-                return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi + 1, plength - pi - 1));
-            else
-                return false;
-        }
-
-    }
-};</code></pre><ul>
-<li>624 ms</li>
-<li>16.4 MB</li>
-<li>Cpp<br>虽然已经AC了,时间空间上还是很笨拙的,日后找时间探索优化解法.</li>
-</ul>
-<hr>
-<p>动态规划，以dp[i][j]为状态标志位，为1表示s的前i个字符和p的前j个字符可以匹配。</p>
-<blockquote>
-<p>注意dp[0][0]==1表示空字符串时可以匹配。</p>
-</blockquote>
-<pre><code>//两层for循环
-for(i)
-  for(j)</code></pre><p>通过判断当前字符匹配情况，加上前面的子串情况进行累积动态规划，最终达到dp[slength][plength]的值。</p>
-<blockquote>
-<p>理解了思路，但实战这道题还是有细节方面思路不清，继续挖坑。</p>
-</blockquote>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">K折交叉验证</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:21:16" itemprop="dateModified" datetime="2020-07-17T11:21:16+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><pre><code>import numpy as np
-from sklearn.model_selection import cross_val_score,train_test_split
-from sklearn import datasets
-from sklearn import svm
-
-iris=datasets.load_iris()
-# 测试集有40%数据    
-x_train,x_test,y_train,y_test=train_test_split(iris.data,iris.target,test_size=0.4,random_state=0)
-
-clf=svm.SVC(kernel=&#39;linear&#39;,C=1).fit(x_train,y_train)
-
-clf.score(x_test,y_test)
-</code></pre><h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
-<li><h4 id="cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit"><a href="#cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit" class="headerlink" title="cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit."></a>cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit.</h4></li>
-<li><h4 id="返回评分结果列表"><a href="#返回评分结果列表" class="headerlink" title="返回评分结果列表"></a>返回评分结果列表</h4></li>
-</ul>
-<pre><code>scores=cross_val_score(clf,iris.data,iris.target,cv=5)
-
-print(scores)
-print(scores.mean())</code></pre><br>
-![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1635,7 +1743,7 @@ print(scores.mean())</code></pre><br>
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1648,7 +1756,7 @@ print(scores.mean())</code></pre><br>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1744,3 +1852,7 @@ print(scores.mean())</code></pre><br>
 
 </body>
 </html>
+
+<!--崩溃欺骗-->
+
+
