@@ -393,7 +393,7 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-06 14:14:01" itemprop="dateModified" datetime="2020-08-06T14:14:01+08:00">2020-08-06</time>
+                <time title="修改时间：2020-08-11 21:14:29" itemprop="dateModified" datetime="2020-08-11T21:14:29+08:00">2020-08-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -416,14 +416,14 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="单链表定义"><a href="#单链表定义" class="headerlink" title="单链表定义"></a>单链表定义</h1><p>一种内存中不连续的线性结构，但每个元素是单独的对象，元素之间通过指针链接起来。</p>
+          <h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>一种内存中不连续的线性结构，但每个元素实例都是单独的对象或节点，元素之间通过指针链接起来。</p>
 <h5 id="参考实现"><a href="#参考实现" class="headerlink" title="参考实现:"></a>参考实现:</h5><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Definition for singly-linked list.</span>
 <span class="token keyword">struct</span> SinglyListNode <span class="token punctuation">{</span>
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
     SinglyListNode <span class="token operator">*</span>next<span class="token punctuation">;</span>
     <span class="token function">SinglyListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">val</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h1><h3 id="访问结点"><a href="#访问结点" class="headerlink" title="访问结点"></a>访问结点</h3><p>从头部遍历进行访问</p>
+<h2 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h2><h3 id="访问结点"><a href="#访问结点" class="headerlink" title="访问结点"></a>访问结点</h3><p>从头部遍历进行访问</p>
 <ul>
 <li><p>无法在常量级时间随机访问</p>
 </li>
@@ -468,14 +468,16 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
         current<span class="token operator">-</span><span class="token operator">></span>next<span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="双向链表定义"><a href="#双向链表定义" class="headerlink" title="双向链表定义"></a>双向链表定义</h1><p>在单链表的基础上，增加了prev指针指向前一个链表节点</p>
+<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p>将单向链表的尾节点和头节点连接起来即可。</p>
+<p>其他相关操作类似。</p>
+<h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><p>在单链表的基础上，增加了prev指针指向前一个链表节点</p>
 <h5 id="参考实现-1"><a href="#参考实现-1" class="headerlink" title="参考实现:"></a>参考实现:</h5><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> DoublyListNode
-<span class="token punctuation">{</span>
+<span class="token punctuation">{</span> 
     <span class="token keyword">int</span> val<span class="token punctuation">;</span>
     DoublyListNode <span class="token operator">*</span>next<span class="token punctuation">,</span><span class="token operator">*</span>prev<span class="token punctuation">;</span>
     <span class="token function">DoublyListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span><span class="token operator">:</span><span class="token function">val</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">prev</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="双向链表操作"><a href="#双向链表操作" class="headerlink" title="双向链表操作"></a>双向链表操作</h1><h3 id="访问结点-1"><a href="#访问结点-1" class="headerlink" title="访问结点"></a>访问结点</h3><p>同样只能从头部进行遍历，但是中间可以往回走。</p>
+<h2 id="双向链表操作"><a href="#双向链表操作" class="headerlink" title="双向链表操作"></a>双向链表操作</h2><h3 id="访问结点-1"><a href="#访问结点-1" class="headerlink" title="访问结点"></a>访问结点</h3><p>同样只能从头部进行遍历，但是中间可以往回走。</p>
 <ul>
 <li>不能随机访问</li>
 <li>最坏时间复杂度O(N)</li>
@@ -629,6 +631,40 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
     <span class="token punctuation">}</span>
     <span class="token keyword">return</span> root<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h3><p>找出两个链表的交点并返回</p>
+<p>容易知道用存储map做，但是需要较大存储空间</p>
+<p>假设：</p>
+<ul>
+<li>链表A长度为a，独有部分长度为c。</li>
+<li>链表B长度为b，独有部分长度为d。</li>
+</ul>
+<p>可以知道<code>a-c=b-d</code>，变换一下则是<code>a+d=b+c</code>。</p>
+<p>即一个指针走完A，再去走B的独有部分，和另一个指针走完B，再去走A的独有部分，所需步数是相同的。</p>
+<p>换句话说，两个指针同时开始走，走到NULL就切换到隔壁链表上走，此时两个指针对于交点是同距离的。</p>
+<p>继续同步走，双指针必然同时遇到交点，一直走到NULL还没同时遇到则不存在交点。</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">ListNode <span class="token operator">*</span><span class="token function">getIntersectionNode</span><span class="token punctuation">(</span>ListNode <span class="token operator">*</span>headA<span class="token punctuation">,</span> ListNode <span class="token operator">*</span>headB<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+    ListNode<span class="token operator">*</span> rootA<span class="token operator">=</span>headA<span class="token punctuation">,</span><span class="token operator">*</span>rootB<span class="token operator">=</span>headB<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//注意移动和跳转的顺序 是先跳到root再移动？还是用跳跃取代移动？</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>headA<span class="token operator">!=</span>headB<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>headA<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span> 
+            headA<span class="token operator">=</span>rootB<span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            headA<span class="token operator">=</span>headA<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>headB<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span> 
+            headB<span class="token operator">=</span>rootA<span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            headB<span class="token operator">=</span>headB<span class="token operator">-</span><span class="token operator">></span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>headA<span class="token operator">==</span>headB<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> headA<span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
       
     </div>
@@ -855,10 +891,16 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-04 14:48:35 / 修改时间：16:51:32" itemprop="dateCreated datePublished" datetime="2020-08-04T14:48:35+08:00">2020-08-04</time>
+              <time title="创建时间：2020-08-04 14:48:35" itemprop="dateCreated datePublished" datetime="2020-08-04T14:48:35+08:00">2020-08-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-11 21:14:29" itemprop="dateModified" datetime="2020-08-11T21:14:29+08:00">2020-08-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -880,8 +922,8 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>计算机会在内存中申请一段连续的空间，并且返回索引为0处的地址作为数组名。</p>
-<h1 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h1><h3 id="读取元素"><a href="#读取元素" class="headerlink" title="读取元素"></a>读取元素</h3><p>通过访问下标索引实现，索引一般从0开始。一般数组名是数组首元素地址。</p>
+          <h1 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h1><p>计算机会在内存中申请一段连续的空间，并且返回索引为0处的地址作为数组名。</p>
+<h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="读取元素"><a href="#读取元素" class="headerlink" title="读取元素"></a>读取元素</h3><p>通过访问下标索引实现，索引一般从0开始。一般数组名是数组首元素地址。</p>
 <p>元素地址=数组首地址+偏移量</p>
 <ul>
 <li>时间复杂度O(1)</li>
@@ -902,7 +944,8 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
 <ul>
 <li>时间复杂度O(N)</li>
 </ul>
-<h1 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h1><p>二维数组本质上也是一维数组,如下例所示：</p>
+<h1 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h1><p>二维数组本质上也是一维数组</p>
+<p>如下例所示：</p>
 <p>可以看到二维数组的第一维存储的是第二维数组首地址。</p>
 <p>且每行的末尾和下一行的开头是连在一起的。</p>
 <p>如下 <code>a[0][1]</code> 后紧接的即是 <code>a[1][0]</code></p>
@@ -911,6 +954,9 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
 cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token operator">&lt;&lt;</span>a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token operator">&lt;&lt;</span><span class="token operator">&amp;</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">&lt;&lt;</span><span class="token string">" "</span><span class="token operator">&lt;&lt;</span><span class="token operator">&amp;</span>a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">//一个int 占4字节，输出如下：00B8FBCC 00B8FBD4 00B8FBCC 00B8FBD0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="一个数组中实现的多重表"><a href="#一个数组中实现的多重表" class="headerlink" title="一个数组中实现的多重表"></a>一个数组中实现的多重表</h1><p>在一个大数组中，维护front[3],last[3]，每对front和last分别代表一个线性表的实际区间。</p>
+<p>这样的好处是多个线性表能够共享存储空间，且进行空间扩展和收缩时很方便。</p>
+<p>但是插入操作在最坏情况下的用时会大大增加。</p>
 
       
     </div>
