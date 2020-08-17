@@ -74,10 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 <link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-17 09:08:19 / 修改时间：20:28:12" itemprop="dateCreated datePublished" datetime="2020-08-17T09:08:19+08:00">2020-08-17</time>
+              <time title="创建时间：2020-08-17 09:08:19 / 修改时间：20:43:46" itemprop="dateCreated datePublished" datetime="2020-08-17T09:08:19+08:00">2020-08-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -212,7 +212,7 @@
           <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>典型的函数一般包括：返回类型，函数名字，形参列表，函数体。形参列表写在一对<code>()</code>内，用<code>,</code>隔开。函数体内则是书写需要执行的代码操作。</p>
 <p>我们使用<strong>调用运算符（call operator）</strong><code>()</code>执行函数。它作用于一个函数或者指向函数的指针。<code>()</code>内书写实参，同样由<code>,</code>隔开，实参数量和类型需要和形参有序一一对应。最终这个调用函数表达式的类型就是函数的返回类型。</p>
 <p>函数使用前和其他名字一样，需要进行声明。函数声明也叫做<strong>函数原型（function prototype）</strong>，声明对比定义来说，不需要包括函数体，直接用一个<code>;</code>替代。</p>
-<h4 id="形参"><a href="#形参" class="headerlink" title="形参"></a>形参</h4><p>形参是函数定义时，对想要传递的参数变量的临时性名字。</p>
+<h3 id="形参"><a href="#形参" class="headerlink" title="形参"></a>形参</h3><p>形参是函数定义时，对想要传递的参数变量的临时性名字。</p>
 <p>形参列表可以为空，但是不能省略。如下可用两种方式表达空形参列表：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">//隐式定义空列表</span>
 <span class="token keyword">void</span> <span class="token function">f2</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>      <span class="token comment" spellcheck="true">//显式定义空列表</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -220,7 +220,7 @@
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">f3</span><span class="token punctuation">(</span><span class="token keyword">int</span> v1<span class="token punctuation">,</span><span class="token keyword">int</span> v2<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>    <span class="token comment" spellcheck="true">//正确</span>
 <span class="token keyword">int</span> <span class="token function">f4</span><span class="token punctuation">(</span><span class="token keyword">int</span> v1<span class="token punctuation">,</span>v2<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">//错误</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>形参名是可选的，但是没有名字实际上你根本调用不了这个形参。而且即使不会用到这个形参，但假如真反人类的设置了无名形参，调用函数时依然必须给它传递参数。</p>
-<h4 id="返回类型"><a href="#返回类型" class="headerlink" title="返回类型"></a>返回类型</h4><p>大多可用的类型都可作为返回类型，使用一种特殊的返回类型<code>void</code>表明函数不返回任何东西。</p>
+<h3 id="返回类型"><a href="#返回类型" class="headerlink" title="返回类型"></a>返回类型</h3><p>大多可用的类型都可作为返回类型，使用一种特殊的返回类型<code>void</code>表明函数不返回任何东西。</p>
 <p>返回类型不能是数组类型或者函数类型，但可以是指向数组或函数的指针。</p>
 <h2 id="局部对象"><a href="#局部对象" class="headerlink" title="局部对象"></a>局部对象</h2><p>回忆一下 C++中名字的<strong>作用域</strong>和<strong>生命周期</strong>的概念</p>
 <ul>
@@ -229,9 +229,9 @@
 </ul>
 <p>函数体是一块语句块，而语句块会构成一个新的作用域。因此内部变量和函数形参变量，都是仅在函数内部可见，称之为<strong>局部变量（local variable）</strong>。</p>
 <p>函数外部变量的生命周期通常随程序开始随程序结束，局部变量的生命周期依赖于它的定义方式。</p>
-<h4 id="自动对象"><a href="#自动对象" class="headerlink" title="自动对象"></a>自动对象</h4><p>即最普通大众的局部变量。通过函数内部的定义语句自动创建对象，到达函数体的块末尾时自动销毁对象，称为<strong>自动对象（automatic object）</strong>。自动对象销毁后，其值就变成了未定义的。</p>
+<h3 id="自动对象"><a href="#自动对象" class="headerlink" title="自动对象"></a>自动对象</h3><p>即最普通大众的局部变量。通过函数内部的定义语句自动创建对象，到达函数体的块末尾时自动销毁对象，称为<strong>自动对象（automatic object）</strong>。自动对象销毁后，其值就变成了未定义的。</p>
 <p>形参是自动对象。</p>
-<h4 id="局部静态对象"><a href="#局部静态对象" class="headerlink" title="局部静态对象"></a>局部静态对象</h4><p>有些时候，我们需要保留一些对象在函数体结束后依然使用，因此我们可以定义<strong>局部静态对象（local static object）</strong>。定义时使用<code>static</code>将其声明为静态类型。</p>
+<h3 id="局部静态对象"><a href="#局部静态对象" class="headerlink" title="局部静态对象"></a>局部静态对象</h3><p>有些时候，我们需要保留一些对象在函数体结束后依然使用，因此我们可以定义<strong>局部静态对象（local static object）</strong>。定义时使用<code>static</code>将其声明为静态类型。</p>
 <p>这种对象在第一次经过定义定义语句时创建，直到程序终止才销毁。</p>
 <p>局部静态变量如果没有显式的初始化值，将执行<strong>值初始化</strong>，内置类型的值初始化为 0。</p>
 <p>一个简单的例子，这个程序会输出 1~10 的数字。</p>
@@ -270,7 +270,7 @@
 
 <span class="token keyword">void</span> <span class="token function">fcn3</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>    <span class="token comment" spellcheck="true">//这是底层 const，不会造成重复定义</span>
 <span class="token keyword">void</span> <span class="token function">fcn3</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">//正确</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="指针或引用形参与-const"><a href="#指针或引用形参与-const" class="headerlink" title="指针或引用形参与 const"></a>指针或引用形参与 const</h4><p>形参初始化和变量初始化一样，关于 const 的要求都是可降格兼容，不能升格。即如上<code>int</code>可用于初始化<code>const int</code>变量，<code>const int</code>不能初始化<code>int</code>变量。</p>
+<h3 id="指针或引用形参与-const"><a href="#指针或引用形参与-const" class="headerlink" title="指针或引用形参与 const"></a>指针或引用形参与 const</h3><p>形参初始化和变量初始化一样，关于 const 的要求都是可降格兼容，不能升格。即如上<code>int</code>可用于初始化<code>const int</code>变量，<code>const int</code>不能初始化<code>int</code>变量。</p>
 <p>引用和指针层面也是类似，<code>const int</code>引用可绑定到<code>int</code>对象，<code>int</code>引用不可绑定到<code>const int</code>对象。</p>
 <p>例如：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//假设有两个 fcn 函数，一个需要 int *参数，一个需要 int&amp;参数。</span>
@@ -281,7 +281,7 @@
 <span class="token function">fcn</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>                 <span class="token comment" spellcheck="true">//调用 int&amp;的函数</span>
 <span class="token function">fcn</span><span class="token punctuation">(</span>consti<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">//错误，int&amp;引用不能绑定到 const int 对象</span>
 <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token number">217</span><span class="token punctuation">)</span><span class="token punctuation">;</span>               <span class="token comment" spellcheck="true">//错误，字面值是常量，int&amp;引用不能绑定到字面值。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="尽量使用常量引用"><a href="#尽量使用常量引用" class="headerlink" title="尽量使用常量引用"></a>尽量使用常量引用</h4><p>使用常量引用可以避免拷贝数据，同时阻止非必要的修改操作。</p>
+<h3 id="尽量使用常量引用"><a href="#尽量使用常量引用" class="headerlink" title="尽量使用常量引用"></a>尽量使用常量引用</h3><p>使用常量引用可以避免拷贝数据，同时阻止非必要的修改操作。</p>
 <p>另一方面由于外部的 const 类型不能升格传参给非 const 形参，容易发生类型匹配错误。而外部的非 const 类型可以传给 const 形参，因此使用 const 引用，也可以有效减少这种类型错误的情况。</p>
 <h2 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h2><p>数组有两个特殊性质，影响我们对数组的传参操作：</p>
 <ul>
@@ -301,7 +301,7 @@
 <p>但是正如示例所述，数组大小只是个期望值，我们不知道传参的数组有多大，因此可以通过别的途径传递长度信息。</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> a<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//用另一个变量标记长度</span>
 <span class="token keyword">void</span> <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span>begin<span class="token punctuation">,</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span> end<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//标准库规范做法，传递尾后元素，进行尾后检测</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="引用数组形参"><a href="#引用数组形参" class="headerlink" title="引用数组形参"></a>引用数组形参</h4><p>假如我们要修改传参的数组，可以传递非常量指针，也可以进行引用绑定。</p>
+<h3 id="引用数组形参"><a href="#引用数组形参" class="headerlink" title="引用数组形参"></a>引用数组形参</h3><p>假如我们要修改传参的数组，可以传递非常量指针，也可以进行引用绑定。</p>
 <p>注意数组引用的格式，不同于一般情况下由右到左的阅读类型声明，数组最好是由内向外阅读类型声明。</p>
 <p>如下，阅读起来首先看 ptr 是否带有括号，括号内是否注明 <code>*</code> 或者 <code>&amp;</code> ，然后看括号右边元素个数是多少，最后看括号左边数组元素类型。</p>
 <ul>
@@ -316,7 +316,7 @@
 <p>引用数组的形参方式，例如：</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>arr<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true">//arr 是 10 个 int 的数组的引用，注意传参时元素个数严格要求</span>
 <span class="token keyword">void</span> <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>arr<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">)</span>          <span class="token comment" spellcheck="true">//错误用法。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h4><p>我们知道多维数组其实就是一维数组，只不过数组元素是新数组指针而已。</p>
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p>我们知道多维数组其实就是一维数组，只不过数组元素是新数组指针而已。</p>
 <p>我们在传参一维数组时，只是传参了首元素的地址及其类型，而多维数组也是类似，无非是首元素类型是一个数组类型而已。</p>
 <p>示例如下，首先明确传参的只是一个指针，指向首元素，这个指针的类型是首元素类型。</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">fcn</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span> matrix<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//matrix 是一个指针，指向首元素类型为 int[10]</span>
@@ -335,7 +335,7 @@
 </ul>
 <p>实际使用时，argv[0] 通常为程序名，或者空字符串，以 argv[1] 开始的才是命令行中以空格分割的参数。<br>argv 最后会追加一个固定元素，它的值是<code>0</code>。</p>
 <h2 id="可变数量形参"><a href="#可变数量形参" class="headerlink" title="可变数量形参"></a>可变数量形参</h2><p>有时候我们不确定要传递几个实参给函数，因此 C++提供了两种方法处理不同数量的实参进行调用函数。</p>
-<h4 id="Initializer-list-形参"><a href="#Initializer-list-形参" class="headerlink" title="Initializer_list 形参"></a>Initializer_list 形参</h4><p>数量未知但全部实参类型相同，可以使用 Initializer_list 标准库类型，用于表示特定类型的值的数组。</p>
+<h3 id="Initializer-list-形参"><a href="#Initializer-list-形参" class="headerlink" title="Initializer_list 形参"></a>Initializer_list 形参</h3><p>数量未知但全部实参类型相同，可以使用 Initializer_list 标准库类型，用于表示特定类型的值的数组。</p>
 <p>Initializer_list 是一个很简单的模板类，提供<code>begin()，end()，size()，=</code>几个基础函数功能。</p>
 <p>传参给 Initializer_list 时，只需用<code>{}</code>把参数序列包括起来即可。</p>
 <p>使用示例如下：</p>
@@ -343,7 +343,7 @@
 
 <span class="token function">error_msg</span><span class="token punctuation">(</span><span class="token number">217</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token string">"Hello"</span><span class="token punctuation">,</span><span class="token string">","</span><span class="token punctuation">,</span><span class="token string">"World"</span><span class="token punctuation">,</span><span class="token string">"!"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>函数体内部则可根据 begin，end 成员函数去控制遍历迭代。</p>
-<h4 id="省略符形参"><a href="#省略符形参" class="headerlink" title="省略符形参"></a>省略符形参</h4><p>省略符是为了兼容C而设置的。通常不建议在C之外使用。</p>
+<h3 id="省略符形参"><a href="#省略符形参" class="headerlink" title="省略符形参"></a>省略符形参</h3><p>省略符是为了兼容C而设置的。通常不建议在C之外使用。</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span>parm_list<span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>C++ Primer 5 edition 中文版</p>
