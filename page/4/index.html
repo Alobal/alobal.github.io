@@ -74,10 +74,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 <link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
         </h2>
 
         <div class="post-meta">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,253 +215,111 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
-<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
 <blockquote>
-<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
+<p>示例 1:</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
 </blockquote>
 <blockquote>
-<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+<p>示例 2:</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
 </blockquote>
+<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
 </blockquote>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
+</ul>
+<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+</blockquote>
+<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
+<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
 <ol>
-<li><p>判断重复字符</p>
-<blockquote>
-<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
-</blockquote>
-<ol start="2">
-<li>子串检测<blockquote>
-<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
-</blockquote>
-</li>
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
 </ol>
-</li>
-<li><p>后事处理</p>
-<blockquote>
-<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
-<blockquote>
-<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
+<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
 </blockquote>
+<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
 </blockquote>
-</li>
-</ol>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
+设置好跳跃定位标志 k=-1
+对模式串每一位 i
+    假如 i  k 位相同，或者k==-1
+      即看作前后缀目前为止相同
+      i, k 到下一位
+      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
+          假如下一位与跳跃位不同
+              把已经处理好的k作为它的跳跃位即可，jump[i]=k
+          假如下一位与跳跃位相同
+              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
+              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
+   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
+      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
+      k=jump[k]
+</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
 public:
-    int lengthOfLongestSubstring(string s) 
+    int strStr(string haystack, string needle) 
     {   
-        int flag[127];
-        for(int i=0;i&lt;127;i++)
-            flag[i]=-1;
-        int result=0;  
-        int max=0;
-        int temp=0;
-        int start=0;
+        if(needle==&quot;&quot;)
+            return 0;
 
-        for(int i=0;i&lt;s.length();i++)
+        //KMP
+
+        int jump[needle.size()];
+        jump[0]=-1;
+        int k=-1;
+        int i=0;
+        //创建失效数组  abcabcd
+        while(i&lt;needle.size()-1)
         {
-            temp=getNO(s[i]);
-            if(flag[temp]&lt;start)
+            if(k==-1 || needle[i]==needle[k])
             {
-                result++;
-                flag[temp]=i;
+                i++;
+                k++;
+
+                if(needle[i]!=needle[k])
+                    jump[i]=k;
+                else
+                    jump[i]=jump[k];
+            }
+            else    //内置kmp
+                k=jump[k];
+        }
+
+
+
+        int x=0;
+        int y=0;
+        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
+        {
+            if(y==-1 ||haystack[x]==needle[y])
+            {
+                x++;
+                y++;
             }
             else
-            {
-                if(result&gt;=max)
-                    max=result;
-
-                start=flag[temp]+1;
-                result=i-flag[temp];
-                flag[temp]=i;
-            }
+               y=jump[y];
 
         }
-        if(result&gt;=max)
-            return result;
+
+        if(y==needle.size())
+            return x-y;
         else
-            return max;
-    }
-
-    int getNO(char originchar)
-    {
-        return originchar-&#39; &#39;;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
-<blockquote>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
-<blockquote>
-<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
-</blockquote>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
-<blockquote>
-<p>如  <strong>[1,2,5,4,3,6]</strong></p>
-</blockquote>
-<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
-<blockquote>
-<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
-</blockquote>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
-</blockquote>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
-<blockquote>
-<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
-</blockquote>
-<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><pre><code>class Solution {
-public:
-    void nextPermutation(vector&lt;int&gt;&amp; nums) 
-    {
-        if(nums.size()&lt;=1)
-            return ;
-
-        int flag=0;
-        int nextid=nums.size()-1;
-        int currentid=nextid-1;
-
-        while(currentid&gt;=0)
-        {
-            if(nums[nextid]&gt;nums[currentid])
-            {   
-                //从后往前，找到第一组 升序对
-               flag=1;
-                break;
-            }
-
-            nextid--;
-            currentid--;
-        }
-
-        if(flag==1)//存在下一个更大排列
-        {
-                //交换生成新排列
-            while(nextid+1&lt;nums.size())
-            {
-                if(nums[nextid+1]&gt;nums[currentid] )
-                    nextid++;
-                else
-                    break;
-            }
-            tempswap(nums[currentid],nums[nextid]);
-            //currentid右边必然是降序
-            //将currentid右边升序处理
-            nextid=nums.size()-1;
-            while(currentid+1&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid+1]);
-                nextid--;
-                currentid++;
-            }
-        }   
-        else
-        {   //不存在，则倒序
-            nextid=nums.size()-1;
-            currentid=0;
-            while(currentid&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid]);
-                nextid--;
-                currentid++;
-            }
-
-        }
-
-        return ;
+            return -1;
 
 
 
-    }
-
-    void tempswap(int&amp; a,int&amp; b)
-    {
-        int temp=b;
-            b=a;
-            a=temp;
     }
 };</code></pre>
       
@@ -603,6 +461,154 @@ public:
         }
 
         return result;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<blockquote>
+<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+</blockquote>
+<blockquote>
+<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
+</blockquote>
+<blockquote>
+<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+</blockquote>
+</blockquote>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<ol>
+<li><p>判断重复字符</p>
+<blockquote>
+<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
+</blockquote>
+<ol start="2">
+<li>子串检测<blockquote>
+<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>后事处理</p>
+<blockquote>
+<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
+<blockquote>
+<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
+public:
+    int lengthOfLongestSubstring(string s) 
+    {   
+        int flag[127];
+        for(int i=0;i&lt;127;i++)
+            flag[i]=-1;
+        int result=0;  
+        int max=0;
+        int temp=0;
+        int start=0;
+
+        for(int i=0;i&lt;s.length();i++)
+        {
+            temp=getNO(s[i]);
+            if(flag[temp]&lt;start)
+            {
+                result++;
+                flag[temp]=i;
+            }
+            else
+            {
+                if(result&gt;=max)
+                    max=result;
+
+                start=flag[temp]+1;
+                result=i-flag[temp];
+                flag[temp]=i;
+            }
+
+        }
+        if(result&gt;=max)
+            return result;
+        else
+            return max;
+    }
+
+    int getNO(char originchar)
+    {
+        return originchar-&#39; &#39;;
     }
 };</code></pre>
       
@@ -771,171 +777,6 @@ public:
 <li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-44/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a><a href="https://leetcode-cn.com/problems/wildcard-matching" target="_blank" rel="noopener">通配符匹配</a></h1><h3 id="——类似No-10的正则匹配"><a href="#——类似No-10的正则匹配" class="headerlink" title="——类似No.10的正则匹配"></a>——类似No.10的正则匹配</h3><blockquote>
-<p>给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。</p>
-<p>‘?’ 可以匹配任何单个字符。<br>‘*’ 可以匹配任意字符串（包括空字符串）。<br>两个字符串完全匹配才算匹配成功。</p>
-<p>说明:</p>
-<p>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入:<br>s = “aa”<br>p = “a”<br>输出: false<br>解释: “a” 无法匹配 “aa” 整个字符串。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入:<br>s = “aa”<br>p = “*”<br>输出: true<br>解释: ‘*’ 可以匹配任意字符串。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:</p>
-<p>输入:<br>s = “cb”<br>p = “?a”<br>输出: false<br>解释: ‘?’ 可以匹配 ‘c’, 但第二个 ‘a’ 无法匹配 ‘b’。</p>
-</blockquote>
-<blockquote>
-<p>示例 4:</p>
-<p>输入:<br>s = “adceb”<br>p = “<em>a</em>b”<br>输出: true<br>解释: 第一个 ‘<em>‘ 可以匹配空字符串, 第二个 ‘</em>‘ 可以匹配字符串 “dce”.</p>
-</blockquote>
-<blockquote>
-<p>示例 5:</p>
-<p>输入:<br>s = “acdcb”<br>p = “a*c?b”<br>输入: false</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ul>
-<li><h3 id="和正则一样-重点在于-的任意位匹配"><a href="#和正则一样-重点在于-的任意位匹配" class="headerlink" title="和正则一样, 重点在于 * 的任意位匹配."></a>和正则一样, 重点在于 * 的任意位匹配.</h3><h3 id="1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束"><a href="#1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束" class="headerlink" title="1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束"></a>1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束</h3><h3 id="2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉"><a href="#2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉" class="headerlink" title="2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉"></a>2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉</h3><h3 id="3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面"><a href="#3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面" class="headerlink" title="3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面."></a>3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面.</h3><h3 id="4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败"><a href="#4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败" class="headerlink" title="4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败."></a>4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败.</h3><h3 id="5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功"><a href="#5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功" class="headerlink" title="5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,"></a>5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,</h3><h3 id="6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可"><a href="#6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可" class="headerlink" title="6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 ."></a>6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 .</h3></li>
-</ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    bool isMatch(string s, string p) 
-    {
-        //i,j指示当前匹配位置,iflag,jflag指示*号匹配位置
-        int slength=s.length();
-        int plength=p.length();
-        int i=0;
-        int j=0;
-        int iflag=-1;
-        int jflag=-1;
-
-        //匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则
-        //  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场
-        //  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试
-        // 没有*救场 , 那可以自闭了.over
-
-        //循环内每次都确保当前匹配成功
-        //注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.
-        while(i&lt;slength)
-        {   
-            //准确匹配成功
-            if(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==&#39;?&#39;))
-            {
-                i++;
-                j++;
-
-            }
-            //匹配到*
-            else if(j&lt;plength &amp;&amp; p[j]==&#39;*&#39;)
-            {
-                iflag=i;
-                jflag=j;
-
-                //p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动
-                j++;
-
-            }
-
-            //准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.
-            else if(jflag!=-1)
-            {   
-                //*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配
-                i=++iflag;
-
-                //p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1
-                j=jflag+1;
-            }
-
-            //连*都不能帮忙解决,s可以走了
-            else
-                return false;
-        }
-
-        //注意考虑s匹配完了,p剩余*则还能成功
-        while(j&lt;plength)
-            if(p[j]==&#39;*&#39;)
-                j++;
-            else
-                break;
-
-        return j==plength;
-    }
-};</code></pre>
       
     </div>
 
@@ -1191,6 +1032,417 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-44/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a><a href="https://leetcode-cn.com/problems/wildcard-matching" target="_blank" rel="noopener">通配符匹配</a></h1><h3 id="——类似No-10的正则匹配"><a href="#——类似No-10的正则匹配" class="headerlink" title="——类似No.10的正则匹配"></a>——类似No.10的正则匹配</h3><blockquote>
+<p>给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。</p>
+<p>‘?’ 可以匹配任何单个字符。<br>‘*’ 可以匹配任意字符串（包括空字符串）。<br>两个字符串完全匹配才算匹配成功。</p>
+<p>说明:</p>
+<p>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入:<br>s = “aa”<br>p = “a”<br>输出: false<br>解释: “a” 无法匹配 “aa” 整个字符串。</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入:<br>s = “aa”<br>p = “*”<br>输出: true<br>解释: ‘*’ 可以匹配任意字符串。</p>
+</blockquote>
+<blockquote>
+<p>示例 3:</p>
+<p>输入:<br>s = “cb”<br>p = “?a”<br>输出: false<br>解释: ‘?’ 可以匹配 ‘c’, 但第二个 ‘a’ 无法匹配 ‘b’。</p>
+</blockquote>
+<blockquote>
+<p>示例 4:</p>
+<p>输入:<br>s = “adceb”<br>p = “<em>a</em>b”<br>输出: true<br>解释: 第一个 ‘<em>‘ 可以匹配空字符串, 第二个 ‘</em>‘ 可以匹配字符串 “dce”.</p>
+</blockquote>
+<blockquote>
+<p>示例 5:</p>
+<p>输入:<br>s = “acdcb”<br>p = “a*c?b”<br>输入: false</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ul>
+<li><h3 id="和正则一样-重点在于-的任意位匹配"><a href="#和正则一样-重点在于-的任意位匹配" class="headerlink" title="和正则一样, 重点在于 * 的任意位匹配."></a>和正则一样, 重点在于 * 的任意位匹配.</h3><h3 id="1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束"><a href="#1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束" class="headerlink" title="1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束"></a>1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束</h3><h3 id="2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉"><a href="#2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉" class="headerlink" title="2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉"></a>2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉</h3><h3 id="3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面"><a href="#3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面" class="headerlink" title="3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面."></a>3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面.</h3><h3 id="4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败"><a href="#4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败" class="headerlink" title="4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败."></a>4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败.</h3><h3 id="5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功"><a href="#5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功" class="headerlink" title="5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,"></a>5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,</h3><h3 id="6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可"><a href="#6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可" class="headerlink" title="6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 ."></a>6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 .</h3></li>
+</ul>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
+public:
+    bool isMatch(string s, string p) 
+    {
+        //i,j指示当前匹配位置,iflag,jflag指示*号匹配位置
+        int slength=s.length();
+        int plength=p.length();
+        int i=0;
+        int j=0;
+        int iflag=-1;
+        int jflag=-1;
+
+        //匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则
+        //  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场
+        //  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试
+        // 没有*救场 , 那可以自闭了.over
+
+        //循环内每次都确保当前匹配成功
+        //注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.
+        while(i&lt;slength)
+        {   
+            //准确匹配成功
+            if(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==&#39;?&#39;))
+            {
+                i++;
+                j++;
+
+            }
+            //匹配到*
+            else if(j&lt;plength &amp;&amp; p[j]==&#39;*&#39;)
+            {
+                iflag=i;
+                jflag=j;
+
+                //p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动
+                j++;
+
+            }
+
+            //准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.
+            else if(jflag!=-1)
+            {   
+                //*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配
+                i=++iflag;
+
+                //p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1
+                j=jflag+1;
+            }
+
+            //连*都不能帮忙解决,s可以走了
+            else
+                return false;
+        }
+
+        //注意考虑s匹配完了,p剩余*则还能成功
+        while(j&lt;plength)
+            if(p[j]==&#39;*&#39;)
+                j++;
+            else
+                break;
+
+        return j==plength;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-5/" class="post-title-link" itemprop="url">LeetCode-No-5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:55" itemprop="dateModified" datetime="2020-07-16T19:34:55+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a><a href="https://leetcode-cn.com/problems/longest-palindromic-substring" target="_blank" rel="noopener">最长回文子串</a></h1><blockquote>
+<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
+<blockquote>
+<p>示例 1：<br>输入: “babad”<br>输出: “bab”<br>注意: “aba” 也是一个有效答案。</p>
+</blockquote>
+<blockquote>
+<p>示例 2：<br>输入: “cbbd”<br>输出: “bb”</p>
+</blockquote>
+</blockquote>
+<h2 id="仿No-4切入"><a href="#仿No-4切入" class="headerlink" title="仿No.4切入"></a>仿No.4切入</h2><ul>
+<li>回文序列本质上还是一个切割问题</li>
+<li>以切割点为起始,逐步比较两边是否相等即可判断回文.</li>
+<li>注意切割处可以是数, 也可以是两数之间</li>
+</ul>
+<h2 id="求解代码"><a href="#求解代码" class="headerlink" title="求解代码"></a>求解代码</h2><p>题目思路较为简单,直接放出一遍撸过的代码.</p>
+<pre><code>class Solution {
+public:
+    string longestPalindrome(string s)
+    {
+        string result;
+        int center;
+        int left;
+        int right;
+        if (s.length() == 0)
+            return &quot;&quot;;
+        //参考题4扩展
+        //[1,2,3] [1,# ,2,#,3]
+         //[2,1,1,2] [2,# ,1,#,1,#,2]
+        for (center = 0; center &lt; 2*s.length()-1; center++)
+        {
+            left = center / 2;
+            right = (center + 1) / 2;
+            while (1)
+            {
+                if (left &lt; 0 || right &gt;= s.length() || s[left] != s[right])
+                {
+                    left++;
+                    right--;
+                    break;
+                }
+                left--;
+                right++;
+            }
+            if (right - left + 1 &gt; result.length())
+                result.assign(s, left, right - left + 1);
+        }
+
+        return result;
+    }
+};</code></pre><hr>
+<h2 id="错误思路反省"><a href="#错误思路反省" class="headerlink" title="错误思路反省"></a>错误思路反省</h2><h4 id="1-条件定义错误"><a href="#1-条件定义错误" class="headerlink" title="1.条件定义错误"></a>1.<strong>条件定义错误</strong></h4><p>简单的将回文定义为  一个数在中间,两边相等 的序列, 实际上回文序列最中间可能是<strong>空</strong>而不是<strong>数</strong>.</p>
+<h4 id="2-边界特殊情况考虑不周"><a href="#2-边界特殊情况考虑不周" class="headerlink" title="2.边界特殊情况考虑不周"></a>2.<strong>边界特殊情况考虑不周</strong></h4><p>比如空字符串,比如没想到”aaaaa”这种字符串, 当然使用扩展分割的算法时这些情况都可以求解, 只不过如果自己能早点注意到这些特殊情况,就不需要绕弯子 , 可以直接上来就撸分割了.</p>
+<h4 id="3-自行测试"><a href="#3-自行测试" class="headerlink" title="3. 自行测试"></a>3. <strong>自行测试</strong></h4><p>自己在提交给OJ之前,应该自己尽量想出各种各样的测试样例, 不能写出什么就随便丢上去跑, 只有自己用心测试了之后才会发现自己的初始算法有那么多的错误.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-46/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-46/" class="post-title-link" itemprop="url">LeetCode-No-46</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:54" itemprop="dateModified" datetime="2020-07-16T19:34:54+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a><a href="https://leetcode-cn.com/problems/permutations" target="_blank" rel="noopener">全排列</a></h1><blockquote>
+<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
+</blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
+<li><p>由排列特性我们的直觉思路是, 首先固定第一个数, 然后排列后面的数 ,同时后面的排列也是这种<strong>固定+排序</strong>的思路进行. 因此很显然可以想到是一种递归回溯的算法.</p>
+</li>
+<li><p>递归到字符串尾很简单, 但需要注意的是怎么得到其他的组合情况.</p>
+<p><del>我首先设想的是进行一种遍历, 首先确定第一个数, 然后选取未被排列过的剩下的数, 逐一形成n!个排列组合, 但好像没想到简便的方法实现</del></p>
+</li>
+</ul>
+<p>参考题解后得知, 想要不同的排列组合, 本质在于数的顺序不同, 因此我们只要将数进行交换, 然后递归到底输出交换后的组合即可.</p>
+<h1 id="解答代码"><a href="#解答代码" class="headerlink" title="解答代码"></a>解答代码</h1><pre><code>class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) 
+    {   
+        vector&lt;vector&lt;int&gt;&gt; result;
+        backtrace(nums,result,0);
+        return result;
+
+    }
+
+    void backtrace(vector&lt;int&gt;&amp;nums,vector&lt;vector&lt;int&gt;&gt;&amp;result,int i)
+    {   
+        if(i==nums.size()-1)
+            result.push_back(nums);
+
+
+        for(int j=i;j&lt;nums.size();j++)  //逐一尝试与后面的数的交换组合
+        {
+            swap(nums[i],nums[j]);//交换
+            backtrace(nums,result,i+1);//然后输出交换后的串
+            swap(nums[i],nums[j]);  //记得换回来保持原状, 否则换到最后会重复  比如ABC-&gt; CBA-&gt;ABC 
+
+        }
+    }
+
+
+   void swap(int&amp; a,int&amp;b)
+    {
+        int temp=a;
+        a=b;
+        b=temp;
+    }
+};</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1396,250 +1648,6 @@ public:
             swap(nums[i],nums[j]);
             backtrace(nums,result,i+1);
             swap(nums[i],nums[j]);  //换回来？
-
-        }
-    }
-
-
-   void swap(int&amp; a,int&amp;b)
-    {
-        int temp=a;
-        a=b;
-        b=temp;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">LeetCode-No-48-矩阵圈圈类型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:55" itemprop="dateModified" datetime="2020-07-16T19:34:55+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a><a href="https://leetcode-cn.com/problems/rotate-image" target="_blank" rel="noopener">旋转矩阵</a></h1><blockquote>
-<p>给定一个 n × n 的二维矩阵表示一个图像。</p>
-<p>将图像顺时针旋转 90 度。</p>
-<p>说明：</p>
-<p>你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>给定 matrix =<br>[<br>  [1,2,3],<br>  [4,5,6],<br>  [7,8,9]<br>],</p>
-<p>原地旋转输入矩阵，使其变为:<br>[<br>  [7,4,1],<br>  [8,5,2],<br>  [9,6,3]<br>]</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>给定 matrix =<br>[<br>  [ 5, 1, 9,11],<br>  [ 2, 4, 8,10],<br>  [13, 3, 6, 7],<br>  [15,14,12,16]<br>], </p>
-<p>原地旋转输入矩阵，使其变为:<br>[<br>  [15,13, 2, 5],<br>  [14, 3, 4, 1],<br>  [12, 6, 8, 9],<br>  [16, 7,10,11]<br>]</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="矩阵圈圈式问题主要在于怎么确定问题需要的-圈"><a href="#矩阵圈圈式问题主要在于怎么确定问题需要的-圈" class="headerlink" title="矩阵圈圈式问题主要在于怎么确定问题需要的 圈"></a>矩阵圈圈式问题主要在于怎么确定问题需要的 圈</h3><h3 id="例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推"><a href="#例如旋转矩阵这个问题-看似旋转-实际上是一圈圈的边界互换-上边界换到右边界-以此类推" class="headerlink" title="例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推."></a>例如旋转矩阵这个问题, 看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推.</h3><h3 id="那么其实只要我们找到四个边界-然后以边界去for遍历就好了"><a href="#那么其实只要我们找到四个边界-然后以边界去for遍历就好了" class="headerlink" title="那么其实只要我们找到四个边界, 然后以边界去for遍历就好了."></a>那么其实只要我们找到四个边界, 然后以边界去for遍历就好了.</h3><h3 id="遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合"><a href="#遍历完一圈-收缩上下左右边界-继续遍历-直到边界重合" class="headerlink" title="遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合."></a>遍历完一圈 ,收缩上下左右边界, 继续遍历, 直到边界重合.</h3><hr>
-<blockquote>
-<p>之后的顺时针遍历问题也是一样, 以边界为中心去做遍历.不断收缩边界, 注意单行单列的圈 需要做避免重复处理, 旋转问题这里不需要, 因为是n x n.</p>
-</blockquote>
-<hr>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    void rotate(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) 
-    {       
-            //确定四个边界,因为是nxn其实可以两个数就够了,但是为了可读性用四个数
-            int left=0;
-            int top=0;
-            int right=matrix[0].size()-1;
-            int bottom=matrix.size()-1;
-            int temp;
-            while(left&lt;right)//每次旋转外围四边,旋转完缩小外围定义
-            {   for(int i=0;i&lt;right-left;i++)
-                {
-                    //上到右
-                    temp=matrix[top+i][right];
-                    matrix[top+i][right]=matrix[top][left+i];
-                    //左到上
-                    matrix[top][left+i]=matrix[bottom-i][left];
-                    //下到左
-                    matrix[bottom-i][left]=matrix[bottom][right-i];
-                    //右到下
-                    matrix[bottom][right-i]=temp;
-                }
-
-                left++;
-                right--;
-                top++;
-                bottom--;
-            }
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-46/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-46/" class="post-title-link" itemprop="url">LeetCode-No-46</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:54" itemprop="dateModified" datetime="2020-07-16T19:34:54+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a><a href="https://leetcode-cn.com/problems/permutations" target="_blank" rel="noopener">全排列</a></h1><blockquote>
-<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
-<li><p>由排列特性我们的直觉思路是, 首先固定第一个数, 然后排列后面的数 ,同时后面的排列也是这种<strong>固定+排序</strong>的思路进行. 因此很显然可以想到是一种递归回溯的算法.</p>
-</li>
-<li><p>递归到字符串尾很简单, 但需要注意的是怎么得到其他的组合情况.</p>
-<p><del>我首先设想的是进行一种遍历, 首先确定第一个数, 然后选取未被排列过的剩下的数, 逐一形成n!个排列组合, 但好像没想到简便的方法实现</del></p>
-</li>
-</ul>
-<p>参考题解后得知, 想要不同的排列组合, 本质在于数的顺序不同, 因此我们只要将数进行交换, 然后递归到底输出交换后的组合即可.</p>
-<h1 id="解答代码"><a href="#解答代码" class="headerlink" title="解答代码"></a>解答代码</h1><pre><code>class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) 
-    {   
-        vector&lt;vector&lt;int&gt;&gt; result;
-        backtrace(nums,result,0);
-        return result;
-
-    }
-
-    void backtrace(vector&lt;int&gt;&amp;nums,vector&lt;vector&lt;int&gt;&gt;&amp;result,int i)
-    {   
-        if(i==nums.size()-1)
-            result.push_back(nums);
-
-
-        for(int j=i;j&lt;nums.size();j++)  //逐一尝试与后面的数的交换组合
-        {
-            swap(nums[i],nums[j]);//交换
-            backtrace(nums,result,i+1);//然后输出交换后的串
-            swap(nums[i],nums[j]);  //记得换回来保持原状, 否则换到最后会重复  比如ABC-&gt; CBA-&gt;ABC 
 
         }
     }
