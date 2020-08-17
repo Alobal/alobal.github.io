@@ -12,20 +12,20 @@
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+  <meta name="description" content="做好自己的现在">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sitch&#39;s Blog">
 <meta property="og:url" content="https://alobal.github.io/Blog/page/3/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+<meta property="og:description" content="做好自己的现在">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="Sitch">
@@ -76,7 +76,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
+<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
 <link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -161,12 +161,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" class="post-title-link" itemprop="url">KNN 实例——预测电影评分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="7-KNN-实例——K-最近邻预测电影评分"><a href="#7-KNN-实例——K-最近邻预测电影评分" class="headerlink" title="7 KNN 实例——K 最近邻预测电影评分"></a>7 KNN 实例——K 最近邻预测电影评分</h1><pre><code>KNN 即先确定散点距离的定义，然后对每个新点选取 K 个距离最近的点（想象一个图，以新点为中心，不断扩大中心圆的面积，直到覆盖到 k 个点）, 用他们对新点进行投票。</code></pre><h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><pre class="line-numbers language-py"><code class="language-py">import pandas as pd
+import numpy as np
+
+r_cols=['user_id','movie_id','rating']
+# uid,mid,rating 的 dataFrame
+ratings=pd.read_csv("C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data",sep='    ',names=r_cols,usecols=range(3),encoding="ISO-8859-1")
+# 创建 movie 属性表，属性有 size（评价数/流行度）,mean 均分
+movieProperties=ratings.groupby('movie_id').agg({'rating':[np.size,np.mean]})
+
+# 标准化流行度，用来定义距离
+movieNumRatings=pd.DataFrame(movieProperties['rating']['size'])
+movieNormalizedNumRatings=movieNumRatings.apply(lambda x:(x-np.min(x))/(np.max(x)-np.min(x)))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要掌握的函数：</p>
+<ul>
+<li>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1 列表指定行，label2 指定列（可选）, 没有指定列则返回 Series(1 个 label1)/DataFrame</li>
+<li>xxx.get(‘mean’) 和 xxx.mean 的区别：</li>
+<li><ul>
+<li>get 返回对应数值</li>
+</ul>
+</li>
+<li><ul>
+<li>返回 method/Series</li>
+</ul>
+</li>
+<li>Python3.x 的 map 返回的是迭代器，Python2.x 的 map 返回 list</li>
+</ul>
+<pre class="line-numbers language-py"><code class="language-py">movieDict={}
+with open(r"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item",encoding="ISO-8859-1") as f:
+    temp=''
+    for line in f:
+        fields=line.rstrip('
+').split('|')# 除去 line 末尾的换行符，以|分割
+        movieID=int(fields[0])
+        name=fields[1]
+        genres=fields[5:25]
+        genres=map(int,genres)
+        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get('size'),movieProperties.loc[movieID].rating.get('mean'))
+
+# 获得了 movieid 对应的 name, 分类向量，标准化 size, 均分
+print(movieDict[1])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h2><ul>
+<li><h3 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h3></li>
+<li><h3 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h3><pre class="line-numbers language-py"><code class="language-py">from scipy import spatial
+def ComputeDistance(a,b):# a,b 分别为 moviedict 的索引号，即 movieid
+  a=movieDict[a]
+  b=movieDict[b]
+  # x[1] 为类型向量
+  genreDistance=spatial.distance.cosine(a[1],b[1])
+  # x[2] 为 size
+  popularityDistance=abs(a[2]-b[2])
+  return genreDistance+popularityDistance
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>print(ComputeDistance(2,4))<br>print(movieDict[2])<br>print(movieDict[4])</p>
+<pre><code>##    3. 获取最近邻
+
+key=operator.itemgetter(1). 
+
+因为 list 里是 tuple, 要选取 tuple\[1] 进行排序，``itemgetter(i)`` 返回一个函数 func,func(x) 是取 x\[i], 即这里通过传递取值函数，实现了取 tuple\[1] 进行排序。
+
+```py
+import operator
+def getNeighbors(movieID,k):
+    distances=[]# 距离集合，(movieid,distance)
+    for movie in movieDict:
+        if(movie!=movieID):
+            distances.append((movie,ComputeDistance(movieID,movie)))
+
+    distances.sort(key=operator.itemgetter(1))
+    neighbors=[]# 距离排序后，选入前 k 个最近的
+    for x in range(k):
+        neighbors.append(distances[x][0])
+    return neighbors
+
+k=20
+def PredictByKNN(movieID,k):
+    avgRating=0
+    for neighbor in getNeighbors(movieID,k):
+        avgRating+=movieDict[neighbor][3]
+        print(movieDict[neighbor])
+    print(&quot;Predict rating is : &quot;+str(avgRating/k))
+    print(&quot;Actual Rating is : &quot;+str(movieDict[movieID][3]))
+
+PredictByKNN(20,50)
+</code></pre><h2 id="预测实例"><a href="#预测实例" class="headerlink" title="预测实例"></a>预测实例</h2><p>预测 3.28, 实际 3.41</p>
+<p>一定程度上还是挺准确的，仅仅利用了分类和流行度作为相似标准，实现简单但是效果挺好。</p>
+<p><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg" alt="示例运行"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -260,7 +421,7 @@ print(scores.mean())</code></pre><br>
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -402,7 +563,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -533,7 +694,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -700,7 +861,7 @@ for(i)
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -862,7 +1023,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1036,7 +1197,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1200,7 +1361,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1347,7 +1508,7 @@ public:
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1517,154 +1678,6 @@ public:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
-<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
-<blockquote>
-<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
-</blockquote>
-</blockquote>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
-<ol>
-<li><p>判断重复字符</p>
-<blockquote>
-<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
-</blockquote>
-<ol start="2">
-<li>子串检测<blockquote>
-<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>后事处理</p>
-<blockquote>
-<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
-<blockquote>
-<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
-</blockquote>
-</blockquote>
-</li>
-</ol>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
-public:
-    int lengthOfLongestSubstring(string s) 
-    {   
-        int flag[127];
-        for(int i=0;i&lt;127;i++)
-            flag[i]=-1;
-        int result=0;  
-        int max=0;
-        int temp=0;
-        int start=0;
-
-        for(int i=0;i&lt;s.length();i++)
-        {
-            temp=getNO(s[i]);
-            if(flag[temp]&lt;start)
-            {
-                result++;
-                flag[temp]=i;
-            }
-            else
-            {
-                if(result&gt;=max)
-                    max=result;
-
-                start=flag[temp]+1;
-                result=i-flag[temp];
-                flag[temp]=i;
-            }
-
-        }
-        if(result&gt;=max)
-            return result;
-        else
-            return max;
-    }
-
-    int getNO(char originchar)
-    {
-        return originchar-&#39; &#39;;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1727,21 +1740,21 @@ public:
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Sitch</p>
-  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1804,6 +1817,7 @@ public:
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="/Blog/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/Blog/lib/anime.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
@@ -1813,7 +1827,7 @@ public:
 <script src="/Blog/js/motion.js"></script>
 
 
-<script src="/Blog/js/schemes/muse.js"></script>
+<script src="/Blog/js/schemes/pisces.js"></script>
 
 
 <script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->

@@ -12,23 +12,23 @@
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。 概览自我介绍 然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系） 四六级成绩（一般般。 介绍一个LeetCode的算法思路 C++整数的二进制位操作&lt;&lt; 左移位操作，右边开始用0补位&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决">
+  <meta name="description" content="C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。 概览自我介绍 然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系） 四六级成绩（一般般。 介绍一个LeetCode的算法思路 C++STL内部结构整数的二进制位操作&lt;&lt; 左移位操作，右边开始用0补位&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小试几场面试总结">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。 概览自我介绍 然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系） 四六级成绩（一般般。 介绍一个LeetCode的算法思路 C++整数的二进制位操作&lt;&lt; 左移位操作，右边开始用0补位&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决">
+<meta property="og:description" content="C++基础完全不够牢固，几个月没回学校看基础，很多简单的细节题都答不上来，需要好好复习了。 概览自我介绍 然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系） 四六级成绩（一般般。 介绍一个LeetCode的算法思路 C++STL内部结构整数的二进制位操作&lt;&lt; 左移位操作，右边开始用0补位&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-21T08:57:11.000Z">
-<meta property="article:modified_time" content="2020-08-03T04:10:58.587Z">
+<meta property="article:modified_time" content="2020-08-17T12:28:12.163Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="睿曦">
@@ -80,7 +80,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-twilight.css" type="text/css">
+<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
 <link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -171,7 +171,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
       <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做什么，想做什么，为了什么去做，谁知道呢 随便了">
+      <meta itemprop="description" content="做好自己的现在">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 12:10:58" itemprop="dateModified" datetime="2020-08-03T12:10:58+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
 <p>然后会问一下自我介绍中的相关项目（虽然和岗位没有任何关系）</p>
 <p>四六级成绩（一般般。</p>
 <p>介绍一个LeetCode的算法思路</p>
-<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h3 id="整数的二进制位操作"><a href="#整数的二进制位操作" class="headerlink" title="整数的二进制位操作"></a>整数的二进制位操作</h3><p>&lt;&lt; 左移位操作，右边开始用0补位<br>&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决定（gcc的编译器是补符号位）</p>
+<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h3 id="STL内部结构"><a href="#STL内部结构" class="headerlink" title="STL内部结构"></a>STL内部结构</h3><h3 id="整数的二进制位操作"><a href="#整数的二进制位操作" class="headerlink" title="整数的二进制位操作"></a>整数的二进制位操作</h3><p>&lt;&lt; 左移位操作，右边开始用0补位<br>&gt;&gt; 右移位操作，对于无符号数从左边开始补0；对于有符号数，或者补符号位，或者补0，由编译器决定（gcc的编译器是补符号位）</p>
 <p>expr |=(1 &lt;&lt; n);将第n位置1<br>expr &amp;=( ~(1 &lt;&lt; n) );将第n位置0</p>
 <h3 id="const有哪几种作用"><a href="#const有哪几种作用" class="headerlink" title="const有哪几种作用"></a>const有哪几种作用</h3><ul>
 <li>修饰成员函数：<code>int Fun() const;</code> 成员函数不可修改类成员数据</li>
@@ -243,6 +243,18 @@
 <li>二次探测，+0+1^2+2^2</li>
 <li>开链法，哈希表每个位置保存一个链表头。</li>
 <li></li>
+</ul>
+<h3 id="rand实现"><a href="#rand实现" class="headerlink" title="rand实现"></a>rand实现</h3><p>线性同余</p>
+<h3 id="重复申请同名静态变量"><a href="#重复申请同名静态变量" class="headerlink" title="重复申请同名静态变量"></a>重复申请同名静态变量</h3><h3 id="new-和-malloc"><a href="#new-和-malloc" class="headerlink" title="new 和 malloc"></a>new 和 malloc</h3><ul>
+<li>new需指定对象，无需指定大小，malloc需指定大小</li>
+<li>new返回对象指针，malloc返回void*</li>
+<li>new会调用构造函数，malloc则不会</li>
+<li>operator new/delete可重载，malloc/free不可</li>
+</ul>
+<h3 id="override-和-overwrite"><a href="#override-和-overwrite" class="headerlink" title="override 和 overwrite"></a>override 和 overwrite</h3><h3 id="struct-和-class-的区别"><a href="#struct-和-class-的区别" class="headerlink" title="struct 和 class 的区别"></a>struct 和 class 的区别</h3><p>C++中的struct和class基本通用，有细节区别：</p>
+<ul>
+<li>class成员属性和继承方式默认private，struct默认public</li>
+<li>class可以使用模板</li>
 </ul>
 <h3 id="栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。"><a href="#栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。" class="headerlink" title="栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。"></a>栈和堆的区别/ (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。</h3><ul>
 <li><p>系统栈：编译器自动分配，自动清除的变量的存储区，通常是局部变量、函数参数等。</p>
@@ -462,28 +474,28 @@ def log(text):
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数的二进制位操作"><span class="nav-number">2.0.1.</span> <span class="nav-text">整数的二进制位操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const有哪几种作用"><span class="nav-number">2.0.2.</span> <span class="nav-text">const有哪几种作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组-和-链表-区别，操作效率"><span class="nav-number">2.0.3.</span> <span class="nav-text">数组 和 链表 区别，操作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float-和-double-的表示范围"><span class="nav-number">2.0.4.</span> <span class="nav-text">float 和 double 的表示范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32位整数表示范围"><span class="nav-number">2.0.5.</span> <span class="nav-text">32位整数表示范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list判断环"><span class="nav-number">2.0.6.</span> <span class="nav-text">list判断环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stl库vector-list-map的各自适用情景"><span class="nav-number">2.0.7.</span> <span class="nav-text">stl库vector list map的各自适用情景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的遍历复杂度？"><span class="nav-number">2.0.8.</span> <span class="nav-text">二叉树的遍历复杂度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表的二次探测解决方案？"><span class="nav-number">2.0.9.</span> <span class="nav-text">哈希表的二次探测解决方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。"><span class="nav-number">2.0.10.</span> <span class="nav-text">栈和堆的区别&#x2F; (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new，operator-new相关"><span class="nav-number">2.0.11.</span> <span class="nav-text">new，operator new相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态实现问题，静态绑定-动态绑定的机制原理"><span class="nav-number">2.0.12.</span> <span class="nav-text">多态实现问题，静态绑定&#x2F;动态绑定的机制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用-指针"><span class="nav-number">2.0.13.</span> <span class="nav-text">引用 指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对a-5-int-a-1-和-int-amp-a-1-的区别"><span class="nav-number">2.0.14.</span> <span class="nav-text">对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码风格"><span class="nav-number">2.0.15.</span> <span class="nav-text">代码风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理-try-catch-finally"><span class="nav-number">2.0.16.</span> <span class="nav-text">异常处理 try catch (finally)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">3.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">3.0.1.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">3.0.1.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带参数的装饰器"><span class="nav-number">3.0.1.0.2.</span> <span class="nav-text">带参数的装饰器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#维护签名的装饰器"><span class="nav-number">3.0.1.0.3.</span> <span class="nav-text">维护签名的装饰器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python用过哪些包"><span class="nav-number">3.0.2.</span> <span class="nav-text">python用过哪些包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">4.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cache的作用"><span class="nav-number">4.0.1.</span> <span class="nav-text">cache的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码，反码"><span class="nav-number">4.0.2.</span> <span class="nav-text">补码，反码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">4.0.3.</span> <span class="nav-text">TCP和UDP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">5.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导数-微分计算，问的很基础"><span class="nav-number">5.0.1.</span> <span class="nav-text">导数&#x2F;微分计算，问的很基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量点乘，叉乘，（一时没反应过来叉乘是什么"><span class="nav-number">5.0.2.</span> <span class="nav-text">向量点乘，叉乘，（一时没反应过来叉乘是什么</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity和C-，Lua"><span class="nav-number">6.</span> <span class="nav-text">Unity和C#，Lua</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity是在哪进行学习"><span class="nav-number">6.0.1.</span> <span class="nav-text">Unity是在哪进行学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity的两本手册Manual和Script-API有看吗。"><span class="nav-number">6.0.2.</span> <span class="nav-text">Unity的两本手册Manual和Script API有看吗。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做过那么多教程，说一个最值得说的？"><span class="nav-number">6.0.3.</span> <span class="nav-text">做过那么多教程，说一个最值得说的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity你所知道的优点和不足？"><span class="nav-number">6.0.4.</span> <span class="nav-text">Unity你所知道的优点和不足？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-有了解吗"><span class="nav-number">6.0.5.</span> <span class="nav-text">C#有了解吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lua脚本语言需要了解一下"><span class="nav-number">6.0.6.</span> <span class="nav-text">Lua脚本语言需要了解一下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库"><span class="nav-number">7.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主键-外键"><span class="nav-number">7.0.1.</span> <span class="nav-text">主键 外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">7.0.2.</span> <span class="nav-text">索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HR面"><span class="nav-number">8.</span> <span class="nav-text">HR面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#校园职务给你什么收获"><span class="nav-number">8.0.1.</span> <span class="nav-text">校园职务给你什么收获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奖学金相关"><span class="nav-number">8.0.2.</span> <span class="nav-text">奖学金相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#期望薪资"><span class="nav-number">8.0.3.</span> <span class="nav-text">期望薪资</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压力意向"><span class="nav-number">8.0.4.</span> <span class="nav-text">压力意向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课程相关，什么课学的好。"><span class="nav-number">8.0.5.</span> <span class="nav-text">课程相关，什么课学的好。</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STL内部结构"><span class="nav-number">2.0.1.</span> <span class="nav-text">STL内部结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数的二进制位操作"><span class="nav-number">2.0.2.</span> <span class="nav-text">整数的二进制位操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const有哪几种作用"><span class="nav-number">2.0.3.</span> <span class="nav-text">const有哪几种作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组-和-链表-区别，操作效率"><span class="nav-number">2.0.4.</span> <span class="nav-text">数组 和 链表 区别，操作效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float-和-double-的表示范围"><span class="nav-number">2.0.5.</span> <span class="nav-text">float 和 double 的表示范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32位整数表示范围"><span class="nav-number">2.0.6.</span> <span class="nav-text">32位整数表示范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list判断环"><span class="nav-number">2.0.7.</span> <span class="nav-text">list判断环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stl库vector-list-map的各自适用情景"><span class="nav-number">2.0.8.</span> <span class="nav-text">stl库vector list map的各自适用情景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的遍历复杂度？"><span class="nav-number">2.0.9.</span> <span class="nav-text">二叉树的遍历复杂度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表的二次探测解决方案？"><span class="nav-number">2.0.10.</span> <span class="nav-text">哈希表的二次探测解决方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rand实现"><span class="nav-number">2.0.11.</span> <span class="nav-text">rand实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复申请同名静态变量"><span class="nav-number">2.0.12.</span> <span class="nav-text">重复申请同名静态变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-和-malloc"><span class="nav-number">2.0.13.</span> <span class="nav-text">new 和 malloc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#override-和-overwrite"><span class="nav-number">2.0.14.</span> <span class="nav-text">override 和 overwrite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct-和-class-的区别"><span class="nav-number">2.0.15.</span> <span class="nav-text">struct 和 class 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和堆的区别-用户栈和用户堆的区别-，堆分配和栈分配的效率问题。"><span class="nav-number">2.0.16.</span> <span class="nav-text">栈和堆的区别&#x2F; (用户栈和用户堆的区别)，堆分配和栈分配的效率问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new，operator-new相关"><span class="nav-number">2.0.17.</span> <span class="nav-text">new，operator new相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态实现问题，静态绑定-动态绑定的机制原理"><span class="nav-number">2.0.18.</span> <span class="nav-text">多态实现问题，静态绑定&#x2F;动态绑定的机制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用-指针"><span class="nav-number">2.0.19.</span> <span class="nav-text">引用 指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对a-5-int-a-1-和-int-amp-a-1-的区别"><span class="nav-number">2.0.20.</span> <span class="nav-text">对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码风格"><span class="nav-number">2.0.21.</span> <span class="nav-text">代码风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理-try-catch-finally"><span class="nav-number">2.0.22.</span> <span class="nav-text">异常处理 try catch (finally)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">3.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">3.0.1.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">3.0.1.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带参数的装饰器"><span class="nav-number">3.0.1.0.2.</span> <span class="nav-text">带参数的装饰器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#维护签名的装饰器"><span class="nav-number">3.0.1.0.3.</span> <span class="nav-text">维护签名的装饰器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python用过哪些包"><span class="nav-number">3.0.2.</span> <span class="nav-text">python用过哪些包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">4.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cache的作用"><span class="nav-number">4.0.1.</span> <span class="nav-text">cache的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码，反码"><span class="nav-number">4.0.2.</span> <span class="nav-text">补码，反码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和UDP"><span class="nav-number">4.0.3.</span> <span class="nav-text">TCP和UDP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">5.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导数-微分计算，问的很基础"><span class="nav-number">5.0.1.</span> <span class="nav-text">导数&#x2F;微分计算，问的很基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向量点乘，叉乘，（一时没反应过来叉乘是什么"><span class="nav-number">5.0.2.</span> <span class="nav-text">向量点乘，叉乘，（一时没反应过来叉乘是什么</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity和C-，Lua"><span class="nav-number">6.</span> <span class="nav-text">Unity和C#，Lua</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity是在哪进行学习"><span class="nav-number">6.0.1.</span> <span class="nav-text">Unity是在哪进行学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity的两本手册Manual和Script-API有看吗。"><span class="nav-number">6.0.2.</span> <span class="nav-text">Unity的两本手册Manual和Script API有看吗。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做过那么多教程，说一个最值得说的？"><span class="nav-number">6.0.3.</span> <span class="nav-text">做过那么多教程，说一个最值得说的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity你所知道的优点和不足？"><span class="nav-number">6.0.4.</span> <span class="nav-text">Unity你所知道的优点和不足？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-有了解吗"><span class="nav-number">6.0.5.</span> <span class="nav-text">C#有了解吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lua脚本语言需要了解一下"><span class="nav-number">6.0.6.</span> <span class="nav-text">Lua脚本语言需要了解一下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库"><span class="nav-number">7.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主键-外键"><span class="nav-number">7.0.1.</span> <span class="nav-text">主键 外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">7.0.2.</span> <span class="nav-text">索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HR面"><span class="nav-number">8.</span> <span class="nav-text">HR面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#校园职务给你什么收获"><span class="nav-number">8.0.1.</span> <span class="nav-text">校园职务给你什么收获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奖学金相关"><span class="nav-number">8.0.2.</span> <span class="nav-text">奖学金相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#期望薪资"><span class="nav-number">8.0.3.</span> <span class="nav-text">期望薪资</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压力意向"><span class="nav-number">8.0.4.</span> <span class="nav-text">压力意向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课程相关，什么课学的好。"><span class="nav-number">8.0.5.</span> <span class="nav-text">课程相关，什么课学的好。</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Sitch</p>
-  <div class="site-description" itemprop="description">做什么，想做什么，为了什么去做，谁知道呢 随便了</div>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -546,6 +558,7 @@ def log(text):
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="/Blog/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/Blog/lib/anime.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
@@ -555,7 +568,7 @@ def log(text):
 <script src="/Blog/js/motion.js"></script>
 
 
-<script src="/Blog/js/schemes/muse.js"></script>
+<script src="/Blog/js/schemes/pisces.js"></script>
 
 
 <script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
