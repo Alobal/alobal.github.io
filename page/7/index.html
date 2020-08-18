@@ -49,6 +49,15 @@
   
 
 
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -192,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:31:44" itemprop="dateModified" datetime="2020-07-17T11:31:44+08:00">2020-07-17</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,11 +209,25 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>697</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -256,6 +279,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:22:48" itemprop="dateModified" datetime="2020-07-17T11:22:48+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><pre><code>%matplotlib inline
+from pylab import *
+import numpy as np
+
+# N 个人 K 个簇
+def CreateClusteredData(n,k):
+    pointPerCluster=float(n)/k
+    x=[]
+    y=[]
+    for i in range(k):
+        incomeCentroid=np.random.uniform(20000.0,200000.0)
+        ageCentroid=np.random.uniform(20.0,70.0)
+        for j in range(int(pointPerCluster)):
+            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])
+            y.append(i)# 保存已知簇信息
+    x=np.array(x)
+    y=np.array(y)
+    return x,y
+
+(x,y)=CreateClusteredData(100,5)
+
+plt.scatter(x[:,0],x[:,1],c=y.astype(np.float))</code></pre><h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><pre><code>from sklearn import svm,datasets
+C=1.0
+svc=svm.SVC(kernel=&#39;linear&#39;,C=C).fit(x,y)</code></pre><h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
+<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
+<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
+<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
+</blockquote>
+<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
+<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
+</blockquote>
+<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
+<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
+</blockquote>
+<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><pre><code>def plotPredictions(clf,x,y,color):
+    xx,yy=np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx=有age行的income,yy=有income列的age
+    z=clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息
+    plt.figure(figsize=(8,6))
+    z=z.reshape(xx.shape)
+    plt.contourf(xx,yy,z,cmap=plt.cm.Paired,alpha=0.8)
+    plt.scatter(x,y,c=color)
+    plt.show()
+
+plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))
+</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Win10-cmd-PowerShell-SSH%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95-%E5%92%8C-SCP-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -287,7 +442,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:04" itemprop="dateModified" datetime="2020-07-16T19:35:04+08:00">2020-07-16</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,11 +450,25 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>956</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -310,32 +479,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h4 id="1-SSH-root-remotenode"><a href="#1-SSH-root-remotenode" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
+          <h1 id="问题-SSH无法找到目录和文件"><a href="#问题-SSH无法找到目录和文件" class="headerlink" title="问题: SSH无法找到目录和文件"></a>问题: SSH无法找到目录和文件</h1><h2 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h2><h3 id="输入SSH-root-remotenode"><a href="#输入SSH-root-remotenode" class="headerlink" title="输入SSH root@remotenode"></a>输入SSH root@remotenode</h3><blockquote>
 <p>输出:<br>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
 </blockquote>
 <p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win"><a href="#2-scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
+<h3 id="输入scp-test-txt-root-remotenode-root-test-win"><a href="#输入scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="输入scp ./test.txt root@remotenode:/root/test.win"></a>输入scp ./test.txt root@remotenode:/root/test.win</h3><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
+<h2 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h2><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
 <p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
 <p>使用ch找到目录和文件</p>
-<h4 id="1-SSH-root-remotenode-1"><a href="#1-SSH-root-remotenode-1" class="headerlink" title="1.SSH root@remotenode"></a>1.SSH root@remotenode</h4><blockquote>
+<h3 id="SSH-root-remotenode"><a href="#SSH-root-remotenode" class="headerlink" title="SSH root@remotenode"></a>SSH root@remotenode</h3><blockquote>
 <p>输出: </p>
 <blockquote>
 <p>无法创建目录  Could not create directory: C:\users\123\456\789.ssh<br>无法添加信任主机列表 Failed to add…..</p>
 </blockquote>
-<p>配置的免密登录远程主机也不能用</p>
 </blockquote>
+<p>配置的免密登录远程主机也不能用</p>
 <p>然而.ssh目录明明就在用户名文件夹下存在= =</p>
-<h4 id="2-scp-test-txt-root-remotenode-root-test-win-1"><a href="#2-scp-test-txt-root-remotenode-root-test-win-1" class="headerlink" title="2. scp ./test.txt root@remotenode:/root/test.win"></a>2. scp ./test.txt root@remotenode:/root/test.win</h4><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
-<h1 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h1><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
+<h3 id="scp-test-txt-root-remotenode-root-test-win"><a href="#scp-test-txt-root-remotenode-root-test-win" class="headerlink" title="scp ./test.txt root@remotenode:/root/test.win"></a>scp ./test.txt root@remotenode:/root/test.win</h3><p>无法找到文件 : No Such File<br>事实上这个文件存在</p>
+<h2 id="原因猜测-用户名带中文或特殊字符-导致路径无法识别-1"><a href="#原因猜测-用户名带中文或特殊字符-导致路径无法识别-1" class="headerlink" title="原因猜测: 用户名带中文或特殊字符,  导致路径无法识别"></a>原因猜测: 用户名带中文或特殊字符,  导致路径无法识别</h2><p>cmd和PowerShell 的编码都是GBK, 讲道理是可以用中文的…</p>
 <p>但是使用SSH命令显而易见可以看到中文名被解析成了转义字符 “\323” 之类的.</p>
 <p>使用chcp 65001换成utf-8也不行</p>
 <p>当然也不可能重命名用户名文件夹..一大堆程序数据都在下面呢= =</p>
-<h1 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h1><h4 id="1-使用git-bash-代替-cmd-PowerShel"><a href="#1-使用git-bash-代替-cmd-PowerShel" class="headerlink" title="1. 使用git bash 代替[cmd/PowerShel]"></a>1. 使用git bash 代替[cmd/PowerShel]</h4><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
+<h2 id="我的可行方案"><a href="#我的可行方案" class="headerlink" title="我的可行方案 :"></a>我的可行方案 :</h2><h3 id="使用git-bash-代替-cmd-PowerShel"><a href="#使用git-bash-代替-cmd-PowerShel" class="headerlink" title="使用git bash 代替[cmd/PowerShel]"></a>使用git bash 代替[cmd/PowerShel]</h3><p>之前装git有装git bash. 并且git bash 里可以设置中文字符集,因此就试了一下, 发现完全没有障碍= =</p>
 <p>环境什么的完全没变, <strong>可以正常找到.ssh目录 , 可以正常写入 known_host ,除了在第一次登的时候询问写入known_host, 之后免密登录也可以正常使用.</strong></p>
 <p> scp可以正常发送用户名目录下的文件, 不会找不到.</p>
 <p><strong>果然查遍全网也解决不了的问题是cmd自身的问题= =</strong></p>
-<h4 id="2-使用SSH工具-如Putty"><a href="#2-使用SSH工具-如Putty" class="headerlink" title="2. 使用SSH工具,如Putty"></a>2. 使用SSH工具,如Putty</h4><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
+<h3 id="使用SSH工具-如Putty"><a href="#使用SSH工具-如Putty" class="headerlink" title="使用SSH工具,如Putty"></a>使用SSH工具,如Putty</h3><p>使用Putty open登录主机, 好像不会提示known_host 的事情, 但是可以顺利免密登录.</p>
 
       
     </div>
@@ -398,7 +567,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -543,7 +726,21 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -671,7 +868,21 @@ from sklearn import tree
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -777,7 +988,21 @@ from sklearn.naive_bayes import MultinomialNB
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -905,7 +1130,21 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -980,6 +1219,145 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
+<pre><code>def Hybrid(catimg,dogimg,hole=10):
+    # cat过滤低频
+    # 傅里叶变换
+    f_catimg=np.fft.fft2(catimg)
+    f_catimg=np.fft.fftshift(f_catimg)
+
+    # 取得中孔位置, 挖掉中孔, 过滤低频量
+    h,w=catimg.shape
+    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
+<pre><code># dog保留低频
+    # 傅里叶变换
+    f_dogimg=np.fft.fft2(dogimg)
+    f_dogimg=np.fft.fftshift(f_dogimg)
+
+    # 仅保留中孔, 过滤高频量
+    h,w=dogimg.shape
+    f_dogimg[:int(h/2-hole),:]=0
+    f_dogimg[int(h/2+hole):,:]=0
+    f_dogimg[:,:int(w/2-hole)]=0
+    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
+<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
+<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
+</blockquote>
+<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
+    catimg=cv2.imread(&quot;./cat.jpg&quot;)
+    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
+    # 彩色猫狗图像分别对三通道进行处理
+    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
+    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
+    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
+    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
+    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
+    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
+
+    # 合并三通道显示 猫狗
+    img_merge=cv2.merge([B_merge,G_merge,R_merge])
+    print(img_merge)
+    plt.subplot(224),plt.imshow(img_merge)
+    plt.show()
+
+
+    # 人像合成
+    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
+    h,w=wholeimg.shape
+    first_img=wholeimg[:,:int(w/3)]
+    second_img=wholeimg[:,int(w/3):int(2*w/3)]
+    img_hybrid=Hybrid(first_img,second_img,30)
+
+    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
+    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1023,7 +1401,21 @@ return simCandidates</code></pre><p>print(GenerateSimCandidates(testuser).head(1
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1126,269 +1518,10 @@ for i in range(y,y+h):
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<pre><code>def Hybrid(catimg,dogimg,hole=10):
-    # cat过滤低频
-    # 傅里叶变换
-    f_catimg=np.fft.fft2(catimg)
-    f_catimg=np.fft.fftshift(f_catimg)
-
-    # 取得中孔位置, 挖掉中孔, 过滤低频量
-    h,w=catimg.shape
-    f_catimg[int(h/2-hole):int(h/2+hole),int(w/2-hole):int(w/2+hole)]=0</code></pre><p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<pre><code># dog保留低频
-    # 傅里叶变换
-    f_dogimg=np.fft.fft2(dogimg)
-    f_dogimg=np.fft.fftshift(f_dogimg)
-
-    # 仅保留中孔, 过滤高频量
-    h,w=dogimg.shape
-    f_dogimg[:int(h/2-hole),:]=0
-    f_dogimg[int(h/2+hole):,:]=0
-    f_dogimg[:,:int(w/2-hole)]=0
-    f_dogimg[:,int(w/2+hole):]=0</code></pre><p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
-</blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><pre><code>if __name__ == &quot;__main__&quot;:
-    catimg=cv2.imread(&quot;./cat.jpg&quot;)
-    dogimg=cv2.imread(&quot;./dog.jpg&quot;)
-    # 彩色猫狗图像分别对三通道进行处理
-    B_merge=Hybrid(catimg[:,:,0],dogimg[:,:,0])
-    plt.subplot(221),plt.imshow(B_merge,cmap=&#39;gray&#39;)
-    G_merge=Hybrid(catimg[:,:,1],dogimg[:,:,1])
-    plt.subplot(222),plt.imshow(G_merge,cmap=&#39;gray&#39;)
-    R_merge=Hybrid(catimg[:,:,2],dogimg[:,:,2])
-    plt.subplot(223),plt.imshow(R_merge,cmap=&#39;gray&#39;)
-
-    # 合并三通道显示 猫狗
-    img_merge=cv2.merge([B_merge,G_merge,R_merge])
-    print(img_merge)
-    plt.subplot(224),plt.imshow(img_merge)
-    plt.show()
-
-
-    # 人像合成
-    wholeimg=cv2.imread(&quot;./marilyn-einstein-hybrid-collage.png&quot;,0)
-    h,w=wholeimg.shape
-    first_img=wholeimg[:,:int(w/3)]
-    second_img=wholeimg[:,int(w/3):int(2*w/3)]
-    img_hybrid=Hybrid(first_img,second_img,30)
-
-    plt.figure(figsize=[12.8,9.6]),plt.imshow(img_hybrid,cmap=&#39;gray&#39;)
-    plt.show()</code></pre><h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:37:09" itemprop="dateModified" datetime="2020-07-17T11:37:09+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
-<h5 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h5><ul>
-<li><p>root: path根路径</p>
-</li>
-<li><p>dirs:  path下的所有文件夹, 不递归</p>
-</li>
-<li><p>files: path下的所有文件, 不递归</p>
-<pre><code># %%
-from cv2 import cv2
-import matplotlib.pyplot as plt
-import os
-import numpy as np
-import re
-def readimgs(path):# 读取所有文件
-  imgs=[]
-  labels=[]
-  for root,dirnames,f, in os.walk(path):# 取得所有文件夹
-      for dir in dirnames:# 遍历子文件夹
-          path2=os.path.join(path,dir)
-          for r,d,files, in os.walk(path2):# 对文件夹取所有文件
-              for onefile in files:# 对每个文件添加到列表中
-                  path3=os.path.join(path2,onefile)
-                  img=cv2.imread(path3)
-                  img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
-                  imgs.append(img)# 添加到图片集
-                  labels.append(int(re.sub(&quot;\D&quot;,&quot;&quot;,dir)))# 文件夹名作为标签
-
-  return imgs,labels
-</code></pre></li>
-</ul>
-<pre><code>
-# 2. cv2.Eigenfaces训练 
-&gt;也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA
-
-**分割好训练集和测试集**, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.
-#####     EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):
-- num_components, 保留的主成分数
-- threshold,  预测时的阈值设置
-- 返回一个识别模型
-#####     model.train(src, labels): 
-- src: 数据组, 具体到图像就是图像顺序容器, 例如vector&lt;Mat&gt;, [img1,img2,....]
-- labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行...)</code></pre><h1 id="主函数训练"><a href="#主函数训练" class="headerlink" title="%%主函数训练"></a>%%主函数训练</h1><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    # 读取全部文件<br>    imgs,labels=readimgs(“./att_faces”)<br>    # 划分训练集 测试集<br>    testimgs=[]<br>    testlabels=[]<br>    trainimgs=[]<br>    trainlabels=[]<br>    for i in range(len(labels)):<br>        if(i%10==0):# 每10张, 即每一组留一张作为测试集<br>            testimgs.append(imgs[i])<br>            testlabels.append(labels[i])<br>        else:<br>            trainimgs.append(imgs[i])<br>            trainlabels.append(labels[i])</p>
-<pre><code>trainlabels=np.asarray(trainlabels)
-
-model = cv2.face.EigenFaceRecognizer_create()
-model.train(trainimgs,trainlabels)</code></pre><pre><code>
-# 3. Eigenfaces预测
-预测就是对之前保留的测试集, 一一预测并且检验正确率.
-#####      model.predict(data): 模型对data进行预测, 返回output[2]
-- output[0], label, 即预测的标签.
-- output[1], confidence, 即置信度, 注意confidence是越高越不相似
-</code></pre><h1 id="验证"><a href="#验证" class="headerlink" title="%% 验证"></a>%% 验证</h1><pre><code>count=0
-for i in range(0,len(testlabels)):
-    test_img=testimgs[i]
-    output=model.predict(test_img)# 对测试集每个图片进行预测
-    if(output[0]==testlabels[i]):# 结果和真实标签比较
-        count+=1
-
-print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准确率达到0.975
-
-存在一个错误样例: 
-![唯一一个错判样例, 左为原图, 右为预测标签所属图](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg)</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/Blog/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/Blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/Blog/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/Blog/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/Blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/Blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/Blog/page/8/">8</a><a class="extend next" rel="next" href="/Blog/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1454,20 +1587,20 @@ print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准�
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1508,6 +1641,18 @@ print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准�
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Sitch</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:58</span>
 </div>
 
         
@@ -1557,6 +1702,8 @@ print(count/len(testlabels))# 输出成功率</code></pre><pre><code>输出准�
 
 
 
+
+  
 
   
 

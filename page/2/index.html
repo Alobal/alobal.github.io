@@ -49,6 +49,15 @@
   
 
 
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -161,6 +170,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/28/%E5%93%88%E5%B8%8C%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/28/%E5%93%88%E5%B8%8C%E8%A1%A8/" class="post-title-link" itemprop="url">哈希表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-28 17:21:22 / 修改时间：18:32:29" itemprop="dateCreated datePublished" datetime="2020-07-28T17:21:22+08:00">2020-07-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>654</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="构造哈希函数"><a href="#构造哈希函数" class="headerlink" title="构造哈希函数"></a>构造哈希函数</h1><h5 id="直接寻址法"><a href="#直接寻址法" class="headerlink" title="直接寻址法"></a>直接寻址法</h5><p>取关键字本身或者线性变换作为地址</p>
+<p>即H(key) = key或H(key) = a * key + b，其中a和b为常数（这种散列函数叫做自身函数）。</p>
+<h5 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h5><p>找出冲突几率低的数字关键字，用来构造散列地址</p>
+<h5 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h5><p>求出关键字的平方值，然后取平方值的中间几位作为散列地址</p>
+<blockquote>
+<p>平方后的中间几位和关键字的每一位都相关，较高概率产生不冲突的地址。</p>
+</blockquote>
+<h5 id="折叠法"><a href="#折叠法" class="headerlink" title="折叠法"></a>折叠法</h5><p>将关键字平分成位数相同的几部分，（最后一部分位数可以不同），取叠加和（去除进位）作为地址</p>
+<h5 id="随机数法"><a href="#随机数法" class="headerlink" title="随机数法"></a>随机数法</h5><p>利用随机函数，取关键字作为种子生成随机值。</p>
+<h5 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h5><p>取关键字除p的余数作为散列地址。<br>H(key) = key MOD p,p&lt;=m</p>
+<blockquote>
+<p>除数p，表长m，p选的不好容易产生冲突词</p>
+</blockquote>
+<h1 id="冲突处理方式"><a href="#冲突处理方式" class="headerlink" title="冲突处理方式"></a>冲突处理方式</h1><h5 id="开放定址法"><a href="#开放定址法" class="headerlink" title="开放定址法"></a>开放定址法</h5><p>一旦冲突，寻找下一个空的散列地址。Hi=(H(key) + di) MOD m,i=1,2,…，k(k&lt;=m-1)<br>寻找方式有：</p>
+<ul>
+<li>线性探测法：di=1，2，3…m-1 即顺序往后查找空地址。</li>
+<li>二次探测法： di=1^2,-1^2,2^2,-2^2….即进行平方跳跃。</li>
+<li>伪随机探测：di=伪随机数列值</li>
+<li>双重散列法：di=i*h1(key),即利用第二个哈希进行偏移。</li>
+</ul>
+<blockquote>
+<p>平均查找长度高于链地址法。</p>
+</blockquote>
+<h5 id="再散列法"><a href="#再散列法" class="headerlink" title="再散列法"></a>再散列法</h5><p>hashkey=H(hashkey) 即利用哈希值再次计算哈希值，直到冲突不再发生。</p>
+<h5 id="公共溢出区"><a href="#公共溢出区" class="headerlink" title="公共溢出区"></a>公共溢出区</h5><p>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</p>
+<h5 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h5><p>每个散列地址存放一个链表头，冲突即在链表上增加结点即可。</p>
+<h1 id="负载因子"><a href="#负载因子" class="headerlink" title="负载因子"></a>负载因子</h1><p>表示装满的程度，α= 填入表中的元素个数 / 散列表的长度。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -204,7 +321,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -420,7 +551,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -432,7 +563,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -601,8 +746,7 @@ def log(text):
 <li>n是和ab平面垂直的单位向量，可用右手定理确定。</li>
 <li>θ是ab夹角。</li>
 </ul>
-<h1 id="Unity和C-，Lua"><a href="#Unity和C-，Lua" class="headerlink" title="Unity和C#，Lua"></a>Unity和C#，Lua</h1><h3 id="Unity是在哪进行学习"><a href="#Unity是在哪进行学习" class="headerlink" title="Unity是在哪进行学习"></a>Unity是在哪进行学习</h3><h3 id="Unity的两本手册Manual和Script-API有看吗。"><a href="#Unity的两本手册Manual和Script-API有看吗。" class="headerlink" title="Unity的两本手册Manual和Script API有看吗。"></a>Unity的两本手册Manual和Script API有看吗。</h3><h3 id="做过那么多教程，说一个最值得说的？"><a href="#做过那么多教程，说一个最值得说的？" class="headerlink" title="做过那么多教程，说一个最值得说的？"></a>做过那么多教程，说一个最值得说的？</h3><p>…教程我真没想到能咋说，就一步一步的学习嘛，说不出来。；；</p>
-<h3 id="Unity你所知道的优点和不足？"><a href="#Unity你所知道的优点和不足？" class="headerlink" title="Unity你所知道的优点和不足？"></a>Unity你所知道的优点和不足？</h3><ul>
+<h1 id="Unity和C-，Lua"><a href="#Unity和C-，Lua" class="headerlink" title="Unity和C#，Lua"></a>Unity和C#，Lua</h1><h3 id="Unity是在哪进行学习"><a href="#Unity是在哪进行学习" class="headerlink" title="Unity是在哪进行学习"></a>Unity是在哪进行学习</h3><h3 id="Unity的两本手册Manual和Script-API有看吗。"><a href="#Unity的两本手册Manual和Script-API有看吗。" class="headerlink" title="Unity的两本手册Manual和Script API有看吗。"></a>Unity的两本手册Manual和Script API有看吗。</h3><h3 id="做过那么多教程，说一个最值得说的？"><a href="#做过那么多教程，说一个最值得说的？" class="headerlink" title="做过那么多教程，说一个最值得说的？"></a>做过那么多教程，说一个最值得说的？</h3><h3 id="Unity你所知道的优点和不足？"><a href="#Unity你所知道的优点和不足？" class="headerlink" title="Unity你所知道的优点和不足？"></a>Unity你所知道的优点和不足？</h3><ul>
 <li>优点，有插件化</li>
 </ul>
 <h3 id="C-有了解吗"><a href="#C-有了解吗" class="headerlink" title="C#有了解吗"></a>C#有了解吗</h3><p>在学了在学了…</p>
@@ -674,7 +818,21 @@ def log(text):
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -801,7 +959,7 @@ def log(text):
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-02 16:36:54" itemprop="dateModified" datetime="2020-08-02T16:36:54+08:00">2020-08-02</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -809,11 +967,25 @@ def log(text):
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%AF%AD%E8%A8%80-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">语言&&工具</span></a>
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>951</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -824,11 +996,22 @@ def log(text):
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="First-title-一级标题-MarkDown示例"><a href="#First-title-一级标题-MarkDown示例" class="headerlink" title="First title 一级标题  MarkDown示例"></a>First title 一级标题  MarkDown示例</h1><h2 id="Second-title-二级标题"><a href="#Second-title-二级标题" class="headerlink" title="Second title 二级标题"></a>Second title 二级标题</h2><h3 id="Third-title-三级标题"><a href="#Third-title-三级标题" class="headerlink" title="Third title 三级标题"></a>Third title 三级标题</h3><h4 id="Fourth-四级标题"><a href="#Fourth-四级标题" class="headerlink" title="Fourth 四级标题"></a>Fourth 四级标题</h4><h5 id="Fifth-五级标题-下面是分割线"><a href="#Fifth-五级标题-下面是分割线" class="headerlink" title="Fifth 五级标题 下面是分割线"></a>Fifth 五级标题 下面是分割线</h5><hr>
-<h2 id="1-正文书写"><a href="#1-正文书写" class="headerlink" title="1. 正文书写"></a>1. 正文书写</h2><p>标准正文示例.</p>
+          <h1 id="First-title-一级标题-MarkDown示例"><a href="#First-title-一级标题-MarkDown示例" class="headerlink" title="First title 一级标题  MarkDown示例"></a>First title 一级标题  MarkDown示例</h1><p><code># First title 一级标题  MarkDown示例</code></p>
+<h2 id="Second-title-二级标题"><a href="#Second-title-二级标题" class="headerlink" title="Second title 二级标题"></a>Second title 二级标题</h2><p><code>## Second title 二级标题</code></p>
+<h3 id="Third-title-三级标题"><a href="#Third-title-三级标题" class="headerlink" title="Third title 三级标题"></a>Third title 三级标题</h3><p><code>### Third title 三级标题</code></p>
+<h4 id="Fourth-四级标题"><a href="#Fourth-四级标题" class="headerlink" title="Fourth 四级标题"></a>Fourth 四级标题</h4><p><code>#### Fourth 四级标题</code></p>
+<h5 id="Fifth-五级标题-下面是分割线"><a href="#Fifth-五级标题-下面是分割线" class="headerlink" title="Fifth 五级标题 下面是分割线"></a>Fifth 五级标题 下面是分割线</h5><p><code>##### Fifth 五级标题 下面是分割线</code></p>
+<hr>
+<p><code>---</code></p>
+<h2 id="1-正文书写"><a href="#1-正文书写" class="headerlink" title="1. 正文书写"></a>1. 正文书写</h2><p><code>## 1. 正文书写</code></p>
+<p>标准正文示例.</p>
+<p><code>标准正文示例.</code></p>
 <p><strong>粗体示例</strong></p>
+<p><code>**粗体示例**</code></p>
 <p><em>斜体示例</em></p>
+<p><code>*斜体示例*</code></p>
 <p><strong><em>粗斜体示例</em></strong></p>
+<p><code>***粗斜体示例***</code></p>
 <blockquote>
 <p>引用示例</p>
 <blockquote>
@@ -836,6 +1019,11 @@ def log(text):
 </blockquote>
 <p>引用示例</p>
 </blockquote>
+<pre class="line-numbers language-md"><code class="language-md">>引用示例
+>
+>>嵌套引用示例
+>
+>引用示例<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ol>
 <li><p>有序列表示例1</p>
 <p> 1.1. 嵌套多级列表1.1</p>
@@ -849,6 +1037,19 @@ def log(text):
 <p> 2.2. 嵌套多级列表2.2</p>
 </li>
 </ol>
+<pre class="line-numbers language-md"><code class="language-md">1. 有序列表示例1
+
+    1.1. 嵌套多级列表1.1
+
+    1.2. 嵌套多级列表1.2
+
+    - 有序列表嵌套无序列表
+
+2. 有序列表示例2
+
+    2.1. 嵌套多级列表2.1
+
+    2.2. 嵌套多级列表2.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><p>无序列表示例1</p>
 </li>
@@ -867,25 +1068,47 @@ def log(text):
 </ol>
 </li>
 </ul>
+<pre class="line-numbers language-md"><code class="language-md">- 无序列表示例1
+
+- 无序列表示例2
+
+- - 嵌套无序列表2.1
+
+- 1. 无序嵌套有序
+
+- 2. 无序嵌套有序<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
 <h2 id="2-资源插入"><a href="#2-资源插入" class="headerlink" title="2. 资源插入"></a>2. 资源插入</h2><ol>
-<li><p>代码段插入示例<code>for day in time</code></p>
-</li>
-<li><p>代码块插入示例: </p>
+<li>代码段插入示例<code>for day in time</code></li>
+</ol>
+<p><code>1. 代码段插入示例\`\`for day in time\`\`</code></p>
+<ol start="2">
+<li>代码块插入示例: </li>
+</ol>
 <pre class="line-numbers language-C++"><code class="language-C++">//代码块示例 第一个```后加代码名即可进行语法识别
 #include <iostream>
 using namespace std;
 int main()
 {
- cout<<std;
+    cout<<std;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p><a href="www.lianjie.com">链接插入示例</a></p>
-</li>
-<li><p>图片插入示例:</p>
-</li>
+<pre class="line-numbers language-md"><code class="language-md">\`\`\`C++
+//代码块示例 第一个```后加代码名即可进行语法识别
+#include <iostream>
+using namespace std;
+int main()
+{
+    cout<<std;
+}
+\`\`\`<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li><a href="www.lianjie.com">链接插入示例</a></li>
 </ol>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="图片注释, 链接路径用网络路径或者本地相对路径，有些编辑器支持显示图片注释，但很多并不支持"></p>
+<p><code>3. [链接插入示例](www.lianjie.com)</code></p>
+<ol start="4">
+<li>图片插入示例:</li>
+</ol>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="图片注释, 链接路径用网络路径或者本地相对路径，有些编辑器支持显示图片注释，但很多并不支持"><br><code>![图片注释, 链接路径用网络路径或者本地相对路径，有些编辑器支持显示图片注释，但很多并不支持](https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg)</code></p>
 
       
     </div>
@@ -948,7 +1171,21 @@ int main()
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1259,10 +1496,33 @@ int main()
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-21 09:29:34" itemprop="dateModified" datetime="2020-07-21T09:29:34+08:00">2020-07-21</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1367,7 +1627,7 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+                <time title="修改时间：2020-08-18 20:51:33" itemprop="dateModified" datetime="2020-08-18T20:51:33+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1375,11 +1635,25 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1391,27 +1665,27 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 
       
           <h1 id="功能性配置"><a href="#功能性配置" class="headerlink" title="功能性配置"></a>功能性配置</h1><h2 id="站点概览描述"><a href="#站点概览描述" class="headerlink" title="站点概览描述"></a>站点概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是 next 主题，会显示在侧边栏中。</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Site</span>
-title<span class="token punctuation">:</span> Sitch's Blog
-subtitle<span class="token punctuation">:</span> <span class="token string">''</span>
-description<span class="token punctuation">:</span> <span class="token string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span>
-keywords<span class="token punctuation">:</span> Sitch<span class="token punctuation">,</span>Blog
-author<span class="token punctuation">:</span> Sitch
-language<span class="token punctuation">:</span> zh<span class="token operator">-</span>CN
-timezone<span class="token punctuation">:</span> <span class="token string">''</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yml"><code class="language-yml"># Site
+title: Sitch's Blog
+subtitle: ''
+description: '做什么，想做什么，为了什么去做，谁知道呢 随便了'
+keywords: Sitch,Blog
+author: Sitch
+language: zh-CN
+timezone: ''<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Next-的分类和标签"><a href="#Next-的分类和标签" class="headerlink" title="Next 的分类和标签"></a>Next 的分类和标签</h2><p>在 next 主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。</p>
 <blockquote>
 <p>分类有层级，标签没有层级。</p>
 </blockquote>
-<pre class="line-numbers language-python"><code class="language-python">menu<span class="token punctuation">:</span>
-  home<span class="token punctuation">:</span> <span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>home
-  <span class="token comment" spellcheck="true">#about: /about/ || fa fa-user</span>
-  <span class="token comment" spellcheck="true">#tags: /tags/ || fa fa-tags</span>
-  categories<span class="token punctuation">:</span> <span class="token operator">/</span>categories<span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>th
-  archives<span class="token punctuation">:</span> <span class="token operator">/</span>archives<span class="token operator">/</span> <span class="token operator">|</span><span class="token operator">|</span> fa fa<span class="token operator">-</span>archive
-  <span class="token comment" spellcheck="true"># schedule: /schedule/ || fa fa-calendar</span>
-  <span class="token comment" spellcheck="true"># sitemap: /sitemap.xml || fa fa-sitemap</span>
-  <span class="token comment" spellcheck="true">#commonweal: /404/ || fa fa-heartbeat</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yml"><code class="language-yml">menu:
+  home: / || fa fa-home
+  #about: /about/ || fa fa-user
+  #tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  # schedule: /schedule/ || fa fa-calendar
+  # sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>但相关页面还需要自己生成，在项目根目录下输入相应命令，创建相关页面。</p>
 <ul>
 <li><code>hexo new page categories</code></li>
@@ -1423,13 +1697,44 @@ timezone<span class="token punctuation">:</span> <span class="token string">''</
 <li><code>type: tags</code>。</li>
 </ul>
 <p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
-<pre class="line-numbers language-python"><code class="language-python">categories<span class="token punctuation">:</span> 
-<span class="token operator">-</span> 博客搭建<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-md"><code class="language-md">categories: 
+- 博客搭建<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
 <p>在 项目/themes/next/layout/_macro/sidebar.swig 中， 插入复制的代码，比如插入在最下面某一段。</p>
 <blockquote>
-<p>注意 20 版本后缀不是 swig，相关文件也不一样</p>
+<p>注意 2020 版本后缀不是 swig，相关文件也不一样</p>
 </blockquote>
+<h2 id="字数统计和阅读时长"><a href="#字数统计和阅读时长" class="headerlink" title="字数统计和阅读时长"></a>字数统计和阅读时长</h2><p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a></p>
+<p>使用命令行 npm 输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
+<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
+<pre class="line-numbers language-yml"><code class="language-yml">symbols_count_time:
+    symbols: true
+    time: true
+    total_symbols: true
+  total_time: true
+  awl: 2      #设置2个字符看作一个字
+  wpm: 200    #每分钟阅读字数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>next 主题 _config.yml 里找到字段 symbols_count_time 按需配置即可：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Post wordcount display settings
+# Dependencies: https://github.com/theme-next/hexo-symbols-count-time
+symbols_count_time:
+  separated_meta: true
+  item_text_post: true
+  item_text_total: true
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
+<h2 id="添加百度分析"><a href="#添加百度分析" class="headerlink" title="添加百度分析"></a>添加百度分析</h2><p>登陆<a href="https://tongji.baidu.com/web/10000256460/welcome/login" target="_blank" rel="noopener">百度统计</a></p>
+<p>进入个人页，选择侧栏的代码获取页</p>
+<p>可以看到如下一段代码,找到<code>hm.js?</code>之后的序列号复制。</p>
+<pre class="line-numbers language-js"><code class="language-js"><span class="token operator">&lt;</span>script<span class="token operator">></span>
+<span class="token keyword">var</span> _hmt <span class="token operator">=</span> _hmt <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> hm <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  hm<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">"https://hm.baidu.com/hm.js?复制这段"</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> s <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>填写在next配置里的百度分析字段中：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Baidu Analytics
+baidu_analytics: 粘贴到这里<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
 <p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用</p>
 <blockquote>
@@ -1437,22 +1742,22 @@ timezone<span class="token punctuation">:</span> <span class="token string">''</
 </blockquote>
 <p>跑路保平安，改用 prism-plugin。</p>
 <p><strong>意外的是，prism 设置了 custom_css 的无效路径后，即使 hexo 自带 highlight 是关闭状态，代码高亮居然被 hexo 的 highlight 接管了，除了行号没有一切正常。</strong></p>
-<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然next的设计已经清新的挺舒服了。</p>
+<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next 的设计已经清新的挺舒服了。</p>
 <h2 id="自定义样式，如配色等"><a href="#自定义样式，如配色等" class="headerlink" title="自定义样式，如配色等"></a>自定义样式，如配色等</h2><h3 id="修改方法"><a href="#修改方法" class="headerlink" title="修改方法"></a>修改方法</h3><p>在 next 配置文件中，找到下面这段，然后把需要的自定义样式取消注释，在路径文件中写入你想要<strong>覆盖</strong>的样式。<br><strong>注意是 hexo 项目根目录下的 source/_data/styles.styl</strong>，没有则自己创建。<br><strong>注意不是 next 主题目录下的路径</strong></p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Define custom file paths.</span>
-<span class="token comment" spellcheck="true"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span>
-custom_file_path<span class="token punctuation">:</span>
-  <span class="token comment" spellcheck="true">#head: source/_data/head.swig</span>
-  <span class="token comment" spellcheck="true">#header: source/_data/header.swig</span>
-  <span class="token comment" spellcheck="true">#sidebar: source/_data/sidebar.swig</span>
-  <span class="token comment" spellcheck="true">#postMeta: source/_data/post-meta.swig</span>
-  <span class="token comment" spellcheck="true">#postBodyEnd: source/_data/post-body-end.swig</span>
-  <span class="token comment" spellcheck="true">#footer: source/_data/footer.swig</span>
-  <span class="token comment" spellcheck="true">#bodyEnd: source/_data/body-end.swig</span>
-  <span class="token comment" spellcheck="true">#variable: source/_data/variables.styl</span>
-  <span class="token comment" spellcheck="true">#mixin: source/_data/mixins.styl</span>
-  style<span class="token punctuation">:</span> source<span class="token operator">/</span>_data<span class="token operator">/</span>styles<span class="token punctuation">.</span>styl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>以下样式修改大多是在styles文件中进行。</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Define custom file paths.
+# Create your custom files in site directory `source/_data` and uncomment needed files below.
+custom_file_path:
+  #head: source/_data/head.swig
+  #header: source/_data/header.swig
+  #sidebar: source/_data/sidebar.swig
+  #postMeta: source/_data/post-meta.swig
+  #postBodyEnd: source/_data/post-body-end.swig
+  #footer: source/_data/footer.swig
+  #bodyEnd: source/_data/body-end.swig
+  #variable: source/_data/variables.styl
+  #mixin: source/_data/mixins.styl
+  style: source/_data/styles.styl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下样式修改大多是在 styles 文件中进行。</p>
 <h3 id="调试样式方法"><a href="#调试样式方法" class="headerlink" title="调试样式方法"></a>调试样式方法</h3><p>虽然能够自定义覆盖样式，但是配色总是要试试的嘛，怎么调试出自己喜欢的配色再添加到文件里呢？</p>
 <p>chrome 打开博客网站，右键你想要更改的元素，例如正文背景，在右键菜单中点【检查】，可以看到如图的调试台，右边则是相应的元素样式。如图：<br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtuquyezgj20wn0di0v3.jpg" alt="主要找右边的样式表"><br>比如这里我就把正文背景从原来的纯白，修改为了带点暖黄的护眼色。<br>然后把更改的这段复制到 styles.styl 即可，如下：</p>
 <pre class="line-numbers language-css"><code class="language-css"><span class="token selector">//正文背景护眼色
@@ -1460,34 +1765,34 @@ custom_file_path<span class="token punctuation">:</span>
     <span class="token property">--body-bg-color</span><span class="token punctuation">:</span> <span class="token hexcode">#f9dbb6</span><span class="token number">47</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重新生成文章即可，其他浏览器调试应该也是同理，没试过。</p>
-<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置global全局字体就行。</p>
-<p>字体CDN默认是google的，可以去里面挑自己喜欢的字体，在family字段配置即可。</p>
+<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置 global 全局字体就行。</p>
+<p>字体 CDN 默认是 google 的，可以去里面挑自己喜欢的字体，在 family 字段配置即可。</p>
 <p>个人是比较喜欢思源宋体的。</p>
-<p>示例如下:</p>
-<pre class="line-numbers language-python"><code class="language-python">font<span class="token punctuation">:</span>
-  enable<span class="token punctuation">:</span> true
+<p>示例如下：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">font:
+  enable: true
 
-  <span class="token comment" spellcheck="true"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span>
-  host<span class="token punctuation">:</span>
+  # Uri of fonts host, e.g. https://fonts.googleapis.com (Default).
+  host:
 
-  <span class="token comment" spellcheck="true"># Font options:</span>
-  <span class="token comment" spellcheck="true"># `external: true` will load this font family from `host` above.</span>
-  <span class="token comment" spellcheck="true"># `family: Times New Roman`. Without any quotes.</span>
-  <span class="token comment" spellcheck="true"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span>
+  # Font options:
+  # `external: true` will load this font family from `host` above.
+  # `family: Times New Roman`. Without any quotes.
+  # `size: x.x`. Use `em` as unit. Default: 1 (16px)
 
-  <span class="token comment" spellcheck="true"># Global font settings used for all elements inside &lt;body>.</span>
-  <span class="token keyword">global</span><span class="token punctuation">:</span>
-    external<span class="token punctuation">:</span> true
-    family<span class="token punctuation">:</span> Noto Serif SC
-    size<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  # Global font settings used for all elements inside <body>.
+  global:
+    external: true
+    family: Noto Serif SC
+    size:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="标题阴影配置"><a href="#标题阴影配置" class="headerlink" title="标题阴影配置"></a>标题阴影配置</h2><p>标题虽然可以通过字体大小区分，但是光秃秃的几个字在全文里还是有比较混杂的感觉，即不方便分割上下文，也不凸显标题本身。</p>
 <p>因此考虑添加阴影来增强标题感。</p>
-<p>在styles中添加字段如下，具体颜色和大小参数自己配吧。</p>
+<p>在 styles 中添加字段如下，具体颜色和大小参数自己配吧。</p>
 <pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token class">.post-body</span> h1, <span class="token class">.post-body</span> h2 </span><span class="token punctuation">{</span>
     <span class="token property">box-shadow</span><span class="token punctuation">:</span> inset <span class="token number">0</span> -<span class="token number">0.6</span>em <span class="token number">0</span> <span class="token hexcode">#ffeb88</span><span class="token punctuation">;</span> 
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="单句代码悬浮突出配置"><a href="#单句代码悬浮突出配置" class="headerlink" title="单句代码悬浮突出配置"></a>单句代码悬浮突出配置</h2><p>单句代码无论用什么颜色修改感觉都差点意思，要么是太过鲜艳，在频繁的地方看的挺烦，要么是太过暗淡，又不够突出明显。</p>
-<p>因此搬运了悬浮贴的css样式。</p>
+<p>因此搬运了悬浮贴的 css 样式。</p>
 <p>单句代码和代码块都在<code>code</code>类下面，因此最好加个<code>p</code>类限制为仅单句代码。</p>
 <pre class="line-numbers language-css"><code class="language-css"><span class="token selector">p code </span><span class="token punctuation">{</span>
     <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">1</span>em<span class="token punctuation">;</span>
@@ -1501,7 +1806,7 @@ custom_file_path<span class="token punctuation">:</span>
     <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span> <span class="token number">0.4</span>em<span class="token punctuation">;</span>
     <span class="token property">vertical-align</span><span class="token punctuation">:</span> bottom<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="参考设计"><a href="#参考设计" class="headerlink" title="参考设计"></a>参考设计</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang的paper设计</a></p>
+<h1 id="参考设计"><a href="#参考设计" class="headerlink" title="参考设计"></a>参考设计</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a><br><a href="https://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">Next进阶文档</a><br><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next Document</a></p>
 
       
     </div>
@@ -1552,7 +1857,7 @@ custom_file_path<span class="token punctuation">:</span>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 16:15:57" itemprop="dateModified" datetime="2020-07-17T16:15:57+08:00">2020-07-17</time>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1560,11 +1865,25 @@ custom_file_path<span class="token punctuation">:</span>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">博客搭建</span></a>
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1575,97 +1894,102 @@ custom_file_path<span class="token punctuation">:</span>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><p><strong>前置知识：git使用方法，github建库方法，会在命令行里敲东西</strong></p>
-<h2 id="1-安装环境"><a href="#1-安装环境" class="headerlink" title="1. 安装环境"></a>1. 安装环境</h2><h3 id="1-1-node-JS"><a href="#1-1-node-JS" class="headerlink" title="1.1 node.JS"></a>1.1 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
+          <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><p><strong>前置知识：git 使用方法，github 建库方法，会在命令行里敲东西</strong></p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="安装-node-JS"><a href="#安装-node-JS" class="headerlink" title="安装 node.JS"></a>安装 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
 <p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
-<h3 id="1-2-安装hexo"><a href="#1-2-安装hexo" class="headerlink" title="1.2 安装hexo"></a>1.2 安装hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是git bash。</p>
+<h3 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是 git bash。</p>
 <blockquote>
-<p>可以使用cmd，但我遇到了中文问题。</p>
-<p>powershell运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入 <code>set-executionpolicy remotesigned</code> 更改安全策略，允许运行脚本。</p>
+<p>可以使用 cmd，但我遇到了中文问题。</p>
+<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入 <code>set-executionpolicy remotesigned</code> 更改安全策略，允许运行脚本。</p>
 </blockquote>
 <p>运行<code>npm install -g hexo-cli</code>进行安装</p>
 <p>再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
-<h3 id="1-3-配置项目"><a href="#1-3-配置项目" class="headerlink" title="1.3 配置项目"></a>1.3 配置项目</h3><p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
+<h2 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h2><p>###初始化<br>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
 <p>运行<code>hexo init</code>初始化</p>
-<p>运行以下命令部署默认网页进行测试：</p>
-<pre class="line-numbers language-python"><code class="language-python">hexo new test_my_site
+<h3 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h3><p>运行以下命令部署默认网页进行测试：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">hexo new test_my_site #创建新 test_my_site 的 markdown 文件
 
-hexo g
+hexo g                # 从 md 文件生成 html 文件
 
-hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
+hexo s                # 部署本地服务器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
+<h3 id="部署到网络"><a href="#部署到网络" class="headerlink" title="部署到网络"></a>部署到网络</h3><p>在文件夹根路径下面，找到_config.yml，打开修改</p>
 <p>最后一段为：</p>
-<pre class="line-numbers language-python"><code class="language-python">deploy<span class="token punctuation">:</span>
-type<span class="token punctuation">:</span> git
-repo<span class="token punctuation">:</span> 仓库的完整路径，例如我的https<span class="token punctuation">:</span><span class="token operator">//</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>Alobal<span class="token operator">/</span>Blog<span class="token punctuation">.</span>git
-branch<span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>URL小段为：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># URL</span>
-<span class="token comment" spellcheck="true">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span>
-url<span class="token punctuation">:</span> 访问网址，例如https<span class="token punctuation">:</span><span class="token operator">//</span>alobal<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token operator">/</span>Blog<span class="token operator">/</span>
-root<span class="token punctuation">:</span> 仓库名，例如<span class="token operator">/</span>Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yml"><code class="language-yml">deploy:
+type: git
+repo: 仓库的完整路径，推荐使用 ssh 路径，这样可以有 ssh 免密登录。例如我的 git@github.com:Alobal/Blog.git
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>URL 小段为：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: 访问网址，例如 https://alobal.github.io/Blog/
+root: 仓库名，例如/Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>保存关闭该文件</p>
-<p>安装hexo的git部署插件<code>npm install hexo-deployer-git --save</code></p>
-<h3 id="1-4-测试发布效果"><a href="#1-4-测试发布效果" class="headerlink" title="1.4 测试发布效果"></a>1.4 测试发布效果</h3><p>运行以下命令进行测试</p>
-<pre class="line-numbers language-python"><code class="language-python">hexo clean
+<p>安装 hexo 的 git 部署插件<code>npm install hexo-deployer-git --save</code></p>
+<p>运行以下命令进行发布到网络</p>
+<pre class="line-numbers language-yml"><code class="language-yml">hexo clean
 hexo g
 hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:</code>大概就成功了。</p>
-<p>此时可以在github仓库看到hexo提交的文件<br>以及能通过访问网址查看你发布的默认博客</p>
-<h3 id="1-5-选一个你喜欢的主题"><a href="#1-5-选一个你喜欢的主题" class="headerlink" title="1.5 选一个你喜欢的主题"></a>1.5 选一个你喜欢的主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题库</a></p>
-<p>挑选一个合适的主题，比如很常见的Next，复制git地址，在本地项目文件夹下，命令行输入进行git clone</p>
+<blockquote>
+<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
+</blockquote>
+<p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:..</code>大概就恭喜你成功了。</p>
+<p>此时可以在 github 仓库看到 hexo 提交的文件。</p>
+<p>以及能通过访问网址查看你刚才发布的默认博客。</p>
+<h2 id="选一个你喜欢的主题"><a href="#选一个你喜欢的主题" class="headerlink" title="选一个你喜欢的主题"></a>选一个你喜欢的主题</h2><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo 主题库</a></p>
+<p>挑选一个合适的主题，比如很常见的 Next，复制 git 地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
 <p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
 <blockquote>
-<p>注意next主题在2020之前是theme-next项目，2020版本是next-theme项目，配置字段有点不同，根据需要选择。19版本网上教程比较健全了。</p>
+<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next 项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19 版本网上教程比较健全了。</p>
 </blockquote>
-<p>打开_config.yml，修改theme字段：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Extensions</span>
-<span class="token comment" spellcheck="true">## Plugins: https://hexo.io/plugins/</span>
-<span class="token comment" spellcheck="true">## Themes: https://hexo.io/themes/</span>
-theme<span class="token punctuation">:</span> 主题名，例如next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。<br>比如next主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Schemes</span>
-scheme<span class="token punctuation">:</span> Muse
-<span class="token comment" spellcheck="true">#scheme: Mist</span>
-<span class="token comment" spellcheck="true">#scheme: Pisces</span>
-<span class="token comment" spellcheck="true">#scheme: Gemini</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>重新<code>hexo g</code> <code>hexo d</code> 发布出去，让我们来看看效果。</p>
+<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>打开 _config.yml，修改 theme 字段：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: 主题名，例如 next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。</p>
+<p>比如 next 主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找 next 官方文档。</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Schemes
+#scheme: Muse
+#scheme: Mist
+scheme: Pisces
+#scheme: Gemini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输入<code>hexo g;hexo d</code> 重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
 <blockquote>
-<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者Ctrl+F5强制刷新。</p>
+<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者 Ctrl+F5 强制刷新。</p>
 </blockquote>
-<h2 id="2-hello，blog！"><a href="#2-hello，blog！" class="headerlink" title="2.hello，blog！"></a>2.hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
-<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> ,可以在 项目名/source/_posts/ 下面找到新建的markdown文件,文件头不动的情况下，写入你的markdown格式内容即可。</p>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
-<h2 id="4-错误汇总"><a href="#4-错误汇总" class="headerlink" title="4. 错误汇总"></a>4. 错误汇总</h2><p>4.1 can not find module xxx</p>
-<ul>
+<h2 id="hello，blog！"><a href="#hello，blog！" class="headerlink" title="hello，blog！"></a>hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
+<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> , 可以在 项目名/source/_posts/ 下面找到新建的 markdown 文件。</p>
+<p>打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。</p>
+<p>在文件后之后，即<code>------</code>下面写入你的 markdown 格式内容即可。</p>
+<p>关于 markdown 怎么书写，可以看我的 <a href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown 简洁手册</a>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
+<h2 id="错误汇总"><a href="#错误汇总" class="headerlink" title="错误汇总"></a>错误汇总</h2><h3 id="can-not-find-module-xxx"><a href="#can-not-find-module-xxx" class="headerlink" title="can not find module xxx"></a>can not find module xxx</h3><ul>
 <li>命令行<code>npm install</code> 安装所有依赖包完事。</li>
 </ul>
-<p>4.2 代码高亮无效</p>
-<ul>
-<li>根目录config里，修改配置如下：<pre class="line-numbers language-python"><code class="language-python">highlight<span class="token punctuation">:</span>
-enable<span class="token punctuation">:</span> true
-line_number<span class="token punctuation">:</span> true
-auto_detect<span class="token punctuation">:</span> true
-tab_replace<span class="token punctuation">:</span> <span class="token string">''</span>
-wrap<span class="token punctuation">:</span> true
-hljs<span class="token punctuation">:</span> true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li>next主题配置里，选择自己要的高亮样式：<pre class="line-numbers language-python"><code class="language-python">codeblock<span class="token punctuation">:</span>
-<span class="token comment" spellcheck="true"># Code Highlight theme</span>
-<span class="token comment" spellcheck="true"># All available themes: https://theme-next.js.org/highlight/</span>
-theme<span class="token punctuation">:</span>
-  light<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-  dark<span class="token punctuation">:</span>  tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-prism<span class="token punctuation">:</span>
-  light<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-  dark<span class="token punctuation">:</span> tomorrow<span class="token operator">-</span>night<span class="token operator">-</span>blue
-<span class="token comment" spellcheck="true"># Add copy button on codeblock</span>
-copy_button<span class="token punctuation">:</span>
-  enable<span class="token punctuation">:</span> true
-  <span class="token comment" spellcheck="true"># Available values: default | flat | mac</span>
-  style<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
+<h3 id="没有启用代码高亮"><a href="#没有启用代码高亮" class="headerlink" title="没有启用代码高亮"></a>没有启用代码高亮</h3><p>根目录 config 里，修改配置如下：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace: ''
+  wrap: true
+  hljs: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>next 主题配置里，选择自己要的高亮样式：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light:  tomorrow-night-blue
+    dark:  tomorrow-night-blue
+  prism:
+    light: tomorrow-night-blue
+    dark: tomorrow-night-blue
+  # Add copy button on codeblock
+  copy_button:
+    enable: true
+    # Available values: default | flat | mac
+    style:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
       
     </div>
@@ -1728,7 +2052,21 @@ copy_button<span class="token punctuation">:</span>
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -1812,104 +2150,10 @@ copy_button<span class="token punctuation">:</span>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/" class="post-title-link" itemprop="url">C++-值得注意的点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="explicit-说明符——Cppreference"><a href="#explicit-说明符——Cppreference" class="headerlink" title="explicit 说明符——Cppreference"></a><a href="https://zh.cppreference.com/w/cpp/language/explicit" target="_blank" rel="noopener">explicit 说明符——Cppreference</a></h1><p>指定构造函数 (及转换函数或推导指引) 为显式, <strong>不能被隐式调用</strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//from Cpp reference</span>
-<span class="token keyword">struct</span> B
-<span class="token punctuation">{</span>
-    <span class="token keyword">explicit</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-    <span class="token keyword">explicit</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-    <span class="token keyword">explicit</span> <span class="token keyword">operator</span> <span class="token keyword">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span> 
-    B b1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// 错误：复制初始化不考虑 B::B(int)</span>
-    B <span class="token function">b2</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// OK：直接初始化选择 B::B(int)</span>
-    B b3 <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// OK：直接列表初始化选择 B::B(int, int)</span>
-    B b4 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 错误：复制列表初始化不考虑 B::B(int,int)</span>
-    B b5 <span class="token operator">=</span> <span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// OK：显式转型进行 static_cast</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>b2<span class="token punctuation">)</span> <span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// OK：B::operator bool()</span>
-    <span class="token keyword">bool</span> nb1 <span class="token operator">=</span> b2<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 错误：复制初始化不考虑 B::operator bool()</span>
-    <span class="token keyword">bool</span> nb2 <span class="token operator">=</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token operator">></span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// OK：static_cast 进行直接初始化</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/Blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/Blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/Blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/Blog/page/7/">7</a><a class="extend next" rel="next" href="/Blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/Blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/Blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/Blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/Blog/page/8/">8</a><a class="extend next" rel="next" href="/Blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1975,20 +2219,20 @@ copy_button<span class="token punctuation">:</span>
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2029,6 +2273,18 @@ copy_button<span class="token punctuation">:</span>
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Sitch</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:58</span>
 </div>
 
         
@@ -2078,6 +2334,8 @@ copy_button<span class="token punctuation">:</span>
 
 
 
+
+  
 
   
 
