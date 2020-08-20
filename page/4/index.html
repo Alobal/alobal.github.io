@@ -509,199 +509,6 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
-<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
-</blockquote>
-<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
-</blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
-<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
-</ul>
-<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
-<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
-</blockquote>
-<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
-<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
-<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
-<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
-<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
-<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
-<ol>
-<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
-<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
-</ol>
-<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
-<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
-</blockquote>
-<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
-<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
-<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
-</blockquote>
-<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
-设置好跳跃定位标志 k=-1
-对模式串每一位 i
-    假如 i  k 位相同，或者k==-1
-      即看作前后缀目前为止相同
-      i, k 到下一位
-      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
-          假如下一位与跳跃位不同
-              把已经处理好的k作为它的跳跃位即可，jump[i]=k
-          假如下一位与跳跃位相同
-              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
-              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
-   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
-      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
-      k=jump[k]
-</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
-<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
-public:
-    int strStr(string haystack, string needle) 
-    {   
-        if(needle==&quot;&quot;)
-            return 0;
-
-        //KMP
-
-        int jump[needle.size()];
-        jump[0]=-1;
-        int k=-1;
-        int i=0;
-        //创建失效数组  abcabcd
-        while(i&lt;needle.size()-1)
-        {
-            if(k==-1 || needle[i]==needle[k])
-            {
-                i++;
-                k++;
-
-                if(needle[i]!=needle[k])
-                    jump[i]=k;
-                else
-                    jump[i]=jump[k];
-            }
-            else    //内置kmp
-                k=jump[k];
-        }
-
-
-
-        int x=0;
-        int y=0;
-        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
-        {
-            if(y==-1 ||haystack[x]==needle[y])
-            {
-                x++;
-                y++;
-            }
-            else
-               y=jump[y];
-
-        }
-
-        if(y==needle.size())
-            return x-y;
-        else
-            return -1;
-
-
-
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -846,186 +653,6 @@ public:
         return originchar-&#39; &#39;;
     }
 };</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="寻找两个有序数组的中位数"><a href="#寻找两个有序数组的中位数" class="headerlink" title="寻找两个有序数组的中位数"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays" target="_blank" rel="noopener">寻找两个有序数组的中位数</a></h1><blockquote>
-<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。<br>请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。<br>你可以假设 nums1 和 nums2 不会同时为空。</p>
-<blockquote>
-<p>示例 1:<br>nums1 = [1, 3]<br>nums2 = [2]<br>则中位数是 2.0</p>
-</blockquote>
-<blockquote>
-<p>示例 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]<br>则中位数是 (2 + 3)/2 = 2.5</p>
-</blockquote>
-</blockquote>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="　思路分析"></a>　思路分析</h2><ul>
-<li><strong>首先</strong>, 题目有log时间复杂度限制,不能重组数组暴力解决</li>
-<li><strong>已知</strong>, 两数组有序不为空,找到中位数的难点在于怎么把两个数组的数一起考虑</li>
-<li><strong>目标</strong>, 中位数定义:  将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法,把两个数组同时划分成两块,左边块的所有数都比右边块的所有数要小.<br>若分割后左边有k个数,此时划分的边界有LMax1,LMax2,RMin1,RMin2</li>
-</ul>
-<p><strong>Max(LMax1,LMax2)必然是第k个数<br>Min(RMin1,RMin2)必然是第k+1个数</strong><br>即我们可以定位到第k个数,中位数的序号k也可通过数组长度得到.<br>因此 我们需要 <strong>两个数组同时分割成有大小关系的两块,左块总共有k个数,k为中位数序号,此时中位数要么是第k个,要么是第k个和第k+1个,都可以在边界找到</strong></p>
-<h2 id="题解分析-链接原高赞题解"><a href="#题解分析-链接原高赞题解" class="headerlink" title="题解分析 (链接原高赞题解)"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" target="_blank" rel="noopener">题解分析</a> (链接原高赞题解)</h2><h3 id="1-分割主体思路"><a href="#1-分割主体思路" class="headerlink" title="1.分割主体思路"></a>1.分割主体思路</h3><p>要把两数组同时分割成两块,先看单一数组的内部<br>因为数组是有序的,所以假如在中间一割,同一数组的左边肯定小于右边.</p>
-<p>为了达到我们两个数组整体分割的目标,我们还需要满足对一个数组都有,分割的左边最大值小于另一个数组的右边最小值,<br>这样左边的整体必然就会小于右边的整体.<br>另外要满足左块总数为k,所以若Ci为第i个数组的切割点下标,要满足 <strong>C1+C2=k</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="题解示意图,来自LeetCode扁扁熊"></p>
-<h3 id="2-边界数赋值"><a href="#2-边界数赋值" class="headerlink" title="2.边界数赋值"></a>2.边界数赋值</h3><p>分割点恰巧在有数的位置 C,为方便比较大小, LMax=RMin=L[C],即中位数同时分给两边<br>分割点在两数之间,即LMax和RMin即分割处两边的值.</p>
-<h4 id="假想放大数组"><a href="#假想放大数组" class="headerlink" title="假想放大数组"></a>假想放大数组</h4><p>因为无法用整数下标表示描述在两数之间的位置,但实际需要这种分割情况<br>所以我们不妨将每个数组<strong>放缩成2m+1的长度</strong>,即给两数之间也加入一个标识位置</p>
-<blockquote>
-<p>例如[1,2,3] 假想放缩成[# ,1,#,2,#,3,#],</p>
-</blockquote>
-<p>此时: <strong>数的实际位置=假想位置/2.</strong> <strong>两数之间的假想位置=数的假想位置+-1</strong></p>
-<p>设放大后对一个数组切割的虚位为C.<br>此时无论C是<strong>数的虚位</strong>还是<strong>空的虚位</strong>,都满足LMax=L[(C-1)/2] RMin=L[C/2],</p>
-<blockquote>
-<p>注意放缩产生的虚位是假想的,因此访问时要转换回实位</p>
-</blockquote>
-<blockquote>
-<p>[# ,1,#,2,#,3,#]<br>2的原下标是1,假想下标是3, 3/2=1<br>若此时以,C=3为切割位置,即切点,则LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2<br>若以C=4为分割处,即切空,LMax=L[1]=2,RMin=L[2]=3.</p>
-<p><strong>假想放大数组后,切点切空都可以用一个式子正确给边界数赋值</strong></p>
-</blockquote>
-<h3 id="3-左块含有k个数"><a href="#3-左块含有k个数" class="headerlink" title="3.左块含有k个数"></a>3.左块含有k个数</h3><p>因为放大后数组总长度是2m+2n+2<br>所以中位数在是第m+n+1和第m+n+2的平均值<br>因此分割的k等于m+n+1<br>所以C2=m+n-C1</p>
-<blockquote>
-<p>真实数组序号从0开始,所以C1+C2=m+n,左块才有m+n+1个数,<strong>不是C1+C2=m+n+1</strong></p>
-</blockquote>
-<h3 id="4-处理边界情况"><a href="#4-处理边界情况" class="headerlink" title="4. 处理边界情况"></a>4. 处理边界情况</h3><p>切割时切割点可能在数组最左边或者最右边,此时直观上理解可知,切最左边的时候,LMax=无穷小,切最右边的时候RMin=无穷大</p>
-<h3 id="5-切割点遍历方式"><a href="#5-切割点遍历方式" class="headerlink" title="5. 切割点遍历方式"></a>5. 切割点遍历方式</h3><p>切割点选择方式确定后,我们要逐步逼近正确的切割点<br>类似于查找算法,此时可用二分法进行逼近,满足效率O(log).</p>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code># include &lt;vector&gt;        //注意头文件的加入,否则INT_MIN之类的可能无法使用
-# include &lt;stdio.h&gt;
-using namespace std;
-
-class Solution {
-public:
-    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) 
-    {  
-        int length1=nums1.size();
-        int length2=nums2.size();
-        if(length1&gt;length2)        //节省效率,以最短的数组为主切割C1
-            return findMedianSortedArrays(nums2,nums1);
-        int LMax1;
-        int LMax2;
-        int RMin1;
-        int RMin2;
-
-        int k=length1+length2;
-        int c1;
-        int c2;
-        int d1=0;
-        int d2=length1*2;
-
-        while(d1&lt;=d2)  //写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以
-        {
-
-            c1=(d1+d2)/2;
-            c2=k-c1;
-
-           (c1==0) ? LMax1=INT_MIN : LMax1=nums1[(c1-1)/2];
-            (c1==2*length1) ? RMin1=INT_MAX : RMin1=nums1[c1/2];
-             (c2==0) ? LMax2=INT_MIN : LMax2=nums2[(c2-1)/2];
-            (c2==2*length2) ? RMin2=INT_MAX : RMin2=nums2[c2/2];
-
-            if(LMax1&gt;RMin2)
-                d2=c1-1;          //分析浮动+-1的必要性
-            else if(LMax2&gt;RMin1)
-                d1=c1+1;
-            else            //为什么要加这个判断
-                break;
-
-
-        }
-
-        int LMax,RMin;
-        LMax=(LMax1&gt;LMax2)?LMax1:LMax2;
-        RMin=(RMin1&lt;RMin2)?RMin1:RMin2;
-
-        return (LMax+RMin)/2.0;
-
-
-    }
-};</code></pre><hr>
-<h2 id="这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧"><a href="#这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧" class="headerlink" title="这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧"></a>这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧</h2><ul>
-<li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
-</ul>
-
       
     </div>
 
@@ -1231,7 +858,7 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-32/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatar.gif">
@@ -1245,7 +872,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-32/" class="post-title-link" itemprop="url">LeetCode-No-32</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
         </h2>
 
         <div class="post-meta">
@@ -1262,7 +889,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1280,14 +907,14 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -1299,73 +926,111 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="最长有效括号"><a href="#最长有效括号" class="headerlink" title="最长有效括号"></a><a href="https://leetcode-cn.com/problems/longest-valid-parentheses" target="_blank" rel="noopener">最长有效括号</a></h1><blockquote>
-<p>给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。</p>
+          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+<blockquote>
 <p>示例 1:</p>
-<blockquote>
-<p>输入: “(()”<br>输出: 2<br>解释: 最长有效括号子串为 “()”</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
 </blockquote>
+<blockquote>
 <p>示例 2:</p>
-<blockquote>
-<p>输入: “)()())”<br>输出: 4<br>解释: 最长有效括号子串为 “()()”</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
 </blockquote>
+<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
 </blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h5 id="错误思路规避"><a href="#错误思路规避" class="headerlink" title="错误思路规避"></a>错误思路规避</h5><p>刚看到括号对, 第一反应就是栈操作的括号匹配, 认为只要匹配到匹配失败的时候记录这条括号串的长度,<br>在遍历完整个串之后, 通过最大值筛选就获得了最长有效括号长度.<br><strong>然而事实证明困难题没有那么憨憨</strong></p>
-<blockquote>
-<p>对于”( ) ( ( )”显然简单的匹配栈会把这个长度定为4,实际上只有2</p>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
+</ul>
+<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
 </blockquote>
-<h5 id="问题出在哪呢"><a href="#问题出在哪呢" class="headerlink" title="问题出在哪呢?"></a>问题出在哪呢?</h5><p> <strong>( )</strong> ((((((((( <strong>( )</strong> 在两个正常括号中间的压栈操作不会终止长度的累积</p>
-<blockquote>
-<p>当然也不能粗暴的终止,毕竟也有( ) ( ( ( ( ) ) ) ) ) 的情况</p>
+<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
+<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
+<ol>
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
 </blockquote>
-<h1 id="改良方法"><a href="#改良方法" class="headerlink" title="改良方法"></a>改良方法</h1><p>参考了题解大神的思路之后, 明白了单纯压char型 ‘ ( ‘入栈是一种很憨憨的行为……<br>同样是压栈匹配, 人家压的下标…..<strong>消耗一样,却额外带来了位置信息</strong></p>
-<p>匹配时括号对会产生一个位置差, 而对于这个差内部肯定是合法的括号串.</p>
-<blockquote>
-<p>( <del>~</del>) 假如是非法串,<br>要么是 ( 多了,那匹配时会匹配内部多的 ( ,而不是外部那个.<br>要么是 ) 多了, 那肯定已经把栈清空了, 外围也不会有匹配括号.</p>
+<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
 </blockquote>
-<p>每次匹配成功会通过位置差得到一个当前长度信息<code>length=i-stack.top()</code><br><strong>注意这里的top是已经匹配pop出一个( 之后,再取的top,此时的top为目前合法字符串的开始位置的前一个</strong></p>
-<blockquote>
-<p>假如top和pop为同一个,对于 ((())) 的嵌套形式是没问题的,<br>但对于连串形式如:<br>例如 ( ( ) ( ) ( ) ( ) <strong>( )</strong> ) )  string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1…实际上是10-0=10</p>
-</blockquote>
-<p><strong>也因为这个i-top的方法,我们需要在最开始的栈底压入一个-1, 代表字符串开头</strong></p>
-<blockquote>
-<p>针对 ( ) ( ) ( ) 的情况, 最后一个右括号pop完, 不压入一个-1你让人家减谁去算长度….</p>
-</blockquote>
-<p>顺带一提原方法错误的案例</p>
-<blockquote>
-<p>再看( ) ( ( ), 原方法因为是只要不匹配失败, 每过一位都会长度++,因此产生错误结果 4<br>而利用位置信息差算长度的方法, 只会算出两个长度为2 的括号对 ,最大也就是2.</p>
-</blockquote>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>算法比较简单, 但分析细节还是比较令人舒适的~</p>
-<pre><code>class Solution {
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
+设置好跳跃定位标志 k=-1
+对模式串每一位 i
+    假如 i  k 位相同，或者k==-1
+      即看作前后缀目前为止相同
+      i, k 到下一位
+      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
+          假如下一位与跳跃位不同
+              把已经处理好的k作为它的跳跃位即可，jump[i]=k
+          假如下一位与跳跃位相同
+              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
+              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
+   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
+      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
+      k=jump[k]
+</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
 public:
-    int longestValidParentheses(string s) 
+    int strStr(string haystack, string needle) 
     {   
-        int result=0;
+        if(needle==&quot;&quot;)
+            return 0;
+
+        //KMP
+
+        int jump[needle.size()];
+        jump[0]=-1;
+        int k=-1;
         int i=0;
-        stack&lt;int&gt; left;
-        left.push(-1);//压入字符串头，以防（）（）（）（）情况
-
-        while(i&lt;s.size())
+        //创建失效数组  abcabcd
+        while(i&lt;needle.size()-1)
         {
-            if(s[i]==&#39;(&#39;)   //左括号 下标 入栈
-                left.push(i);
-            else    //右括号消除一个左括号，并用下标差计算长度
+            if(k==-1 || needle[i]==needle[k])
             {
-                left.pop();
-                if(left.empty()!=true)
-                {
-                    if(i-left.top()&gt;result)
-                        result=i-left.top();  
-                }
+                i++;
+                k++;
+
+                if(needle[i]!=needle[k])
+                    jump[i]=k;
                 else
-                    left.push(i);
-
+                    jump[i]=jump[k];
             }
-
-            i++;
+            else    //内置kmp
+                k=jump[k];
         }
 
-        return result;
+
+
+        int x=0;
+        int y=0;
+        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
+        {
+            if(y==-1 ||haystack[x]==needle[y])
+            {
+                x++;
+                y++;
+            }
+            else
+               y=jump[y];
+
+        }
+
+        if(y==needle.size())
+            return x-y;
+        else
+            return -1;
+
+
+
     }
 };</code></pre>
       
@@ -1619,6 +1284,161 @@ public:
 };</code></pre><hr>
 <p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-32/" class="post-title-link" itemprop="url">LeetCode-No-32</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最长有效括号"><a href="#最长有效括号" class="headerlink" title="最长有效括号"></a><a href="https://leetcode-cn.com/problems/longest-valid-parentheses" target="_blank" rel="noopener">最长有效括号</a></h1><blockquote>
+<p>给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: “(()”<br>输出: 2<br>解释: 最长有效括号子串为 “()”</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: “)()())”<br>输出: 4<br>解释: 最长有效括号子串为 “()()”</p>
+</blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h5 id="错误思路规避"><a href="#错误思路规避" class="headerlink" title="错误思路规避"></a>错误思路规避</h5><p>刚看到括号对, 第一反应就是栈操作的括号匹配, 认为只要匹配到匹配失败的时候记录这条括号串的长度,<br>在遍历完整个串之后, 通过最大值筛选就获得了最长有效括号长度.<br><strong>然而事实证明困难题没有那么憨憨</strong></p>
+<blockquote>
+<p>对于”( ) ( ( )”显然简单的匹配栈会把这个长度定为4,实际上只有2</p>
+</blockquote>
+<h5 id="问题出在哪呢"><a href="#问题出在哪呢" class="headerlink" title="问题出在哪呢?"></a>问题出在哪呢?</h5><p> <strong>( )</strong> ((((((((( <strong>( )</strong> 在两个正常括号中间的压栈操作不会终止长度的累积</p>
+<blockquote>
+<p>当然也不能粗暴的终止,毕竟也有( ) ( ( ( ( ) ) ) ) ) 的情况</p>
+</blockquote>
+<h1 id="改良方法"><a href="#改良方法" class="headerlink" title="改良方法"></a>改良方法</h1><p>参考了题解大神的思路之后, 明白了单纯压char型 ‘ ( ‘入栈是一种很憨憨的行为……<br>同样是压栈匹配, 人家压的下标…..<strong>消耗一样,却额外带来了位置信息</strong></p>
+<p>匹配时括号对会产生一个位置差, 而对于这个差内部肯定是合法的括号串.</p>
+<blockquote>
+<p>( <del>~</del>) 假如是非法串,<br>要么是 ( 多了,那匹配时会匹配内部多的 ( ,而不是外部那个.<br>要么是 ) 多了, 那肯定已经把栈清空了, 外围也不会有匹配括号.</p>
+</blockquote>
+<p>每次匹配成功会通过位置差得到一个当前长度信息<code>length=i-stack.top()</code><br><strong>注意这里的top是已经匹配pop出一个( 之后,再取的top,此时的top为目前合法字符串的开始位置的前一个</strong></p>
+<blockquote>
+<p>假如top和pop为同一个,对于 ((())) 的嵌套形式是没问题的,<br>但对于连串形式如:<br>例如 ( ( ) ( ) ( ) ( ) <strong>( )</strong> ) )  string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1…实际上是10-0=10</p>
+</blockquote>
+<p><strong>也因为这个i-top的方法,我们需要在最开始的栈底压入一个-1, 代表字符串开头</strong></p>
+<blockquote>
+<p>针对 ( ) ( ) ( ) 的情况, 最后一个右括号pop完, 不压入一个-1你让人家减谁去算长度….</p>
+</blockquote>
+<p>顺带一提原方法错误的案例</p>
+<blockquote>
+<p>再看( ) ( ( ), 原方法因为是只要不匹配失败, 每过一位都会长度++,因此产生错误结果 4<br>而利用位置信息差算长度的方法, 只会算出两个长度为2 的括号对 ,最大也就是2.</p>
+</blockquote>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>算法比较简单, 但分析细节还是比较令人舒适的~</p>
+<pre><code>class Solution {
+public:
+    int longestValidParentheses(string s) 
+    {   
+        int result=0;
+        int i=0;
+        stack&lt;int&gt; left;
+        left.push(-1);//压入字符串头，以防（）（）（）（）情况
+
+        while(i&lt;s.size())
+        {
+            if(s[i]==&#39;(&#39;)   //左括号 下标 入栈
+                left.push(i);
+            else    //右括号消除一个左括号，并用下标差计算长度
+            {
+                left.pop();
+                if(left.empty()!=true)
+                {
+                    if(i-left.top()&gt;result)
+                        result=i-left.top();  
+                }
+                else
+                    left.push(i);
+
+            }
+
+            i++;
+        }
+
+        return result;
+    }
+};</code></pre>
       
     </div>
 
@@ -1917,6 +1737,186 @@ public:
 
     }
 };</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="寻找两个有序数组的中位数"><a href="#寻找两个有序数组的中位数" class="headerlink" title="寻找两个有序数组的中位数"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays" target="_blank" rel="noopener">寻找两个有序数组的中位数</a></h1><blockquote>
+<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。<br>请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。<br>你可以假设 nums1 和 nums2 不会同时为空。</p>
+<blockquote>
+<p>示例 1:<br>nums1 = [1, 3]<br>nums2 = [2]<br>则中位数是 2.0</p>
+</blockquote>
+<blockquote>
+<p>示例 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]<br>则中位数是 (2 + 3)/2 = 2.5</p>
+</blockquote>
+</blockquote>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="　思路分析"></a>　思路分析</h2><ul>
+<li><strong>首先</strong>, 题目有log时间复杂度限制,不能重组数组暴力解决</li>
+<li><strong>已知</strong>, 两数组有序不为空,找到中位数的难点在于怎么把两个数组的数一起考虑</li>
+<li><strong>目标</strong>, 中位数定义:  将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法,把两个数组同时划分成两块,左边块的所有数都比右边块的所有数要小.<br>若分割后左边有k个数,此时划分的边界有LMax1,LMax2,RMin1,RMin2</li>
+</ul>
+<p><strong>Max(LMax1,LMax2)必然是第k个数<br>Min(RMin1,RMin2)必然是第k+1个数</strong><br>即我们可以定位到第k个数,中位数的序号k也可通过数组长度得到.<br>因此 我们需要 <strong>两个数组同时分割成有大小关系的两块,左块总共有k个数,k为中位数序号,此时中位数要么是第k个,要么是第k个和第k+1个,都可以在边界找到</strong></p>
+<h2 id="题解分析-链接原高赞题解"><a href="#题解分析-链接原高赞题解" class="headerlink" title="题解分析 (链接原高赞题解)"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" target="_blank" rel="noopener">题解分析</a> (链接原高赞题解)</h2><h3 id="1-分割主体思路"><a href="#1-分割主体思路" class="headerlink" title="1.分割主体思路"></a>1.分割主体思路</h3><p>要把两数组同时分割成两块,先看单一数组的内部<br>因为数组是有序的,所以假如在中间一割,同一数组的左边肯定小于右边.</p>
+<p>为了达到我们两个数组整体分割的目标,我们还需要满足对一个数组都有,分割的左边最大值小于另一个数组的右边最小值,<br>这样左边的整体必然就会小于右边的整体.<br>另外要满足左块总数为k,所以若Ci为第i个数组的切割点下标,要满足 <strong>C1+C2=k</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="题解示意图,来自LeetCode扁扁熊"></p>
+<h3 id="2-边界数赋值"><a href="#2-边界数赋值" class="headerlink" title="2.边界数赋值"></a>2.边界数赋值</h3><p>分割点恰巧在有数的位置 C,为方便比较大小, LMax=RMin=L[C],即中位数同时分给两边<br>分割点在两数之间,即LMax和RMin即分割处两边的值.</p>
+<h4 id="假想放大数组"><a href="#假想放大数组" class="headerlink" title="假想放大数组"></a>假想放大数组</h4><p>因为无法用整数下标表示描述在两数之间的位置,但实际需要这种分割情况<br>所以我们不妨将每个数组<strong>放缩成2m+1的长度</strong>,即给两数之间也加入一个标识位置</p>
+<blockquote>
+<p>例如[1,2,3] 假想放缩成[# ,1,#,2,#,3,#],</p>
+</blockquote>
+<p>此时: <strong>数的实际位置=假想位置/2.</strong> <strong>两数之间的假想位置=数的假想位置+-1</strong></p>
+<p>设放大后对一个数组切割的虚位为C.<br>此时无论C是<strong>数的虚位</strong>还是<strong>空的虚位</strong>,都满足LMax=L[(C-1)/2] RMin=L[C/2],</p>
+<blockquote>
+<p>注意放缩产生的虚位是假想的,因此访问时要转换回实位</p>
+</blockquote>
+<blockquote>
+<p>[# ,1,#,2,#,3,#]<br>2的原下标是1,假想下标是3, 3/2=1<br>若此时以,C=3为切割位置,即切点,则LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2<br>若以C=4为分割处,即切空,LMax=L[1]=2,RMin=L[2]=3.</p>
+<p><strong>假想放大数组后,切点切空都可以用一个式子正确给边界数赋值</strong></p>
+</blockquote>
+<h3 id="3-左块含有k个数"><a href="#3-左块含有k个数" class="headerlink" title="3.左块含有k个数"></a>3.左块含有k个数</h3><p>因为放大后数组总长度是2m+2n+2<br>所以中位数在是第m+n+1和第m+n+2的平均值<br>因此分割的k等于m+n+1<br>所以C2=m+n-C1</p>
+<blockquote>
+<p>真实数组序号从0开始,所以C1+C2=m+n,左块才有m+n+1个数,<strong>不是C1+C2=m+n+1</strong></p>
+</blockquote>
+<h3 id="4-处理边界情况"><a href="#4-处理边界情况" class="headerlink" title="4. 处理边界情况"></a>4. 处理边界情况</h3><p>切割时切割点可能在数组最左边或者最右边,此时直观上理解可知,切最左边的时候,LMax=无穷小,切最右边的时候RMin=无穷大</p>
+<h3 id="5-切割点遍历方式"><a href="#5-切割点遍历方式" class="headerlink" title="5. 切割点遍历方式"></a>5. 切割点遍历方式</h3><p>切割点选择方式确定后,我们要逐步逼近正确的切割点<br>类似于查找算法,此时可用二分法进行逼近,满足效率O(log).</p>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code># include &lt;vector&gt;        //注意头文件的加入,否则INT_MIN之类的可能无法使用
+# include &lt;stdio.h&gt;
+using namespace std;
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) 
+    {  
+        int length1=nums1.size();
+        int length2=nums2.size();
+        if(length1&gt;length2)        //节省效率,以最短的数组为主切割C1
+            return findMedianSortedArrays(nums2,nums1);
+        int LMax1;
+        int LMax2;
+        int RMin1;
+        int RMin2;
+
+        int k=length1+length2;
+        int c1;
+        int c2;
+        int d1=0;
+        int d2=length1*2;
+
+        while(d1&lt;=d2)  //写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以
+        {
+
+            c1=(d1+d2)/2;
+            c2=k-c1;
+
+           (c1==0) ? LMax1=INT_MIN : LMax1=nums1[(c1-1)/2];
+            (c1==2*length1) ? RMin1=INT_MAX : RMin1=nums1[c1/2];
+             (c2==0) ? LMax2=INT_MIN : LMax2=nums2[(c2-1)/2];
+            (c2==2*length2) ? RMin2=INT_MAX : RMin2=nums2[c2/2];
+
+            if(LMax1&gt;RMin2)
+                d2=c1-1;          //分析浮动+-1的必要性
+            else if(LMax2&gt;RMin1)
+                d1=c1+1;
+            else            //为什么要加这个判断
+                break;
+
+
+        }
+
+        int LMax,RMin;
+        LMax=(LMax1&gt;LMax2)?LMax1:LMax2;
+        RMin=(RMin1&lt;RMin2)?RMin1:RMin2;
+
+        return (LMax+RMin)/2.0;
+
+
+    }
+};</code></pre><hr>
+<h2 id="这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧"><a href="#这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧" class="headerlink" title="这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧"></a>这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧</h2><ul>
+<li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
+</ul>
+
       
     </div>
 
