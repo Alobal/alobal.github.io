@@ -83,10 +83,10 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 <link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -166,6 +166,334 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-18 20:57:26" itemprop="dateModified" datetime="2020-08-18T20:57:26+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="github-Pages-Hexo-博客搭建"><a href="#github-Pages-Hexo-博客搭建" class="headerlink" title="github Pages + Hexo 博客搭建"></a>github Pages + Hexo 博客搭建</h1><p><strong>前置知识：git 使用方法，github 建库方法，会在命令行里敲东西</strong></p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="安装-node-JS"><a href="#安装-node-JS" class="headerlink" title="安装 node.JS"></a>安装 node.JS</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网下载安装程序，默认安装即可</a></p>
+<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
+<h3 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h3><p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是 git bash。</p>
+<blockquote>
+<p>可以使用 cmd，但我遇到了中文问题。</p>
+<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入 <code>set-executionpolicy remotesigned</code> 更改安全策略，允许运行脚本。</p>
+</blockquote>
+<p>运行<code>npm install -g hexo-cli</code>进行安装</p>
+<p>再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
+<h2 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h2><p>###初始化<br>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
+<p>运行<code>hexo init</code>初始化</p>
+<h3 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h3><p>运行以下命令部署默认网页进行测试：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">hexo new test_my_site #创建新 test_my_site 的 markdown 文件
+
+hexo g                # 从 md 文件生成 html 文件
+
+hexo s                # 部署本地服务器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
+<h3 id="部署到网络"><a href="#部署到网络" class="headerlink" title="部署到网络"></a>部署到网络</h3><p>在文件夹根路径下面，找到_config.yml，打开修改</p>
+<p>最后一段为：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">deploy:
+type: git
+repo: 仓库的完整路径，推荐使用 ssh 路径，这样可以有 ssh 免密登录。例如我的 git@github.com:Alobal/Blog.git
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>URL 小段为：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: 访问网址，例如 https://alobal.github.io/Blog/
+root: 仓库名，例如/Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>保存关闭该文件</p>
+<p>安装 hexo 的 git 部署插件<code>npm install hexo-deployer-git --save</code></p>
+<p>运行以下命令进行发布到网络</p>
+<pre class="line-numbers language-yml"><code class="language-yml">hexo clean
+hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
+</blockquote>
+<p>出现<code>Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;https:..</code>大概就恭喜你成功了。</p>
+<p>此时可以在 github 仓库看到 hexo 提交的文件。</p>
+<p>以及能通过访问网址查看你刚才发布的默认博客。</p>
+<h2 id="选一个你喜欢的主题"><a href="#选一个你喜欢的主题" class="headerlink" title="选一个你喜欢的主题"></a>选一个你喜欢的主题</h2><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo 主题库</a></p>
+<p>挑选一个合适的主题，比如很常见的 Next，复制 git 地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
+<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
+<blockquote>
+<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next 项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19 版本网上教程比较健全了。</p>
+</blockquote>
+<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>打开 _config.yml，修改 theme 字段：</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: 主题名，例如 next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。</p>
+<p>比如 next 主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找 next 官方文档。</p>
+<pre class="line-numbers language-yml"><code class="language-yml"># Schemes
+#scheme: Muse
+#scheme: Mist
+scheme: Pisces
+#scheme: Gemini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输入<code>hexo g;hexo d</code> 重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
+<blockquote>
+<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者 Ctrl+F5 强制刷新。</p>
+</blockquote>
+<h2 id="hello，blog！"><a href="#hello，blog！" class="headerlink" title="hello，blog！"></a>hello，blog！</h2><p>让我们试着发布第一篇博客，这里我把搭建博客全过程写下来作为第一篇发布。</p>
+<p>项目路径下，命令行输入<code>hexo n &quot;博客名&quot;</code> , 可以在 项目名/source/_posts/ 下面找到新建的 markdown 文件。</p>
+<p>打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。</p>
+<p>在文件后之后，即<code>------</code>下面写入你的 markdown 格式内容即可。</p>
+<p>关于 markdown 怎么书写，可以看我的 <a href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown 简洁手册</a>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">知乎经典贴</a></p>
+<h2 id="错误汇总"><a href="#错误汇总" class="headerlink" title="错误汇总"></a>错误汇总</h2><h3 id="can-not-find-module-xxx"><a href="#can-not-find-module-xxx" class="headerlink" title="can not find module xxx"></a>can not find module xxx</h3><ul>
+<li>命令行<code>npm install</code> 安装所有依赖包完事。</li>
+</ul>
+<h3 id="没有启用代码高亮"><a href="#没有启用代码高亮" class="headerlink" title="没有启用代码高亮"></a>没有启用代码高亮</h3><p>根目录 config 里，修改配置如下：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace: ''
+  wrap: true
+  hljs: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>next 主题配置里，选择自己要的高亮样式：</p>
+<pre class="line-numbers language-yml"><code class="language-yml">codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light:  tomorrow-night-blue
+    dark:  tomorrow-night-blue
+  prism:
+    light: tomorrow-night-blue
+    dark: tomorrow-night-blue
+  # Add copy button on codeblock
+  copy_button:
+    enable: true
+    # Available values: default | flat | mac
+    style:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-05-15T01:01:11+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</p>
+<h2 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h2><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">base</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x="</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "base
+"<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> base
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">dispd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a="</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "derived
+"<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    derived <span class="token function">obj</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    base<span class="token operator">*</span>p <span class="token operator">=</span><span class="token operator">&amp;</span>obj<span class="token punctuation">;</span>
+    p<span class="token operator">-</span><span class="token operator">></span><span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"PAUSE"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtt5j2vutj204p02f3yb.jpg" alt="x!=i"></p>
+<p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
+<blockquote>
+<p>想要正常构造，把base（a)改成base（i）即可。</p>
+</blockquote>
+<h2 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h2><h3 id="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>会提示类base不存在默认构造函数。</p>
+<p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
+<h3 id="假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？"><a href="#假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？" class="headerlink" title="假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？"></a>假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？</h3><p>增加一个无参数的基类构造函数：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义</p>
+<p>——<a href="https://segmentfault.com/q/1010000014553913" target="_blank" rel="noopener">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：<br>“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</p>
+<h3 id="这里面存在-声明-语句-定义-等根本性语法的规则定义"><a href="#这里面存在-声明-语句-定义-等根本性语法的规则定义" class="headerlink" title="这里面存在 声明  语句 定义 等根本性语法的规则定义= ="></a>这里面存在 声明  语句 定义 等根本性语法的规则定义= =</h3><p>具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</p>
+<h3 id="i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？"><a href="#i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？" class="headerlink" title="i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？"></a>i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</h3><p>派生类构造函数改成：</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"base(int i): "</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>：<span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a:"</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="derived-8-运行，猜猜运行结果是什么？"><a href="#derived-8-运行，猜猜运行结果是什么？" class="headerlink" title="derived(8)运行，猜猜运行结果是什么？"></a>derived(8)运行，猜猜运行结果是什么？</h3><p>我们知道初始化a时，先会调用base（）<br>然后初始化a<br>然后进入函数体内输出a值<br>然后a传参给base（int i）<br>Really？<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtt5j06rmj20mi05hgln.jpg" alt="运行结果:"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1403,345 +1731,6 @@ public:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-22/" class="post-title-link" itemprop="url">LeetCode-No-22</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-23 13:51:32" itemprop="dateModified" datetime="2020-07-23T13:51:32+08:00">2020-07-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a><a href="https://leetcode-cn.com/problems/generate-parentheses" target="_blank" rel="noopener">括号生成</a></h1><blockquote>
-<p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
-<blockquote>
-<p>例如，给出 n = 3，生成结果为：</p>
-<p>[<br>  “((()))”,<br>  “(()())”,<br>  “(())()”,<br>  “()(())”,<br>  “()()()”<br>]</p>
-</blockquote>
-</blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
-<li><p>一开始我想创建一个2n的string数组<br>因为string（包括子串）第一个空位一定会是’ ( ‘<br>因此我的算法思路是 第一位肯定是’ ( ‘ 不变，然后在剩下的length-1空位中遍历选一处插入’)’<br>然后递归进入子串插入，也是子串第一位 ‘( ‘ 不变，遍历剩下的空位一次次插入 ‘)’ ，直到递归完成括号串。<br>这种算法不能避免重复，而且我在创建动态长度的字符串这里就失败了=。=<br>但没看到相似的思路，因此写下来说不定以后能够优化一下。</p>
-<ul>
-<li><h3 id="标准思路"><a href="#标准思路" class="headerlink" title="标准思路"></a>标准思路</h3>递归对每一位进行检测，如果’ ( ‘数量少，则这一位插入’ ( ‘进入递归，否则插入’ ）’进行递归，直到填满。</li>
-</ul>
-</li>
-</ul>
-<p>因为这种方法会遍历完所有’（’可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
-<ul>
-<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-  vector<span class="token operator">&lt;</span>string<span class="token operator">></span> <span class="token function">generateParenthesis</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-      vector<span class="token operator">&lt;</span>string<span class="token operator">></span> result<span class="token punctuation">;</span>
-
-      <span class="token function">Recursion</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<p> void  Recursion(int n,string temp,int left ,int right,vector<string>&amp; result)<br>    {<br>        if(temp.size()== 2*n)<br>        {<br>            result.push_back(temp);<br>            return;<br>        }</p>
-<pre><code>    if(left&lt;n)
-        Recursion(n,temp+&#39;(&#39;,left+1,right,result);
-
-    if(right&lt;left)
-        Recursion(n,temp+&#39;)&#39;,left,right+1,result);
-}</code></pre><p>};</p>
-<pre><code>
-|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
-| --- | --- | --- | --- | --- |
-| 2 天前 | 通过 | 20 ms | 17 MB | Cpp |
-
-
-- ###    动态规划
-因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
-给上链接 ：
-###    [闭合数的合理解释-Jerry Peng]([https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/))
-
-- 算法分析
- 对于每个n对括号的括号串S[n] 都可以划分为两个部分
-```S[n] = &#39;(&#39; + S[c] + &#39;)&#39; + S[n-c-1];```
-第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
-**自底向上，存储子问题结果，逐步合并到n长度的问题**。
-因为要找到所有可能结果，因此c的取值需要遍历所有可能。
-
-- ###   动态规划代码
-```cpp
-class Solution {
-public:
-    vector&lt;string&gt; generateParenthesis(int n)
-    {
-       map&lt;int,vector&lt;string&gt;&gt; resultmap;
-        resultmap[0].push_back(&quot;&quot;);
-        for(int i=1;i&lt;=n;i++)
-            for(int j=0;j&lt;i;j++)
-                for(string left: resultmap[j])
-                    for(string right: resultmap[i-j-1])
-                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);
-
-        return resultmap[n];
-    }
-};
-</code></pre><table>
-<thead>
-<tr>
-<th>提交时间</th>
-<th>提交结果</th>
-<th>执行用时</th>
-<th>内存消耗</th>
-<th>语言</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2 天前</td>
-<td>通过</td>
-<td>12 ms</td>
-<td>9.6 MB</td>
-<td>Cpp</td>
-</tr>
-</tbody></table>
-<hr>
-<p><strong>有想过为什么不直接分为left 和 right 两个部分，一定要套个括号</strong><br>      　——假如只分两半left 和 right，那在求解S[n]遍历的时候肯定要遍历到S[n]自身，因此需要先固定好一对括号，这样遍历会停止在S[n-1]的子问题，然后合并出待解的S[n]问题。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="合并K个链表"><a href="#合并K个链表" class="headerlink" title="合并K个链表"></a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">合并K个链表</a></h1><blockquote>
-<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
-<p>示例:</p>
-<blockquote>
-<p>输入:<br>[<br>　1-&gt;4-&gt;5,<br>  　1-&gt;3-&gt;4,<br>  　2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
-</blockquote>
-</blockquote>
-<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
-<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。</p>
-<blockquote>
-<p>两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p>
-</blockquote>
-</li>
-<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p>
-</li>
-<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>. 直到长度为1即完成。</p>
-</li>
-</ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) 
-    {
-        ListNode* result=NULL;
-        int length=lists.size();
-        if(length==0)
-            return NULL;
-        while(length&gt;1)
-        {
-            int temp=(length+1)/2;
-            for(int i=0;i&lt;length/2;i++)
-                lists[i]=mergeTwoLists(lists[i],lists[i+temp]);
-
-            length=temp;
-        }
-
-
-        return lists[0];
-    }
-
-
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
-      {
-
-          ListNode result(0);
-          ListNode* another = &amp;result;
-
-          while (l1 != NULL &amp;&amp; l2 != NULL)
-          {
-
-              if (l1-&gt;val &lt;= l2-&gt;val)
-              {
-                  another-&gt;next = l1;
-                  l1 = l1-&gt;next;  
-              }
-              else
-              {
-                  another-&gt;next = l2;
-                  l2 = l2-&gt;next;
-              }
-
-              another = another-&gt;next;
-          }
-
-          another-&gt;next=(l1==NULL)?l2:l1;
-          return (&amp;result)-&gt;next;
-      }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1811,20 +1800,20 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/Blog/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1870,13 +1859,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">120k</span>
+    <span title="站点总字数">123k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:59</span>
+    <span title="站点阅读时长">5:08</span>
 </div>
 
         
