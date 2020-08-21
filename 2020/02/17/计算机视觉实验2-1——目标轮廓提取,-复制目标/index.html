@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -93,8 +94,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -150,6 +150,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -182,7 +192,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -227,7 +237,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -259,20 +269,14 @@
 </ol>
 <h1 id="1-图像预处理"><a href="#1-图像预处理" class="headerlink" title="1. 图像预处理"></a>1. 图像预处理</h1><p>findContours要求传入的图像是二值的, 因此我们先要对原图灰度化, 并且进行阈值分割成二值图像.</p>
 <p><strong>读取图片, 灰度化处理:</strong></p>
-<pre><code>from cv2 import cv2
-import matplotlib.pyplot as plt
-img=cv2.imread(&quot;./tree.jpg&quot;)
-
-# 灰度 阈值分割二值化处理
-grey=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-cv2.imshow(&quot;grey&quot;,grey)</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from cv2 import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">img&#x3D;cv2.imread(&quot;.&#x2F;tree.jpg&quot;)</span><br><span class="line"></span><br><span class="line"># 灰度 阈值分割二值化处理</span><br><span class="line">grey&#x3D;cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;grey&quot;,grey)</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
 <p><strong>阈值分割:</strong><br>这里注意用了个<strong>高斯模糊</strong>去噪, 可以在分割时避免坑坑洼洼的噪音, 和树叶的不完整性.</p>
 <p>cv2.THRESH_BINARY_INV, cv2.THRESH_OTSU 是一些处理参数: </p>
 <ul>
 <li>前者决定了阈值反转处理, 即超过阈值的置0, 低于阈值的置255</li>
-<li>后者决定了使用OTSU阈值进行分割<pre><code>grey=cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪
-ret,theimg=cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</code></pre><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
+<li>后者决定了使用OTSU阈值进行分割<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grey&#x3D;cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪</span><br><span class="line">ret,theimg&#x3D;cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)</span><br><span class="line">cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</span><br></pre></td></tr></table></figure>
+<img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
 </ul>
 <h1 id="2-运用findContours轮廓识别"><a href="#2-运用findContours轮廓识别" class="headerlink" title="2. 运用findContours轮廓识别"></a>2. 运用findContours轮廓识别</h1><h5 id="contours-hier-findContours-srcimg-mode-method"><a href="#contours-hier-findContours-srcimg-mode-method" class="headerlink" title="contours, hier=findContours(srcimg, mode, method)"></a>contours, hier=findContours(srcimg, mode, method)</h5><ul>
 <li>返回值contours,是查找到的所有轮廓信息</li>
@@ -285,11 +289,9 @@ cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</code></pre><img src="
 <blockquote>
 <p>实际切割的时候发现树根和地面难以分割, 会识别成一个大轮廓, 腐蚀膨胀操作也没能处理好, 因此用上了简单粗暴的办法, 手动把土地部分切掉.</p>
 </blockquote>
-<pre><code># 因为树和地连在一起不好分离, 手动切割
-height,width=theimg.shape
-treeimg=theimg[:int(2*height/3)-30,:]# 提取出不包含地面的上部分
-# 轮廓提取
-contours,hier=cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</code></pre><h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 因为树和地连在一起不好分离, 手动切割</span><br><span class="line">height,width&#x3D;theimg.shape</span><br><span class="line">treeimg&#x3D;theimg[:int(2*height&#x2F;3)-30,:]# 提取出不包含地面的上部分</span><br><span class="line"># 轮廓提取</span><br><span class="line">contours,hier&#x3D;cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
 <p>cv2.contourArea(contour) , 计算轮廓面积<br>cv2.drawContours(drawimg,contours,i,color,thick), 绘制函数</p>
 <ul>
 <li>在drawimg图上直接绘制</li>
@@ -297,16 +299,9 @@ contours,hier=cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE
 <li>i为绘制的轮廓在contours中的下标, 如果为负则绘制所有轮廓</li>
 <li>color, thick ,绘制的颜色 粗细</li>
 </ul>
-<pre><code>#  #在原图上画出轮廓, 并且找出属于树的轮廓
-treei=0
-for i in range(len(contours)):
-    area=cv2.contourArea(contours[i])
-    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号
-        drawimg=img.copy()# 拿张图来画个轮廓示意
-        cv2.drawContours(drawimg,contours,i,(0,0,255),3)
-        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)
-        treei=i
-        break</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#  #在原图上画出轮廓, 并且找出属于树的轮廓</span><br><span class="line">treei&#x3D;0</span><br><span class="line">for i in range(len(contours)):</span><br><span class="line">    area&#x3D;cv2.contourArea(contours[i])</span><br><span class="line">    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号</span><br><span class="line">        drawimg&#x3D;img.copy()# 拿张图来画个轮廓示意</span><br><span class="line">        cv2.drawContours(drawimg,contours,i,(0,0,255),3)</span><br><span class="line">        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)</span><br><span class="line">        treei&#x3D;i</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
 <h1 id="4-轮廓内像素复制"><a href="#4-轮廓内像素复制" class="headerlink" title="4. 轮廓内像素复制"></a>4. 轮廓内像素复制</h1><p>关键问题在于, 如何判断像素是否在轮廓内:<br>cv2.pointPolygonTest(contour, point, flag):</p>
 <ul>
 <li>contour , 比较的轮廓</li>
@@ -317,12 +312,11 @@ for i in range(len(contours)):
 <p>另外这里注意我们可以通过<code>cv2.boundingRect</code>找到轮廓的边界信息, 返回 x, y , w, h, 分别是轮廓左上角的(x, y), 宽度w, 高度h, 即描述了一个轮廓的外接矩形信息.</p>
 <p>有了边界信息, 就可以在边界内遍历, 不需要遍历整张图片</p>
 <p>最后将轮廓内的点复制到想要的地方即可</p>
-<pre><code>x,y,w,h=cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图
-# 将轮廓内的点复制到左边
-for i in range(y,y+h):
-    for j in range(x,x+w):
-        if(cv2.pointPolygonTest(contours[treei],(j,i),False)==1):# 测试点是否在轮廓内的函数
-            img[i+10,j-500]=img[i,j].copy()# 偏移左边</code></pre><p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x,y,w,h&#x3D;cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图</span><br><span class="line"># 将轮廓内的点复制到左边</span><br><span class="line">for i in range(y,y+h):</span><br><span class="line">    for j in range(x,x+w):</span><br><span class="line">        if(cv2.pointPolygonTest(contours[treei],(j,i),False)&#x3D;&#x3D;1):# 测试点是否在轮廓内的函数</span><br><span class="line">            img[i+10,j-500]&#x3D;img[i,j].copy()# 偏移左边</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
 
     </div>
 
@@ -409,6 +403,8 @@ for i in range(y,y+h):
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -417,7 +413,7 @@ for i in range(y,y+h):
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -476,13 +472,13 @@ for i in range(y,y+h):
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -512,12 +508,37 @@ for i in range(y,y+h):
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

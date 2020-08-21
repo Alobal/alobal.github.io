@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -20,12 +21,12 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="语法在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。 Example(argv):a(1),b(2)  {     ··· } 初始化作用无法赋值的成员，必须使用初始化列表进行初始化例如假设有个类成员，它本身是个没有默认构造函数的类。 class CMember {     public:         CMember(int x){···">
+  <meta name="description" content="语法在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。 1234Example(argv):a(1),b(2) &amp;#123;    ···&amp;#125;  初始化作用无法赋值的成员，必须使用初始化列表进行初始化例如假设有个类成员，它本身是个没有默认构造函数的类。 12345class CMember&amp;#123;    public:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++构造函数初始化列表">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="语法在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。 Example(argv):a(1),b(2)  {     ··· } 初始化作用无法赋值的成员，必须使用初始化列表进行初始化例如假设有个类成员，它本身是个没有默认构造函数的类。 class CMember {     public:         CMember(int x){···">
+<meta property="og:description" content="语法在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。 1234Example(argv):a(1),b(2) &amp;#123;    ···&amp;#125;  初始化作用无法赋值的成员，必须使用初始化列表进行初始化例如假设有个类成员，它本身是个没有默认构造函数的类。 12345class CMember&amp;#123;    public:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-05T02:55:57.000Z">
 <meta property="article:modified_time" content="2020-08-17T12:28:12.113Z">
@@ -86,8 +87,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -143,6 +143,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -175,7 +185,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -220,14 +230,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>556</span>
+              <span>636</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -240,33 +250,15 @@
 
       
         <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">Example</span><span class="token punctuation">(</span>argv<span class="token punctuation">)</span><span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">b</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> 
-<span class="token punctuation">{</span>
-    ···
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Example(argv):a(<span class="number">1</span>),b(<span class="number">2</span>) </span><br><span class="line">&#123;</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="初始化作用"><a href="#初始化作用" class="headerlink" title="初始化作用"></a>初始化作用</h1><h2 id="无法赋值的成员，必须使用初始化列表进行初始化"><a href="#无法赋值的成员，必须使用初始化列表进行初始化" class="headerlink" title="无法赋值的成员，必须使用初始化列表进行初始化"></a>无法赋值的成员，必须使用初始化列表进行初始化</h2><p>例如假设有个类成员，它本身是个没有默认构造函数的类。</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">CMember</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span><span class="token operator">:</span>
-        <span class="token function">CMember</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span><span class="token punctuation">{</span>···<span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CMember</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        CMember(<span class="keyword">int</span> x)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我们都知道此时<code>CMember* pm=new CMember;</code>是错误的，必须调用有参数的构造函数。</p>
 <p>此时CMember是另一个类的成员时，我们怎么初始化呢？</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp">
-<span class="token keyword">class</span> <span class="token class-name">CMyClass</span> <span class="token punctuation">{</span> 
-CMember m_member<span class="token punctuation">;</span> 
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CMyClass</span> &#123;</span> </span><br><span class="line">CMember m_member; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"> </span><br><span class="line">CMyClass(); </span><br><span class="line"> </span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line"><span class="comment">//必须使用成员初始化列表 </span></span><br><span class="line">CMyClass::CMyClass() : m_member(<span class="number">2</span>) </span><br><span class="line">&#123; </span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">public</span><span class="token operator">:</span> 
-
-<span class="token function">CMyClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-
-<span class="token punctuation">}</span><span class="token punctuation">;</span> 
-
-<span class="token comment" spellcheck="true">//必须使用成员初始化列表 </span>
-CMyClass<span class="token operator">::</span><span class="token function">CMyClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">m_member</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> 
-<span class="token punctuation">{</span> 
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>因为m_member不存在默认构造函数，所以不能在构造函数里 默认初始化后再对其赋值，<strong>只能使用初始化列表的方式</strong>。</p>
 <p>常量对象和引用对象也是一样，只能被初始化。</p>
 <h2 id="效率相关"><a href="#效率相关" class="headerlink" title="效率相关"></a>效率相关</h2><p>和上例类似，假如CMember存在默认构造函数呢？那我们是可以在CMyClass函数体内对其赋值的。</p>
@@ -361,6 +353,8 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -369,7 +363,7 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -428,13 +422,13 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -464,12 +458,37 @@ CMyClass<span class="token operator">::</span><span class="token function">CMyCl
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -20,12 +21,12 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:%matplotlib inline">
+  <meta name="description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:12345678910111213%m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="上海车牌价格数据挖掘">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:%matplotlib inline">
+<meta property="og:description" content="1.导入数据1.1 数据格式如图: 1.2 pd.read_csv() 注意读取的csv文件的编码1.3 注意到时间数据是字符串, 想办法转换为date格式:查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.因此先给所有的日期加一个&quot;1-&quot; , 反正对我们按月分析也影响不大 代码:12345678910111213%m">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg">
@@ -95,8 +96,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -152,6 +152,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -184,7 +194,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -229,7 +239,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -250,76 +260,34 @@
       
         <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
 <h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><pre><code>%matplotlib inline
-from pylab import *
-import numpy as np
-import pandas as pd
-from dateutil.parser import parse
-import matplotlib.pyplot as plt
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from dateutil.parser import parse</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">df&#x3D;pd.read_csv(&quot;.&#x2F;上海车牌价格.csv&quot;)</span><br><span class="line"># 整理时间数据类型</span><br><span class="line">for i in range(0,len(df)):</span><br><span class="line">    df.loc[i,&#39;Date&#39;]&#x3D;&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]</span><br><span class="line">df[&#39;Date&#39;]&#x3D;pd.to_datetime(df[&#39;Date&#39;])</span><br></pre></td></tr></table></figure>
 
-
-df=pd.read_csv(&quot;./上海车牌价格.csv&quot;)
-# 整理时间数据类型
-for i in range(0,len(df)):
-    df.loc[i,&#39;Date&#39;]=&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]
-df[&#39;Date&#39;]=pd.to_datetime(df[&#39;Date&#39;])</code></pre><h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
-<pre><code>plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw=5)
-scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s=20)
-scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s=20)
-plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</code></pre><p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
+<h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw&#x3D;5)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s&#x3D;20)</span><br><span class="line">plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</span><br></pre></td></tr></table></figure>
+<p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
 <h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<pre><code>df_nom=df.iloc[:,1:].apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))</code></pre><p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df_nom&#x3D;df.iloc[:,1:].apply(lambda x: (x - np.min(x)) &#x2F; (np.max(x) - np.min(x)))</span><br></pre></td></tr></table></figure>
+<p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
 <h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
 <h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
-<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><pre><code>totalx=np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组
-trainx=totalx[:-12]
-testx=totalx[-12:]</code></pre><h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><pre><code>traindf=df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]
-testdf=df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</code></pre><h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
-<pre><code>x=np.array(trainx)
-y=np.array(traindf[&#39;avg price&#39;])
-p=np.poly1d(np.polyfit(x,y,4))</code></pre><h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
-<pre><code># 制图
-plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])
-plot(df[&#39;Date&#39;],p(totalx),c=&#39;r&#39;)
+<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">totalx&#x3D;np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组</span><br><span class="line">trainx&#x3D;totalx[:-12]</span><br><span class="line">testx&#x3D;totalx[-12:]</span><br></pre></td></tr></table></figure>
 
-# r2检验
-checky=np.array(testdf[&#39;avg price&#39;])
-print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))
-print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</code></pre><p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
+<h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traindf&#x3D;df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br><span class="line">testdf&#x3D;df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;np.array(trainx)</span><br><span class="line">y&#x3D;np.array(traindf[&#39;avg price&#39;])</span><br><span class="line">p&#x3D;np.poly1d(np.polyfit(x,y,4))</span><br></pre></td></tr></table></figure>
+
+<h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 制图</span><br><span class="line">plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])</span><br><span class="line">plot(df[&#39;Date&#39;],p(totalx),c&#x3D;&#39;r&#39;)</span><br><span class="line"></span><br><span class="line"># r2检验</span><br><span class="line">checky&#x3D;np.array(testdf[&#39;avg price&#39;])</span><br><span class="line">print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))</span><br><span class="line">print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</span><br></pre></td></tr></table></figure>
+
+<p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
 <h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
-<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><pre><code># 线性回归
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-# 数据导入
-feature_cols=[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]
-x=df[feature_cols]
-y=df[&#39;avg price&#39;]
-x[&#39;time&#39;]=totalx
-# 数据分割测试集和训练集
-x_train=x[:-48]
-x_test=x[-48:]
-y_train=y[:-48]
-y_test=y[-48:]
-linreg=LinearRegression()
-linreg.fit(x_train,y_train)
+<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 线性回归</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"># 数据导入</span><br><span class="line">feature_cols&#x3D;[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]</span><br><span class="line">x&#x3D;df[feature_cols]</span><br><span class="line">y&#x3D;df[&#39;avg price&#39;]</span><br><span class="line">x[&#39;time&#39;]&#x3D;totalx</span><br><span class="line"># 数据分割测试集和训练集</span><br><span class="line">x_train&#x3D;x[:-48]</span><br><span class="line">x_test&#x3D;x[-48:]</span><br><span class="line">y_train&#x3D;y[:-48]</span><br><span class="line">y_test&#x3D;y[-48:]</span><br><span class="line">linreg&#x3D;LinearRegression()</span><br><span class="line">linreg.fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line"># 观察线性回归模型系数</span><br><span class="line">print (linreg.intercept_)</span><br><span class="line">print(linreg.coef_)</span><br></pre></td></tr></table></figure>
 
-# 观察线性回归模型系数
-print (linreg.intercept_)
-print(linreg.coef_)</code></pre><h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
-<pre><code># 检验线性回归
-from sklearn import metrics
-y_pre=linreg.predict(x_test)
-print(metrics.r2_score(y_test,y_pre))
+<h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 检验线性回归</span><br><span class="line">from sklearn import metrics</span><br><span class="line">y_pre&#x3D;linreg.predict(x_test)</span><br><span class="line">print(metrics.r2_score(y_test,y_pre))</span><br><span class="line"></span><br><span class="line">y_pred&#x3D;linreg.predict(x)</span><br><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],y_pred,lw&#x3D;3)</span><br><span class="line">plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])</span><br><span class="line">plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])</span><br><span class="line">plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</span><br></pre></td></tr></table></figure>
 
-y_pred=linreg.predict(x)
-plt.figure(figsize=[12.8,9.6])
-plot(df[&#39;Date&#39;],y_pred,lw=3)
-plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])
-plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])
-plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</code></pre><p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
+<p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
 
     </div>
 
@@ -335,12 +303,12 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" rel="prev" title="决策树——录用决策">
-      <i class="fa fa-chevron-left"></i> 决策树——录用决策
+    <a href="/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" rel="prev" title="多项式朴素贝叶斯学习——垃圾邮件分类器">
+      <i class="fa fa-chevron-left"></i> 多项式朴素贝叶斯学习——垃圾邮件分类器
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/SVM%E2%80%94%E2%80%94%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" rel="next" title="SVM——人员聚集">
-      SVM——人员聚集 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" rel="next" title="决策树——录用决策">
+      决策树——录用决策 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -406,6 +374,8 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -414,7 +384,7 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -473,13 +443,13 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -509,12 +479,37 @@ plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

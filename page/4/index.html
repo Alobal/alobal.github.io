@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -85,8 +86,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -142,6 +142,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -170,10 +180,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-15-/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a><a href="https://leetcode-cn.com/problems/3sum" target="_blank" rel="noopener">三数之和</a></h1><blockquote>
+<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<blockquote>
+<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+</blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
+<li>暴力O(n3) 这样做还不如不做kj</li>
+<li>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</li>
+</ul>
+<ul>
+<li><p><strong>牺牲O(Nlog N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p>
+</li>
+<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c–。</p>
+<blockquote>
+<p>这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p>
+</blockquote>
+</li>
+<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p>
+</li>
+<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p>
+</li>
+</ul>
+<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class Solution </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; result;</span><br><span class="line">        set&lt;vector&lt;int&gt;&gt; resultset;</span><br><span class="line">        &#x2F;&#x2F;剪枝</span><br><span class="line">        if (nums.size() &lt;&#x3D; 2)</span><br><span class="line">			return result;</span><br><span class="line">        </span><br><span class="line">		sort(nums.begin(), nums.end());</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;不剪枝会被0吓死&#x3D;.&#x3D;</span><br><span class="line">		if (nums[0]&gt;&#x3D;0 ||nums[nums.size()-1]&lt;&#x3D;0)</span><br><span class="line">		&#123;</span><br><span class="line">			if (nums[0] &#x3D;&#x3D; 0 &amp;&amp;nums[nums.size()-1]&#x3D;&#x3D;0)</span><br><span class="line">				result.push_back(&#123; 0,0,0 &#125;);</span><br><span class="line">			return result;</span><br><span class="line">		&#125;</span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">        int center;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        for(center&#x3D;0;center&lt;nums.size();center++)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;0;</span><br><span class="line">            j&#x3D;nums.size()-1;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            while(i!&#x3D;center &amp;&amp;j!&#x3D;center)</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[i]&gt;0 || nums[j]&lt;0)</span><br><span class="line">                    break;</span><br><span class="line">                </span><br><span class="line">                int sum&#x3D;nums[i]+nums[center]+nums[j];</span><br><span class="line">                if(sum&#x3D;&#x3D;0)</span><br><span class="line">                &#123;</span><br><span class="line">                    vector&lt;int&gt; temp &#x3D;&#123;nums[i],nums[center],nums[j]&#125;;</span><br><span class="line">                    if(resultset.count(temp)&#x3D;&#x3D;0)</span><br><span class="line">                    &#123;   </span><br><span class="line">                        result.push_back(temp);</span><br><span class="line">                        resultset.insert(temp);</span><br><span class="line">                    &#125;</span><br><span class="line">                    i++;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                else if(sum&lt;0)</span><br><span class="line">                    i++;</span><br><span class="line">                else if(sum&gt;0)</span><br><span class="line">                    j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>执行用时 :  424 ms, 在所有 C++ 提交中击败了5.01%的用户<br>内存消耗 :24.3 MB, 在所有 C++ 提交中击败了7.53%的用户</p>
+<p>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题。<br>看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。<br>挖个坑，搞懂了再回来看看。</p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -219,14 +346,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -254,62 +381,37 @@
 </ul>
 <p>因为这种方法会遍历完所有’（’可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
 <ul>
-<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-  vector<span class="token operator">&lt;</span>string<span class="token operator">></span> <span class="token function">generateParenthesis</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-      vector<span class="token operator">&lt;</span>string<span class="token operator">></span> result<span class="token punctuation">;</span>
+<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">generateParenthesis</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">       </span><br><span class="line">        Recursion(n,<span class="string">""</span>,<span class="number">0</span>,<span class="number">0</span>,result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"> <span class="function"><span class="keyword">void</span>  <span class="title">Recursion</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">string</span> temp,<span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; result)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.size()== <span class="number">2</span>*n)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        <span class="keyword">if</span>(left&lt;n)</span><br><span class="line">            Recursion(n,temp+<span class="string">'('</span>,left+<span class="number">1</span>,right,result);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(right&lt;left)</span><br><span class="line">            Recursion(n,temp+<span class="string">')'</span>,left,right+<span class="number">1</span>,result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-      <span class="token function">Recursion</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<p> void  Recursion(int n,string temp,int left ,int right,vector<string>&amp; result)<br>    {<br>        if(temp.size()== 2*n)<br>        {<br>            result.push_back(temp);<br>            return;<br>        }</p>
-<pre><code>    if(left&lt;n)
-        Recursion(n,temp+&#39;(&#39;,left+1,right,result);
+<table>
+<thead>
+<tr>
+<th>提交时间</th>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 天前</td>
+<td>通过</td>
+<td>20 ms</td>
+<td>17 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody></table>
+<ul>
+<li><h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。<br>给上链接 ：</p>
+<h3 id="闭合数的合理解释-Jerry-Peng"><a href="#闭合数的合理解释-Jerry-Peng" class="headerlink" title="闭合数的合理解释-Jerry Peng"></a><a href="[https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/)">闭合数的合理解释-Jerry Peng</a></h3></li>
+<li><p>算法分析<br>对于每个n对括号的括号串S[n] 都可以划分为两个部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题</span><br><span class="line">**自底向上，存储子问题结果，逐步合并到n长度的问题**。</span><br><span class="line">因为要找到所有可能结果，因此c的取值需要遍历所有可能。</span><br><span class="line"></span><br><span class="line">- ###   动态规划代码</span><br><span class="line">&#96;&#96;&#96;cpp</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; generateParenthesis(int n)</span><br><span class="line">    &#123;</span><br><span class="line">       map&lt;int,vector&lt;string&gt;&gt; resultmap;</span><br><span class="line">        resultmap[0].push_back(&quot;&quot;);</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;n;i++)</span><br><span class="line">            for(int j&#x3D;0;j&lt;i;j++)</span><br><span class="line">                for(string left: resultmap[j])</span><br><span class="line">                    for(string right: resultmap[i-j-1])</span><br><span class="line">                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);</span><br><span class="line">        </span><br><span class="line">        return resultmap[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-    if(right&lt;left)
-        Recursion(n,temp+&#39;)&#39;,left,right+1,result);
-}</code></pre><p>};</p>
-<pre><code>
-|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
-| --- | --- | --- | --- | --- |
-| 2 天前 | 通过 | 20 ms | 17 MB | Cpp |
-
-
-- ###    动态规划
-因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
-给上链接 ：
-###    [闭合数的合理解释-Jerry Peng]([https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/))
-
-- 算法分析
- 对于每个n对括号的括号串S[n] 都可以划分为两个部分
-```S[n] = &#39;(&#39; + S[c] + &#39;)&#39; + S[n-c-1];```
-第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
-**自底向上，存储子问题结果，逐步合并到n长度的问题**。
-因为要找到所有可能结果，因此c的取值需要遍历所有可能。
-
-- ###   动态规划代码
-```cpp
-class Solution {
-public:
-    vector&lt;string&gt; generateParenthesis(int n)
-    {
-       map&lt;int,vector&lt;string&gt;&gt; resultmap;
-        resultmap[0].push_back(&quot;&quot;);
-        for(int i=1;i&lt;=n;i++)
-            for(int j=0;j&lt;i;j++)
-                for(string left: resultmap[j])
-                    for(string right: resultmap[i-j-1])
-                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);
-
-        return resultmap[n];
-    }
-};
-</code></pre><table>
+</li>
+</ul>
+<table>
 <thead>
 <tr>
 <th>提交时间</th>
@@ -348,10 +450,10 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -362,7 +464,7 @@ public:
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
         </h2>
 
         <div class="post-meta">
@@ -379,7 +481,7 @@ public:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -397,14 +499,14 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -416,243 +518,55 @@ public:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="合并K个链表"><a href="#合并K个链表" class="headerlink" title="合并K个链表"></a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">合并K个链表</a></h1><blockquote>
-<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
-<p>示例:</p>
+          <h1 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a><a href="https://leetcode-cn.com/problems/3sum-closest" target="_blank" rel="noopener">最接近的三数之和</a></h1><blockquote>
+<p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
 <blockquote>
-<p>输入:<br>[<br>　1-&gt;4-&gt;5,<br>  　1-&gt;3-&gt;4,<br>  　2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
+<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
+<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
 </blockquote>
 </blockquote>
-<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
-<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。</p>
-<blockquote>
-<p>两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p>
-</blockquote>
-</li>
-<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p>
-</li>
-<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>. 直到长度为1即完成。</p>
-</li>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
+<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
+<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
 </ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) 
-    {
-        ListNode* result=NULL;
-        int length=lists.size();
-        if(length==0)
-            return NULL;
-        while(length&gt;1)
-        {
-            int temp=(length+1)/2;
-            for(int i=0;i&lt;length/2;i++)
-                lists[i]=mergeTwoLists(lists[i],lists[i+temp]);
-
-            length=temp;
-        }
-
-
-        return lists[0];
-    }
-
-
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
-      {
-
-          ListNode result(0);
-          ListNode* another = &amp;result;
-
-          while (l1 != NULL &amp;&amp; l2 != NULL)
-          {
-
-              if (l1-&gt;val &lt;= l2-&gt;val)
-              {
-                  another-&gt;next = l1;
-                  l1 = l1-&gt;next;  
-              }
-              else
-              {
-                  another-&gt;next = l2;
-                  l2 = l2-&gt;next;
-              }
-
-              another = another-&gt;next;
-          }
-
-          another-&gt;next=(l1==NULL)?l2:l1;
-          return (&amp;result)-&gt;next;
-      }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>918</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
-<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while(i&lt;j)</span><br><span class="line">&#123;</span><br><span class="line">  if(sum&lt;target)</span><br><span class="line">    i++;</span><br><span class="line">  else if(sum&gt;target)</span><br><span class="line">    j--;</span><br><span class="line">  else if(sum&#x3D;&#x3D;target)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
+</ul>
 <blockquote>
-<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
+<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
 </blockquote>
-<blockquote>
-<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
-</blockquote>
-</blockquote>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
-<ol>
-<li><p>判断重复字符</p>
-<blockquote>
-<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
-</blockquote>
-<ol start="2">
-<li>子串检测<blockquote>
-<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>后事处理</p>
-<blockquote>
-<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
-<blockquote>
-<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
-</blockquote>
-</blockquote>
-</li>
-</ol>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code>class Solution {
-public:
-    int lengthOfLongestSubstring(string s) 
-    {   
-        int flag[127];
-        for(int i=0;i&lt;127;i++)
-            flag[i]=-1;
-        int result=0;  
-        int max=0;
-        int temp=0;
-        int start=0;
+<ul>
+<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
+</ul>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	int threeSumClosest(vector&lt;int&gt;&amp; nums, int target)</span><br><span class="line">	&#123;</span><br><span class="line">		int result;</span><br><span class="line">		sort(nums.begin(), nums.end());</span><br><span class="line">		vector&lt;int&gt; sums;</span><br><span class="line">		int a;</span><br><span class="line">		int b;</span><br><span class="line">		int c;</span><br><span class="line">		int sum;</span><br><span class="line">		int resultdistance &#x3D; INT_MAX;</span><br><span class="line"></span><br><span class="line">		for (a &#x3D; 0; a &lt; nums.size() - 2; a++)</span><br><span class="line">		&#123;</span><br><span class="line">			b &#x3D; a + 1;</span><br><span class="line">			c &#x3D; nums.size() - 1;</span><br><span class="line"></span><br><span class="line">			while (b &lt; c)</span><br><span class="line">			&#123;</span><br><span class="line">				sum &#x3D; nums[a] + nums[b] + nums[c];</span><br><span class="line"></span><br><span class="line">				</span><br><span class="line">				sums.push_back(sum);</span><br><span class="line">				if (sum &lt; target)</span><br><span class="line">					b++;</span><br><span class="line">				else if (sum &gt; target)</span><br><span class="line">					c--;</span><br><span class="line">				else</span><br><span class="line">					return sum;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;i&lt;sums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(abs(target - sums[i]) &lt; resultdistance)</span><br><span class="line">				&#123;</span><br><span class="line">					result &#x3D; sums[i];</span><br><span class="line">					resultdistance &#x3D; abs(target - result);</span><br><span class="line">				&#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
+<table>
+<thead>
+<tr>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019.9.15</td>
+<td>通过</td>
+<td>12 ms</td>
+<td>8.7 MB</td>
+</tr>
+<tr>
+<td>2019.9.11</td>
+<td>通过</td>
+<td>16 ms</td>
+<td>12.9 MB</td>
+</tr>
+</tbody></table>
+<p>8ms可能是做不到了，量级上应该一样。</p>
 
-        for(int i=0;i&lt;s.length();i++)
-        {
-            temp=getNO(s[i]);
-            if(flag[temp]&lt;start)
-            {
-                result++;
-                flag[temp]=i;
-            }
-            else
-            {
-                if(result&gt;=max)
-                    max=result;
-
-                start=flag[temp]+1;
-                result=i-flag[temp];
-                flag[temp]=i;
-            }
-
-        }
-        if(result&gt;=max)
-            return result;
-        else
-            return max;
-    }
-
-    int getNO(char originchar)
-    {
-        return originchar-&#39; &#39;;
-    }
-};</code></pre>
       
     </div>
 
@@ -674,7 +588,7 @@ public:
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -720,14 +634,14 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -769,520 +683,7 @@ public:
 <p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
 </blockquote>
 <p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><pre><code>class Solution {
-public:
-    void nextPermutation(vector&lt;int&gt;&amp; nums) 
-    {
-        if(nums.size()&lt;=1)
-            return ;
-
-        int flag=0;
-        int nextid=nums.size()-1;
-        int currentid=nextid-1;
-
-        while(currentid&gt;=0)
-        {
-            if(nums[nextid]&gt;nums[currentid])
-            {   
-                //从后往前，找到第一组 升序对
-               flag=1;
-                break;
-            }
-
-            nextid--;
-            currentid--;
-        }
-
-        if(flag==1)//存在下一个更大排列
-        {
-                //交换生成新排列
-            while(nextid+1&lt;nums.size())
-            {
-                if(nums[nextid+1]&gt;nums[currentid] )
-                    nextid++;
-                else
-                    break;
-            }
-            tempswap(nums[currentid],nums[nextid]);
-            //currentid右边必然是降序
-            //将currentid右边升序处理
-            nextid=nums.size()-1;
-            while(currentid+1&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid+1]);
-                nextid--;
-                currentid++;
-            }
-        }   
-        else
-        {   //不存在，则倒序
-            nextid=nums.size()-1;
-            currentid=0;
-            while(currentid&lt;nextid)
-            {
-                tempswap(nums[nextid],nums[currentid]);
-                nextid--;
-                currentid++;
-            }
-
-        }
-
-        return ;
-
-
-
-    }
-
-    void tempswap(int&amp; a,int&amp; b)
-    {
-        int temp=b;
-            b=a;
-            a=temp;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
-<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
-</blockquote>
-<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
-</blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
-<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
-</ul>
-<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
-<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
-</blockquote>
-<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
-<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
-<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
-<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
-<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
-<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
-<ol>
-<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
-<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
-</ol>
-<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
-<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
-</blockquote>
-<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
-<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
-<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
-</blockquote>
-<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
-设置好跳跃定位标志 k=-1
-对模式串每一位 i
-    假如 i  k 位相同，或者k==-1
-      即看作前后缀目前为止相同
-      i, k 到下一位
-      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
-          假如下一位与跳跃位不同
-              把已经处理好的k作为它的跳跃位即可，jump[i]=k
-          假如下一位与跳跃位相同
-              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
-              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
-   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
-      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
-      k=jump[k]
-</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
-<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
-public:
-    int strStr(string haystack, string needle) 
-    {   
-        if(needle==&quot;&quot;)
-            return 0;
-
-        //KMP
-
-        int jump[needle.size()];
-        jump[0]=-1;
-        int k=-1;
-        int i=0;
-        //创建失效数组  abcabcd
-        while(i&lt;needle.size()-1)
-        {
-            if(k==-1 || needle[i]==needle[k])
-            {
-                i++;
-                k++;
-
-                if(needle[i]!=needle[k])
-                    jump[i]=k;
-                else
-                    jump[i]=jump[k];
-            }
-            else    //内置kmp
-                k=jump[k];
-        }
-
-
-
-        int x=0;
-        int y=0;
-        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
-        {
-            if(y==-1 ||haystack[x]==needle[y])
-            {
-                x++;
-                y++;
-            }
-            else
-               y=jump[y];
-
-        }
-
-        if(y==needle.size())
-            return x-y;
-        else
-            return -1;
-
-
-
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-43/" class="post-title-link" itemprop="url">LeetCode-No-43</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字符串相乘"><a href="#字符串相乘" class="headerlink" title="字符串相乘"></a><a href="https://leetcode-cn.com/problems/multiply-strings" target="_blank" rel="noopener">字符串相乘</a></h1><blockquote>
-<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: num1 = “2”, num2 = “3”<br>输出: “6”</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: num1 = “123”, num2 = “456”<br>输出: “56088”</p>
-</blockquote>
-<p>说明：</p>
-<p>num1 和 num2 的长度小于110。<br>num1 和 num2 只包含数字 0-9。<br>num1 和 num2 均不以零开头，除非是数字 0 本身。<br>不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><blockquote>
-<p>//1 2 3 num1<br>//4 5 6 num2<br>//7 3 8+6 1 5 * 10+….. reverseresult</p>
-</blockquote>
-<h2 id="1-竖式暴力模拟"><a href="#1-竖式暴力模拟" class="headerlink" title="1. 竖式暴力模拟"></a>1. 竖式暴力模拟</h2><blockquote>
-<p>因为现实竖式乘法是从右到左落位, 程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
-<p>当然这个可以优化</p>
-</blockquote>
-<h4 id="1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><a href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1" class="headerlink" title="1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1"></a>1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4><h4 id="1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><a href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果" class="headerlink" title="1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果."></a>1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</h4><h4 id="1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><a href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数" class="headerlink" title="1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数"></a>1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4><h4 id="1-4-因为最后一位乘过了就没用了-num2-pop-back"><a href="#1-4-因为最后一位乘过了就没用了-num2-pop-back" class="headerlink" title="1.4  因为最后一位乘过了就没用了,num2.pop_back(),"></a>1.4  因为最后一位乘过了就没用了,num2.pop_back(),</h4><h4 id="1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><a href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数" class="headerlink" title="1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数"></a>1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数</h4><h4 id="1-6-num2所有数都用过了即num2-””-结束循环"><a href="#1-6-num2所有数都用过了即num2-””-结束循环" class="headerlink" title="1.6 num2所有数都用过了即num2=””,结束循环"></a>1.6 num2所有数都用过了即num2=””,结束循环</h4><h4 id="1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><a href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位" class="headerlink" title="1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位"></a>1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</h4><h4 id="1-8-将累加结果result反转-得到真实结果"><a href="#1-8-将累加结果result反转-得到真实结果" class="headerlink" title="1.8 将累加结果result反转, 得到真实结果"></a>1.8 将累加结果result反转, 得到真实结果</h4><p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想, 权当一个编码锻炼.</p>
-<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
-
-        string result;
-        string tempresult;
-        string zerostring;
-        int i;
-        int cflag = 0;
-        while (num2 != &quot;&quot;)//num1对num2每个数逐个相乘,每次result=result+currentresult*10
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {
-                tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);
-                cflag = ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) / 10;
-            }
-            //乘到最后一个数还剩下cflag
-            if (cflag &gt; 0)
-                tempresult.push_back(&#39;0&#39; + cflag);
-            //用零串移位
-            tempresult = zerostring + tempresult;
-            //相加上下两个字符串
-            ADDstring(result, tempresult);
-            //乘完num2的一个数num2把用过的数pop
-            num2.pop_back();
-            //临时数据清空
-            tempresult.clear();
-            zerostring += &quot;0&quot;;
-            cflag = 0;
-        }
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-        string reverseresult;
-        for (int j = result.size() - 1; j &gt;= 0; j--)
-            reverseresult.push_back(result[j]);
-        return reverseresult;
-    }
-
-    void ADDstring(string&amp; up, string&amp; down)//up和down字符串数值相加,结果存在up里,仅适用倒序存储
-    {
-        int j = 0;
-        int cflag = 0;
-        int temp = 0;
-        //result接在up上面
-        while (j &lt; down.size())
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);
-                cflag = ((down[j] - &#39;0&#39;) + cflag) / 10;
-            }
-
-            j++;
-        }
-        while (cflag != 0)
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(cflag % 10 + &#39;0&#39;);
-                cflag = cflag / 10;
-            }
-        }
-
-
-    }
-
-};</code></pre><h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
-<p>//1 2 3 num1[i]   //为示范简单,这里序号从右往左编码,程序中需要转换<br>//4 5 6 num2[j]<br>//例如num1[0]和num2[0]相乘 : 3X6=18<br>肯定影响到了result[0+0],有进位则会影响到result[0+0+1], result其他的值则肯定不会改变</p>
-</blockquote>
-<h4 id="2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><a href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果" class="headerlink" title="2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,"></a>2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</h4><h4 id="2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><a href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可" class="headerlink" title="2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可"></a>2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</h4><h4 id="2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><a href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop" class="headerlink" title="2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop"></a>2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4><blockquote>
-<p>事实证明对于一些修改字符串的操作还是小心为慎, 虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 , <strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%= =.</p>
-</blockquote>
-<h4 id="2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><a href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转" class="headerlink" title="2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转."></a>2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</h4><blockquote>
-<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
-</blockquote>
-<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
-
-
-        string result;
-        int totallength=num1.size()+num2.size();//result最大可能长度
-        int i;
-        int j=0;
-        int cflag =0;
-        int temp=0;//i+j位和存储器
-
-
-        for(i=0;i&lt;totallength;i++)//初始化填充
-        {
-            result.push_back(&#39;0&#39;);
-        }
-        //反向填充,可以不需要在最后reverse,....好像对效率影响不大
-        //把num2.pop()删掉了,终于从8ms提到了4ms......
-        while (j&lt;num2.size())//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {   //因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)
-                temp=(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);
-                //连续进位怎么办?临时存储?循环清理干净?
-                //临时存储试试
-                result[totallength-1-((num1.size()-i-1)+j+1)]+=temp/10;
-                result[totallength-1-((num1.size()-i-1)+j)]=&#39;0&#39;+temp%10;
-            }
-
-
-            j++;
-        }
-        //不需要检查最后一位要不要进位
-
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-
-        //跳过头部的0
-        if(result[0]!=&#39;0&#39;)
-            return result;
-        else
-            return result.substr(1);
-    }
-
-
-};</code></pre><hr>
-<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        if(nums.size()&lt;&#x3D;1)</span><br><span class="line">            return ;</span><br><span class="line">        </span><br><span class="line">        int flag&#x3D;0;</span><br><span class="line">        int nextid&#x3D;nums.size()-1;</span><br><span class="line">        int currentid&#x3D;nextid-1;</span><br><span class="line">        </span><br><span class="line">        while(currentid&gt;&#x3D;0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[nextid]&gt;nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;从后往前，找到第一组 升序对</span><br><span class="line">               flag&#x3D;1;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(flag&#x3D;&#x3D;1)&#x2F;&#x2F;存在下一个更大排列</span><br><span class="line">        &#123;</span><br><span class="line">                &#x2F;&#x2F;交换生成新排列</span><br><span class="line">            while(nextid+1&lt;nums.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[nextid+1]&gt;nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            tempswap(nums[currentid],nums[nextid]);</span><br><span class="line">            &#x2F;&#x2F;currentid右边必然是降序</span><br><span class="line">            &#x2F;&#x2F;将currentid右边升序处理</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            while(currentid+1&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid+1]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        else</span><br><span class="line">        &#123;   &#x2F;&#x2F;不存在，则倒序</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            currentid&#x3D;0;</span><br><span class="line">            while(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void tempswap(int&amp; a,int&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp&#x3D;b;</span><br><span class="line">            b&#x3D;a;</span><br><span class="line">            a&#x3D;temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1305,7 +706,7 @@ public:
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-32/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1351,14 +752,14 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -1407,336 +808,8 @@ public:
 <p>再看( ) ( ( ), 原方法因为是只要不匹配失败, 每过一位都会长度++,因此产生错误结果 4<br>而利用位置信息差算长度的方法, 只会算出两个长度为2 的括号对 ,最大也就是2.</p>
 </blockquote>
 <h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>算法比较简单, 但分析细节还是比较令人舒适的~</p>
-<pre><code>class Solution {
-public:
-    int longestValidParentheses(string s) 
-    {   
-        int result=0;
-        int i=0;
-        stack&lt;int&gt; left;
-        left.push(-1);//压入字符串头，以防（）（）（）（）情况
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int longestValidParentheses(string s) </span><br><span class="line">    &#123;   </span><br><span class="line">        int result&#x3D;0;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        stack&lt;int&gt; left;</span><br><span class="line">        left.push(-1);&#x2F;&#x2F;压入字符串头，以防（）（）（）（）情况</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&#x3D;&#x3D;&#39;(&#39;)   &#x2F;&#x2F;左括号 下标 入栈</span><br><span class="line">                left.push(i);</span><br><span class="line">            else    &#x2F;&#x2F;右括号消除一个左括号，并用下标差计算长度</span><br><span class="line">            &#123;</span><br><span class="line">                left.pop();</span><br><span class="line">                if(left.empty()!&#x3D;true)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(i-left.top()&gt;result)</span><br><span class="line">                        result&#x3D;i-left.top();  </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    left.push(i);</span><br><span class="line">                  </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-        while(i&lt;s.size())
-        {
-            if(s[i]==&#39;(&#39;)   //左括号 下标 入栈
-                left.push(i);
-            else    //右括号消除一个左括号，并用下标差计算长度
-            {
-                left.pop();
-                if(left.empty()!=true)
-                {
-                    if(i-left.top()&gt;result)
-                        result=i-left.top();  
-                }
-                else
-                    left.push(i);
-
-            }
-
-            i++;
-        }
-
-        return result;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-44/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a><a href="https://leetcode-cn.com/problems/wildcard-matching" target="_blank" rel="noopener">通配符匹配</a></h1><h3 id="——类似No-10的正则匹配"><a href="#——类似No-10的正则匹配" class="headerlink" title="——类似No.10的正则匹配"></a>——类似No.10的正则匹配</h3><blockquote>
-<p>给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 ‘?’ 和 ‘*’ 的通配符匹配。</p>
-<p>‘?’ 可以匹配任何单个字符。<br>‘*’ 可以匹配任意字符串（包括空字符串）。<br>两个字符串完全匹配才算匹配成功。</p>
-<p>说明:</p>
-<p>s 可能为空，且只包含从 a-z 的小写字母。<br>p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入:<br>s = “aa”<br>p = “a”<br>输出: false<br>解释: “a” 无法匹配 “aa” 整个字符串。</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入:<br>s = “aa”<br>p = “*”<br>输出: true<br>解释: ‘*’ 可以匹配任意字符串。</p>
-</blockquote>
-<blockquote>
-<p>示例 3:</p>
-<p>输入:<br>s = “cb”<br>p = “?a”<br>输出: false<br>解释: ‘?’ 可以匹配 ‘c’, 但第二个 ‘a’ 无法匹配 ‘b’。</p>
-</blockquote>
-<blockquote>
-<p>示例 4:</p>
-<p>输入:<br>s = “adceb”<br>p = “<em>a</em>b”<br>输出: true<br>解释: 第一个 ‘<em>‘ 可以匹配空字符串, 第二个 ‘</em>‘ 可以匹配字符串 “dce”.</p>
-</blockquote>
-<blockquote>
-<p>示例 5:</p>
-<p>输入:<br>s = “acdcb”<br>p = “a*c?b”<br>输入: false</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ul>
-<li><h3 id="和正则一样-重点在于-的任意位匹配"><a href="#和正则一样-重点在于-的任意位匹配" class="headerlink" title="和正则一样, 重点在于 * 的任意位匹配."></a>和正则一样, 重点在于 * 的任意位匹配.</h3><h3 id="1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束"><a href="#1-假如是一个没有-的串匹配-我们只要碰到一个匹配失败即可结束" class="headerlink" title="1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束"></a>1. 假如是一个没有 * 的串匹配, 我们只要碰到一个匹配失败即可结束</h3><h3 id="2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉"><a href="#2-有了-的情况-可以用来干什么呢-—–帮你把匹配失败的地方干掉" class="headerlink" title="2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉"></a>2. 有了 * 的情况, * 可以用来干什么呢?—–帮你把匹配失败的地方干掉</h3><h3 id="3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面"><a href="#3-因此其实我们可以先正常逐个精确匹配-遇到-可以记录下来-以便帮助后面" class="headerlink" title="3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面."></a>3. 因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来, 以便帮助后面.</h3><h3 id="4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败"><a href="#4-当在某一位精确匹配失败时-我们回去找-的帮助-如果之前没有-帮不了-匹配失败" class="headerlink" title="4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败."></a>4. 当在某一位精确匹配失败时, 我们回去找 * 的帮助, 如果之前没有 * , 帮不了, 匹配失败.</h3><h3 id="5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功"><a href="#5-假如之前有-即需让-往后匹配来避免这个失败位-但是因为-每向后扩展一位-原本的精确匹配顺序全都挪动了一位-此时我们不知道是不是能匹配成功" class="headerlink" title="5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,"></a>5. 假如之前有 * ,即需让 * 往后匹配来避免这个失败位, 但是因为 * 每向后扩展一位, 原本的精确匹配顺序全都挪动了一位, 此时我们不知道是不是能匹配成功,</h3><h3 id="6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可"><a href="#6-因此-帮忙的时候-只向后扩展一位试试-此时是一个未知的匹配状态-我们需要在-的边缘重新开始精确匹配-再失败了就重复-6-即可" class="headerlink" title="6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 ."></a>6. 因此 * 帮忙的时候, * 只向后扩展一位试试, 此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配, 再失败了就重复 6 即可 .</h3></li>
-</ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    bool isMatch(string s, string p) 
-    {
-        //i,j指示当前匹配位置,iflag,jflag指示*号匹配位置
-        int slength=s.length();
-        int plength=p.length();
-        int i=0;
-        int j=0;
-        int iflag=-1;
-        int jflag=-1;
-
-        //匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则
-        //  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场
-        //  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试
-        // 没有*救场 , 那可以自闭了.over
-
-        //循环内每次都确保当前匹配成功
-        //注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.
-        while(i&lt;slength)
-        {   
-            //准确匹配成功
-            if(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==&#39;?&#39;))
-            {
-                i++;
-                j++;
-
-            }
-            //匹配到*
-            else if(j&lt;plength &amp;&amp; p[j]==&#39;*&#39;)
-            {
-                iflag=i;
-                jflag=j;
-
-                //p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动
-                j++;
-
-            }
-
-            //准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.
-            else if(jflag!=-1)
-            {   
-                //*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配
-                i=++iflag;
-
-                //p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1
-                j=jflag+1;
-            }
-
-            //连*都不能帮忙解决,s可以走了
-            else
-                return false;
-        }
-
-        //注意考虑s匹配完了,p剩余*则还能成功
-        while(j&lt;plength)
-            if(p[j]==&#39;*&#39;)
-                j++;
-            else
-                break;
-
-        return j==plength;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-45/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:54" itemprop="dateModified" datetime="2020-07-16T19:34:54+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>595</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a><a href="https://leetcode-cn.com/problems/jump-game-ii" target="_blank" rel="noopener">跳跃游戏</a></h1><blockquote>
-<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [2,3,1,1,4]<br>输出: 2<br>解释: 跳到最后一个位置的最小跳跃数是 2。<br>     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
-</blockquote>
-<p>说明:</p>
-<p>假设你总是可以到达数组的最后一个位置。</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="1-假如不考虑最少次数-贪心法"><a href="#1-假如不考虑最少次数-贪心法" class="headerlink" title="1. 假如不考虑最少次数, 贪心法"></a>1. 假如不考虑最少次数, 贪心法</h3><h4 id="—-逐位扩展可跳最大距离-只要够到了末尾就好"><a href="#—-逐位扩展可跳最大距离-只要够到了末尾就好" class="headerlink" title="—- 逐位扩展可跳最大距离, 只要够到了末尾就好."></a>—- 逐位扩展可跳最大距离, 只要够到了末尾就好.</h4><h4 id="—-假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了"><a href="#—-假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了" class="headerlink" title="—- 假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了."></a>—- 假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4><h3 id="2-加上了最少次数要求"><a href="#2-加上了最少次数要求" class="headerlink" title="2. 加上了最少次数要求"></a>2. 加上了最少次数要求</h3><h4 id="—-什么情况会多次数-就是之前的一次能跳到的-跳了几次"><a href="#—-什么情况会多次数-就是之前的一次能跳到的-跳了几次" class="headerlink" title="—- 什么情况会多次数? 就是之前的一次能跳到的, 跳了几次."></a>—- 什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4><h4 id="—-那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数-当然到末端也算一次"><a href="#—-那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数-当然到末端也算一次" class="headerlink" title="—- 那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离, 才算一次次数. 当然到末端也算一次."></a>—- 那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离, 才算一次次数. 当然到末端也算一次.</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int jump(vector&lt;int&gt;&amp; nums)
-    {
-        //参考题解大神思路: i每到达前一个max,完成一次跳跃
-        int sum = 0;
-        int end = 0;
-        int maxend = 0;
-        for (int i = 0; i &lt; nums.size() - 1; i++)
-        {   //i每到达前一个max,完成一次跳跃
-            maxend = max(nums[i] + i, maxend);
-            if (i == end)
-            {
-                end = maxend;
-                sum++;
-            }
-        }
-
-        return sum;
-
-    }
-};</code></pre>
       
     </div>
 
@@ -1758,7 +831,7 @@ public:
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1804,14 +877,14 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -1860,62 +933,481 @@ public:
 </blockquote>
 <h3 id="4-处理边界情况"><a href="#4-处理边界情况" class="headerlink" title="4. 处理边界情况"></a>4. 处理边界情况</h3><p>切割时切割点可能在数组最左边或者最右边,此时直观上理解可知,切最左边的时候,LMax=无穷小,切最右边的时候RMin=无穷大</p>
 <h3 id="5-切割点遍历方式"><a href="#5-切割点遍历方式" class="headerlink" title="5. 切割点遍历方式"></a>5. 切割点遍历方式</h3><p>切割点选择方式确定后,我们要逐步逼近正确的切割点<br>类似于查找算法,此时可用二分法进行逼近,满足效率O(log).</p>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><pre><code># include &lt;vector&gt;        //注意头文件的加入,否则INT_MIN之类的可能无法使用
-# include &lt;stdio.h&gt;
-using namespace std;
-
-class Solution {
-public:
-    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) 
-    {  
-        int length1=nums1.size();
-        int length2=nums2.size();
-        if(length1&gt;length2)        //节省效率,以最短的数组为主切割C1
-            return findMedianSortedArrays(nums2,nums1);
-        int LMax1;
-        int LMax2;
-        int RMin1;
-        int RMin2;
-
-        int k=length1+length2;
-        int c1;
-        int c2;
-        int d1=0;
-        int d2=length1*2;
-
-        while(d1&lt;=d2)  //写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以
-        {
-
-            c1=(d1+d2)/2;
-            c2=k-c1;
-
-           (c1==0) ? LMax1=INT_MIN : LMax1=nums1[(c1-1)/2];
-            (c1==2*length1) ? RMin1=INT_MAX : RMin1=nums1[c1/2];
-             (c2==0) ? LMax2=INT_MIN : LMax2=nums2[(c2-1)/2];
-            (c2==2*length2) ? RMin2=INT_MAX : RMin2=nums2[c2/2];
-
-            if(LMax1&gt;RMin2)
-                d2=c1-1;          //分析浮动+-1的必要性
-            else if(LMax2&gt;RMin1)
-                d1=c1+1;
-            else            //为什么要加这个判断
-                break;
-
-
-        }
-
-        int LMax,RMin;
-        LMax=(LMax1&gt;LMax2)?LMax1:LMax2;
-        RMin=(RMin1&lt;RMin2)?RMin1:RMin2;
-
-        return (LMax+RMin)/2.0;
-
-
-    }
-};</code></pre><hr>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;vector&gt;        &#x2F;&#x2F;注意头文件的加入,否则INT_MIN之类的可能无法使用</span><br><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) </span><br><span class="line">    &#123;  </span><br><span class="line">        int length1&#x3D;nums1.size();</span><br><span class="line">        int length2&#x3D;nums2.size();</span><br><span class="line">        if(length1&gt;length2)        &#x2F;&#x2F;节省效率,以最短的数组为主切割C1</span><br><span class="line">            return findMedianSortedArrays(nums2,nums1);</span><br><span class="line">        int LMax1;</span><br><span class="line">        int LMax2;</span><br><span class="line">        int RMin1;</span><br><span class="line">        int RMin2;</span><br><span class="line">      </span><br><span class="line">        int k&#x3D;length1+length2;</span><br><span class="line">        int c1;</span><br><span class="line">        int c2;</span><br><span class="line">        int d1&#x3D;0;</span><br><span class="line">        int d2&#x3D;length1*2;</span><br><span class="line">        </span><br><span class="line">        while(d1&lt;&#x3D;d2)  &#x2F;&#x2F;写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            c1&#x3D;(d1+d2)&#x2F;2;</span><br><span class="line">            c2&#x3D;k-c1;</span><br><span class="line">            </span><br><span class="line">           (c1&#x3D;&#x3D;0) ? LMax1&#x3D;INT_MIN : LMax1&#x3D;nums1[(c1-1)&#x2F;2];</span><br><span class="line">            (c1&#x3D;&#x3D;2*length1) ? RMin1&#x3D;INT_MAX : RMin1&#x3D;nums1[c1&#x2F;2];</span><br><span class="line">             (c2&#x3D;&#x3D;0) ? LMax2&#x3D;INT_MIN : LMax2&#x3D;nums2[(c2-1)&#x2F;2];</span><br><span class="line">            (c2&#x3D;&#x3D;2*length2) ? RMin2&#x3D;INT_MAX : RMin2&#x3D;nums2[c2&#x2F;2];</span><br><span class="line">            </span><br><span class="line">            if(LMax1&gt;RMin2)</span><br><span class="line">                d2&#x3D;c1-1;          &#x2F;&#x2F;分析浮动+-1的必要性</span><br><span class="line">            else if(LMax2&gt;RMin1)</span><br><span class="line">                d1&#x3D;c1+1;</span><br><span class="line">            else            &#x2F;&#x2F;为什么要加这个判断</span><br><span class="line">                break;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        int LMax,RMin;</span><br><span class="line">        LMax&#x3D;(LMax1&gt;LMax2)?LMax1:LMax2;</span><br><span class="line">        RMin&#x3D;(RMin1&lt;RMin2)?RMin1:RMin2;</span><br><span class="line">        </span><br><span class="line">        return (LMax+RMin)&#x2F;2.0;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
 <h2 id="这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧"><a href="#这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧" class="headerlink" title="这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧"></a>这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧</h2><ul>
 <li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
+</blockquote>
+<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+</blockquote>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
+</ul>
+<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+</blockquote>
+<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
+<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
+<ol>
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
+</blockquote>
+<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
+</blockquote>
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">因为在0位失败肯定没法跳跃，令jump[0]&#x3D;-1 </span><br><span class="line">设置好跳跃定位标志 k&#x3D;-1</span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k&#x3D;&#x3D;-1</span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]&#x3D;k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]&#x3D;jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k&#x3D;jump[k]</span><br></pre></td></tr></table></figure>
+
+<h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int strStr(string haystack, string needle) </span><br><span class="line">    &#123;   </span><br><span class="line">        if(needle&#x3D;&#x3D;&quot;&quot;)</span><br><span class="line">            return 0;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;KMP</span><br><span class="line"> </span><br><span class="line">        int jump[needle.size()];</span><br><span class="line">        jump[0]&#x3D;-1;</span><br><span class="line">        int k&#x3D;-1;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;创建失效数组  abcabcd</span><br><span class="line">        while(i&lt;needle.size()-1)</span><br><span class="line">        &#123;</span><br><span class="line">            if(k&#x3D;&#x3D;-1 || needle[i]&#x3D;&#x3D;needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                if(needle[i]!&#x3D;needle[k])</span><br><span class="line">                    jump[i]&#x3D;k;</span><br><span class="line">                else</span><br><span class="line">                    jump[i]&#x3D;jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            else    &#x2F;&#x2F;内置kmp</span><br><span class="line">                k&#x3D;jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        int x&#x3D;0;</span><br><span class="line">        int y&#x3D;0;</span><br><span class="line">        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) &#x2F;&#x2F;注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span><br><span class="line">        &#123;</span><br><span class="line">            if(y&#x3D;&#x3D;-1 ||haystack[x]&#x3D;&#x3D;needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">               y&#x3D;jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(y&#x3D;&#x3D;needle.size())</span><br><span class="line">            return x-y;</span><br><span class="line">        else</span><br><span class="line">            return -1;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters" target="_blank" rel="noopener">无重复字符的最长子串</a></h1><blockquote>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<blockquote>
+<p>示例 1:<br>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+</blockquote>
+<blockquote>
+<p>示例 2:<br>输入: “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
+</blockquote>
+<blockquote>
+<p>示例 3:<br>输入: “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+</blockquote>
+</blockquote>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<ol>
+<li><p>判断重复字符</p>
+<blockquote>
+<p>用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点<br>(数组初始化的时候没有想到更好的优化效率方案).</p>
+</blockquote>
+<ol start="2">
+<li>子串检测<blockquote>
+<p>数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>后事处理</p>
+<blockquote>
+<p>移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理<br>直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可</p>
+<blockquote>
+<p>优化思路: 可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int lengthOfLongestSubstring(string s) </span><br><span class="line">    &#123;   </span><br><span class="line">        int flag[127];</span><br><span class="line">        for(int i&#x3D;0;i&lt;127;i++)</span><br><span class="line">            flag[i]&#x3D;-1;</span><br><span class="line">        int result&#x3D;0;  </span><br><span class="line">        int max&#x3D;0;</span><br><span class="line">        int temp&#x3D;0;</span><br><span class="line">        int start&#x3D;0;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;i&lt;s.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            temp&#x3D;getNO(s[i]);</span><br><span class="line">            if(flag[temp]&lt;start)</span><br><span class="line">            &#123;</span><br><span class="line">                result++;</span><br><span class="line">                flag[temp]&#x3D;i;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                if(result&gt;&#x3D;max)</span><br><span class="line">                    max&#x3D;result;</span><br><span class="line">                </span><br><span class="line">                start&#x3D;flag[temp]+1;</span><br><span class="line">                result&#x3D;i-flag[temp];</span><br><span class="line">                flag[temp]&#x3D;i;</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        if(result&gt;&#x3D;max)</span><br><span class="line">            return result;</span><br><span class="line">        else</span><br><span class="line">            return max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int getNO(char originchar)</span><br><span class="line">    &#123;</span><br><span class="line">        return originchar-&#39; &#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-43/" class="post-title-link" itemprop="url">LeetCode-No-43</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="字符串相乘"><a href="#字符串相乘" class="headerlink" title="字符串相乘"></a><a href="https://leetcode-cn.com/problems/multiply-strings" target="_blank" rel="noopener">字符串相乘</a></h1><blockquote>
+<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: num1 = “2”, num2 = “3”<br>输出: “6”</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: num1 = “123”, num2 = “456”<br>输出: “56088”</p>
+</blockquote>
+<p>说明：</p>
+<p>num1 和 num2 的长度小于110。<br>num1 和 num2 只包含数字 0-9。<br>num1 和 num2 均不以零开头，除非是数字 0 本身。<br>不能使用任何标准库的大数类型（比如 BigInteger）或直接将输入转换为整数来处理。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><blockquote>
+<p>//1 2 3 num1<br>//4 5 6 num2<br>//7 3 8+6 1 5 * 10+….. reverseresult</p>
+</blockquote>
+<h2 id="1-竖式暴力模拟"><a href="#1-竖式暴力模拟" class="headerlink" title="1. 竖式暴力模拟"></a>1. 竖式暴力模拟</h2><blockquote>
+<p>因为现实竖式乘法是从右到左落位, 程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
+<p>当然这个可以优化</p>
+</blockquote>
+<h4 id="1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><a href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1" class="headerlink" title="1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1"></a>1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4><h4 id="1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><a href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果" class="headerlink" title="1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果."></a>1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</h4><h4 id="1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><a href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数" class="headerlink" title="1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数"></a>1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4><h4 id="1-4-因为最后一位乘过了就没用了-num2-pop-back"><a href="#1-4-因为最后一位乘过了就没用了-num2-pop-back" class="headerlink" title="1.4  因为最后一位乘过了就没用了,num2.pop_back(),"></a>1.4  因为最后一位乘过了就没用了,num2.pop_back(),</h4><h4 id="1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><a href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数" class="headerlink" title="1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数"></a>1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数</h4><h4 id="1-6-num2所有数都用过了即num2-””-结束循环"><a href="#1-6-num2所有数都用过了即num2-””-结束循环" class="headerlink" title="1.6 num2所有数都用过了即num2=””,结束循环"></a>1.6 num2所有数都用过了即num2=””,结束循环</h4><h4 id="1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><a href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位" class="headerlink" title="1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位"></a>1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</h4><h4 id="1-8-将累加结果result反转-得到真实结果"><a href="#1-8-将累加结果result反转-得到真实结果" class="headerlink" title="1.8 将累加结果result反转, 得到真实结果"></a>1.8 将累加结果result反转, 得到真实结果</h4><p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想, 权当一个编码锻炼.</p>
+<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string multiply(string num1, string num2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num1 &#x3D;&#x3D; &quot;0&quot; || num2 &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">			return &quot;0&quot;;</span><br><span class="line"></span><br><span class="line">		string result;</span><br><span class="line">		string tempresult;</span><br><span class="line">		string zerostring;</span><br><span class="line">		int i;</span><br><span class="line">		int cflag &#x3D; 0;</span><br><span class="line">		while (num2 !&#x3D; &quot;&quot;)&#x2F;&#x2F;num1对num2每个数逐个相乘,每次result&#x3D;result+currentresult*10</span><br><span class="line">		&#123;</span><br><span class="line">			for (i &#x3D; num1.size() - 1; i &gt;&#x3D; 0; i--)</span><br><span class="line">			&#123;</span><br><span class="line">				tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);</span><br><span class="line">				cflag &#x3D; ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;乘到最后一个数还剩下cflag</span><br><span class="line">			if (cflag &gt; 0)</span><br><span class="line">				tempresult.push_back(&#39;0&#39; + cflag);</span><br><span class="line">			&#x2F;&#x2F;用零串移位</span><br><span class="line">			tempresult &#x3D; zerostring + tempresult;</span><br><span class="line">			&#x2F;&#x2F;相加上下两个字符串</span><br><span class="line">			ADDstring(result, tempresult);</span><br><span class="line">			&#x2F;&#x2F;乘完num2的一个数num2把用过的数pop</span><br><span class="line">			num2.pop_back();</span><br><span class="line">			&#x2F;&#x2F;临时数据清空</span><br><span class="line">			tempresult.clear();</span><br><span class="line">			zerostring +&#x3D; &quot;0&quot;;</span><br><span class="line">			cflag &#x3D; 0;</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;1 2 3</span><br><span class="line">		&#x2F;&#x2F;4 5 6</span><br><span class="line">		&#x2F;&#x2F;7 3 8+6 1 5 * 10</span><br><span class="line">		string reverseresult;</span><br><span class="line">		for (int j &#x3D; result.size() - 1; j &gt;&#x3D; 0; j--)</span><br><span class="line">			reverseresult.push_back(result[j]);</span><br><span class="line">		return reverseresult;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	void ADDstring(string&amp; up, string&amp; down)&#x2F;&#x2F;up和down字符串数值相加,结果存在up里,仅适用倒序存储</span><br><span class="line">	&#123;</span><br><span class="line">		int j &#x3D; 0;</span><br><span class="line">		int cflag &#x3D; 0;</span><br><span class="line">		int temp &#x3D; 0;</span><br><span class="line">		&#x2F;&#x2F;result接在up上面</span><br><span class="line">		while (j &lt; down.size())</span><br><span class="line">		&#123;</span><br><span class="line">			if (j &lt; up.size())&#x2F;&#x2F;up[j]存在</span><br><span class="line">			&#123;</span><br><span class="line">				temp &#x3D; (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;</span><br><span class="line">				up[j] &#x3D; (temp) % 10 + &#39;0&#39;;</span><br><span class="line">				cflag &#x3D; (temp) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#x2F;&#x2F;up[j]不存在</span><br><span class="line">			&#123;</span><br><span class="line">				up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);</span><br><span class="line">				cflag &#x3D; ((down[j] - &#39;0&#39;) + cflag) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		while (cflag !&#x3D; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if (j &lt; up.size())&#x2F;&#x2F;up[j]存在</span><br><span class="line">			&#123;</span><br><span class="line">				temp &#x3D; (up[j] - &#39;0&#39;) + cflag;</span><br><span class="line">				up[j] &#x3D; (temp) % 10 + &#39;0&#39;;</span><br><span class="line">				cflag &#x3D; (temp) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#x2F;&#x2F;up[j]不存在</span><br><span class="line">			&#123;</span><br><span class="line">				up.push_back(cflag % 10 + &#39;0&#39;);</span><br><span class="line">				cflag &#x3D; cflag &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
+<p>//1 2 3 num1[i]   //为示范简单,这里序号从右往左编码,程序中需要转换<br>//4 5 6 num2[j]<br>//例如num1[0]和num2[0]相乘 : 3X6=18<br>肯定影响到了result[0+0],有进位则会影响到result[0+0+1], result其他的值则肯定不会改变</p>
+</blockquote>
+<h4 id="2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><a href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果" class="headerlink" title="2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,"></a>2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</h4><h4 id="2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><a href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可" class="headerlink" title="2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可"></a>2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</h4><h4 id="2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><a href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop" class="headerlink" title="2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop"></a>2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4><blockquote>
+<p>事实证明对于一些修改字符串的操作还是小心为慎, 虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 , <strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%= =.</p>
+</blockquote>
+<h4 id="2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><a href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转" class="headerlink" title="2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转."></a>2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</h4><blockquote>
+<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
+</blockquote>
+<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string multiply(string num1, string num2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num1 &#x3D;&#x3D; &quot;0&quot; || num2 &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">			return &quot;0&quot;;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">		string result;</span><br><span class="line">        int totallength&#x3D;num1.size()+num2.size();&#x2F;&#x2F;result最大可能长度</span><br><span class="line">		int i;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">		int cflag &#x3D;0;</span><br><span class="line">        int temp&#x3D;0;&#x2F;&#x2F;i+j位和存储器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for(i&#x3D;0;i&lt;totallength;i++)&#x2F;&#x2F;初始化填充</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(&#39;0&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;反向填充,可以不需要在最后reverse,....好像对效率影响不大</span><br><span class="line">        &#x2F;&#x2F;把num2.pop()删掉了,终于从8ms提到了4ms......</span><br><span class="line">		while (j&lt;num2.size())&#x2F;&#x2F;num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤</span><br><span class="line">		&#123;</span><br><span class="line">			for (i &#x3D; num1.size() - 1; i &gt;&#x3D; 0; i--)</span><br><span class="line">			&#123;   &#x2F;&#x2F;因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)</span><br><span class="line">                temp&#x3D;(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);</span><br><span class="line">                &#x2F;&#x2F;连续进位怎么办?临时存储?循环清理干净?</span><br><span class="line">                &#x2F;&#x2F;临时存储试试</span><br><span class="line">                result[totallength-1-((num1.size()-i-1)+j+1)]+&#x3D;temp&#x2F;10;</span><br><span class="line">				result[totallength-1-((num1.size()-i-1)+j)]&#x3D;&#39;0&#39;+temp%10;</span><br><span class="line">			&#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            j++;</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F;不需要检查最后一位要不要进位</span><br><span class="line">       </span><br><span class="line">		&#x2F;&#x2F;1 2 3</span><br><span class="line">		&#x2F;&#x2F;4 5 6</span><br><span class="line">		&#x2F;&#x2F;7 3 8+6 1 5 * 10</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;跳过头部的0</span><br><span class="line">        if(result[0]!&#x3D;&#39;0&#39;)</span><br><span class="line">		    return result;</span><br><span class="line">        else</span><br><span class="line">            return result.substr(1);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-45/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:54" itemprop="dateModified" datetime="2020-07-16T19:34:54+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>730</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a><a href="https://leetcode-cn.com/problems/jump-game-ii" target="_blank" rel="noopener">跳跃游戏</a></h1><blockquote>
+<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: [2,3,1,1,4]<br>输出: 2<br>解释: 跳到最后一个位置的最小跳跃数是 2。<br>     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
+</blockquote>
+<p>说明:</p>
+<p>假设你总是可以到达数组的最后一个位置。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="1-假如不考虑最少次数-贪心法"><a href="#1-假如不考虑最少次数-贪心法" class="headerlink" title="1. 假如不考虑最少次数, 贪心法"></a>1. 假如不考虑最少次数, 贪心法</h3><h4 id="—-逐位扩展可跳最大距离-只要够到了末尾就好"><a href="#—-逐位扩展可跳最大距离-只要够到了末尾就好" class="headerlink" title="—- 逐位扩展可跳最大距离, 只要够到了末尾就好."></a>—- 逐位扩展可跳最大距离, 只要够到了末尾就好.</h4><h4 id="—-假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了"><a href="#—-假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了" class="headerlink" title="—- 假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了."></a>—- 假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4><h3 id="2-加上了最少次数要求"><a href="#2-加上了最少次数要求" class="headerlink" title="2. 加上了最少次数要求"></a>2. 加上了最少次数要求</h3><h4 id="—-什么情况会多次数-就是之前的一次能跳到的-跳了几次"><a href="#—-什么情况会多次数-就是之前的一次能跳到的-跳了几次" class="headerlink" title="—- 什么情况会多次数? 就是之前的一次能跳到的, 跳了几次."></a>—- 什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4><h4 id="—-那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数-当然到末端也算一次"><a href="#—-那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数-当然到末端也算一次" class="headerlink" title="—- 那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离, 才算一次次数. 当然到末端也算一次."></a>—- 那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离, 才算一次次数. 当然到末端也算一次.</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	int jump(vector&lt;int&gt;&amp; nums)</span><br><span class="line">	&#123;</span><br><span class="line">        &#x2F;&#x2F;参考题解大神思路: i每到达前一个max,完成一次跳跃</span><br><span class="line">        int sum &#x3D; 0;</span><br><span class="line">        int end &#x3D; 0;</span><br><span class="line">        int maxend &#x3D; 0;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; nums.size() - 1; i++)</span><br><span class="line">	    &#123;   &#x2F;&#x2F;i每到达前一个max,完成一次跳跃</span><br><span class="line">		    maxend &#x3D; max(nums[i] + i, maxend);</span><br><span class="line">            if (i &#x3D;&#x3D; end)</span><br><span class="line">            &#123;</span><br><span class="line">                end &#x3D; maxend;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">        return sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1992,6 +1484,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -2000,7 +1494,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2059,13 +1553,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -2095,12 +1589,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

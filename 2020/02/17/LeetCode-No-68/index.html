@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -254,86 +264,8 @@
 <li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
 </ol>
 <p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) 
-    {
-        vector&lt;string&gt;  result;
-        int wordsFlag=0;//处理到的最远的单词
-        int StartFlag=0;
-        int SpaceNum=0;
-        int wordsNum=0;//每行单词数
-        int CurrentLength=0;
-        bool isLast=false;
-        vector&lt;int&gt; spaces;//存储每行每处的空格数
-        while(wordsFlag&lt;words.size())//行循环
-        {   
-            StartFlag=wordsFlag;
-            wordsNum=0;
-            CurrentLength=0;
-            while(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词
-            {   
-                CurrentLength+=words[wordsFlag].size();
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string&gt;  result;</span><br><span class="line">        int wordsFlag&#x3D;0;&#x2F;&#x2F;处理到的最远的单词</span><br><span class="line">        int StartFlag&#x3D;0;</span><br><span class="line">        int SpaceNum&#x3D;0;</span><br><span class="line">        int wordsNum&#x3D;0;&#x2F;&#x2F;每行单词数</span><br><span class="line">        int CurrentLength&#x3D;0;</span><br><span class="line">        bool isLast&#x3D;false;</span><br><span class="line">        vector&lt;int&gt; spaces;&#x2F;&#x2F;存储每行每处的空格数</span><br><span class="line">        while(wordsFlag&lt;words.size())&#x2F;&#x2F;行循环</span><br><span class="line">        &#123;   </span><br><span class="line">            StartFlag&#x3D;wordsFlag;</span><br><span class="line">            wordsNum&#x3D;0;</span><br><span class="line">            CurrentLength&#x3D;0;</span><br><span class="line">            while(CurrentLength&lt;maxWidth)&#x2F;&#x2F;判断一行最多能放几个单词</span><br><span class="line">            &#123;   </span><br><span class="line">                CurrentLength+&#x3D;words[wordsFlag].size();</span><br><span class="line">                </span><br><span class="line">                if(CurrentLength+wordsNum&gt;maxWidth)&#x2F;&#x2F;超过了 退掉最后一次</span><br><span class="line">                &#123;</span><br><span class="line">                    CurrentLength-&#x3D;words[wordsFlag].size();</span><br><span class="line">                    &#x2F;&#x2F; wordsFlag--; wordsFlag 停在下一行第一个</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                wordsNum++;</span><br><span class="line">                wordsFlag++;</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;末行判定</span><br><span class="line">                if(wordsFlag&gt;&#x3D;words.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    isLast&#x3D;true;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;计算所需空格数</span><br><span class="line">            SpaceNum&#x3D;maxWidth-CurrentLength;</span><br><span class="line">            </span><br><span class="line">            if(wordsNum&gt;1)&#x2F;&#x2F;1判断，wordsNum-1&#x3D;0时不能当除数</span><br><span class="line">            &#123;</span><br><span class="line">                 spaces&#x3D; vector&lt;int&gt;(wordsNum-1,SpaceNum&#x2F;(wordsNum-1));&#x2F;&#x2F;space有wordsNum-1处，每处平均有SpaceNum&#x2F;(wordsNum-1)个</span><br><span class="line">					for (int j &#x3D; 0; j &lt; SpaceNum%(wordsNum-1); ++j)&#x2F;&#x2F;多的从前往后填，填多少是多少，保证左边的空格大于等于右边的</span><br><span class="line">                        spaces[j] +&#x3D; 1;</span><br><span class="line">                spaces.push_back(0);&#x2F;&#x2F;最后一个数不要空格</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                spaces&#x3D; vector&lt;int&gt;(1,SpaceNum);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;末行处理</span><br><span class="line">            if(isLast&#x3D;&#x3D;true &amp;&amp; wordsNum&gt;1)</span><br><span class="line">            &#123;</span><br><span class="line">                int j&#x3D; 0;</span><br><span class="line">                for (; j &lt;wordsNum-1; j++)</span><br><span class="line">                    spaces[j]&#x3D;1;&#x2F;&#x2F;末行每处空都只有一个空格，最后是剩余空格，也是服了&#x3D; &#x3D;</span><br><span class="line">                spaces[j]&#x3D;SpaceNum-(wordsNum-1);&#x2F;&#x2F;剩余空格</span><br><span class="line">            &#125;</span><br><span class="line">                    </span><br><span class="line">            string temp;</span><br><span class="line">            int j&#x3D;0;</span><br><span class="line">            while(StartFlag&lt;wordsFlag)</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;填充单词</span><br><span class="line">                temp+&#x3D;words[StartFlag];&#x2F;&#x2F;填词</span><br><span class="line">                &#x2F;&#x2F;填充空格</span><br><span class="line">                for(int i&#x3D;0;i&lt;spaces[j];i++)&#x2F;&#x2F;填空格</span><br><span class="line">                    temp.push_back(&#39; &#39;);</span><br><span class="line">                StartFlag++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result.push_back(temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-                if(CurrentLength+wordsNum&gt;maxWidth)//超过了 退掉最后一次
-                {
-                    CurrentLength-=words[wordsFlag].size();
-                    // wordsFlag--; wordsFlag 停在下一行第一个
-                    break;
-                }
-                wordsNum++;
-                wordsFlag++;
-
-                //末行判定
-                if(wordsFlag&gt;=words.size())
-                {
-                    isLast=true;
-                    break;
-                }
-            }
-
-            //计算所需空格数
-            SpaceNum=maxWidth-CurrentLength;
-
-            if(wordsNum&gt;1)//1判断，wordsNum-1=0时不能当除数
-            {
-                 spaces= vector&lt;int&gt;(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个
-                    for (int j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的
-                        spaces[j] += 1;
-                spaces.push_back(0);//最后一个数不要空格
-            }
-            else
-                spaces= vector&lt;int&gt;(1,SpaceNum);
-
-            //末行处理
-            if(isLast==true &amp;&amp; wordsNum&gt;1)
-            {
-                int j= 0;
-                for (; j &lt;wordsNum-1; j++)
-                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =
-                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格
-            }
-
-            string temp;
-            int j=0;
-            while(StartFlag&lt;wordsFlag)
-            {   
-                //填充单词
-                temp+=words[StartFlag];//填词
-                //填充空格
-                for(int i=0;i&lt;spaces[j];i++)//填空格
-                    temp.push_back(&#39; &#39;);
-                StartFlag++;
-                j++;
-            }
-
-            result.push_back(temp);
-
-        }
-
-        return result;
-    }
-};</code></pre>
     </div>
 
     
@@ -348,12 +280,12 @@ public:
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-75/" rel="prev" title="LeetCode-No-75">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-75
+    <a href="/Blog/2020/02/17/LeetCode-No-61/" rel="prev" title="LeetCode-No-61">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-61
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" rel="next" title="LeetCode-No-69-（牛顿迭代法）">
-      LeetCode-No-69-（牛顿迭代法） <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-62-64/" rel="next" title="LeetCode-No-62-&-No-63-&-No-64">
+      LeetCode-No-62-&-No-63-&-No-64 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -419,6 +351,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -427,7 +361,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -486,13 +420,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -522,12 +456,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

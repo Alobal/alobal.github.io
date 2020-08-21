@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>882</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -255,41 +265,8 @@
 <li>注意切割处可以是数, 也可以是两数之间</li>
 </ul>
 <h2 id="求解代码"><a href="#求解代码" class="headerlink" title="求解代码"></a>求解代码</h2><p>题目思路较为简单,直接放出一遍撸过的代码.</p>
-<pre><code>class Solution {
-public:
-    string longestPalindrome(string s)
-    {
-        string result;
-        int center;
-        int left;
-        int right;
-        if (s.length() == 0)
-            return &quot;&quot;;
-        //参考题4扩展
-        //[1,2,3] [1,# ,2,#,3]
-         //[2,1,1,2] [2,# ,1,#,1,#,2]
-        for (center = 0; center &lt; 2*s.length()-1; center++)
-        {
-            left = center / 2;
-            right = (center + 1) / 2;
-            while (1)
-            {
-                if (left &lt; 0 || right &gt;= s.length() || s[left] != s[right])
-                {
-                    left++;
-                    right--;
-                    break;
-                }
-                left--;
-                right++;
-            }
-            if (right - left + 1 &gt; result.length())
-                result.assign(s, left, right - left + 1);
-        }
-
-        return result;
-    }
-};</code></pre><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string longestPalindrome(string s)</span><br><span class="line">	&#123;</span><br><span class="line">		string result;</span><br><span class="line">		int center;</span><br><span class="line">		int left;</span><br><span class="line">		int right;</span><br><span class="line">		if (s.length() &#x3D;&#x3D; 0)</span><br><span class="line">			return &quot;&quot;;</span><br><span class="line">        &#x2F;&#x2F;参考题4扩展</span><br><span class="line">		&#x2F;&#x2F;[1,2,3] [1,# ,2,#,3]</span><br><span class="line">		 &#x2F;&#x2F;[2,1,1,2] [2,# ,1,#,1,#,2]</span><br><span class="line">		for (center &#x3D; 0; center &lt; 2*s.length()-1; center++)</span><br><span class="line">		&#123;</span><br><span class="line">			left &#x3D; center &#x2F; 2;</span><br><span class="line">			right &#x3D; (center + 1) &#x2F; 2;</span><br><span class="line">			while (1)</span><br><span class="line">			&#123;</span><br><span class="line">				if (left &lt; 0 || right &gt;&#x3D; s.length() || s[left] !&#x3D; s[right])</span><br><span class="line">				&#123;</span><br><span class="line">					left++;</span><br><span class="line">					right--;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">				left--;</span><br><span class="line">				right++;</span><br><span class="line">			&#125;</span><br><span class="line">			if (right - left + 1 &gt; result.length())</span><br><span class="line">				result.assign(s, left, right - left + 1);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
 <h2 id="错误思路反省"><a href="#错误思路反省" class="headerlink" title="错误思路反省"></a>错误思路反省</h2><h4 id="1-条件定义错误"><a href="#1-条件定义错误" class="headerlink" title="1.条件定义错误"></a>1.<strong>条件定义错误</strong></h4><p>简单的将回文定义为  一个数在中间,两边相等 的序列, 实际上回文序列最中间可能是<strong>空</strong>而不是<strong>数</strong>.</p>
 <h4 id="2-边界特殊情况考虑不周"><a href="#2-边界特殊情况考虑不周" class="headerlink" title="2.边界特殊情况考虑不周"></a>2.<strong>边界特殊情况考虑不周</strong></h4><p>比如空字符串,比如没想到”aaaaa”这种字符串, 当然使用扩展分割的算法时这些情况都可以求解, 只不过如果自己能早点注意到这些特殊情况,就不需要绕弯子 , 可以直接上来就撸分割了.</p>
 <h4 id="3-自行测试"><a href="#3-自行测试" class="headerlink" title="3. 自行测试"></a>3. <strong>自行测试</strong></h4><p>自己在提交给OJ之前,应该自己尽量想出各种各样的测试样例, 不能写出什么就随便丢上去跑, 只有自己用心测试了之后才会发现自己的初始算法有那么多的错误.</p>
@@ -308,12 +285,12 @@ public:
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" rel="prev" title="LeetCode-No-48-矩阵圈圈类型">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-48-矩阵圈圈类型
+    <a href="/Blog/2020/02/17/LeetCode-No-50/" rel="prev" title="LeetCode-No-50">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-50
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-49/" rel="next" title="LeetCode-No-49">
-      LeetCode-No-49 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" rel="next" title="LeetCode-No-48-矩阵圈圈类型">
+      LeetCode-No-48-矩阵圈圈类型 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -379,6 +356,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -387,7 +366,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -446,13 +425,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -482,12 +461,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

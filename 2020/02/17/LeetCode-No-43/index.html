@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>12 分钟</span>
             </span>
 
         </div>
@@ -261,89 +271,9 @@
 <p>当然这个可以优化</p>
 </blockquote>
 <h4 id="1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1"><a href="#1-1-整数相乘直接思维是按竖式相乘-显而易见两次循环-外层num2-内层num1" class="headerlink" title="1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1"></a>1.1 整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4><h4 id="1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果"><a href="#1-2-对num2的最后一位-乘num1一遍-currentresult保存这遍的结果" class="headerlink" title="1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果."></a>1.2 对num2的最后一位,乘num1一遍,currentresult保存这遍的结果.</h4><h4 id="1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数"><a href="#1-3-result累加上currentresult-加法也有点麻烦-还得写个加法函数" class="headerlink" title="1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数"></a>1.3 result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4><h4 id="1-4-因为最后一位乘过了就没用了-num2-pop-back"><a href="#1-4-因为最后一位乘过了就没用了-num2-pop-back" class="headerlink" title="1.4  因为最后一位乘过了就没用了,num2.pop_back(),"></a>1.4  因为最后一位乘过了就没用了,num2.pop_back(),</h4><h4 id="1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数"><a href="#1-5-注意乘完一个数-下一个currentresult要向左移一位-即X10尾部添0-而我们又是反向存储-所以需要在currentresult头部加i个”0”-i-pop次数" class="headerlink" title="1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数"></a>1.5 注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0, 而我们又是反向存储,所以需要在currentresult头部加i个”0”, i=pop次数</h4><h4 id="1-6-num2所有数都用过了即num2-””-结束循环"><a href="#1-6-num2所有数都用过了即num2-””-结束循环" class="headerlink" title="1.6 num2所有数都用过了即num2=””,结束循环"></a>1.6 num2所有数都用过了即num2=””,结束循环</h4><h4 id="1-7-考虑一些收尾工作-进位有没有多-要不要连续进位"><a href="#1-7-考虑一些收尾工作-进位有没有多-要不要连续进位" class="headerlink" title="1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位"></a>1.7 考虑一些收尾工作,进位有没有多, 要不要连续进位</h4><h4 id="1-8-将累加结果result反转-得到真实结果"><a href="#1-8-将累加结果result反转-得到真实结果" class="headerlink" title="1.8 将累加结果result反转, 得到真实结果"></a>1.8 将累加结果result反转, 得到真实结果</h4><p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想, 权当一个编码锻炼.</p>
-<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
+<h2 id="暴力代码"><a href="#暴力代码" class="headerlink" title="暴力代码:"></a>暴力代码:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string multiply(string num1, string num2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num1 &#x3D;&#x3D; &quot;0&quot; || num2 &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">			return &quot;0&quot;;</span><br><span class="line"></span><br><span class="line">		string result;</span><br><span class="line">		string tempresult;</span><br><span class="line">		string zerostring;</span><br><span class="line">		int i;</span><br><span class="line">		int cflag &#x3D; 0;</span><br><span class="line">		while (num2 !&#x3D; &quot;&quot;)&#x2F;&#x2F;num1对num2每个数逐个相乘,每次result&#x3D;result+currentresult*10</span><br><span class="line">		&#123;</span><br><span class="line">			for (i &#x3D; num1.size() - 1; i &gt;&#x3D; 0; i--)</span><br><span class="line">			&#123;</span><br><span class="line">				tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);</span><br><span class="line">				cflag &#x3D; ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;乘到最后一个数还剩下cflag</span><br><span class="line">			if (cflag &gt; 0)</span><br><span class="line">				tempresult.push_back(&#39;0&#39; + cflag);</span><br><span class="line">			&#x2F;&#x2F;用零串移位</span><br><span class="line">			tempresult &#x3D; zerostring + tempresult;</span><br><span class="line">			&#x2F;&#x2F;相加上下两个字符串</span><br><span class="line">			ADDstring(result, tempresult);</span><br><span class="line">			&#x2F;&#x2F;乘完num2的一个数num2把用过的数pop</span><br><span class="line">			num2.pop_back();</span><br><span class="line">			&#x2F;&#x2F;临时数据清空</span><br><span class="line">			tempresult.clear();</span><br><span class="line">			zerostring +&#x3D; &quot;0&quot;;</span><br><span class="line">			cflag &#x3D; 0;</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;1 2 3</span><br><span class="line">		&#x2F;&#x2F;4 5 6</span><br><span class="line">		&#x2F;&#x2F;7 3 8+6 1 5 * 10</span><br><span class="line">		string reverseresult;</span><br><span class="line">		for (int j &#x3D; result.size() - 1; j &gt;&#x3D; 0; j--)</span><br><span class="line">			reverseresult.push_back(result[j]);</span><br><span class="line">		return reverseresult;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	void ADDstring(string&amp; up, string&amp; down)&#x2F;&#x2F;up和down字符串数值相加,结果存在up里,仅适用倒序存储</span><br><span class="line">	&#123;</span><br><span class="line">		int j &#x3D; 0;</span><br><span class="line">		int cflag &#x3D; 0;</span><br><span class="line">		int temp &#x3D; 0;</span><br><span class="line">		&#x2F;&#x2F;result接在up上面</span><br><span class="line">		while (j &lt; down.size())</span><br><span class="line">		&#123;</span><br><span class="line">			if (j &lt; up.size())&#x2F;&#x2F;up[j]存在</span><br><span class="line">			&#123;</span><br><span class="line">				temp &#x3D; (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;</span><br><span class="line">				up[j] &#x3D; (temp) % 10 + &#39;0&#39;;</span><br><span class="line">				cflag &#x3D; (temp) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#x2F;&#x2F;up[j]不存在</span><br><span class="line">			&#123;</span><br><span class="line">				up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);</span><br><span class="line">				cflag &#x3D; ((down[j] - &#39;0&#39;) + cflag) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">		while (cflag !&#x3D; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if (j &lt; up.size())&#x2F;&#x2F;up[j]存在</span><br><span class="line">			&#123;</span><br><span class="line">				temp &#x3D; (up[j] - &#39;0&#39;) + cflag;</span><br><span class="line">				up[j] &#x3D; (temp) % 10 + &#39;0&#39;;</span><br><span class="line">				cflag &#x3D; (temp) &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#x2F;&#x2F;up[j]不存在</span><br><span class="line">			&#123;</span><br><span class="line">				up.push_back(cflag % 10 + &#39;0&#39;);</span><br><span class="line">				cflag &#x3D; cflag &#x2F; 10;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-        string result;
-        string tempresult;
-        string zerostring;
-        int i;
-        int cflag = 0;
-        while (num2 != &quot;&quot;)//num1对num2每个数逐个相乘,每次result=result+currentresult*10
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {
-                tempresult.push_back(&#39;0&#39; + ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) % 10);
-                cflag = ((num1[i] - &#39;0&#39;)*(num2.back() - &#39;0&#39;) + cflag) / 10;
-            }
-            //乘到最后一个数还剩下cflag
-            if (cflag &gt; 0)
-                tempresult.push_back(&#39;0&#39; + cflag);
-            //用零串移位
-            tempresult = zerostring + tempresult;
-            //相加上下两个字符串
-            ADDstring(result, tempresult);
-            //乘完num2的一个数num2把用过的数pop
-            num2.pop_back();
-            //临时数据清空
-            tempresult.clear();
-            zerostring += &quot;0&quot;;
-            cflag = 0;
-        }
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-        string reverseresult;
-        for (int j = result.size() - 1; j &gt;= 0; j--)
-            reverseresult.push_back(result[j]);
-        return reverseresult;
-    }
-
-    void ADDstring(string&amp; up, string&amp; down)//up和down字符串数值相加,结果存在up里,仅适用倒序存储
-    {
-        int j = 0;
-        int cflag = 0;
-        int temp = 0;
-        //result接在up上面
-        while (j &lt; down.size())
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + (down[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(((down[j] - &#39;0&#39;) + cflag) % 10 + &#39;0&#39;);
-                cflag = ((down[j] - &#39;0&#39;) + cflag) / 10;
-            }
-
-            j++;
-        }
-        while (cflag != 0)
-        {
-            if (j &lt; up.size())//up[j]存在
-            {
-                temp = (up[j] - &#39;0&#39;) + cflag;
-                up[j] = (temp) % 10 + &#39;0&#39;;
-                cflag = (temp) / 10;
-            }
-            else//up[j]不存在
-            {
-                up.push_back(cflag % 10 + &#39;0&#39;);
-                cflag = cflag / 10;
-            }
-        }
-
-
-    }
-
-};</code></pre><h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
+<h2 id="2-优化思路——每一位数的乘法运算对result影响分析"><a href="#2-优化思路——每一位数的乘法运算对result影响分析" class="headerlink" title="2. 优化思路——每一位数的乘法运算对result影响分析"></a>2. 优化思路——每一位数的乘法运算对result影响分析</h2><blockquote>
 <p>//1 2 3 num1[i]   //为示范简单,这里序号从右往左编码,程序中需要转换<br>//4 5 6 num2[j]<br>//例如num1[0]和num2[0]相乘 : 3X6=18<br>肯定影响到了result[0+0],有进位则会影响到result[0+0+1], result其他的值则肯定不会改变</p>
 </blockquote>
 <h4 id="2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果"><a href="#2-1-优化分析-在竖式中-从右向左编码-两个数num1-i-num2-j-相乘-则只会影响到result-i-j-result-i-j-1-两位的结果" class="headerlink" title="2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,"></a>2.1 优化分析: 在竖式中,从右向左编码,  两个数num1[i], num2[j]相乘, 则只会影响到result[i+j] , result[i+j+1]两位的结果,</h4><h4 id="2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可"><a href="#2-2-因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可" class="headerlink" title="2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可"></a>2.2 因此我们不需要临时存储的容器currentresult, 只需要在 result中修改受影响的两位即可</h4><h4 id="2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop"><a href="#2-3-另外num2-pop-back虽然符合直觉习惯-但显然我们可以通过移动下标来代替反复的pop" class="headerlink" title="2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop"></a>2.3 另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4><blockquote>
@@ -352,57 +282,8 @@ public:
 <h4 id="2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转"><a href="#2-4-反转问题-同上可知-乘法最远也就影响到result-length1-length2-1-即result长度已知-因此可以反向填充result即可避免最后还得反转" class="headerlink" title="2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转."></a>2.4 反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1]. 即result长度已知, 因此可以反向填充result即可避免最后还得反转.</h4><blockquote>
 <p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
 </blockquote>
-<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><pre><code>class Solution {
-public:
-    string multiply(string num1, string num2)
-    {
-        if (num1 == &quot;0&quot; || num2 == &quot;0&quot;)
-            return &quot;0&quot;;
-
-
-        string result;
-        int totallength=num1.size()+num2.size();//result最大可能长度
-        int i;
-        int j=0;
-        int cflag =0;
-        int temp=0;//i+j位和存储器
-
-
-        for(i=0;i&lt;totallength;i++)//初始化填充
-        {
-            result.push_back(&#39;0&#39;);
-        }
-        //反向填充,可以不需要在最后reverse,....好像对效率影响不大
-        //把num2.pop()删掉了,终于从8ms提到了4ms......
-        while (j&lt;num2.size())//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤
-        {
-            for (i = num1.size() - 1; i &gt;= 0; i--)
-            {   //因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)
-                temp=(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);
-                //连续进位怎么办?临时存储?循环清理干净?
-                //临时存储试试
-                result[totallength-1-((num1.size()-i-1)+j+1)]+=temp/10;
-                result[totallength-1-((num1.size()-i-1)+j)]=&#39;0&#39;+temp%10;
-            }
-
-
-            j++;
-        }
-        //不需要检查最后一位要不要进位
-
-        //1 2 3
-        //4 5 6
-        //7 3 8+6 1 5 * 10
-
-        //跳过头部的0
-        if(result[0]!=&#39;0&#39;)
-            return result;
-        else
-            return result.substr(1);
-    }
-
-
-};</code></pre><hr>
+<h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string multiply(string num1, string num2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num1 &#x3D;&#x3D; &quot;0&quot; || num2 &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">			return &quot;0&quot;;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">		string result;</span><br><span class="line">        int totallength&#x3D;num1.size()+num2.size();&#x2F;&#x2F;result最大可能长度</span><br><span class="line">		int i;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">		int cflag &#x3D;0;</span><br><span class="line">        int temp&#x3D;0;&#x2F;&#x2F;i+j位和存储器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for(i&#x3D;0;i&lt;totallength;i++)&#x2F;&#x2F;初始化填充</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(&#39;0&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;反向填充,可以不需要在最后reverse,....好像对效率影响不大</span><br><span class="line">        &#x2F;&#x2F;把num2.pop()删掉了,终于从8ms提到了4ms......</span><br><span class="line">		while (j&lt;num2.size())&#x2F;&#x2F;num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤</span><br><span class="line">		&#123;</span><br><span class="line">			for (i &#x3D; num1.size() - 1; i &gt;&#x3D; 0; i--)</span><br><span class="line">			&#123;   &#x2F;&#x2F;因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)</span><br><span class="line">                temp&#x3D;(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);</span><br><span class="line">                &#x2F;&#x2F;连续进位怎么办?临时存储?循环清理干净?</span><br><span class="line">                &#x2F;&#x2F;临时存储试试</span><br><span class="line">                result[totallength-1-((num1.size()-i-1)+j+1)]+&#x3D;temp&#x2F;10;</span><br><span class="line">				result[totallength-1-((num1.size()-i-1)+j)]&#x3D;&#39;0&#39;+temp%10;</span><br><span class="line">			&#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            j++;</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F;不需要检查最后一位要不要进位</span><br><span class="line">       </span><br><span class="line">		&#x2F;&#x2F;1 2 3</span><br><span class="line">		&#x2F;&#x2F;4 5 6</span><br><span class="line">		&#x2F;&#x2F;7 3 8+6 1 5 * 10</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;跳过头部的0</span><br><span class="line">        if(result[0]!&#x3D;&#39;0&#39;)</span><br><span class="line">		    return result;</span><br><span class="line">        else</span><br><span class="line">            return result.substr(1);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
 <p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
 
     </div>
@@ -419,12 +300,12 @@ public:
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-32/" rel="prev" title="LeetCode-No-32">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-32
+    <a href="/Blog/2020/02/17/LeetCode-No-45/" rel="prev" title="LeetCode-No-45">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-45
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-28-(KMP)/" rel="next" title="LeetCode-No-28-(KMP)">
-      LeetCode-No-28-(KMP) <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-3/" rel="next" title="LeetCode-No-3">
+      LeetCode-No-3 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -490,6 +371,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -498,7 +381,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -557,13 +440,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -593,12 +476,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

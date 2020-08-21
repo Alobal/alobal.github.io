@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -20,12 +21,12 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响 对于Price列,值为字符串类型, 形同 “单价12345元&#x2F;平米”怎么把12345提取出来并且替换原字符串值  背景环境: 想取unitPrice中每项字符串换成intimport re import pandas as pd def Str2Price(oristr):# 提取oristr中的数字并">
+  <meta name="description" content="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响 对于Price列,值为字符串类型, 形同 “单价12345元&#x2F;平米”怎么把12345提取出来并且替换原字符串值  背景环境: 想取unitPrice中每项字符串换成int12345678import reimport pandas as pddef Str2Price(oristr):# 提取orist">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pandas-DataFrame-OLS入门问题">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响 对于Price列,值为字符串类型, 形同 “单价12345元&#x2F;平米”怎么把12345提取出来并且替换原字符串值  背景环境: 想取unitPrice中每项字符串换成intimport re import pandas as pd def Str2Price(oristr):# 提取oristr中的数字并">
+<meta property="og:description" content="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响 对于Price列,值为字符串类型, 形同 “单价12345元&#x2F;平米”怎么把12345提取出来并且替换原字符串值  背景环境: 想取unitPrice中每项字符串换成int12345678import reimport pandas as pddef Str2Price(oristr):# 提取orist">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg">
@@ -92,8 +93,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -149,6 +149,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -181,7 +191,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/Pandas-DataFrame-OLS%E5%85%A5%E9%97%A8%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -226,7 +236,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -248,57 +258,20 @@
         <h1 id="一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响"><a href="#一-列替换问题—-Series分为index-values-迭代是副本-不对原数据造成影响" class="headerlink" title="一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响"></a>一. 列替换问题—-Series分为index-values, 迭代是副本,不对原数据造成影响</h1><blockquote>
 <p>对于Price列,值为字符串类型, 形同 “单价12345元/平米”<br>怎么把12345提取出来并且替换原字符串值</p>
 </blockquote>
-<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><pre><code>import re
-import pandas as pd
-def Str2Price(oristr):# 提取oristr中的数字并返回int结果
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
-
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</code></pre><h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><pre><code>for i in oridata[&#39;unitPrice&#39;]:
-    i=Str2Price(i)
-
-oridata.head()</code></pre><h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].size):
-    oridata[&#39;unitPrice&#39;][i]=Str2Price(oridata[&#39;unitPrice&#39;][i])</code></pre><h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><pre><code>for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])</code></pre><h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
-<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><pre><code>import re
-import pandas as pd
-import statsmodels.api as sm
-def Str2Price(oristr):
-    pattern=re.compile(&quot;\d+&quot;)
-    result=pattern.findall(oristr)
-    return int(result[0])
-
-
-oridata=pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)
-
-for i in range(0,oridata[&#39;unitPrice&#39;].values.size):
-    oridata[&#39;unitPrice&#39;].values[i]=Str2Price(oridata[&#39;unitPrice&#39;].values[i])
-
-for i in range(0,oridata[&#39;attentionNum&#39;].values.size):
-    oridata[&#39;attentionNum&#39;].values[i]=Str2Price(oridata[&#39;attentionNum&#39;].values[i])
-oridata.head()
-x=oridata[[&#39;attentionNum&#39;]]
-y=oridata[[&#39;unitPrice&#39;]]
-x1=sm.add_constant(x)
-
-est=sm.OLS(y,x1).fit()
-est.summary()</code></pre><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
+<h3 id="背景环境-想取unitPrice中每项字符串换成int"><a href="#背景环境-想取unitPrice中每项字符串换成int" class="headerlink" title="背景环境: 想取unitPrice中每项字符串换成int"></a>背景环境: 想取unitPrice中每项字符串换成int</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">import pandas as pd</span><br><span class="line">def Str2Price(oristr):# 提取oristr中的数字并返回int结果</span><br><span class="line">    pattern&#x3D;re.compile(&quot;\d+&quot;)</span><br><span class="line">    result&#x3D;pattern.findall(oristr)</span><br><span class="line">    return int(result[0])</span><br><span class="line"></span><br><span class="line">oridata&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="1-for-in遍历只是取到迭代器-无法修改本体"><a href="#1-for-in遍历只是取到迭代器-无法修改本体" class="headerlink" title="1. for in遍历只是取到迭代器,无法修改本体"></a>1. for in遍历只是取到迭代器,无法修改本体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in oridata[&#39;unitPrice&#39;]:</span><br><span class="line">    i&#x3D;Str2Price(i)</span><br><span class="line"></span><br><span class="line">oridata.head()</span><br></pre></td></tr></table></figure>
+<h4 id="结果失败"><a href="#结果失败" class="headerlink" title="结果失败: "></a>结果失败: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuupcxhj20cy07tq30.jpg" alt="本体值没变"></h4><h3 id="2-for-i-in-0-series-size-遍历"><a href="#2-for-i-in-0-series-size-遍历" class="headerlink" title="2. for i in (0,series.size)遍历"></a>2. for i in (0,series.size)遍历</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0,oridata[&#39;unitPrice&#39;].size):</span><br><span class="line">    oridata[&#39;unitPrice&#39;][i]&#x3D;Str2Price(oridata[&#39;unitPrice&#39;][i])</span><br></pre></td></tr></table></figure>
+<h4 id="错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换"><a href="#错误-Series-i-为index-value对-取Series-i-取到的是对-无法调用函数进行转换" class="headerlink" title="错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换"></a>错误: Series[i]为index-value对 ,取Series[i]取到的是对, 无法调用函数进行转换</h4><h3 id="3-正解-取Series-values-i"><a href="#3-正解-取Series-values-i" class="headerlink" title="3. 正解: 取Series.values[i]"></a>3. 正解: 取Series.values[i]</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0,oridata[&#39;unitPrice&#39;].values.size):</span><br><span class="line">    oridata[&#39;unitPrice&#39;].values[i]&#x3D;Str2Price(oridata[&#39;unitPrice&#39;].values[i])</span><br></pre></td></tr></table></figure>
+<h4 id="结果成功"><a href="#结果成功" class="headerlink" title="结果成功:"></a>结果成功:</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuw05xzj20af06kmx4.jpg" alt="可以看到成功替换"></p>
+<h1 id="二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data"><a href="#二-值成功整理之后OLS依然错误-Pandas-data-cast-to-numpy-dtype-of-object-Check-input-data-with-np-asarray-data" class="headerlink" title="二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data)."></a>二. 值成功整理之后OLS依然错误:  Pandas data cast to numpy dtype of object. Check input data with np.asarray(data).</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">import pandas as pd</span><br><span class="line">import statsmodels.api as sm</span><br><span class="line">def Str2Price(oristr):</span><br><span class="line">    pattern&#x3D;re.compile(&quot;\d+&quot;)</span><br><span class="line">    result&#x3D;pattern.findall(oristr)</span><br><span class="line">    return int(result[0])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">oridata&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\二手房.csv&quot;)</span><br><span class="line"></span><br><span class="line">for i in range(0,oridata[&#39;unitPrice&#39;].values.size):</span><br><span class="line">    oridata[&#39;unitPrice&#39;].values[i]&#x3D;Str2Price(oridata[&#39;unitPrice&#39;].values[i])</span><br><span class="line"></span><br><span class="line">for i in range(0,oridata[&#39;attentionNum&#39;].values.size):</span><br><span class="line">    oridata[&#39;attentionNum&#39;].values[i]&#x3D;Str2Price(oridata[&#39;attentionNum&#39;].values[i])</span><br><span class="line">oridata.head()</span><br><span class="line">x&#x3D;oridata[[&#39;attentionNum&#39;]]</span><br><span class="line">y&#x3D;oridata[[&#39;unitPrice&#39;]]</span><br><span class="line">x1&#x3D;sm.add_constant(x)</span><br><span class="line"></span><br><span class="line">est&#x3D;sm.OLS(y,x1).fit()</span><br><span class="line">est.summary()</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuug01j20x402f749.jpg" alt="运行报错"></p>
 <h2 id="解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float"><a href="#解决方法-在传参给OLS的y和x1后面-加上强制类型转换-astype-float" class="headerlink" title="解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)"></a>解决方法: 在传参给OLS的y和x1后面,加上强制类型转换 .astype(float)</h2><blockquote>
 <p>但是字符串直接转成float时依然有这个错误, 有点奇怪 理应和astype(float)作用相同<br>——查看类型发现float是float类型,astype(float)是numpy.float64类型…..</p>
 </blockquote>
-<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><pre><code>est=sm.OLS(y.astype(float),x1.astype(float)).fit()</code></pre><h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
-<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><pre><code>import statsmodels.api as sm #  最小二乘
-from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息
-x = sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y=kx+b
-y = daily_data[&#39;cnt&#39;]
-regr = sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model
-res = regr.fit()    # res.model.endog
-#  从模型获得拟合数据
-st, data, ss2 = summary_table(res, alpha=0.05) #  置信水平alpha=5%，st数据汇总，data数据详情，ss2数据列名
-fitted_values = data[:,2]  # 等价于res.fittedvalues
-————————————————
-模型原文链接：https://blog.csdn.net/cymy001/article/details/78364652</code></pre>
+<h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">est&#x3D;sm.OLS(y.astype(float),x1.astype(float)).fit()</span><br></pre></td></tr></table></figure>
+<h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
+<h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import statsmodels.api as sm #  最小二乘</span><br><span class="line">from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息</span><br><span class="line">x &#x3D; sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y&#x3D;kx+b</span><br><span class="line">y &#x3D; daily_data[&#39;cnt&#39;]</span><br><span class="line">regr &#x3D; sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model</span><br><span class="line">res &#x3D; regr.fit()    # res.model.endog</span><br><span class="line">#  从模型获得拟合数据</span><br><span class="line">st, data, ss2 &#x3D; summary_table(res, alpha&#x3D;0.05) #  置信水平alpha&#x3D;5%，st数据汇总，data数据详情，ss2数据列名</span><br><span class="line">fitted_values &#x3D; data[:,2]  # 等价于res.fittedvalues</span><br><span class="line">————————————————</span><br><span class="line">模型原文链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;cymy001&#x2F;article&#x2F;details&#x2F;78364652</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -313,12 +286,12 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B9%81%E5%BF%99%E5%8D%A1%E6%AD%BB-vmware-vmx%E8%BF%9B%E7%A8%8B%E6%9D%80%E4%B8%8D%E6%8E%89-%E6%8B%92%E7%BB%9D%E8%AE%BF%E9%97%AE/" rel="prev" title="VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问">
-      <i class="fa fa-chevron-left"></i> VMware-虚拟机繁忙卡死-vmware-vmx进程杀不掉-拒绝访问
+    <a href="/Blog/2020/02/17/Win10-SSH%E9%94%99%E8%AF%AF/" rel="prev" title="Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件">
+      <i class="fa fa-chevron-left"></i> Win10-cmd-PowerShell-SSH无法创建目录-和-SCP-找不到文件
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-92/" rel="next" title="LeetCode-No-92">
-      LeetCode-No-92 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/SVM%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" rel="next" title="SVM——人员聚集">
+      SVM——人员聚集 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -384,6 +357,8 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -392,7 +367,7 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -451,13 +426,13 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -487,12 +462,37 @@ fitted_values = data[:,2]  # 等价于res.fittedvalues
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

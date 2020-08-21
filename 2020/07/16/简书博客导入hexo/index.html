@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -86,8 +87,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -143,6 +143,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -175,7 +185,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -246,17 +256,7 @@
 <li>shell脚本只要你安装好了git环境，即可在命令行中通过 <code>sh xxx.sh</code> 运行相关脚本，至于怎么去写，有兴趣可以自己了解</li>
 </ul>
 <p>以下是我使用的shell脚本：</p>
-<pre class="line-numbers language-sh"><code class="language-sh">for f in ./*/*;do
-sed -i  's/#####\([^#]\)/##### \1/' $f
-sed -i  's/####\([^#]\)/#### \1/' $f
-sed -i  's/###\([^#]\)/### \1/' $f
-sed -i  's/##\([^#]\)/## \1/' $f
-sed -i  's/#\([^#]\)/# \1/' $f
-base=$(basename $f .md)
-categories=$(basename $(dirname $f) $PWD)
-insert="---\ntitle: ${base}\ncategories:\n- ${categories}\ndate:2020-02-17 02:17:00\n---\n"
-echo -e "${insert}$(cat $f)" > $f
-done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> ./*/*;<span class="keyword">do</span></span><br><span class="line">sed -i  <span class="string">'s/#####\([^#]\)/##### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/####\([^#]\)/#### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/###\([^#]\)/### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/##\([^#]\)/## \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/#\([^#]\)/# \1/'</span> <span class="variable">$f</span></span><br><span class="line">base=$(basename <span class="variable">$f</span> .md)</span><br><span class="line">categories=$(basename $(dirname <span class="variable">$f</span>) <span class="variable">$PWD</span>)</span><br><span class="line">insert=<span class="string">"---\ntitle: <span class="variable">$&#123;base&#125;</span>\ncategories:\n- <span class="variable">$&#123;categories&#125;</span>\ndate:2020-02-17 02:17:00\n---\n"</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;insert&#125;</span><span class="variable">$(cat $f)</span>"</span> &gt; <span class="variable">$f</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>前半段为sed在#字符后添加空格，因为在简书里 <code>#紧贴标题</code> 也是可以成功识别的，但是其他的markdown不一定支持。这里注意需要用到的命令格式为<code>sed -i &#39;s/old/new&#39; file</code></li>
 <li><ul>
@@ -372,6 +372,8 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -380,7 +382,7 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -439,13 +441,13 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -475,12 +477,37 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

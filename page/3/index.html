@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -85,8 +86,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -142,6 +142,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -170,10 +180,272 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">自定义 next 主题博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 01:36:25" itemprop="dateCreated datePublished" datetime="2020-07-15T01:36:25+08:00">2020-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-22 04:20:27" itemprop="dateModified" datetime="2020-08-22T04:20:27+08:00">2020-08-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ul>
+<li>Next 7.8.0</li>
+<li>hexo 4.2.1</li>
+<li>npm 6.14.5</li>
+<li>Next 配置文件指 项目根目录/themes/next/_config.yml</li>
+<li>项目配置文件指 项目根目录/_config.yml</li>
+<li>注意在配置文件中配置字段时，请严格控制缩进</li>
+<li>安装命令没特别说明都在 项目根目录 下进行</li>
+</ul>
+<p>Next 在 2020 更新了它的母仓库，由于原仓库的管理人员跑路玩失踪，没人理想提交更新的大大，于是他自己重新开了一个 2020 Next 8.0.0 版本的库。..</p>
+<p>不过我刚入坑的时候试了下 8.0 版本，发现有些配置文件都改了。. 找不到对应的教程。而之前版本的教程更加详细丰富，因此我还是用了 7.8 版本。</p>
+<p>以下所有配置都建立在 7.8 版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</p>
+<p>在吗？吐槽无数遍，2020 的人为什么写博客还抄的 Next4.0 版本&lt;( ‵□′)&gt;───就算你不想用 2020 大改版的版本，好歹和我一样用个 7.8 吧！！至少来个 7.0+吧孩子们！！退一万步 6.0+也是可以的啊！！哇的一声吼出来！！</p>
+<blockquote>
+<p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code> 等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
+</blockquote>
+<h1 id="功能性配置"><a href="#功能性配置" class="headerlink" title="功能性配置"></a>功能性配置</h1><p>一些比较常规的功能性配置 Next 文档里都有的。</p>
+<p>虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，是真的好用！！（怒吼</p>
+<p>比起网上到处炒几年前的旧版本冷饭有用多了！！！</p>
+<p>另外可以多摸摸 Next 配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
+<p><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next 官方手册</a></p>
+<h2 id="站点概览描述"><a href="#站点概览描述" class="headerlink" title="站点概览描述"></a>站点概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是 next 主题，会显示在侧边栏中。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Sitch's</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Sitch,Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Sitch</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置头像"><a href="#配置头像" class="headerlink" title="配置头像"></a>配置头像</h2><p>在 Next 配置文件下找到 <code>avatar</code>字段，有如下配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here. 你的头像图片路径</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.png</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle. 要不要圆化</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor. 要不要在指针悬停时旋转头像</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>如上给了个示例路径，然后将头像放在 <strong>主题</strong>目录下的 source/images/avatar.png 即可。</p>
+<p>另外两个属性可以按需配置。</p>
+<p>重新生成部署网站，瞅瞅你的大头照吧。</p>
+<blockquote>
+<p>头像图片大小没关系，会自动缩放，但是比例不变，即使圆化也会变成椭圆。因此请注意图片比例最好是正方形，美观。</p>
+</blockquote>
+<h2 id="Next-的分类和标签"><a href="#Next-的分类和标签" class="headerlink" title="Next 的分类和标签"></a>Next 的分类和标签</h2><p>在 next 主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。</p>
+<blockquote>
+<p>分类有层级，标签没有层级。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<p>但相关页面还需要自己生成，在项目根目录下输入相应命令，创建相关页面。</p>
+<ul>
+<li><code>hexo new page categories</code></li>
+<li><code>hexo new page tags</code></li>
+</ul>
+<p>并且打开生成的页面，在元数据中相应添加字段</p>
+<ul>
+<li><code>type: categories</code></li>
+<li><code>type: tags</code>。</li>
+</ul>
+<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line"><span class="bullet">- </span>博客搭建</span><br></pre></td></tr></table></figure>
+
+<h2 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
+<p>在 项目/themes/next/layout/_macro/sidebar.swig 中， 插入复制的代码，比如插入在最下面某一段。</p>
+<blockquote>
+<p>注意 2020 版本后缀不是 swig，相关文件也不一样</p>
+</blockquote>
+<h2 id="导入豆瓣评价页面"><a href="#导入豆瓣评价页面" class="headerlink" title="导入豆瓣评价页面"></a>导入豆瓣评价页面</h2><p>个人博客肯定想记录点自己生活向的东西，看过的电影，玩过的游戏就是一个很好的记录对象。</p>
+<p>之前我是用 markdown 写了个文本条目性质的，不说难看吧，但起码豆瓣条目自带一些影片介绍信息。..</p>
+<h3 id="安装-hexo-douban-插件"><a href="#安装-hexo-douban-插件" class="headerlink" title="安装 hexo-douban 插件"></a>安装 hexo-douban 插件</h3><p>命令行输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
+
+<p>将下面的配置写入<strong>项目</strong>配置文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">douban:</span> <span class="comment">#不想启用的页面注释掉即可</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">豆瓣</span> <span class="string">id</span>  </span><br><span class="line">  <span class="attr">builtin:</span> <span class="literal">false</span>  <span class="comment">#是否将生成豆瓣页面功能嵌入到 hexo s 和 hexo g</span></span><br><span class="line">  <span class="attr">book:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my book title'</span>  <span class="comment">#页面标题</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my book quote'</span>  <span class="comment">#页面序言</span></span><br><span class="line">  <span class="attr">movie:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my movie title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my movie quote'</span></span><br><span class="line">  <span class="attr">game:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my game title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my game quote'</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">10000</span> <span class="comment">#爬取豆瓣数据的超时时间，别管了</span></span><br></pre></td></tr></table></figure>
+
+<p>豆瓣id可以在进入你的豆瓣个人主页，观察网址获得。通常为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;你的id&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="hexo-douban-命令"><a href="#hexo-douban-命令" class="headerlink" title="hexo douban 命令"></a>hexo douban 命令</h3><p>用法如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">命令行输入</span> <span class="string">hexo</span> <span class="string">douban</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Description:</span></span><br><span class="line"><span class="string">爬取生成豆瓣相关页面</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Options:</span> <span class="comment">#默认参数 -bgm</span></span><br><span class="line">  <span class="string">-b,</span> <span class="string">--books</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">books</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-g,</span> <span class="string">--games</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">games</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-m,</span> <span class="string">--movies</span>  <span class="string">Generate</span> <span class="string">douban</span> <span class="string">movies</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-h，显示帮助</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul>
+<li><code>hexo douban</code>生成相关页面再进行部署。</li>
+<li>builtin 开启时，直接 hexo s 和 hexo g 即包含生成过程。</li>
+</ul>
+<blockquote>
+<p>注意安装了hexo-douban之后，我们多了个<code>hexo douban</code>的命令，因此不能再用<code>hexo d</code>作为<code>hexo deploy</code>的缩写了。</p>
+</blockquote>
+<h3 id="开个主页栏"><a href="#开个主页栏" class="headerlink" title="开个主页栏"></a>开个主页栏</h3><p>生成部署后就可以通过<code>/主网址/movies</code>类似的形式访问了，但这样显然不方便，因此我们开个主页栏给它。</p>
+<p>和之前开启分类页一样，在<strong>主题</strong>配置文件中，找到 menu 字段，添加相应的值，如下以movies举例进行修改：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="attr">movies:</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-film</span>  <span class="comment">#添加了movies页</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这样开启之后，显示的是movies ，想改成中文显示需要在<code>主题目录/languages/zh-CN</code>中配置一下，自己打开看看就懂得怎么配了，懒得贴实例了哈=。=</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://github.com/mythsman/hexo-douban" target="_blank" rel="noopener">hexo-douban 文档</a></p>
+<h2 id="字数统计和阅读时长"><a href="#字数统计和阅读时长" class="headerlink" title="字数统计和阅读时长"></a>字数统计和阅读时长</h2><p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a></p>
+<p>使用命令行 npm 输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
+<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">	<span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">2</span>      <span class="comment">#设置 2 个字符看作一个字</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">200</span>    <span class="comment">#每分钟阅读字数</span></span><br></pre></td></tr></table></figure>
+
+<p>next 主题 _config.yml 里找到字段 symbols_count_time 按需配置即可：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-symbols-count-time</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
+<h2 id="添加百度分析"><a href="#添加百度分析" class="headerlink" title="添加百度分析"></a>添加百度分析</h2><p>登陆 <a href="https://tongji.baidu.com/web/10000256460/welcome/login" target="_blank" rel="noopener">百度统计</a></p>
+<p>进入个人页，选择侧栏的代码获取页</p>
+<p>可以看到如下一段代码，找到<code>hm.js?</code>之后的序列号复制。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">  hm.src = <span class="string">"https://hm.baidu.com/hm.js? 复制这段"</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<p>填写在 next 配置里的百度分析字段中：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics</span></span><br><span class="line"><span class="attr">baidu_analytics:</span> <span class="string">粘贴到这里</span></span><br></pre></td></tr></table></figure>
+
+<p>之后等待一段时间就可以去百度分析主页看网站情况啦。</p>
+<p>然后你就能开心地发现几天，几十天，几百天，访问量蹭蹭蹭的涨，访问 ip 一直都只有 1 个 hhhh。</p>
+<p>嗯，其实在被搜索引擎收录之前别人是搜不到你的博客的。</p>
+<p>请捞一捞下面的 Google 收录方法。</p>
+<h2 id="Google-收录"><a href="#Google-收录" class="headerlink" title="Google 收录"></a>Google 收录</h2><p>以 Next 主题为例</p>
+<p>登录 <a href="https://search.google.com/search-console/" target="_blank" rel="noopener">Google Search Console</a></p>
+<blockquote>
+<p>当然，没有账号的话需要自己搞好 Google 账号</p>
+</blockquote>
+<h3 id="选择资源类型"><a href="#选择资源类型" class="headerlink" title="选择资源类型"></a>选择资源类型</h3><p>我是 GitHub Pages 域名的个人网站，所以选右边的单网址的资源类型。把博客网址复制过去即可创建资源。</p>
+<h3 id="验证网站所有权"><a href="#验证网站所有权" class="headerlink" title="验证网站所有权"></a>验证网站所有权</h3><p>Goolge 推荐验证方法是下载 HTML 文件。但是，我们不用。毕竟一个<code>hexo clean</code>网页就没了。..</p>
+<p>选下面的 HTML 标记验证，可以看到形如下面的一段代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"XXXXXXXXXXXXXXXXXXXXXXX"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>把 xxxx 的东西复制好。</p>
+<p>打开 Next 的配置文件，搜索到<code>google_site_verification</code>字段，把复制的字段填进去就好。</p>
+<p><code>hexo clean;hexo g;hexo d</code>一套刷新网站组合拳。</p>
+<p>回刚才的 Google 家里点击进行验证即可。</p>
+<p>验证成功后可以 Google 搜索<code>site: 你的网址</code>试试，理应看到你的博客网址。</p>
+<blockquote>
+<p>这里很多看很多博客都是在抄几年前的方法，明明 2020 了啊哥哥们，Next 已经传宗接代到 8.0 了！！已经有内置<code>google-site-verification</code>字段了！！</p>
+<p>明明限制了搜索时间是半年以内，结果 2020 年这群人写的教程还是抄的 10 年的东西看着好烦啊喂！！！！！！！！！！！！！！</p>
+</blockquote>
+<h3 id="添加站点地图-SiteMap"><a href="#添加站点地图-SiteMap" class="headerlink" title="添加站点地图 SiteMap"></a>添加站点地图 SiteMap</h3><p>站点地图可以将我们网站的组织架构提供给 Google，都是为了搜索优化==</p>
+<p>安装 hexo 自动生成站点地图的插件：</p>
+<p><code>npm install hexo-generator-sitemap --save</code></p>
+<p>安装成功后在项目配置文件中添加：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
+
+<p>这样插件每次会在<code>hexo g</code>时自动生成 sitemap.xml 文件，放在/public/下面。</p>
+<blockquote>
+<p>注意博客文件名带有<code>&amp;</code>时，生成的 sitemap.xml 会有错误，我的解决办法是修改文件名。</p>
+</blockquote>
+<p>其实我们也知道每次部署出去的网站也就是/public/目录，所以 sitemap.xml 相当于放在网站根目录下面。</p>
+<p>因此我们把<code>你的网站地址/sitemap.xml</code>这个链接提交给 Google 即可。</p>
+<p>执行<code>hexo g;hexo d</code>生成 sitemap 并部署出去。</p>
+<p>在 <a href="https://search.google.com/search-console/sitemaps/" target="_blank" rel="noopener">Google SearchConsole</a> 侧栏找到站点地图，提交上面说的链接，完毕。</p>
+<h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
+<p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用。<del>我恨不得删项跑路</del></p>
+<blockquote>
+<p>正确配置了项目设置里的 highlight 字段，和 next 主题设置里的 codeblock 风格</p>
+</blockquote>
+<p>跑了跑了连夜跑了 ，<del>隔壁 prism-plugin 真香</del>。</p>
+<blockquote>
+<p>意外的是，prism 设置了 custom_css 的无效路径后，即使 hexo 自带 highlight 是关闭状态，代码高亮居然被 hexo 的 highlight 接管了，除了行号没有一切正常。当然，要正常使用还是用 prism 吧。</p>
+</blockquote>
+<p>好吧也不是那么香，prism 的语法提示挺简陋的。.. 烦到，这个坑好大 (╯‵□′)╯︵┻━┻</p>
+<p>被简陋到，改回 highlight 了，不知道为啥高亮又可以用了，但是觉得 next 的几款 highlight 都不太搭白底网站，于是摸了一遍发现<code>themes\next\source\css\_common\scaffolding\highlight\</code>路径下的文件存储着几套主题的配色，可以自己改一套喜欢的了。</p>
+<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next 的设计已经清新的挺舒服了。</p>
+<h2 id="自定义样式，如配色等"><a href="#自定义样式，如配色等" class="headerlink" title="自定义样式，如配色等"></a>自定义样式，如配色等</h2><h3 id="修改方法"><a href="#修改方法" class="headerlink" title="修改方法"></a>修改方法</h3><p>在 next 配置文件中，找到下面这段，然后把需要的自定义字段取消注释，这里我们想要自定义 style，因此取消注释 style 字段，之后可以在路径文件中写入你想要<strong>覆盖</strong>的样式。</p>
+<p><strong>注意是 hexo 项目根目录下的 source/_data/styles.styl</strong>，没有则自己创建。<br><strong>注意不是 next 主题目录下的路径</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<p>以下样式修改大多是在 styles 文件中进行。</p>
+<h3 id="调试样式方法"><a href="#调试样式方法" class="headerlink" title="调试样式方法"></a>调试样式方法</h3><p>虽然能够自定义覆盖样式，但是配色总是要试试的嘛，怎么调试出自己喜欢的配色再添加到文件里呢？</p>
+<p>chrome 打开博客网站，右键你想要更改的元素，例如正文背景，在右键菜单中点【检查】，可以看到如图的调试台，右边则是相应的元素样式。如图：<br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtuquyezgj20wn0di0v3.jpg" alt="主要找右边的样式表"><br>比如这里我就把正文背景从原来的纯白，修改为了带点暖黄的护眼色。<br>然后把更改的这段复制到 styles.styl 即可，如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//正文背景护眼色</span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attribute">--body-bg-color</span>: <span class="number">#f9dbb647</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新生成文章即可，其他浏览器调试应该也是同理，没试过。</p>
+<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置 global 全局字体就行。</p>
+<p>字体 CDN 默认是 google 的，可以去里面挑自己喜欢的字体，在 family 字段配置即可。</p>
+<p>个人是比较喜欢思源宋体的。</p>
+<p>示例如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="标题阴影配置"><a href="#标题阴影配置" class="headerlink" title="标题阴影配置"></a>标题阴影配置</h2><p>标题虽然可以通过字体大小区分，但是光秃秃的几个字在全文里还是有比较混杂的感觉，即不方便分割上下文，也不凸显标题本身。</p>
+<p>因此考虑添加阴影来增强标题感。</p>
+<p>在 styles 中添加字段如下，具体颜色和大小参数自己配吧。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">h1</span>, <span class="selector-class">.post-body</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0</span> -<span class="number">0.6em</span> <span class="number">0</span> <span class="number">#ffeb88</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单句代码悬浮突出配置"><a href="#单句代码悬浮突出配置" class="headerlink" title="单句代码悬浮突出配置"></a>单句代码悬浮突出配置</h2><p>单句代码无论用什么颜色修改感觉都差点意思，要么是太过鲜艳，在频繁的地方看的挺烦，要么是太过暗淡，又不够突出明显。</p>
+<p>因此搬运了悬浮贴的 css 样式。</p>
+<p>单句代码和代码块都在<code>code</code>类下面，因此最好加个<code>p</code>类限制为仅单句代码。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5rem</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0.2em</span> <span class="number">0.2em</span> <span class="number">0</span> <span class="number">0</span> <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.1em</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">vertical-align</span>: bottom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a><br><a href="https://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">Next 进阶文档</a><br><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next Document</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -251,29 +523,19 @@
 <h2 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h2><p>###初始化<br>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
 <p>运行<code>hexo init</code>初始化</p>
 <h3 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h3><p>运行以下命令部署默认网页进行测试：</p>
-<pre class="line-numbers language-yml"><code class="language-yml">hexo new test_my_site #创建新 test_my_site 的 markdown 文件
-
-hexo g                # 从 md 文件生成 html 文件
-
-hexo s                # 部署本地服务器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">test_my_site</span> <span class="comment">#创建新 test_my_site 的 markdown 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>                <span class="comment"># 从 md 文件生成 html 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span>                <span class="comment"># 部署本地服务器</span></span><br></pre></td></tr></table></figure>
 <p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
 <h3 id="部署到网络"><a href="#部署到网络" class="headerlink" title="部署到网络"></a>部署到网络</h3><p>在文件夹根路径下面，找到_config.yml，打开修改</p>
 <p>最后一段为：</p>
-<pre class="line-numbers language-yml"><code class="language-yml">deploy:
-type: git
-repo: 仓库的完整路径，推荐使用 ssh 路径，这样可以有 ssh 免密登录。例如我的 git@github.com:Alobal/Blog.git
-branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">仓库的完整路径，推荐使用</span> <span class="string">ssh</span> <span class="string">路径，这样可以有</span> <span class="string">ssh</span> <span class="string">免密登录。例如我的</span> <span class="string">git@github.com:Alobal/Blog.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
 <p>URL 小段为：</p>
-<pre class="line-numbers language-yml"><code class="language-yml"># URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: 访问网址，例如 https://alobal.github.io/Blog/
-root: 仓库名，例如/Blog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">访问网址，例如</span> <span class="string">https://alobal.github.io/Blog/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">仓库名，例如/Blog</span></span><br></pre></td></tr></table></figure>
+
 <p>保存关闭该文件</p>
 <p>安装 hexo 的 git 部署插件<code>npm install hexo-deployer-git --save</code></p>
 <p>运行以下命令进行发布到网络</p>
-<pre class="line-numbers language-yml"><code class="language-yml">hexo clean
-hexo g
-hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
 </blockquote>
@@ -287,17 +549,12 @@ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 <p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next 项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19 版本网上教程比较健全了。</p>
 </blockquote>
 <h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>打开 _config.yml，修改 theme 字段：</p>
-<pre class="line-numbers language-yml"><code class="language-yml"># Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: 主题名，例如 next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">主题名，例如</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+
 <p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。</p>
 <p>比如 next 主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找 next 官方文档。</p>
-<pre class="line-numbers language-yml"><code class="language-yml"># Schemes
-#scheme: Muse
-#scheme: Mist
-scheme: Pisces
-#scheme: Gemini<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+
 <p>输入<code>hexo g;hexo d</code> 重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
 <blockquote>
 <p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者 Ctrl+F5 强制刷新。</p>
@@ -312,28 +569,9 @@ scheme: Pisces
 <li>命令行<code>npm install</code> 安装所有依赖包完事。</li>
 </ul>
 <h3 id="没有启用代码高亮"><a href="#没有启用代码高亮" class="headerlink" title="没有启用代码高亮"></a>没有启用代码高亮</h3><p>根目录 config 里，修改配置如下：</p>
-<pre class="line-numbers language-yml"><code class="language-yml">highlight:
-  enable: true
-  line_number: true
-  auto_detect: true
-  tab_replace: ''
-  wrap: true
-  hljs: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">''</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>next 主题配置里，选择自己要的高亮样式：</p>
-<pre class="line-numbers language-yml"><code class="language-yml">codeblock:
-  # Code Highlight theme
-  # All available themes: https://theme-next.js.org/highlight/
-  theme:
-    light:  tomorrow-night-blue
-    dark:  tomorrow-night-blue
-  prism:
-    light: tomorrow-night-blue
-    dark: tomorrow-night-blue
-  # Add copy button on codeblock
-  copy_button:
-    enable: true
-    # Available values: default | flat | mac
-    style:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="attr">prism:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -356,7 +594,7 @@ scheme: Pisces
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -402,7 +640,7 @@ scheme: Pisces
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -423,61 +661,24 @@ scheme: Pisces
       
           <p>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</p>
 <h2 id="1-派生类私有成员-和-基类-同时初始化"><a href="#1-派生类私有成员-和-基类-同时初始化" class="headerlink" title="1. 派生类私有成员 和 基类 同时初始化"></a>1. 派生类私有成员 和 基类 同时初始化</h2><p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？<br>测试背景：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-<span class="token keyword">class</span> <span class="token class-name">base</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	base(<span class="keyword">int</span> i) :x(i) &#123; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dispb</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"x="</span> &lt;&lt; x &lt;&lt; <span class="string">" "</span> &lt;&lt; <span class="string">"base</span></span><br><span class="line"><span class="string">"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">derived</span> :</span> <span class="keyword">public</span> base</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	derived(<span class="keyword">int</span> i) :a(i), base(a) &#123;  &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dispd</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"a="</span> &lt;&lt; a &lt;&lt; <span class="string">" "</span> &lt;&lt; <span class="string">"derived</span></span><br><span class="line"><span class="string">"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">derived <span class="title">obj</span><span class="params">(<span class="number">8</span>)</span></span>;</span><br><span class="line">	base*p =&amp;obj;</span><br><span class="line">	p-&gt;dispb();</span><br><span class="line">	system(<span class="string">"PAUSE"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="token keyword">void</span> <span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"x="</span> <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "base
-"<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">class</span> <span class="token class-name">derived</span> <span class="token operator">:</span> <span class="token keyword">public</span> base
-<span class="token punctuation">{</span>
-    <span class="token keyword">int</span> a<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token punctuation">}</span>
-
-    <span class="token keyword">void</span> <span class="token function">dispd</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a="</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> "derived
-"<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    derived <span class="token function">obj</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    base<span class="token operator">*</span>p <span class="token operator">=</span><span class="token operator">&amp;</span>obj<span class="token punctuation">;</span>
-    p<span class="token operator">-</span><span class="token operator">></span><span class="token function">dispb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"PAUSE"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtt5j2vutj204p02f3yb.jpg" alt="x!=i"></p>
 <p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
 <blockquote>
 <p>想要正常构造，把base（a)改成base（i）即可。</p>
 </blockquote>
-<h2 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h2><h3 id="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="2-派生类初始化私有成员，基类在函数体内构造"><a href="#2-派生类初始化私有成员，基类在函数体内构造" class="headerlink" title="2. 派生类初始化私有成员，基类在函数体内构造"></a>2. 派生类初始化私有成员，基类在函数体内构造</h2><h3 id="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"><a href="#假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。" class="headerlink" title="假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。"></a>假如派生类的构造函数是这样的：初始化私有成员，体内构造基类。</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">derived(<span class="keyword">int</span> i) :a(i) &#123; base(i); &#125;</span><br></pre></td></tr></table></figure>
 <p>会提示类base不存在默认构造函数。</p>
 <p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
 <h3 id="假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？"><a href="#假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base-i-，是这样吗？" class="headerlink" title="假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？"></a>假如基类有无参数的构造函数呢？讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？</h3><p>增加一个无参数的基类构造函数：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">base</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">base() &#123; <span class="built_in">cout</span> &lt;&lt;<span class="string">"This is base()"</span>&lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">.....</span><br><span class="line">derived(<span class="keyword">int</span> i) :a(i) &#123; base(i); &#125;</span><br></pre></td></tr></table></figure>
+
 <p>报错：形参 i 重定义——明明只声明了一次 i ，怎么就重定义了呢？把a(i)删去？还是报错重定义</p>
 <p>——<a href="https://segmentfault.com/q/1010000014553913" target="_blank" rel="noopener">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：<br>“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</p>
 <h3 id="这里面存在-声明-语句-定义-等根本性语法的规则定义"><a href="#这里面存在-声明-语句-定义-等根本性语法的规则定义" class="headerlink" title="这里面存在 声明  语句 定义 等根本性语法的规则定义= ="></a>这里面存在 声明  语句 定义 等根本性语法的规则定义= =</h3><p>具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i) 中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</p>
 <h3 id="i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？"><a href="#i-冲突那我不用-i-了，我用base（a-可以吧？a是被初始化的变量拿去赋值没问题吧？" class="headerlink" title="i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？"></a>i 冲突那我不用 i 了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</h3><p>派生类构造函数改成：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">base</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token operator">:</span><span class="token function">x</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"base(int i): "</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token function">base</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span><span class="token string">"This is base()"</span><span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token function">derived</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>：<span class="token function">a</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"a:"</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token function">base</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">base(<span class="keyword">int</span> i) :x(i) &#123; <span class="built_in">cout</span> &lt;&lt;<span class="string">"base(int i): "</span>&lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">base() &#123; <span class="built_in">cout</span> &lt;&lt;<span class="string">"This is base()"</span>&lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">......</span><br><span class="line">derived(<span class="keyword">int</span> i)：a(i)&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"a:"</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>; base(a); &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="derived-8-运行，猜猜运行结果是什么？"><a href="#derived-8-运行，猜猜运行结果是什么？" class="headerlink" title="derived(8)运行，猜猜运行结果是什么？"></a>derived(8)运行，猜猜运行结果是什么？</h3><p>我们知道初始化a时，先会调用base（）<br>然后初始化a<br>然后进入函数体内输出a值<br>然后a传参给base（int i）<br>Really？<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtt5j06rmj20mi05hgln.jpg" alt="运行结果:"></p>
 
       
@@ -501,7 +702,7 @@ scheme: Pisces
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/C++-%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -547,7 +748,7 @@ scheme: Pisces
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>459</span>
+              <span>558</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -567,26 +768,7 @@ scheme: Pisces
 
       
           <h1 id="explicit-说明符——Cppreference"><a href="#explicit-说明符——Cppreference" class="headerlink" title="explicit 说明符——Cppreference"></a><a href="https://zh.cppreference.com/w/cpp/language/explicit" target="_blank" rel="noopener">explicit 说明符——Cppreference</a></h1><p>指定构造函数 (及转换函数或推导指引) 为显式, <strong>不能被隐式调用</strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//from Cpp reference</span>
-<span class="token keyword">struct</span> B
-<span class="token punctuation">{</span>
-    <span class="token keyword">explicit</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-    <span class="token keyword">explicit</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
-    <span class="token keyword">explicit</span> <span class="token keyword">operator</span> <span class="token keyword">bool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span> 
-    B b1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// 错误：复制初始化不考虑 B::B(int)</span>
-    B <span class="token function">b2</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// OK：直接初始化选择 B::B(int)</span>
-    B b3 <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// OK：直接列表初始化选择 B::B(int, int)</span>
-    B b4 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 错误：复制列表初始化不考虑 B::B(int,int)</span>
-    B b5 <span class="token operator">=</span> <span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token number">1</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// OK：显式转型进行 static_cast</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>b2<span class="token punctuation">)</span> <span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// OK：B::operator bool()</span>
-    <span class="token keyword">bool</span> nb1 <span class="token operator">=</span> b2<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 错误：复制初始化不考虑 B::operator bool()</span>
-    <span class="token keyword">bool</span> nb2 <span class="token operator">=</span> <span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token operator">></span><span class="token punctuation">(</span>b2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// OK：static_cast 进行直接初始化</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//from Cpp reference</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="keyword">int</span>)</span> </span>&#123; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span> </span>&#123; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="title">bool</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="literal">true</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    B b1 = <span class="number">1</span>;      <span class="comment">// 错误：复制初始化不考虑 B::B(int)</span></span><br><span class="line">    <span class="function">B <span class="title">b2</span><span class="params">(<span class="number">2</span>)</span></span>;       <span class="comment">// OK：直接初始化选择 B::B(int)</span></span><br><span class="line">    B b3 &#123;<span class="number">4</span>, <span class="number">5</span>&#125;;   <span class="comment">// OK：直接列表初始化选择 B::B(int, int)</span></span><br><span class="line">    B b4 = &#123;<span class="number">4</span>, <span class="number">5</span>&#125;; <span class="comment">// 错误：复制列表初始化不考虑 B::B(int,int)</span></span><br><span class="line">    B b5 = (B)<span class="number">1</span>;   <span class="comment">// OK：显式转型进行 static_cast</span></span><br><span class="line">    <span class="keyword">if</span> (b2) ;      <span class="comment">// OK：B::operator bool()</span></span><br><span class="line">    <span class="keyword">bool</span> nb1 = b2; <span class="comment">// 错误：复制初始化不考虑 B::operator bool()</span></span><br><span class="line">    <span class="keyword">bool</span> nb2 = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(b2); <span class="comment">// OK：static_cast 进行直接初始化</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -609,7 +791,7 @@ scheme: Pisces
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -655,7 +837,7 @@ scheme: Pisces
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -674,18 +856,8 @@ scheme: Pisces
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="7-KNN-实例——K-最近邻预测电影评分"><a href="#7-KNN-实例——K-最近邻预测电影评分" class="headerlink" title="7 KNN 实例——K 最近邻预测电影评分"></a>7 KNN 实例——K 最近邻预测电影评分</h1><pre><code>KNN 即先确定散点距离的定义，然后对每个新点选取 K 个距离最近的点（想象一个图，以新点为中心，不断扩大中心圆的面积，直到覆盖到 k 个点）, 用他们对新点进行投票。</code></pre><h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><pre class="line-numbers language-py"><code class="language-py">import pandas as pd
-import numpy as np
+          <h1 id="7-KNN-实例——K-最近邻预测电影评分"><a href="#7-KNN-实例——K-最近邻预测电影评分" class="headerlink" title="7 KNN 实例——K 最近邻预测电影评分"></a>7 KNN 实例——K 最近邻预测电影评分</h1><pre><code>KNN 即先确定散点距离的定义，然后对每个新点选取 K 个距离最近的点（想象一个图，以新点为中心，不断扩大中心圆的面积，直到覆盖到 k 个点）, 用他们对新点进行投票。</code></pre><h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">r_cols=[<span class="string">'user_id'</span>,<span class="string">'movie_id'</span>,<span class="string">'rating'</span>]</span><br><span class="line"><span class="comment"># uid,mid,rating 的 dataFrame</span></span><br><span class="line">ratings=pd.read_csv(<span class="string">"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data"</span>,sep=<span class="string">'	'</span>,names=r_cols,usecols=range(<span class="number">3</span>),encoding=<span class="string">"ISO-8859-1"</span>)</span><br><span class="line"><span class="comment"># 创建 movie 属性表，属性有 size（评价数/流行度）,mean 均分</span></span><br><span class="line">movieProperties=ratings.groupby(<span class="string">'movie_id'</span>).agg(&#123;<span class="string">'rating'</span>:[np.size,np.mean]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标准化流行度，用来定义距离</span></span><br><span class="line">movieNumRatings=pd.DataFrame(movieProperties[<span class="string">'rating'</span>][<span class="string">'size'</span>])</span><br><span class="line">movieNormalizedNumRatings=movieNumRatings.apply(<span class="keyword">lambda</span> x:(x-np.min(x))/(np.max(x)-np.min(x)))</span><br></pre></td></tr></table></figure>
 
-r_cols=['user_id','movie_id','rating']
-# uid,mid,rating 的 dataFrame
-ratings=pd.read_csv("C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data",sep='    ',names=r_cols,usecols=range(3),encoding="ISO-8859-1")
-# 创建 movie 属性表，属性有 size（评价数/流行度）,mean 均分
-movieProperties=ratings.groupby('movie_id').agg({'rating':[np.size,np.mean]})
-
-# 标准化流行度，用来定义距离
-movieNumRatings=pd.DataFrame(movieProperties['rating']['size'])
-movieNormalizedNumRatings=movieNumRatings.apply(lambda x:(x-np.min(x))/(np.max(x)-np.min(x)))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>需要掌握的函数：</p>
 <ul>
 <li>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1 列表指定行，label2 指定列（可选）, 没有指定列则返回 Series(1 个 label1)/DataFrame</li>
@@ -700,66 +872,16 @@ movieNormalizedNumRatings=movieNumRatings.apply(lambda x:(x-np.min(x))/(np.max(x
 </li>
 <li>Python3.x 的 map 返回的是迭代器，Python2.x 的 map 返回 list</li>
 </ul>
-<pre class="line-numbers language-py"><code class="language-py">movieDict={}
-with open(r"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item",encoding="ISO-8859-1") as f:
-    temp=''
-    for line in f:
-        fields=line.rstrip('
-').split('|')# 除去 line 末尾的换行符，以|分割
-        movieID=int(fields[0])
-        name=fields[1]
-        genres=fields[5:25]
-        genres=map(int,genres)
-        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get('size'),movieProperties.loc[movieID].rating.get('mean'))
-
-# 获得了 movieid 对应的 name, 分类向量，标准化 size, 均分
-print(movieDict[1])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">movieDict=&#123;&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">r"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item"</span>,encoding=<span class="string">"ISO-8859-1"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    temp=<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        fields=line.rstrip(<span class="string">'</span></span><br><span class="line"><span class="string">'</span>).split(<span class="string">'|'</span>)<span class="comment"># 除去 line 末尾的换行符，以|分割</span></span><br><span class="line">        movieID=int(fields[<span class="number">0</span>])</span><br><span class="line">        name=fields[<span class="number">1</span>]</span><br><span class="line">        genres=fields[<span class="number">5</span>:<span class="number">25</span>]</span><br><span class="line">        genres=map(int,genres)</span><br><span class="line">        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get(<span class="string">'size'</span>),movieProperties.loc[movieID].rating.get(<span class="string">'mean'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得了 movieid 对应的 name, 分类向量，标准化 size, 均分</span></span><br><span class="line">print(movieDict[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <h2 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h2><ul>
 <li><h3 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h3></li>
-<li><h3 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h3><pre class="line-numbers language-py"><code class="language-py">from scipy import spatial
-def ComputeDistance(a,b):# a,b 分别为 moviedict 的索引号，即 movieid
-  a=movieDict[a]
-  b=movieDict[b]
-  # x[1] 为类型向量
-  genreDistance=spatial.distance.cosine(a[1],b[1])
-  # x[2] 为 size
-  popularityDistance=abs(a[2]-b[2])
-  return genreDistance+popularityDistance
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<li><h3 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> spatial</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ComputeDistance</span><span class="params">(a,b)</span>:</span><span class="comment"># a,b 分别为 moviedict 的索引号，即 movieid</span></span><br><span class="line">    a=movieDict[a]</span><br><span class="line">    b=movieDict[b]</span><br><span class="line">    <span class="comment"># x[1] 为类型向量</span></span><br><span class="line">    genreDistance=spatial.distance.cosine(a[<span class="number">1</span>],b[<span class="number">1</span>])</span><br><span class="line">    <span class="comment"># x[2] 为 size</span></span><br><span class="line">    popularityDistance=abs(a[<span class="number">2</span>]-b[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> genreDistance+popularityDistance</span><br><span class="line"></span><br><span class="line">print(ComputeDistance(<span class="number">2</span>,<span class="number">4</span>))</span><br><span class="line">print(movieDict[<span class="number">2</span>])</span><br><span class="line">print(movieDict[<span class="number">4</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="3-获取最近邻"><a href="#3-获取最近邻" class="headerlink" title="3. 获取最近邻"></a>3. 获取最近邻</h2></li>
 </ul>
-<p>print(ComputeDistance(2,4))<br>print(movieDict[2])<br>print(movieDict[4])</p>
-<pre><code>##    3. 获取最近邻
-
-key=operator.itemgetter(1). 
-
-因为 list 里是 tuple, 要选取 tuple\[1] 进行排序，``itemgetter(i)`` 返回一个函数 func,func(x) 是取 x\[i], 即这里通过传递取值函数，实现了取 tuple\[1] 进行排序。
-
-```py
-import operator
-def getNeighbors(movieID,k):
-    distances=[]# 距离集合，(movieid,distance)
-    for movie in movieDict:
-        if(movie!=movieID):
-            distances.append((movie,ComputeDistance(movieID,movie)))
-
-    distances.sort(key=operator.itemgetter(1))
-    neighbors=[]# 距离排序后，选入前 k 个最近的
-    for x in range(k):
-        neighbors.append(distances[x][0])
-    return neighbors
-
-k=20
-def PredictByKNN(movieID,k):
-    avgRating=0
-    for neighbor in getNeighbors(movieID,k):
-        avgRating+=movieDict[neighbor][3]
-        print(movieDict[neighbor])
-    print(&quot;Predict rating is : &quot;+str(avgRating/k))
-    print(&quot;Actual Rating is : &quot;+str(movieDict[movieID][3]))
-
-PredictByKNN(20,50)
-</code></pre><h2 id="预测实例"><a href="#预测实例" class="headerlink" title="预测实例"></a>预测实例</h2><p>预测 3.28, 实际 3.41</p>
+<p>key=operator.itemgetter(1). </p>
+<p>因为 list 里是 tuple, 要选取 tuple[1] 进行排序，<code>itemgetter(i)</code> 返回一个函数 func,func(x) 是取 x[i], 即这里通过传递取值函数，实现了取 tuple[1] 进行排序。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getNeighbors</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    distances=[]<span class="comment"># 距离集合，(movieid,distance)</span></span><br><span class="line">    <span class="keyword">for</span> movie <span class="keyword">in</span> movieDict:</span><br><span class="line">        <span class="keyword">if</span>(movie!=movieID):</span><br><span class="line">            distances.append((movie,ComputeDistance(movieID,movie)))</span><br><span class="line">    </span><br><span class="line">    distances.sort(key=operator.itemgetter(<span class="number">1</span>))</span><br><span class="line">    neighbors=[]<span class="comment"># 距离排序后，选入前 k 个最近的</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(k):</span><br><span class="line">        neighbors.append(distances[x][<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> neighbors</span><br><span class="line"></span><br><span class="line">k=<span class="number">20</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PredictByKNN</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    avgRating=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> neighbor <span class="keyword">in</span> getNeighbors(movieID,k):</span><br><span class="line">        avgRating+=movieDict[neighbor][<span class="number">3</span>]</span><br><span class="line">        print(movieDict[neighbor])</span><br><span class="line">    print(<span class="string">"Predict rating is : "</span>+str(avgRating/k))</span><br><span class="line">    print(<span class="string">"Actual Rating is : "</span>+str(movieDict[movieID][<span class="number">3</span>]))</span><br><span class="line"></span><br><span class="line">PredictByKNN(<span class="number">20</span>,<span class="number">50</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="预测实例"><a href="#预测实例" class="headerlink" title="预测实例"></a>预测实例</h2><p>预测 3.28, 实际 3.41</p>
 <p>一定程度上还是挺准确的，仅仅利用了分类和流行度作为相似标准，实现简单但是效果挺好。</p>
 <p><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg" alt="示例运行"></p>
 
@@ -784,7 +906,7 @@ PredictByKNN(20,50)
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -830,7 +952,7 @@ PredictByKNN(20,50)
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -857,28 +979,8 @@ PredictByKNN(20,50)
 </blockquote>
 </blockquote>
 <h3 id="1-解决思路"><a href="#1-解决思路" class="headerlink" title="1.解决思路"></a>1.解决思路</h3><p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
-<pre><code>class Solution {
-public:
-    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) 
-    {   
-        vector&lt;int&gt; result;
-        int i=0;
-        int j=0;
-        for(i=0;i&lt;nums.size()-1;i++)
-        {
-            for(j=i+1;j&lt;nums.size();j++)
-                if(nums[i]+nums[j]==target)
-                {
-                    result.push_back(i);
-                    result.push_back(j);
-                    j=nums.size();
-                    i=j-1;
-                }
-        }
-
-        return result;
-    }
-};</code></pre><ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        for(i&#x3D;0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(j&#x3D;i+1;j&lt;nums.size();j++)</span><br><span class="line">                if(nums[i]+nums[j]&#x3D;&#x3D;target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j&#x3D;nums.size();</span><br><span class="line">                    i&#x3D;j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
 <li>通过</li>
 <li>472 ms</li>
 <li>9.2 MB</li>
@@ -892,27 +994,8 @@ public:
 <blockquote>
 <p><strong><em>一遍哈希表</em></strong> ：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
 </blockquote>
-<h3 id="3-最终实现代码"><a href="#3-最终实现代码" class="headerlink" title="3.最终实现代码"></a>3.最终实现代码</h3><pre><code>class Solution {
-public:
-    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) 
-    {   
-        map&lt;int,int&gt; store;
-        vector&lt;int&gt; result;
-        for(int i=0;i&lt;nums.size();i++)
-        {
-
-            if(store.count(target-nums[i])&gt;0)
-            {
-
-                result=vector&lt;int&gt;({store[target-nums[i]],i});
-                break;
-            }
-            store.insert(map&lt;int,int&gt;::value_type(nums[i],i));
-        }
-
-        return result;
-    }
-};</code></pre><ul>
+<h3 id="3-最终实现代码"><a href="#3-最终实现代码" class="headerlink" title="3.最终实现代码"></a>3.最终实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;int,int&gt; store;</span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        for(int i&#x3D;0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(store.count(target-nums[i])&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result&#x3D;vector&lt;int&gt;(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;int,int&gt;::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
 <li>通过 </li>
 <li>20 ms</li>
 <li>10.1 MB </li>
@@ -937,10 +1020,227 @@ public:
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">K折交叉验证</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:21:16" itemprop="dateModified" datetime="2020-07-17T11:21:16+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>742</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from sklearn.model_selection import cross_val_score,train_test_split</span><br><span class="line">from sklearn import datasets</span><br><span class="line">from sklearn import svm</span><br><span class="line"></span><br><span class="line">iris&#x3D;datasets.load_iris()</span><br><span class="line"># 测试集有40%数据    </span><br><span class="line">x_train,x_test,y_train,y_test&#x3D;train_test_split(iris.data,iris.target,test_size&#x3D;0.4,random_state&#x3D;0)</span><br><span class="line"></span><br><span class="line">clf&#x3D;svm.SVC(kernel&#x3D;&#39;linear&#39;,C&#x3D;1).fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line">clf.score(x_test,y_test)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
+<li><h4 id="cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit"><a href="#cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit" class="headerlink" title="cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit."></a>cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit.</h4></li>
+<li><h4 id="返回评分结果列表"><a href="#返回评分结果列表" class="headerlink" title="返回评分结果列表"></a>返回评分结果列表</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scores&#x3D;cross_val_score(clf,iris.data,iris.target,cv&#x3D;5)</span><br><span class="line"></span><br><span class="line">print(scores)</span><br><span class="line">print(scores.mean())</span><br></pre></td></tr></table></figure>
+<br>
+![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-11/" class="post-title-link" itemprop="url">LeetCode-No-11</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water"><a href="#盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water" class="headerlink" title="(盛最多水的容器)[https://leetcode-cn.com/problems/container-with-most-water]"></a>(盛最多水的容器)[<a href="https://leetcode-cn.com/problems/container-with-most-water]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water]</a></h1><blockquote>
+<p>给定 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
+<p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19387483-4f82d6d77b0bc922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<blockquote>
+<p>示例:</p>
+<p>输入: [1,8,6,2,5,4,8,3,7]<br>输出: 49</p>
+</blockquote>
+</blockquote>
+<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
+<li>双循环暴力法是人类本能,就不侃了,直接放上辣眼睛的效率结果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>通过情况</th>
+<th>时间</th>
+<th>内存</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通过</td>
+<td>2436 ms</td>
+<td>9.8 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>正解</strong>:<br>双指针向内收缩法.即一指针在头部,一指针在尾部,<br>而收缩时面积由两端之短决定,我们要找到更大的面积,则必定要改变两端之短,所以每次将短的那边往里收缩,遍历O(n).</li>
+<li><strong>正确性</strong>:<br>S=min(ai,aj) * (j-i),假如大的那一边往里收缩则S=min(bi,bj) * (j-i-1). 则min(bi,bj)要么是比收缩前最小值还小的值,要么是收缩前的最小值,所以S必定变小.<br>因此双指针移动大的一端时,得到的S2&lt;=S1,肯定不是正确方向,所以可以省略掉这一系列的遍历,即只移动每对中小的那一端即可,省下O(n)的遍历不需要尝试,最终的遍历效率是O(n).</li>
+</ul>
+<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxArea(vector&lt;int&gt;&amp; height) </span><br><span class="line">    &#123;   &#x2F;&#x2F;双指针 思考正确性</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int j&#x3D;height.size()-1;</span><br><span class="line">        int Area;</span><br><span class="line">        int MaxArea&#x3D;0;</span><br><span class="line">        </span><br><span class="line">        while(i&lt;j)</span><br><span class="line">        &#123;</span><br><span class="line">            int minvalue&#x3D;min(height[i],height[j]);</span><br><span class="line">            Area&#x3D;minvalue*(j-i);</span><br><span class="line">            if(Area&gt;MaxArea)</span><br><span class="line">                MaxArea&#x3D;Area;</span><br><span class="line">            </span><br><span class="line">            if(height[i]&#x3D;&#x3D;minvalue)</span><br><span class="line">                i++;</span><br><span class="line">            else</span><br><span class="line">                j--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return MaxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -986,7 +1286,7 @@ public:
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1046,43 +1346,8 @@ public:
 </blockquote>
 </li>
 </ul>
-<h1 id="初版通过代码"><a href="#初版通过代码" class="headerlink" title="初版通过代码"></a>初版通过代码</h1><pre><code>class Solution {
-public:
-    bool isMatch(string s, string p)
-    {
-        int si = 0;
-        int pi = 0;
-        int slength = s.length();
-        int plength = p.length();
-        if (slength != 0 &amp;&amp; plength == 0)
-            return false;
-
-        if (slength == 0 &amp;&amp; plength == 0)
-            return true;
-        else
-        {    
-
-            if (p[pi + 1] == &#39;*&#39;)
-            {
-                if (slength == 0)
-                    return isMatch(s.substr(0, 0), p.substr(pi + 2, plength - pi - 2));
-                else if(p[pi] == &#39;.&#39; || p[pi] == s[si])
-                    //pi匹配1次s前进p不变  pi匹配0次s不变p前进2
-                    return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi, plength - pi)) || isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));
-                else
-                    return isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));
-            }
-
-            else if (slength == 0)
-                return false;
-            else if (p[pi] == &#39;.&#39; || p[pi] == s[si])
-                return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi + 1, plength - pi - 1));
-            else
-                return false;
-        }
-
-    }
-};</code></pre><ul>
+<h1 id="初版通过代码"><a href="#初版通过代码" class="headerlink" title="初版通过代码"></a>初版通过代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	bool isMatch(string s, string p)</span><br><span class="line">	&#123;</span><br><span class="line">		int si &#x3D; 0;</span><br><span class="line">		int pi &#x3D; 0;</span><br><span class="line">		int slength &#x3D; s.length();</span><br><span class="line">		int plength &#x3D; p.length();</span><br><span class="line">		if (slength !&#x3D; 0 &amp;&amp; plength &#x3D;&#x3D; 0)</span><br><span class="line">			return false;</span><br><span class="line"></span><br><span class="line">		if (slength &#x3D;&#x3D; 0 &amp;&amp; plength &#x3D;&#x3D; 0)</span><br><span class="line">			return true;</span><br><span class="line">		else</span><br><span class="line">		&#123;	</span><br><span class="line"></span><br><span class="line">			if (p[pi + 1] &#x3D;&#x3D; &#39;*&#39;)</span><br><span class="line">			&#123;</span><br><span class="line">				if (slength &#x3D;&#x3D; 0)</span><br><span class="line">					return isMatch(s.substr(0, 0), p.substr(pi + 2, plength - pi - 2));</span><br><span class="line">				else if(p[pi] &#x3D;&#x3D; &#39;.&#39; || p[pi] &#x3D;&#x3D; s[si])</span><br><span class="line">					&#x2F;&#x2F;pi匹配1次s前进p不变  pi匹配0次s不变p前进2</span><br><span class="line">					return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi, plength - pi)) || isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));</span><br><span class="line">				else</span><br><span class="line">					return isMatch(s.substr(si, slength - si), p.substr(pi + 2, plength - pi - 2));</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			else if (slength &#x3D;&#x3D; 0)</span><br><span class="line">				return false;</span><br><span class="line">			else if (p[pi] &#x3D;&#x3D; &#39;.&#39; || p[pi] &#x3D;&#x3D; s[si])</span><br><span class="line">				return isMatch(s.substr(si + 1, slength - si - 1), p.substr(pi + 1, plength - pi - 1));</span><br><span class="line">			else</span><br><span class="line">				return false;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
 <li>624 ms</li>
 <li>16.4 MB</li>
 <li>Cpp<br>虽然已经AC了,时间空间上还是很笨拙的,日后找时间探索优化解法.</li>
@@ -1092,9 +1357,8 @@ public:
 <blockquote>
 <p>注意dp[0][0]==1表示空字符串时可以匹配。</p>
 </blockquote>
-<pre><code>//两层for循环
-for(i)
-  for(j)</code></pre><p>通过判断当前字符匹配情况，加上前面的子串情况进行累积动态规划，最终达到dp[slength][plength]的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;两层for循环</span><br><span class="line">for(i)</span><br><span class="line">  for(j)</span><br></pre></td></tr></table></figure>
+<p>通过判断当前字符匹配情况，加上前面的子串情况进行累积动态规划，最终达到dp[slength][plength]的值。</p>
 <blockquote>
 <p>理解了思路，但实战这道题还是有细节方面思路不清，继续挖坑。</p>
 </blockquote>
@@ -1118,10 +1382,10 @@ for(i)
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-11/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1132,7 +1396,7 @@ for(i)
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-11/" class="post-title-link" itemprop="url">LeetCode-No-11</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
         </h2>
 
         <div class="post-meta">
@@ -1149,7 +1413,7 @@ for(i)
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1167,260 +1431,7 @@ for(i)
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>904</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water"><a href="#盛最多水的容器-https-leetcode-cn-com-problems-container-with-most-water" class="headerlink" title="(盛最多水的容器)[https://leetcode-cn.com/problems/container-with-most-water]"></a>(盛最多水的容器)[<a href="https://leetcode-cn.com/problems/container-with-most-water]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water]</a></h1><blockquote>
-<p>给定 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
-<p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
-<p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/19387483-4f82d6d77b0bc922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [1,8,6,2,5,4,8,3,7]<br>输出: 49</p>
-</blockquote>
-</blockquote>
-<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
-<li>双循环暴力法是人类本能,就不侃了,直接放上辣眼睛的效率结果</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>通过情况</th>
-<th>时间</th>
-<th>内存</th>
-<th>语言</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>通过</td>
-<td>2436 ms</td>
-<td>9.8 MB</td>
-<td>Cpp</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>正解</strong>:<br>双指针向内收缩法.即一指针在头部,一指针在尾部,<br>而收缩时面积由两端之短决定,我们要找到更大的面积,则必定要改变两端之短,所以每次将短的那边往里收缩,遍历O(n).</li>
-<li><strong>正确性</strong>:<br>S=min(ai,aj) * (j-i),假如大的那一边往里收缩则S=min(bi,bj) * (j-i-1). 则min(bi,bj)要么是比收缩前最小值还小的值,要么是收缩前的最小值,所以S必定变小.<br>因此双指针移动大的一端时,得到的S2&lt;=S1,肯定不是正确方向,所以可以省略掉这一系列的遍历,即只移动每对中小的那一端即可,省下O(n)的遍历不需要尝试,最终的遍历效率是O(n).</li>
-</ul>
-<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><pre><code>
-class Solution {
-public:
-    int maxArea(vector&lt;int&gt;&amp; height) 
-    {   //双指针 思考正确性
-        int i=0;
-        int j=height.size()-1;
-        int Area;
-        int MaxArea=0;
-
-        while(i&lt;j)
-        {
-            int minvalue=min(height[i],height[j]);
-            Area=minvalue*(j-i);
-            if(Area&gt;MaxArea)
-                MaxArea=Area;
-
-            if(height[i]==minvalue)
-                i++;
-            else
-                j--;
-        }
-
-        return MaxArea;
-    }
-};</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">K折交叉验证</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:21:16" itemprop="dateModified" datetime="2020-07-17T11:21:16+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>678</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><pre><code>import numpy as np
-from sklearn.model_selection import cross_val_score,train_test_split
-from sklearn import datasets
-from sklearn import svm
-
-iris=datasets.load_iris()
-# 测试集有40%数据    
-x_train,x_test,y_train,y_test=train_test_split(iris.data,iris.target,test_size=0.4,random_state=0)
-
-clf=svm.SVC(kernel=&#39;linear&#39;,C=1).fit(x_train,y_train)
-
-clf.score(x_test,y_test)
-</code></pre><h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
-<li><h4 id="cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit"><a href="#cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit" class="headerlink" title="cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit."></a>cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit.</h4></li>
-<li><h4 id="返回评分结果列表"><a href="#返回评分结果列表" class="headerlink" title="返回评分结果列表"></a>返回评分结果列表</h4></li>
-</ul>
-<pre><code>scores=cross_val_score(clf,iris.data,iris.target,cv=5)
-
-print(scores)
-print(scores.mean())</code></pre><br>
-![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-15-/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1439,283 +1450,25 @@ print(scores.mean())</code></pre><br>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a><a href="https://leetcode-cn.com/problems/3sum" target="_blank" rel="noopener">三数之和</a></h1><blockquote>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
+          <h1 id="合并K个链表"><a href="#合并K个链表" class="headerlink" title="合并K个链表"></a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">合并K个链表</a></h1><blockquote>
+<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
 <blockquote>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<p>输入:<br>[<br>　1-&gt;4-&gt;5,<br>  　1-&gt;3-&gt;4,<br>  　2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
 </blockquote>
 </blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
-<li>暴力O(n3) 这样做还不如不做kj</li>
-<li>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</li>
-</ul>
-<ul>
-<li><p><strong>牺牲O(Nlog N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p>
-</li>
-<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c–。</p>
+<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
+<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。</p>
 <blockquote>
-<p>这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p>
+<p>两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p>
 </blockquote>
 </li>
-<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p>
+<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p>
 </li>
-<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p>
+<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>. 直到长度为1即完成。</p>
 </li>
 </ul>
-<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><pre><code>class Solution 
-{
-public:
-    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) 
-    {   
-        vector&lt;vector&lt;int&gt;&gt; result;
-        set&lt;vector&lt;int&gt;&gt; resultset;
-        //剪枝
-        if (nums.size() &lt;= 2)
-            return result;
-
-        sort(nums.begin(), nums.end());
-
-        //不剪枝会被0吓死=.=
-        if (nums[0]&gt;=0 ||nums[nums.size()-1]&lt;=0)
-        {
-            if (nums[0] == 0 &amp;&amp;nums[nums.size()-1]==0)
-                result.push_back({ 0,0,0 });
-            return result;
-        }
-        int i;
-        int j;
-        int center;
-
-
-        for(center=0;center&lt;nums.size();center++)
-        {
-            i=0;
-            j=nums.size()-1;
-
-
-            while(i!=center &amp;&amp;j!=center)
-            {
-                if(nums[i]&gt;0 || nums[j]&lt;0)
-                    break;
-
-                int sum=nums[i]+nums[center]+nums[j];
-                if(sum==0)
-                {
-                    vector&lt;int&gt; temp ={nums[i],nums[center],nums[j]};
-                    if(resultset.count(temp)==0)
-                    {   
-                        result.push_back(temp);
-                        resultset.insert(temp);
-                    }
-                    i++;
-                    j--;
-                }
-
-                else if(sum&lt;0)
-                    i++;
-                else if(sum&gt;0)
-                    j--;
-            }
-        }
-
-
-
-        return result;
-    }
-};</code></pre><hr>
-<p>执行用时 :  424 ms, 在所有 C++ 提交中击败了5.01%的用户<br>内存消耗 :24.3 MB, 在所有 C++ 提交中击败了7.53%的用户</p>
-<p>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题。<br>看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。<br>挖个坑，搞懂了再回来看看。</p>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-16/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a><a href="https://leetcode-cn.com/problems/3sum-closest" target="_blank" rel="noopener">最接近的三数之和</a></h1><blockquote>
-<p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
-<blockquote>
-<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
-<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
-</blockquote>
-</blockquote>
-<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
-<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
-<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
-</ul>
-<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3><pre><code>while(i&lt;j)
-{
-  if(sum&lt;target)
-    i++;
-  else if(sum&gt;target)
-    j--;
-  else if(sum==target)
-}
-</code></pre><ul>
-<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
-</ul>
-<blockquote>
-<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
-<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
-</blockquote>
-<ul>
-<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
-</ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><pre><code>class Solution {
-public:
-    int threeSumClosest(vector&lt;int&gt;&amp; nums, int target)
-    {
-        int result;
-        sort(nums.begin(), nums.end());
-        vector&lt;int&gt; sums;
-        int a;
-        int b;
-        int c;
-        int sum;
-        int resultdistance = INT_MAX;
-
-        for (a = 0; a &lt; nums.size() - 2; a++)
-        {
-            b = a + 1;
-            c = nums.size() - 1;
-
-            while (b &lt; c)
-            {
-                sum = nums[a] + nums[b] + nums[c];
-
-
-                sums.push_back(sum);
-                if (sum &lt; target)
-                    b++;
-                else if (sum &gt; target)
-                    c--;
-                else
-                    return sum;
-            }
-
-        }
-
-        for(int i=0;i&lt;sums.size();i++)
-        {
-            if(abs(target - sums[i]) &lt; resultdistance)
-                {
-                    result = sums[i];
-                    resultdistance = abs(target - result);
-                }
-        }
-
-        return result;
-    }
-
-
-};</code></pre><hr>
-<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
-<table>
-<thead>
-<tr>
-<th>提交结果</th>
-<th>执行用时</th>
-<th>内存消耗</th>
-<th>语言</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2019.9.15</td>
-<td>通过</td>
-<td>12 ms</td>
-<td>8.7 MB</td>
-</tr>
-<tr>
-<td>2019.9.11</td>
-<td>通过</td>
-<td>16 ms</td>
-<td>12.9 MB</td>
-</tr>
-</tbody></table>
-<p>8ms可能是做不到了，量级上应该一样。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* result&#x3D;NULL;</span><br><span class="line">        int length&#x3D;lists.size();</span><br><span class="line">        if(length&#x3D;&#x3D;0)</span><br><span class="line">            return NULL;</span><br><span class="line">        while(length&gt;1)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp&#x3D;(length+1)&#x2F;2;</span><br><span class="line">            for(int i&#x3D;0;i&lt;length&#x2F;2;i++)</span><br><span class="line">                lists[i]&#x3D;mergeTwoLists(lists[i],lists[i+temp]);</span><br><span class="line">            </span><br><span class="line">            length&#x3D;temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return lists[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)</span><br><span class="line">	  &#123;</span><br><span class="line">		 </span><br><span class="line">		  ListNode result(0);</span><br><span class="line">		  ListNode* another &#x3D; &amp;result;</span><br><span class="line"></span><br><span class="line">		  while (l1 !&#x3D; NULL &amp;&amp; l2 !&#x3D; NULL)</span><br><span class="line">		  &#123;</span><br><span class="line">			</span><br><span class="line">			  if (l1-&gt;val &lt;&#x3D; l2-&gt;val)</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l1;</span><br><span class="line">				  l1 &#x3D; l1-&gt;next;  </span><br><span class="line">			  &#125;</span><br><span class="line">			  else</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l2;</span><br><span class="line">				  l2 &#x3D; l2-&gt;next;</span><br><span class="line">			  &#125;</span><br><span class="line">              </span><br><span class="line">              another &#x3D; another-&gt;next;</span><br><span class="line">		  &#125;</span><br><span class="line">                   </span><br><span class="line">          another-&gt;next&#x3D;(l1&#x3D;&#x3D;NULL)?l2:l1;</span><br><span class="line">		  return (&amp;result)-&gt;next;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1792,6 +1545,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -1800,7 +1555,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1859,13 +1614,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -1895,12 +1650,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -243,37 +253,17 @@
         <h3 id="读入文件存入dataframe"><a href="#读入文件存入dataframe" class="headerlink" title="读入文件存入dataframe"></a>读入文件存入dataframe</h3><ul>
 <li><h4 id="readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><a href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’" class="headerlink" title="readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’"></a>readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</h4>‘的格式存储在message中,每读完一个文件便返回该文件完整路径path和message</li>
 <li><h4 id="dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><a href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息" class="headerlink" title="dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息"></a>dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息</h4></li>
-<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><pre><code>import os
-import io
-import numpy
-from pandas import DataFrame
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-</code></pre></li>
+<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import io</span><br><span class="line">import numpy</span><br><span class="line">from pandas import DataFrame</span><br><span class="line">from sklearn.feature_extraction.text import CountVectorizer</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line"></span><br><span class="line">def readFiles(path):</span><br><span class="line">    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件</span><br><span class="line">        for filename in filenames:</span><br><span class="line">            path&#x3D;os.path.join(root,filename)    # 创建path</span><br><span class="line"></span><br><span class="line">            inBody&#x3D;False    # 标记头部信息</span><br><span class="line">            lines&#x3D;[]</span><br><span class="line">            f&#x3D;io.open(path,&#39;r&#39;,encoding&#x3D;&#39;latin1&#39;)# 打开文件</span><br><span class="line">            for line in f:</span><br><span class="line">                if inBody:</span><br><span class="line">                    lines.append(line)</span><br><span class="line">                elif line&#x3D;&#x3D;&#39;</span><br><span class="line">&#39;:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束</span><br><span class="line">                    inBody&#x3D;True</span><br><span class="line">            f.close()</span><br><span class="line">            message&#x3D;&#39;</span><br><span class="line">&#39;.join(lines)</span><br><span class="line">            yield path,message</span><br><span class="line"></span><br><span class="line">def dataFrameFromDirectory(path,classification):</span><br><span class="line">    rows&#x3D;[]</span><br><span class="line">    index&#x3D;[]</span><br><span class="line">    for filename,message in readFiles(path):</span><br><span class="line">        rows.append(&#123;&#39;message&#39;:message,&#39;class&#39;:classification&#125;)</span><br><span class="line">        index.append(filename)</span><br><span class="line"></span><br><span class="line">    return DataFrame(rows,index&#x3D;index)</span><br><span class="line"></span><br><span class="line">data&#x3D;DataFrame(&#123;&#39;message&#39;:[],&#39;class&#39;:[]&#125;)</span><br><span class="line"></span><br><span class="line">data &#x3D; data.append(dataFrameFromDirectory(&#39;C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam&#39;, &#39;spam&#39;))</span><br><span class="line">data &#x3D; data.append(dataFrameFromDirectory(&#39;C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham&#39;, &#39;ham&#39;))</span><br><span class="line"></span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
+<h3 id="计算朴素贝叶斯"><a href="#计算朴素贝叶斯" class="headerlink" title="计算朴素贝叶斯"></a>计算朴素贝叶斯</h3></li>
+<li><h4 id="CountVectorizer是特征数值计算类"><a href="#CountVectorizer是特征数值计算类" class="headerlink" title="CountVectorizer是特征数值计算类"></a>CountVectorizer是特征数值计算类</h4></li>
+<li><h4 id="CountVectorizer-fit-transform函数将文本中的词语转换为词频矩阵return，矩阵元素a-i-j-表示j词在第i个文本下的词频。"><a href="#CountVectorizer-fit-transform函数将文本中的词语转换为词频矩阵return，矩阵元素a-i-j-表示j词在第i个文本下的词频。" class="headerlink" title="CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a[i][j] 表示j词在第i个文本下的词频。"></a>CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a[i][j] 表示j词在第i个文本下的词频。</h4></li>
+<li><h4 id="MultinomialNB是先验为多项式分布的朴素贝叶斯类"><a href="#MultinomialNB是先验为多项式分布的朴素贝叶斯类" class="headerlink" title="MultinomialNB是先验为多项式分布的朴素贝叶斯类"></a>MultinomialNB是先验为多项式分布的朴素贝叶斯类</h4></li>
+<li><h4 id="MultinomialNB-fit-x-y-根据x-y进行拟合-x-array-like-sparse-martix-i-j-i组j维向量-y-array-like-i"><a href="#MultinomialNB-fit-x-y-根据x-y进行拟合-x-array-like-sparse-martix-i-j-i组j维向量-y-array-like-i" class="headerlink" title="MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}[i][j],i组j维向量,y=array-like[i]"></a>MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}[i][j],i组j维向量,y=array-like[i]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vectorizer&#x3D;CountVectorizer()</span><br><span class="line">counts&#x3D;vectorizer.fit_transform(data[&#39;message&#39;].values)# 将单词转换为哈希数,然后计算个数</span><br><span class="line"></span><br><span class="line">classifier&#x3D;MultinomialNB()</span><br><span class="line">targets&#x3D;data[&#39;class&#39;].values    # 分类信息</span><br><span class="line">classifier.fit(counts,targets)</span><br></pre></td></tr></table></figure>
+<h3 id="测试分类器"><a href="#测试分类器" class="headerlink" title="测试分类器"></a>测试分类器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">examples&#x3D;[&#39;Free Money now!!!!&#39;,&quot;Hi,I&#39;m Sitch,how about make a friend?&quot;]</span><br><span class="line">example_counts&#x3D;vectorizer.transform(examples)</span><br><span class="line">predictions&#x3D;classifier.predict(example_counts)</span><br></pre></td></tr></table></figure>
+<h3 id="划分训练集和测试集再实验"><a href="#划分训练集和测试集再实验" class="headerlink" title="划分训练集和测试集再实验"></a>划分训练集和测试集再实验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">train_data&#x3D;data.sample(frac&#x3D;0.6)</span><br><span class="line">test_data&#x3D;data[~data.index.isin(train_data.index)]</span><br><span class="line"></span><br><span class="line">vectorizer&#x3D;CountVectorizer()</span><br><span class="line">counts&#x3D;vectorizer.fit_transform(train_data[&#39;message&#39;].values)</span><br><span class="line">classifier&#x3D;MultinomialNB()</span><br><span class="line">targets&#x3D;train_data[&#39;class&#39;].values</span><br><span class="line">classifier.fit(counts,targets)</span><br><span class="line"></span><br><span class="line">i&#x3D;0</span><br><span class="line">SC&#x3D;0</span><br><span class="line">test_counts&#x3D;vectorizer.transform(test_data[&#39;message&#39;].values)</span><br><span class="line">predictions&#x3D;classifier.predict(test_counts)</span><br><span class="line">for i in range(0,predictions.size):</span><br><span class="line">    if test_data[&#39;class&#39;].values[i]&#x3D;&#x3D;predictions[i]:</span><br><span class="line">        SC+&#x3D;1</span><br><span class="line">print(&quot;测试集成功率 &quot;,end&#x3D;&#39; : &#39;)</span><br><span class="line">print(SC&#x2F;predictions.size)</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>def readFiles(path):<br>    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件<br>        for filename in filenames:<br>            path=os.path.join(root,filename)    # 创建path</p>
-<pre><code>        inBody=False    # 标记头部信息
-        lines=[]
-        f=io.open(path,&#39;r&#39;,encoding=&#39;latin1&#39;)# 打开文件
-        for line in f:
-            if inBody:
-                lines.append(line)
-            elif line==&#39;</code></pre><p>‘:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束<br>                    inBody=True<br>            f.close()<br>            message=’<br>‘.join(lines)<br>            yield path,message</p>
-<p>def dataFrameFromDirectory(path,classification):<br>    rows=[]<br>    index=[]<br>    for filename,message in readFiles(path):<br>        rows.append({‘message’:message,’class’:classification})<br>        index.append(filename)</p>
-<pre><code>return DataFrame(rows,index=index)</code></pre><p>data=DataFrame({‘message’:[],’class’:[]})</p>
-<p>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam’, ‘spam’))<br>data = data.append(dataFrameFromDirectory(‘C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham’, ‘ham’))</p>
-<p>data.head()</p>
-<pre><code>###    计算朴素贝叶斯
-- ####     CountVectorizer是特征数值计算类
-- ####     CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a\[i\]\[j\] 表示j词在第i个文本下的词频。
-- ####     MultinomialNB是先验为多项式分布的朴素贝叶斯类
-- ####     MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}\[i]\[j],i组j维向量,y=array-like\[i]</code></pre><p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(data[‘message’].values)# 将单词转换为哈希数,然后计算个数</p>
-<p>classifier=MultinomialNB()<br>targets=data[‘class’].values    # 分类信息<br>classifier.fit(counts,targets)</p>
-<pre><code>###    测试分类器</code></pre><p>examples=[‘Free Money now!!!!’,”Hi,I’m Sitch,how about make a friend?”]<br>example_counts=vectorizer.transform(examples)<br>predictions=classifier.predict(example_counts)</p>
-<pre><code>###    划分训练集和测试集再实验</code></pre><p>train_data=data.sample(frac=0.6)<br>test_data=data[~data.index.isin(train_data.index)]</p>
-<p>vectorizer=CountVectorizer()<br>counts=vectorizer.fit_transform(train_data[‘message’].values)<br>classifier=MultinomialNB()<br>targets=train_data[‘class’].values<br>classifier.fit(counts,targets)</p>
-<p>i=0<br>SC=0<br>test_counts=vectorizer.transform(test_data[‘message’].values)<br>predictions=classifier.predict(test_counts)<br>for i in range(0,predictions.size):<br>    if test_data[‘class’].values[i]==predictions[i]:<br>        SC+=1<br>print(“测试集成功率 “,end=’ : ‘)<br>print(SC/predictions.size)</p>
-<pre><code></code></pre>
+
     </div>
 
     
@@ -292,8 +282,8 @@ from sklearn.naive_bayes import MultinomialNB
       <i class="fa fa-chevron-left"></i> 电影推荐系统——相关计算
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" rel="next" title="决策树——录用决策">
-      决策树——录用决策 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="next" title="上海车牌价格数据挖掘">
+      上海车牌价格数据挖掘 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -353,12 +343,14 @@ from sklearn.naive_bayes import MultinomialNB
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#读入文件存入dataframe"><span class="nav-number">1.</span> <span class="nav-text">读入文件存入dataframe</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><span class="nav-number">1.1.</span> <span class="nav-text">readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><span class="nav-number">1.2.</span> <span class="nav-text">dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index&#x3D;path[], message&#x3D;message[], class&#x3D;传递的分类信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><span class="nav-number">1.3.</span> <span class="nav-text">带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#读入文件存入dataframe"><span class="nav-number">1.</span> <span class="nav-text">读入文件存入dataframe</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><span class="nav-number">1.1.</span> <span class="nav-text">readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><span class="nav-number">1.2.</span> <span class="nav-text">dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index&#x3D;path[], message&#x3D;message[], class&#x3D;传递的分类信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><span class="nav-number">1.3.</span> <span class="nav-text">带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算朴素贝叶斯"><span class="nav-number">2.</span> <span class="nav-text">计算朴素贝叶斯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CountVectorizer是特征数值计算类"><span class="nav-number">2.1.</span> <span class="nav-text">CountVectorizer是特征数值计算类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CountVectorizer-fit-transform函数将文本中的词语转换为词频矩阵return，矩阵元素a-i-j-表示j词在第i个文本下的词频。"><span class="nav-number">2.2.</span> <span class="nav-text">CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a[i][j] 表示j词在第i个文本下的词频。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MultinomialNB是先验为多项式分布的朴素贝叶斯类"><span class="nav-number">2.3.</span> <span class="nav-text">MultinomialNB是先验为多项式分布的朴素贝叶斯类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MultinomialNB-fit-x-y-根据x-y进行拟合-x-array-like-sparse-martix-i-j-i组j维向量-y-array-like-i"><span class="nav-number">2.4.</span> <span class="nav-text">MultinomialNB.fit(x,y)根据x,y进行拟合,x&#x3D;{array-like,sparse martix}[i][j],i组j维向量,y&#x3D;array-like[i]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试分类器"><span class="nav-number">3.</span> <span class="nav-text">测试分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#划分训练集和测试集再实验"><span class="nav-number">4.</span> <span class="nav-text">划分训练集和测试集再实验</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -367,7 +359,7 @@ from sklearn.naive_bayes import MultinomialNB
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -426,13 +418,13 @@ from sklearn.naive_bayes import MultinomialNB
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -462,12 +454,37 @@ from sklearn.naive_bayes import MultinomialNB
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -88,8 +89,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -145,6 +145,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -177,7 +187,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/21/%E4%B8%80%E5%91%A8%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -319,8 +329,8 @@
 <p>引用能为空吗？引用能引用解指针对象吗？引用到解空指针会发生什么？</p>
 <ul>
 <li>引用不能为空，但可以通过绑定到解空指针上，认为实现空引用。</li>
-<li>但是我测试的时候,如下：<br>  编译器会在第二个<code>*p</code>处报错，<strong>无法用A类型的值初始化 int &amp; 类型的引用 (非常量限定)</strong>。<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token operator">&amp;</span>a <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li>但是我测试的时候,如下：<br>  编译器会在第二个<code>*p</code>处报错，<strong>无法用A类型的值初始化 int &amp; 类型的引用 (非常量限定)</strong>。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;a = *p;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="对a-5-int-a-1-和-int-amp-a-1-的区别"><a href="#对a-5-int-a-1-和-int-amp-a-1-的区别" class="headerlink" title="对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别"></a>对a[5], (int *)(a+1) 和 (int *)(&amp;a+1)的区别</h3><p>a+1会指向a[1]<br>&amp;a+1等同于a[4]后面一个位置，即跳过了整个数组</p>
@@ -333,58 +343,20 @@
 <p>不希望修改函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。</p>
 <p>本质上，decorator就是一个 <strong>接受一个函数作为参数，并返回一个函数</strong> 的高阶函数。</p>
 <p>装饰器示例：</p>
-<pre class="line-numbers language-py"><code class="language-py">import logging
-
-def use_logging(func):
-
-    def wrapper(*args, **kwargs):
-        logging.warn("%s is running" % func.__name__)
-        return func(*args, **kwargs)   # 把 foo 当做参数传递进来时，执行func()就相当于执行foo()
-    return wrapper
-
-@use_logging  #相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。
-def foo():
-    print("i am foo")
-
-
-foo()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_logging</span><span class="params">(func)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        logging.warn(<span class="string">"%s is running"</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)   <span class="comment"># 把 foo 当做参数传递进来时，执行func()就相当于执行foo()</span></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@use_logging  #相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"i am foo"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
 <p>@装饰器修饰相当于foo=use_logging(foo)。即原来的函数仍然不变，但是这个foo名字指向了装饰过的函数。</p>
 <h5 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h5><p>假如有传参需求，即构建三层装饰器，最外层获取参数，第二层获取被装饰的函数。</p>
 <p>三层装饰器示例：</p>
-<pre class="line-numbers language-py"><code class="language-py">def log(text):
-    def decorator(func):
-        def wrapper(*args, **kw):
-            print('%s %s():' % (text, func.__name__))
-            return func(*args, **kw)
-        return wrapper
-    return decorator
-
-@log('execute') #相当于now=log('execute')(now)，其中log('execute')返回decorator函数，然后decorator再传参now函数，返回最终函数
-def now():
-    print('2015-3-25')<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">            print(<span class="string">'%s %s():'</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@log('execute') #相当于now=log('execute')(now)，其中log('execute')返回decorator函数，然后decorator再传参now函数，返回最终函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'2015-3-25'</span>)</span><br></pre></td></tr></table></figure>
 <p>@装饰器修饰相当于now=log(‘execute’)(now)，其中log(‘execute’)返回decorator函数，然后decorator再传参now函数，返回最终函数。</p>
 <h5 id="维护签名的装饰器"><a href="#维护签名的装饰器" class="headerlink" title="维护签名的装饰器"></a>维护签名的装饰器</h5><p>装饰器修饰后，因为其实更换了函数对象，此时<code>now.__name__</code>值为<code>wrapper</code>，但有些检查函数签名的功能则会发生错误，因此需要复制签名信息到新函数。</p>
 <p>@functools.wraps(fun)即是用来完成这项工作。</p>
 <p>维护签名的装饰器如下：</p>
-<pre class="line-numbers language-py"><code class="language-py">import functools
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @functools.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">        print(<span class="string">'call %s():'</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
 
-def log(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kw):
-        print('call %s():' % func.__name__)
-        return func(*args, **kw)
-    return wrapper<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>维护签名的三层装饰器：</p>
-<pre class="line-numbers language-py"><code class="language-py">import functools
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">            print(<span class="string">'%s %s():'</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
 
-def log(text):
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kw):
-            print('%s %s():' % (text, func.__name__))
-            return func(*args, **kw)
-        return wrapper
-    return decorator<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="python用过哪些包"><a href="#python用过哪些包" class="headerlink" title="python用过哪些包"></a>python用过哪些包</h3><p>opencv，numpy，sklearn…</p>
 <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h3 id="cache的作用"><a href="#cache的作用" class="headerlink" title="cache的作用"></a>cache的作用</h3><p>回答的是解决速度矛盾，面试官提醒重点在于程序局部性原理。</p>
 <h3 id="补码，反码"><a href="#补码，反码" class="headerlink" title="补码，反码"></a>补码，反码</h3><p>整数补码与原码相同</p>
@@ -500,6 +472,8 @@ def log(text):
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -508,7 +482,7 @@ def log(text):
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -567,13 +541,13 @@ def log(text):
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -603,12 +577,37 @@ def log(text):
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -20,12 +21,12 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1. 读入数据使用了att_faces数据集, 存储格式为&#x2F;att_faces&#x2F;s1&#x2F;1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件: os.walk(path) 遍历path路径返回信息: root: path根路径 dirs:  path下的所有文件夹, 不递归 files: path下的所有文件, 不递归  # %% from cv2 import cv2 impor">
+  <meta name="description" content="1. 读入数据使用了att_faces数据集, 存储格式为&#x2F;att_faces&#x2F;s1&#x2F;1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件: os.walk(path) 遍历path路径返回信息: root: path根路径 dirs:  path下的所有文件夹, 不递归 files: path下的所有文件, 不递归  123456789101112131415161718192">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机视觉实验3,4——人脸识别">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="1. 读入数据使用了att_faces数据集, 存储格式为&#x2F;att_faces&#x2F;s1&#x2F;1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件: os.walk(path) 遍历path路径返回信息: root: path根路径 dirs:  path下的所有文件夹, 不递归 files: path下的所有文件, 不递归  # %% from cv2 import cv2 impor">
+<meta property="og:description" content="1. 读入数据使用了att_faces数据集, 存储格式为&#x2F;att_faces&#x2F;s1&#x2F;1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件: os.walk(path) 遍历path路径返回信息: root: path根路径 dirs:  path下的所有文件夹, 不递归 files: path下的所有文件, 不递归  123456789101112131415161718192">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg">
 <meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
@@ -89,8 +90,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -146,6 +146,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -178,7 +188,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -248,27 +258,10 @@
 <li>dirs:  path下的所有文件夹, 不递归</li>
 <li>files: path下的所有文件, 不递归</li>
 </ul>
-<pre class="line-numbers language-py"><code class="language-py"># %%
-from cv2 import cv2
-import matplotlib.pyplot as plt
-import os
-import numpy as np
-import re
-def readimgs(path):# 读取所有文件
-    imgs=[]
-    labels=[]
-    for root,dirnames,f, in os.walk(path):# 取得所有文件夹
-        for dir in dirnames:# 遍历子文件夹
-            path2=os.path.join(path,dir)
-            for r,d,files, in os.walk(path2):# 对文件夹取所有文件
-                for onefile in files:# 对每个文件添加到列表中
-                    path3=os.path.join(path2,onefile)
-                    img=cv2.imread(path3)
-                    img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)# 转灰度
-                    imgs.append(img)# 添加到图片集
-                    labels.append(int(re.sub("\D","",dir)))# 文件夹名作为标签
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %%</span></span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readimgs</span><span class="params">(path)</span>:</span><span class="comment"># 读取所有文件</span></span><br><span class="line">    imgs=[]</span><br><span class="line">    labels=[]</span><br><span class="line">    <span class="keyword">for</span> root,dirnames,f, <span class="keyword">in</span> os.walk(path):<span class="comment"># 取得所有文件夹</span></span><br><span class="line">        <span class="keyword">for</span> dir <span class="keyword">in</span> dirnames:<span class="comment"># 遍历子文件夹</span></span><br><span class="line">            path2=os.path.join(path,dir)</span><br><span class="line">            <span class="keyword">for</span> r,d,files, <span class="keyword">in</span> os.walk(path2):<span class="comment"># 对文件夹取所有文件</span></span><br><span class="line">                <span class="keyword">for</span> onefile <span class="keyword">in</span> files:<span class="comment"># 对每个文件添加到列表中</span></span><br><span class="line">                    path3=os.path.join(path2,onefile)</span><br><span class="line">                    img=cv2.imread(path3)</span><br><span class="line">                    img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)<span class="comment"># 转灰度</span></span><br><span class="line">                    imgs.append(img)<span class="comment"># 添加到图片集</span></span><br><span class="line">                    labels.append(int(re.sub(<span class="string">"\D"</span>,<span class="string">""</span>,dir)))<span class="comment"># 文件夹名作为标签</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> imgs,labels</span><br></pre></td></tr></table></figure>
 
-    return imgs,labels<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 <h1 id="2-cv2-Eigenfaces训练"><a href="#2-cv2-Eigenfaces训练" class="headerlink" title="2. cv2.Eigenfaces训练"></a>2. cv2.Eigenfaces训练</h1><blockquote>
 <p>也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA</p>
 </blockquote>
@@ -282,41 +275,16 @@ def readimgs(path):# 读取所有文件
 <li>src: 数据组, 具体到图像就是图像顺序容器, 例如vector<Mat>, [img1,img2,….]</li>
 <li>labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行…)</li>
 </ul>
-<pre class="line-numbers language-py"><code class="language-py"># %%主函数训练
-if __name__ == "__main__":
-    # 读取全部文件
-    imgs,labels=readimgs("./att_faces")
-    # 划分训练集 测试集
-    testimgs=[]
-    testlabels=[]
-    trainimgs=[]
-    trainlabels=[]
-    for i in range(len(labels)):
-        if(i%10==0):# 每10张, 即每一组留一张作为测试集
-            testimgs.append(imgs[i])
-            testlabels.append(labels[i])
-        else:
-            trainimgs.append(imgs[i])
-            trainlabels.append(labels[i])
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %%主函数训练</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 读取全部文件</span></span><br><span class="line">    imgs,labels=readimgs(<span class="string">"./att_faces"</span>)</span><br><span class="line">    <span class="comment"># 划分训练集 测试集</span></span><br><span class="line">    testimgs=[]</span><br><span class="line">    testlabels=[]</span><br><span class="line">    trainimgs=[]</span><br><span class="line">    trainlabels=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(labels)):</span><br><span class="line">        <span class="keyword">if</span>(i%<span class="number">10</span>==<span class="number">0</span>):<span class="comment"># 每10张, 即每一组留一张作为测试集</span></span><br><span class="line">            testimgs.append(imgs[i])</span><br><span class="line">            testlabels.append(labels[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            trainimgs.append(imgs[i])</span><br><span class="line">            trainlabels.append(labels[i])</span><br><span class="line"></span><br><span class="line">    trainlabels=np.asarray(trainlabels)</span><br><span class="line">    </span><br><span class="line">    model = cv2.face.EigenFaceRecognizer_create()</span><br><span class="line">    model.train(trainimgs,trainlabels)</span><br></pre></td></tr></table></figure>
 
-    trainlabels=np.asarray(trainlabels)
-
-    model = cv2.face.EigenFaceRecognizer_create()
-    model.train(trainimgs,trainlabels)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="3-Eigenfaces预测"><a href="#3-Eigenfaces预测" class="headerlink" title="3. Eigenfaces预测"></a>3. Eigenfaces预测</h1><p>预测就是对之前保留的测试集, 一一预测并且检验正确率.</p>
 <h4 id="model-predict-data-模型对data进行预测-返回output-2"><a href="#model-predict-data-模型对data进行预测-返回output-2" class="headerlink" title="model.predict(data): 模型对data进行预测, 返回output[2]"></a>model.predict(data): 模型对data进行预测, 返回output[2]</h4><ul>
 <li>output[0], label, 即预测的标签.</li>
 <li>output[1], confidence, 即置信度, 注意confidence是越高越不相似</li>
 </ul>
-<pre class="line-numbers language-py"><code class="language-py"># %% 验证
-    count=0
-    for i in range(0,len(testlabels)):
-        test_img=testimgs[i]
-        output=model.predict(test_img)# 对测试集每个图片进行预测
-        if(output[0]==testlabels[i]):# 结果和真实标签比较
-            count+=1
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %% 验证</span></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(testlabels)):</span><br><span class="line">        test_img=testimgs[i]</span><br><span class="line">        output=model.predict(test_img)<span class="comment"># 对测试集每个图片进行预测</span></span><br><span class="line">        <span class="keyword">if</span>(output[<span class="number">0</span>]==testlabels[i]):<span class="comment"># 结果和真实标签比较</span></span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    print(count/len(testlabels))<span class="comment"># 输出成功率</span></span><br></pre></td></tr></table></figure>
 
-    print(count/len(testlabels))# 输出成功率<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>输出准确率达到0.975</p>
 <p>存在一个错误样例:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg" alt="唯一一个错判样例, 左为原图, 右为预测标签所属图"></p>
 
@@ -338,7 +306,7 @@ if __name__ == "__main__":
       <i class="fa fa-chevron-left"></i> 计算机视觉实验2-1——目标轮廓提取,-复制目标
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0-%EF%BC%88%E6%8C%81%E7%BB%AD%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0)/" rel="next" title="考研数学冷门杂记-（持续不定期更新)">
+    <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/" rel="next" title="考研数学冷门杂记-（持续不定期更新)">
       考研数学冷门杂记-（持续不定期更新) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -405,6 +373,8 @@ if __name__ == "__main__":
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -413,7 +383,7 @@ if __name__ == "__main__":
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -472,13 +442,13 @@ if __name__ == "__main__":
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -508,12 +478,37 @@ if __name__ == "__main__":
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

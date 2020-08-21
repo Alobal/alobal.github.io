@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -256,62 +266,37 @@
 </ul>
 <p>因为这种方法会遍历完所有’（’可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
 <ul>
-<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-  vector<span class="token operator">&lt;</span>string<span class="token operator">></span> <span class="token function">generateParenthesis</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
-  <span class="token punctuation">{</span>
-      vector<span class="token operator">&lt;</span>string<span class="token operator">></span> result<span class="token punctuation">;</span>
+<li><h3 id="递归法代码"><a href="#递归法代码" class="headerlink" title="递归法代码"></a>递归法代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">generateParenthesis</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">       </span><br><span class="line">        Recursion(n,<span class="string">""</span>,<span class="number">0</span>,<span class="number">0</span>,result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"> <span class="function"><span class="keyword">void</span>  <span class="title">Recursion</span><span class="params">(<span class="keyword">int</span> n,<span class="built_in">string</span> temp,<span class="keyword">int</span> left ,<span class="keyword">int</span> right,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; result)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.size()== <span class="number">2</span>*n)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        <span class="keyword">if</span>(left&lt;n)</span><br><span class="line">            Recursion(n,temp+<span class="string">'('</span>,left+<span class="number">1</span>,right,result);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(right&lt;left)</span><br><span class="line">            Recursion(n,temp+<span class="string">')'</span>,left,right+<span class="number">1</span>,result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-      <span class="token function">Recursion</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<p> void  Recursion(int n,string temp,int left ,int right,vector<string>&amp; result)<br>    {<br>        if(temp.size()== 2*n)<br>        {<br>            result.push_back(temp);<br>            return;<br>        }</p>
-<pre><code>    if(left&lt;n)
-        Recursion(n,temp+&#39;(&#39;,left+1,right,result);
+<table>
+<thead>
+<tr>
+<th>提交时间</th>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 天前</td>
+<td>通过</td>
+<td>20 ms</td>
+<td>17 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody></table>
+<ul>
+<li><h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。<br>给上链接 ：</p>
+<h3 id="闭合数的合理解释-Jerry-Peng"><a href="#闭合数的合理解释-Jerry-Peng" class="headerlink" title="闭合数的合理解释-Jerry Peng"></a><a href="[https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/)">闭合数的合理解释-Jerry Peng</a></h3></li>
+<li><p>算法分析<br>对于每个n对括号的括号串S[n] 都可以划分为两个部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题</span><br><span class="line">**自底向上，存储子问题结果，逐步合并到n长度的问题**。</span><br><span class="line">因为要找到所有可能结果，因此c的取值需要遍历所有可能。</span><br><span class="line"></span><br><span class="line">- ###   动态规划代码</span><br><span class="line">&#96;&#96;&#96;cpp</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; generateParenthesis(int n)</span><br><span class="line">    &#123;</span><br><span class="line">       map&lt;int,vector&lt;string&gt;&gt; resultmap;</span><br><span class="line">        resultmap[0].push_back(&quot;&quot;);</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;n;i++)</span><br><span class="line">            for(int j&#x3D;0;j&lt;i;j++)</span><br><span class="line">                for(string left: resultmap[j])</span><br><span class="line">                    for(string right: resultmap[i-j-1])</span><br><span class="line">                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);</span><br><span class="line">        </span><br><span class="line">        return resultmap[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-    if(right&lt;left)
-        Recursion(n,temp+&#39;)&#39;,left,right+1,result);
-}</code></pre><p>};</p>
-<pre><code>
-|  提交时间  |  提交结果  |  执行用时  |  内存消耗  |  语言  |
-| --- | --- | --- | --- | --- |
-| 2 天前 | 通过 | 20 ms | 17 MB | Cpp |
-
-
-- ###    动态规划
-因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
-给上链接 ：
-###    [闭合数的合理解释-Jerry Peng]([https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/](https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/))
-
-- 算法分析
- 对于每个n对括号的括号串S[n] 都可以划分为两个部分
-```S[n] = &#39;(&#39; + S[c] + &#39;)&#39; + S[n-c-1];```
-第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
-**自底向上，存储子问题结果，逐步合并到n长度的问题**。
-因为要找到所有可能结果，因此c的取值需要遍历所有可能。
-
-- ###   动态规划代码
-```cpp
-class Solution {
-public:
-    vector&lt;string&gt; generateParenthesis(int n)
-    {
-       map&lt;int,vector&lt;string&gt;&gt; resultmap;
-        resultmap[0].push_back(&quot;&quot;);
-        for(int i=1;i&lt;=n;i++)
-            for(int j=0;j&lt;i;j++)
-                for(string left: resultmap[j])
-                    for(string right: resultmap[i-j-1])
-                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);
-
-        return resultmap[n];
-    }
-};
-</code></pre><table>
+</li>
+</ul>
+<table>
 <thead>
 <tr>
 <th>提交时间</th>
@@ -346,12 +331,12 @@ public:
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-23/" rel="prev" title="LeetCode-No-23">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-23
+    <a href="/Blog/2020/02/17/LeetCode-No-16/" rel="prev" title="LeetCode-No-16">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-16
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-16/" rel="next" title="LeetCode-No-16">
-      LeetCode-No-16 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-15-/" rel="next" title="LeetCode-No-15-">
+      LeetCode-No-15- <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -411,12 +396,14 @@ public:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#括号生成"><span class="nav-number">1.</span> <span class="nav-text">括号生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解分析"><span class="nav-number">2.</span> <span class="nav-text">题解分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准思路"><span class="nav-number">2.0.1.</span> <span class="nav-text">标准思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归法代码"><span class="nav-number">2.0.2.</span> <span class="nav-text">递归法代码</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#括号生成"><span class="nav-number">1.</span> <span class="nav-text">括号生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解分析"><span class="nav-number">2.</span> <span class="nav-text">题解分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准思路"><span class="nav-number">2.0.1.</span> <span class="nav-text">标准思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归法代码"><span class="nav-number">2.0.2.</span> <span class="nav-text">递归法代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">2.0.3.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭合数的合理解释-Jerry-Peng"><span class="nav-number">2.0.4.</span> <span class="nav-text">闭合数的合理解释-Jerry Peng</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -425,7 +412,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -484,13 +471,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -520,12 +507,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

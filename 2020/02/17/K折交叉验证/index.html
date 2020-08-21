@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -20,12 +21,12 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="8 K折交叉验证SVC1.一次训练&#x2F;测试虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.import numpy as np from sklearn.model_selection import cross_val_score,train_test_split from sklearn import datasets from sklearn">
+  <meta name="description" content="8 K折交叉验证SVC1.一次训练&#x2F;测试虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.123456789101112import numpy as npfrom sklearn.model_selection import cross_val_score,train_test_splitfrom sklearn import datasetsf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="K折交叉验证">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="8 K折交叉验证SVC1.一次训练&#x2F;测试虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.import numpy as np from sklearn.model_selection import cross_val_score,train_test_split from sklearn import datasets from sklearn">
+<meta property="og:description" content="8 K折交叉验证SVC1.一次训练&#x2F;测试虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.123456789101112import numpy as npfrom sklearn.model_selection import cross_val_score,train_test_splitfrom sklearn import datasetsf">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-16T18:17:00.000Z">
 <meta property="article:modified_time" content="2020-07-17T03:21:16.165Z">
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,7 +231,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>678</span>
+              <span>742</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -240,26 +250,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><pre><code>import numpy as np
-from sklearn.model_selection import cross_val_score,train_test_split
-from sklearn import datasets
-from sklearn import svm
+        <h1 id="8-K折交叉验证SVC"><a href="#8-K折交叉验证SVC" class="headerlink" title="8 K折交叉验证SVC"></a>8 K折交叉验证SVC</h1><h3 id="1-一次训练-测试"><a href="#1-一次训练-测试" class="headerlink" title="1.一次训练/测试"></a>1.一次训练/测试</h3><h4 id="虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合"><a href="#虽然一次验证有96-7-准确率-但是因为数据集本身很小-训练集和测试集可能区别不大-还是可能过拟合" class="headerlink" title="虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合."></a>虽然一次验证有96.7%准确率,但是因为数据集本身很小,训练集和测试集可能区别不大,还是可能过拟合.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from sklearn.model_selection import cross_val_score,train_test_split</span><br><span class="line">from sklearn import datasets</span><br><span class="line">from sklearn import svm</span><br><span class="line"></span><br><span class="line">iris&#x3D;datasets.load_iris()</span><br><span class="line"># 测试集有40%数据    </span><br><span class="line">x_train,x_test,y_train,y_test&#x3D;train_test_split(iris.data,iris.target,test_size&#x3D;0.4,random_state&#x3D;0)</span><br><span class="line"></span><br><span class="line">clf&#x3D;svm.SVC(kernel&#x3D;&#39;linear&#39;,C&#x3D;1).fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line">clf.score(x_test,y_test)</span><br></pre></td></tr></table></figure>
 
-iris=datasets.load_iris()
-# 测试集有40%数据    
-x_train,x_test,y_train,y_test=train_test_split(iris.data,iris.target,test_size=0.4,random_state=0)
-
-clf=svm.SVC(kernel=&#39;linear&#39;,C=1).fit(x_train,y_train)
-
-clf.score(x_test,y_test)
-</code></pre><h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
+<h3 id="2-K折交叉验证"><a href="#2-K折交叉验证" class="headerlink" title="2. K折交叉验证"></a>2. K折交叉验证</h3><ul>
 <li><h4 id="cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit"><a href="#cross-val-score-…-cv-cv为交叉验证的K值-划分K次-每次K-1份训练集-1份测试集-每次训练都会对clf模型进行fit-所以clf不需要事先fit" class="headerlink" title="cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit."></a>cross_val_score(…,cv=)cv为交叉验证的K值,划分K次,每次K-1份训练集,1份测试集,每次训练都会对clf模型进行fit, 所以clf不需要事先fit.</h4></li>
 <li><h4 id="返回评分结果列表"><a href="#返回评分结果列表" class="headerlink" title="返回评分结果列表"></a>返回评分结果列表</h4></li>
 </ul>
-<pre><code>scores=cross_val_score(clf,iris.data,iris.target,cv=5)
-
-print(scores)
-print(scores.mean())</code></pre><br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scores&#x3D;cross_val_score(clf,iris.data,iris.target,cv&#x3D;5)</span><br><span class="line"></span><br><span class="line">print(scores)</span><br><span class="line">print(scores.mean())</span><br></pre></td></tr></table></figure>
+<br>
 ![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
 
     </div>
@@ -276,12 +274,12 @@ print(scores.mean())</code></pre><br>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-15-/" rel="prev" title="LeetCode-No-15-">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-15-
+    <a href="/Blog/2020/02/17/LeetCode-No-11/" rel="prev" title="LeetCode-No-11">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-11
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-11/" rel="next" title="LeetCode-No-11">
-      LeetCode-No-11 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-1/" rel="next" title="LeetCode-No-1">
+      LeetCode-No-1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -347,6 +345,8 @@ print(scores.mean())</code></pre><br>
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -355,7 +355,7 @@ print(scores.mean())</code></pre><br>
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -414,13 +414,13 @@ print(scores.mean())</code></pre><br>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -450,12 +450,37 @@ print(scores.mean())</code></pre><br>
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

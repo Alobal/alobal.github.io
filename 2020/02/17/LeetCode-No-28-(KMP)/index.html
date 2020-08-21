@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
 
 <link rel="stylesheet" href="/Blog/css/main.css">
 
@@ -87,8 +88,7 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="/Blog/css/prism-duotone-light.css" type="text/css">
-<link rel="stylesheet" href="/Blog/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -144,6 +144,16 @@
     <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -176,7 +186,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-28-(KMP)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -276,77 +286,11 @@
 <p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
 </blockquote>
 <p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<pre><code>因为在0位失败肯定没法跳跃，令jump[0]=-1 
-设置好跳跃定位标志 k=-1
-对模式串每一位 i
-    假如 i  k 位相同，或者k==-1
-      即看作前后缀目前为止相同
-      i, k 到下一位
-      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可
-          假如下一位与跳跃位不同
-              把已经处理好的k作为它的跳跃位即可，jump[i]=k
-          假如下一位与跳跃位相同
-              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）
-              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]
-   假如 i k 位不同 （他们的跳跃信息已经被处理好了）
-      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）
-      k=jump[k]
-</code></pre><h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
-<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><pre><code>class Solution {
-public:
-    int strStr(string haystack, string needle) 
-    {   
-        if(needle==&quot;&quot;)
-            return 0;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">因为在0位失败肯定没法跳跃，令jump[0]&#x3D;-1 </span><br><span class="line">设置好跳跃定位标志 k&#x3D;-1</span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k&#x3D;&#x3D;-1</span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]&#x3D;k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]&#x3D;jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k&#x3D;jump[k]</span><br></pre></td></tr></table></figure>
 
-        //KMP
+<h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int strStr(string haystack, string needle) </span><br><span class="line">    &#123;   </span><br><span class="line">        if(needle&#x3D;&#x3D;&quot;&quot;)</span><br><span class="line">            return 0;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;KMP</span><br><span class="line"> </span><br><span class="line">        int jump[needle.size()];</span><br><span class="line">        jump[0]&#x3D;-1;</span><br><span class="line">        int k&#x3D;-1;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;创建失效数组  abcabcd</span><br><span class="line">        while(i&lt;needle.size()-1)</span><br><span class="line">        &#123;</span><br><span class="line">            if(k&#x3D;&#x3D;-1 || needle[i]&#x3D;&#x3D;needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                if(needle[i]!&#x3D;needle[k])</span><br><span class="line">                    jump[i]&#x3D;k;</span><br><span class="line">                else</span><br><span class="line">                    jump[i]&#x3D;jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            else    &#x2F;&#x2F;内置kmp</span><br><span class="line">                k&#x3D;jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        int x&#x3D;0;</span><br><span class="line">        int y&#x3D;0;</span><br><span class="line">        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) &#x2F;&#x2F;注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span><br><span class="line">        &#123;</span><br><span class="line">            if(y&#x3D;&#x3D;-1 ||haystack[x]&#x3D;&#x3D;needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">               y&#x3D;jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(y&#x3D;&#x3D;needle.size())</span><br><span class="line">            return x-y;</span><br><span class="line">        else</span><br><span class="line">            return -1;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-        int jump[needle.size()];
-        jump[0]=-1;
-        int k=-1;
-        int i=0;
-        //创建失效数组  abcabcd
-        while(i&lt;needle.size()-1)
-        {
-            if(k==-1 || needle[i]==needle[k])
-            {
-                i++;
-                k++;
-
-                if(needle[i]!=needle[k])
-                    jump[i]=k;
-                else
-                    jump[i]=jump[k];
-            }
-            else    //内置kmp
-                k=jump[k];
-        }
-
-
-
-        int x=0;
-        int y=0;
-        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) //注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint
-        {
-            if(y==-1 ||haystack[x]==needle[y])
-            {
-                x++;
-                y++;
-            }
-            else
-               y=jump[y];
-
-        }
-
-        if(y==needle.size())
-            return x-y;
-        else
-            return -1;
-
-
-
-    }
-};</code></pre>
     </div>
 
     
@@ -361,12 +305,12 @@ public:
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-43/" rel="prev" title="LeetCode-No-43">
-      <i class="fa fa-chevron-left"></i> LeetCode-No-43
+    <a href="/Blog/2020/02/17/LeetCode-No-3/" rel="prev" title="LeetCode-No-3">
+      <i class="fa fa-chevron-left"></i> LeetCode-No-3
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/02/17/LeetCode-No-31/" rel="next" title="LeetCode-No-31">
-      LeetCode-No-31 <i class="fa fa-chevron-right"></i>
+    <a href="/Blog/2020/02/17/LeetCode-No-4-/" rel="next" title="LeetCode-No-4-">
+      LeetCode-No-4- <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -432,6 +376,8 @@ public:
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/Blog/images/avatarS.png">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -440,7 +386,7 @@ public:
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -499,13 +445,13 @@ public:
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">146k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:08</span>
+    <span title="站点阅读时长">6:04</span>
 </div>
 
         
@@ -535,12 +481,37 @@ public:
 <script src="/Blog/js/schemes/pisces.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/Blog/js/next-boot.js"></script>
 
 
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
