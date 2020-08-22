@@ -180,7 +180,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -194,7 +194,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/" class="post-title-link" itemprop="url">考研数学冷门杂记-（持续不定期更新)</a>
+            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
         </h2>
 
         <div class="post-meta">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,7 +219,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">考研数学</span></a>
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
                 </span>
             </span>
 
@@ -229,14 +229,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -248,51 +248,142 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-多项式处理"><a href="#1-多项式处理" class="headerlink" title="1. 多项式处理"></a>1. 多项式处理</h1><p>$$1^2+2^2+…+n^2=rac{1}{6} n(n+1)(2n+1) $$<br>$$a^n-b^n=(a-b)(a^0b^{n-1}+…+a^{n-1}b^0)$$<br>$$a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})$$</p>
-<hr>
-<h1 id="2-极限等价无穷小-和-重要极限公式"><a href="#2-极限等价无穷小-和-重要极限公式" class="headerlink" title="2. 极限等价无穷小 和 重要极限公式"></a>2. 极限等价无穷小 和 重要极限公式</h1><blockquote>
-<p>~在公式编辑里打不出， 用≈代替</p>
+          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
+<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
+<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line">ratings.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
+<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movieRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line">movieRatings.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
+<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
+<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starWarsRatings&#x3D;movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表</span><br><span class="line">similar2starWars&#x3D;movieRatings.corrwith(starWarsRatings)</span><br><span class="line">similar2starWars&#x3D;similar2starWars.dropna()</span><br><span class="line">df&#x3D;pd.DataFrame(similar2starWars)</span><br><span class="line">df.sort_values(0,ascending&#x3D;False)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
+<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
+<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">movieStats&#x3D;ratings.groupby(&#39;title&#39;).agg(&#123;&#39;rating&#39;:[np.size,np.mean]&#125;)</span><br><span class="line">movieStats.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
+<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">popularMovies&#x3D;movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;&#x3D;100 # size大于100的index+T&#x2F;F列表</span><br><span class="line">#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending&#x3D;False)[:15] #显示筛选后的表 , mutiindex需要指定两层</span><br><span class="line">similar2starWars.name&#x3D;&#39;similarity&#39;</span><br><span class="line">df&#x3D;movieStats[popularMovies].join(similar2starWars)</span><br><span class="line">df.sort_values([&#39;similarity&#39;],ascending&#x3D;False)[:15]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="5-整理成推荐电影系统"><a href="#5-整理成推荐电影系统" class="headerlink" title="5. 整理成推荐电影系统"></a>5. 整理成推荐电影系统</h3><ul>
+<li><h4 id="df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量"><a href="#df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量" class="headerlink" title="df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量"></a>df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量</h4></li>
+<li><ul>
+<li><h4 id="method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关"><a href="#method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关" class="headerlink" title="method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关"></a>method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line"></span><br><span class="line"># 按user_id生成聚合图</span><br><span class="line">userRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line"># 生成相关系数矩阵</span><br><span class="line">corrMatrix&#x3D;userRatings.corr(method&#x3D;&#39;pearson&#39;,min_periods&#x3D;150)</span><br><span class="line"></span><br><span class="line">testuser&#x3D;userRatings.loc[0].dropna()</span><br><span class="line"></span><br><span class="line">def GenerateSimCandidates(myRatings):</span><br><span class="line">    simCandidates&#x3D;pd.Series()</span><br><span class="line">    for i in range(0,len(myRatings.index)):</span><br><span class="line">        print(&quot;Adding sims for &quot;+ myRatings.index[i]+&quot;...&quot;)</span><br><span class="line">        # 筛选出myRatings.index[i]作为列标题的一整列</span><br><span class="line">        sims&#x3D;corrMatrix[myRatings.index[i]].dropna()</span><br><span class="line">        # 评分加权,这一列所有value乘上评分</span><br><span class="line">        sims&#x3D;sims.map(lambda x:x*myRatings[i])</span><br><span class="line">        simCandidates&#x3D;simCandidates.append(sims)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    # 聚合重复项</span><br><span class="line">    simCandidates&#x3D;simCandidates.groupby(simCandidates.index).sum()</span><br><span class="line">    # 整理排序    </span><br><span class="line">    simCandidates.sort_values(inplace&#x3D;True,ascending&#x3D;False)</span><br><span class="line">    return simCandidates</span><br><span class="line">        </span><br><span class="line">print(GenerateSimCandidates(testuser).head(10))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def Hybrid(catimg,dogimg,hole&#x3D;10):</span><br><span class="line">    # cat过滤低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_catimg&#x3D;np.fft.fft2(catimg)</span><br><span class="line">    f_catimg&#x3D;np.fft.fftshift(f_catimg)</span><br><span class="line"></span><br><span class="line">    # 取得中孔位置, 挖掉中孔, 过滤低频量</span><br><span class="line">    h,w&#x3D;catimg.shape</span><br><span class="line">    f_catimg[int(h&#x2F;2-hole):int(h&#x2F;2+hole),int(w&#x2F;2-hole):int(w&#x2F;2+hole)]&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># dog保留低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_dogimg&#x3D;np.fft.fft2(dogimg)</span><br><span class="line">    f_dogimg&#x3D;np.fft.fftshift(f_dogimg)</span><br><span class="line"></span><br><span class="line">    # 仅保留中孔, 过滤高频量</span><br><span class="line">    h,w&#x3D;dogimg.shape</span><br><span class="line">    f_dogimg[:int(h&#x2F;2-hole),:]&#x3D;0</span><br><span class="line">    f_dogimg[int(h&#x2F;2+hole):,:]&#x3D;0</span><br><span class="line">    f_dogimg[:,:int(w&#x2F;2-hole)]&#x3D;0</span><br><span class="line">    f_dogimg[:,int(w&#x2F;2+hole):]&#x3D;0</span><br></pre></td></tr></table></figure>
+
+<p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
+<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
+<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
 </blockquote>
-<h3 id="2-1-等价无穷小"><a href="#2-1-等价无穷小" class="headerlink" title="2.1 等价无穷小"></a>2.1 等价无穷小</h3><p>$$x→0<del>~</del>sinx ≈x$$</p>
-<p>$$x→0<del>~</del>tanx≈x$$</p>
-<p>$$x→0<del>~</del>arcsinx≈x$$</p>
-<p>$$x→0<del>~</del>arctanx≈x$$</p>
-<p>$$x→0<del>~</del>1-cosx≈rac{1}{2}x^ 2$$</p>
-<p>$$x→0<del>~</del>e^x-1≈x$$</p>
-<p>$$x→0<del>~</del>ln(1+x)≈x$$</p>
-<p>$$x→0<del>~</del>(1+x)^α-1≈αx$$</p>
-<h3 id="2-2-重要极限公式"><a href="#2-2-重要极限公式" class="headerlink" title="2.2 重要极限公式"></a>2.2 重要极限公式</h3><p>$$\lim_{x    o0}rac{sinx}{x}=1$$</p>
-<p>$$\lim_{n    o∞}(1+rac{1}{n})^n=e$$</p>
-<p>$$\lim_{x    o∞}(1+rac{1}{x})^x=e$$</p>
-<p>$$\lim_{u    o0}(1+u)^rac{1}{u}=e$$</p>
-<hr>
-<h1 id="3-导数冷门公式"><a href="#3-导数冷门公式" class="headerlink" title="3. 导数冷门公式"></a>3. 导数冷门公式</h1><p>$$(tanx)’ = sec^2x=rac{1}{cos^2x}$$</p>
-<p>$$(cotx)’ = -csc^2x=-rac{1}{sin^2x}$$</p>
-<p>$$(secx)’ = secx tanx=rac{sinx}{cos^2x}$$</p>
-<p>$$(cscx)’ =-cscxcotx=-rac{ cosx}{sin^2x}$$</p>
-<p>$$(arcsinx)’ =rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arccosx)’ =-rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arctanx)’ =rac{1}{1+x^2}$$</p>
-<p>$$(arccotx)’ =-rac{1}{1+x^2}$$</p>
-<p>$$(x^x)’ =x^x(lnx+1) ······（对数求导）$$</p>
-<h4 id="导函数的连续性："><a href="#导函数的连续性：" class="headerlink" title="导函数的连续性："></a>导函数的连续性：</h4><h5 id="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："><a href="#函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：" class="headerlink" title="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："></a>函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-370520d94e31c91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源自知乎"></p>
-<h4 id="变上限积分函数可导性："><a href="#变上限积分函数可导性：" class="headerlink" title="变上限积分函数可导性："></a>变上限积分函数可导性：</h4><h5 id="1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"><a href="#1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。" class="headerlink" title="1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"></a>1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。</h5><h5 id="2）-连续函数的变上限积分函数一定可导。"><a href="#2）-连续函数的变上限积分函数一定可导。" class="headerlink" title="2）      连续函数的变上限积分函数一定可导。"></a>2）      连续函数的变上限积分函数一定可导。</h5><hr>
-<h1 id="4-积分冷门公式"><a href="#4-积分冷门公式" class="headerlink" title="4. 积分冷门公式"></a>4. 积分冷门公式</h1><h5 id="4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"><a href="#4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来" class="headerlink" title="4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"></a>4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来</h5><p>$$\int sin(x^2)dx  、\int cos(x^2)dx、  \int rac{sinx}{x}dx、\int rac{cosx}{x}dx、\int rac{1}{lnx}dx、\int e^{-x^2}dx、$$</p>
-<h5 id="4-2-冷门积分函数"><a href="#4-2-冷门积分函数" class="headerlink" title="4.2 冷门积分函数"></a>4.2 冷门积分函数</h5><p>$$\int a^xdx=rac{1}{lna}a^x+C $$</p>
-<p>$$\int sec^2xdx=\int rac{1}{cos^2x}dx=tanx+C $$</p>
-<p>$$\int csc^2xdx=\int rac{1}{sin^2x}dx=-cotx+C$$</p>
-<p>$$\int tanxsecxdx=secx+C$$</p>
-<p>$$\int cotxcscxdx=-cscx+C$$</p>
-<p>$$\int tanxdx=-ln|cosx|+C$$</p>
-<p>$$\int cotxdx=ln|sinx|+C$$</p>
-<p>$$\int secxdx=ln|secx+tanx|+C$$</p>
-<p>$$\int cscxdx=ln|cscx-cotx|+C$$</p>
-<p>$$\int rac{1}{\sqrt{a^2-x^2}}dx=arcsin rac{x}{a} +C $$</p>
-<p>$$\int rac{1}{a^2+x^2}dx=rac{1}{a} arctan rac{x}{a} +C $$</p>
-<hr>
-<p>$$\int rac{1}{a^2-x^2}dx=rac{1}{2a} ln rac{a+x}{a-x} +C $$</p>
-<p>$$\int   rac{1}{\sqrt {x^2 \pm a^2}}dx=ln|x+\sqrt{x^2 \pm a^2}| +C $$</p>
-<p>$$\int rac{1}{e^x+1}dx=\int rac{e^x}{e^x(e^x+1)}dx=\int rac{1}{e^x}-rac{1}{e^x+1}de^x $$</p>
+<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    catimg&#x3D;cv2.imread(&quot;.&#x2F;cat.jpg&quot;)</span><br><span class="line">    dogimg&#x3D;cv2.imread(&quot;.&#x2F;dog.jpg&quot;)</span><br><span class="line">    # 彩色猫狗图像分别对三通道进行处理</span><br><span class="line">    B_merge&#x3D;Hybrid(catimg[:,:,0],dogimg[:,:,0])</span><br><span class="line">    plt.subplot(221),plt.imshow(B_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    G_merge&#x3D;Hybrid(catimg[:,:,1],dogimg[:,:,1])</span><br><span class="line">    plt.subplot(222),plt.imshow(G_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    R_merge&#x3D;Hybrid(catimg[:,:,2],dogimg[:,:,2])</span><br><span class="line">    plt.subplot(223),plt.imshow(R_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line"></span><br><span class="line">    # 合并三通道显示 猫狗</span><br><span class="line">    img_merge&#x3D;cv2.merge([B_merge,G_merge,R_merge])</span><br><span class="line">    print(img_merge)</span><br><span class="line">    plt.subplot(224),plt.imshow(img_merge)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # 人像合成</span><br><span class="line">    wholeimg&#x3D;cv2.imread(&quot;.&#x2F;marilyn-einstein-hybrid-collage.png&quot;,0)</span><br><span class="line">    h,w&#x3D;wholeimg.shape</span><br><span class="line">    first_img&#x3D;wholeimg[:,:int(w&#x2F;3)]</span><br><span class="line">    second_img&#x3D;wholeimg[:,int(w&#x2F;3):int(2*w&#x2F;3)]</span><br><span class="line">    img_hybrid&#x3D;Hybrid(first_img,second_img,30)</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize&#x3D;[12.8,9.6]),plt.imshow(img_hybrid,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
 
       
     </div>
@@ -563,106 +654,6 @@
 
 
 <p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def Hybrid(catimg,dogimg,hole&#x3D;10):</span><br><span class="line">    # cat过滤低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_catimg&#x3D;np.fft.fft2(catimg)</span><br><span class="line">    f_catimg&#x3D;np.fft.fftshift(f_catimg)</span><br><span class="line"></span><br><span class="line">    # 取得中孔位置, 挖掉中孔, 过滤低频量</span><br><span class="line">    h,w&#x3D;catimg.shape</span><br><span class="line">    f_catimg[int(h&#x2F;2-hole):int(h&#x2F;2+hole),int(w&#x2F;2-hole):int(w&#x2F;2+hole)]&#x3D;0</span><br></pre></td></tr></table></figure>
-<p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># dog保留低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_dogimg&#x3D;np.fft.fft2(dogimg)</span><br><span class="line">    f_dogimg&#x3D;np.fft.fftshift(f_dogimg)</span><br><span class="line"></span><br><span class="line">    # 仅保留中孔, 过滤高频量</span><br><span class="line">    h,w&#x3D;dogimg.shape</span><br><span class="line">    f_dogimg[:int(h&#x2F;2-hole),:]&#x3D;0</span><br><span class="line">    f_dogimg[int(h&#x2F;2+hole):,:]&#x3D;0</span><br><span class="line">    f_dogimg[:,:int(w&#x2F;2-hole)]&#x3D;0</span><br><span class="line">    f_dogimg[:,int(w&#x2F;2+hole):]&#x3D;0</span><br></pre></td></tr></table></figure>
-
-<p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
-</blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    catimg&#x3D;cv2.imread(&quot;.&#x2F;cat.jpg&quot;)</span><br><span class="line">    dogimg&#x3D;cv2.imread(&quot;.&#x2F;dog.jpg&quot;)</span><br><span class="line">    # 彩色猫狗图像分别对三通道进行处理</span><br><span class="line">    B_merge&#x3D;Hybrid(catimg[:,:,0],dogimg[:,:,0])</span><br><span class="line">    plt.subplot(221),plt.imshow(B_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    G_merge&#x3D;Hybrid(catimg[:,:,1],dogimg[:,:,1])</span><br><span class="line">    plt.subplot(222),plt.imshow(G_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    R_merge&#x3D;Hybrid(catimg[:,:,2],dogimg[:,:,2])</span><br><span class="line">    plt.subplot(223),plt.imshow(R_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line"></span><br><span class="line">    # 合并三通道显示 猫狗</span><br><span class="line">    img_merge&#x3D;cv2.merge([B_merge,G_merge,R_merge])</span><br><span class="line">    print(img_merge)</span><br><span class="line">    plt.subplot(224),plt.imshow(img_merge)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # 人像合成</span><br><span class="line">    wholeimg&#x3D;cv2.imread(&quot;.&#x2F;marilyn-einstein-hybrid-collage.png&quot;,0)</span><br><span class="line">    h,w&#x3D;wholeimg.shape</span><br><span class="line">    first_img&#x3D;wholeimg[:,:int(w&#x2F;3)]</span><br><span class="line">    second_img&#x3D;wholeimg[:,int(w&#x2F;3):int(2*w&#x2F;3)]</span><br><span class="line">    img_hybrid&#x3D;Hybrid(first_img,second_img,30)</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize&#x3D;[12.8,9.6]),plt.imshow(img_hybrid,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
 
       
     </div>

@@ -180,109 +180,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">反转链表</a></h1><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
-<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4<br>输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</p>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>反转一段区域，首先肯定想到是一个一个反转<blockquote>
-<p>比如2-&gt;3-&gt;4  先3插前面去 3-&gt;2-&gt;4 ，然后4插前面去 4-&gt;3-&gt;2</p>
-</blockquote>
-</li>
-<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
-<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
-<li>遍历反转区域元素current，令temp=current-&gt;next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-&gt;next即可。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseBetween(ListNode* head, int m, int n) </span><br><span class="line">    &#123;</span><br><span class="line">        int count&#x3D;1;</span><br><span class="line">        ListNode* temp;</span><br><span class="line">        ListNode* current;</span><br><span class="line">        </span><br><span class="line">        ListNode First(0);</span><br><span class="line">        First.next&#x3D;head;</span><br><span class="line">        ListNode* pre&#x3D;&amp;First;</span><br><span class="line">        while(count&lt;m)&#x2F;&#x2F;pre停在原第m-1个数</span><br><span class="line">        &#123;</span><br><span class="line">            pre&#x3D;pre-&gt;next;</span><br><span class="line">            count++;   </span><br><span class="line">        &#125;</span><br><span class="line">        current&#x3D;pre-&gt;next;&#x2F;&#x2F;current指向当前处理数</span><br><span class="line">        </span><br><span class="line">        while(count&lt;n)&#x2F;&#x2F;count计数位，每次将current-&gt;next插入到pre-&gt;next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current&#x3D;2 pre&#x3D;1</span><br><span class="line">        &#123;</span><br><span class="line">            temp&#x3D;current-&gt;next;&#x2F;&#x2F;保留current后节点，temp&#x3D;3</span><br><span class="line">            current-&gt;next&#x3D;temp-&gt;next;&#x2F;&#x2F;2-&gt;next&#x3D;4</span><br><span class="line">            temp-&gt;next&#x3D;pre-&gt;next;&#x2F;&#x2F;逆转temp和current的前后关系。3-&gt;next&#x3D;2</span><br><span class="line">            pre-&gt;next&#x3D;temp;&#x2F;&#x2F;更新pre的后节点，1-&gt;next&#x3D;3</span><br><span class="line">            &#x2F;&#x2F;current</span><br><span class="line">            count++;&#x2F;&#x2F;完成[1,3,2,4,5]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return First.next;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -381,7 +278,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -395,7 +292,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/SVM%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
         </h2>
 
         <div class="post-meta">
@@ -412,7 +309,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -420,7 +317,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -430,14 +327,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -449,21 +346,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># N 个人 K 个簇</span><br><span class="line">def CreateClusteredData(n,k):</span><br><span class="line">    pointPerCluster&#x3D;float(n)&#x2F;k</span><br><span class="line">    x&#x3D;[]</span><br><span class="line">    y&#x3D;[]</span><br><span class="line">    for i in range(k):</span><br><span class="line">        incomeCentroid&#x3D;np.random.uniform(20000.0,200000.0)</span><br><span class="line">        ageCentroid&#x3D;np.random.uniform(20.0,70.0)</span><br><span class="line">        for j in range(int(pointPerCluster)):</span><br><span class="line">            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])</span><br><span class="line">            y.append(i)# 保存已知簇信息</span><br><span class="line">    x&#x3D;np.array(x)</span><br><span class="line">    y&#x3D;np.array(y)</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">(x,y)&#x3D;CreateClusteredData(100,5)</span><br><span class="line"></span><br><span class="line">plt.scatter(x[:,0],x[:,1],c&#x3D;y.astype(np.float))</span><br></pre></td></tr></table></figure>
-<h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import svm,datasets</span><br><span class="line">C&#x3D;1.0</span><br><span class="line">svc&#x3D;svm.SVC(kernel&#x3D;&#39;linear&#39;,C&#x3D;C).fit(x,y)</span><br></pre></td></tr></table></figure>
-<h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
-<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
-<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
-<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
+          <h1 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">颜色分类</a></h1><p>给定一个包含红色、白色和蓝色，一共 <em>n <em>个元素的数组，</em></em><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">原地</a>**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入:** [2,0,2,1,1,0]<br><strong>输出:</strong> [0,0,1,1,2,2]</pre></p>
 </blockquote>
-<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
-<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li>
+<li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li>
+</ul>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000…111….2222的顺序。<blockquote>
+<p>正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。</p>
 </blockquote>
-<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
-<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
+</li>
+<li>对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。<blockquote>
+<p>三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。</p>
 </blockquote>
-<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def plotPredictions(clf,x,y,color):</span><br><span class="line">    xx,yy&#x3D;np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx&#x3D;有age行的income,yy&#x3D;有income列的age</span><br><span class="line">    z&#x3D;clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息</span><br><span class="line">    plt.figure(figsize&#x3D;(8,6))</span><br><span class="line">    z&#x3D;z.reshape(xx.shape)</span><br><span class="line">    plt.contourf(xx,yy,z,cmap&#x3D;plt.cm.Paired,alpha&#x3D;0.8)</span><br><span class="line">    plt.scatter(x,y,c&#x3D;color)</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))</span><br></pre></td></tr></table></figure>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
+</li>
+<li>确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。</li>
+</ol>
+<h5 id="针对cur的分类处理："><a href="#针对cur的分类处理：" class="headerlink" title="针对cur的分类处理："></a>针对cur的分类处理：</h5><ol>
+<li><p>是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。</p>
+</li>
+<li><p>是2，则和2的flag，right交换，同时right–。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。<br>同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。<br>因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。</p>
+</li>
+<li><p>是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了</p>
+</li>
+<li><p>那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？</p>
+<p> <strong>只有当left会在cur右边时</strong>，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。</p>
+<p>   <strong>当left在cur左边时，即left指向的必定经过了cur的洗礼</strong>，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。</p>
+</li>
+<li><p>当cur遇到right，即到达2的边界，则说明不需要处理了，结束。</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void sortColors(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        int left&#x3D;0;</span><br><span class="line">        int right&#x3D;nums.size()-1;</span><br><span class="line">        int cur&#x3D;0;</span><br><span class="line">        while(cur&lt;&#x3D;right)</span><br><span class="line">        &#123;   </span><br><span class="line">            if(nums[cur]&#x3D;&#x3D;0)&#x2F;&#x2F;这个数字是0，移动0区域内，</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[left]);</span><br><span class="line">                &#x2F;&#x2F;假如cur&gt;left，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？</span><br><span class="line">                &#x2F;&#x2F;jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。</span><br><span class="line">                &#x2F;&#x2F;假如cur&#x3D;&#x3D;left&#x3D;&#x3D;0，没啥好说的，下一个</span><br><span class="line">                &#x2F;&#x2F;假如cur&lt;left, 可能吗？cur++的机会 &gt;&#x3D; left++的机会</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(nums[cur]&#x3D;&#x3D;2)&#x2F;&#x2F;这个数字是2，移到2区域内</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[right]);</span><br><span class="line">                right--;</span><br><span class="line">                &#x2F;&#x2F;交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变</span><br><span class="line">                cur--;</span><br><span class="line">            &#125;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -567,6 +486,108 @@
 <h4 id="即"><a href="#即" class="headerlink" title="即:"></a>即:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">est&#x3D;sm.OLS(y.astype(float),x1.astype(float)).fit()</span><br></pre></td></tr></table></figure>
 <h4 id="成功运行-r方值小的不能再小的破单元模型"><a href="#成功运行-r方值小的不能再小的破单元模型" class="headerlink" title="成功运行: (r方值小的不能再小的破单元模型= ="></a>成功运行: (r方值小的不能再小的破单元模型= =</h4><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuuyz1j20l00fowf2.jpg" alt="成功OLS结果"></p>
 <h1 id="附OLS常用模型"><a href="#附OLS常用模型" class="headerlink" title="附OLS常用模型:"></a>附OLS常用模型:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import statsmodels.api as sm #  最小二乘</span><br><span class="line">from statsmodels.stats.outliers_influence import summary_table #  获得汇总信息</span><br><span class="line">x &#x3D; sm.add_constant(daily_data[&#39;temp&#39;]) #  线性回归增加常数项 y&#x3D;kx+b</span><br><span class="line">y &#x3D; daily_data[&#39;cnt&#39;]</span><br><span class="line">regr &#x3D; sm.OLS(y, x) #  普通最小二乘模型，ordinary least square model</span><br><span class="line">res &#x3D; regr.fit()    # res.model.endog</span><br><span class="line">#  从模型获得拟合数据</span><br><span class="line">st, data, ss2 &#x3D; summary_table(res, alpha&#x3D;0.05) #  置信水平alpha&#x3D;5%，st数据汇总，data数据详情，ss2数据列名</span><br><span class="line">fitted_values &#x3D; data[:,2]  # 等价于res.fittedvalues</span><br><span class="line">————————————————</span><br><span class="line">模型原文链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;cymy001&#x2F;article&#x2F;details&#x2F;78364652</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/SVM%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/SVM%E4%BA%BA%E5%91%98%E8%81%9A%E9%9B%86/" class="post-title-link" itemprop="url">SVM——人员聚集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-创造数据"><a href="#1-创造数据" class="headerlink" title="1 创造数据"></a>1 创造数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># N 个人 K 个簇</span><br><span class="line">def CreateClusteredData(n,k):</span><br><span class="line">    pointPerCluster&#x3D;float(n)&#x2F;k</span><br><span class="line">    x&#x3D;[]</span><br><span class="line">    y&#x3D;[]</span><br><span class="line">    for i in range(k):</span><br><span class="line">        incomeCentroid&#x3D;np.random.uniform(20000.0,200000.0)</span><br><span class="line">        ageCentroid&#x3D;np.random.uniform(20.0,70.0)</span><br><span class="line">        for j in range(int(pointPerCluster)):</span><br><span class="line">            x.append([np.random.normal(incomeCentroid,10000.0),np.random.normal(ageCentroid,5.0)])</span><br><span class="line">            y.append(i)# 保存已知簇信息</span><br><span class="line">    x&#x3D;np.array(x)</span><br><span class="line">    y&#x3D;np.array(y)</span><br><span class="line">    return x,y</span><br><span class="line"></span><br><span class="line">(x,y)&#x3D;CreateClusteredData(100,5)</span><br><span class="line"></span><br><span class="line">plt.scatter(x[:,0],x[:,1],c&#x3D;y.astype(np.float))</span><br></pre></td></tr></table></figure>
+<h3 id="2-线性SVC分簇"><a href="#2-线性SVC分簇" class="headerlink" title="2 线性SVC分簇"></a>2 线性SVC分簇</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import svm,datasets</span><br><span class="line">C&#x3D;1.0</span><br><span class="line">svc&#x3D;svm.SVC(kernel&#x3D;&#39;linear&#39;,C&#x3D;C).fit(x,y)</span><br></pre></td></tr></table></figure>
+<h3 id="3-可视化处理"><a href="#3-可视化处理" class="headerlink" title="3 可视化处理"></a>3 可视化处理</h3><h3 id="X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵"><a href="#X-Y-meshgrid-x-y-将x-y分别矩阵化-返回对应矩阵" class="headerlink" title="- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵."></a>- [X,Y]=meshgrid(x,y), 将x,y分别矩阵化,返回对应矩阵.</h3><blockquote>
+<p>x=-3:1:3;y=-2:1:2;<br>　[X,Y]= meshgrid(x,y);<br>　　这里meshigrid（x，y）的作用是产生一个以向量x为行，向量y为列的矩阵，而x是从-3开始到3，每间隔1记下一个数据，并把这些数据集成矩阵X；同理y则是从-2到2，每间隔1记下一个数据，并集成矩阵Y。即<br>　　X=<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　-3 -2 -1 0 1 2 3<br>　　Y =<br>　　-2 -2 -2 -2 -2 -2 -2<br>　　-1 -1 -1 -1 -1 -1 -1<br>　　0 0 0 0 0 0 0<br>　　1 1 1 1 1 1 1<br>　　2 2 2 2 2 2 2</p>
+<p>附注：例题中meshgrid(-3:1:3,-2:1:2);因为-3:1:3产生的是含有7个数字的行向量；-2:1:2产生的是含有5个数字的行向量。所以该命令的结果是产生5<em>7的矩阵（X,Y都是5</em>7的矩阵；其中X是由第一个含7个元素的行向量产生，Y是由第二个行向量产生）</p>
+<p>原文链接：<a href="https://blog.csdn.net/baoqian1993/article/details/52116164" target="_blank" rel="noopener">https://blog.csdn.net/baoqian1993/article/details/52116164</a></p>
+</blockquote>
+<h3 id="numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先"><a href="#numpy-ravel-array-like-order-’C’-将array-like扁平化-order为扁平化顺序-‘C’表示行优先" class="headerlink" title="- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先"></a>- numpy.ravel(array-like,order=’C’) , 将array-like扁平化,order为扁平化顺序, ‘C’表示行优先</h3><blockquote>
+<p>&gt;&gt;&gt; a = np.arange(12).reshape(2,3,2).swapaxes(1,2); a<br>array([[[ 0,  2,  4],<br>        [ 1,  3,  5]],<br>       [[ 6,  8, 10],<br>        [ 7,  9, 11]]])<br>&gt;&gt;&gt; a.ravel(order=’C’)<br>array([ 0,  2,  4,  1,  3,  5,  6,  8, 10,  7,  9, 11])<br>&gt;&gt;&gt; a.ravel(order=’K’)<br>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</p>
+</blockquote>
+<h3 id="np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…"><a href="#np-c-左右合并矩阵-要求行数相同-同理还有np-r-上下合并矩阵-要求列数相同-注意numpy中一维列向量是横着的…" class="headerlink" title="- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)"></a>- np.c_ 左右合并矩阵,要求行数相同, 同理还有np.r_, 上下合并矩阵,要求列数相同 (注意numpy中一维列向量是横着的….)</h3><blockquote>
+<p>&gt;&gt;&gt; np.c_[np.array([1,2,3]), np.array([4,5,6])]<br>array([[1, 4],<br>       [2, 5],<br>       [3, 6]])<br>&gt;&gt;&gt; np.c_[np.array([[1,2,3]]), 0, 0, np.array([[4,5,6]])]<br>array([[1, 2, 3, …, 4, 5, 6]])</p>
+</blockquote>
+<h3 id="contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图"><a href="#contourf-x-y-z-cmap-plt用来绘制等高线的函数-x-y坐标-z为高度-cmap设置颜色-这里用来画等标记图" class="headerlink" title="- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图"></a>- contourf(x,y,z,cmap=)  plt用来绘制等高线的函数,x,y坐标,z为高度,cmap设置颜色,这里用来画等标记图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def plotPredictions(clf,x,y,color):</span><br><span class="line">    xx,yy&#x3D;np.meshgrid(np.arange(0,250000,10),np.arange(10,90,0.5)) ##  xx&#x3D;有age行的income,yy&#x3D;有income列的age</span><br><span class="line">    z&#x3D;clf.predict(np.c_[xx.ravel(),yy.ravel()]) ##  c_最终组合出扫描数组,即[0~25000][10~90]. 预测返回分类信息</span><br><span class="line">    plt.figure(figsize&#x3D;(8,6))</span><br><span class="line">    z&#x3D;z.reshape(xx.shape)</span><br><span class="line">    plt.contourf(xx,yy,z,cmap&#x3D;plt.cm.Paired,alpha&#x3D;0.8)</span><br><span class="line">    plt.scatter(x,y,c&#x3D;color)</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">plotPredictions(svc,x[:,0],x[:,1],y.astype(np.float))</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv8gloj20d50ab3yg.jpg" alt="结果图"></p>
 
       
     </div>
@@ -808,6 +829,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
+<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from dateutil.parser import parse</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">df&#x3D;pd.read_csv(&quot;.&#x2F;上海车牌价格.csv&quot;)</span><br><span class="line"># 整理时间数据类型</span><br><span class="line">for i in range(0,len(df)):</span><br><span class="line">    df.loc[i,&#39;Date&#39;]&#x3D;&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]</span><br><span class="line">df[&#39;Date&#39;]&#x3D;pd.to_datetime(df[&#39;Date&#39;])</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw&#x3D;5)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s&#x3D;20)</span><br><span class="line">plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</span><br></pre></td></tr></table></figure>
+<p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
+<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df_nom&#x3D;df.iloc[:,1:].apply(lambda x: (x - np.min(x)) &#x2F; (np.max(x) - np.min(x)))</span><br></pre></td></tr></table></figure>
+<p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
+<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
+<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
+<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">totalx&#x3D;np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组</span><br><span class="line">trainx&#x3D;totalx[:-12]</span><br><span class="line">testx&#x3D;totalx[-12:]</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traindf&#x3D;df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br><span class="line">testdf&#x3D;df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;np.array(trainx)</span><br><span class="line">y&#x3D;np.array(traindf[&#39;avg price&#39;])</span><br><span class="line">p&#x3D;np.poly1d(np.polyfit(x,y,4))</span><br></pre></td></tr></table></figure>
+
+<h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 制图</span><br><span class="line">plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])</span><br><span class="line">plot(df[&#39;Date&#39;],p(totalx),c&#x3D;&#39;r&#39;)</span><br><span class="line"></span><br><span class="line"># r2检验</span><br><span class="line">checky&#x3D;np.array(testdf[&#39;avg price&#39;])</span><br><span class="line">print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))</span><br><span class="line">print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</span><br></pre></td></tr></table></figure>
+
+<p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
+<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
+<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 线性回归</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"># 数据导入</span><br><span class="line">feature_cols&#x3D;[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]</span><br><span class="line">x&#x3D;df[feature_cols]</span><br><span class="line">y&#x3D;df[&#39;avg price&#39;]</span><br><span class="line">x[&#39;time&#39;]&#x3D;totalx</span><br><span class="line"># 数据分割测试集和训练集</span><br><span class="line">x_train&#x3D;x[:-48]</span><br><span class="line">x_test&#x3D;x[-48:]</span><br><span class="line">y_train&#x3D;y[:-48]</span><br><span class="line">y_test&#x3D;y[-48:]</span><br><span class="line">linreg&#x3D;LinearRegression()</span><br><span class="line">linreg.fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line"># 观察线性回归模型系数</span><br><span class="line">print (linreg.intercept_)</span><br><span class="line">print(linreg.coef_)</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 检验线性回归</span><br><span class="line">from sklearn import metrics</span><br><span class="line">y_pre&#x3D;linreg.predict(x_test)</span><br><span class="line">print(metrics.r2_score(y_test,y_pre))</span><br><span class="line"></span><br><span class="line">y_pred&#x3D;linreg.predict(x)</span><br><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],y_pred,lw&#x3D;3)</span><br><span class="line">plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])</span><br><span class="line">plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])</span><br><span class="line">plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</span><br></pre></td></tr></table></figure>
+
+<p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -941,123 +1079,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
-<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from dateutil.parser import parse</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">df&#x3D;pd.read_csv(&quot;.&#x2F;上海车牌价格.csv&quot;)</span><br><span class="line"># 整理时间数据类型</span><br><span class="line">for i in range(0,len(df)):</span><br><span class="line">    df.loc[i,&#39;Date&#39;]&#x3D;&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]</span><br><span class="line">df[&#39;Date&#39;]&#x3D;pd.to_datetime(df[&#39;Date&#39;])</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw&#x3D;5)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s&#x3D;20)</span><br><span class="line">plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</span><br></pre></td></tr></table></figure>
-<p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
-<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df_nom&#x3D;df.iloc[:,1:].apply(lambda x: (x - np.min(x)) &#x2F; (np.max(x) - np.min(x)))</span><br></pre></td></tr></table></figure>
-<p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
-<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
-<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
-<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">totalx&#x3D;np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组</span><br><span class="line">trainx&#x3D;totalx[:-12]</span><br><span class="line">testx&#x3D;totalx[-12:]</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traindf&#x3D;df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br><span class="line">testdf&#x3D;df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;np.array(trainx)</span><br><span class="line">y&#x3D;np.array(traindf[&#39;avg price&#39;])</span><br><span class="line">p&#x3D;np.poly1d(np.polyfit(x,y,4))</span><br></pre></td></tr></table></figure>
-
-<h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 制图</span><br><span class="line">plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])</span><br><span class="line">plot(df[&#39;Date&#39;],p(totalx),c&#x3D;&#39;r&#39;)</span><br><span class="line"></span><br><span class="line"># r2检验</span><br><span class="line">checky&#x3D;np.array(testdf[&#39;avg price&#39;])</span><br><span class="line">print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))</span><br><span class="line">print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</span><br></pre></td></tr></table></figure>
-
-<p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
-<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
-<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 线性回归</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"># 数据导入</span><br><span class="line">feature_cols&#x3D;[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]</span><br><span class="line">x&#x3D;df[feature_cols]</span><br><span class="line">y&#x3D;df[&#39;avg price&#39;]</span><br><span class="line">x[&#39;time&#39;]&#x3D;totalx</span><br><span class="line"># 数据分割测试集和训练集</span><br><span class="line">x_train&#x3D;x[:-48]</span><br><span class="line">x_test&#x3D;x[-48:]</span><br><span class="line">y_train&#x3D;y[:-48]</span><br><span class="line">y_test&#x3D;y[-48:]</span><br><span class="line">linreg&#x3D;LinearRegression()</span><br><span class="line">linreg.fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line"># 观察线性回归模型系数</span><br><span class="line">print (linreg.intercept_)</span><br><span class="line">print(linreg.coef_)</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 检验线性回归</span><br><span class="line">from sklearn import metrics</span><br><span class="line">y_pre&#x3D;linreg.predict(x_test)</span><br><span class="line">print(metrics.r2_score(y_test,y_pre))</span><br><span class="line"></span><br><span class="line">y_pred&#x3D;linreg.predict(x)</span><br><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],y_pred,lw&#x3D;3)</span><br><span class="line">plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])</span><br><span class="line">plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])</span><br><span class="line">plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</span><br></pre></td></tr></table></figure>
-
-<p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1158,7 +1179,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -1172,7 +1193,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
+            <a href="/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/" class="post-title-link" itemprop="url">考研数学冷门杂记-（持续不定期更新)</a>
         </h2>
 
         <div class="post-meta">
@@ -1189,7 +1210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1197,7 +1218,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">考研数学</span></a>
                 </span>
             </span>
 
@@ -1207,14 +1228,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -1226,42 +1247,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
-<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
-<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line">ratings.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
-<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movieRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line">movieRatings.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
-<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
-<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starWarsRatings&#x3D;movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表</span><br><span class="line">similar2starWars&#x3D;movieRatings.corrwith(starWarsRatings)</span><br><span class="line">similar2starWars&#x3D;similar2starWars.dropna()</span><br><span class="line">df&#x3D;pd.DataFrame(similar2starWars)</span><br><span class="line">df.sort_values(0,ascending&#x3D;False)</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
-<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
-<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">movieStats&#x3D;ratings.groupby(&#39;title&#39;).agg(&#123;&#39;rating&#39;:[np.size,np.mean]&#125;)</span><br><span class="line">movieStats.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
-<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">popularMovies&#x3D;movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;&#x3D;100 # size大于100的index+T&#x2F;F列表</span><br><span class="line">#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending&#x3D;False)[:15] #显示筛选后的表 , mutiindex需要指定两层</span><br><span class="line">similar2starWars.name&#x3D;&#39;similarity&#39;</span><br><span class="line">df&#x3D;movieStats[popularMovies].join(similar2starWars)</span><br><span class="line">df.sort_values([&#39;similarity&#39;],ascending&#x3D;False)[:15]</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="5-整理成推荐电影系统"><a href="#5-整理成推荐电影系统" class="headerlink" title="5. 整理成推荐电影系统"></a>5. 整理成推荐电影系统</h3><ul>
-<li><h4 id="df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量"><a href="#df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量" class="headerlink" title="df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量"></a>df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量</h4></li>
-<li><ul>
-<li><h4 id="method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关"><a href="#method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关" class="headerlink" title="method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关"></a>method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line"></span><br><span class="line"># 按user_id生成聚合图</span><br><span class="line">userRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line"># 生成相关系数矩阵</span><br><span class="line">corrMatrix&#x3D;userRatings.corr(method&#x3D;&#39;pearson&#39;,min_periods&#x3D;150)</span><br><span class="line"></span><br><span class="line">testuser&#x3D;userRatings.loc[0].dropna()</span><br><span class="line"></span><br><span class="line">def GenerateSimCandidates(myRatings):</span><br><span class="line">    simCandidates&#x3D;pd.Series()</span><br><span class="line">    for i in range(0,len(myRatings.index)):</span><br><span class="line">        print(&quot;Adding sims for &quot;+ myRatings.index[i]+&quot;...&quot;)</span><br><span class="line">        # 筛选出myRatings.index[i]作为列标题的一整列</span><br><span class="line">        sims&#x3D;corrMatrix[myRatings.index[i]].dropna()</span><br><span class="line">        # 评分加权,这一列所有value乘上评分</span><br><span class="line">        sims&#x3D;sims.map(lambda x:x*myRatings[i])</span><br><span class="line">        simCandidates&#x3D;simCandidates.append(sims)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    # 聚合重复项</span><br><span class="line">    simCandidates&#x3D;simCandidates.groupby(simCandidates.index).sum()</span><br><span class="line">    # 整理排序    </span><br><span class="line">    simCandidates.sort_values(inplace&#x3D;True,ascending&#x3D;False)</span><br><span class="line">    return simCandidates</span><br><span class="line">        </span><br><span class="line">print(GenerateSimCandidates(testuser).head(10))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
+          <h1 id="1-多项式处理"><a href="#1-多项式处理" class="headerlink" title="1. 多项式处理"></a>1. 多项式处理</h1><p>$$1^2+2^2+…+n^2=rac{1}{6} n(n+1)(2n+1) $$<br>$$a^n-b^n=(a-b)(a^0b^{n-1}+…+a^{n-1}b^0)$$<br>$$a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})$$</p>
+<hr>
+<h1 id="2-极限等价无穷小-和-重要极限公式"><a href="#2-极限等价无穷小-和-重要极限公式" class="headerlink" title="2. 极限等价无穷小 和 重要极限公式"></a>2. 极限等价无穷小 和 重要极限公式</h1><blockquote>
+<p>~在公式编辑里打不出， 用≈代替</p>
+</blockquote>
+<h3 id="2-1-等价无穷小"><a href="#2-1-等价无穷小" class="headerlink" title="2.1 等价无穷小"></a>2.1 等价无穷小</h3><p>$$x→0<del>~</del>sinx ≈x$$</p>
+<p>$$x→0<del>~</del>tanx≈x$$</p>
+<p>$$x→0<del>~</del>arcsinx≈x$$</p>
+<p>$$x→0<del>~</del>arctanx≈x$$</p>
+<p>$$x→0<del>~</del>1-cosx≈rac{1}{2}x^ 2$$</p>
+<p>$$x→0<del>~</del>e^x-1≈x$$</p>
+<p>$$x→0<del>~</del>ln(1+x)≈x$$</p>
+<p>$$x→0<del>~</del>(1+x)^α-1≈αx$$</p>
+<h3 id="2-2-重要极限公式"><a href="#2-2-重要极限公式" class="headerlink" title="2.2 重要极限公式"></a>2.2 重要极限公式</h3><p>$$\lim_{x    o0}rac{sinx}{x}=1$$</p>
+<p>$$\lim_{n    o∞}(1+rac{1}{n})^n=e$$</p>
+<p>$$\lim_{x    o∞}(1+rac{1}{x})^x=e$$</p>
+<p>$$\lim_{u    o0}(1+u)^rac{1}{u}=e$$</p>
+<hr>
+<h1 id="3-导数冷门公式"><a href="#3-导数冷门公式" class="headerlink" title="3. 导数冷门公式"></a>3. 导数冷门公式</h1><p>$$(tanx)’ = sec^2x=rac{1}{cos^2x}$$</p>
+<p>$$(cotx)’ = -csc^2x=-rac{1}{sin^2x}$$</p>
+<p>$$(secx)’ = secx tanx=rac{sinx}{cos^2x}$$</p>
+<p>$$(cscx)’ =-cscxcotx=-rac{ cosx}{sin^2x}$$</p>
+<p>$$(arcsinx)’ =rac{1}{\sqrt{1-x^2}}$$</p>
+<p>$$(arccosx)’ =-rac{1}{\sqrt{1-x^2}}$$</p>
+<p>$$(arctanx)’ =rac{1}{1+x^2}$$</p>
+<p>$$(arccotx)’ =-rac{1}{1+x^2}$$</p>
+<p>$$(x^x)’ =x^x(lnx+1) ······（对数求导）$$</p>
+<h4 id="导函数的连续性："><a href="#导函数的连续性：" class="headerlink" title="导函数的连续性："></a>导函数的连续性：</h4><h5 id="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："><a href="#函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：" class="headerlink" title="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："></a>函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-370520d94e31c91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源自知乎"></p>
+<h4 id="变上限积分函数可导性："><a href="#变上限积分函数可导性：" class="headerlink" title="变上限积分函数可导性："></a>变上限积分函数可导性：</h4><h5 id="1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"><a href="#1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。" class="headerlink" title="1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"></a>1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。</h5><h5 id="2）-连续函数的变上限积分函数一定可导。"><a href="#2）-连续函数的变上限积分函数一定可导。" class="headerlink" title="2）      连续函数的变上限积分函数一定可导。"></a>2）      连续函数的变上限积分函数一定可导。</h5><hr>
+<h1 id="4-积分冷门公式"><a href="#4-积分冷门公式" class="headerlink" title="4. 积分冷门公式"></a>4. 积分冷门公式</h1><h5 id="4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"><a href="#4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来" class="headerlink" title="4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"></a>4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来</h5><p>$$\int sin(x^2)dx  、\int cos(x^2)dx、  \int rac{sinx}{x}dx、\int rac{cosx}{x}dx、\int rac{1}{lnx}dx、\int e^{-x^2}dx、$$</p>
+<h5 id="4-2-冷门积分函数"><a href="#4-2-冷门积分函数" class="headerlink" title="4.2 冷门积分函数"></a>4.2 冷门积分函数</h5><p>$$\int a^xdx=rac{1}{lna}a^x+C $$</p>
+<p>$$\int sec^2xdx=\int rac{1}{cos^2x}dx=tanx+C $$</p>
+<p>$$\int csc^2xdx=\int rac{1}{sin^2x}dx=-cotx+C$$</p>
+<p>$$\int tanxsecxdx=secx+C$$</p>
+<p>$$\int cotxcscxdx=-cscx+C$$</p>
+<p>$$\int tanxdx=-ln|cosx|+C$$</p>
+<p>$$\int cotxdx=ln|sinx|+C$$</p>
+<p>$$\int secxdx=ln|secx+tanx|+C$$</p>
+<p>$$\int cscxdx=ln|cscx-cotx|+C$$</p>
+<p>$$\int rac{1}{\sqrt{a^2-x^2}}dx=arcsin rac{x}{a} +C $$</p>
+<p>$$\int rac{1}{a^2+x^2}dx=rac{1}{a} arctan rac{x}{a} +C $$</p>
+<hr>
+<p>$$\int rac{1}{a^2-x^2}dx=rac{1}{2a} ln rac{a+x}{a-x} +C $$</p>
+<p>$$\int   rac{1}{\sqrt {x^2 \pm a^2}}dx=ln|x+\sqrt{x^2 \pm a^2}| +C $$</p>
+<p>$$\int rac{1}{e^x+1}dx=\int rac{e^x}{e^x(e^x+1)}dx=\int rac{1}{e^x}-rac{1}{e^x+1}de^x $$</p>
 
       
     </div>
