@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="概述FIFO的数据结构，先进入的元素先出来。 队列操作只能在两端进行。尾部入队，头部出队。 可以使用 数组，链表 进行实现。 vector实现利用vector往后存储，但是出队后会浪费前面的空间 123456789101112131415161718192021222324252627282930class MyQueue &amp;#123;    private:        &#x2F;&#x2F; 元素存储列表">
+  <meta name="description" content="概述FIFO的数据结构，先进入的元素先出来。 队列操作只能在两端进行。尾部入队，头部出队。 可以使用 数组，链表 进行实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="队列">
 <meta property="og:url" content="https://alobal.github.io/Blog/2020/08/06/%E9%98%9F%E5%88%97/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="概述FIFO的数据结构，先进入的元素先出来。 队列操作只能在两端进行。尾部入队，头部出队。 可以使用 数组，链表 进行实现。 vector实现利用vector往后存储，但是出队后会浪费前面的空间 123456789101112131415161718192021222324252627282930class MyQueue &amp;#123;    private:        &#x2F;&#x2F; 元素存储列表">
+<meta property="og:description" content="概述FIFO的数据结构，先进入的元素先出来。 队列操作只能在两端进行。尾部入队，头部出队。 可以使用 数组，链表 进行实现。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-06T05:56:42.000Z">
-<meta property="article:modified_time" content="2020-08-06T06:33:46.991Z">
+<meta property="article:modified_time" content="2020-08-22T09:41:15.274Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="队列">
 <meta name="twitter:card" content="summary">
@@ -204,10 +204,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-06 13:56:42 / 修改时间：14:33:46" itemprop="dateCreated datePublished" datetime="2020-08-06T13:56:42+08:00">2020-08-06</time>
+              <time title="创建时间：2020-08-06 13:56:42" itemprop="dateCreated datePublished" datetime="2020-08-06T13:56:42+08:00">2020-08-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-22 17:41:15" itemprop="dateModified" datetime="2020-08-22T17:41:15+08:00">2020-08-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,6 +252,8 @@
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>FIFO的数据结构，先进入的元素先出来。</p>
 <p>队列操作只能在两端进行。尾部入队，头部出队。</p>
 <p>可以使用 数组，链表 进行实现。</p>
+ <a id="more"></a> 
+
 <h3 id="vector实现"><a href="#vector实现" class="headerlink" title="vector实现"></a>vector实现</h3><p>利用vector往后存储，但是出队后会浪费前面的空间</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span> &#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="comment">// 元素存储列表</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data;      <span class="comment">//需要&lt;vector&gt; </span></span><br><span class="line">        <span class="comment">// 头部指针，指向最早的元素</span></span><br><span class="line">        <span class="keyword">int</span> p_start;            </span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        MyQueue() &#123;p_start = <span class="number">0</span>;&#125;</span><br><span class="line">        <span class="comment">/** 入队,注意p_start仍指向最早的元素 */</span></span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">enQueue</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">            data.push_back(x);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/** 出队,p_start后移 */</span></span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">deQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            p_start++;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">/** 获取最前元素 */</span></span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">Front</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> data[p_start];</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">/**  */</span></span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> p_start &gt;= data.size();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -347,7 +355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -406,13 +414,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">146k</span>
+    <span title="站点总字数">148k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:04</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
 
         

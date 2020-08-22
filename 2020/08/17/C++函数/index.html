@@ -29,7 +29,7 @@
 <meta property="og:description" content="基础函数是可以复用的代码块，通过事先定义和声明，然后在别的地方直接调用进行处理。 函数的结构典型的函数一般包括：返回类型，函数名字，形参列表，函数体。形参列表写在一对()内，用,隔开。函数体内则是书写需要执行的代码操作。 我们使用调用运算符（call operator）()执行函数。它作用于一个函数或者指向函数的指针。()内书写实参，同样由,隔开，实参数量和类型需要和形参有序一一对应。最终这个调用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-17T01:08:19.000Z">
-<meta property="article:modified_time" content="2020-08-17T12:53:40.176Z">
+<meta property="article:modified_time" content="2020-08-22T09:40:55.780Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -204,10 +204,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-17 09:08:19 / 修改时间：20:53:40" itemprop="dateCreated datePublished" datetime="2020-08-17T09:08:19+08:00">2020-08-17</time>
+              <time title="创建时间：2020-08-17 09:08:19" itemprop="dateCreated datePublished" datetime="2020-08-17T09:08:19+08:00">2020-08-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-22 17:40:55" itemprop="dateModified" datetime="2020-08-22T17:40:55+08:00">2020-08-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -247,6 +253,8 @@
 <h2 id="函数的结构"><a href="#函数的结构" class="headerlink" title="函数的结构"></a>函数的结构</h2><p>典型的函数一般包括：返回类型，函数名字，形参列表，函数体。形参列表写在一对<code>()</code>内，用<code>,</code>隔开。函数体内则是书写需要执行的代码操作。</p>
 <p>我们使用<strong>调用运算符（call operator）</strong><code>()</code>执行函数。它作用于一个函数或者指向函数的指针。<code>()</code>内书写实参，同样由<code>,</code>隔开，实参数量和类型需要和形参有序一一对应。最终这个调用函数表达式的类型就是函数的返回类型。</p>
 <p>函数使用前和其他名字一样，需要进行声明。函数声明也叫做<strong>函数原型（function prototype）</strong>，声明对比定义来说，不需要包括函数体，直接用一个<code>;</code>替代。</p>
+ <a id="more"></a> 
+
 <h3 id="形参"><a href="#形参" class="headerlink" title="形参"></a>形参</h3><p>形参是函数定义时，对想要传递的参数变量的临时性名字。</p>
 <p>形参列表可以为空，但是不能省略。如下可用两种方式表达空形参列表：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">()</span></span>&#123;···&#125;          <span class="comment">//隐式定义空列表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;···&#125;      <span class="comment">//显式定义空列表</span></span><br></pre></td></tr></table></figure>
@@ -347,7 +355,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">error_msg</span><span class="params">(<span class="keyword">int</span> count,<span class="built_in">initializer_list</span>&lt;<span class="built_in">string</span>&gt; msg)</span></span>&#123;···&#125;</span><br><span class="line"></span><br><span class="line">error_msg(<span class="number">217</span>,&#123;<span class="string">"Hello"</span>,<span class="string">","</span>,<span class="string">"World"</span>,<span class="string">"!"</span>&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>函数体内部则可根据 begin，end 成员函数去控制遍历迭代。</p>
-<h3 id="省略符形参"><a href="#省略符形参" class="headerlink" title="省略符形参"></a>省略符形参</h3><p>省略符是为了兼容C而设置的。通常不建议在C之外使用。</p>
+<h3 id="省略符形参"><a href="#省略符形参" class="headerlink" title="省略符形参"></a>省略符形参</h3><p>省略符是为了兼容 C 而设置的。通常不建议在 C 之外使用。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(parm_list,...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(...)</span></span></span><br></pre></td></tr></table></figure>
 
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>C++ Primer 5 edition 中文版</p>
@@ -450,7 +458,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -509,13 +517,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">146k</span>
+    <span title="站点总字数">148k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:04</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
 
         

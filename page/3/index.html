@@ -180,6 +180,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/" class="post-title-link" itemprop="url">简书博客导入hexo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-16 19:02:54" itemprop="dateCreated datePublished" datetime="2020-07-16T19:02:54+08:00">2020-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-18 20:08:06" itemprop="dateModified" datetime="2020-08-18T20:08:06+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-下载原markdown集"><a href="#1-下载原markdown集" class="headerlink" title="1. 下载原markdown集"></a>1. 下载原markdown集</h1><p>登录简书作者后台，在个人设置–账号管理–打包下载所有文章。<br>此时可以获得以文集为文件夹的所有markdown文章源文件</p>
+<h1 id="2-利用shell脚本添加hexo元数据"><a href="#2-利用shell脚本添加hexo元数据" class="headerlink" title="2. 利用shell脚本添加hexo元数据"></a>2. 利用shell脚本添加hexo元数据</h1><p>需要掌握 <strong>sed修改文件</strong>，<strong>shell脚本运行</strong></p>
+<ul>
+<li><a href="https://www.cnblogs.com/maxincai/p/5146338.html" target="_blank" rel="noopener"><strong>sed命令用法</strong></a></li>
+<li>shell脚本只要你安装好了git环境，即可在命令行中通过 <code>sh xxx.sh</code> 运行相关脚本，至于怎么去写，有兴趣可以自己了解</li>
+</ul>
+<p>以下是我使用的shell脚本：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> ./*/*;<span class="keyword">do</span></span><br><span class="line">sed -i  <span class="string">'s/#####\([^#]\)/##### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/####\([^#]\)/#### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/###\([^#]\)/### \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/##\([^#]\)/## \1/'</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">'s/#\([^#]\)/# \1/'</span> <span class="variable">$f</span></span><br><span class="line">base=$(basename <span class="variable">$f</span> .md)</span><br><span class="line">categories=$(basename $(dirname <span class="variable">$f</span>) <span class="variable">$PWD</span>)</span><br><span class="line">insert=<span class="string">"---\ntitle: <span class="variable">$&#123;base&#125;</span>\ncategories:\n- <span class="variable">$&#123;categories&#125;</span>\ndate:2020-02-17 02:17:00\n---\n"</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;insert&#125;</span><span class="variable">$(cat $f)</span>"</span> &gt; <span class="variable">$f</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>前半段为sed在#字符后添加空格，因为在简书里 <code>#紧贴标题</code> 也是可以成功识别的，但是其他的markdown不一定支持。这里注意需要用到的命令格式为<code>sed -i &#39;s/old/new&#39; file</code></li>
+<li><ul>
+<li>-i指在源文件上修改</li>
+</ul>
+</li>
+<li><ul>
+<li>s 指进行文本替换，但这里有一个巨大的坑点，假如old长度为3，new长度为4，那么该命令会吞掉原old后的一个字符，即它的替换是覆盖式替换，而不是删除old后插入new。</li>
+</ul>
+</li>
+<li><ul>
+<li>因此需要使用到 () 格式，()在old中选定子字符串，然后在new中利用\number，获取第number个子字符串，即我们保存下来了会被覆盖掉的字符，然后又重新给他加了回去。</li>
+</ul>
+</li>
+<li><ul>
+<li>为了避免在诸如#####中匹配出单个#，利用了[^c]，即不匹配c字符，在这段代码中就是下一个不能是#。</li>
+</ul>
+</li>
+<li>后半段是hexo文档评论区的大神写的，获取了目录名作为hexo的分类名，并且插入元数据，<strong>注意无法自动维护简书的时间</strong>，因此我这自己选了个日期插入。</li>
+</ul>
+<h1 id="3-运行脚本并检查文档"><a href="#3-运行脚本并检查文档" class="headerlink" title="3.运行脚本并检查文档"></a>3.运行脚本并检查文档</h1><p>在简书文集解压出来的文件夹的根目录中，即在<code>user-xxxx</code>文件夹下，运行该脚本，等待运行完成后检查修改结果是否符合你的预期。</p>
+<h1 id="4-存在问题"><a href="#4-存在问题" class="headerlink" title="4.存在问题"></a>4.存在问题</h1><ol>
+<li>无法维护时间</li>
+<li>简书代码块不需要注明语言，但是这样hexo的一些highlight就无法识别，想不到自动注明语言的办法。</li>
+<li>简述博客图片链接会失效，简书通过判断http请求头中的referer的值，如果来自本站才返回成功请求。因此可以通过修改referer复原图片链接，但是博客有些依赖referer的功能就会受影响。<br> 可以选用外部图床，但收费的挺贵，不收费的也难用，常规的发文网如微博、CSDN、简书都限制外链，挺难找图床的。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,7 +332,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-22 04:20:27" itemprop="dateModified" datetime="2020-08-22T04:20:27+08:00">2020-08-22</time>
+                <time title="修改时间：2020-08-22 16:54:03" itemprop="dateModified" datetime="2020-08-22T16:54:03+08:00">2020-08-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,14 +350,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.6k</span>
+              <span>7.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>19 分钟</span>
+              <span>20 分钟</span>
             </span>
 
         </div>
@@ -264,166 +385,14 @@
 <blockquote>
 <p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code> 等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
 </blockquote>
-<h1 id="功能性配置"><a href="#功能性配置" class="headerlink" title="功能性配置"></a>功能性配置</h1><p>一些比较常规的功能性配置 Next 文档里都有的。</p>
-<p>虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，是真的好用！！（怒吼</p>
-<p>比起网上到处炒几年前的旧版本冷饭有用多了！！！</p>
-<p>另外可以多摸摸 Next 配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
-<p><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next 官方手册</a></p>
-<h2 id="站点概览描述"><a href="#站点概览描述" class="headerlink" title="站点概览描述"></a>站点概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是 next 主题，会显示在侧边栏中。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Sitch's</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Sitch,Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Sitch</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="配置头像"><a href="#配置头像" class="headerlink" title="配置头像"></a>配置头像</h2><p>在 Next 配置文件下找到 <code>avatar</code>字段，有如下配置项：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here. 你的头像图片路径</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.png</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle. 要不要圆化</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor. 要不要在指针悬停时旋转头像</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>如上给了个示例路径，然后将头像放在 <strong>主题</strong>目录下的 source/images/avatar.png 即可。</p>
-<p>另外两个属性可以按需配置。</p>
-<p>重新生成部署网站，瞅瞅你的大头照吧。</p>
-<blockquote>
-<p>头像图片大小没关系，会自动缩放，但是比例不变，即使圆化也会变成椭圆。因此请注意图片比例最好是正方形，美观。</p>
-</blockquote>
-<h2 id="Next-的分类和标签"><a href="#Next-的分类和标签" class="headerlink" title="Next 的分类和标签"></a>Next 的分类和标签</h2><p>在 next 主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。</p>
-<blockquote>
-<p>分类有层级，标签没有层级。</p>
-</blockquote>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
-
-<p>但相关页面还需要自己生成，在项目根目录下输入相应命令，创建相关页面。</p>
-<ul>
-<li><code>hexo new page categories</code></li>
-<li><code>hexo new page tags</code></li>
-</ul>
-<p>并且打开生成的页面，在元数据中相应添加字段</p>
-<ul>
-<li><code>type: categories</code></li>
-<li><code>type: tags</code>。</li>
-</ul>
-<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line"><span class="bullet">- </span>博客搭建</span><br></pre></td></tr></table></figure>
-
-<h2 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
-<p>在 项目/themes/next/layout/_macro/sidebar.swig 中， 插入复制的代码，比如插入在最下面某一段。</p>
-<blockquote>
-<p>注意 2020 版本后缀不是 swig，相关文件也不一样</p>
-</blockquote>
-<h2 id="导入豆瓣评价页面"><a href="#导入豆瓣评价页面" class="headerlink" title="导入豆瓣评价页面"></a>导入豆瓣评价页面</h2><p>个人博客肯定想记录点自己生活向的东西，看过的电影，玩过的游戏就是一个很好的记录对象。</p>
-<p>之前我是用 markdown 写了个文本条目性质的，不说难看吧，但起码豆瓣条目自带一些影片介绍信息。..</p>
-<h3 id="安装-hexo-douban-插件"><a href="#安装-hexo-douban-插件" class="headerlink" title="安装 hexo-douban 插件"></a>安装 hexo-douban 插件</h3><p>命令行输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
-
-<p>将下面的配置写入<strong>项目</strong>配置文件：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">douban:</span> <span class="comment">#不想启用的页面注释掉即可</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">豆瓣</span> <span class="string">id</span>  </span><br><span class="line">  <span class="attr">builtin:</span> <span class="literal">false</span>  <span class="comment">#是否将生成豆瓣页面功能嵌入到 hexo s 和 hexo g</span></span><br><span class="line">  <span class="attr">book:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my book title'</span>  <span class="comment">#页面标题</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my book quote'</span>  <span class="comment">#页面序言</span></span><br><span class="line">  <span class="attr">movie:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my movie title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my movie quote'</span></span><br><span class="line">  <span class="attr">game:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my game title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my game quote'</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">10000</span> <span class="comment">#爬取豆瓣数据的超时时间，别管了</span></span><br></pre></td></tr></table></figure>
-
-<p>豆瓣id可以在进入你的豆瓣个人主页，观察网址获得。通常为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;你的id&#x2F;</span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo-douban-命令"><a href="#hexo-douban-命令" class="headerlink" title="hexo douban 命令"></a>hexo douban 命令</h3><p>用法如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">命令行输入</span> <span class="string">hexo</span> <span class="string">douban</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Description:</span></span><br><span class="line"><span class="string">爬取生成豆瓣相关页面</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Options:</span> <span class="comment">#默认参数 -bgm</span></span><br><span class="line">  <span class="string">-b,</span> <span class="string">--books</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">books</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-g,</span> <span class="string">--games</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">games</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-m,</span> <span class="string">--movies</span>  <span class="string">Generate</span> <span class="string">douban</span> <span class="string">movies</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-h，显示帮助</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul>
-<li><code>hexo douban</code>生成相关页面再进行部署。</li>
-<li>builtin 开启时，直接 hexo s 和 hexo g 即包含生成过程。</li>
-</ul>
-<blockquote>
-<p>注意安装了hexo-douban之后，我们多了个<code>hexo douban</code>的命令，因此不能再用<code>hexo d</code>作为<code>hexo deploy</code>的缩写了。</p>
-</blockquote>
-<h3 id="开个主页栏"><a href="#开个主页栏" class="headerlink" title="开个主页栏"></a>开个主页栏</h3><p>生成部署后就可以通过<code>/主网址/movies</code>类似的形式访问了，但这样显然不方便，因此我们开个主页栏给它。</p>
-<p>和之前开启分类页一样，在<strong>主题</strong>配置文件中，找到 menu 字段，添加相应的值，如下以movies举例进行修改：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="attr">movies:</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-film</span>  <span class="comment">#添加了movies页</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这样开启之后，显示的是movies ，想改成中文显示需要在<code>主题目录/languages/zh-CN</code>中配置一下，自己打开看看就懂得怎么配了，懒得贴实例了哈=。=</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://github.com/mythsman/hexo-douban" target="_blank" rel="noopener">hexo-douban 文档</a></p>
-<h2 id="字数统计和阅读时长"><a href="#字数统计和阅读时长" class="headerlink" title="字数统计和阅读时长"></a>字数统计和阅读时长</h2><p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a></p>
-<p>使用命令行 npm 输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
-<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">	<span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">2</span>      <span class="comment">#设置 2 个字符看作一个字</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">200</span>    <span class="comment">#每分钟阅读字数</span></span><br></pre></td></tr></table></figure>
-
-<p>next 主题 _config.yml 里找到字段 symbols_count_time 按需配置即可：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-symbols-count-time</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
-<h2 id="添加百度分析"><a href="#添加百度分析" class="headerlink" title="添加百度分析"></a>添加百度分析</h2><p>登陆 <a href="https://tongji.baidu.com/web/10000256460/welcome/login" target="_blank" rel="noopener">百度统计</a></p>
-<p>进入个人页，选择侧栏的代码获取页</p>
-<p>可以看到如下一段代码，找到<code>hm.js?</code>之后的序列号复制。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">  hm.src = <span class="string">"https://hm.baidu.com/hm.js? 复制这段"</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
-
-<p>填写在 next 配置里的百度分析字段中：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics</span></span><br><span class="line"><span class="attr">baidu_analytics:</span> <span class="string">粘贴到这里</span></span><br></pre></td></tr></table></figure>
-
-<p>之后等待一段时间就可以去百度分析主页看网站情况啦。</p>
-<p>然后你就能开心地发现几天，几十天，几百天，访问量蹭蹭蹭的涨，访问 ip 一直都只有 1 个 hhhh。</p>
-<p>嗯，其实在被搜索引擎收录之前别人是搜不到你的博客的。</p>
-<p>请捞一捞下面的 Google 收录方法。</p>
-<h2 id="Google-收录"><a href="#Google-收录" class="headerlink" title="Google 收录"></a>Google 收录</h2><p>以 Next 主题为例</p>
-<p>登录 <a href="https://search.google.com/search-console/" target="_blank" rel="noopener">Google Search Console</a></p>
-<blockquote>
-<p>当然，没有账号的话需要自己搞好 Google 账号</p>
-</blockquote>
-<h3 id="选择资源类型"><a href="#选择资源类型" class="headerlink" title="选择资源类型"></a>选择资源类型</h3><p>我是 GitHub Pages 域名的个人网站，所以选右边的单网址的资源类型。把博客网址复制过去即可创建资源。</p>
-<h3 id="验证网站所有权"><a href="#验证网站所有权" class="headerlink" title="验证网站所有权"></a>验证网站所有权</h3><p>Goolge 推荐验证方法是下载 HTML 文件。但是，我们不用。毕竟一个<code>hexo clean</code>网页就没了。..</p>
-<p>选下面的 HTML 标记验证，可以看到形如下面的一段代码。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"XXXXXXXXXXXXXXXXXXXXXXX"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>把 xxxx 的东西复制好。</p>
-<p>打开 Next 的配置文件，搜索到<code>google_site_verification</code>字段，把复制的字段填进去就好。</p>
-<p><code>hexo clean;hexo g;hexo d</code>一套刷新网站组合拳。</p>
-<p>回刚才的 Google 家里点击进行验证即可。</p>
-<p>验证成功后可以 Google 搜索<code>site: 你的网址</code>试试，理应看到你的博客网址。</p>
-<blockquote>
-<p>这里很多看很多博客都是在抄几年前的方法，明明 2020 了啊哥哥们，Next 已经传宗接代到 8.0 了！！已经有内置<code>google-site-verification</code>字段了！！</p>
-<p>明明限制了搜索时间是半年以内，结果 2020 年这群人写的教程还是抄的 10 年的东西看着好烦啊喂！！！！！！！！！！！！！！</p>
-</blockquote>
-<h3 id="添加站点地图-SiteMap"><a href="#添加站点地图-SiteMap" class="headerlink" title="添加站点地图 SiteMap"></a>添加站点地图 SiteMap</h3><p>站点地图可以将我们网站的组织架构提供给 Google，都是为了搜索优化==</p>
-<p>安装 hexo 自动生成站点地图的插件：</p>
-<p><code>npm install hexo-generator-sitemap --save</code></p>
-<p>安装成功后在项目配置文件中添加：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
-
-<p>这样插件每次会在<code>hexo g</code>时自动生成 sitemap.xml 文件，放在/public/下面。</p>
-<blockquote>
-<p>注意博客文件名带有<code>&amp;</code>时，生成的 sitemap.xml 会有错误，我的解决办法是修改文件名。</p>
-</blockquote>
-<p>其实我们也知道每次部署出去的网站也就是/public/目录，所以 sitemap.xml 相当于放在网站根目录下面。</p>
-<p>因此我们把<code>你的网站地址/sitemap.xml</code>这个链接提交给 Google 即可。</p>
-<p>执行<code>hexo g;hexo d</code>生成 sitemap 并部署出去。</p>
-<p>在 <a href="https://search.google.com/search-console/sitemaps/" target="_blank" rel="noopener">Google SearchConsole</a> 侧栏找到站点地图，提交上面说的链接，完毕。</p>
-<h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
-<p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用。<del>我恨不得删项跑路</del></p>
-<blockquote>
-<p>正确配置了项目设置里的 highlight 字段，和 next 主题设置里的 codeblock 风格</p>
-</blockquote>
-<p>跑了跑了连夜跑了 ，<del>隔壁 prism-plugin 真香</del>。</p>
-<blockquote>
-<p>意外的是，prism 设置了 custom_css 的无效路径后，即使 hexo 自带 highlight 是关闭状态，代码高亮居然被 hexo 的 highlight 接管了，除了行号没有一切正常。当然，要正常使用还是用 prism 吧。</p>
-</blockquote>
-<p>好吧也不是那么香，prism 的语法提示挺简陋的。.. 烦到，这个坑好大 (╯‵□′)╯︵┻━┻</p>
-<p>被简陋到，改回 highlight 了，不知道为啥高亮又可以用了，但是觉得 next 的几款 highlight 都不太搭白底网站，于是摸了一遍发现<code>themes\next\source\css\_common\scaffolding\highlight\</code>路径下的文件存储着几套主题的配色，可以自己改一套喜欢的了。</p>
-<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next 的设计已经清新的挺舒服了。</p>
-<h2 id="自定义样式，如配色等"><a href="#自定义样式，如配色等" class="headerlink" title="自定义样式，如配色等"></a>自定义样式，如配色等</h2><h3 id="修改方法"><a href="#修改方法" class="headerlink" title="修改方法"></a>修改方法</h3><p>在 next 配置文件中，找到下面这段，然后把需要的自定义字段取消注释，这里我们想要自定义 style，因此取消注释 style 字段，之后可以在路径文件中写入你想要<strong>覆盖</strong>的样式。</p>
-<p><strong>注意是 hexo 项目根目录下的 source/_data/styles.styl</strong>，没有则自己创建。<br><strong>注意不是 next 主题目录下的路径</strong></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-<p>以下样式修改大多是在 styles 文件中进行。</p>
-<h3 id="调试样式方法"><a href="#调试样式方法" class="headerlink" title="调试样式方法"></a>调试样式方法</h3><p>虽然能够自定义覆盖样式，但是配色总是要试试的嘛，怎么调试出自己喜欢的配色再添加到文件里呢？</p>
-<p>chrome 打开博客网站，右键你想要更改的元素，例如正文背景，在右键菜单中点【检查】，可以看到如图的调试台，右边则是相应的元素样式。如图：<br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtuquyezgj20wn0di0v3.jpg" alt="主要找右边的样式表"><br>比如这里我就把正文背景从原来的纯白，修改为了带点暖黄的护眼色。<br>然后把更改的这段复制到 styles.styl 即可，如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//正文背景护眼色</span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attribute">--body-bg-color</span>: <span class="number">#f9dbb647</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新生成文章即可，其他浏览器调试应该也是同理，没试过。</p>
-<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置 global 全局字体就行。</p>
-<p>字体 CDN 默认是 google 的，可以去里面挑自己喜欢的字体，在 family 字段配置即可。</p>
-<p>个人是比较喜欢思源宋体的。</p>
-<p>示例如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="标题阴影配置"><a href="#标题阴影配置" class="headerlink" title="标题阴影配置"></a>标题阴影配置</h2><p>标题虽然可以通过字体大小区分，但是光秃秃的几个字在全文里还是有比较混杂的感觉，即不方便分割上下文，也不凸显标题本身。</p>
-<p>因此考虑添加阴影来增强标题感。</p>
-<p>在 styles 中添加字段如下，具体颜色和大小参数自己配吧。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">h1</span>, <span class="selector-class">.post-body</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0</span> -<span class="number">0.6em</span> <span class="number">0</span> <span class="number">#ffeb88</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="单句代码悬浮突出配置"><a href="#单句代码悬浮突出配置" class="headerlink" title="单句代码悬浮突出配置"></a>单句代码悬浮突出配置</h2><p>单句代码无论用什么颜色修改感觉都差点意思，要么是太过鲜艳，在频繁的地方看的挺烦，要么是太过暗淡，又不够突出明显。</p>
-<p>因此搬运了悬浮贴的 css 样式。</p>
-<p>单句代码和代码块都在<code>code</code>类下面，因此最好加个<code>p</code>类限制为仅单句代码。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5rem</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0.2em</span> <span class="number">0.2em</span> <span class="number">0</span> <span class="number">0</span> <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.1em</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">vertical-align</span>: bottom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a><br><a href="https://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">Next 进阶文档</a><br><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next Document</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1378,123 +1347,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-15-/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a><a href="https://leetcode-cn.com/problems/3sum" target="_blank" rel="noopener">三数之和</a></h1><blockquote>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<blockquote>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><ul>
-<li>暴力O(n3) 这样做还不如不做kj</li>
-<li>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</li>
-</ul>
-<ul>
-<li><p><strong>牺牲O(Nlog N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p>
-</li>
-<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c–。</p>
-<blockquote>
-<p>这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p>
-</blockquote>
-</li>
-<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p>
-</li>
-<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p>
-</li>
-</ul>
-<h1 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class Solution </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; result;</span><br><span class="line">        set&lt;vector&lt;int&gt;&gt; resultset;</span><br><span class="line">        &#x2F;&#x2F;剪枝</span><br><span class="line">        if (nums.size() &lt;&#x3D; 2)</span><br><span class="line">			return result;</span><br><span class="line">        </span><br><span class="line">		sort(nums.begin(), nums.end());</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;不剪枝会被0吓死&#x3D;.&#x3D;</span><br><span class="line">		if (nums[0]&gt;&#x3D;0 ||nums[nums.size()-1]&lt;&#x3D;0)</span><br><span class="line">		&#123;</span><br><span class="line">			if (nums[0] &#x3D;&#x3D; 0 &amp;&amp;nums[nums.size()-1]&#x3D;&#x3D;0)</span><br><span class="line">				result.push_back(&#123; 0,0,0 &#125;);</span><br><span class="line">			return result;</span><br><span class="line">		&#125;</span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">        int center;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        for(center&#x3D;0;center&lt;nums.size();center++)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;0;</span><br><span class="line">            j&#x3D;nums.size()-1;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            while(i!&#x3D;center &amp;&amp;j!&#x3D;center)</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[i]&gt;0 || nums[j]&lt;0)</span><br><span class="line">                    break;</span><br><span class="line">                </span><br><span class="line">                int sum&#x3D;nums[i]+nums[center]+nums[j];</span><br><span class="line">                if(sum&#x3D;&#x3D;0)</span><br><span class="line">                &#123;</span><br><span class="line">                    vector&lt;int&gt; temp &#x3D;&#123;nums[i],nums[center],nums[j]&#125;;</span><br><span class="line">                    if(resultset.count(temp)&#x3D;&#x3D;0)</span><br><span class="line">                    &#123;   </span><br><span class="line">                        result.push_back(temp);</span><br><span class="line">                        resultset.insert(temp);</span><br><span class="line">                    &#125;</span><br><span class="line">                    i++;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                else if(sum&lt;0)</span><br><span class="line">                    i++;</span><br><span class="line">                else if(sum&gt;0)</span><br><span class="line">                    j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>执行用时 :  424 ms, 在所有 C++ 提交中击败了5.01%的用户<br>内存消耗 :24.3 MB, 在所有 C++ 提交中击败了7.53%的用户</p>
-<p>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题。<br>看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。<br>挖个坑，搞懂了再回来看看。</p>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1566,7 +1418,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/Blog/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1625,13 +1477,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">146k</span>
+    <span title="站点总字数">148k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:04</span>
+    <span title="站点阅读时长">6:09</span>
 </div>
 
         
