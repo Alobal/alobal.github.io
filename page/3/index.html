@@ -757,7 +757,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -771,7 +771,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" class="post-title-link" itemprop="url">KNN 实例——预测电影评分</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
         </h2>
 
         <div class="post-meta">
@@ -788,7 +788,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -796,7 +796,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -806,14 +806,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -825,34 +825,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="7-KNN-实例——K-最近邻预测电影评分"><a href="#7-KNN-实例——K-最近邻预测电影评分" class="headerlink" title="7 KNN 实例——K 最近邻预测电影评分"></a>7 KNN 实例——K 最近邻预测电影评分</h1><pre><code>KNN 即先确定散点距离的定义，然后对每个新点选取 K 个距离最近的点（想象一个图，以新点为中心，不断扩大中心圆的面积，直到覆盖到 k 个点）, 用他们对新点进行投票。</code></pre><h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">r_cols=[<span class="string">'user_id'</span>,<span class="string">'movie_id'</span>,<span class="string">'rating'</span>]</span><br><span class="line"><span class="comment"># uid,mid,rating 的 dataFrame</span></span><br><span class="line">ratings=pd.read_csv(<span class="string">"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data"</span>,sep=<span class="string">'	'</span>,names=r_cols,usecols=range(<span class="number">3</span>),encoding=<span class="string">"ISO-8859-1"</span>)</span><br><span class="line"><span class="comment"># 创建 movie 属性表，属性有 size（评价数/流行度）,mean 均分</span></span><br><span class="line">movieProperties=ratings.groupby(<span class="string">'movie_id'</span>).agg(&#123;<span class="string">'rating'</span>:[np.size,np.mean]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标准化流行度，用来定义距离</span></span><br><span class="line">movieNumRatings=pd.DataFrame(movieProperties[<span class="string">'rating'</span>][<span class="string">'size'</span>])</span><br><span class="line">movieNormalizedNumRatings=movieNumRatings.apply(<span class="keyword">lambda</span> x:(x-np.min(x))/(np.max(x)-np.min(x)))</span><br></pre></td></tr></table></figure>
-
-<p>需要掌握的函数：</p>
+          <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a><a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">两数之和</a></h1><blockquote>
+<p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。<br>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例:</p>
+<blockquote>
+<p>给定 nums = [2, 7, 11, 15], target = 9<br>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
+</blockquote>
+</blockquote>
+<h3 id="1-解决思路"><a href="#1-解决思路" class="headerlink" title="1.解决思路"></a>1.解决思路</h3><p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        for(i&#x3D;0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(j&#x3D;i+1;j&lt;nums.size();j++)</span><br><span class="line">                if(nums[i]+nums[j]&#x3D;&#x3D;target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j&#x3D;nums.size();</span><br><span class="line">                    i&#x3D;j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1 列表指定行，label2 指定列（可选）, 没有指定列则返回 Series(1 个 label1)/DataFrame</li>
-<li>xxx.get(‘mean’) 和 xxx.mean 的区别：</li>
-<li><ul>
-<li>get 返回对应数值</li>
+<li>通过</li>
+<li>472 ms</li>
+<li>9.2 MB</li>
+<li>Cpp </li>
 </ul>
-</li>
-<li><ul>
-<li>返回 method/Series</li>
+<h3 id="2-优化思路"><a href="#2-优化思路" class="headerlink" title="2.优化思路"></a>2.优化思路</h3><p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。<br><strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用 <strong>空间换时间</strong>。</p>
+<blockquote>
+<p>哈希表查找复杂度为O(1)</p>
+</blockquote>
+<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。</p>
+<blockquote>
+<p><strong><em>一遍哈希表</em></strong> ：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
+</blockquote>
+<h3 id="3-最终实现代码"><a href="#3-最终实现代码" class="headerlink" title="3.最终实现代码"></a>3.最终实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;int,int&gt; store;</span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        for(int i&#x3D;0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(store.count(target-nums[i])&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result&#x3D;vector&lt;int&gt;(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;int,int&gt;::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过 </li>
+<li>20 ms</li>
+<li>10.1 MB </li>
+<li>Cpp</li>
 </ul>
-</li>
-<li>Python3.x 的 map 返回的是迭代器，Python2.x 的 map 返回 list</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">movieDict=&#123;&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">r"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item"</span>,encoding=<span class="string">"ISO-8859-1"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    temp=<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        fields=line.rstrip(<span class="string">'</span></span><br><span class="line"><span class="string">'</span>).split(<span class="string">'|'</span>)<span class="comment"># 除去 line 末尾的换行符，以|分割</span></span><br><span class="line">        movieID=int(fields[<span class="number">0</span>])</span><br><span class="line">        name=fields[<span class="number">1</span>]</span><br><span class="line">        genres=fields[<span class="number">5</span>:<span class="number">25</span>]</span><br><span class="line">        genres=map(int,genres)</span><br><span class="line">        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get(<span class="string">'size'</span>),movieProperties.loc[movieID].rating.get(<span class="string">'mean'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得了 movieid 对应的 name, 分类向量，标准化 size, 均分</span></span><br><span class="line">print(movieDict[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h2><ul>
-<li><h3 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h3></li>
-<li><h3 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> spatial</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ComputeDistance</span><span class="params">(a,b)</span>:</span><span class="comment"># a,b 分别为 moviedict 的索引号，即 movieid</span></span><br><span class="line">    a=movieDict[a]</span><br><span class="line">    b=movieDict[b]</span><br><span class="line">    <span class="comment"># x[1] 为类型向量</span></span><br><span class="line">    genreDistance=spatial.distance.cosine(a[<span class="number">1</span>],b[<span class="number">1</span>])</span><br><span class="line">    <span class="comment"># x[2] 为 size</span></span><br><span class="line">    popularityDistance=abs(a[<span class="number">2</span>]-b[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> genreDistance+popularityDistance</span><br><span class="line"></span><br><span class="line">print(ComputeDistance(<span class="number">2</span>,<span class="number">4</span>))</span><br><span class="line">print(movieDict[<span class="number">2</span>])</span><br><span class="line">print(movieDict[<span class="number">4</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="3-获取最近邻"><a href="#3-获取最近邻" class="headerlink" title="3. 获取最近邻"></a>3. 获取最近邻</h2></li>
-</ul>
-<p>key=operator.itemgetter(1). </p>
-<p>因为 list 里是 tuple, 要选取 tuple[1] 进行排序，<code>itemgetter(i)</code> 返回一个函数 func,func(x) 是取 x[i], 即这里通过传递取值函数，实现了取 tuple[1] 进行排序。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getNeighbors</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    distances=[]<span class="comment"># 距离集合，(movieid,distance)</span></span><br><span class="line">    <span class="keyword">for</span> movie <span class="keyword">in</span> movieDict:</span><br><span class="line">        <span class="keyword">if</span>(movie!=movieID):</span><br><span class="line">            distances.append((movie,ComputeDistance(movieID,movie)))</span><br><span class="line">    </span><br><span class="line">    distances.sort(key=operator.itemgetter(<span class="number">1</span>))</span><br><span class="line">    neighbors=[]<span class="comment"># 距离排序后，选入前 k 个最近的</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(k):</span><br><span class="line">        neighbors.append(distances[x][<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> neighbors</span><br><span class="line"></span><br><span class="line">k=<span class="number">20</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PredictByKNN</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    avgRating=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> neighbor <span class="keyword">in</span> getNeighbors(movieID,k):</span><br><span class="line">        avgRating+=movieDict[neighbor][<span class="number">3</span>]</span><br><span class="line">        print(movieDict[neighbor])</span><br><span class="line">    print(<span class="string">"Predict rating is : "</span>+str(avgRating/k))</span><br><span class="line">    print(<span class="string">"Actual Rating is : "</span>+str(movieDict[movieID][<span class="number">3</span>]))</span><br><span class="line"></span><br><span class="line">PredictByKNN(<span class="number">20</span>,<span class="number">50</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="预测实例"><a href="#预测实例" class="headerlink" title="预测实例"></a>预测实例</h2><p>预测 3.28, 实际 3.41</p>
-<p>一定程度上还是挺准确的，仅仅利用了分类和流行度作为相似标准，实现简单但是效果挺好。</p>
-<p><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg" alt="示例运行"></p>
 
       
     </div>
@@ -1017,6 +1019,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/KNN%E5%AE%9E%E4%BE%8B%E2%80%94%E2%80%94%E9%A2%84%E6%B5%8B%E7%94%B5%E5%BD%B1%E8%AF%84%E5%88%86/" class="post-title-link" itemprop="url">KNN 实例——预测电影评分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-17 20:28:12" itemprop="dateModified" datetime="2020-08-17T20:28:12+08:00">2020-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="7-KNN-实例——K-最近邻预测电影评分"><a href="#7-KNN-实例——K-最近邻预测电影评分" class="headerlink" title="7 KNN 实例——K 最近邻预测电影评分"></a>7 KNN 实例——K 最近邻预测电影评分</h1><pre><code>KNN 即先确定散点距离的定义，然后对每个新点选取 K 个距离最近的点（想象一个图，以新点为中心，不断扩大中心圆的面积，直到覆盖到 k 个点）, 用他们对新点进行投票。</code></pre><h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">r_cols=[<span class="string">'user_id'</span>,<span class="string">'movie_id'</span>,<span class="string">'rating'</span>]</span><br><span class="line"><span class="comment"># uid,mid,rating 的 dataFrame</span></span><br><span class="line">ratings=pd.read_csv(<span class="string">"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data"</span>,sep=<span class="string">'	'</span>,names=r_cols,usecols=range(<span class="number">3</span>),encoding=<span class="string">"ISO-8859-1"</span>)</span><br><span class="line"><span class="comment"># 创建 movie 属性表，属性有 size（评价数/流行度）,mean 均分</span></span><br><span class="line">movieProperties=ratings.groupby(<span class="string">'movie_id'</span>).agg(&#123;<span class="string">'rating'</span>:[np.size,np.mean]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标准化流行度，用来定义距离</span></span><br><span class="line">movieNumRatings=pd.DataFrame(movieProperties[<span class="string">'rating'</span>][<span class="string">'size'</span>])</span><br><span class="line">movieNormalizedNumRatings=movieNumRatings.apply(<span class="keyword">lambda</span> x:(x-np.min(x))/(np.max(x)-np.min(x)))</span><br></pre></td></tr></table></figure>
+
+<p>需要掌握的函数：</p>
+<ul>
+<li>df.loc[[‘label1’,’label1’….],[‘label2’]] ,label1 列表指定行，label2 指定列（可选）, 没有指定列则返回 Series(1 个 label1)/DataFrame</li>
+<li>xxx.get(‘mean’) 和 xxx.mean 的区别：</li>
+<li><ul>
+<li>get 返回对应数值</li>
+</ul>
+</li>
+<li><ul>
+<li>返回 method/Series</li>
+</ul>
+</li>
+<li>Python3.x 的 map 返回的是迭代器，Python2.x 的 map 返回 list</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">movieDict=&#123;&#125;</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">r"C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item"</span>,encoding=<span class="string">"ISO-8859-1"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    temp=<span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        fields=line.rstrip(<span class="string">'</span></span><br><span class="line"><span class="string">'</span>).split(<span class="string">'|'</span>)<span class="comment"># 除去 line 末尾的换行符，以|分割</span></span><br><span class="line">        movieID=int(fields[<span class="number">0</span>])</span><br><span class="line">        name=fields[<span class="number">1</span>]</span><br><span class="line">        genres=fields[<span class="number">5</span>:<span class="number">25</span>]</span><br><span class="line">        genres=map(int,genres)</span><br><span class="line">        movieDict[movieID]=(name,list(genres),movieNormalizedNumRatings.loc[movieID].get(<span class="string">'size'</span>),movieProperties.loc[movieID].rating.get(<span class="string">'mean'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得了 movieid 对应的 name, 分类向量，标准化 size, 均分</span></span><br><span class="line">print(movieDict[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="2-定义距离"><a href="#2-定义距离" class="headerlink" title="2. 定义距离"></a>2. 定义距离</h2><ul>
+<li><h3 id="类型向量余弦相似度"><a href="#类型向量余弦相似度" class="headerlink" title="类型向量余弦相似度"></a>类型向量余弦相似度</h3></li>
+<li><h3 id="流行度的差的绝对值"><a href="#流行度的差的绝对值" class="headerlink" title="流行度的差的绝对值"></a>流行度的差的绝对值</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> spatial</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ComputeDistance</span><span class="params">(a,b)</span>:</span><span class="comment"># a,b 分别为 moviedict 的索引号，即 movieid</span></span><br><span class="line">    a=movieDict[a]</span><br><span class="line">    b=movieDict[b]</span><br><span class="line">    <span class="comment"># x[1] 为类型向量</span></span><br><span class="line">    genreDistance=spatial.distance.cosine(a[<span class="number">1</span>],b[<span class="number">1</span>])</span><br><span class="line">    <span class="comment"># x[2] 为 size</span></span><br><span class="line">    popularityDistance=abs(a[<span class="number">2</span>]-b[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> genreDistance+popularityDistance</span><br><span class="line"></span><br><span class="line">print(ComputeDistance(<span class="number">2</span>,<span class="number">4</span>))</span><br><span class="line">print(movieDict[<span class="number">2</span>])</span><br><span class="line">print(movieDict[<span class="number">4</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="3-获取最近邻"><a href="#3-获取最近邻" class="headerlink" title="3. 获取最近邻"></a>3. 获取最近邻</h2></li>
+</ul>
+<p>key=operator.itemgetter(1). </p>
+<p>因为 list 里是 tuple, 要选取 tuple[1] 进行排序，<code>itemgetter(i)</code> 返回一个函数 func,func(x) 是取 x[i], 即这里通过传递取值函数，实现了取 tuple[1] 进行排序。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getNeighbors</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    distances=[]<span class="comment"># 距离集合，(movieid,distance)</span></span><br><span class="line">    <span class="keyword">for</span> movie <span class="keyword">in</span> movieDict:</span><br><span class="line">        <span class="keyword">if</span>(movie!=movieID):</span><br><span class="line">            distances.append((movie,ComputeDistance(movieID,movie)))</span><br><span class="line">    </span><br><span class="line">    distances.sort(key=operator.itemgetter(<span class="number">1</span>))</span><br><span class="line">    neighbors=[]<span class="comment"># 距离排序后，选入前 k 个最近的</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(k):</span><br><span class="line">        neighbors.append(distances[x][<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> neighbors</span><br><span class="line"></span><br><span class="line">k=<span class="number">20</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PredictByKNN</span><span class="params">(movieID,k)</span>:</span></span><br><span class="line">    avgRating=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> neighbor <span class="keyword">in</span> getNeighbors(movieID,k):</span><br><span class="line">        avgRating+=movieDict[neighbor][<span class="number">3</span>]</span><br><span class="line">        print(movieDict[neighbor])</span><br><span class="line">    print(<span class="string">"Predict rating is : "</span>+str(avgRating/k))</span><br><span class="line">    print(<span class="string">"Actual Rating is : "</span>+str(movieDict[movieID][<span class="number">3</span>]))</span><br><span class="line"></span><br><span class="line">PredictByKNN(<span class="number">20</span>,<span class="number">50</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="预测实例"><a href="#预测实例" class="headerlink" title="预测实例"></a>预测实例</h2><p>预测 3.28, 实际 3.41</p>
+<p>一定程度上还是挺准确的，仅仅利用了分类和流行度作为相似标准，实现简单但是效果挺好。</p>
+<p><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuupwq1j20xc08bgnn.jpg" alt="示例运行"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1094,123 +1211,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scores&#x3D;cross_val_score(clf,iris.data,iris.target,cv&#x3D;5)</span><br><span class="line"></span><br><span class="line">print(scores)</span><br><span class="line">print(scores.mean())</span><br></pre></td></tr></table></figure>
 <br>
 ![简单示例结果](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuv1f83j20ko05o74c.jpg)
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a><a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">两数之和</a></h1><blockquote>
-<p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。<br>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例:</p>
-<blockquote>
-<p>给定 nums = [2, 7, 11, 15], target = 9<br>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-</blockquote>
-</blockquote>
-<h3 id="1-解决思路"><a href="#1-解决思路" class="headerlink" title="1.解决思路"></a>1.解决思路</h3><p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        for(i&#x3D;0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(j&#x3D;i+1;j&lt;nums.size();j++)</span><br><span class="line">                if(nums[i]+nums[j]&#x3D;&#x3D;target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j&#x3D;nums.size();</span><br><span class="line">                    i&#x3D;j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>472 ms</li>
-<li>9.2 MB</li>
-<li>Cpp </li>
-</ul>
-<h3 id="2-优化思路"><a href="#2-优化思路" class="headerlink" title="2.优化思路"></a>2.优化思路</h3><p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。<br><strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用 <strong>空间换时间</strong>。</p>
-<blockquote>
-<p>哈希表查找复杂度为O(1)</p>
-</blockquote>
-<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。</p>
-<blockquote>
-<p><strong><em>一遍哈希表</em></strong> ：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
-</blockquote>
-<h3 id="3-最终实现代码"><a href="#3-最终实现代码" class="headerlink" title="3.最终实现代码"></a>3.最终实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;int,int&gt; store;</span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        for(int i&#x3D;0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(store.count(target-nums[i])&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result&#x3D;vector&lt;int&gt;(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;int,int&gt;::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过 </li>
-<li>20 ms</li>
-<li>10.1 MB </li>
-<li>Cpp</li>
-</ul>
 
       
     </div>
