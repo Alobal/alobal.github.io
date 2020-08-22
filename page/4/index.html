@@ -432,112 +432,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="合并K个链表"><a href="#合并K个链表" class="headerlink" title="合并K个链表"></a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">合并K个链表</a></h1><blockquote>
-<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
-<p>示例:</p>
-<blockquote>
-<p>输入:<br>[<br>　1-&gt;4-&gt;5,<br>  　1-&gt;3-&gt;4,<br>  　2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
-</blockquote>
-</blockquote>
-<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
-<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。</p>
-<blockquote>
-<p>两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p>
-</blockquote>
-</li>
-<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p>
-</li>
-<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>. 直到长度为1即完成。</p>
-</li>
-</ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* result&#x3D;NULL;</span><br><span class="line">        int length&#x3D;lists.size();</span><br><span class="line">        if(length&#x3D;&#x3D;0)</span><br><span class="line">            return NULL;</span><br><span class="line">        while(length&gt;1)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp&#x3D;(length+1)&#x2F;2;</span><br><span class="line">            for(int i&#x3D;0;i&lt;length&#x2F;2;i++)</span><br><span class="line">                lists[i]&#x3D;mergeTwoLists(lists[i],lists[i+temp]);</span><br><span class="line">            </span><br><span class="line">            length&#x3D;temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return lists[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)</span><br><span class="line">	  &#123;</span><br><span class="line">		 </span><br><span class="line">		  ListNode result(0);</span><br><span class="line">		  ListNode* another &#x3D; &amp;result;</span><br><span class="line"></span><br><span class="line">		  while (l1 !&#x3D; NULL &amp;&amp; l2 !&#x3D; NULL)</span><br><span class="line">		  &#123;</span><br><span class="line">			</span><br><span class="line">			  if (l1-&gt;val &lt;&#x3D; l2-&gt;val)</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l1;</span><br><span class="line">				  l1 &#x3D; l1-&gt;next;  </span><br><span class="line">			  &#125;</span><br><span class="line">			  else</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l2;</span><br><span class="line">				  l2 &#x3D; l2-&gt;next;</span><br><span class="line">			  &#125;</span><br><span class="line">              </span><br><span class="line">              another &#x3D; another-&gt;next;</span><br><span class="line">		  &#125;</span><br><span class="line">                   </span><br><span class="line">          another-&gt;next&#x3D;(l1&#x3D;&#x3D;NULL)?l2:l1;</span><br><span class="line">		  return (&amp;result)-&gt;next;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -672,6 +566,112 @@
 </tbody></table>
 <hr>
 <p><strong>有想过为什么不直接分为left 和 right 两个部分，一定要套个括号</strong><br>      　——假如只分两半left 和 right，那在求解S[n]遍历的时候肯定要遍历到S[n]自身，因此需要先固定好一对括号，这样遍历会停止在S[n-1]的子问题，然后合并出待解的S[n]问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="合并K个链表"><a href="#合并K个链表" class="headerlink" title="合并K个链表"></a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">合并K个链表</a></h1><blockquote>
+<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
+<blockquote>
+<p>输入:<br>[<br>　1-&gt;4-&gt;5,<br>  　1-&gt;3-&gt;4,<br>  　2-&gt;6<br>]<br>输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</p>
+</blockquote>
+</blockquote>
+<h1 id="解题分析"><a href="#解题分析" class="headerlink" title="解题分析"></a>解题分析</h1><ul>
+<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。</p>
+<blockquote>
+<p>两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p>
+</blockquote>
+</li>
+<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p>
+</li>
+<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>. 直到长度为1即完成。</p>
+</li>
+</ul>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* result&#x3D;NULL;</span><br><span class="line">        int length&#x3D;lists.size();</span><br><span class="line">        if(length&#x3D;&#x3D;0)</span><br><span class="line">            return NULL;</span><br><span class="line">        while(length&gt;1)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp&#x3D;(length+1)&#x2F;2;</span><br><span class="line">            for(int i&#x3D;0;i&lt;length&#x2F;2;i++)</span><br><span class="line">                lists[i]&#x3D;mergeTwoLists(lists[i],lists[i+temp]);</span><br><span class="line">            </span><br><span class="line">            length&#x3D;temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return lists[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)</span><br><span class="line">	  &#123;</span><br><span class="line">		 </span><br><span class="line">		  ListNode result(0);</span><br><span class="line">		  ListNode* another &#x3D; &amp;result;</span><br><span class="line"></span><br><span class="line">		  while (l1 !&#x3D; NULL &amp;&amp; l2 !&#x3D; NULL)</span><br><span class="line">		  &#123;</span><br><span class="line">			</span><br><span class="line">			  if (l1-&gt;val &lt;&#x3D; l2-&gt;val)</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l1;</span><br><span class="line">				  l1 &#x3D; l1-&gt;next;  </span><br><span class="line">			  &#125;</span><br><span class="line">			  else</span><br><span class="line">			  &#123;</span><br><span class="line">				  another-&gt;next &#x3D; l2;</span><br><span class="line">				  l2 &#x3D; l2-&gt;next;</span><br><span class="line">			  &#125;</span><br><span class="line">              </span><br><span class="line">              another &#x3D; another-&gt;next;</span><br><span class="line">		  &#125;</span><br><span class="line">                   </span><br><span class="line">          another-&gt;next&#x3D;(l1&#x3D;&#x3D;NULL)?l2:l1;</span><br><span class="line">		  return (&amp;result)-&gt;next;</span><br><span class="line">	  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -940,7 +940,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -954,7 +954,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
         </h2>
 
         <div class="post-meta">
@@ -971,7 +971,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -989,14 +989,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1008,48 +1008,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="寻找两个有序数组的中位数"><a href="#寻找两个有序数组的中位数" class="headerlink" title="寻找两个有序数组的中位数"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays" target="_blank" rel="noopener">寻找两个有序数组的中位数</a></h1><blockquote>
-<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。<br>请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。<br>你可以假设 nums1 和 nums2 不会同时为空。</p>
+          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
+<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
+<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
 <blockquote>
-<p>示例 1:<br>nums1 = [1, 3]<br>nums2 = [2]<br>则中位数是 2.0</p>
+<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
 </blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
 <blockquote>
-<p>示例 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]<br>则中位数是 (2 + 3)/2 = 2.5</p>
+<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
 </blockquote>
-</blockquote>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="　思路分析"></a>　思路分析</h2><ul>
-<li><strong>首先</strong>, 题目有log时间复杂度限制,不能重组数组暴力解决</li>
-<li><strong>已知</strong>, 两数组有序不为空,找到中位数的难点在于怎么把两个数组的数一起考虑</li>
-<li><strong>目标</strong>, 中位数定义:  将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法,把两个数组同时划分成两块,左边块的所有数都比右边块的所有数要小.<br>若分割后左边有k个数,此时划分的边界有LMax1,LMax2,RMin1,RMin2</li>
-</ul>
-<p><strong>Max(LMax1,LMax2)必然是第k个数<br>Min(RMin1,RMin2)必然是第k+1个数</strong><br>即我们可以定位到第k个数,中位数的序号k也可通过数组长度得到.<br>因此 我们需要 <strong>两个数组同时分割成有大小关系的两块,左块总共有k个数,k为中位数序号,此时中位数要么是第k个,要么是第k个和第k+1个,都可以在边界找到</strong></p>
-<h2 id="题解分析-链接原高赞题解"><a href="#题解分析-链接原高赞题解" class="headerlink" title="题解分析 (链接原高赞题解)"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" target="_blank" rel="noopener">题解分析</a> (链接原高赞题解)</h2><h3 id="1-分割主体思路"><a href="#1-分割主体思路" class="headerlink" title="1.分割主体思路"></a>1.分割主体思路</h3><p>要把两数组同时分割成两块,先看单一数组的内部<br>因为数组是有序的,所以假如在中间一割,同一数组的左边肯定小于右边.</p>
-<p>为了达到我们两个数组整体分割的目标,我们还需要满足对一个数组都有,分割的左边最大值小于另一个数组的右边最小值,<br>这样左边的整体必然就会小于右边的整体.<br>另外要满足左块总数为k,所以若Ci为第i个数组的切割点下标,要满足 <strong>C1+C2=k</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="题解示意图,来自LeetCode扁扁熊"></p>
-<h3 id="2-边界数赋值"><a href="#2-边界数赋值" class="headerlink" title="2.边界数赋值"></a>2.边界数赋值</h3><p>分割点恰巧在有数的位置 C,为方便比较大小, LMax=RMin=L[C],即中位数同时分给两边<br>分割点在两数之间,即LMax和RMin即分割处两边的值.</p>
-<h4 id="假想放大数组"><a href="#假想放大数组" class="headerlink" title="假想放大数组"></a>假想放大数组</h4><p>因为无法用整数下标表示描述在两数之间的位置,但实际需要这种分割情况<br>所以我们不妨将每个数组<strong>放缩成2m+1的长度</strong>,即给两数之间也加入一个标识位置</p>
+<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
+<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
+<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
 <blockquote>
-<p>例如[1,2,3] 假想放缩成[# ,1,#,2,#,3,#],</p>
+<p>如  <strong>[1,2,5,4,3,6]</strong></p>
 </blockquote>
-<p>此时: <strong>数的实际位置=假想位置/2.</strong> <strong>两数之间的假想位置=数的假想位置+-1</strong></p>
-<p>设放大后对一个数组切割的虚位为C.<br>此时无论C是<strong>数的虚位</strong>还是<strong>空的虚位</strong>,都满足LMax=L[(C-1)/2] RMin=L[C/2],</p>
+<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
 <blockquote>
-<p>注意放缩产生的虚位是假想的,因此访问时要转换回实位</p>
+<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
 </blockquote>
+<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
+<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
+<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
+</blockquote>
+<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
 <blockquote>
-<p>[# ,1,#,2,#,3,#]<br>2的原下标是1,假想下标是3, 3/2=1<br>若此时以,C=3为切割位置,即切点,则LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2<br>若以C=4为分割处,即切空,LMax=L[1]=2,RMin=L[2]=3.</p>
-<p><strong>假想放大数组后,切点切空都可以用一个式子正确给边界数赋值</strong></p>
+<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
 </blockquote>
-<h3 id="3-左块含有k个数"><a href="#3-左块含有k个数" class="headerlink" title="3.左块含有k个数"></a>3.左块含有k个数</h3><p>因为放大后数组总长度是2m+2n+2<br>所以中位数在是第m+n+1和第m+n+2的平均值<br>因此分割的k等于m+n+1<br>所以C2=m+n-C1</p>
-<blockquote>
-<p>真实数组序号从0开始,所以C1+C2=m+n,左块才有m+n+1个数,<strong>不是C1+C2=m+n+1</strong></p>
-</blockquote>
-<h3 id="4-处理边界情况"><a href="#4-处理边界情况" class="headerlink" title="4. 处理边界情况"></a>4. 处理边界情况</h3><p>切割时切割点可能在数组最左边或者最右边,此时直观上理解可知,切最左边的时候,LMax=无穷小,切最右边的时候RMin=无穷大</p>
-<h3 id="5-切割点遍历方式"><a href="#5-切割点遍历方式" class="headerlink" title="5. 切割点遍历方式"></a>5. 切割点遍历方式</h3><p>切割点选择方式确定后,我们要逐步逼近正确的切割点<br>类似于查找算法,此时可用二分法进行逼近,满足效率O(log).</p>
-<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;vector&gt;        &#x2F;&#x2F;注意头文件的加入,否则INT_MIN之类的可能无法使用</span><br><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) </span><br><span class="line">    &#123;  </span><br><span class="line">        int length1&#x3D;nums1.size();</span><br><span class="line">        int length2&#x3D;nums2.size();</span><br><span class="line">        if(length1&gt;length2)        &#x2F;&#x2F;节省效率,以最短的数组为主切割C1</span><br><span class="line">            return findMedianSortedArrays(nums2,nums1);</span><br><span class="line">        int LMax1;</span><br><span class="line">        int LMax2;</span><br><span class="line">        int RMin1;</span><br><span class="line">        int RMin2;</span><br><span class="line">      </span><br><span class="line">        int k&#x3D;length1+length2;</span><br><span class="line">        int c1;</span><br><span class="line">        int c2;</span><br><span class="line">        int d1&#x3D;0;</span><br><span class="line">        int d2&#x3D;length1*2;</span><br><span class="line">        </span><br><span class="line">        while(d1&lt;&#x3D;d2)  &#x2F;&#x2F;写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            c1&#x3D;(d1+d2)&#x2F;2;</span><br><span class="line">            c2&#x3D;k-c1;</span><br><span class="line">            </span><br><span class="line">           (c1&#x3D;&#x3D;0) ? LMax1&#x3D;INT_MIN : LMax1&#x3D;nums1[(c1-1)&#x2F;2];</span><br><span class="line">            (c1&#x3D;&#x3D;2*length1) ? RMin1&#x3D;INT_MAX : RMin1&#x3D;nums1[c1&#x2F;2];</span><br><span class="line">             (c2&#x3D;&#x3D;0) ? LMax2&#x3D;INT_MIN : LMax2&#x3D;nums2[(c2-1)&#x2F;2];</span><br><span class="line">            (c2&#x3D;&#x3D;2*length2) ? RMin2&#x3D;INT_MAX : RMin2&#x3D;nums2[c2&#x2F;2];</span><br><span class="line">            </span><br><span class="line">            if(LMax1&gt;RMin2)</span><br><span class="line">                d2&#x3D;c1-1;          &#x2F;&#x2F;分析浮动+-1的必要性</span><br><span class="line">            else if(LMax2&gt;RMin1)</span><br><span class="line">                d1&#x3D;c1+1;</span><br><span class="line">            else            &#x2F;&#x2F;为什么要加这个判断</span><br><span class="line">                break;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        int LMax,RMin;</span><br><span class="line">        LMax&#x3D;(LMax1&gt;LMax2)?LMax1:LMax2;</span><br><span class="line">        RMin&#x3D;(RMin1&lt;RMin2)?RMin1:RMin2;</span><br><span class="line">        </span><br><span class="line">        return (LMax+RMin)&#x2F;2.0;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧"><a href="#这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧" class="headerlink" title="这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧"></a>这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧</h2><ul>
-<li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
-</ul>
+<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        if(nums.size()&lt;&#x3D;1)</span><br><span class="line">            return ;</span><br><span class="line">        </span><br><span class="line">        int flag&#x3D;0;</span><br><span class="line">        int nextid&#x3D;nums.size()-1;</span><br><span class="line">        int currentid&#x3D;nextid-1;</span><br><span class="line">        </span><br><span class="line">        while(currentid&gt;&#x3D;0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[nextid]&gt;nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;从后往前，找到第一组 升序对</span><br><span class="line">               flag&#x3D;1;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(flag&#x3D;&#x3D;1)&#x2F;&#x2F;存在下一个更大排列</span><br><span class="line">        &#123;</span><br><span class="line">                &#x2F;&#x2F;交换生成新排列</span><br><span class="line">            while(nextid+1&lt;nums.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[nextid+1]&gt;nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            tempswap(nums[currentid],nums[nextid]);</span><br><span class="line">            &#x2F;&#x2F;currentid右边必然是降序</span><br><span class="line">            &#x2F;&#x2F;将currentid右边升序处理</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            while(currentid+1&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid+1]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        else</span><br><span class="line">        &#123;   &#x2F;&#x2F;不存在，则倒序</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            currentid&#x3D;0;</span><br><span class="line">            while(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void tempswap(int&amp; a,int&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp&#x3D;b;</span><br><span class="line">            b&#x3D;a;</span><br><span class="line">            a&#x3D;temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1194,6 +1183,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:53" itemprop="dateModified" datetime="2020-07-16T19:34:53+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="寻找两个有序数组的中位数"><a href="#寻找两个有序数组的中位数" class="headerlink" title="寻找两个有序数组的中位数"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays" target="_blank" rel="noopener">寻找两个有序数组的中位数</a></h1><blockquote>
+<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。<br>请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。<br>你可以假设 nums1 和 nums2 不会同时为空。</p>
+<blockquote>
+<p>示例 1:<br>nums1 = [1, 3]<br>nums2 = [2]<br>则中位数是 2.0</p>
+</blockquote>
+<blockquote>
+<p>示例 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]<br>则中位数是 (2 + 3)/2 = 2.5</p>
+</blockquote>
+</blockquote>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="　思路分析"></a>　思路分析</h2><ul>
+<li><strong>首先</strong>, 题目有log时间复杂度限制,不能重组数组暴力解决</li>
+<li><strong>已知</strong>, 两数组有序不为空,找到中位数的难点在于怎么把两个数组的数一起考虑</li>
+<li><strong>目标</strong>, 中位数定义:  将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法,把两个数组同时划分成两块,左边块的所有数都比右边块的所有数要小.<br>若分割后左边有k个数,此时划分的边界有LMax1,LMax2,RMin1,RMin2</li>
+</ul>
+<p><strong>Max(LMax1,LMax2)必然是第k个数<br>Min(RMin1,RMin2)必然是第k+1个数</strong><br>即我们可以定位到第k个数,中位数的序号k也可通过数组长度得到.<br>因此 我们需要 <strong>两个数组同时分割成有大小关系的两块,左块总共有k个数,k为中位数序号,此时中位数要么是第k个,要么是第k个和第k+1个,都可以在边界找到</strong></p>
+<h2 id="题解分析-链接原高赞题解"><a href="#题解分析-链接原高赞题解" class="headerlink" title="题解分析 (链接原高赞题解)"></a><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/" target="_blank" rel="noopener">题解分析</a> (链接原高赞题解)</h2><h3 id="1-分割主体思路"><a href="#1-分割主体思路" class="headerlink" title="1.分割主体思路"></a>1.分割主体思路</h3><p>要把两数组同时分割成两块,先看单一数组的内部<br>因为数组是有序的,所以假如在中间一割,同一数组的左边肯定小于右边.</p>
+<p>为了达到我们两个数组整体分割的目标,我们还需要满足对一个数组都有,分割的左边最大值小于另一个数组的右边最小值,<br>这样左边的整体必然就会小于右边的整体.<br>另外要满足左块总数为k,所以若Ci为第i个数组的切割点下标,要满足 <strong>C1+C2=k</strong><br><img src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="题解示意图,来自LeetCode扁扁熊"></p>
+<h3 id="2-边界数赋值"><a href="#2-边界数赋值" class="headerlink" title="2.边界数赋值"></a>2.边界数赋值</h3><p>分割点恰巧在有数的位置 C,为方便比较大小, LMax=RMin=L[C],即中位数同时分给两边<br>分割点在两数之间,即LMax和RMin即分割处两边的值.</p>
+<h4 id="假想放大数组"><a href="#假想放大数组" class="headerlink" title="假想放大数组"></a>假想放大数组</h4><p>因为无法用整数下标表示描述在两数之间的位置,但实际需要这种分割情况<br>所以我们不妨将每个数组<strong>放缩成2m+1的长度</strong>,即给两数之间也加入一个标识位置</p>
+<blockquote>
+<p>例如[1,2,3] 假想放缩成[# ,1,#,2,#,3,#],</p>
+</blockquote>
+<p>此时: <strong>数的实际位置=假想位置/2.</strong> <strong>两数之间的假想位置=数的假想位置+-1</strong></p>
+<p>设放大后对一个数组切割的虚位为C.<br>此时无论C是<strong>数的虚位</strong>还是<strong>空的虚位</strong>,都满足LMax=L[(C-1)/2] RMin=L[C/2],</p>
+<blockquote>
+<p>注意放缩产生的虚位是假想的,因此访问时要转换回实位</p>
+</blockquote>
+<blockquote>
+<p>[# ,1,#,2,#,3,#]<br>2的原下标是1,假想下标是3, 3/2=1<br>若此时以,C=3为切割位置,即切点,则LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2<br>若以C=4为分割处,即切空,LMax=L[1]=2,RMin=L[2]=3.</p>
+<p><strong>假想放大数组后,切点切空都可以用一个式子正确给边界数赋值</strong></p>
+</blockquote>
+<h3 id="3-左块含有k个数"><a href="#3-左块含有k个数" class="headerlink" title="3.左块含有k个数"></a>3.左块含有k个数</h3><p>因为放大后数组总长度是2m+2n+2<br>所以中位数在是第m+n+1和第m+n+2的平均值<br>因此分割的k等于m+n+1<br>所以C2=m+n-C1</p>
+<blockquote>
+<p>真实数组序号从0开始,所以C1+C2=m+n,左块才有m+n+1个数,<strong>不是C1+C2=m+n+1</strong></p>
+</blockquote>
+<h3 id="4-处理边界情况"><a href="#4-处理边界情况" class="headerlink" title="4. 处理边界情况"></a>4. 处理边界情况</h3><p>切割时切割点可能在数组最左边或者最右边,此时直观上理解可知,切最左边的时候,LMax=无穷小,切最右边的时候RMin=无穷大</p>
+<h3 id="5-切割点遍历方式"><a href="#5-切割点遍历方式" class="headerlink" title="5. 切割点遍历方式"></a>5. 切割点遍历方式</h3><p>切割点选择方式确定后,我们要逐步逼近正确的切割点<br>类似于查找算法,此时可用二分法进行逼近,满足效率O(log).</p>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;vector&gt;        &#x2F;&#x2F;注意头文件的加入,否则INT_MIN之类的可能无法使用</span><br><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) </span><br><span class="line">    &#123;  </span><br><span class="line">        int length1&#x3D;nums1.size();</span><br><span class="line">        int length2&#x3D;nums2.size();</span><br><span class="line">        if(length1&gt;length2)        &#x2F;&#x2F;节省效率,以最短的数组为主切割C1</span><br><span class="line">            return findMedianSortedArrays(nums2,nums1);</span><br><span class="line">        int LMax1;</span><br><span class="line">        int LMax2;</span><br><span class="line">        int RMin1;</span><br><span class="line">        int RMin2;</span><br><span class="line">      </span><br><span class="line">        int k&#x3D;length1+length2;</span><br><span class="line">        int c1;</span><br><span class="line">        int c2;</span><br><span class="line">        int d1&#x3D;0;</span><br><span class="line">        int d2&#x3D;length1*2;</span><br><span class="line">        </span><br><span class="line">        while(d1&lt;&#x3D;d2)  &#x2F;&#x2F;写LMax1&gt;RMin2 || LMax2&gt;RMin1 为什么不可以</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            c1&#x3D;(d1+d2)&#x2F;2;</span><br><span class="line">            c2&#x3D;k-c1;</span><br><span class="line">            </span><br><span class="line">           (c1&#x3D;&#x3D;0) ? LMax1&#x3D;INT_MIN : LMax1&#x3D;nums1[(c1-1)&#x2F;2];</span><br><span class="line">            (c1&#x3D;&#x3D;2*length1) ? RMin1&#x3D;INT_MAX : RMin1&#x3D;nums1[c1&#x2F;2];</span><br><span class="line">             (c2&#x3D;&#x3D;0) ? LMax2&#x3D;INT_MIN : LMax2&#x3D;nums2[(c2-1)&#x2F;2];</span><br><span class="line">            (c2&#x3D;&#x3D;2*length2) ? RMin2&#x3D;INT_MAX : RMin2&#x3D;nums2[c2&#x2F;2];</span><br><span class="line">            </span><br><span class="line">            if(LMax1&gt;RMin2)</span><br><span class="line">                d2&#x3D;c1-1;          &#x2F;&#x2F;分析浮动+-1的必要性</span><br><span class="line">            else if(LMax2&gt;RMin1)</span><br><span class="line">                d1&#x3D;c1+1;</span><br><span class="line">            else            &#x2F;&#x2F;为什么要加这个判断</span><br><span class="line">                break;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        int LMax,RMin;</span><br><span class="line">        LMax&#x3D;(LMax1&gt;LMax2)?LMax1:LMax2;</span><br><span class="line">        RMin&#x3D;(RMin1&lt;RMin2)?RMin1:RMin2;</span><br><span class="line">        </span><br><span class="line">        return (LMax+RMin)&#x2F;2.0;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧"><a href="#这个题目比较复杂-看了大牛题解用自己的理解尝试写了一遍下来-其中代码中还有几处还没有分析完全的地方-休息一段时间后再来看看吧" class="headerlink" title="这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧"></a>这个题目比较复杂, 看了大牛题解用自己的理解尝试写了一遍下来, 其中代码中还有几处还没有分析完全的地方,休息一段时间后再来看看吧</h2><ul>
+<li>为什么要浮动+-1  因为循环出口是d1&gt;d2 若不浮动,d1永远小于等于d2</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-43/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1297,124 +1415,6 @@
 <h4 id="2-5-另外还有一些小细节思考"><a href="#2-5-另外还有一些小细节思考" class="headerlink" title="2.5 另外还有一些小细节思考:"></a>2.5 另外还有一些小细节思考:</h4><h4 id="比如连续进位有没有问题"><a href="#比如连续进位有没有问题" class="headerlink" title="比如连续进位有没有问题"></a>比如连续进位有没有问题</h4><h4 id="循环结束需不需要有收尾整理"><a href="#循环结束需不需要有收尾整理" class="headerlink" title="循环结束需不需要有收尾整理"></a>循环结束需不需要有收尾整理</h4><h4 id="我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢"><a href="#我们现在result里填充了-length1-length2-1-的-‘0’-方便我们后续反向填充和累加-但是result-0-是最后一位进位的结果-假如最后没有进位呢" class="headerlink" title="我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?"></a>我们现在result里填充了[length1+length2+1]的 ‘0’ 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果, 假如最后没有进位呢?</h4><h1 id="优化代码-超越97-时间-86-内存"><a href="#优化代码-超越97-时间-86-内存" class="headerlink" title="优化代码, 超越97%时间,86%内存"></a>优化代码, 超越97%时间,86%内存</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	string multiply(string num1, string num2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (num1 &#x3D;&#x3D; &quot;0&quot; || num2 &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">			return &quot;0&quot;;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">		string result;</span><br><span class="line">        int totallength&#x3D;num1.size()+num2.size();&#x2F;&#x2F;result最大可能长度</span><br><span class="line">		int i;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">		int cflag &#x3D;0;</span><br><span class="line">        int temp&#x3D;0;&#x2F;&#x2F;i+j位和存储器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for(i&#x3D;0;i&lt;totallength;i++)&#x2F;&#x2F;初始化填充</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(&#39;0&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;反向填充,可以不需要在最后reverse,....好像对效率影响不大</span><br><span class="line">        &#x2F;&#x2F;把num2.pop()删掉了,终于从8ms提到了4ms......</span><br><span class="line">		while (j&lt;num2.size())&#x2F;&#x2F;num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤</span><br><span class="line">		&#123;</span><br><span class="line">			for (i &#x3D; num1.size() - 1; i &gt;&#x3D; 0; i--)</span><br><span class="line">			&#123;   &#x2F;&#x2F;因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)</span><br><span class="line">                temp&#x3D;(result[totallength-1-((num1.size()-i-1)+j)]-&#39;0&#39;)+ (num1[i] - &#39;0&#39;)*(num2[num2.size()-1-j] - &#39;0&#39;);</span><br><span class="line">                &#x2F;&#x2F;连续进位怎么办?临时存储?循环清理干净?</span><br><span class="line">                &#x2F;&#x2F;临时存储试试</span><br><span class="line">                result[totallength-1-((num1.size()-i-1)+j+1)]+&#x3D;temp&#x2F;10;</span><br><span class="line">				result[totallength-1-((num1.size()-i-1)+j)]&#x3D;&#39;0&#39;+temp%10;</span><br><span class="line">			&#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            j++;</span><br><span class="line">		&#125;</span><br><span class="line">        &#x2F;&#x2F;不需要检查最后一位要不要进位</span><br><span class="line">       </span><br><span class="line">		&#x2F;&#x2F;1 2 3</span><br><span class="line">		&#x2F;&#x2F;4 5 6</span><br><span class="line">		&#x2F;&#x2F;7 3 8+6 1 5 * 10</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;跳过头部的0</span><br><span class="line">        if(result[0]!&#x3D;&#39;0&#39;)</span><br><span class="line">		    return result;</span><br><span class="line">        else</span><br><span class="line">            return result.substr(1);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换, 就是卡在80% …….谨慎考虑库函数的效率.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-31/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
-<blockquote>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
-<blockquote>
-<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
-</blockquote>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
-<blockquote>
-<p>如  <strong>[1,2,5,4,3,6]</strong></p>
-</blockquote>
-<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
-<blockquote>
-<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
-</blockquote>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
-</blockquote>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
-<blockquote>
-<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
-</blockquote>
-<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        if(nums.size()&lt;&#x3D;1)</span><br><span class="line">            return ;</span><br><span class="line">        </span><br><span class="line">        int flag&#x3D;0;</span><br><span class="line">        int nextid&#x3D;nums.size()-1;</span><br><span class="line">        int currentid&#x3D;nextid-1;</span><br><span class="line">        </span><br><span class="line">        while(currentid&gt;&#x3D;0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[nextid]&gt;nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;从后往前，找到第一组 升序对</span><br><span class="line">               flag&#x3D;1;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(flag&#x3D;&#x3D;1)&#x2F;&#x2F;存在下一个更大排列</span><br><span class="line">        &#123;</span><br><span class="line">                &#x2F;&#x2F;交换生成新排列</span><br><span class="line">            while(nextid+1&lt;nums.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[nextid+1]&gt;nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            tempswap(nums[currentid],nums[nextid]);</span><br><span class="line">            &#x2F;&#x2F;currentid右边必然是降序</span><br><span class="line">            &#x2F;&#x2F;将currentid右边升序处理</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            while(currentid+1&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid+1]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        else</span><br><span class="line">        &#123;   &#x2F;&#x2F;不存在，则倒序</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            currentid&#x3D;0;</span><br><span class="line">            while(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void tempswap(int&amp; a,int&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp&#x3D;b;</span><br><span class="line">            b&#x3D;a;</span><br><span class="line">            a&#x3D;temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1566,7 +1566,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:11</span>
 </div>
 
         
@@ -1583,7 +1583,6 @@
   </div>
 
   
-  <script size="300" alpha="0.6" zIndex="-1" src="/Blog/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/Blog/lib/anime.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>

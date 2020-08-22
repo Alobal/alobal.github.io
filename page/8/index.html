@@ -180,6 +180,129 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
+<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
+<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line">ratings.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
+<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movieRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line">movieRatings.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
+<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
+<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starWarsRatings&#x3D;movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表</span><br><span class="line">similar2starWars&#x3D;movieRatings.corrwith(starWarsRatings)</span><br><span class="line">similar2starWars&#x3D;similar2starWars.dropna()</span><br><span class="line">df&#x3D;pd.DataFrame(similar2starWars)</span><br><span class="line">df.sort_values(0,ascending&#x3D;False)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
+<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
+<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">movieStats&#x3D;ratings.groupby(&#39;title&#39;).agg(&#123;&#39;rating&#39;:[np.size,np.mean]&#125;)</span><br><span class="line">movieStats.head()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
+<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">popularMovies&#x3D;movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;&#x3D;100 # size大于100的index+T&#x2F;F列表</span><br><span class="line">#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending&#x3D;False)[:15] #显示筛选后的表 , mutiindex需要指定两层</span><br><span class="line">similar2starWars.name&#x3D;&#39;similarity&#39;</span><br><span class="line">df&#x3D;movieStats[popularMovies].join(similar2starWars)</span><br><span class="line">df.sort_values([&#39;similarity&#39;],ascending&#x3D;False)[:15]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="5-整理成推荐电影系统"><a href="#5-整理成推荐电影系统" class="headerlink" title="5. 整理成推荐电影系统"></a>5. 整理成推荐电影系统</h3><ul>
+<li><h4 id="df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量"><a href="#df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量" class="headerlink" title="df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量"></a>df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量</h4></li>
+<li><ul>
+<li><h4 id="method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关"><a href="#method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关" class="headerlink" title="method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关"></a>method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line"></span><br><span class="line"># 按user_id生成聚合图</span><br><span class="line">userRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line"># 生成相关系数矩阵</span><br><span class="line">corrMatrix&#x3D;userRatings.corr(method&#x3D;&#39;pearson&#39;,min_periods&#x3D;150)</span><br><span class="line"></span><br><span class="line">testuser&#x3D;userRatings.loc[0].dropna()</span><br><span class="line"></span><br><span class="line">def GenerateSimCandidates(myRatings):</span><br><span class="line">    simCandidates&#x3D;pd.Series()</span><br><span class="line">    for i in range(0,len(myRatings.index)):</span><br><span class="line">        print(&quot;Adding sims for &quot;+ myRatings.index[i]+&quot;...&quot;)</span><br><span class="line">        # 筛选出myRatings.index[i]作为列标题的一整列</span><br><span class="line">        sims&#x3D;corrMatrix[myRatings.index[i]].dropna()</span><br><span class="line">        # 评分加权,这一列所有value乘上评分</span><br><span class="line">        sims&#x3D;sims.map(lambda x:x*myRatings[i])</span><br><span class="line">        simCandidates&#x3D;simCandidates.append(sims)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    # 聚合重复项</span><br><span class="line">    simCandidates&#x3D;simCandidates.groupby(simCandidates.index).sum()</span><br><span class="line">    # 整理排序    </span><br><span class="line">    simCandidates.sort_values(inplace&#x3D;True,ascending&#x3D;False)</span><br><span class="line">    return simCandidates</span><br><span class="line">        </span><br><span class="line">print(GenerateSimCandidates(testuser).head(10))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -312,7 +435,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -326,7 +449,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
+            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/" class="post-title-link" itemprop="url">计算机视觉实验2-1——目标轮廓提取,-复制目标</a>
         </h2>
 
         <div class="post-meta">
@@ -343,7 +466,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-17 11:33:42" itemprop="dateModified" datetime="2020-07-17T11:33:42+08:00">2020-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -351,7 +474,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
                 </span>
             </span>
 
@@ -361,14 +484,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -380,42 +503,67 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
-<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
-<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line">ratings.head()</span><br></pre></td></tr></table></figure>
+          <p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="原图"></p>
+<h1 id="目标-复制图中的这棵树"><a href="#目标-复制图中的这棵树" class="headerlink" title="目标: 复制图中的这棵树"></a>目标: 复制图中的这棵树</h1><ol>
+<li>我们肯定先要提取树, 然后才能复制<ol start="2">
+<li>怎么提取呢?我想的是先找到树的轮廓, 然后把树的轮廓内所有像素都遍历复制一遍就好了.<blockquote>
+<p>好像更应该使用连通域的概念, 而不是轮廓查找. 有兴趣可以试试</p>
+</blockquote>
+</li>
+<li>轮廓怎么识别呢? 有个findContours函数可以自动查找轮廓, 但是很容易就把各种树叶缝隙, 各种坑坑洼洼识别成了轮廓, 所以要预处理一下, 清理不必要的信息.</li>
+</ol>
+</li>
+</ol>
+<h1 id="1-图像预处理"><a href="#1-图像预处理" class="headerlink" title="1. 图像预处理"></a>1. 图像预处理</h1><p>findContours要求传入的图像是二值的, 因此我们先要对原图灰度化, 并且进行阈值分割成二值图像.</p>
+<p><strong>读取图片, 灰度化处理:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from cv2 import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">img&#x3D;cv2.imread(&quot;.&#x2F;tree.jpg&quot;)</span><br><span class="line"></span><br><span class="line"># 灰度 阈值分割二值化处理</span><br><span class="line">grey&#x3D;cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;grey&quot;,grey)</span><br></pre></td></tr></table></figure>
+<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
+<p><strong>阈值分割:</strong><br>这里注意用了个<strong>高斯模糊</strong>去噪, 可以在分割时避免坑坑洼洼的噪音, 和树叶的不完整性.</p>
+<p>cv2.THRESH_BINARY_INV, cv2.THRESH_OTSU 是一些处理参数: </p>
+<ul>
+<li>前者决定了阈值反转处理, 即超过阈值的置0, 低于阈值的置255</li>
+<li>后者决定了使用OTSU阈值进行分割<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grey&#x3D;cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪</span><br><span class="line">ret,theimg&#x3D;cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)</span><br><span class="line">cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</span><br></pre></td></tr></table></figure>
+<img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
+</ul>
+<h1 id="2-运用findContours轮廓识别"><a href="#2-运用findContours轮廓识别" class="headerlink" title="2. 运用findContours轮廓识别"></a>2. 运用findContours轮廓识别</h1><h5 id="contours-hier-findContours-srcimg-mode-method"><a href="#contours-hier-findContours-srcimg-mode-method" class="headerlink" title="contours, hier=findContours(srcimg, mode, method)"></a>contours, hier=findContours(srcimg, mode, method)</h5><ul>
+<li>返回值contours,是查找到的所有轮廓信息</li>
+<li>返回值hier, 是所有轮廓信息的层级关系, 这里因为是找外轮廓, 不需要</li>
+<li>srcimg, 输入的二值图像</li>
+<li>mode, 查找模式, 例如RETR_EXTERNAL是仅查找外轮廓, 其他的模式自行了解</li>
+<li>method, 轮廓信息的近似方法, 就决定怎么存下查找的轮廓, 例如CHAIN_APPROX_NONE 是存储所有轮廓点</li>
+<li>CHAIN_APPROX_SIMPLE 压缩, 将每个方向的所有点由 起点 和 终点 , 两个点代替</li>
+</ul>
+<blockquote>
+<p>实际切割的时候发现树根和地面难以分割, 会识别成一个大轮廓, 腐蚀膨胀操作也没能处理好, 因此用上了简单粗暴的办法, 手动把土地部分切掉.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 因为树和地连在一起不好分离, 手动切割</span><br><span class="line">height,width&#x3D;theimg.shape</span><br><span class="line">treeimg&#x3D;theimg[:int(2*height&#x2F;3)-30,:]# 提取出不包含地面的上部分</span><br><span class="line"># 轮廓提取</span><br><span class="line">contours,hier&#x3D;cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</span><br></pre></td></tr></table></figure>
 
-</li>
+<h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
+<p>cv2.contourArea(contour) , 计算轮廓面积<br>cv2.drawContours(drawimg,contours,i,color,thick), 绘制函数</p>
+<ul>
+<li>在drawimg图上直接绘制</li>
+<li>contours即传入所有轮廓</li>
+<li>i为绘制的轮廓在contours中的下标, 如果为负则绘制所有轮廓</li>
+<li>color, thick ,绘制的颜色 粗细</li>
 </ul>
-<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
-<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movieRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line">movieRatings.head()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#  #在原图上画出轮廓, 并且找出属于树的轮廓</span><br><span class="line">treei&#x3D;0</span><br><span class="line">for i in range(len(contours)):</span><br><span class="line">    area&#x3D;cv2.contourArea(contours[i])</span><br><span class="line">    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号</span><br><span class="line">        drawimg&#x3D;img.copy()# 拿张图来画个轮廓示意</span><br><span class="line">        cv2.drawContours(drawimg,contours,i,(0,0,255),3)</span><br><span class="line">        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)</span><br><span class="line">        treei&#x3D;i</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
 
-</li>
+<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
+<h1 id="4-轮廓内像素复制"><a href="#4-轮廓内像素复制" class="headerlink" title="4. 轮廓内像素复制"></a>4. 轮廓内像素复制</h1><p>关键问题在于, 如何判断像素是否在轮廓内:<br>cv2.pointPolygonTest(contour, point, flag):</p>
+<ul>
+<li>contour , 比较的轮廓</li>
+<li>point, 比较的点, 注意图像坐标系, 例如img[i][j] 实际上是(j, i) 点</li>
+<li>flag, True时会计算和轮廓的距离, False则仅判断是否在轮廓内</li>
+<li>返回 1 在轮廓内, 0 在轮廓上, -1 轮廓外</li>
 </ul>
-<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
-<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
-<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starWarsRatings&#x3D;movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表</span><br><span class="line">similar2starWars&#x3D;movieRatings.corrwith(starWarsRatings)</span><br><span class="line">similar2starWars&#x3D;similar2starWars.dropna()</span><br><span class="line">df&#x3D;pd.DataFrame(similar2starWars)</span><br><span class="line">df.sort_values(0,ascending&#x3D;False)</span><br></pre></td></tr></table></figure>
+<p>另外这里注意我们可以通过<code>cv2.boundingRect</code>找到轮廓的边界信息, 返回 x, y , w, h, 分别是轮廓左上角的(x, y), 宽度w, 高度h, 即描述了一个轮廓的外接矩形信息.</p>
+<p>有了边界信息, 就可以在边界内遍历, 不需要遍历整张图片</p>
+<p>最后将轮廓内的点复制到想要的地方即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x,y,w,h&#x3D;cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图</span><br><span class="line"># 将轮廓内的点复制到左边</span><br><span class="line">for i in range(y,y+h):</span><br><span class="line">    for j in range(x,x+w):</span><br><span class="line">        if(cv2.pointPolygonTest(contours[treei],(j,i),False)&#x3D;&#x3D;1):# 测试点是否在轮廓内的函数</span><br><span class="line">            img[i+10,j-500]&#x3D;img[i,j].copy()# 偏移左边</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
-<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
-<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">movieStats&#x3D;ratings.groupby(&#39;title&#39;).agg(&#123;&#39;rating&#39;:[np.size,np.mean]&#125;)</span><br><span class="line">movieStats.head()</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
-<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">popularMovies&#x3D;movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;&#x3D;100 # size大于100的index+T&#x2F;F列表</span><br><span class="line">#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending&#x3D;False)[:15] #显示筛选后的表 , mutiindex需要指定两层</span><br><span class="line">similar2starWars.name&#x3D;&#39;similarity&#39;</span><br><span class="line">df&#x3D;movieStats[popularMovies].join(similar2starWars)</span><br><span class="line">df.sort_values([&#39;similarity&#39;],ascending&#x3D;False)[:15]</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<h3 id="5-整理成推荐电影系统"><a href="#5-整理成推荐电影系统" class="headerlink" title="5. 整理成推荐电影系统"></a>5. 整理成推荐电影系统</h3><ul>
-<li><h4 id="df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量"><a href="#df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量" class="headerlink" title="df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量"></a>df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量</h4></li>
-<li><ul>
-<li><h4 id="method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关"><a href="#method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关" class="headerlink" title="method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关"></a>method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line"></span><br><span class="line"># 按user_id生成聚合图</span><br><span class="line">userRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line"># 生成相关系数矩阵</span><br><span class="line">corrMatrix&#x3D;userRatings.corr(method&#x3D;&#39;pearson&#39;,min_periods&#x3D;150)</span><br><span class="line"></span><br><span class="line">testuser&#x3D;userRatings.loc[0].dropna()</span><br><span class="line"></span><br><span class="line">def GenerateSimCandidates(myRatings):</span><br><span class="line">    simCandidates&#x3D;pd.Series()</span><br><span class="line">    for i in range(0,len(myRatings.index)):</span><br><span class="line">        print(&quot;Adding sims for &quot;+ myRatings.index[i]+&quot;...&quot;)</span><br><span class="line">        # 筛选出myRatings.index[i]作为列标题的一整列</span><br><span class="line">        sims&#x3D;corrMatrix[myRatings.index[i]].dropna()</span><br><span class="line">        # 评分加权,这一列所有value乘上评分</span><br><span class="line">        sims&#x3D;sims.map(lambda x:x*myRatings[i])</span><br><span class="line">        simCandidates&#x3D;simCandidates.append(sims)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    # 聚合重复项</span><br><span class="line">    simCandidates&#x3D;simCandidates.groupby(simCandidates.index).sum()</span><br><span class="line">    # 整理排序    </span><br><span class="line">    simCandidates.sort_values(inplace&#x3D;True,ascending&#x3D;False)</span><br><span class="line">    return simCandidates</span><br><span class="line">        </span><br><span class="line">print(GenerateSimCandidates(testuser).head(10))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
+<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
 
       
     </div>
@@ -653,154 +801,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/" class="post-title-link" itemprop="url">计算机视觉实验2-1——目标轮廓提取,-复制目标</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:33:42" itemprop="dateModified" datetime="2020-07-17T11:33:42+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="原图"></p>
-<h1 id="目标-复制图中的这棵树"><a href="#目标-复制图中的这棵树" class="headerlink" title="目标: 复制图中的这棵树"></a>目标: 复制图中的这棵树</h1><ol>
-<li>我们肯定先要提取树, 然后才能复制<ol start="2">
-<li>怎么提取呢?我想的是先找到树的轮廓, 然后把树的轮廓内所有像素都遍历复制一遍就好了.<blockquote>
-<p>好像更应该使用连通域的概念, 而不是轮廓查找. 有兴趣可以试试</p>
-</blockquote>
-</li>
-<li>轮廓怎么识别呢? 有个findContours函数可以自动查找轮廓, 但是很容易就把各种树叶缝隙, 各种坑坑洼洼识别成了轮廓, 所以要预处理一下, 清理不必要的信息.</li>
-</ol>
-</li>
-</ol>
-<h1 id="1-图像预处理"><a href="#1-图像预处理" class="headerlink" title="1. 图像预处理"></a>1. 图像预处理</h1><p>findContours要求传入的图像是二值的, 因此我们先要对原图灰度化, 并且进行阈值分割成二值图像.</p>
-<p><strong>读取图片, 灰度化处理:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from cv2 import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">img&#x3D;cv2.imread(&quot;.&#x2F;tree.jpg&quot;)</span><br><span class="line"></span><br><span class="line"># 灰度 阈值分割二值化处理</span><br><span class="line">grey&#x3D;cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;grey&quot;,grey)</span><br></pre></td></tr></table></figure>
-<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
-<p><strong>阈值分割:</strong><br>这里注意用了个<strong>高斯模糊</strong>去噪, 可以在分割时避免坑坑洼洼的噪音, 和树叶的不完整性.</p>
-<p>cv2.THRESH_BINARY_INV, cv2.THRESH_OTSU 是一些处理参数: </p>
-<ul>
-<li>前者决定了阈值反转处理, 即超过阈值的置0, 低于阈值的置255</li>
-<li>后者决定了使用OTSU阈值进行分割<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grey&#x3D;cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪</span><br><span class="line">ret,theimg&#x3D;cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)</span><br><span class="line">cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</span><br></pre></td></tr></table></figure>
-<img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
-</ul>
-<h1 id="2-运用findContours轮廓识别"><a href="#2-运用findContours轮廓识别" class="headerlink" title="2. 运用findContours轮廓识别"></a>2. 运用findContours轮廓识别</h1><h5 id="contours-hier-findContours-srcimg-mode-method"><a href="#contours-hier-findContours-srcimg-mode-method" class="headerlink" title="contours, hier=findContours(srcimg, mode, method)"></a>contours, hier=findContours(srcimg, mode, method)</h5><ul>
-<li>返回值contours,是查找到的所有轮廓信息</li>
-<li>返回值hier, 是所有轮廓信息的层级关系, 这里因为是找外轮廓, 不需要</li>
-<li>srcimg, 输入的二值图像</li>
-<li>mode, 查找模式, 例如RETR_EXTERNAL是仅查找外轮廓, 其他的模式自行了解</li>
-<li>method, 轮廓信息的近似方法, 就决定怎么存下查找的轮廓, 例如CHAIN_APPROX_NONE 是存储所有轮廓点</li>
-<li>CHAIN_APPROX_SIMPLE 压缩, 将每个方向的所有点由 起点 和 终点 , 两个点代替</li>
-</ul>
-<blockquote>
-<p>实际切割的时候发现树根和地面难以分割, 会识别成一个大轮廓, 腐蚀膨胀操作也没能处理好, 因此用上了简单粗暴的办法, 手动把土地部分切掉.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 因为树和地连在一起不好分离, 手动切割</span><br><span class="line">height,width&#x3D;theimg.shape</span><br><span class="line">treeimg&#x3D;theimg[:int(2*height&#x2F;3)-30,:]# 提取出不包含地面的上部分</span><br><span class="line"># 轮廓提取</span><br><span class="line">contours,hier&#x3D;cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
-<p>cv2.contourArea(contour) , 计算轮廓面积<br>cv2.drawContours(drawimg,contours,i,color,thick), 绘制函数</p>
-<ul>
-<li>在drawimg图上直接绘制</li>
-<li>contours即传入所有轮廓</li>
-<li>i为绘制的轮廓在contours中的下标, 如果为负则绘制所有轮廓</li>
-<li>color, thick ,绘制的颜色 粗细</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#  #在原图上画出轮廓, 并且找出属于树的轮廓</span><br><span class="line">treei&#x3D;0</span><br><span class="line">for i in range(len(contours)):</span><br><span class="line">    area&#x3D;cv2.contourArea(contours[i])</span><br><span class="line">    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号</span><br><span class="line">        drawimg&#x3D;img.copy()# 拿张图来画个轮廓示意</span><br><span class="line">        cv2.drawContours(drawimg,contours,i,(0,0,255),3)</span><br><span class="line">        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)</span><br><span class="line">        treei&#x3D;i</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
-<h1 id="4-轮廓内像素复制"><a href="#4-轮廓内像素复制" class="headerlink" title="4. 轮廓内像素复制"></a>4. 轮廓内像素复制</h1><p>关键问题在于, 如何判断像素是否在轮廓内:<br>cv2.pointPolygonTest(contour, point, flag):</p>
-<ul>
-<li>contour , 比较的轮廓</li>
-<li>point, 比较的点, 注意图像坐标系, 例如img[i][j] 实际上是(j, i) 点</li>
-<li>flag, True时会计算和轮廓的距离, False则仅判断是否在轮廓内</li>
-<li>返回 1 在轮廓内, 0 在轮廓上, -1 轮廓外</li>
-</ul>
-<p>另外这里注意我们可以通过<code>cv2.boundingRect</code>找到轮廓的边界信息, 返回 x, y , w, h, 分别是轮廓左上角的(x, y), 宽度w, 高度h, 即描述了一个轮廓的外接矩形信息.</p>
-<p>有了边界信息, 就可以在边界内遍历, 不需要遍历整张图片</p>
-<p>最后将轮廓内的点复制到想要的地方即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x,y,w,h&#x3D;cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图</span><br><span class="line"># 将轮廓内的点复制到左边</span><br><span class="line">for i in range(y,y+h):</span><br><span class="line">    for j in range(x,x+w):</span><br><span class="line">        if(cv2.pointPolygonTest(contours[treei],(j,i),False)&#x3D;&#x3D;1):# 测试点是否在轮廓内的函数</span><br><span class="line">            img[i+10,j-500]&#x3D;img[i,j].copy()# 偏移左边</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -937,7 +937,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:11</span>
 </div>
 
         
@@ -954,7 +954,6 @@
   </div>
 
   
-  <script size="300" alpha="0.6" zIndex="-1" src="/Blog/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/Blog/lib/anime.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.min.js"></script>
   <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
