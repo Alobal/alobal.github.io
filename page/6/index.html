@@ -387,7 +387,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-64/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -401,7 +401,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-62-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
         </h2>
 
         <div class="post-meta">
@@ -418,7 +418,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -436,14 +436,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -455,35 +455,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+          <h1 id="旋转链表"><a href="#旋转链表" class="headerlink" title="旋转链表"></a><a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h1><blockquote>
+<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
 <blockquote>
 <p>示例 1:</p>
-<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
-<ol>
-<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
-<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
-</ol>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2<br>输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL<br>解释:<br>向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL<br>向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</p>
 </blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
-<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
-</ol>
-<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
-<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
-<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
-</li>
-<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
-</li>
-<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
-</li>
-</ol>
-<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
-<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
-<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划</span><br><span class="line">        int m&#x3D;obstacleGrid.size();</span><br><span class="line">        int n&#x3D;obstacleGrid[0].size();</span><br><span class="line">        long temp[n];&#x2F;&#x2F;注意要用long 有样例爆int....</span><br><span class="line">        int i;</span><br><span class="line">        if(obstacleGrid[0][0]!&#x3D;1)</span><br><span class="line">            temp[0]&#x3D;1;</span><br><span class="line">        else</span><br><span class="line">            return 0;</span><br><span class="line">        for(i&#x3D;1;i&lt;n;i++)&#x2F;&#x2F;首行处理</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[0][i]!&#x3D;1)</span><br><span class="line">                temp[i]&#x3D;temp[i-1];</span><br><span class="line">            else</span><br><span class="line">                temp[i]&#x3D;0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int row&#x3D;1;</span><br><span class="line">        for(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(obstacleGrid[row][0]&#x3D;&#x3D;1)&#x2F;&#x2F;首列障碍物处理</span><br><span class="line">                temp[0]&#x3D;0;</span><br><span class="line"></span><br><span class="line">            for(i&#x3D;1;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                if(obstacleGrid[row][i]&#x3D;&#x3D;1)</span><br><span class="line">                    temp[i]&#x3D;0;</span><br><span class="line">                else</span><br><span class="line">                    temp[i]+&#x3D;temp[i-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return temp[n-1];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4<br>输出: 2-&gt;0-&gt;1-&gt;NULL<br>解释:<br>向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL<br>向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL<br>向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL<br>向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-直观移位——每个节点向右移动K位"><a href="#1-直观移位——每个节点向右移动K位" class="headerlink" title="1. 直观移位——每个节点向右移动K位"></a>1. 直观移位——每个节点向右移动K位</h5><p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。</p>
+<blockquote>
+<p>（前向计算也是可以的，甚至更利于想出优化的第二步）</p>
+</blockquote>
+<h5 id="注意细节：一个是移动出了链头，要转到链尾继续移动。"><a href="#注意细节：一个是移动出了链头，要转到链尾继续移动。" class="headerlink" title="注意细节：一个是移动出了链头，要转到链尾继续移动。"></a>注意细节：一个是移动出了链头，要转到链尾继续移动。</h5><h5 id="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"><a href="#然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？" class="headerlink" title="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"></a>然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？</h5><p>一个很傻的方法是把链表数值做成vector…然后在vector中找相应的数值，然后赋给当前位置…<br>很傻，浪费空间时间= =</p>
+<h5 id="2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"><a href="#2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？" class="headerlink" title="2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"></a>2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？</h5><p>再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。</p>
+<h5 id="3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"><a href="#3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。" class="headerlink" title="3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"></a>3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。</h5><h5 id="4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"><a href="#4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。" class="headerlink" title="4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"></a>4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。</h5><p>例如 1-2-3-4-5，k=2    遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。</p>
+<h5 id="5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"><a href="#5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。" class="headerlink" title="5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"></a>5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。</h5><p>当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。</p>
+<blockquote>
+<p>你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
+</blockquote>
+<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开= =<br>当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可= =。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i&#x3D;head;</span><br><span class="line">        int L&#x3D;0;</span><br><span class="line">        if(head&#x3D;&#x3D;NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-&gt;next!&#x3D;NULL)&#x2F;&#x2F;找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-&gt;next&#x3D;head;&#x2F;&#x2F;首尾相连</span><br><span class="line">        &#x2F;&#x2F;缩小k</span><br><span class="line">        k%&#x3D;L;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;从末尾起移动L-k到达 i , i-&gt;next是新头</span><br><span class="line">        k&#x3D;L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head&#x3D;i-&gt;next;</span><br><span class="line">        i-&gt;next&#x3D;NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -603,117 +598,6 @@
 </li>
 </ol>
 <h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isNumber(string s) </span><br><span class="line">    &#123;   &#x2F;&#x2F;0开头结尾 true</span><br><span class="line">        &#x2F;&#x2F;多个e  false</span><br><span class="line">        &#x2F;&#x2F;e左右两边要有数 </span><br><span class="line">        &#x2F;&#x2F;指数不能为小数</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        bool UsedSign&#x3D;false;</span><br><span class="line">        bool UsedCom&#x3D;false;</span><br><span class="line">        bool UsedExp&#x3D;false;</span><br><span class="line">        bool HasNum&#x3D;false;</span><br><span class="line">        &#x2F;&#x2F;首部空格清除</span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                break;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;首位判断符号位</span><br><span class="line">        if(i&lt;s.size() &amp;&amp; (s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;) )&#x2F;&#x2F;符号</span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign&#x3D;true;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;主体判断</span><br><span class="line">        for(;i&lt;s.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&gt;&#x3D;&#39;0&#39; &amp;&amp; s[i]&lt;&#x3D;&#39;9&#39;)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum&#x3D;true;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;主要用来判断指数的符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedSign&#x3D;&#x3D;false &amp;&amp; s[i-1]&#x3D;&#x3D;&#39;e&#39;)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;.&#39;)&#x2F;&#x2F;小数点</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedCom&#x3D;&#x3D;false)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;e&#39;)&#x2F;&#x2F;指数符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedExp&#x3D;&#x3D;false &amp;&amp; HasNum&#x3D;&#x3D;true) &#x2F;&#x2F;e前需有数字</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp&#x3D;true;</span><br><span class="line">                    UsedSign&#x3D;false;&#x2F;&#x2F;重置符号状态位,指数也可以带符号</span><br><span class="line">                    UsedCom&#x3D;true;&#x2F;&#x2F;指数不能是小数</span><br><span class="line">                    continue;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39; &#39;) &#x2F;&#x2F;尾部空格</span><br><span class="line">                break;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(s[i-1]&#x3D;&#x3D;&#39;e&#39; ||s[i-1]&#x3D;&#x3D;&#39;+&#39; || s[i-1]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;e + -结尾 不行</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())&#x2F;&#x2F;尾部空格清除</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                return false;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-61/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="旋转链表"><a href="#旋转链表" class="headerlink" title="旋转链表"></a><a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h1><blockquote>
-<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2<br>输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL<br>解释:<br>向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL<br>向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4<br>输出: 2-&gt;0-&gt;1-&gt;NULL<br>解释:<br>向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL<br>向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL<br>向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL<br>向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-直观移位——每个节点向右移动K位"><a href="#1-直观移位——每个节点向右移动K位" class="headerlink" title="1. 直观移位——每个节点向右移动K位"></a>1. 直观移位——每个节点向右移动K位</h5><p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。</p>
-<blockquote>
-<p>（前向计算也是可以的，甚至更利于想出优化的第二步）</p>
-</blockquote>
-<h5 id="注意细节：一个是移动出了链头，要转到链尾继续移动。"><a href="#注意细节：一个是移动出了链头，要转到链尾继续移动。" class="headerlink" title="注意细节：一个是移动出了链头，要转到链尾继续移动。"></a>注意细节：一个是移动出了链头，要转到链尾继续移动。</h5><h5 id="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"><a href="#然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？" class="headerlink" title="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"></a>然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？</h5><p>一个很傻的方法是把链表数值做成vector…然后在vector中找相应的数值，然后赋给当前位置…<br>很傻，浪费空间时间= =</p>
-<h5 id="2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"><a href="#2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？" class="headerlink" title="2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"></a>2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？</h5><p>再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。</p>
-<h5 id="3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"><a href="#3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。" class="headerlink" title="3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"></a>3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。</h5><h5 id="4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"><a href="#4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。" class="headerlink" title="4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"></a>4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。</h5><p>例如 1-2-3-4-5，k=2    遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。</p>
-<h5 id="5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"><a href="#5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。" class="headerlink" title="5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"></a>5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。</h5><p>当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。</p>
-<blockquote>
-<p>你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
-</blockquote>
-<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开= =<br>当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可= =。</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i&#x3D;head;</span><br><span class="line">        int L&#x3D;0;</span><br><span class="line">        if(head&#x3D;&#x3D;NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-&gt;next!&#x3D;NULL)&#x2F;&#x2F;找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-&gt;next&#x3D;head;&#x2F;&#x2F;首尾相连</span><br><span class="line">        &#x2F;&#x2F;缩小k</span><br><span class="line">        k%&#x3D;L;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;从末尾起移动L-k到达 i , i-&gt;next是新头</span><br><span class="line">        k&#x3D;L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head&#x3D;i-&gt;next;</span><br><span class="line">        i-&gt;next&#x3D;NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -950,7 +834,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-72/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -964,7 +848,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-84/" class="post-title-link" itemprop="url">LeetCode-No-84</a>
         </h2>
 
         <div class="post-meta">
@@ -981,7 +865,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -999,14 +883,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1018,24 +902,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">编辑距离</a></h1><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
-<p>你可以对一个单词进行如下三种操作：</p>
-<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+          <h1 id="最大矩形"><a href="#最大矩形" class="headerlink" title="最大矩形"></a><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram" target="_blank" rel="noopener">最大矩形</a></h1><p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。<br><img src="https://upload-images.jianshu.io/upload_images/19387483-c76a635ea91ad61e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeetCode图"></p>
+<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。<br><img src="https://upload-images.jianshu.io/upload_images/19387483-4198f8b5095d233b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeetCode图"></p>
+<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。</p>
 <blockquote>
-<p>输入: word1 = “horse”, word2 = “ros”<br>输出: 3<br>解释:<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: word1 = “intention”, word2 = “execution”<br>输出: 5<br>解释:<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p>
+<p>示例:<br>输入: [2,1,5,6,2,3]<br>输出: 10</p>
 </blockquote>
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>和字符串匹配之类的差不多，都是 <strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
-<li>动态规划  dp[i][j]状态</li>
-<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
-<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
-<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+<li>想要知道最大矩形，肯定先要知道每根柱子怎么形成矩形的</li>
+<li>对柱子 i，高度为 hi，以i为中心往两边扩展，只要碰到的柱子高度 Hj&gt;=hi，那么形成的矩形必然是以 hi 为高构造。</li>
+<li>假如 Hj&lt;hi，那么这个矩形的高就是新的 Hj，而这个 Hj 构造的矩形必然会出现在以柱子 j 为中心扩展的时候，所以不必考虑降低现在的高度。</li>
+<li>所以对柱子 i 的扩展，往左右两边找，碰到矮的停下来，确定两边边界，边界高度 Hj&gt;=hi，这个即是这个 i 自己能做出来的最大矩形。<blockquote>
+<p>可以双重循环扫描，但不是重点，这里学习题解大神的栈思路。</p>
+</blockquote>
+<h1 id="题解分析：栈保留边界"><a href="#题解分析：栈保留边界" class="headerlink" title="题解分析：栈保留边界"></a>题解分析：栈保留边界</h1></li>
+<li>首先有一层主循环遍历所有柱子，从左到右，当前柱子为 i。</li>
+<li>我们目的是要找i的两个边界，因为是从左到右扫描，即我们可以顺手找到 i 的右边界。只要扫描时碰到比 i 矮的就知道这个是右边界了。</li>
+<li>但是碰到比 i 高或者相等的柱子 j 怎么办呢？j 不会是 i 的边界 ，但我们也要找 j 的边界。因此我们要把未处理的 i 和 j 都留下来。</li>
+<li>而继续往后找的时候， i 的右边界x 必然是 j 的右边界或者之外 （hi&lt;=hj) 。</li>
 </ol>
-<h1 id="dp题解代码"><a href="#dp题解代码" class="headerlink" title="dp题解代码"></a>dp题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minDistance(string word1, string word2) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划  dp[i][j]状态</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span><br><span class="line">        &#x2F;&#x2F;对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span><br><span class="line">        int dp[word1.size()+1][word2.size()+1];</span><br><span class="line">        dp[0][0]&#x3D;0;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            dp[i][0]&#x3D;i;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word2.size();i++)</span><br><span class="line">            dp[0][i]&#x3D;i;</span><br><span class="line">        </span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">        for(i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            for(j&#x3D;1;j&lt;&#x3D;word2.size();j++)</span><br><span class="line">                if(word1[i-1]&#x3D;&#x3D;word2[j-1])</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]-1);</span><br><span class="line">                else</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);</span><br><span class="line"></span><br><span class="line">        return dp[word1.size()][word2.size()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>因此对于下一个柱子 x：</strong><br>4.1 假如我们先判断 x 是不是 i 的边界，假如它是，它也不一定就是 j 的右边界 ，我们还得用 x 和 j 比较一次。假如它不是，它也不一定就不是 j 的右边界，还是得 x j 比较一次，<strong>所以先判定 i 的边界很鸡肋</strong>。<br>4.2 假如先判断 x 是不是更高的 j 的右边界，假如它不是，那么肯定也不是 i 的边界，假如它是，那么可以继续判定是不是更矮的 i 的右边界。</p>
+<ol start="5">
+<li>因此，我们的扫描过程是这样的，<strong>从左到右</strong>，且保留的柱子<strong>高度递增</strong>（因为只要更高的才会保留，否则是作为右边界判定）。<br>且判定的顺序是高的在前，低的在后，即<strong>新的在前，旧的在后</strong>，因此<strong>保留柱子的数据结构是：栈</strong>。<br>因此遇到一个新柱子，与栈顶比较，更高则继续压栈。更低则是栈顶的右边界，然后栈顶出栈，判定是不是下一个栈顶的右边界。</li>
+<li>右边界解决了，我们还需要确定每个柱子 i 的左边界，左边界肯定在左边 ， 并且左边界也要比 i 矮，而我们的栈又是高度递增的= =+显然，我们可以利用出栈过程。<br>在栈顶确定了右边界，然后出栈的时候：</li>
+<li>1 下面的那个柱子高度大于【栈顶右边界高度Hr】，那么这个柱子不是左边界，而可以组成这个矩形（因为有右边界后，矩形最低高度是Hr，只要高于Hr，都是）我们继续出栈寻找即可。</li>
+<li>2 即一直出栈，直到出了个高度小于等于【栈顶右边界高度Hr】的柱子 x ，那么 x 就是上面这个矩形的左边界。<blockquote>
+<p>出栈到边界了怎么办？在数组开头预备一个0作为栈底标志位结束出栈。<br>同样压栈到边界了怎么办？在数组结尾预备一个0作为启动出栈的标志位。</p>
+</blockquote>
+</li>
+<li>此时 i 的左右边界都能找到，高度为 i ，计算面积。</li>
+</ol>
+<h4 id="总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。"><a href="#总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。" class="headerlink" title="总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。"></a>总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int largestRectangleArea(vector&lt;int&gt;&amp; heights) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;题解学习</span><br><span class="line">        std::stack&lt;int&gt; Lefts;</span><br><span class="line">        heights.insert(heights.begin(),0);&#x2F;&#x2F;补0作为边界判断</span><br><span class="line">        heights.insert(heights.end(),0);</span><br><span class="line">        int result&#x3D;0;</span><br><span class="line">        int temp;</span><br><span class="line">        for(int i&#x3D;0;i&lt;heights.size();i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            &#x2F;&#x2F;栈单调递增，当碰到一个i 比栈顶矮，则它必是栈顶的右边界</span><br><span class="line">            &#x2F;&#x2F;再逐渐出栈，每次出栈循环，都是栈顶作为中心，而栈单调递增，栈顶下面一个更矮的必是栈顶的左边界，左右边界确定，则栈顶位置能形成的矩阵面积可计算完毕。</span><br><span class="line">            &#x2F;&#x2F;直到栈顶比 i 还矮，那 i 就不能作为右边界了 ，栈顶此时的右边界也找不到，则 i 入栈待命当左边界，然后for下一轮</span><br><span class="line">            while(Lefts.empty()!&#x3D;true &amp;&amp; heights[Lefts.top()]&gt;heights[i])&#x2F;&#x2F;找到比栈顶矮的柱子，即栈顶柱子的右边界</span><br><span class="line">            &#123;     </span><br><span class="line">                temp&#x3D;Lefts.top();</span><br><span class="line">                Lefts.pop();</span><br><span class="line">                result &#x3D; max(result, (i - Lefts.top()-1)*heights[temp]);</span><br><span class="line">            &#125;</span><br><span class="line">            Lefts.push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1179,7 +1077,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-84/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-62-64/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/Blog/images/avatarS.png">
@@ -1193,7 +1091,123 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Blog/2020/02/17/LeetCode-No-84/" class="post-title-link" itemprop="url">LeetCode-No-84</a>
+            <a href="/Blog/2020/02/17/LeetCode-No-62-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<ol>
+<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
+<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
+</ol>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
+<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
+</ol>
+<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
+<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
+</li>
+<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
+</li>
+<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
+</li>
+</ol>
+<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
+<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
+<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划</span><br><span class="line">        int m&#x3D;obstacleGrid.size();</span><br><span class="line">        int n&#x3D;obstacleGrid[0].size();</span><br><span class="line">        long temp[n];&#x2F;&#x2F;注意要用long 有样例爆int....</span><br><span class="line">        int i;</span><br><span class="line">        if(obstacleGrid[0][0]!&#x3D;1)</span><br><span class="line">            temp[0]&#x3D;1;</span><br><span class="line">        else</span><br><span class="line">            return 0;</span><br><span class="line">        for(i&#x3D;1;i&lt;n;i++)&#x2F;&#x2F;首行处理</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[0][i]!&#x3D;1)</span><br><span class="line">                temp[i]&#x3D;temp[i-1];</span><br><span class="line">            else</span><br><span class="line">                temp[i]&#x3D;0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int row&#x3D;1;</span><br><span class="line">        for(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(obstacleGrid[row][0]&#x3D;&#x3D;1)&#x2F;&#x2F;首列障碍物处理</span><br><span class="line">                temp[0]&#x3D;0;</span><br><span class="line"></span><br><span class="line">            for(i&#x3D;1;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                if(obstacleGrid[row][i]&#x3D;&#x3D;1)</span><br><span class="line">                    temp[i]&#x3D;0;</span><br><span class="line">                else</span><br><span class="line">                    temp[i]+&#x3D;temp[i-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return temp[n-1];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/02/17/LeetCode-No-86/" class="post-title-link" itemprop="url">LeetCode-No-86</a>
         </h2>
 
         <div class="post-meta">
@@ -1228,14 +1242,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -1247,38 +1261,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="最大矩形"><a href="#最大矩形" class="headerlink" title="最大矩形"></a><a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram" target="_blank" rel="noopener">最大矩形</a></h1><p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。<br><img src="https://upload-images.jianshu.io/upload_images/19387483-c76a635ea91ad61e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeetCode图"></p>
-<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。<br><img src="https://upload-images.jianshu.io/upload_images/19387483-4198f8b5095d233b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeetCode图"></p>
-<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。</p>
+          <h1 id="分隔链表"><a href="#分隔链表" class="headerlink" title="分隔链表"></a><a href="https://leetcode-cn.com/problems/partition-list/" target="_blank" rel="noopener">分隔链表</a></h1><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
+<p>你应当保留两个分区中每个节点的初始相对位置。</p>
 <blockquote>
-<p>示例:<br>输入: [2,1,5,6,2,3]<br>输出: 10</p>
+<p>示例:</p>
+<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
 </blockquote>
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>想要知道最大矩形，肯定先要知道每根柱子怎么形成矩形的</li>
-<li>对柱子 i，高度为 hi，以i为中心往两边扩展，只要碰到的柱子高度 Hj&gt;=hi，那么形成的矩形必然是以 hi 为高构造。</li>
-<li>假如 Hj&lt;hi，那么这个矩形的高就是新的 Hj，而这个 Hj 构造的矩形必然会出现在以柱子 j 为中心扩展的时候，所以不必考虑降低现在的高度。</li>
-<li>所以对柱子 i 的扩展，往左右两边找，碰到矮的停下来，确定两边边界，边界高度 Hj&gt;=hi，这个即是这个 i 自己能做出来的最大矩形。<blockquote>
-<p>可以双重循环扫描，但不是重点，这里学习题解大神的栈思路。</p>
-</blockquote>
-<h1 id="题解分析：栈保留边界"><a href="#题解分析：栈保留边界" class="headerlink" title="题解分析：栈保留边界"></a>题解分析：栈保留边界</h1></li>
-<li>首先有一层主循环遍历所有柱子，从左到右，当前柱子为 i。</li>
-<li>我们目的是要找i的两个边界，因为是从左到右扫描，即我们可以顺手找到 i 的右边界。只要扫描时碰到比 i 矮的就知道这个是右边界了。</li>
-<li>但是碰到比 i 高或者相等的柱子 j 怎么办呢？j 不会是 i 的边界 ，但我们也要找 j 的边界。因此我们要把未处理的 i 和 j 都留下来。</li>
-<li>而继续往后找的时候， i 的右边界x 必然是 j 的右边界或者之外 （hi&lt;=hj) 。</li>
+<li>直接思路是第一次遍历找到中间节点，并且划分为左右两边，然后再重新遍历链表元素，按大小分类到两边去。</li>
+<li>但这样要来回遍历链表，还要不停的交换节点很麻烦，换个<strong>逆向思路：既然是一个链表分成两个区域，不就相当于两个链表合成一个区域</strong></li>
+<li>因此，即构造两个链表，遍历原链表元素，分类接在两个链表上。</li>
+<li>遍历结束合成两个链表。</li>
 </ol>
-<p><strong>因此对于下一个柱子 x：</strong><br>4.1 假如我们先判断 x 是不是 i 的边界，假如它是，它也不一定就是 j 的右边界 ，我们还得用 x 和 j 比较一次。假如它不是，它也不一定就不是 j 的右边界，还是得 x j 比较一次，<strong>所以先判定 i 的边界很鸡肋</strong>。<br>4.2 假如先判断 x 是不是更高的 j 的右边界，假如它不是，那么肯定也不是 i 的边界，假如它是，那么可以继续判定是不是更矮的 i 的右边界。</p>
-<ol start="5">
-<li>因此，我们的扫描过程是这样的，<strong>从左到右</strong>，且保留的柱子<strong>高度递增</strong>（因为只要更高的才会保留，否则是作为右边界判定）。<br>且判定的顺序是高的在前，低的在后，即<strong>新的在前，旧的在后</strong>，因此<strong>保留柱子的数据结构是：栈</strong>。<br>因此遇到一个新柱子，与栈顶比较，更高则继续压栈。更低则是栈顶的右边界，然后栈顶出栈，判定是不是下一个栈顶的右边界。</li>
-<li>右边界解决了，我们还需要确定每个柱子 i 的左边界，左边界肯定在左边 ， 并且左边界也要比 i 矮，而我们的栈又是高度递增的= =+显然，我们可以利用出栈过程。<br>在栈顶确定了右边界，然后出栈的时候：</li>
-<li>1 下面的那个柱子高度大于【栈顶右边界高度Hr】，那么这个柱子不是左边界，而可以组成这个矩形（因为有右边界后，矩形最低高度是Hr，只要高于Hr，都是）我们继续出栈寻找即可。</li>
-<li>2 即一直出栈，直到出了个高度小于等于【栈顶右边界高度Hr】的柱子 x ，那么 x 就是上面这个矩形的左边界。<blockquote>
-<p>出栈到边界了怎么办？在数组开头预备一个0作为栈底标志位结束出栈。<br>同样压栈到边界了怎么办？在数组结尾预备一个0作为启动出栈的标志位。</p>
-</blockquote>
-</li>
-<li>此时 i 的左右边界都能找到，高度为 i ，计算面积。</li>
-</ol>
-<h4 id="总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。"><a href="#总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。" class="headerlink" title="总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。"></a>总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。</h4><h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int largestRectangleArea(vector&lt;int&gt;&amp; heights) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;题解学习</span><br><span class="line">        std::stack&lt;int&gt; Lefts;</span><br><span class="line">        heights.insert(heights.begin(),0);&#x2F;&#x2F;补0作为边界判断</span><br><span class="line">        heights.insert(heights.end(),0);</span><br><span class="line">        int result&#x3D;0;</span><br><span class="line">        int temp;</span><br><span class="line">        for(int i&#x3D;0;i&lt;heights.size();i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            &#x2F;&#x2F;栈单调递增，当碰到一个i 比栈顶矮，则它必是栈顶的右边界</span><br><span class="line">            &#x2F;&#x2F;再逐渐出栈，每次出栈循环，都是栈顶作为中心，而栈单调递增，栈顶下面一个更矮的必是栈顶的左边界，左右边界确定，则栈顶位置能形成的矩阵面积可计算完毕。</span><br><span class="line">            &#x2F;&#x2F;直到栈顶比 i 还矮，那 i 就不能作为右边界了 ，栈顶此时的右边界也找不到，则 i 入栈待命当左边界，然后for下一轮</span><br><span class="line">            while(Lefts.empty()!&#x3D;true &amp;&amp; heights[Lefts.top()]&gt;heights[i])&#x2F;&#x2F;找到比栈顶矮的柱子，即栈顶柱子的右边界</span><br><span class="line">            &#123;     </span><br><span class="line">                temp&#x3D;Lefts.top();</span><br><span class="line">                Lefts.pop();</span><br><span class="line">                result &#x3D; max(result, (i - Lefts.top()-1)*heights[temp]);</span><br><span class="line">            &#125;</span><br><span class="line">            Lefts.push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* partition(ListNode* head, int x) </span><br><span class="line">    &#123;   </span><br><span class="line">        &#x2F;&#x2F;逆向想问题，既然分成了两段，那也可以是两段连成了一段</span><br><span class="line"></span><br><span class="line">        ListNode lefthead(0);</span><br><span class="line">        ListNode* left&#x3D;&amp;lefthead;</span><br><span class="line">        ListNode righthead(0);</span><br><span class="line">        ListNode* right&#x3D;&amp;righthead;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        while(head!&#x3D;NULL)</span><br><span class="line">        &#123;</span><br><span class="line">           if(head-&gt;val&lt;x)</span><br><span class="line">           &#123;</span><br><span class="line">               left-&gt;next&#x3D;head;</span><br><span class="line">               left&#x3D;left-&gt;next;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               right-&gt;next&#x3D;head;</span><br><span class="line">               right&#x3D;right-&gt;next;</span><br><span class="line">           &#125;</span><br><span class="line">           head&#x3D;head-&gt;next;</span><br><span class="line"></span><br><span class="line">          </span><br><span class="line">        &#125;</span><br><span class="line">        right-&gt;next&#x3D;NULL;&#x2F;&#x2F;注意赋值null，否则下面的链表连接会无限循环超时</span><br><span class="line">        left-&gt;next&#x3D;righthead.next;</span><br><span class="line">        return lefthead.next;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
