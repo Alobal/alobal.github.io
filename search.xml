@@ -2929,240 +2929,6 @@
       </categories>
   </entry>
   <entry>
-    <title>自定义 next 主题博客</title>
-    <url>/Blog/2020/07/15/%E8%87%AA%E5%AE%9A%E4%B9%89next%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ul>
-<li>Next 7.8.0</li>
-<li>hexo 4.2.1</li>
-<li>npm 6.14.5</li>
-<li>Next 配置文件指 项目根目录/themes/next/_config.yml</li>
-<li>项目配置文件指 项目根目录/_config.yml</li>
-<li>注意在配置文件中配置字段时，请严格控制缩进</li>
-<li>安装命令没特别说明都在 项目根目录 下进行</li>
-</ul>
-<p>Next 在 2020 更新了它的母仓库，由于原仓库的管理人员跑路玩失踪，没人理想提交更新的大大，于是他自己重新开了一个 2020 Next 8.0.0 版本的库。..</p>
-<p>不过我刚入坑的时候试了下 8.0 版本，发现有些配置文件都改了 … 找不到对应的教程。而之前版本的教程更加详细丰富，因此我还是用了 7.8 版本。</p>
-<p><strong>以下所有配置都建立在 7.8 版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
-<p>在吗？吐槽无数遍，2020 的人为什么写博客还抄的 Next4.0 版本&lt;( ‵□′)&gt;───就算你不想用 2020 大改版的版本，好歹和我一样用个 7.8 吧！！至少来个 7.0+吧孩子们！！退一万步 6.0+也是可以的啊！！哇的一声吼出来！！</p>
-<blockquote>
-<p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code> 等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
-</blockquote>
- <a id="more"></a> 
-
-<h1 id="功能性配置"><a href="#功能性配置" class="headerlink" title="功能性配置"></a>功能性配置</h1><p>一些比较常规的功能性配置 Next 文档里都有的。</p>
-<p>虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，是真的好用！！（怒吼</p>
-<p>比起网上到处炒几年前的旧版本冷饭有用多了！！！</p>
-<p>另外可以多摸摸 Next 配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
-<p><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next 官方手册</a></p>
-<h2 id="站点概览描述"><a href="#站点概览描述" class="headerlink" title="站点概览描述"></a>站点概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是 next 主题，会显示在侧边栏中。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Sitch's</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Sitch,Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Sitch</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="配置头像"><a href="#配置头像" class="headerlink" title="配置头像"></a>配置头像</h2><p>在 Next 配置文件下找到 <code>avatar</code>字段，有如下配置项：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here. 你的头像图片路径</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.png</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle. 要不要圆化</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor. 要不要在指针悬停时旋转头像</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>如上给了个示例路径，然后将头像放在 <strong>主题</strong>目录下的 source/images/avatar.png 即可。</p>
-<p>另外两个属性可以按需配置。</p>
-<p>重新生成部署网站，瞅瞅你的大头照吧。</p>
-<blockquote>
-<p>头像图片大小没关系，会自动缩放，但是比例不变，即使圆化也会变成椭圆。因此请注意图片比例最好是正方形，美观。</p>
-</blockquote>
-<h2 id="Next-的分类和标签"><a href="#Next-的分类和标签" class="headerlink" title="Next 的分类和标签"></a>Next 的分类和标签</h2><p>在 next 主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。</p>
-<blockquote>
-<p>分类有层级，标签没有层级。</p>
-</blockquote>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
-
-<p>但相关页面还需要自己生成，在项目根目录下输入相应命令，创建相关页面。</p>
-<ul>
-<li><code>hexo new page categories</code></li>
-<li><code>hexo new page tags</code></li>
-</ul>
-<p>并且打开生成的页面，在元数据中相应添加字段</p>
-<ul>
-<li><code>type: categories</code></li>
-<li><code>type: tags</code>。</li>
-</ul>
-<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">categories: </span><br><span class="line"><span class="bullet">- </span>博客搭建</span><br></pre></td></tr></table></figure>
-
-<h2 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
-<p>在 项目/themes/next/layout/_macro/sidebar.swig 中， 插入复制的代码，比如插入在最下面某一段。</p>
-<blockquote>
-<p>注意 2020 版本后缀不是 swig，相关文件也不一样</p>
-</blockquote>
-<h2 id="导入豆瓣评价页面"><a href="#导入豆瓣评价页面" class="headerlink" title="导入豆瓣评价页面"></a>导入豆瓣评价页面</h2><p>个人博客肯定想记录点自己生活向的东西，看过的电影，玩过的游戏就是一个很好的记录对象。</p>
-<p>之前我是用 markdown 写了个文本条目性质的，不说难看吧，但起码豆瓣条目自带一些影片介绍信息。..</p>
-<h3 id="安装-hexo-douban-插件"><a href="#安装-hexo-douban-插件" class="headerlink" title="安装 hexo-douban 插件"></a>安装 hexo-douban 插件</h3><p>命令行输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
-
-<p>将下面的配置写入<strong>项目</strong>配置文件：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">douban:</span> <span class="comment">#不想启用的页面注释掉即可</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">豆瓣</span> <span class="string">id</span>  </span><br><span class="line">  <span class="attr">builtin:</span> <span class="literal">false</span>  <span class="comment">#是否将生成豆瓣页面功能嵌入到 hexo s 和 hexo g</span></span><br><span class="line">  <span class="attr">book:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my book title'</span>  <span class="comment">#页面标题</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my book quote'</span>  <span class="comment">#页面序言</span></span><br><span class="line">  <span class="attr">movie:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my movie title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my movie quote'</span></span><br><span class="line">  <span class="attr">game:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my game title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my game quote'</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">10000</span> <span class="comment">#爬取豆瓣数据的超时时间，别管了</span></span><br></pre></td></tr></table></figure>
-
-<p>豆瓣 id 可以在进入你的豆瓣个人主页，观察网址获得。通常为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;你的 id&#x2F;</span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo-douban-命令"><a href="#hexo-douban-命令" class="headerlink" title="hexo douban 命令"></a>hexo douban 命令</h3><p>用法如下：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">命令行输入</span> <span class="string">hexo</span> <span class="string">douban</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Description:</span></span><br><span class="line"><span class="string">爬取生成豆瓣相关页面</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Options:</span> <span class="comment">#默认参数 -bgm</span></span><br><span class="line">  <span class="string">-b,</span> <span class="string">--books</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">books</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-g,</span> <span class="string">--games</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">games</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-m,</span> <span class="string">--movies</span>  <span class="string">Generate</span> <span class="string">douban</span> <span class="string">movies</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-h，显示帮助</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul>
-<li><code>hexo douban</code>生成相关页面再进行部署。</li>
-<li>builtin 开启时，直接 hexo s 和 hexo g 即包含生成过程。</li>
-</ul>
-<blockquote>
-<p>注意安装了 hexo-douban 之后，我们多了个<code>hexo douban</code>的命令，因此不能再用<code>hexo d</code>作为<code>hexo deploy</code>的缩写了。</p>
-</blockquote>
-<h3 id="开个主页栏"><a href="#开个主页栏" class="headerlink" title="开个主页栏"></a>开个主页栏</h3><p>生成部署后就可以通过<code>/主网址/movies</code>类似的形式访问了，但这样显然不方便，因此我们开个主页栏给它。</p>
-<p>和之前开启分类页一样，在<strong>主题</strong>配置文件中，找到 menu 字段，添加相应的值，如下以 movies 举例进行修改：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="attr">movies:</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-film</span>  <span class="comment">#添加了 movies 页</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这样开启之后，显示的是 movies ，想改成中文显示需要在<code>主题目录/languages/zh-CN</code>中配置一下，自己打开看看就懂得怎么配了，懒得贴实例了哈=。=</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://github.com/mythsman/hexo-douban" target="_blank" rel="noopener">hexo-douban 文档</a></p>
-<h2 id="字数统计和阅读时长"><a href="#字数统计和阅读时长" class="headerlink" title="字数统计和阅读时长"></a>字数统计和阅读时长</h2><p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a></p>
-<p>使用命令行 npm 输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
-<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">	<span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">2</span>      <span class="comment">#设置 2 个字符看作一个字</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">200</span>    <span class="comment">#每分钟阅读字数</span></span><br></pre></td></tr></table></figure>
-
-<p>next 主题 _config.yml 里找到字段 symbols_count_time 按需配置即可：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-symbols-count-time</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
-<h2 id="首页摘要-阅读全文"><a href="#首页摘要-阅读全文" class="headerlink" title="首页摘要 阅读全文"></a>首页摘要 阅读全文</h2><p>如果你是找了半天博客，发现他们都说 Next 自带自动摘要功能，但自己这就是不起作用的时候，恭喜你，和我一起把那些馊饭博客砸了吧。</p>
-<p>7.6 以后的 Next 删除了自动摘要功能，原因是它觉得它负担了太多。..</p>
-<p>我 7.8 的 Next 配置文件里只有个<code>excerpt_description</code>，这个功能是自动将博客头描述里的<code>description</code>字段当作摘要。</p>
-<p>所以现在首页摘要只有两种办法：</p>
-<ul>
-<li>为每个博客写好 description</li>
-<li>在博客中间手动添加<code>&lt;!-- more --&gt;</code>以截断</li>
-</ul>
-<h2 id="添加百度分析"><a href="#添加百度分析" class="headerlink" title="添加百度分析"></a>添加百度分析</h2><p>登陆 <a href="https://tongji.baidu.com/web/10000256460/welcome/login" target="_blank" rel="noopener">百度统计</a></p>
-<p>进入个人页，选择侧栏的代码获取页</p>
-<p>可以看到如下一段代码，找到<code>hm.js?</code>之后的序列号复制。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">  hm.src = <span class="string">"https://hm.baidu.com/hm.js? 复制这段"</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
-
-<p>填写在 next 配置里的百度分析字段中：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics</span></span><br><span class="line"><span class="attr">baidu_analytics:</span> <span class="string">粘贴到这里</span></span><br></pre></td></tr></table></figure>
-
-<p>之后等待一段时间就可以去百度分析主页看网站情况啦。</p>
-<p>然后你就能开心地发现几天，几十天，几百天，访问量蹭蹭蹭的涨，访问 ip 一直都只有 1 个 hhhh。</p>
-<p>嗯，其实在被搜索引擎收录之前别人是搜不到你的博客的。</p>
-<p>请捞一捞下面的 Google 收录方法。</p>
-<h2 id="Google-收录"><a href="#Google-收录" class="headerlink" title="Google 收录"></a>Google 收录</h2><p>以 Next 主题为例</p>
-<p>登录 <a href="https://search.google.com/search-console/" target="_blank" rel="noopener">Google Search Console</a></p>
-<blockquote>
-<p>当然，没有账号的话需要自己搞好 Google 账号</p>
-</blockquote>
-<h3 id="选择资源类型"><a href="#选择资源类型" class="headerlink" title="选择资源类型"></a>选择资源类型</h3><p>我是 GitHub Pages 域名的个人网站，所以选右边的单网址的资源类型。把博客网址复制过去即可创建资源。</p>
-<h3 id="验证网站所有权"><a href="#验证网站所有权" class="headerlink" title="验证网站所有权"></a>验证网站所有权</h3><p>Goolge 推荐验证方法是下载 HTML 文件。但是，我们不用。毕竟一个<code>hexo clean</code>网页就没了。..</p>
-<p>选下面的 HTML 标记验证，可以看到形如下面的一段代码。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"XXXXXXXXXXXXXXXXXXXXXXX"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>把 xxxx 的东西复制好。</p>
-<p>打开 Next 的配置文件，搜索到<code>google_site_verification</code>字段，把复制的字段填进去就好。</p>
-<p><code>hexo clean;hexo g;hexo d</code>一套刷新网站组合拳。</p>
-<p>回刚才的 Google 家里点击进行验证即可。</p>
-<p>验证成功后可以 Google 搜索<code>site: 你的网址</code>试试，理应看到你的博客网址。</p>
-<blockquote>
-<p>这里很多看很多博客都是在抄几年前的方法，明明 2020 了啊哥哥们，Next 已经传宗接代到 8.0 了！！已经有内置<code>google-site-verification</code>字段了！！</p>
-<p>明明限制了搜索时间是半年以内，结果 2020 年这群人写的教程还是抄的 10 年的东西看着好烦啊喂！！！！！！！！！！！！！！</p>
-</blockquote>
-<h3 id="添加站点地图-SiteMap"><a href="#添加站点地图-SiteMap" class="headerlink" title="添加站点地图 SiteMap"></a>添加站点地图 SiteMap</h3><p>站点地图可以将我们网站的组织架构提供给 Google，都是为了搜索优化==</p>
-<p>安装 hexo 自动生成站点地图的插件：</p>
-<p><code>npm install hexo-generator-sitemap --save</code></p>
-<p>安装成功后在项目配置文件中添加：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
-
-<p>这样插件每次会在<code>hexo g</code>时自动生成 sitemap.xml 文件，放在/public/下面。</p>
-<blockquote>
-<p>注意博客文件名带有<code>&amp;</code>时，生成的 sitemap.xml 会有错误，我的解决办法是修改文件名。</p>
-</blockquote>
-<p>其实我们也知道每次部署出去的网站也就是/public/目录，所以 sitemap.xml 相当于放在网站根目录下面。</p>
-<p>因此我们把<code>你的网站地址/sitemap.xml</code>这个链接提交给 Google 即可。</p>
-<p>执行<code>hexo g;hexo d</code>生成 sitemap 并部署出去。</p>
-<p>在 <a href="https://search.google.com/search-console/sitemaps/" target="_blank" rel="noopener">Google SearchConsole</a> 侧栏找到站点地图，提交上面说的链接，完毕。</p>
-<h2 id="站内本地搜索"><a href="#站内本地搜索" class="headerlink" title="站内本地搜索"></a>站内本地搜索</h2><p>安装插件:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-
-<p>编辑<strong>项目</strong>配置文件，新增字段:</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
-
-<p>编辑<strong>主题</strong>配置文件，修改字段：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
-<p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用。<del>我恨不得删项跑路</del></p>
-<blockquote>
-<p>正确配置了项目设置里的 highlight 字段，和 next 主题设置里的 codeblock 风格</p>
-</blockquote>
-<p>跑了跑了连夜跑了 ，<del>隔壁 prism-plugin 真香</del>。</p>
-<blockquote>
-<p>意外的是，prism 设置了 custom_css 的无效路径后，即使 hexo 自带 highlight 是关闭状态，代码高亮居然被 hexo 的 highlight 接管了，除了行号没有一切正常。当然，要正常使用还是用 prism 吧。</p>
-</blockquote>
-<p>好吧也不是那么香，prism 的语法提示挺简陋的。.. 烦到，这个坑好大 (╯‵□′)╯︵┻━┻</p>
-<p>被简陋到，改回 highlight 了，不知道为啥高亮又可以用了，但是觉得 next 的几款 highlight 都不太搭白底网站，于是摸了一遍发现<code>themes\next\source\css\_common\scaffolding\highlight\</code>路径下的文件存储着几套主题的配色，可以自己改一套喜欢的了。</p>
-<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next 的设计已经清新的挺舒服了。</p>
-<p>修改途径有两种：</p>
-<ul>
-<li><p>自定义 style 文件，覆盖样式，一般用于修改颜色等</p>
-</li>
-<li><p>修改<code>next\source\css\</code>下的文件，一般用于修改文章宽度，文章颜色等整体性的 css.</p>
-<blockquote>
-<p>注意我自己在这里面的文件配置的时候发现，这里颜色只支持十六进制表示法，不支持 rgb 表示。..</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="自定义样式，如配色等"><a href="#自定义样式，如配色等" class="headerlink" title="自定义样式，如配色等"></a>自定义样式，如配色等</h2><h3 id="修改方法"><a href="#修改方法" class="headerlink" title="修改方法"></a>修改方法</h3><p>在 next 配置文件中，找到下面这段，然后把需要的自定义字段取消注释，这里我们想要自定义 style，因此取消注释 style 字段，之后可以在路径文件中写入你想要<strong>覆盖</strong>的样式。</p>
-<p><strong>注意是 hexo 项目根目录下的 source/_data/styles.styl</strong>，没有则自己创建。<br><strong>注意不是 next 主题目录下的路径</strong></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
-<p>以下样式修改大多是在 styles 文件中进行。</p>
-<blockquote>
-<p>有些属性，像文章宽度，在<code>next\source\css\_variables</code>目录下的文件中修改，注意相应主题的文件会覆盖 base 文件。其中的字段意义大概看看英语就能懂，或者在页面 F12 调试的时候看看。</p>
-</blockquote>
-<h3 id="调试样式方法"><a href="#调试样式方法" class="headerlink" title="调试样式方法"></a>调试样式方法</h3><p>虽然能够自定义覆盖样式，但是配色总是要试试的嘛，怎么调试出自己喜欢的配色再添加到文件里呢？</p>
-<p>chrome 打开博客网站，右键你想要更改的元素，例如正文背景，在右键菜单中点【检查】，可以看到如图的调试台，右边则是相应的元素样式。如图：<br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtuquyezgj20wn0di0v3.jpg" alt="主要找右边的样式表"><br>比如这里我就把正文背景从原来的纯白，修改为了带点暖黄的护眼色。<br>然后把更改的这段复制到 styles.styl 即可，如下：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">//正文背景护眼色</span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attribute">--body-bg-color</span>: <span class="number">#f9dbb647</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新生成文章即可，其他浏览器调试应该也是同理，没试过。</p>
-<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置 global 全局字体就行。</p>
-<p>字体 CDN 默认是 google 的，可以去里面挑自己喜欢的字体，在 family 字段配置即可。</p>
-<p>个人是比较喜欢思源宋体的。</p>
-<p>示例如下：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="标题阴影配置"><a href="#标题阴影配置" class="headerlink" title="标题阴影配置"></a>标题阴影配置</h2><p>标题虽然可以通过字体大小区分，但是光秃秃的几个字在全文里还是有比较混杂的感觉，即不方便分割上下文，也不凸显标题本身。</p>
-<p>因此考虑添加阴影来增强标题感。</p>
-<p>在 styles 中添加字段如下，具体颜色和大小参数自己配吧。</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">h1</span>, <span class="selector-class">.post-body</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0</span> -<span class="number">0.6em</span> <span class="number">0</span> <span class="number">#ffeb88</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="单句代码悬浮突出配置"><a href="#单句代码悬浮突出配置" class="headerlink" title="单句代码悬浮突出配置"></a>单句代码悬浮突出配置</h2><p>单句代码无论用什么颜色修改感觉都差点意思，要么是太过鲜艳，在频繁的地方看的挺烦，要么是太过暗淡，又不够突出明显。</p>
-<p>因此搬运了悬浮贴的 css 样式。</p>
-<p>单句代码和代码块都在<code>code</code>类下面，因此最好加个<code>p</code>类限制为仅单句代码。</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5rem</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0.2em</span> <span class="number">0.2em</span> <span class="number">0</span> <span class="number">0</span> <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.1em</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">vertical-align</span>: bottom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改文章页面宽度"><a href="#修改文章页面宽度" class="headerlink" title="修改文章页面宽度"></a>修改文章页面宽度</h2><p>在<code>next\source\css\_variables</code>中找到对应子主题文件的如下字段：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$content-desktop              &#x3D; &#39;calc(100% - %s)&#39; % unit($content-desktop-padding &#x2F; 2, &#39;px&#39;);</span><br><span class="line">$content-desktop-large        &#x3D; 900px;</span><br><span class="line">$content-desktop-largest      &#x3D; 61%;</span><br></pre></td></tr></table></figure>
-
-<p>如果子主题文件没有，可以去<code>base.styl</code>里找。</p>
-<p>或者自己在子主题文件里添加这个字段。</p>
-<p>至于相应的值就自己调试成自己舒服的了。</p>
-<blockquote>
-<p>小提示：<code>hexo s</code>部署在本地后，可以直接修改这些 styl 文件，刷新页面即生效，不需要中断本地服务器。</p>
-</blockquote>
-<h2 id="修改文章背景色及透明度"><a href="#修改文章背景色及透明度" class="headerlink" title="修改文章背景色及透明度"></a>修改文章背景色及透明度</h2><p>在<code>next\source\css\_variables</code>中找到对应子主题文件的如下字段：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$content-bg-color             &#x3D;#ffffffc2;</span><br></pre></td></tr></table></figure>
-
-<p>如果子主题文件没有，可以去<code>base.styl</code>里找。</p>
-<p>或者自己在子主题文件里添加这个字段。</p>
-<p>值也自己调咯，推荐透明度在 0.9 左右。</p>
-<h1 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a><br><a href="https://co5.me/" target="_blank" rel="noopener">co5=Shioko个人博客</a><br><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next Document</a><br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">Next 中文入门文档</a></p>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机视觉实验2-2——混合图像</title>
     <url>/Blog/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/</url>
     <content><![CDATA[<h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
@@ -3373,6 +3139,348 @@
       </categories>
       <tags>
         <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅读：Global Heating</title>
+    <url>/Blog/2020/08/24/%E9%98%85%E8%AF%BB-Global-Heating/</url>
+    <content><![CDATA[<h1 id="Earth-has-lost-28-trillion-tonnes-of-ice-in-less-than-30-years"><a href="#Earth-has-lost-28-trillion-tonnes-of-ice-in-less-than-30-years" class="headerlink" title="Earth has lost 28 trillion tonnes of ice in less than 30 years"></a>Earth has lost 28 trillion tonnes of ice in less than 30 years</h1><p>在不到 30 年里，地球已经失去了 28 万亿吨冰</p>
+<p>A total of 28 <strong>trillion</strong> tonnes of ice have disappeared from the surface of the Earth since 1994. That is stunning conclusion of UK scientists who have analysed satellite surveys of the planet’s poles, mountains and <strong>glaciers</strong> to measure how much ice coverage lost because of global heating triggered by rising greenhouse gas <strong>emissions</strong>.</p>
+<p>自从 1994 年以来，地球表面总计消失了 28 万亿吨的冰。英国科学家们，分析了卫星关于地球两极，山脉，冰川的探测数据，以测量温室气体排放量上升导致的全球变暖引起了多少冰覆盖面积的损失，最终得出了这个惊人的结论。</p>
+<a id="more"></a>
+
+<p>The scientists – based at Leeds and Edinburgh universities and University College London – describe the level of ice loss as “<strong>staggering</strong>” and warn that their analysis indicates that sea level rises, triggered by melting glaciers and ice sheets, could reach a metre by the end of the century.</p>
+<p>来自 Leeds and Edinburgh universities 和 University College London 的科学家们，将这种程度的冰损失称为“惊人的”。并且警告，他们的分析结果表明，冰川和冰盖的融化会引起在世纪末可达一米高度的海平面上升。</p>
+<p>“To put that in <strong>context</strong>, every centimetre of sea level rise means about a million people will be displaced from their low-lying homelands,” said Professor Andy Shepherd, director of Leeds University’s Centre for Polar Observation and Modelling.</p>
+<p>“具体放在情境中来讲，每一厘米的海平面上升都会导致百万低洼地带的人民流离失所。”。Leeds 大学的两极观察和建模中心主任，Andy Shepherd 教授说到，</p>
+<p>The scientists also warn that the melting of ice in these quantities is now seriously reducing the planet’s ability to reflect solar radiation back into space. White ice is disappearing and the dark sea or soil exposed beneath it is <strong>absorbing</strong> more and more heat, further increasing the warming of the planet.</p>
+<p>科学家们还警告称，这种数量级的冰融化正在严重地降低地球反射太阳辐射回太空的能力。白色的冰正在消失，而在其之下的黑色的海面或者是土壤正在吸收越来越多的热量，进而加剧了全球变暖。</p>
+<p>In addition, cold <strong>fresh water</strong> pouring from melting glaciers and ice sheets is causing major disruptions to the biological health of Arctic and Antarctic waters, while loss of glaciers in mountain ranges threatens to <strong>wipe out</strong> sources of fresh water on which local communities depend.</p>
+<p>另外，冰川冰盖消融的冷淡水的倾泻，正在对南北极水域的生态健康造成严重破坏，另一方面山脉冰川的流失，也危及着当地生态圈赖以生存的淡水源。</p>
+<p>“In the past researchers have studied individual areas – such as the Antarctic or Greenland – where ice is melting. But this is the first time anyone has looked at all the ice that is disappearing from the entire planet,” said Shepherd. “What we have found has stunned us.”</p>
+<p>“在之前，研究者们调查了个别冰正在消融的地区——例如南极和格陵兰岛。但是，这是第一次有人统计了从这个星球上消失的所有冰，” Shepherd 说道，“而随之而来的结论震惊到了我们。”</p>
+<p>The level of ice loss revealed by the group matches the worst-case-<strong>scenario</strong> predictions outlined by the Intergovernmental Panel on Climate Change (IPCC), he added.</p>
+<p>他称，“这个团队揭示出的冰块消融程度，也大致上符合政府间气候变化委员会作出的最坏情景预测。”</p>
+<p>The group studied satellite surveys of glaciers in South America, Asia, Canada and other regions; sea ice in the Arctic and Antarctic; ice sheets that cover the ground in Antarctica and Greenland; and <strong>ice shelves</strong> that <strong>protrude</strong> from the Antarctic mainland into the sea. The study covered the years 1994 to 2017.</p>
+<p>这个团队调查了，来自南美、亚洲、加拿大和其他国家的卫星冰川探测数据；南北极的海冰数据；南极和格陵兰岛的冰盖数据；以及从南极主板块向海面突出的冰架。这个调查涵盖了1994至2017年。</p>
+<p>The researchers’ conclusion is that all the regions have suffered <strong>devastating</strong> reductions in ice cover in the past three decades and these losses are continuing.</p>
+<p>这些研究者的结论表明，在过去的三十年中，所有国家都存在毁灭性的冰盖减少，并且如今仍在继续发生。</p>
+<p>“To put the losses we’ve already experienced into context, 28 trillion tonnes of ice would cover the entire surface of the UK with a sheet of frozen water that is 100 metres thick,” added group member Tom Slater from Leeds University. “It’s just mind-blowing.”</p>
+<p>“这些我们已经经受的损失具体来看，28万亿吨的冰，能够以100米的厚度的大冰盖的形式覆盖整个英国表面，” Leeds 大学的团队成员Tom Slater 补充道，“这是十分让人难以置信的。”</p>
+<p>As to the cause of these staggering losses, the group is <strong>adamant</strong>: “There can be little doubt that the vast majority of Earth’s ice loss is a direct consequence of climate warming,” they state in their review paper, which is published in the online journal Cryosphere Discussions.</p>
+<p>至于这惊人损失的始作俑者，团队坚定不移地认为：“毫无疑问，地球巨量的冰损失是全球变暖的一个直接结果，” 在网络杂志Cryosphere Discussions出版的一篇采访文章中，他们这样说明。</p>
+<p>“On average, the planetary surface temperature has risen by 0.85C since 1880, and this signal has been amplified in the polar regions,” they state. Both sea and atmospheric temperatures have risen as a result and the resulting double <strong>whammy</strong> has triggered the <strong>catastrophic</strong> ice losses uncovered by the group.</p>
+<p>“平均来讲，地球的表面温度自从1880年以来上升了0.85℃，而这一特征在在极地地区则进一步被放大，” 他们说道。就结果而言，海洋和大气层温度都上升了，并且随之产生的双重打击引发了被这个团队发现的灾难性冰损失。</p>
+<p>In the case of the melting ice sheet in Antarctica, rising sea temperatures have been the main driver while increasing atmospheric temperatures have been the cause of ice loss from inland glaciers such as those in the Himalayas. In Greenland, ice loss has been triggered by a combination of both sea and atmospheric temperatures increasing.</p>
+<p>对于南极的冰盖消融来讲，上升的海水温度是主要导致因素，另一方面，上升的大气层温度则是例如在Himalayas之类的内陆冰川消融的主要元凶。在格陵兰岛，则是由海水和大气层两者的升温联合导致了冰消融。</p>
+<p>The team stressed that not all the ice that was lost over that period would have contributed to sea level rises. “A total of 54% of the lost ice was from sea ice and from ice shelves,” said Leeds University researcher Isobel Lawrence. “These float on water and their melting would not have contributed to sea level rises. The other 46% of meltwater came from glaciers and ice sheets on the ground, and they would have added to sea level rise.”</p>
+<p>团队强调，在这段时期内的冰消融并没有都助力了海平面上升。“总计54%的冰消融是来自于海洋冰和冰架，” Leeds 大学的研究员 Isobel Lawrence 说道，“它们是附在水面上的，并且它们的消融不会导致海平面升高。另外的46%融水来自地面上的冰川和冰盖，这些才会导致海平面上升。”</p>
+<p>The group’s results were published 30 years after the first <strong>assessment</strong> report of the IPCC was published, at the end of August 1990. This outlined, in <strong>stark</strong> <strong>terms</strong>, that global warming was real and was being triggered by increasing emissions of greenhouse gases from the burning of <strong>fossil</strong> fuels.</p>
+<p>距IPCC的第一份评估报告于1990八月末发布的三十年之后，这个团队的成果发表了他们的成果。简而言之，全球变暖被证实了，并且由于持续增长的化石燃料燃烧，进而导致的温室气体排放的影响，全球变暖仍在继续发生。</p>
+<p>Despite warnings from scientists, these emissions have continued to rise as global temperatures continued to <strong>soar</strong>. According to figures released by the Met Office last week, there was a 0.14C increase in global temperatures between the decade 1980-89 and the decade 1990-1999, then a 0.2C increase between each of the following decades. This rate of increase is expected to rise, possibly to around 0.3C a decade, as carbon emissions continue on their upward <strong>trajectory</strong>.</p>
+<p>不顾科学家们的警告，尽管全球温度持续升高，温室气体排放量仍在增长。据英国气象局上周公布的数据，在1980<del>1989和1990</del>1999间都有0.14℃的增长，而在接下来的每十年中，都有0.2℃的增长。随着碳排放量持续上升，变暖速率也预计会增加，可能会达到每十年0.3℃左右。</p>
+<h3 id="阅读原文"><a href="#阅读原文" class="headerlink" title="阅读原文"></a><a href="https://www.theguardian.com/environment/2020/aug/23/earth-lost-28-trillion-tonnes-ice-30-years-global-warming" target="_blank" rel="noopener">阅读原文</a></h3><h1 id="词汇"><a href="#词汇" class="headerlink" title="词汇"></a>词汇</h1><ul>
+<li>trillion （a million million） 兆；万亿； 10^12</li>
+<li>survey 调查</li>
+<li>glaciers 冰川</li>
+<li>emission 排放物；排放</li>
+<li>staggering 惊人的</li>
+<li>context 上下文；语境</li>
+<li>put sth in context ：give extra information so people can understand</li>
+<li>absorbing 吸收</li>
+<li>fresh water 淡水</li>
+<li>wipe out 抹除</li>
+<li>scenario 情境</li>
+<li>ice shelves 冰架</li>
+<li>protrude 突出</li>
+<li>devastating 毁灭性的</li>
+<li>adamant 坚定的</li>
+<li>amplified 放大的</li>
+<li>whammy 打击；有害的冲击</li>
+<li>catastrophic 灾难性的</li>
+<li>assessment 评定；评估</li>
+<li>stark 鲜明</li>
+<li>terms 术语；条款</li>
+<li>fossil 化石</li>
+<li>soar 飞涨；翱翔</li>
+<li>trajectory 弹道；轨迹</li>
+</ul>
+]]></content>
+      <categories>
+        <category>英语</category>
+      </categories>
+      <tags>
+        <tag>英语</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Next7.8 功能性配置</title>
+    <url>/Blog/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ul>
+<li>Next 7.8.0</li>
+<li>hexo 4.2.1</li>
+<li>npm 6.14.5</li>
+<li>Next 配置文件指 项目根目录/themes/next/_config.yml</li>
+<li>项目配置文件指 项目根目录/_config.yml</li>
+<li>注意在配置文件中配置字段时，请严格控制缩进</li>
+<li>安装命令没特别说明都在 项目根目录 下进行</li>
+</ul>
+<p>Next 在 2020 更新了它的母仓库，由于原仓库的管理人员跑路玩失踪，没人理想提交更新的大大，于是他自己重新开了一个 2020 Next 8.0.0 版本的库。..</p>
+<p>不过我刚入坑的时候试了下 8.0 版本，发现有些配置文件都改了 … 找不到对应的教程。而之前版本的教程更加详细丰富，因此我还是用了 7.8 版本。</p>
+<p><strong>以下所有配置都建立在 7.8 版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
+<p>在吗？吐槽无数遍，2020 的人为什么写博客还抄的 Next4.0 版本&lt;( ‵□′)&gt;───就算你不想用 2020 大改版的版本，好歹和我一样用个 7.8 吧！！至少来个 7.0+吧孩子们！！退一万步 6.0+也是可以的啊！！哇的一声吼出来！！</p>
+<blockquote>
+<p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code> 等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
+</blockquote>
+ <a id="more"></a> 
+
+<h1 id="功能性配置"><a href="#功能性配置" class="headerlink" title="功能性配置"></a>功能性配置</h1><p>一些比较常规的功能性配置 Next 文档里都有的。</p>
+<p>虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，是真的好用！！（怒吼</p>
+<p>比起网上到处炒几年前的旧版本冷饭有用多了！！！</p>
+<p>另外可以多摸摸 Next 配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
+<p><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next 官方手册</a></p>
+<h2 id="站点概览描述"><a href="#站点概览描述" class="headerlink" title="站点概览描述"></a>站点概览描述</h2><p>在项目配置里，第一段填写相关描述，如果是 next 主题，会显示在侧边栏中。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Sitch's</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">'做什么，想做什么，为了什么去做，谁知道呢 随便了'</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Sitch,Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Sitch</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置头像"><a href="#配置头像" class="headerlink" title="配置头像"></a>配置头像</h2><p>在 Next 配置文件下找到 <code>avatar</code>字段，有如下配置项：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here. 你的头像图片路径</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.png</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle. 要不要圆化</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor. 要不要在指针悬停时旋转头像</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>如上给了个示例路径，然后将头像放在 <strong>主题</strong>目录下的 source/images/avatar.png 即可。</p>
+<p>另外两个属性可以按需配置。</p>
+<p>重新生成部署网站，瞅瞅你的大头照吧。</p>
+<blockquote>
+<p>头像图片大小没关系，会自动缩放，但是比例不变，即使圆化也会变成椭圆。因此请注意图片比例最好是正方形，美观。</p>
+</blockquote>
+<h2 id="Next-的分类和标签"><a href="#Next-的分类和标签" class="headerlink" title="Next 的分类和标签"></a>Next 的分类和标签</h2><p>在 next 主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。</p>
+<blockquote>
+<p>分类有层级，标签没有层级。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<p>但相关页面还需要自己生成，在项目根目录下输入相应命令，创建相关页面。</p>
+<ul>
+<li><code>hexo new page categories</code></li>
+<li><code>hexo new page tags</code></li>
+</ul>
+<p>并且打开生成的页面，在元数据中相应添加字段</p>
+<ul>
+<li><code>type: categories</code></li>
+<li><code>type: tags</code>。</li>
+</ul>
+<p>然后在自己的每篇博客描述头中，加入<code>categories:</code> <code>tags:</code>的相关字段，例如这篇：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">categories: </span><br><span class="line"><span class="bullet">- </span>博客搭建</span><br></pre></td></tr></table></figure>
+
+<h2 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h2><p>先去网易云音乐里生成外链播放器， 不能生成的可查找特殊方法生成。</p>
+<p>在 项目/themes/next/layout/_macro/sidebar.swig 中， 插入复制的代码，比如插入在最下面某一段。</p>
+<blockquote>
+<p>注意 2020 版本后缀不是 swig，相关文件也不一样</p>
+</blockquote>
+<h2 id="导入豆瓣评价页面"><a href="#导入豆瓣评价页面" class="headerlink" title="导入豆瓣评价页面"></a>导入豆瓣评价页面</h2><p>个人博客肯定想记录点自己生活向的东西，看过的电影，玩过的游戏就是一个很好的记录对象。</p>
+<p>之前我是用 markdown 写了个文本条目性质的，不说难看吧，但起码豆瓣条目自带一些影片介绍信息。..</p>
+<h3 id="安装-hexo-douban-插件"><a href="#安装-hexo-douban-插件" class="headerlink" title="安装 hexo-douban 插件"></a>安装 hexo-douban 插件</h3><p>命令行输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
+
+<p>将下面的配置写入<strong>项目</strong>配置文件：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">douban:</span> <span class="comment">#不想启用的页面注释掉即可</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">豆瓣</span> <span class="string">id</span>  </span><br><span class="line">  <span class="attr">builtin:</span> <span class="literal">false</span>  <span class="comment">#是否将生成豆瓣页面功能嵌入到 hexo s 和 hexo g</span></span><br><span class="line">  <span class="attr">book:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my book title'</span>  <span class="comment">#页面标题</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my book quote'</span>  <span class="comment">#页面序言</span></span><br><span class="line">  <span class="attr">movie:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my movie title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my movie quote'</span></span><br><span class="line">  <span class="attr">game:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">'This is my game title'</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">'This is my game quote'</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">10000</span> <span class="comment">#爬取豆瓣数据的超时时间，别管了</span></span><br></pre></td></tr></table></figure>
+
+<p>豆瓣 id 可以在进入你的豆瓣个人主页，观察网址获得。通常为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;你的 id&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="hexo-douban-命令"><a href="#hexo-douban-命令" class="headerlink" title="hexo douban 命令"></a>hexo douban 命令</h3><p>用法如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">命令行输入</span> <span class="string">hexo</span> <span class="string">douban</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Description:</span></span><br><span class="line"><span class="string">爬取生成豆瓣相关页面</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Options:</span> <span class="comment">#默认参数 -bgm</span></span><br><span class="line">  <span class="string">-b,</span> <span class="string">--books</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">books</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-g,</span> <span class="string">--games</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">games</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-m,</span> <span class="string">--movies</span>  <span class="string">Generate</span> <span class="string">douban</span> <span class="string">movies</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-h，显示帮助</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul>
+<li><code>hexo douban</code>生成相关页面再进行部署。</li>
+<li>builtin 开启时，直接 hexo s 和 hexo g 即包含生成过程。</li>
+</ul>
+<blockquote>
+<p>注意安装了 hexo-douban 之后，我们多了个<code>hexo douban</code>的命令，因此不能再用<code>hexo d</code>作为<code>hexo deploy</code>的缩写了。</p>
+</blockquote>
+<h3 id="开个主页栏"><a href="#开个主页栏" class="headerlink" title="开个主页栏"></a>开个主页栏</h3><p>生成部署后就可以通过<code>/主网址/movies</code>类似的形式访问了，但这样显然不方便，因此我们开个主页栏给它。</p>
+<p>和之前开启分类页一样，在<strong>主题</strong>配置文件中，找到 menu 字段，添加相应的值，如下以 movies 举例进行修改：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="attr">movies:</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-film</span>  <span class="comment">#添加了 movies 页</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这样开启之后，显示的是 movies ，想改成中文显示需要在<code>主题目录/languages/zh-CN</code>中配置一下，自己打开看看就懂得怎么配了，懒得贴实例了哈=。=</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://github.com/mythsman/hexo-douban" target="_blank" rel="noopener">hexo-douban 文档</a></p>
+<h2 id="字数统计和阅读时长"><a href="#字数统计和阅读时长" class="headerlink" title="字数统计和阅读时长"></a>字数统计和阅读时长</h2><p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a></p>
+<p>使用命令行 npm 输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
+<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">	<span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">2</span>      <span class="comment">#设置 2 个字符看作一个字</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">200</span>    <span class="comment">#每分钟阅读字数</span></span><br></pre></td></tr></table></figure>
+
+<p>next 主题 _config.yml 里找到字段 symbols_count_time 按需配置即可：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-symbols-count-time</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
+<h2 id="首页摘要-阅读全文"><a href="#首页摘要-阅读全文" class="headerlink" title="首页摘要 阅读全文"></a>首页摘要 阅读全文</h2><p>如果你是找了半天博客，发现他们都说 Next 自带自动摘要功能，但自己这就是不起作用的时候，恭喜你，和我一起把那些馊饭博客砸了吧。</p>
+<p>7.6 以后的 Next 删除了自动摘要功能，原因是它觉得它负担了太多。..</p>
+<p>我 7.8 的 Next 配置文件里只有个<code>excerpt_description</code>，这个功能是自动将博客头描述里的<code>description</code>字段当作摘要。</p>
+<p>所以现在首页摘要只有两种办法：</p>
+<ul>
+<li>为每个博客写好 description</li>
+<li>在博客中间手动添加<code>&lt;!-- more --&gt;</code>以截断</li>
+</ul>
+<h2 id="添加百度分析"><a href="#添加百度分析" class="headerlink" title="添加百度分析"></a>添加百度分析</h2><p>登陆 <a href="https://tongji.baidu.com/web/10000256460/welcome/login" target="_blank" rel="noopener">百度统计</a></p>
+<p>进入个人页，选择侧栏的代码获取页</p>
+<p>可以看到如下一段代码，找到<code>hm.js?</code>之后的序列号复制。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">  hm.src = <span class="string">"https://hm.baidu.com/hm.js? 复制这段"</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<p>填写在 next 配置里的百度分析字段中：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics</span></span><br><span class="line"><span class="attr">baidu_analytics:</span> <span class="string">粘贴到这里</span></span><br></pre></td></tr></table></figure>
+
+<p>之后等待一段时间就可以去百度分析主页看网站情况啦。</p>
+<p>然后你就能开心地发现几天，几十天，几百天，访问量蹭蹭蹭的涨，访问 ip 一直都只有 1 个 hhhh。</p>
+<p>嗯，其实在被搜索引擎收录之前别人是搜不到你的博客的。</p>
+<p>请捞一捞下面的 Google 收录方法。</p>
+<h2 id="Google-收录"><a href="#Google-收录" class="headerlink" title="Google 收录"></a>Google 收录</h2><p>以 Next 主题为例</p>
+<p>登录 <a href="https://search.google.com/search-console/" target="_blank" rel="noopener">Google Search Console</a></p>
+<blockquote>
+<p>当然，没有账号的话需要自己搞好 Google 账号</p>
+</blockquote>
+<h3 id="选择资源类型"><a href="#选择资源类型" class="headerlink" title="选择资源类型"></a>选择资源类型</h3><p>我是 GitHub Pages 域名的个人网站，所以选右边的单网址的资源类型。把博客网址复制过去即可创建资源。</p>
+<h3 id="验证网站所有权"><a href="#验证网站所有权" class="headerlink" title="验证网站所有权"></a>验证网站所有权</h3><p>Goolge 推荐验证方法是下载 HTML 文件。但是，我们不用。毕竟一个<code>hexo clean</code>网页就没了。..</p>
+<p>选下面的 HTML 标记验证，可以看到形如下面的一段代码。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"XXXXXXXXXXXXXXXXXXXXXXX"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>把 xxxx 的东西复制好。</p>
+<p>打开 Next 的配置文件，搜索到<code>google_site_verification</code>字段，把复制的字段填进去就好。</p>
+<p><code>hexo clean;hexo g;hexo d</code>一套刷新网站组合拳。</p>
+<p>回刚才的 Google 家里点击进行验证即可。</p>
+<p>验证成功后可以 Google 搜索<code>site: 你的网址</code>试试，理应看到你的博客网址。</p>
+<blockquote>
+<p>这里很多看很多博客都是在抄几年前的方法，明明 2020 了啊哥哥们，Next 已经传宗接代到 8.0 了！！已经有内置<code>google-site-verification</code>字段了！！</p>
+<p>明明限制了搜索时间是半年以内，结果 2020 年这群人写的教程还是抄的 10 年的东西看着好烦啊喂！！！！！！！！！！！！！！</p>
+</blockquote>
+<h3 id="添加站点地图-SiteMap"><a href="#添加站点地图-SiteMap" class="headerlink" title="添加站点地图 SiteMap"></a>添加站点地图 SiteMap</h3><p>站点地图可以将我们网站的组织架构提供给 Google，都是为了搜索优化==</p>
+<p>安装 hexo 自动生成站点地图的插件：</p>
+<p><code>npm install hexo-generator-sitemap --save</code></p>
+<p>安装成功后在项目配置文件中添加：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
+
+<p>这样插件每次会在<code>hexo g</code>时自动生成 sitemap.xml 文件，放在/public/下面。</p>
+<blockquote>
+<p>注意博客文件名带有<code>&amp;</code>时，生成的 sitemap.xml 会有错误，我的解决办法是修改文件名。</p>
+</blockquote>
+<p>其实我们也知道每次部署出去的网站也就是/public/目录，所以 sitemap.xml 相当于放在网站根目录下面。</p>
+<p>因此我们把<code>你的网站地址/sitemap.xml</code>这个链接提交给 Google 即可。</p>
+<p>执行<code>hexo g;hexo d</code>生成 sitemap 并部署出去。</p>
+<p>在 <a href="https://search.google.com/search-console/sitemaps/" target="_blank" rel="noopener">Google SearchConsole</a> 侧栏找到站点地图，提交上面说的链接，完毕。</p>
+<h2 id="站内本地搜索"><a href="#站内本地搜索" class="headerlink" title="站内本地搜索"></a>站内本地搜索</h2><p>安装插件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<p>编辑<strong>项目</strong>配置文件，新增字段：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<p>编辑<strong>主题</strong>配置文件，修改字段：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
+<p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用。<del>我恨不得删项跑路</del></p>
+<blockquote>
+<p>正确配置了项目设置里的 highlight 字段，和 next 主题设置里的 codeblock 风格</p>
+</blockquote>
+<p>跑了跑了连夜跑了 ，<del>隔壁 prism-plugin 真香</del>。</p>
+<blockquote>
+<p>意外的是，prism 设置了 custom_css 的无效路径后，即使 hexo 自带 highlight 是关闭状态，代码高亮居然被 hexo 的 highlight 接管了，除了行号没有一切正常。当然，要正常使用还是用 prism 吧。</p>
+</blockquote>
+<p>好吧也不是那么香，prism 的语法提示挺简陋的。.. 烦到，这个坑好大 (╯‵□′)╯︵┻━┻</p>
+<p>被简陋到，改回 highlight 了，不知道为啥高亮又可以用了，但是觉得 next 的几款 highlight 都不太搭白底网站，于是摸了一遍发现<code>themes\next\source\css\_common\scaffolding\highlight\</code>路径下的文件存储着几套主题的配色，可以自己改一套喜欢的了。</p>
+<h1 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="https://theme-next.js.org/docs/" target="_blank" rel="noopener">Next Document</a><br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">Next 中文入门文档</a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Next7.8 美化性配置</title>
+    <url>/Blog/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><ul>
+<li>Next 7.8.0</li>
+<li>hexo 4.2.1</li>
+<li>npm 6.14.5</li>
+<li>Next 配置文件指 项目根目录/themes/next/_config.yml</li>
+<li>项目配置文件指 项目根目录/_config.yml</li>
+<li>注意在配置文件中配置字段时，请严格控制缩进</li>
+<li>安装命令没特别说明都在 项目根目录 下进行</li>
+</ul>
+<p><strong>以下所有配置都建立在 7.8 版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
+<blockquote>
+<p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code> 等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
+</blockquote>
+<h1 id="美化性配置"><a href="#美化性配置" class="headerlink" title="美化性配置"></a>美化性配置</h1><p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next 的设计已经清新的挺舒服了，但人总有自定义的需求嘛。</p>
+<p>修改途径有两种：</p>
+<ul>
+<li><p>custom style 文件，覆盖单点样式，一般用于进行几个小地方的自定义等</p>
+</li>
+<li><p>custom variable 文件，修改变量，变量会被其他样式引用到，因此一般修改都是整体性的，一般用于修改文章宽度，文章颜色等整体性的样式。</p>
+<blockquote>
+<p>注意我在 variable 配置时发现，这里颜色字段只支持十六进制表示法，不支持 rgb 表示。</p>
+</blockquote>
+</li>
+</ul>
+<p>以下样式修改大多是在 styles 和 variables 两个文件中进行。</p>
+<a id="more"></a>
+
+<h2 id="Next-样式结构"><a href="#Next-样式结构" class="headerlink" title="Next 样式结构"></a>Next 样式结构</h2><p>以<strong>主题</strong>目录为根目录，主要关注 <code>./source/css</code> 目录，偶尔需要 <code>./layout</code> 目录，结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NEXT</span><br><span class="line">├─layout  布局相关，swig 文件，html 标记语言及嵌套语言，对新手比较难改。</span><br><span class="line">│  ├─_macro</span><br><span class="line">│  ├─_partials</span><br><span class="line">│  ├─_scripts</span><br><span class="line">│  └─_third-party</span><br><span class="line">│    </span><br><span class="line">│─source  资源相关</span><br><span class="line">    ├─css css 样式相关</span><br><span class="line">    │  ├─_common 公共部分，一般是些公共小组件的样式，什么 back 2 top 按钮</span><br><span class="line">    │  │  ├─components 组件部分</span><br><span class="line">    │  │  |    </span><br><span class="line">    │  │  ├─outline  框架部分</span><br><span class="line">    │  │  │  ├─footer  脚注</span><br><span class="line">    │  │  │  ├─header  头部，菜单栏，github 彩带，书签等</span><br><span class="line">    │  │  │  └─sidebar 侧栏，导航栏相关，站点概况区域相关</span><br><span class="line">    │  │  |    </span><br><span class="line">    │  │  └─scaffolding</span><br><span class="line">    │  │      ├─highlight</span><br><span class="line">    │  │      └─tags</span><br><span class="line">    │  │      </span><br><span class="line">    │  ├─_schemes 主题样式方案，四大主题的样式，内部调用了 variables 的值</span><br><span class="line">    │  │  ├─Gemini 因此一般修改下面的_variables 的变量值就可以。</span><br><span class="line">    │  │  ├─Mist</span><br><span class="line">    │  │  ├─Muse</span><br><span class="line">    │  │  └─Pisces</span><br><span class="line">    │  │     </span><br><span class="line">    │  └─_variables 以变量形式存储的 css 属性值，宽度，颜色，等全局性属性都在这里</span><br><span class="line">    │  │  ├─base.styl 全局配置，下面四个为各样式对全局配置的覆盖字段</span><br><span class="line">    │  │  ├─Gemini.styl</span><br><span class="line">    │  │  ├─Mist.styl</span><br><span class="line">    │  │  ├─Muse.styl</span><br><span class="line">    │  │  └─Pisces.styl</span><br></pre></td></tr></table></figure>
+<p>variables 里配置字段非常多，基本假如修改的只是属性值的话，都可以在这里找到 … 什么文章显示宽度、文章背景颜色，链接色 … 详细有什么字段建议自己去摸一摸 <code>base.styl</code>文件，变量名都很有可读性，实在看不懂自己可以修改看看变化。</p>
+<p>variables 取值优先级：<code>custom variables 文件 &gt; 主题 .styl 文件 &gt; base.styl 全局配置</code>。</p>
+<p>一般我们需要修改覆盖什么变量，即针对性的将赋值写在 custom variables 文件中即可。</p>
+<blockquote>
+<p>Windows 输出树形目录技巧：命令行输入 <code>tree /?</code> ，即可查阅 tree 命令的相关用法，照着用即可，生成的树形结构即可复制出来。</p>
+</blockquote>
+<h2 id="创建-custom-文件"><a href="#创建-custom-文件" class="headerlink" title="创建 custom 文件"></a>创建 custom 文件</h2><p>在 next 配置文件中，找到下面这段，然后把需要的自定义字段取消注释，这里我们想要自定义 style 和 variable，因此取消注释这两个字段，之后可以在路径文件中写入你想要<strong>覆盖</strong>的样式。</p>
+<p><strong>注意默认路径是 hexo 项目根目录下的 source/_data/styles.styl</strong>，取消注释后按路径自己创建那个文件。</p>
+<p><strong>再次强调，不是 next 主题目录为根的路径。</strong></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="调试样式方法"><a href="#调试样式方法" class="headerlink" title="调试样式方法"></a>调试样式方法</h2><p>虽然能够自定义覆盖样式，但是 css 配色总是要试试的嘛，怎么调试出自己喜欢的配色再添加到文件里呢？</p>
+<p>chrome 打开博客网站，右键你想要更改的元素，例如正文背景，在右键菜单中点【检查】，可以看到如图的调试台，右边则是相应的元素样式。如图：<br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtuquyezgj20wn0di0v3.jpg" alt="主要找右边的样式表"><br>比如这里我就把正文背景从原来的纯白，修改为了带点暖黄的护眼色。<br>然后把更改的这段复制到 styles.styl 即可，如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">//正文背景护眼色</span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attribute">--body-bg-color</span>: <span class="number">#f9dbb647</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新生成文章即可，其他浏览器调试应该也是同理。</p>
+<p>样式修改花样就太多了 … 整个页面每个地方每个角落都能修改，具体每个想法怎么修改我肯定是覆盖不了的，一般通过浏览器调试找到相应的属性值修改就行。</p>
+<p>因此下面通过几个简单的修改作为示例好了。</p>
+<h2 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h2><p>在 next/_config.yml 里，找到 font 字段，一般配置 global 全局字体就行。</p>
+<p>字体 CDN 默认是 google 的，可以去里面挑自己喜欢的字体，在 family 字段配置即可。</p>
+<p>个人是比较喜欢思源宋体的。</p>
+<p>示例如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="标题阴影美化"><a href="#标题阴影美化" class="headerlink" title="标题阴影美化"></a>标题阴影美化</h2><p>标题虽然可以通过字体大小区分，但是光秃秃的几个字在全文里还是有比较混杂的感觉，即不方便分割上下文，也不凸显标题本身。</p>
+<p>因此考虑添加阴影来增强标题感。</p>
+<p>在 styles 中添加字段如下，具体颜色和大小参数自己配吧。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">h1</span>, <span class="selector-class">.post-body</span> <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0</span> -<span class="number">0.6em</span> <span class="number">0</span> <span class="number">#ffeb88</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单句代码悬浮突出美化"><a href="#单句代码悬浮突出美化" class="headerlink" title="单句代码悬浮突出美化"></a>单句代码悬浮突出美化</h2><p>单句代码无论用什么颜色修改感觉都差点意思，要么是太过鲜艳，在频繁的地方看的挺烦，要么是太过暗淡，又不够突出明显。</p>
+<p>因此搬运了悬浮贴的 css 样式。</p>
+<p>单句代码和代码块都在<code>code</code>类下面，因此最好加个<code>p</code>类限制为仅单句代码。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5rem</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0.2em</span> <span class="number">0.2em</span> <span class="number">0</span> <span class="number">0</span> <span class="number">#ebc65a</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.1em</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.4em</span>;</span><br><span class="line">    <span class="attribute">vertical-align</span>: bottom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改文章页面宽度"><a href="#修改文章页面宽度" class="headerlink" title="修改文章页面宽度"></a>修改文章页面宽度</h2><p>在<code>next\source\css\_variables</code>中找到对应子主题文件的如下字段：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$content-desktop              &#x3D; &#39;calc(100% - %s)&#39; % unit($content-desktop-padding &#x2F; 2, &#39;px&#39;);</span><br><span class="line">$content-desktop-large        &#x3D; 900px;</span><br><span class="line">$content-desktop-largest      &#x3D; 61%;</span><br></pre></td></tr></table></figure>
+
+<p>如果子主题文件没有，可以去<code>base.styl</code>里找。</p>
+<p>或者自己在子主题文件里添加这个字段。</p>
+<p>至于相应的值就自己调试成自己舒服的了。</p>
+<blockquote>
+<p>小提示：<code>hexo s</code>部署在本地后，可以直接修改这些 styl 文件，刷新页面即生效，不需要中断本地服务器。</p>
+</blockquote>
+<h2 id="修改文章背景色及透明度"><a href="#修改文章背景色及透明度" class="headerlink" title="修改文章背景色及透明度"></a>修改文章背景色及透明度</h2><p>在<code>next\source\css\_variables</code>中找到对应子主题文件的如下字段：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$content-bg-color             &#x3D;#ffffffc2;</span><br></pre></td></tr></table></figure>
+
+<p>如果子主题文件没有，可以去<code>base.styl</code>里找。</p>
+<p>或者自己在子主题文件里添加这个字段。</p>
+<p>值也自己调咯，推荐透明度在 0.9 左右。</p>
+<h1 id="参考美化"><a href="#参考美化" class="headerlink" title="参考美化"></a>参考美化</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a></p>
+<p><a href="https://co5.me/" target="_blank" rel="noopener">co5=Shioko 个人博客</a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
       </tags>
   </entry>
 </search>
