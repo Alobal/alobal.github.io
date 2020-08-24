@@ -3373,6 +3373,32 @@
 <p>编辑<strong>主题</strong>配置文件，修改字段：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="评论系统-Valine"><a href="#评论系统-Valine" class="headerlink" title="评论系统 Valine"></a>评论系统 Valine</h2><blockquote>
+<p>“会有人讨论吗？”——好的，回来填评论系统的坑了。</p>
+</blockquote>
+<p>Next支持多评论系统同时存在 … 虽然我不知道哪个憨憨会同时装躲个评论系统，评论数据又不能共享。</p>
+<p>Next内建支持很多评论系统，我选择了在国内支持比较友好的Valine。</p>
+<p>可以跟着 Next 官方教程做，当然不愿意看英文也无所谓，欢迎继续跟着我~</p>
+<p><a href="https://theme-next.js.org/docs/third-party-services/comments.html" target="_blank" rel="noopener">Next-Valine</a></p>
+<h3 id="LeanCloud-注册登录"><a href="#LeanCloud-注册登录" class="headerlink" title="LeanCloud 注册登录"></a><a href="https://leancloud.cn/dashboard/login.html#/signin" target="_blank" rel="noopener">LeanCloud 注册登录</a></h3><p>没啥好说的，Valine使用了LeanCloud作为数据段，因此去LeanCloud注册登录就行，然后创建应用。</p>
+<p>虽然这个注册需要实名制 … 有点小小小在意。</p>
+<h3 id="获取-ID-和-Key"><a href="#获取-ID-和-Key" class="headerlink" title="获取 ID 和 Key"></a>获取 ID 和 Key</h3><p>进入创建好的应用，选择<code>设置-&gt;应用 Keys</code>子页，复制<code>APP ID</code>和<code>App Key</code>。</p>
+<h3 id="Next-配置"><a href="#Next-配置" class="headerlink" title="Next 配置"></a>Next 配置</h3><p>在<strong>主题</strong>配置文件中搜索 comments,找到字段如下，这里基本不用修改，按需看注释选择配置吧：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Multiple Comment System Support</span></span><br><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="comment"># Available values: tabs | buttons</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">tabs</span></span><br><span class="line">  <span class="comment"># Choose a comment system to be displayed by default.</span></span><br><span class="line">  <span class="comment"># Available values: changyan | disqus | disqusjs | gitalk | livere | valine</span></span><br><span class="line">  <span class="attr">active:</span> <span class="string">valine</span></span><br><span class="line">  <span class="comment"># Setting `true` means remembering the comment system selected by the visitor.</span></span><br><span class="line">  <span class="attr">storage:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Lazyload all comment systems.</span></span><br><span class="line">  <span class="attr">lazyload:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Modify texts or order for any navs, here are some examples.</span></span><br><span class="line">  <span class="attr">nav:</span></span><br><span class="line">    <span class="comment">#disqus:</span></span><br><span class="line">    <span class="comment">#  text: Load Disqus</span></span><br><span class="line">    <span class="comment">#  order: -1</span></span><br><span class="line">    <span class="comment">#gitalk:</span></span><br><span class="line">    <span class="comment">#  order: -2</span></span><br></pre></td></tr></table></figure>
+
+
+<p>在<strong>主题</strong>配置文件中搜索 valine ，找到相应的字段如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="comment">#你的APPID</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="comment">#你的APPkey</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">false</span> <span class="comment"># 邮件提醒</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># 验证码</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">欢迎用你的脸滚一滚键盘~</span>  <span class="comment">#评论输入框预置文字</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">mm</span> <span class="comment"># Gravatar style</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># 自定义评论区头部</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">10</span> <span class="comment"># 分页限制大小</span></span><br><span class="line">  <span class="attr">language:</span> <span class="comment"># 语言,可用值: en, zh-cn</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">false</span> <span class="comment"># Article reading statistic</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">true</span> <span class="comment"># If false, comment count will only be displayed in post page, not in home page</span></span><br><span class="line">  <span class="attr">recordIP:</span> <span class="literal">false</span> <span class="comment"># 是否记录IP</span></span><br><span class="line">  <span class="attr">serverURLs:</span> <span class="comment"># When the custom domain name is enabled, fill it in here (it will be detected automatically by default, no need to fill in)</span></span><br><span class="line">  <span class="comment">#post_meta_order: 0</span></span><br></pre></td></tr></table></figure>
+
+<p>把 enable 置 true，并且对应粘贴好之前的 AppID 和 AppKey。</p>
+<p>重新部署就可以用了，默认为每个页面开启评论系统。</p>
+<h3 id="页面单独关闭评论"><a href="#页面单独关闭评论" class="headerlink" title="页面单独关闭评论"></a>页面单独关闭评论</h3><p>在markdown文件的元数据描述符中，添加<code>comments: false</code>，即可在当前页面关闭评论。</p>
+<blockquote>
+<p>推荐导航栏的那几个导航页都关掉，例如分类页、标签页、关于页。</p>
+</blockquote>
+<h3 id="管理评论数据"><a href="#管理评论数据" class="headerlink" title="管理评论数据"></a>管理评论数据</h3><p>登录LeanCloud对应应用的管理页面，选择<code>存储-&gt;结构化数据-&gt;Comment</code>，即可看到评论数据，并且可以偷偷行使你的管理权限。</p>
+<h3 id="拓展插件-valine-admin"><a href="#拓展插件-valine-admin" class="headerlink" title="拓展插件 valine-admin"></a>拓展插件 valine-admin</h3><p><a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">官网地址</a></p>
+<p>是个中文教程，写的很详细，我就不重复了。<del>我目前没有装它的需求</del></p>
 <h2 id="代码高亮-BUG"><a href="#代码高亮-BUG" class="headerlink" title="代码高亮 BUG"></a>代码高亮 BUG</h2><p>代码高亮只有背景和行号存在， 代码字体本身不变</p>
 <p>打扰，hexo 自带的 hljs 简直是个巨坑，找了一整天的解决方案都没用。<del>我恨不得删项跑路</del></p>
 <blockquote>
@@ -3475,6 +3501,7 @@
 <p>值也自己调咯，推荐透明度在 0.9 左右。</p>
 <h1 id="参考美化"><a href="#参考美化" class="headerlink" title="参考美化"></a>参考美化</h1><p><a href="https://www.randomyang.top/2019/01/27/pixels%E5%B9%B6%E4%B8%8D%E7%AE%80%E5%8D%95/" target="_blank" rel="noopener">randomyang 的 paper 设计</a></p>
 <p><a href="https://co5.me/" target="_blank" rel="noopener">co5=Shioko 个人博客</a></p>
+<p><a href="https://qianling.pw/" target="_blank" rel="noopener">千灵</a></p>
 ]]></content>
       <categories>
         <category>工具</category>
