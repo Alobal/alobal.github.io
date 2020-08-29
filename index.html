@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/Blog/css/main.css">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/Blog/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="做好自己的现在">
@@ -214,10 +214,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Blog/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/" class="post-title-link" itemprop="url">VSCode 配置 Microsoft C++</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-25 08:46:05" itemprop="dateCreated datePublished" datetime="2020-08-25T08:46:05+08:00">2020-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-29 16:36:16" itemprop="dateModified" datetime="2020-08-29T16:36:16+08:00">2020-08-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Blog/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Blog/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文为翻译 Microsoft 的 <a href="https://code.visualstudio.com/docs/cpp/config-msvc" target="_blank" rel="noopener">英文原文</a></p>
+<p>因为自己刚学 C++的时候，直接是装的 Visual Studio 2017，一套 20G 的 IDE 解决所有事情，但是用着用着发现了 Visual Studio Code 这个极致现代美感的编辑器！再看 VS 那傻大粗的体量实在不想用。</p>
+<p>然而 VSCode 只是个编辑器，要用来写 C++还需要配置相应的编译器环境。网上大部分配置教程都是从下一个 MinGW 出发 … 然而我本身已经装过了 VS，Microsoft C++环境已经有了，想着能不能直接给 VSCode 用。</p>
+<p>但是找了半天没发现什么有用的教程，最后在微软官方文档中找到了英文教程，虽然也不是很全面，但入门使用是够了的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Blog/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/24/%E9%98%85%E8%AF%BB-Global-Heating/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -237,10 +349,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-24 17:21:50 / 修改时间：20:53:08" itemprop="dateCreated datePublished" datetime="2020-08-24T17:21:50+08:00">2020-08-24</time>
+              <time title="创建时间：2020-08-24 17:21:50" itemprop="dateCreated datePublished" datetime="2020-08-24T17:21:50+08:00">2020-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-29 16:36:16" itemprop="dateModified" datetime="2020-08-29T16:36:16+08:00">2020-08-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -322,7 +440,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/22/2020-8-22%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -350,7 +468,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-23 20:42:30" itemprop="dateModified" datetime="2020-08-23T20:42:30+08:00">2020-08-23</time>
+                <time title="修改时间：2020-08-25 22:22:32" itemprop="dateModified" datetime="2020-08-25T22:22:32+08:00">2020-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -435,7 +553,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/20/%E4%BB%8A%E6%97%A5%E9%98%85%E8%AF%BB-The-Guardian-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -548,7 +666,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/20/LeetCode-No-136/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -667,7 +785,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/20/%E4%BB%8A%E6%97%A5%E9%98%85%E8%AF%BB-The-Guardian-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -780,7 +898,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -898,7 +1016,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/17/C++%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1010,7 +1128,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/06/%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1121,7 +1239,7 @@
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -1230,124 +1348,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatarS.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">链表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-04 16:47:11" itemprop="dateCreated datePublished" datetime="2020-08-04T16:47:11+08:00">2020-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-22 17:42:35" itemprop="dateModified" datetime="2020-08-22T17:42:35+08:00">2020-08-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>一种内存中不连续的线性结构，但每个元素实例都是单独的对象或节点，元素之间通过指针链接起来。</p>
-<h5 id="参考实现"><a href="#参考实现" class="headerlink" title="参考实现:"></a>参考实现:</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SinglyListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    SinglyListNode *next;</span><br><span class="line">    SinglyListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h2><h3 id="访问结点"><a href="#访问结点" class="headerlink" title="访问结点"></a>访问结点</h3><p>从头部遍历进行访问</p>
-<ul>
-<li><p>无法在常量级时间随机访问</p>
-</li>
-<li><p>最坏情况下时间复杂度O(N)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Blog/2020/08/04/%E9%93%BE%E8%A1%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1410,7 +1410,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Sitch"
-      src="/Blog/images/avatarS.png">
+      src="/Blog/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
@@ -1432,7 +1432,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/Blog/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1443,6 +1443,9 @@
       </span>
       <span class="links-of-author-item">
         <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
       </span>
   </div>
 
@@ -1478,13 +1481,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">157k</span>
+    <span title="站点总字数">164k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:34</span>
+    <span title="站点阅读时长">6:49</span>
 </div>
 
         
@@ -1521,9 +1524,9 @@
   </div>
 
   
-  <script src="/Blog/lib/anime.min.js"></script>
-  <script src="/Blog/lib/velocity/velocity.min.js"></script>
-  <script src="/Blog/lib/velocity/velocity.ui.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 
 <script src="/Blog/js/utils.js"></script>
 
@@ -1592,7 +1595,7 @@
 
 <script>
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
     var GUEST = ['nick', 'mail', 'link'];
     var guest = 'nick,mail,';
     guest = guest.split(',').filter(item => {
@@ -1604,7 +1607,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
       notify     : false,
       appId      : 'PcR31yj1TEn6z0UqyTXNP6NN-gzGzoHsz',
       appKey     : 'LEQbv9t6GJ3BAdMOMXDh0blJ',
-      placeholder: "欢迎用你的脸滚一滚键盘~\n\n需要头像的话，请自己跑一跑注册个Gravatar哈=。=",
+      placeholder: "欢迎用你的脸滚一滚键盘~\n\n支持markdown语法，我的博客里有写语法手册(*￣▽￣*)。（右下角按钮可以预览效果。\n\n需要头像的话，请自己跑一跑注册个Gravatar哈=。=",
       avatar     : 'mm',
       meta       : guest,
       pageSize   : '10' || 10,
