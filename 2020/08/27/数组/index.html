@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="线性表定义和基本操作线性表框架：  顺序存储——顺序表 链式存储： 单链表 双链表 循环链表 静态链表    线性表定义线性表是具有相同数据类型的 n 个数据元素的有限序列。 除第一个元素外，每个元素仅有一个直接前驱。除最后一个元素外，每个元素有且仅有一个直接后继。 线性表特点 逻辑上的顺序性，表中元素有先后次序。 数据类型都相同，每个元素占用存储空间相同 元素个数有限  注意线性表是逻辑结构，其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表">
+<meta property="og:url" content="https://alobal.github.io/2020/08/27/%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="线性表定义和基本操作线性表框架：  顺序存储——顺序表 链式存储： 单链表 双链表 循环链表 静态链表    线性表定义线性表是具有相同数据类型的 n 个数据元素的有限序列。 除第一个元素外，每个元素仅有一个直接前驱。除最后一个元素外，每个元素有且仅有一个直接后继。 线性表特点 逻辑上的顺序性，表中元素有先后次序。 数据类型都相同，每个元素占用存储空间相同 元素个数有限  注意线性表是逻辑结构，其">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-27T06:48:35.000Z">
+<meta property="article:modified_time" content="2020-08-30T05:25:39.121Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="链表">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alobal.github.io/2020/08/27/%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>线性表 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/08/27/%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线性表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-27 14:48:35" itemprop="dateCreated datePublished" datetime="2020-08-27T14:48:35+08:00">2020-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-30 13:25:39" itemprop="dateModified" datetime="2020-08-30T13:25:39+08:00">2020-08-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/27/%E6%95%B0%E7%BB%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/27/%E6%95%B0%E7%BB%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="线性表定义和基本操作"><a href="#线性表定义和基本操作" class="headerlink" title="线性表定义和基本操作"></a>线性表定义和基本操作</h1><p>线性表框架：</p>
+<ul>
+<li>顺序存储——顺序表</li>
+<li>链式存储：<ul>
+<li>单链表</li>
+<li>双链表</li>
+<li>循环链表</li>
+<li>静态链表</li>
+</ul>
+</li>
+</ul>
+<h2 id="线性表定义"><a href="#线性表定义" class="headerlink" title="线性表定义"></a>线性表定义</h2><p>线性表是具有<strong>相同数据类型</strong>的 n 个数据元素的<strong>有限</strong>序列。</p>
+<p>除第一个元素外，每个元素仅有一个直接前驱。除最后一个元素外，每个元素有且仅有一个直接后继。</p>
+<h3 id="线性表特点"><a href="#线性表特点" class="headerlink" title="线性表特点"></a>线性表特点</h3><ul>
+<li>逻辑上的顺序性，表中元素有先后次序。</li>
+<li>数据类型都相同，每个元素占用存储空间相同</li>
+<li>元素个数有限</li>
+</ul>
+<p>注意线性表是逻辑结构，其中元素具有抽象性，仅表示了元素间的逻辑关系，一对一的相邻关系。</p>
+<blockquote>
+<p>线性表是逻辑结构，顺序表和链表是存储结构。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="线性表操作"><a href="#线性表操作" class="headerlink" title="线性表操作"></a>线性表操作</h2><p>增删查改，暂时略。</p>
+<h1 id="线性表的顺序表示——顺序表-数组"><a href="#线性表的顺序表示——顺序表-数组" class="headerlink" title="线性表的顺序表示——顺序表/数组"></a>线性表的顺序表示——顺序表/数组</h1><h2 id="顺序表定义"><a href="#顺序表定义" class="headerlink" title="顺序表定义"></a>顺序表定义</h2><p>线性表的顺序存储——顺序表，它是用一组地址连续的存储单元依次存储线性表中的元素，使逻辑上相邻的两个元素物理上也相邻。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>随机存取</li>
+<li>内存空间连续</li>
+<li>逻辑顺序和物理顺序相同</li>
+</ul>
+<h2 id="顺序表操作"><a href="#顺序表操作" class="headerlink" title="顺序表操作"></a>顺序表操作</h2><h3 id="读取元素"><a href="#读取元素" class="headerlink" title="读取元素"></a>读取元素</h3><ul>
+<li>时间复杂度 O(1)</li>
+</ul>
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p>无序状态下，顺序搜索</p>
+<ul>
+<li>最坏：时间复杂度 O(N)</li>
+<li>最好：O(1)</li>
+</ul>
+<p>有序状态下，考虑二分查找</p>
+<ul>
+<li>时间复杂度 O(log N)</li>
+</ul>
+<h3 id="插入-删除-元素"><a href="#插入-删除-元素" class="headerlink" title="插入/删除 元素"></a>插入/删除 元素</h3><p>尾部操作，无需挪动</p>
+<ul>
+<li>最好：时间复杂度 O(1)</li>
+</ul>
+<p>头部操作，后续全都需要挪动</p>
+<ul>
+<li>最坏： O(N)</li>
+</ul>
+<p>中间操作</p>
+<ul>
+<li>平均： O(N)</li>
+</ul>
+<h2 id="数组补充"><a href="#数组补充" class="headerlink" title="数组补充"></a>数组补充</h2><h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><p>二维数组本质上也是一维数组</p>
+<p>如下例所示：</p>
+<p>可以看到二维数组的第一维存储的是第二维数组首地址。</p>
+<p>且每行的末尾和下一行的开头是连在一起的。</p>
+<p>如下 <code>a[0][1]</code> 后紧接的即是 <code>a[1][0]</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>] = &#123; &#123;<span class="number">0</span>,<span class="number">0</span> &#125;, &#123; <span class="number">0</span>,<span class="number">0</span> &#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; a[<span class="number">0</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;a[<span class="number">1</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;&amp;a[<span class="number">0</span>][<span class="number">0</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;&amp;a[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个 int 占 4 字节，输出如下：00B8FBCC 00B8FBD4 00B8FBCC 00B8FBD0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="一个数组中实现的多重表"><a href="#一个数组中实现的多重表" class="headerlink" title="一个数组中实现的多重表"></a>一个数组中实现的多重表</h3><p>在一个大数组中，维护 front[3],last[3]，每对 front 和 last 分别代表一个线性表的实际区间。</p>
+<p>这样的好处是多个线性表能够共享存储空间，且进行空间扩展和收缩时很方便。</p>
+<p>但是插入操作在最坏情况下的用时会大大增加。</p>
+<h1 id="线性表的链式表示"><a href="#线性表的链式表示" class="headerlink" title="线性表的链式表示"></a>线性表的链式表示</h1><h2 id="单链表定义"><a href="#单链表定义" class="headerlink" title="单链表定义"></a>单链表定义</h2><p>通过一组任意的存储单元来存储线性表中的数据元素，每个链表节点除了元素信息还有后继指针。</p>
+<p><strong>参考实现</strong>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SinglyListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    SinglyListNode *next;</span><br><span class="line">    SinglyListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>可以解决需要大量连续存储空间的问题，但指针域也浪费了一定空间。</li>
+<li>非随机存取</li>
+</ul>
+<h3 id="头节点的引入优点"><a href="#头节点的引入优点" class="headerlink" title="头节点的引入优点"></a>头节点的引入优点</h3><ul>
+<li>使第一个元素和其他元素一样，无需特殊处理。</li>
+<li>无论链表是否为空，头指针都指向头节点，空表和非空表处理统一。</li>
+</ul>
+<h2 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h2><h3 id="头插法-尾插法建链表"><a href="#头插法-尾插法建链表" class="headerlink" title="头插法/尾插法建链表"></a>头插法/尾插法建链表</h3><ul>
+<li>头插法：每次插在第一个元素节点前面。</li>
+<li>尾插法：每次插在最后一个元素后面，需要尾指针维持尾部坐标。</li>
+</ul>
+<h3 id="插入删除与查找节点"><a href="#插入删除与查找节点" class="headerlink" title="插入删除与查找节点"></a>插入删除与查找节点</h3><ul>
+<li>查找时间复杂度 O（n）</li>
+<li>插入删除复杂度 O（1）</li>
+</ul>
+<h2 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h2><p>双链表节点中有两个指针 prior 和 next，分别指向前驱和后继。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DNode</span> * <span class="title">prior</span>,*<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改和访问"><a href="#修改和访问" class="headerlink" title="修改和访问"></a>修改和访问</h3><p>修改时比起单链表还需要维护好前驱节点。</p>
+<p>此时访问一个节点的前驱和后继时间一样。</p>
+<h2 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h2><p>尾节点指针的 next 指向头结点。</p>
+<p>单循环链表和单链表一个结构，双循环链表和双向链表一个结构。</p>
+<h3 id="判空"><a href="#判空" class="headerlink" title="判空"></a>判空</h3><p>此时判空条件不能是判 NULL，而是判是否等于头节点。</p>
+<h3 id="头尾指针"><a href="#头尾指针" class="headerlink" title="头尾指针"></a>头尾指针</h3><p>对循环单链表一般可以直接设尾指针为链表入口，这样可以 O（1）访问到表头表尾。</p>
+<h2 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h2><p>静态链表借助数组来描述链式存储结构。</p>
+<p>结点类型：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">staticLink</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>首先分配一块连续的结点存储空间，其中节点 next 指的是下一个元素所在的数组下标，以-1 作为终结标志。</p>
+<h1 id="顺序表和链表比较"><a href="#顺序表和链表比较" class="headerlink" title="顺序表和链表比较"></a>顺序表和链表比较</h1><h3 id="存取方式"><a href="#存取方式" class="headerlink" title="存取方式"></a>存取方式</h3><ul>
+<li>顺序表：可以随机存取，O（1）</li>
+<li>链表：顺序存取，O（n）</li>
+</ul>
+<h3 id="物理结构"><a href="#物理结构" class="headerlink" title="物理结构"></a>物理结构</h3><ul>
+<li>顺序表：物理存储相邻</li>
+<li>链表：物理不一定相邻</li>
+</ul>
+<h3 id="增删查改操作"><a href="#增删查改操作" class="headerlink" title="增删查改操作"></a>增删查改操作</h3><ul>
+<li>顺序表：有序状态查找 O（log n），无序状态查找 O（n），增删 O（n）</li>
+<li>线性表：查找 O（n），增删 O（1）</li>
+</ul>
+<h3 id="空间分配"><a href="#空间分配" class="headerlink" title="空间分配"></a>空间分配</h3><ul>
+<li>顺序表：容量有限，装满除非移动到新空间，否则不能扩充。</li>
+<li>线性表：容量无限。</li>
+</ul>
+<h3 id="怎么选取存储结构？"><a href="#怎么选取存储结构？" class="headerlink" title="怎么选取存储结构？"></a>怎么选取存储结构？</h3><ul>
+<li>基于存储考虑，容量是否已知。</li>
+<li>基于运算考虑。</li>
+<li>基于环境考虑，顺序表容易实现。</li>
+</ul>
+<h1 id="数组相关算法"><a href="#数组相关算法" class="headerlink" title="数组相关算法"></a>数组相关算法</h1><h2 id="查找两个升序数组的中位数"><a href="#查找两个升序数组的中位数" class="headerlink" title="查找两个升序数组的中位数"></a>查找两个升序数组的中位数</h2><p><a href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">之前的题解分析</a></p>
+<p>遍历找第 k 个数肯定是不行的。确定中位数，即变相要同时划分两个数组，左边所有数小于右边所有数，且数量关系要保持好，这样划分的边界即是中位数。</p>
+<p>划分点的确定可用二分查找，时间 O（log n）。</p>
+<h2 id="找数组中的众数"><a href="#找数组中的众数" class="headerlink" title="找数组中的众数"></a>找数组中的众数</h2><p>排序直接定位数组一半的位置，时间 O（nlogn）。</p>
+<p><a href="https://alobal.github.io/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">两两抵消算法</a>，时间 O（n）</p>
+<h1 id="链表相关算法"><a href="#链表相关算法" class="headerlink" title="链表相关算法"></a>链表相关算法</h1><h2 id="判断链表是否有环"><a href="#判断链表是否有环" class="headerlink" title="判断链表是否有环"></a>判断链表是否有环</h2><p><strong>双指针</strong>————假如有环，快指针将迟早能和慢指针相遇</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span> || head-&gt;next==<span class="literal">NULL</span>)<span class="comment">//空链表或单结点</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    ListNode* fast=head;</span><br><span class="line">    <span class="keyword">while</span>(fast!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//快慢指针移动</span></span><br><span class="line">        fast=fast-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(fast!=<span class="literal">NULL</span>)</span><br><span class="line">            fast=fast-&gt;next;</span><br><span class="line">        head=head-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//检查移动后是否相遇</span></span><br><span class="line">        <span class="keyword">if</span>(fast==head)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="寻找链表环的入口"><a href="#寻找链表环的入口" class="headerlink" title="寻找链表环的入口"></a>寻找链表环的入口</h2><p><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/c-shuang-zhi-zhen-z-by-zrita/" target="_blank" rel="noopener">参考题解</a></p>
+<p><strong>双指针</strong>————同上方法等待快慢指针相遇。</p>
+<h3 id="第一次相遇时："><a href="#第一次相遇时：" class="headerlink" title="第一次相遇时："></a>第一次相遇时：</h3><ul>
+<li>环外距离 out</li>
+<li>环内距离 in</li>
+<li>环长 circle</li>
+<li>慢指针走过的距离：<code>len_s=out+in</code></li>
+<li>快指针走过的距离：<code>len_f= out+in+n*circle</code></li>
+</ul>
+<p>因为<code>len_f=2*len_s</code> 推导出=》<code>len_s=n * circle</code></p>
+<p>此时把快指针置零，快慢指针同时走 out 距离。</p>
+<h3 id="第二次相遇时："><a href="#第二次相遇时：" class="headerlink" title="第二次相遇时："></a>第二次相遇时：</h3><ul>
+<li>慢指针走过的距离：<code>len_s=out</code></li>
+<li>快指针走过的距离：<code>len_f= out+n*circle</code></li>
+</ul>
+<p>即快慢指针在 out 的末端，也就是环的起点相遇，此时找到环入口。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       ListNode* fast=head,*slow=head;</span><br><span class="line">       <span class="keyword">if</span>(fast==<span class="literal">NULL</span> || fast-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">       <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)<span class="comment">//第一次相遇</span></span><br><span class="line">       &#123;</span><br><span class="line">           fast=fast-&gt;next-&gt;next;</span><br><span class="line">           slow=slow-&gt;next;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span>(fast==slow)</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span>(fast!=slow)<span class="comment">//无环</span></span><br><span class="line">           <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//有环</span></span><br><span class="line">       fast=head;</span><br><span class="line">       <span class="keyword">while</span>(fast!=slow)<span class="comment">//第二次相遇</span></span><br><span class="line">       &#123;</span><br><span class="line">           fast=fast-&gt;next;</span><br><span class="line">           slow=slow-&gt;next;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> slow;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h2><p>不断将 head 后一个移到头部去。</p>
+<p>利用一个 root 维护头部</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode* root=<span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    root-&gt;next=head;</span><br><span class="line">    <span class="keyword">while</span>(head &amp;&amp; head-&gt;next)</span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* temp=head-&gt;next;<span class="comment">//[1,2,3] </span></span><br><span class="line">        head-&gt;next=temp-&gt;next;<span class="comment">//1 接上 2 的后续</span></span><br><span class="line"></span><br><span class="line">        temp-&gt;next=root-&gt;next;<span class="comment">//2 连上 头结点</span></span><br><span class="line">        root-&gt;next=temp;<span class="comment">//2 作为新的头结点</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h2><p>找出两个链表的交点并返回</p>
+<p>容易知道用存储 map 做，但是需要较大存储空间</p>
+<p>假设：</p>
+<ul>
+<li>链表 A 长度为 a，独有部分长度为 c。</li>
+<li>链表 B 长度为 b，独有部分长度为 d。</li>
+</ul>
+<p>可以知道<code>a-c=b-d</code>，变换一下则是<code>a+d=b+c</code>。</p>
+<p>即一个指针走完 A，再去走 B 的独有部分，和另一个指针走完 B，再去走 A 的独有部分，所需步数是相同的。</p>
+<p>换句话说，两个指针同时开始走，走到 NULL 就切换到隔壁链表上走，此时两个指针对于交点是同距离的。</p>
+<p>继续同步走，双指针必然同时遇到交点，一直走到 NULL 还没同时遇到则不存在交点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode* rootA=headA,*rootB=headB;</span><br><span class="line">    <span class="comment">//注意移动和跳转的顺序 是先跳到 root 再移动？还是用跳跃取代移动？</span></span><br><span class="line">    <span class="keyword">while</span>(headA!=headB)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(headA==<span class="literal">NULL</span>) </span><br><span class="line">            headA=rootB;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            headA=headA-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(headB==<span class="literal">NULL</span>) </span><br><span class="line">            headB=rootA;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            headB=headB-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(headA==headB)</span><br><span class="line">        <span class="keyword">return</span> headA;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E7%BB%84/" rel="tag"># 数组</a>
+              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/" rel="prev" title="Hexo Github+Codin 双线部署">
+      <i class="fa fa-chevron-left"></i> Hexo Github+Codin 双线部署
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/28/Indian-COVID-19/" rel="next" title="阅读：Indian COVID-19">
+      阅读：Indian COVID-19 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性表定义和基本操作"><span class="nav-number">1.</span> <span class="nav-text">线性表定义和基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表定义"><span class="nav-number">1.1.</span> <span class="nav-text">线性表定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">线性表特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表操作"><span class="nav-number">1.2.</span> <span class="nav-text">线性表操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性表的顺序表示——顺序表-数组"><span class="nav-number">2.</span> <span class="nav-text">线性表的顺序表示——顺序表&#x2F;数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表定义"><span class="nav-number">2.1.</span> <span class="nav-text">顺序表定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.1.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序表操作"><span class="nav-number">2.2.</span> <span class="nav-text">顺序表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取元素"><span class="nav-number">2.2.1.</span> <span class="nav-text">读取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找元素"><span class="nav-number">2.2.2.</span> <span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入-删除-元素"><span class="nav-number">2.2.3.</span> <span class="nav-text">插入&#x2F;删除 元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组补充"><span class="nav-number">2.3.</span> <span class="nav-text">数组补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组"><span class="nav-number">2.3.1.</span> <span class="nav-text">二维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个数组中实现的多重表"><span class="nav-number">2.3.2.</span> <span class="nav-text">一个数组中实现的多重表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性表的链式表示"><span class="nav-number">3.</span> <span class="nav-text">线性表的链式表示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单链表定义"><span class="nav-number">3.1.</span> <span class="nav-text">单链表定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#头节点的引入优点"><span class="nav-number">3.1.2.</span> <span class="nav-text">头节点的引入优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单链表操作"><span class="nav-number">3.2.</span> <span class="nav-text">单链表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#头插法-尾插法建链表"><span class="nav-number">3.2.1.</span> <span class="nav-text">头插法&#x2F;尾插法建链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入删除与查找节点"><span class="nav-number">3.2.2.</span> <span class="nav-text">插入删除与查找节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双链表"><span class="nav-number">3.3.</span> <span class="nav-text">双链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改和访问"><span class="nav-number">3.3.1.</span> <span class="nav-text">修改和访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环链表"><span class="nav-number">3.4.</span> <span class="nav-text">循环链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判空"><span class="nav-number">3.4.1.</span> <span class="nav-text">判空</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#头尾指针"><span class="nav-number">3.4.2.</span> <span class="nav-text">头尾指针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态链表"><span class="nav-number">3.5.</span> <span class="nav-text">静态链表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序表和链表比较"><span class="nav-number">4.</span> <span class="nav-text">顺序表和链表比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#存取方式"><span class="nav-number">4.0.1.</span> <span class="nav-text">存取方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理结构"><span class="nav-number">4.0.2.</span> <span class="nav-text">物理结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增删查改操作"><span class="nav-number">4.0.3.</span> <span class="nav-text">增删查改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间分配"><span class="nav-number">4.0.4.</span> <span class="nav-text">空间分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么选取存储结构？"><span class="nav-number">4.0.5.</span> <span class="nav-text">怎么选取存储结构？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组相关算法"><span class="nav-number">5.</span> <span class="nav-text">数组相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找两个升序数组的中位数"><span class="nav-number">5.1.</span> <span class="nav-text">查找两个升序数组的中位数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找数组中的众数"><span class="nav-number">5.2.</span> <span class="nav-text">找数组中的众数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表相关算法"><span class="nav-number">6.</span> <span class="nav-text">链表相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断链表是否有环"><span class="nav-number">6.1.</span> <span class="nav-text">判断链表是否有环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找链表环的入口"><span class="nav-number">6.2.</span> <span class="nav-text">寻找链表环的入口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一次相遇时："><span class="nav-number">6.2.1.</span> <span class="nav-text">第一次相遇时：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二次相遇时："><span class="nav-number">6.2.2.</span> <span class="nav-text">第二次相遇时：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻转链表"><span class="nav-number">6.3.</span> <span class="nav-text">翻转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相交链表"><span class="nav-number">6.4.</span> <span class="nav-text">相交链表</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
+    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=0&height=66"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">170k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'PcR31yj1TEn6z0UqyTXNP6NN-gzGzoHsz',
+      appKey     : 'LEQbv9t6GJ3BAdMOMXDh0blJ',
+      placeholder: "欢迎用你的脸滚一滚键盘~\n\n支持markdown语法，我的博客里有写语法手册(*￣▽￣*)。（右下角按钮可以预览效果。\n\n需要头像的话，请自己跑一跑注册个Gravatar哈=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
+
+<!--崩溃欺骗-->
+
+

@@ -5,37 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.2.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/Blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
-  <meta name="baidu-site-verification" content="ftT0yo0B9v">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
 
-<link rel="stylesheet" href="/Blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alobal.github.io","root":"/Blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"alobal.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="一维数组计算机会在内存中申请一段连续的空间，并且返回索引为 0 处的地址作为数组名。 数组操作读取元素通过访问下标索引实现，索引一般从 0 开始。一般数组名是数组首元素地址。 元素地址&#x3D;数组首地址+偏移量  时间复杂度 O(1)  查找元素无序状态下，顺序搜索  时间复杂度 O(N)  有序状态下，考虑二分查找  时间复杂度 O(log N)  插入&#x2F;删除 元素插入&#x2F;删除 数组末尾空白位置，直接下">
+  <meta name="description" content="起因本来在【关于】页挂了个终末之诗，觉得写得很好想分享出去看看。 结果别说看了，别人打开 GitHub 部署的静态网页完全就是 404！用久了传送门都忘掉了 GitHub 是带墙的 … 只能保存了个没有样式的 html 发过去。  一开始还以为是个别连不上，因为我自己裸连虽然慢了点也能上。后来发现好像是因为上海的网墙矮一点？？之前在上海也是能裸连 R6 服务器，回江西那是完全登不上的那种。  所以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组">
-<meta property="og:url" content="https://alobal.github.io/Blog/2020/08/04/%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:title" content="Hexo Github+Codin 双线部署">
+<meta property="og:url" content="https://alobal.github.io/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="一维数组计算机会在内存中申请一段连续的空间，并且返回索引为 0 处的地址作为数组名。 数组操作读取元素通过访问下标索引实现，索引一般从 0 开始。一般数组名是数组首元素地址。 元素地址&#x3D;数组首地址+偏移量  时间复杂度 O(1)  查找元素无序状态下，顺序搜索  时间复杂度 O(N)  有序状态下，考虑二分查找  时间复杂度 O(log N)  插入&#x2F;删除 元素插入&#x2F;删除 数组末尾空白位置，直接下">
+<meta property="og:description" content="起因本来在【关于】页挂了个终末之诗，觉得写得很好想分享出去看看。 结果别说看了，别人打开 GitHub 部署的静态网页完全就是 404！用久了传送门都忘掉了 GitHub 是带墙的 … 只能保存了个没有样式的 html 发过去。  一开始还以为是个别连不上，因为我自己裸连虽然慢了点也能上。后来发现好像是因为上海的网墙矮一点？？之前在上海也是能裸连 R6 服务器，回江西那是完全登不上的那种。  所以">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-04T06:48:35.000Z">
-<meta property="article:modified_time" content="2020-08-29T08:36:16.461Z">
+<meta property="article:published_time" content="2020-08-27T01:56:41.000Z">
+<meta property="article:modified_time" content="2020-08-30T05:25:39.092Z">
 <meta property="article:author" content="Sitch">
-<meta property="article:tag" content="数组">
+<meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://alobal.github.io/Blog/2020/08/04/%E6%95%B0%E7%BB%84/">
+<link rel="canonical" href="https://alobal.github.io/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>数组 | Sitch's Blog</title>
+  <title>Hexo Github+Codin 双线部署 | Sitch's Blog</title>
   
 
 
@@ -106,7 +106,7 @@
 
   <div class="site-meta">
 
-    <a href="/Blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">Sitch's Blog</h1>
       <span class="logo-line-after"><i></i></span>
@@ -127,37 +127,37 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/Blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/Blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/Blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/Blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/Blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-movies">
 
-    <a href="/Blog/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
 
   </li>
         <li class="menu-item menu-item-games">
 
-    <a href="/Blog/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -216,10 +216,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/Blog/2020/08/04/%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Sitch">
       <meta itemprop="description" content="做好自己的现在">
     </span>
@@ -229,7 +229,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数组
+          Hexo Github+Codin 双线部署
         </h1>
 
         <div class="post-meta">
@@ -239,14 +239,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-04 14:48:35" itemprop="dateCreated datePublished" datetime="2020-08-04T14:48:35+08:00">2020-08-04</time>
+              <time title="创建时间：2020-08-27 09:56:41" itemprop="dateCreated datePublished" datetime="2020-08-27T09:56:41+08:00">2020-08-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-29 16:36:16" itemprop="dateModified" datetime="2020-08-29T16:36:16+08:00">2020-08-29</time>
+                <time title="修改时间：2020-08-30 13:25:39" itemprop="dateModified" datetime="2020-08-30T13:25:39+08:00">2020-08-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +254,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/Blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
@@ -274,8 +274,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/Blog/2020/08/04/%E6%95%B0%E7%BB%84/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Blog/2020/08/04/%E6%95%B0%E7%BB%84/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -285,14 +285,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>809</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -304,43 +304,44 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h1><p>计算机会在内存中申请一段连续的空间，并且返回索引为 0 处的地址作为数组名。</p>
-<h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="读取元素"><a href="#读取元素" class="headerlink" title="读取元素"></a>读取元素</h3><p>通过访问下标索引实现，索引一般从 0 开始。一般数组名是数组首元素地址。</p>
-<p>元素地址=数组首地址+偏移量</p>
-<ul>
-<li>时间复杂度 O(1)</li>
-</ul>
-<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p>无序状态下，顺序搜索</p>
-<ul>
-<li>时间复杂度 O(N)</li>
-</ul>
-<p>有序状态下，考虑二分查找</p>
-<ul>
-<li>时间复杂度 O(log N)</li>
-</ul>
-<h3 id="插入-删除-元素"><a href="#插入-删除-元素" class="headerlink" title="插入/删除 元素"></a>插入/删除 元素</h3><p>插入/删除 数组末尾空白位置，直接下标访问</p>
-<ul>
-<li>时间复杂度 O(1)</li>
-</ul>
-<p>在中间 插入/删除，考虑数组是否有多余空间，然后还需要移动 前/后 元素</p>
-<ul>
-<li>时间复杂度 O(N)</li>
-</ul>
-<h1 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h1><p>二维数组本质上也是一维数组</p>
-<p>如下例所示：</p>
-<p>可以看到二维数组的第一维存储的是第二维数组首地址。</p>
-<p>且每行的末尾和下一行的开头是连在一起的。</p>
-<p>如下 <code>a[0][1]</code> 后紧接的即是 <code>a[1][0]</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">2</span>] = &#123; &#123;<span class="number">0</span>,<span class="number">0</span> &#125;, &#123; <span class="number">0</span>,<span class="number">0</span> &#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; a[<span class="number">0</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;a[<span class="number">1</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;&amp;a[<span class="number">0</span>][<span class="number">0</span>]&lt;&lt;<span class="string">" "</span>&lt;&lt;&amp;a[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个 int 占 4 字节，输出如下：00B8FBCC 00B8FBD4 00B8FBCC 00B8FBD0</span></span><br></pre></td></tr></table></figure>
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>本来在【关于】页挂了个终末之诗，觉得写得很好想分享出去看看。</p>
+<p>结果别说看了，别人打开 GitHub 部署的静态网页完全就是 404！用久了传送门都忘掉了 GitHub 是带墙的 … 只能保存了个没有样式的 html 发过去。</p>
+<blockquote>
+<p>一开始还以为是个别连不上，因为我自己裸连虽然慢了点也能上。后来发现好像是因为上海的网墙矮一点？？之前在上海也是能裸连 R6 服务器，回江西那是完全登不上的那种。</p>
+</blockquote>
+<p>所以想着再在国内代码托管平台部署一个了。毕竟虽然没有人看，但偶尔想分享的时候也太不方便了= =</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>单独配置其中任何一个平台的话，在前面的博客里写的很详细了，默认已经配置好了 GitHub 哈，介绍一些双线部署的小问题。</p>
+<a id="more"></a>
 
-<h1 id="一个数组中实现的多重表"><a href="#一个数组中实现的多重表" class="headerlink" title="一个数组中实现的多重表"></a>一个数组中实现的多重表</h1><p>在一个大数组中，维护 front[3],last[3]，每对 front 和 last 分别代表一个线性表的实际区间。</p>
-<p>这样的好处是多个线性表能够共享存储空间，且进行空间扩展和收缩时很方便。</p>
-<p>但是插入操作在最坏情况下的用时会大大增加。</p>
-<h1 id="相关算法"><a href="#相关算法" class="headerlink" title="相关算法"></a>相关算法</h1><h2 id="查找两个升序数组的中位数"><a href="#查找两个升序数组的中位数" class="headerlink" title="查找两个升序数组的中位数"></a>查找两个升序数组的中位数</h2><p><a href="https://alobal.github.io/Blog/2020/02/17/LeetCode-No-4-/">之前的题解分析</a></p>
-<p>遍历找第 k 个数肯定是不行的。确定中位数，即变相要同时划分两个数组，左边所有数小于右边所有数，且数量关系要保持好，这样划分的边界即是中位数。</p>
-<p>划分点的确定可用二分查找，时间 O（log n）。</p>
-<h2 id="找数组中的众数"><a href="#找数组中的众数" class="headerlink" title="找数组中的众数"></a>找数组中的众数</h2><p>排序直接定位数组一半的位置，时间 O（nlogn）。</p>
-<p><a href="https://alobal.github.io/Blog/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">两两抵消算法</a>，时间 O（n）</p>
+<h3 id="hexo-config-yml-配置"><a href="#hexo-config-yml-配置" class="headerlink" title="hexo _config.yml 配置"></a>hexo _config.yml 配置</h3><p>这里主要注意 deploy 字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>要同时往两个仓库部署，需要用<code>-</code>号语法。同时请注意严格遵守缩进规则。</p>
+<h3 id="Coding-配置"><a href="#Coding-配置" class="headerlink" title="Coding 配置"></a>Coding 配置</h3><p>注意 Coding 新建一个仓库后，默认是没有打开部署服务的。因此要去 <code>项目设置-&gt;项目与成员-&gt;功能开关-&gt;持续部署</code>这里开启静态页面相关功能。</p>
+<p>之后可以在仓库的<strong>持续部署</strong>下找到静态网站功能了。去网站设置里保存一下相关设置即可，最好能打开强制 HTTPS。</p>
+<blockquote>
+<p>至于其他博客说的什么仓库名项目名网站名要和用户名一样，我是没感觉到有必要性 … 毕竟名字至少肯定不影响 push，而静态网页的地址最后都是分配的”.com”网址，也想不出和名字有啥关系。</p>
+</blockquote>
+<h3 id="GitHub-和-Coding-的路由区别"><a href="#GitHub-和-Coding-的路由区别" class="headerlink" title="GitHub 和 Coding 的路由区别"></a>GitHub 和 Coding 的路由区别</h3><p>如果之前在 GitHub 随便创个普通仓库部署的静态网页，这时候就会出现问题。我后来才知道，GitHub Pages 分个人主页和项目主页：</p>
+<ul>
+<li>个人主页 user.github.io</li>
+<li>项目主页 user.github.io/xxxx</li>
+</ul>
+<p>普通仓库的 GitHub Pages 是项目主页，因此网址是次级网址，再加上之前在 hexo 配置的<code>root</code>相关字段，hexo 加载资源什么的都是以 “/xxxx” 为根目录去查找的。</p>
+<p>然而 Coding 给的是一级域名，此时部署到 Coding 的页面也是会以“/xxxx”为根目录进行加载资源，显然就会出错了，直接体现就是 main.css 无法加载，F12 调试看可以发现是 main.css 的路径错误。</p>
+<p>然而在没有自定义域名的情况下，两边都不允许更换主次级域名，这时候发现GitHub有分*<em>个人主页</em>这个东西 …</p>
+<h3 id="GitHub-个人主页-顶级网址"><a href="#GitHub-个人主页-顶级网址" class="headerlink" title="GitHub 个人主页 顶级网址"></a>GitHub 个人主页 顶级网址</h3><p>普通的仓库名建出来的都是项目主页，是次级网址。GitHub有两个仓库名比较特殊：</p>
+<ul>
+<li>user 这个是彩蛋仓库，它的readme.md会显示在GitHub个人资料页</li>
+<li>user.github.io 这个是我们要的，顶级网址仓库。</li>
+</ul>
+<p>创建名为<code>user.github.io</code>的仓库，user 是账户名，比如我需要的仓库名就是 alobal.github.io</p>
+<p>此时去开启GitHub Pages 可以发现域名就是 user.github.io 了，重新调整hexo对GitHub的相关部署即可。</p>
+<blockquote>
+<p>记得hexo _config.yml 中设置 <code>root: /</code>。</p>
+</blockquote>
+<h3 id="成功部署"><a href="#成功部署" class="headerlink" title="成功部署"></a>成功部署</h3><p>调整相关配置和仓库后，可以轻松验证两边都配置成功了。当然，如果你删了GitHub的旧仓库，假如以前有页间引用的绝对路径链接..此时都会失效。自己酌情考虑要不要清空吧。</p>
+<p>另外hexo _config.yml中有一个 url 字段，设置的是网页访问网址，而且好像只能设置一个，但又没影响双线不同网址的部署，不知道有什么用= =可能是作为一种可选引用变量吧</p>
 
     </div>
 
@@ -350,7 +351,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/Blog/tags/%E6%95%B0%E7%BB%84/" rel="tag"># 数组</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
           </div>
 
         
@@ -359,12 +360,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Blog/2020/07/31/LeetCode-No-221/" rel="prev" title="LeetCode No.221">
-      <i class="fa fa-chevron-left"></i> LeetCode No.221
+    <a href="/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/" rel="prev" title="VSCode 配置 Microsoft C++">
+      <i class="fa fa-chevron-left"></i> VSCode 配置 Microsoft C++
     </a></div>
       <div class="post-nav-item">
-    <a href="/Blog/2020/08/04/%E5%8F%8C%E6%8C%87%E9%92%88%E7%AE%97%E6%B3%95/" rel="next" title="双指针算法">
-      双指针算法 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/27/%E6%95%B0%E7%BB%84/" rel="next" title="线性表">
+      线性表 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -425,34 +426,34 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一维数组"><span class="nav-number">1.</span> <span class="nav-text">一维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组操作"><span class="nav-number">1.1.</span> <span class="nav-text">数组操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取元素"><span class="nav-number">1.1.1.</span> <span class="nav-text">读取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找元素"><span class="nav-number">1.1.2.</span> <span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入-删除-元素"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入&#x2F;删除 元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二维数组"><span class="nav-number">2.</span> <span class="nav-text">二维数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个数组中实现的多重表"><span class="nav-number">3.</span> <span class="nav-text">一个数组中实现的多重表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关算法"><span class="nav-number">4.</span> <span class="nav-text">相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找两个升序数组的中位数"><span class="nav-number">4.1.</span> <span class="nav-text">查找两个升序数组的中位数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找数组中的众数"><span class="nav-number">4.2.</span> <span class="nav-text">找数组中的众数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-config-yml-配置"><span class="nav-number">2.1.</span> <span class="nav-text">hexo _config.yml 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coding-配置"><span class="nav-number">2.2.</span> <span class="nav-text">Coding 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-和-Coding-的路由区别"><span class="nav-number">2.3.</span> <span class="nav-text">GitHub 和 Coding 的路由区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-个人主页-顶级网址"><span class="nav-number">2.4.</span> <span class="nav-text">GitHub 个人主页 顶级网址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成功部署"><span class="nav-number">2.5.</span> <span class="nav-text">成功部署</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Sitch"
-      src="/Blog/images/avatar.jpg">
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Sitch</p>
   <div class="site-description" itemprop="description">做好自己的现在</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/Blog/archives/">
+          <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/Blog/categories/">
+            <a href="/categories/">
           
         <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/Blog/tags/">
+            <a href="/tags/">
           
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
@@ -503,13 +504,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">164k</span>
+    <span title="站点总字数">170k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:49</span>
+    <span title="站点阅读时长">7:04</span>
 </div>
 
         
@@ -550,15 +551,15 @@
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 
-<script src="/Blog/js/utils.js"></script>
+<script src="/js/utils.js"></script>
 
-<script src="/Blog/js/motion.js"></script>
-
-
-<script src="/Blog/js/schemes/pisces.js"></script>
+<script src="/js/motion.js"></script>
 
 
-<script src="/Blog/js/next-boot.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -594,7 +595,7 @@
 
 
   
-<script src="/Blog/js/local-search.js"></script>
+<script src="/js/local-search.js"></script>
 
 
 
