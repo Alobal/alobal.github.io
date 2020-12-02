@@ -214,7 +214,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-60/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -228,7 +228,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">上海车牌价格数据挖掘</a>
+            <a href="/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
         </h2>
 
         <div class="post-meta">
@@ -245,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:19:52" itemprop="dateModified" datetime="2020-07-17T11:19:52+08:00">2020-07-17</time>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -266,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E4%B8%8A%E6%B5%B7%E8%BD%A6%E7%89%8C%E4%BB%B7%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-60/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-60/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -277,536 +277,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1.导入数据"></a>1.导入数据</h3><h5 id="1-1-数据格式如图"><a href="#1-1-数据格式如图" class="headerlink" title="1.1 数据格式如图:"></a>1.1 数据格式如图:</h5><p><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvc65uj20j706aglw.jpg" alt="数据"></p>
-<h5 id="1-2-pd-read-csv-注意读取的csv文件的编码"><a href="#1-2-pd-read-csv-注意读取的csv文件的编码" class="headerlink" title="1.2 pd.read_csv() 注意读取的csv文件的编码"></a>1.2 pd.read_csv() 注意读取的csv文件的编码</h5><h5 id="1-3-注意到时间数据是字符串-想办法转换为date格式"><a href="#1-3-注意到时间数据是字符串-想办法转换为date格式" class="headerlink" title="1.3 注意到时间数据是字符串, 想办法转换为date格式:"></a>1.3 注意到时间数据是字符串, 想办法转换为date格式:</h5><p>查询到了pd.to_datetime()可识别大多数日期格式, 但是是要完整的年月日都有, 否则会error.<br>因此先给所有的日期加一个<code>&quot;1-&quot;</code> , 反正对我们按月分析也影响不大</p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">from pylab import *</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from dateutil.parser import parse</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">df&#x3D;pd.read_csv(&quot;.&#x2F;上海车牌价格.csv&quot;)</span><br><span class="line"># 整理时间数据类型</span><br><span class="line">for i in range(0,len(df)):</span><br><span class="line">    df.loc[i,&#39;Date&#39;]&#x3D;&quot;1-&quot;+df.iloc[i][&#39;Date&#39;]</span><br><span class="line">df[&#39;Date&#39;]&#x3D;pd.to_datetime(df[&#39;Date&#39;])</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-制作概览图"><a href="#2-制作概览图" class="headerlink" title="2. 制作概览图"></a>2. 制作概览图</h1><h5 id="2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图"><a href="#2-1-刚拿到数据-先尽可能地观察一下全局-所以我制作了全属性随时间分布的图" class="headerlink" title="2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:"></a>2.1 刚拿到数据, 先尽可能地观察一下全局, 所以我制作了全属性随时间分布的图:</h5><p>plt.figure 调整画布大小<br>plot画折线图<br>scatter画散点图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],df_nom[&#39;avg price&#39;],lw&#x3D;5)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;lowest price &#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Rate&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of license issued&#39;],s&#x3D;20)</span><br><span class="line">scatter(df[&#39;Date&#39;],df_nom[&#39;Total number of applicants&#39;],s&#x3D;20)</span><br><span class="line">plt.legend([&#39;avg&#39;,&#39;low&#39;,&#39;rate&#39;,&#39;issued&#39;,&#39;apply&#39;])</span><br></pre></td></tr></table></figure>
-<p>效果如下: <img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuvhugij20ik0b6t8s.jpg" alt="原杂交图"></p>
-<h5 id="2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理"><a href="#2-2-发现这个图不太对劲-y轴值高的那个属性完全支配了整张图-看不出其他属性的变化-因此要进行归一化处理" class="headerlink" title="2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:"></a>2.2 发现这个图不太对劲, y轴值高的那个属性完全支配了整张图, 看不出其他属性的变化, 因此要进行归一化处理:</h5><p>即把除时间外, 所有属性缩放到[0,1]区间:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df_nom&#x3D;df.iloc[:,1:].apply(lambda x: (x - np.min(x)) &#x2F; (np.max(x) - np.min(x)))</span><br></pre></td></tr></table></figure>
-<p>然后进行制图, 效果如下:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuv3hgjj20kv0fsjrx.jpg" alt="新杂交图"></p>
-<h1 id="3-制作各属性与平均价格的相关图"><a href="#3-制作各属性与平均价格的相关图" class="headerlink" title="3. 制作各属性与平均价格的相关图"></a>3. 制作各属性与平均价格的相关图</h1><h5 id="3-1-最低价格与平均价格"><a href="#3-1-最低价格与平均价格" class="headerlink" title="3.1 最低价格与平均价格:"></a>3.1 最低价格与平均价格:</h5><p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwc53j20lp0gfweg.jpg" alt="x-最低价格 y-平均价格"></p>
-<h5 id="3-2-供需比与平均价格"><a href="#3-2-供需比与平均价格" class="headerlink" title="3.2 供需比与平均价格:"></a>3.2 供需比与平均价格:</h5><p>注意使用plt.subplot在一张图上创建子图<br><strong>subplot(mni) 将整图划分为m行n列, 下张图取从左到右, 从上往下 第 i 块区域</strong><br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggtsuuwo3tj20m60g2t94.jpg" alt="左上 供-价格, 右上 需-价格, 下 供需比-价格"></p>
-<h1 id="4-多项式拟合-试探时间与价格的关系"><a href="#4-多项式拟合-试探时间与价格的关系" class="headerlink" title="4. 多项式拟合 试探时间与价格的关系:"></a>4. 多项式拟合 试探时间与价格的关系:</h1><h5 id="4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据"><a href="#4-1-要拿时间拟合-时间数据肯定要是实数才行-因此先转换时间数据" class="headerlink" title="4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:"></a>4.1 要拿时间拟合, 时间数据肯定要是实数才行, 因此先转换时间数据:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">totalx&#x3D;np.arange(0,len(df[&quot;Date&quot;]),1)# 时间转换为0 ,1 ,2 ,3 ...len-1 的数组</span><br><span class="line">trainx&#x3D;totalx[:-12]</span><br><span class="line">testx&#x3D;totalx[-12:]</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集"><a href="#4-2-拟合之和还需要检验-因此要划分测试集和训练集-这里我取了最后一年的数据为测试集" class="headerlink" title="4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:"></a>4.2 拟合之和还需要检验, 因此要划分测试集和训练集, 这里我取了最后一年的数据为测试集:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traindf&#x3D;df[:-12][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br><span class="line">testdf&#x3D;df[-12:][[&#39;Date&#39;,&#39;avg price&#39;]]</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-多项式拟合"><a href="#4-3-多项式拟合" class="headerlink" title="4.3 多项式拟合:"></a>4.3 多项式拟合:</h5><p>np.polyfit(x,y,n):<br>x横坐标数组, 只能是一个维度<br>y目标值数组<br>n多项式最高系数, 显然越高对训练集拟合越高, 也越容易过拟合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x&#x3D;np.array(trainx)</span><br><span class="line">y&#x3D;np.array(traindf[&#39;avg price&#39;])</span><br><span class="line">p&#x3D;np.poly1d(np.polyfit(x,y,4))</span><br></pre></td></tr></table></figure>
-
-<h6 id="4-5-制图观察效果-同时用r2检验评估"><a href="#4-5-制图观察效果-同时用r2检验评估" class="headerlink" title="4.5 制图观察效果, 同时用r2检验评估:"></a>4.5 制图观察效果, 同时用r2检验评估:</h6><p><strong>r2检验:</strong>  体现拟合效果, 意义: 真实数据波动是否能被拟合数据解释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 制图</span><br><span class="line">plot(df[&#39;Date&#39;],df[&#39;avg price&#39;])</span><br><span class="line">plot(df[&#39;Date&#39;],p(totalx),c&#x3D;&#39;r&#39;)</span><br><span class="line"></span><br><span class="line"># r2检验</span><br><span class="line">checky&#x3D;np.array(testdf[&#39;avg price&#39;])</span><br><span class="line">print(&quot;in test r2_score: &quot;,r2_score(checky,p(testx)))</span><br><span class="line">print(&quot;in train r2_score: &quot;,r2_score(y,p(trainx)))</span><br></pre></td></tr></table></figure>
-
-<p>效果图:<br><img src="https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuuof94j20xc099gm7.jpg" alt="分别4,3,2 次的多项式拟合"></p>
-<h1 id="5-线性回归"><a href="#5-线性回归" class="headerlink" title="5. 线性回归:"></a>5. 线性回归:</h1><h5 id="1-线性回归即用1次多系数的多项式拟合Y"><a href="#1-线性回归即用1次多系数的多项式拟合Y" class="headerlink" title="1. 线性回归即用1次多系数的多项式拟合Y"></a>1. 线性回归即用1次多系数的多项式拟合Y</h5><p>$$Y=a_0+a_1x_1+a_2x_2….+a_nx_n$$</p>
-<h5 id="2-同样划分测试训练集-然后使用fit进行拟合"><a href="#2-同样划分测试训练集-然后使用fit进行拟合" class="headerlink" title="2. 同样划分测试训练集, 然后使用fit进行拟合:"></a>2. 同样划分测试训练集, 然后使用fit进行拟合:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 线性回归</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"># 数据导入</span><br><span class="line">feature_cols&#x3D;[&#39;Total number of license issued&#39;,&#39;Total number of applicants&#39;]</span><br><span class="line">x&#x3D;df[feature_cols]</span><br><span class="line">y&#x3D;df[&#39;avg price&#39;]</span><br><span class="line">x[&#39;time&#39;]&#x3D;totalx</span><br><span class="line"># 数据分割测试集和训练集</span><br><span class="line">x_train&#x3D;x[:-48]</span><br><span class="line">x_test&#x3D;x[-48:]</span><br><span class="line">y_train&#x3D;y[:-48]</span><br><span class="line">y_test&#x3D;y[-48:]</span><br><span class="line">linreg&#x3D;LinearRegression()</span><br><span class="line">linreg.fit(x_train,y_train)</span><br><span class="line"></span><br><span class="line"># 观察线性回归模型系数</span><br><span class="line">print (linreg.intercept_)</span><br><span class="line">print(linreg.coef_)</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-制图观察效果"><a href="#3-制图观察效果" class="headerlink" title="3. 制图观察效果:"></a>3. 制图观察效果:</h5><p><strong>linreg.predict(x) 计算x的预测值</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 检验线性回归</span><br><span class="line">from sklearn import metrics</span><br><span class="line">y_pre&#x3D;linreg.predict(x_test)</span><br><span class="line">print(metrics.r2_score(y_test,y_pre))</span><br><span class="line"></span><br><span class="line">y_pred&#x3D;linreg.predict(x)</span><br><span class="line">plt.figure(figsize&#x3D;[12.8,9.6])</span><br><span class="line">plot(df[&#39;Date&#39;],y_pred,lw&#x3D;3)</span><br><span class="line">plot(df[:-48][&#39;Date&#39;],df[:-48][&#39;avg price&#39;])</span><br><span class="line">plot(df[-48:][&#39;Date&#39;],df[-48:][&#39;avg price&#39;])</span><br><span class="line">plt.legend([&quot;Predict&quot;,&quot;Train Origin&quot;,&quot;Test Origin&quot;])</span><br></pre></td></tr></table></figure>
-
-<p>效果如下:<br><img src="https://wx2.sinaimg.cn/mw1024/b8e57787gy1ggtsuuox3wj20kk0et3yn.jpg" alt="线性回归拟合"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" class="post-title-link" itemprop="url">决策树——录用决策</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:23:53" itemprop="dateModified" datetime="2020-07-17T11:23:53+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E5%86%B3%E7%AD%96%E6%A0%91%E2%80%94%E2%80%94%E5%BD%95%E7%94%A8%E5%86%B3%E7%AD%96/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="决策树——录用决策"><a href="#决策树——录用决策" class="headerlink" title="决策树——录用决策"></a>决策树——录用决策</h1><h3 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1. 准备数据"></a>1. 准备数据</h3><ul>
-<li><h3 id="pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题"><a href="#pd-read-csv-filepath-header-0-header-i表明用文件第i行数据当标题" class="headerlink" title="pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题"></a>pd.read_csv(filepath,header=0) header=i表明用文件第i行数据当标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from sklearn import tree</span><br><span class="line"></span><br><span class="line">input_file&#x3D;&#39;D:\Download\DataScienceCourse\PastHires.csv&#39;</span><br><span class="line">df&#x3D;pd.read_csv(input_file,header&#x3D;0)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
-<br/>
-###       df.head()结果视图:
-![数据示例](https://wx4.sinaimg.cn/mw1024/b8e57787gy1ggtsuvmk0hj20kc05b3yf.jpg)
-<br/>
-###    2. 整理数据</li>
-<li><h3 id="sklearn-要求属性都是数值型-所以要转化整理数据"><a href="#sklearn-要求属性都是数值型-所以要转化整理数据" class="headerlink" title="sklearn 要求属性都是数值型,所以要转化整理数据"></a>sklearn 要求属性都是数值型,所以要转化整理数据</h3></li>
-<li><h3 id="dataframe-map-function-dict-用传参处理dataframe的values-经测试不处理index"><a href="#dataframe-map-function-dict-用传参处理dataframe的values-经测试不处理index" class="headerlink" title="dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index"></a>dataframe.map(function/dict) 用传参处理dataframe的values,经测试不处理index</h3></li>
-<li><h3 id="联想到之前的练习-可以用dataframe-‘colum’-pandas-Categorical-dataframe-‘colum’-codes-自动编码-返回Categorical类型-也可以直接赋值给dataframe的列"><a href="#联想到之前的练习-可以用dataframe-‘colum’-pandas-Categorical-dataframe-‘colum’-codes-自动编码-返回Categorical类型-也可以直接赋值给dataframe的列" class="headerlink" title="联想到之前的练习,可以用dataframe[‘colum’]=pandas.Categorical(dataframe[‘colum’]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列"></a>联想到之前的练习,可以用dataframe[‘colum’]=pandas.Categorical(dataframe[‘colum’]).codes 自动编码,返回Categorical类型,也可以直接赋值给dataframe的列</h3></li>
-<li><h3 id="关于dict-注意自己访问dict时-用不存在的key访问会报错-在map里会返回值NaN"><a href="#关于dict-注意自己访问dict时-用不存在的key访问会报错-在map里会返回值NaN" class="headerlink" title="关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN"></a>关于dict,注意自己访问dict时,用不存在的key访问会报错,在map里会返回值NaN</h3></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">d&#x3D;&#123;&#39;Y&#39;:1,&#39;N&#39;:0&#125;</span><br><span class="line">df[&#39;Hired&#39;]&#x3D;df[&#39;Hired&#39;].map(d)</span><br><span class="line">df[&#39;Employed?&#39;]&#x3D;df[&#39;Employed?&#39;].map(d)</span><br><span class="line">df[&#39;Interned&#39;]&#x3D;df[&#39;Interned&#39;].map(d)</span><br><span class="line">df[&#39;Top-tier school&#39;]&#x3D;df[&#39;Top-tier school&#39;].map(d)</span><br><span class="line">d&#x3D;&#123;&#39;BS&#39;:0,&#39;MS&#39;:1,&#39;PhD&#39;:2&#125;</span><br><span class="line">df[&#39;Level of Education&#39;]&#x3D;df[&#39;Level of Education&#39;].map(d)</span><br><span class="line"></span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
-<br/>
-###   处理后视图:
-![处理后数据](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuunhz1j20jy060a9z.jpg)
-
-<h3 id="3-分离决策属性和目标列"><a href="#3-分离决策属性和目标列" class="headerlink" title="3. 分离决策属性和目标列"></a>3. 分离决策属性和目标列</h3><h3 id="分开特征组和目标组-作为参数传给fit拟合函数即可"><a href="#分开特征组和目标组-作为参数传给fit拟合函数即可" class="headerlink" title="分开特征组和目标组,作为参数传给fit拟合函数即可"></a>分开特征组和目标组,作为参数传给fit拟合函数即可</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">features&#x3D;list(df.columns[:6])# 列名元组</span><br><span class="line">y&#x3D;df[&quot;Hired&quot;]</span><br><span class="line">x&#x3D;df[features]</span><br><span class="line">clf&#x3D;tree.DecisionTreeClassifier()</span><br><span class="line">clf&#x3D;clf.fit(x,y)</span><br></pre></td></tr></table></figure>
-<br/>
-###    4. 显示图形数据
->这里 IPython !!不是Ipython!!!IP都要大写!!!!搞了一个小时找各种BUG为啥能用IPython不能import,装了卸卸了装path疯狂加就是不能import,结果是因为P是大写....
-----------------------
-<br/>
-- ###    create_png这一步报错"GraphViz's executables not found" ————额外安装GraphViz软件,并且添加path
-- ###    StringIO在内存在读写string,有点类似于文件机制?只不过不是访问文件,是访问内存缓冲区.f=StringIO(),用f进行各种操作比如f.write("this is a string"), f.getvalue() 返回
-- ###    sklearn.tree.export_graphviz（decision_tree，out_file = None,feature_names = None,……) 将decision_tree 转换为GraphViz dot 格式内容的字符串,out_file不为空就输出到out_file,否则作为返回值返回.
-> 总之输出的是Graphviz自己的东西,传给它自己的功能调用就好了...
-
-<ul>
-<li><h3 id="pydotplus-graph-from-dot-data-data-解析dot格式的data-返回含有图信息的Dot类对象"><a href="#pydotplus-graph-from-dot-data-data-解析dot格式的data-返回含有图信息的Dot类对象" class="headerlink" title="pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象"></a>pydotplus.graph_from_dot_data(data) 解析dot格式的data,返回含有图信息的Dot类对象</h3></li>
-<li><h3 id="决策树中gini是熵值-决策树目标让gini-0-即做出一个分类决策"><a href="#决策树中gini是熵值-决策树目标让gini-0-即做出一个分类决策" class="headerlink" title="决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策"></a>决策树中gini是熵值,决策树目标让gini=0,即做出一个分类决策</h3></li>
-<li><h3 id="samples是包含的样本数"><a href="#samples是包含的样本数" class="headerlink" title="samples是包含的样本数"></a>samples是包含的样本数</h3></li>
-<li><h3 id="value-i-j-是样本处理结果-在这个录用决策中是i个未录用-j个录用"><a href="#value-i-j-是样本处理结果-在这个录用决策中是i个未录用-j个录用" class="headerlink" title="value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用"></a>value[i,j]是样本处理结果,在这个录用决策中是i个未录用,j个录用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from IPython.display import Image</span><br><span class="line">from sklearn.externals.six import StringIO</span><br><span class="line">import pydotplus</span><br><span class="line"></span><br><span class="line">dot_data&#x3D;StringIO()</span><br><span class="line">tree.export_graphviz(clf,out_file&#x3D;dot_data,feature_names&#x3D;features)</span><br><span class="line">graph&#x3D;pydotplus.graph_from_dot_data(dot_data.getvalue())</span><br><span class="line">Image(graph.create_png())</span><br></pre></td></tr></table></figure>
-<br/>
-###    显示结果:
-![决策树](https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggtsuv5rn6j20ff0i2q37.jpg)
-
-</li>
-</ul>
-<h3 id="集成学习——随机森林"><a href="#集成学习——随机森林" class="headerlink" title="集成学习——随机森林"></a>集成学习——随机森林</h3><h3 id="一棵决策树可能会对样本过拟合-所以用随机森林投票"><a href="#一棵决策树可能会对样本过拟合-所以用随机森林投票" class="headerlink" title="一棵决策树可能会对样本过拟合,所以用随机森林投票"></a>一棵决策树可能会对样本过拟合,所以用随机森林投票</h3><ul>
-<li><h3 id="注意predict传参要穿二维数组-即使只想预测一组数据也要是二维形式"><a href="#注意predict传参要穿二维数组-即使只想预测一组数据也要是二维形式" class="headerlink" title="注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式"></a>注意predict传参要穿二维数组,即使只想预测一组数据也要是二维形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.ensemble import RandomForestClassifier</span><br><span class="line">clf&#x3D;RandomForestClassifier(n_estimators&#x3D;10)# 10棵</span><br><span class="line">clf&#x3D;clf.fit(x,y)</span><br><span class="line"># 预测传参要穿二维数组,即使只想预测一组数据也要是二维形式</span><br><span class="line">print(clf.predict([[10,1,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0],[10,0,4,0,0,0]]))</span><br></pre></td></tr></table></figure>
-<br/>
-<br/>
-</li>
-</ul>
-<hr>
-<h1 id="另附学代码惨痛反思"><a href="#另附学代码惨痛反思" class="headerlink" title="另附学代码惨痛反思:"></a>另附学代码惨痛反思:</h1><h3 id="以后学敲代码报错-先"><a href="#以后学敲代码报错-先" class="headerlink" title="以后学敲代码报错 先!"></a>以后学敲代码报错 先!</h3><h3 id="看-教程-代码-很多时候不是自己环境问题-说不定只是-包升级了-书印错了-一些乱七八糟的"><a href="#看-教程-代码-很多时候不是自己环境问题-说不定只是-包升级了-书印错了-一些乱七八糟的" class="headerlink" title="看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!"></a>看!教程!代码!很多时候不是自己环境问题,说不定只是! 包升级了! 书印错了! 一些乱七八糟的!</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" class="post-title-link" itemprop="url">多项式朴素贝叶斯学习——垃圾邮件分类器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB%E5%99%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="读入文件存入dataframe"><a href="#读入文件存入dataframe" class="headerlink" title="读入文件存入dataframe"></a>读入文件存入dataframe</h3><ul>
-<li><h4 id="readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’"><a href="#readfiles-path-对path下的每一个文件-跳过文件头部无用信息-以line-’" class="headerlink" title="readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’"></a>readfiles(path): 对path下的每一个文件, 跳过文件头部无用信息, 以line+’</h4>‘的格式存储在message中,每读完一个文件便返回该文件完整路径path和message</li>
-<li><h4 id="dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息"><a href="#dataFrameFromDirectory-path-classification-调用readfiles-返回DataFrame格式文件-其中包含index-path-message-message-class-传递的分类信息" class="headerlink" title="dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息"></a>dataFrameFromDirectory(path,classification),调用readfiles,返回DataFrame格式文件, 其中包含index=path[], message=message[], class=传递的分类信息</h4></li>
-<li><h4 id="带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始"><a href="#带有-yield-的函数不再是一个普通函数，而是一个生成器generator，可用于迭代-迭代从上次yield出去的地方开始" class="headerlink" title="带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始"></a>带有 yield 的函数不再是一个普通函数，而是一个生成器generator，可用于迭代, 迭代从上次yield出去的地方开始</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import io</span><br><span class="line">import numpy</span><br><span class="line">from pandas import DataFrame</span><br><span class="line">from sklearn.feature_extraction.text import CountVectorizer</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line"></span><br><span class="line">def readFiles(path):</span><br><span class="line">    for root,dirnames,filenames, in os.walk(path):# 返回path下的所有文件夹和文件</span><br><span class="line">        for filename in filenames:</span><br><span class="line">            path&#x3D;os.path.join(root,filename)    # 创建path</span><br><span class="line"></span><br><span class="line">            inBody&#x3D;False    # 标记头部信息</span><br><span class="line">            lines&#x3D;[]</span><br><span class="line">            f&#x3D;io.open(path,&#39;r&#39;,encoding&#x3D;&#39;latin1&#39;)# 打开文件</span><br><span class="line">            for line in f:</span><br><span class="line">                if inBody:</span><br><span class="line">                    lines.append(line)</span><br><span class="line">                elif line&#x3D;&#x3D;&#39;</span><br><span class="line">&#39;:    # 先把头部信息跳过,找到第一个空行 表明头部信息已经结束</span><br><span class="line">                    inBody&#x3D;True</span><br><span class="line">            f.close()</span><br><span class="line">            message&#x3D;&#39;</span><br><span class="line">&#39;.join(lines)</span><br><span class="line">            yield path,message</span><br><span class="line"></span><br><span class="line">def dataFrameFromDirectory(path,classification):</span><br><span class="line">    rows&#x3D;[]</span><br><span class="line">    index&#x3D;[]</span><br><span class="line">    for filename,message in readFiles(path):</span><br><span class="line">        rows.append(&#123;&#39;message&#39;:message,&#39;class&#39;:classification&#125;)</span><br><span class="line">        index.append(filename)</span><br><span class="line"></span><br><span class="line">    return DataFrame(rows,index&#x3D;index)</span><br><span class="line"></span><br><span class="line">data&#x3D;DataFrame(&#123;&#39;message&#39;:[],&#39;class&#39;:[]&#125;)</span><br><span class="line"></span><br><span class="line">data &#x3D; data.append(dataFrameFromDirectory(&#39;C:\Users\Sitch\Downloads\DataScienceCourse\emails\spam&#39;, &#39;spam&#39;))</span><br><span class="line">data &#x3D; data.append(dataFrameFromDirectory(&#39;C:\Users\Sitch\Downloads\DataScienceCourse\emails\ham&#39;, &#39;ham&#39;))</span><br><span class="line"></span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
-<h3 id="计算朴素贝叶斯"><a href="#计算朴素贝叶斯" class="headerlink" title="计算朴素贝叶斯"></a>计算朴素贝叶斯</h3></li>
-<li><h4 id="CountVectorizer是特征数值计算类"><a href="#CountVectorizer是特征数值计算类" class="headerlink" title="CountVectorizer是特征数值计算类"></a>CountVectorizer是特征数值计算类</h4></li>
-<li><h4 id="CountVectorizer-fit-transform函数将文本中的词语转换为词频矩阵return，矩阵元素a-i-j-表示j词在第i个文本下的词频。"><a href="#CountVectorizer-fit-transform函数将文本中的词语转换为词频矩阵return，矩阵元素a-i-j-表示j词在第i个文本下的词频。" class="headerlink" title="CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a[i][j] 表示j词在第i个文本下的词频。"></a>CountVectorizer.fit_transform函数将文本中的词语转换为词频矩阵return，矩阵元素a[i][j] 表示j词在第i个文本下的词频。</h4></li>
-<li><h4 id="MultinomialNB是先验为多项式分布的朴素贝叶斯类"><a href="#MultinomialNB是先验为多项式分布的朴素贝叶斯类" class="headerlink" title="MultinomialNB是先验为多项式分布的朴素贝叶斯类"></a>MultinomialNB是先验为多项式分布的朴素贝叶斯类</h4></li>
-<li><h4 id="MultinomialNB-fit-x-y-根据x-y进行拟合-x-array-like-sparse-martix-i-j-i组j维向量-y-array-like-i"><a href="#MultinomialNB-fit-x-y-根据x-y进行拟合-x-array-like-sparse-martix-i-j-i组j维向量-y-array-like-i" class="headerlink" title="MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}[i][j],i组j维向量,y=array-like[i]"></a>MultinomialNB.fit(x,y)根据x,y进行拟合,x={array-like,sparse martix}[i][j],i组j维向量,y=array-like[i]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vectorizer&#x3D;CountVectorizer()</span><br><span class="line">counts&#x3D;vectorizer.fit_transform(data[&#39;message&#39;].values)# 将单词转换为哈希数,然后计算个数</span><br><span class="line"></span><br><span class="line">classifier&#x3D;MultinomialNB()</span><br><span class="line">targets&#x3D;data[&#39;class&#39;].values    # 分类信息</span><br><span class="line">classifier.fit(counts,targets)</span><br></pre></td></tr></table></figure>
-<h3 id="测试分类器"><a href="#测试分类器" class="headerlink" title="测试分类器"></a>测试分类器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">examples&#x3D;[&#39;Free Money now!!!!&#39;,&quot;Hi,I&#39;m Sitch,how about make a friend?&quot;]</span><br><span class="line">example_counts&#x3D;vectorizer.transform(examples)</span><br><span class="line">predictions&#x3D;classifier.predict(example_counts)</span><br></pre></td></tr></table></figure>
-<h3 id="划分训练集和测试集再实验"><a href="#划分训练集和测试集再实验" class="headerlink" title="划分训练集和测试集再实验"></a>划分训练集和测试集再实验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">train_data&#x3D;data.sample(frac&#x3D;0.6)</span><br><span class="line">test_data&#x3D;data[~data.index.isin(train_data.index)]</span><br><span class="line"></span><br><span class="line">vectorizer&#x3D;CountVectorizer()</span><br><span class="line">counts&#x3D;vectorizer.fit_transform(train_data[&#39;message&#39;].values)</span><br><span class="line">classifier&#x3D;MultinomialNB()</span><br><span class="line">targets&#x3D;train_data[&#39;class&#39;].values</span><br><span class="line">classifier.fit(counts,targets)</span><br><span class="line"></span><br><span class="line">i&#x3D;0</span><br><span class="line">SC&#x3D;0</span><br><span class="line">test_counts&#x3D;vectorizer.transform(test_data[&#39;message&#39;].values)</span><br><span class="line">predictions&#x3D;classifier.predict(test_counts)</span><br><span class="line">for i in range(0,predictions.size):</span><br><span class="line">    if test_data[&#39;class&#39;].values[i]&#x3D;&#x3D;predictions[i]:</span><br><span class="line">        SC+&#x3D;1</span><br><span class="line">print(&quot;测试集成功率 &quot;,end&#x3D;&#39; : &#39;)</span><br><span class="line">print(SC&#x2F;predictions.size)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" class="post-title-link" itemprop="url">电影推荐系统——相关计算</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:48" itemprop="dateModified" datetime="2020-07-16T19:34:48+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DataScience/" itemprop="url" rel="index"><span itemprop="name">DataScience</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E7%9B%B8%E5%85%B3%E8%AE%A1%E7%AE%97/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="6-电影推荐系统"><a href="#6-电影推荐系统" class="headerlink" title="6 电影推荐系统"></a>6 电影推荐系统</h1><h3 id="1-导入数据"><a href="#1-导入数据" class="headerlink" title="1. 导入数据"></a>1. 导入数据</h3><ul>
-<li><h4 id="read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item"><a href="#read-csv需要注意names-usecols参数的使用-encoding也需要设置-utf-8打不开u-item" class="headerlink" title="read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item"></a>read_csv需要注意names,usecols参数的使用,encoding也需要设置,utf-8打不开u.item</h4></li>
-<li><h4 id="merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…"><a href="#merge-类似于sql表连接-有各种参数设置-什么左连右连内连-连接规则等…" class="headerlink" title="merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等….."></a>merge 类似于sql表连接,有各种参数设置, 什么左连右连内连, 连接规则等…..</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line">ratings.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="2-转换成矩阵表"><a href="#2-转换成矩阵表" class="headerlink" title="2. 转换成矩阵表"></a>2. 转换成矩阵表</h3><ul>
-<li><h4 id="pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同"><a href="#pivot-table生成数据透视表-感觉像数据分组聚合-index为聚合键-1级-2级…-values为需要的数据-columns指定列-要求长度和values相同" class="headerlink" title="pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同"></a>pivot_table生成数据透视表(感觉像数据分组聚合),index为聚合键[1级,2级….], values为需要的数据,columns指定列,要求长度和values相同</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movieRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line">movieRatings.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="3-协同过滤"><a href="#3-协同过滤" class="headerlink" title="3. 协同过滤"></a>3. 协同过滤</h3><ul>
-<li><h3 id="df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法"><a href="#df-corrwith-other-axis-method-用于计算DataFrame中列或行-与-other-的相关性。axis-0-‘index’计算列相关-1-‘columns’计算行相关-method为计算方法" class="headerlink" title="df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法"></a>df.corrwith(other,axis=,method=)用于计算DataFrame中列或行 与 other 的相关性。axis=0/‘index’计算列相关, 1/‘columns’计算行相关, method为计算方法</h3></li>
-<li><h3 id="pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value"><a href="#pandas-series类型-注意不是二维数组-类似于数据类型为’index’-values的带索引列表-series-i-是values-i-series-‘index’-是对应value" class="headerlink" title="pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value"></a>pandas.series类型, 注意不是二维数组, 类似于数据类型为’index’:values的带索引列表,series[i]是values[i]. series[‘index’]是对应value</h3></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">starWarsRatings&#x3D;movieRatings[&#39;Star Wars (1977)&#39;] # Star wars 评分表</span><br><span class="line">similar2starWars&#x3D;movieRatings.corrwith(starWarsRatings)</span><br><span class="line">similar2starWars&#x3D;similar2starWars.dropna()</span><br><span class="line">df&#x3D;pd.DataFrame(similar2starWars)</span><br><span class="line">df.sort_values(0,ascending&#x3D;False)</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-优化——冷门问题"><a href="#4-优化——冷门问题" class="headerlink" title="4. 优化——冷门问题"></a>4. 优化——冷门问题</h3><ul>
-<li><h4 id="agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法"><a href="#agg-‘col’-func-func-func…-agg聚合操作-可以指定聚合函数-也可以用-指定特定列特定聚合方法" class="headerlink" title="agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法"></a>agg({‘col’:[func,func,func….]}) agg聚合操作,可以指定聚合函数,也可以用{}指定特定列特定聚合方法</h4></li>
-<li><h4 id="dataframe存在多级索引多级column-可以参考下面"><a href="#dataframe存在多级索引多级column-可以参考下面" class="headerlink" title="dataframe存在多级索引多级column, 可以参考下面"></a>dataframe存在多级索引多级column, 可以参考下面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">movieStats&#x3D;ratings.groupby(&#39;title&#39;).agg(&#123;&#39;rating&#39;:[np.size,np.mean]&#125;)</span><br><span class="line">movieStats.head()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="可以发现有些电影评分人数很少-此时的均分意义不大"><a href="#可以发现有些电影评分人数很少-此时的均分意义不大" class="headerlink" title="可以发现有些电影评分人数很少,此时的均分意义不大"></a>可以发现有些电影评分人数很少,此时的均分意义不大</h3><ul>
-<li><h4 id="df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置"><a href="#df-join-other-on-how-…-连接other和self-返回df形式-other可以是df也可以是pandas-Series-如果是Series-传递前需要设置好Series-name属性-用作连接后的列名-on-how-为规则方式设置" class="headerlink" title="df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置"></a>df.join(other,on=,how=,…) 连接other和self, 返回df形式, other可以是df也可以是pandas.Series. 如果是Series, 传递前需要设置好Series.name属性(用作连接后的列名), on, how 为规则方式设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">popularMovies&#x3D;movieStats[&#39;rating&#39;][&#39;size&#39;]&gt;&#x3D;100 # size大于100的index+T&#x2F;F列表</span><br><span class="line">#  movieStats[popularMovies].sort_values([(&#39;rating&#39;,&#39;mean&#39;)],ascending&#x3D;False)[:15] #显示筛选后的表 , mutiindex需要指定两层</span><br><span class="line">similar2starWars.name&#x3D;&#39;similarity&#39;</span><br><span class="line">df&#x3D;movieStats[popularMovies].join(similar2starWars)</span><br><span class="line">df.sort_values([&#39;similarity&#39;],ascending&#x3D;False)[:15]</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="5-整理成推荐电影系统"><a href="#5-整理成推荐电影系统" class="headerlink" title="5. 整理成推荐电影系统"></a>5. 整理成推荐电影系统</h3><ul>
-<li><h4 id="df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量"><a href="#df-corr-计算df中任意两列的相关系数-返回矩阵df-可设置method-min-periods最小样本量" class="headerlink" title="df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量"></a>df.corr()计算df中任意两列的相关系数,返回矩阵df, 可设置method, min_periods最小样本量</h4></li>
-<li><ul>
-<li><h4 id="method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关"><a href="#method-perison-计算线性相关-Kendall-计算分类数据相关-即无序数据-spearman-计算非线性-非正太分布相关" class="headerlink" title="method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关"></a>method: perison : 计算线性相关, Kendall : 计算分类数据相关, 即无序数据, spearman : 计算非线性,非正太分布相关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"># user评分表</span><br><span class="line">r_cols&#x3D;[&#39;user_id&#39;,&#39;movie_id&#39;,&#39;rating&#39;]</span><br><span class="line">ratings&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.data&quot;,sep&#x3D;&#39;	&#39;,names&#x3D;r_cols,usecols&#x3D;range(3),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># movie的id和title对应表</span><br><span class="line">m_cols&#x3D;[&#39;movie_id&#39;,&#39;title&#39;]</span><br><span class="line">movies&#x3D;pd.read_csv(&quot;C:\Users\Sitch\Downloads\DataScienceCourse\ml-100k\u.item&quot;,sep&#x3D;&#39;|&#39;,names&#x3D;m_cols,usecols&#x3D;range(2),encoding&#x3D;&quot;ISO-8859-1&quot;)</span><br><span class="line"># 连接两表</span><br><span class="line">ratings&#x3D;pd.merge(ratings,movies)</span><br><span class="line"></span><br><span class="line"># 按user_id生成聚合图</span><br><span class="line">userRatings&#x3D;ratings.pivot_table(index&#x3D;[&#39;user_id&#39;],columns&#x3D;[&#39;title&#39;],values&#x3D;&#39;rating&#39;)</span><br><span class="line"># 生成相关系数矩阵</span><br><span class="line">corrMatrix&#x3D;userRatings.corr(method&#x3D;&#39;pearson&#39;,min_periods&#x3D;150)</span><br><span class="line"></span><br><span class="line">testuser&#x3D;userRatings.loc[0].dropna()</span><br><span class="line"></span><br><span class="line">def GenerateSimCandidates(myRatings):</span><br><span class="line">    simCandidates&#x3D;pd.Series()</span><br><span class="line">    for i in range(0,len(myRatings.index)):</span><br><span class="line">        print(&quot;Adding sims for &quot;+ myRatings.index[i]+&quot;...&quot;)</span><br><span class="line">        # 筛选出myRatings.index[i]作为列标题的一整列</span><br><span class="line">        sims&#x3D;corrMatrix[myRatings.index[i]].dropna()</span><br><span class="line">        # 评分加权,这一列所有value乘上评分</span><br><span class="line">        sims&#x3D;sims.map(lambda x:x*myRatings[i])</span><br><span class="line">        simCandidates&#x3D;simCandidates.append(sims)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    # 聚合重复项</span><br><span class="line">    simCandidates&#x3D;simCandidates.groupby(simCandidates.index).sum()</span><br><span class="line">    # 整理排序    </span><br><span class="line">    simCandidates.sort_values(inplace&#x3D;True,ascending&#x3D;False)</span><br><span class="line">    return simCandidates</span><br><span class="line">        </span><br><span class="line">print(GenerateSimCandidates(testuser).head(10))</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/" class="post-title-link" itemprop="url">考研数学冷门杂记-（持续不定期更新)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-23 19:07:21" itemprop="dateModified" datetime="2020-08-23T19:07:21+08:00">2020-08-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">考研数学</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%86%B7%E9%97%A8%E6%9D%82%E8%AE%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -825,213 +296,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-多项式处理"><a href="#1-多项式处理" class="headerlink" title="1. 多项式处理"></a>1. 多项式处理</h1><p>$$1^2+2^2+…+n^2=rac{1}{6} n(n+1)(2n+1) $$<br>$$a^n-b^n=(a-b)(a^0b^{n-1}+…+a^{n-1}b^0)$$<br>$$a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})$$</p>
-<hr>
-<h1 id="2-极限等价无穷小-和-重要极限公式"><a href="#2-极限等价无穷小-和-重要极限公式" class="headerlink" title="2. 极限等价无穷小 和 重要极限公式"></a>2. 极限等价无穷小 和 重要极限公式</h1><blockquote>
-<p>~在公式编辑里打不出， 用≈代替</p>
-</blockquote>
-<h3 id="2-1-等价无穷小"><a href="#2-1-等价无穷小" class="headerlink" title="2.1 等价无穷小"></a>2.1 等价无穷小</h3><p>$$x→0<del>~</del>sinx ≈x$$</p>
-<p>$$x→0<del>~</del>tanx≈x$$</p>
-<p>$$x→0<del>~</del>arcsinx≈x$$</p>
-<p>$$x→0<del>~</del>arctanx≈x$$</p>
-<p>$$x→0<del>~</del>1-cosx≈rac{1}{2}x^ 2$$</p>
-<p>$$x→0<del>~</del>e^x-1≈x$$</p>
-<p>$$x→0<del>~</del>ln(1+x)≈x$$</p>
-<p>$$x→0<del>~</del>(1+x)^α-1≈αx$$</p>
-<h3 id="2-2-重要极限公式"><a href="#2-2-重要极限公式" class="headerlink" title="2.2 重要极限公式"></a>2.2 重要极限公式</h3><p>$$\lim_{x    o0}rac{sinx}{x}=1$$</p>
-<p>$$\lim_{n    o∞}(1+rac{1}{n})^n=e$$</p>
-<p>$$\lim_{x    o∞}(1+rac{1}{x})^x=e$$</p>
-<p>$$\lim_{u    o0}(1+u)^rac{1}{u}=e$$</p>
-<hr>
-<h1 id="3-导数冷门公式"><a href="#3-导数冷门公式" class="headerlink" title="3. 导数冷门公式"></a>3. 导数冷门公式</h1><p>$$(tanx)’ = sec^2x=rac{1}{cos^2x}$$</p>
-<p>$$(cotx)’ = -csc^2x=-rac{1}{sin^2x}$$</p>
-<p>$$(secx)’ = secx tanx=rac{sinx}{cos^2x}$$</p>
-<p>$$(cscx)’ =-cscxcotx=-rac{ cosx}{sin^2x}$$</p>
-<p>$$(arcsinx)’ =rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arccosx)’ =-rac{1}{\sqrt{1-x^2}}$$</p>
-<p>$$(arctanx)’ =rac{1}{1+x^2}$$</p>
-<p>$$(arccotx)’ =-rac{1}{1+x^2}$$</p>
-<p>$$(x^x)’ =x^x(lnx+1) ······（对数求导）$$</p>
-<h4 id="导函数的连续性："><a href="#导函数的连续性：" class="headerlink" title="导函数的连续性："></a>导函数的连续性：</h4><h5 id="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："><a href="#函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：" class="headerlink" title="函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如："></a>函数在一个区间内连续且处处可导，但导函数不一定在上面连续，例如：</h5><p><img src="https://upload-images.jianshu.io/upload_images/19387483-370520d94e31c91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源自知乎"></p>
-<h4 id="变上限积分函数可导性："><a href="#变上限积分函数可导性：" class="headerlink" title="变上限积分函数可导性："></a>变上限积分函数可导性：</h4><h5 id="1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"><a href="#1）-可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。" class="headerlink" title="1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。"></a>1）     可积函数的变上限积分函数一定连续，但众所周知连续不一定可导。</h5><h5 id="2）-连续函数的变上限积分函数一定可导。"><a href="#2）-连续函数的变上限积分函数一定可导。" class="headerlink" title="2）      连续函数的变上限积分函数一定可导。"></a>2）      连续函数的变上限积分函数一定可导。</h5><hr>
-<h1 id="4-积分冷门公式"><a href="#4-积分冷门公式" class="headerlink" title="4. 积分冷门公式"></a>4. 积分冷门公式</h1><h5 id="4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"><a href="#4-1-积不出来的函数——函数在区间-I-连接，则-I-上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来" class="headerlink" title="4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来"></a>4.1 积不出来的函数——函数在区间 I 连接，则 I 上一定存在原函数，但初等函数的原函数不一定是初等函数，即积不出来</h5><p>$$\int sin(x^2)dx  、\int cos(x^2)dx、  \int rac{sinx}{x}dx、\int rac{cosx}{x}dx、\int rac{1}{lnx}dx、\int e^{-x^2}dx、$$</p>
-<h5 id="4-2-冷门积分函数"><a href="#4-2-冷门积分函数" class="headerlink" title="4.2 冷门积分函数"></a>4.2 冷门积分函数</h5><p>$$\int a^xdx=rac{1}{lna}a^x+C $$</p>
-<p>$$\int sec^2xdx=\int rac{1}{cos^2x}dx=tanx+C $$</p>
-<p>$$\int csc^2xdx=\int rac{1}{sin^2x}dx=-cotx+C$$</p>
-<p>$$\int tanxsecxdx=secx+C$$</p>
-<p>$$\int cotxcscxdx=-cscx+C$$</p>
-<p>$$\int tanxdx=-ln|cosx|+C$$</p>
-<p>$$\int cotxdx=ln|sinx|+C$$</p>
-<p>$$\int secxdx=ln|secx+tanx|+C$$</p>
-<p>$$\int cscxdx=ln|cscx-cotx|+C$$</p>
-<p>$$\int rac{1}{\sqrt{a^2-x^2}}dx=arcsin rac{x}{a} +C $$</p>
-<p>$$\int rac{1}{a^2+x^2}dx=rac{1}{a} arctan rac{x}{a} +C $$</p>
-<hr>
-<p>$$\int rac{1}{a^2-x^2}dx=rac{1}{2a} ln rac{a+x}{a-x} +C $$</p>
-<p>$$\int   rac{1}{\sqrt {x^2 \pm a^2}}dx=ln|x+\sqrt{x^2 \pm a^2}| +C $$</p>
-<p>$$\int rac{1}{e^x+1}dx=\int rac{e^x}{e^x(e^x+1)}dx=\int rac{1}{e^x}-rac{1}{e^x+1}de^x $$</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/" class="post-title-link" itemprop="url">计算机视觉实验2-1——目标轮廓提取,-复制目标</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:33:42" itemprop="dateModified" datetime="2020-07-17T11:33:42+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-1%E2%80%94%E2%80%94%E7%9B%AE%E6%A0%87%E8%BD%AE%E5%BB%93%E6%8F%90%E5%8F%96,-%E5%A4%8D%E5%88%B6%E7%9B%AE%E6%A0%87/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahhdrsj20qo0m841e.jpg" alt="原图"></p>
-<h1 id="目标-复制图中的这棵树"><a href="#目标-复制图中的这棵树" class="headerlink" title="目标: 复制图中的这棵树"></a>目标: 复制图中的这棵树</h1><ol>
-<li>我们肯定先要提取树, 然后才能复制<ol start="2">
-<li>怎么提取呢?我想的是先找到树的轮廓, 然后把树的轮廓内所有像素都遍历复制一遍就好了.<blockquote>
-<p>好像更应该使用连通域的概念, 而不是轮廓查找. 有兴趣可以试试</p>
-</blockquote>
-</li>
-<li>轮廓怎么识别呢? 有个findContours函数可以自动查找轮廓, 但是很容易就把各种树叶缝隙, 各种坑坑洼洼识别成了轮廓, 所以要预处理一下, 清理不必要的信息.</li>
-</ol>
-</li>
-</ol>
-<h1 id="1-图像预处理"><a href="#1-图像预处理" class="headerlink" title="1. 图像预处理"></a>1. 图像预处理</h1><p>findContours要求传入的图像是二值的, 因此我们先要对原图灰度化, 并且进行阈值分割成二值图像.</p>
-<p><strong>读取图片, 灰度化处理:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from cv2 import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">img&#x3D;cv2.imread(&quot;.&#x2F;tree.jpg&quot;)</span><br><span class="line"></span><br><span class="line"># 灰度 阈值分割二值化处理</span><br><span class="line">grey&#x3D;cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</span><br><span class="line">cv2.imshow(&quot;grey&quot;,grey)</span><br></pre></td></tr></table></figure>
-<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfejhj20r60ndgny.jpg" alt="GREY"></p>
-<p><strong>阈值分割:</strong><br>这里注意用了个<strong>高斯模糊</strong>去噪, 可以在分割时避免坑坑洼洼的噪音, 和树叶的不完整性.</p>
-<p>cv2.THRESH_BINARY_INV, cv2.THRESH_OTSU 是一些处理参数: </p>
-<ul>
-<li>前者决定了阈值反转处理, 即超过阈值的置0, 低于阈值的置255</li>
-<li>后者决定了使用OTSU阈值进行分割<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grey&#x3D;cv2.GaussianBlur(grey,(5,5),0)# 高斯模糊 去噪</span><br><span class="line">ret,theimg&#x3D;cv2.threshold(grey,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)</span><br><span class="line">cv2.imshow(&quot;theimg&quot;,theimg)# 阈值二值化图</span><br></pre></td></tr></table></figure>
-<img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahdk20j20r60nddg6.jpg" alt="BIN"></li>
-</ul>
-<h1 id="2-运用findContours轮廓识别"><a href="#2-运用findContours轮廓识别" class="headerlink" title="2. 运用findContours轮廓识别"></a>2. 运用findContours轮廓识别</h1><h5 id="contours-hier-findContours-srcimg-mode-method"><a href="#contours-hier-findContours-srcimg-mode-method" class="headerlink" title="contours, hier=findContours(srcimg, mode, method)"></a>contours, hier=findContours(srcimg, mode, method)</h5><ul>
-<li>返回值contours,是查找到的所有轮廓信息</li>
-<li>返回值hier, 是所有轮廓信息的层级关系, 这里因为是找外轮廓, 不需要</li>
-<li>srcimg, 输入的二值图像</li>
-<li>mode, 查找模式, 例如RETR_EXTERNAL是仅查找外轮廓, 其他的模式自行了解</li>
-<li>method, 轮廓信息的近似方法, 就决定怎么存下查找的轮廓, 例如CHAIN_APPROX_NONE 是存储所有轮廓点</li>
-<li>CHAIN_APPROX_SIMPLE 压缩, 将每个方向的所有点由 起点 和 终点 , 两个点代替</li>
-</ul>
+          <h1 id="第K个排列"><a href="#第K个排列" class="headerlink" title="第K个排列"></a><a href="https://leetcode-cn.com/problems/permutation-sequence" target="_blank" rel="noopener">第K个排列</a></h1><blockquote>
+<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：</p>
+<p>“123”<br>“132”<br>“213”<br>“231”<br>“312”<br>“321”<br>给定 n 和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。<br>给定 k 的范围是[1,  n!]。</p>
 <blockquote>
-<p>实际切割的时候发现树根和地面难以分割, 会识别成一个大轮廓, 腐蚀膨胀操作也没能处理好, 因此用上了简单粗暴的办法, 手动把土地部分切掉.</p>
+<p>示例 1:</p>
+<p>输入: n = 3, k = 3<br>输出: “213”</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 因为树和地连在一起不好分离, 手动切割</span><br><span class="line">height,width&#x3D;theimg.shape</span><br><span class="line">treeimg&#x3D;theimg[:int(2*height&#x2F;3)-30,:]# 提取出不包含地面的上部分</span><br><span class="line"># 轮廓提取</span><br><span class="line">contours,hier&#x3D;cv2.findContours(treeimg,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-提取出树的轮廓"><a href="#3-提取出树的轮廓" class="headerlink" title="3. 提取出树的轮廓"></a>3. 提取出树的轮廓</h1><p>我们目前有了图中所有的轮廓信息, 然而即使预处理已经解决了很多噪音, 还是有识别出几十个轮廓<br><strong>因此我们要对轮廓进行筛选处理</strong> , 这里我使用的是面积筛选, 大概测试几次, 就能找出树轮廓的面积范围, 然后进行筛选.</p>
-<p>cv2.contourArea(contour) , 计算轮廓面积<br>cv2.drawContours(drawimg,contours,i,color,thick), 绘制函数</p>
-<ul>
-<li>在drawimg图上直接绘制</li>
-<li>contours即传入所有轮廓</li>
-<li>i为绘制的轮廓在contours中的下标, 如果为负则绘制所有轮廓</li>
-<li>color, thick ,绘制的颜色 粗细</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#  #在原图上画出轮廓, 并且找出属于树的轮廓</span><br><span class="line">treei&#x3D;0</span><br><span class="line">for i in range(len(contours)):</span><br><span class="line">    area&#x3D;cv2.contourArea(contours[i])</span><br><span class="line">    if(area&gt;500 and area&lt;30000):# 面积筛选出树的轮廓标号</span><br><span class="line">        drawimg&#x3D;img.copy()# 拿张图来画个轮廓示意</span><br><span class="line">        cv2.drawContours(drawimg,contours,i,(0,0,255),3)</span><br><span class="line">        cv2.imshow(&quot;Contours of Tree&quot;,drawimg)</span><br><span class="line">        treei&#x3D;i</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttahewhzj20r60ndmzv.jpg" alt="轮廓效果"></p>
-<h1 id="4-轮廓内像素复制"><a href="#4-轮廓内像素复制" class="headerlink" title="4. 轮廓内像素复制"></a>4. 轮廓内像素复制</h1><p>关键问题在于, 如何判断像素是否在轮廓内:<br>cv2.pointPolygonTest(contour, point, flag):</p>
-<ul>
-<li>contour , 比较的轮廓</li>
-<li>point, 比较的点, 注意图像坐标系, 例如img[i][j] 实际上是(j, i) 点</li>
-<li>flag, True时会计算和轮廓的距离, False则仅判断是否在轮廓内</li>
-<li>返回 1 在轮廓内, 0 在轮廓上, -1 轮廓外</li>
-</ul>
-<p>另外这里注意我们可以通过<code>cv2.boundingRect</code>找到轮廓的边界信息, 返回 x, y , w, h, 分别是轮廓左上角的(x, y), 宽度w, 高度h, 即描述了一个轮廓的外接矩形信息.</p>
-<p>有了边界信息, 就可以在边界内遍历, 不需要遍历整张图片</p>
-<p>最后将轮廓内的点复制到想要的地方即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x,y,w,h&#x3D;cv2.boundingRect(contours[treei])# 获取轮廓四边界, 这样只需要在里面遍历, 不需要遍历整张图</span><br><span class="line"># 将轮廓内的点复制到左边</span><br><span class="line">for i in range(y,y+h):</span><br><span class="line">    for j in range(x,x+w):</span><br><span class="line">        if(cv2.pointPolygonTest(contours[treei],(j,i),False)&#x3D;&#x3D;1):# 测试点是否在轮廓内的函数</span><br><span class="line">            img[i+10,j-500]&#x3D;img[i,j].copy()# 偏移左边</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttahfmcij20qr0mvgmu.jpg" alt="最终效果"></p>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: n = 4, k = 9<br>输出: “2314”</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用"><a href="#1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用" class="headerlink" title="1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用.."></a>1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</h5><h5 id="2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"><a href="#2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。" class="headerlink" title="2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"></a>2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</h5><h5 id="3-数学计算"><a href="#3-数学计算" class="headerlink" title="3. 数学计算"></a>3. 数学计算</h5><p>全排列每个位置的每个数其实是有数学特征的。<br>比如对 1 2 3<br>3.1 <strong>首位情况</strong>： 肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。<br>3.2 <strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现 <strong>尾部排列次数</strong> 次，然后是nums[1]…依次类推。</p>
+<h5 id="综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。"><a href="#综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。" class="headerlink" title="综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。"></a>综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。</h5><h5 id="再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。"><a href="#再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。" class="headerlink" title="再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。"></a>再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。</h5><h5 id="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"><a href="#即我们可以直接计算出每一位应该是什么数字。然后组成result即可。" class="headerlink" title="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"></a>即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</h5><h5 id="4-细节"><a href="#4-细节" class="headerlink" title="4.细节"></a>4.细节</h5><p>1.当前位 每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。<br>2. k/fac[n-1] 向上取整得i，此时该位应该是 nums里的第i个数（下标i-1），同时对nums删除这个数。<br>3. n==1  时，nums只剩一个数，直接连上并返回。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string getPermutation(int n, int k) </span><br><span class="line">    &#123;   </span><br><span class="line">        &#x2F;&#x2F;题解数组</span><br><span class="line">        const vector&lt;int&gt; fac &#x3D; &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#39;0&#39;);</span><br><span class="line">        string nums(n,&#39;0&#39;);</span><br><span class="line">        for(int i&#x3D;0;i&lt;n;i++)</span><br><span class="line">            nums[i]&#x3D;&#39;1&#39;+i;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;n&gt;0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            int a;</span><br><span class="line">            int left&#x3D;0;</span><br><span class="line">            if(n&gt;&#x3D;2) &#x2F;&#x2F;计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left&#x3D;fac[n-1];</span><br><span class="line">                a&#x3D;k&#x2F;left;</span><br><span class="line">                if(k%left!&#x3D;0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]&#x3D;nums[a-1];</span><br><span class="line">                k-&#x3D;(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            else &#x2F;&#x2F;只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]&#x3D;nums[0];</span><br><span class="line">                return result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1051,7 +333,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1065,7 +347,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">计算机视觉实验3,4——人脸识别</a>
+            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
         </h2>
 
         <div class="post-meta">
@@ -1082,7 +364,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-20 20:23:01" itemprop="dateModified" datetime="2020-08-20T20:23:01+08:00">2020-08-20</time>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1090,7 +372,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
                 </span>
             </span>
 
@@ -1103,144 +385,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C3,4%E2%80%94%E2%80%94%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-读入数据"><a href="#1-读入数据" class="headerlink" title="1. 读入数据"></a>1. 读入数据</h1><p>使用了att_faces数据集, 存储格式为/att_faces/s1/1.pgm, 因此需要写个读入函数读取主文件夹下所有文件夹下的所有文件:</p>
-<h4 id="os-walk-path-遍历path路径返回信息"><a href="#os-walk-path-遍历path路径返回信息" class="headerlink" title="os.walk(path) 遍历path路径返回信息:"></a>os.walk(path) 遍历path路径返回信息:</h4><ul>
-<li>root: path根路径</li>
-<li>dirs:  path下的所有文件夹, 不递归</li>
-<li>files: path下的所有文件, 不递归</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %%</span></span><br><span class="line"><span class="keyword">from</span> cv2 <span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readimgs</span><span class="params">(path)</span>:</span><span class="comment"># 读取所有文件</span></span><br><span class="line">    imgs=[]</span><br><span class="line">    labels=[]</span><br><span class="line">    <span class="keyword">for</span> root,dirnames,f, <span class="keyword">in</span> os.walk(path):<span class="comment"># 取得所有文件夹</span></span><br><span class="line">        <span class="keyword">for</span> dir <span class="keyword">in</span> dirnames:<span class="comment"># 遍历子文件夹</span></span><br><span class="line">            path2=os.path.join(path,dir)</span><br><span class="line">            <span class="keyword">for</span> r,d,files, <span class="keyword">in</span> os.walk(path2):<span class="comment"># 对文件夹取所有文件</span></span><br><span class="line">                <span class="keyword">for</span> onefile <span class="keyword">in</span> files:<span class="comment"># 对每个文件添加到列表中</span></span><br><span class="line">                    path3=os.path.join(path2,onefile)</span><br><span class="line">                    img=cv2.imread(path3)</span><br><span class="line">                    img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)<span class="comment"># 转灰度</span></span><br><span class="line">                    imgs.append(img)<span class="comment"># 添加到图片集</span></span><br><span class="line">                    labels.append(int(re.sub(<span class="string">"\D"</span>,<span class="string">""</span>,dir)))<span class="comment"># 文件夹名作为标签</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> imgs,labels</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="2-cv2-Eigenfaces训练"><a href="#2-cv2-Eigenfaces训练" class="headerlink" title="2. cv2.Eigenfaces训练"></a>2. cv2.Eigenfaces训练</h1><blockquote>
-<p>也可以换成Fisherface, 用法一样, 不过Eigen原理是PCA, Fisher原理是LDA</p>
-</blockquote>
-<p><strong>分割好训练集和测试集</strong>, att_faces数据中每个人有10张图片, 因此我每个人留了第一张作为测试集.</p>
-<h4 id="EigenFaceRecognizer-create-num-components-0-threshold-DBL-MAX"><a href="#EigenFaceRecognizer-create-num-components-0-threshold-DBL-MAX" class="headerlink" title="EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):"></a>EigenFaceRecognizer_create(num_components = 0, threshold = DBL_MAX ):</h4><ul>
-<li>num_components, 保留的主成分数</li>
-<li>threshold,  预测时的阈值设置</li>
-<li>返回一个识别模型</li>
-</ul>
-<h4 id="model-train-src-labels"><a href="#model-train-src-labels" class="headerlink" title="model.train(src, labels):"></a>model.train(src, labels):</h4><ul>
-<li>src: 数据组, 具体到图像就是图像顺序容器, 例如vector<Mat>, [img1,img2,….]</li>
-<li>labels: 给定标签,  标签顺序不重要, 只要保证图像和标签对应即可. 顺序容器如Vector, 或者Mat  (虽然我的list一定要转换为array才行…)</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %%主函数训练</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 读取全部文件</span></span><br><span class="line">    imgs,labels=readimgs(<span class="string">"./att_faces"</span>)</span><br><span class="line">    <span class="comment"># 划分训练集 测试集</span></span><br><span class="line">    testimgs=[]</span><br><span class="line">    testlabels=[]</span><br><span class="line">    trainimgs=[]</span><br><span class="line">    trainlabels=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(labels)):</span><br><span class="line">        <span class="keyword">if</span>(i%<span class="number">10</span>==<span class="number">0</span>):<span class="comment"># 每10张, 即每一组留一张作为测试集</span></span><br><span class="line">            testimgs.append(imgs[i])</span><br><span class="line">            testlabels.append(labels[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            trainimgs.append(imgs[i])</span><br><span class="line">            trainlabels.append(labels[i])</span><br><span class="line"></span><br><span class="line">    trainlabels=np.asarray(trainlabels)</span><br><span class="line">    </span><br><span class="line">    model = cv2.face.EigenFaceRecognizer_create()</span><br><span class="line">    model.train(trainimgs,trainlabels)</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-Eigenfaces预测"><a href="#3-Eigenfaces预测" class="headerlink" title="3. Eigenfaces预测"></a>3. Eigenfaces预测</h1><p>预测就是对之前保留的测试集, 一一预测并且检验正确率.</p>
-<h4 id="model-predict-data-模型对data进行预测-返回output-2"><a href="#model-predict-data-模型对data进行预测-返回output-2" class="headerlink" title="model.predict(data): 模型对data进行预测, 返回output[2]"></a>model.predict(data): 模型对data进行预测, 返回output[2]</h4><ul>
-<li>output[0], label, 即预测的标签.</li>
-<li>output[1], confidence, 即置信度, 注意confidence是越高越不相似</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %% 验证</span></span><br><span class="line">    count=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(testlabels)):</span><br><span class="line">        test_img=testimgs[i]</span><br><span class="line">        output=model.predict(test_img)<span class="comment"># 对测试集每个图片进行预测</span></span><br><span class="line">        <span class="keyword">if</span>(output[<span class="number">0</span>]==testlabels[i]):<span class="comment"># 结果和真实标签比较</span></span><br><span class="line">            count+=<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    print(count/len(testlabels))<span class="comment"># 输出成功率</span></span><br></pre></td></tr></table></figure>
-
-
-<p>输出准确率达到0.975</p>
-<p>存在一个错误样例:<br><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttetk3obj2073046mx1.jpg" alt="唯一一个错判样例, 左为原图, 右为预测标签所属图"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" class="post-title-link" itemprop="url">计算机视觉实验2-2——混合图像</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-17 11:35:21" itemprop="dateModified" datetime="2020-07-17T11:35:21+08:00">2020-07-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenCV-python/" itemprop="url" rel="index"><span itemprop="name">OpenCV-python</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AE%9E%E9%AA%8C2-2%E2%80%94%E2%80%94%E6%B7%B7%E5%90%88%E5%9B%BE%E5%83%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1269,19 +415,1026 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并"><a href="#1-处理思想-将两张图像换到频域-分别保留低频高频信息-然后合并" class="headerlink" title="1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并"></a>1. 处理思想: 将两张图像换到频域, 分别保留低频高频信息, 然后合并</h1><h1 id="2-过程分析"><a href="#2-过程分析" class="headerlink" title="2. 过程分析:"></a>2. 过程分析:</h1><p>先对猫的图片傅里叶变换, 将低频信息偏移到中心 , 然后置0挖孔</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def Hybrid(catimg,dogimg,hole&#x3D;10):</span><br><span class="line">    # cat过滤低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_catimg&#x3D;np.fft.fft2(catimg)</span><br><span class="line">    f_catimg&#x3D;np.fft.fftshift(f_catimg)</span><br><span class="line"></span><br><span class="line">    # 取得中孔位置, 挖掉中孔, 过滤低频量</span><br><span class="line">    h,w&#x3D;catimg.shape</span><br><span class="line">    f_catimg[int(h&#x2F;2-hole):int(h&#x2F;2+hole),int(w&#x2F;2-hole):int(w&#x2F;2+hole)]&#x3D;0</span><br></pre></td></tr></table></figure>
-<p>对狗的图片变换, 除中心孔以外, 将其他地方都置0 ,仅保留低频信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># dog保留低频</span><br><span class="line">    # 傅里叶变换</span><br><span class="line">    f_dogimg&#x3D;np.fft.fft2(dogimg)</span><br><span class="line">    f_dogimg&#x3D;np.fft.fftshift(f_dogimg)</span><br><span class="line"></span><br><span class="line">    # 仅保留中孔, 过滤高频量</span><br><span class="line">    h,w&#x3D;dogimg.shape</span><br><span class="line">    f_dogimg[:int(h&#x2F;2-hole),:]&#x3D;0</span><br><span class="line">    f_dogimg[int(h&#x2F;2+hole):,:]&#x3D;0</span><br><span class="line">    f_dogimg[:,:int(w&#x2F;2-hole)]&#x3D;0</span><br><span class="line">    f_dogimg[:,int(w&#x2F;2+hole):]&#x3D;0</span><br></pre></td></tr></table></figure>
-
-<p>最后将两张互补的频域图合并, 但注意简单合并会带来问题:</p>
-<h5 id="1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理"><a href="#1-相加合并的图-值的范围很可能超过-0-255-假如就这样逆变换回去的话-会出现大片的彩色乱码-即数值溢出造成的损失-所以需要归一化处理" class="headerlink" title="1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理."></a>1. 相加合并的图, 值的范围很可能超过[0,255], 假如就这样逆变换回去的话, 会出现大片的彩色乱码, 即数值溢出造成的损失, 所以需要归一化处理.</h5><h5 id="2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8"><a href="#2-此时合并出来的矩阵数据类型是np-ndarray-float64-如果想要安全的显示图像最好换成np-uint8" class="headerlink" title="2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8"></a>2. 此时合并出来的矩阵数据类型是np.ndarray, float64. 如果想要安全的显示图像最好换成np.uint8</h5><blockquote>
-<p>float64的时候我用plt.imshow显示没有问题, 但是三通道合并后无法显示</p>
+          <h1 id="旋转链表"><a href="#旋转链表" class="headerlink" title="旋转链表"></a><a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h1><blockquote>
+<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2<br>输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL<br>解释:<br>向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL<br>向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</p>
 </blockquote>
-<h5 id="3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容"><a href="#3-合并需要两张大小相同的图像-否则会出错-因此可以考虑做大小图像的兼容" class="headerlink" title="3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容."></a>3. 合并需要两张大小相同的图像, 否则会出错, 因此可以考虑做大小图像的兼容.</h5><h1 id="3-主程序"><a href="#3-主程序" class="headerlink" title="3. 主程序"></a>3. 主程序</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    catimg&#x3D;cv2.imread(&quot;.&#x2F;cat.jpg&quot;)</span><br><span class="line">    dogimg&#x3D;cv2.imread(&quot;.&#x2F;dog.jpg&quot;)</span><br><span class="line">    # 彩色猫狗图像分别对三通道进行处理</span><br><span class="line">    B_merge&#x3D;Hybrid(catimg[:,:,0],dogimg[:,:,0])</span><br><span class="line">    plt.subplot(221),plt.imshow(B_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    G_merge&#x3D;Hybrid(catimg[:,:,1],dogimg[:,:,1])</span><br><span class="line">    plt.subplot(222),plt.imshow(G_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    R_merge&#x3D;Hybrid(catimg[:,:,2],dogimg[:,:,2])</span><br><span class="line">    plt.subplot(223),plt.imshow(R_merge,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line"></span><br><span class="line">    # 合并三通道显示 猫狗</span><br><span class="line">    img_merge&#x3D;cv2.merge([B_merge,G_merge,R_merge])</span><br><span class="line">    print(img_merge)</span><br><span class="line">    plt.subplot(224),plt.imshow(img_merge)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # 人像合成</span><br><span class="line">    wholeimg&#x3D;cv2.imread(&quot;.&#x2F;marilyn-einstein-hybrid-collage.png&quot;,0)</span><br><span class="line">    h,w&#x3D;wholeimg.shape</span><br><span class="line">    first_img&#x3D;wholeimg[:,:int(w&#x2F;3)]</span><br><span class="line">    second_img&#x3D;wholeimg[:,int(w&#x2F;3):int(2*w&#x2F;3)]</span><br><span class="line">    img_hybrid&#x3D;Hybrid(first_img,second_img,30)</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize&#x3D;[12.8,9.6]),plt.imshow(img_hybrid,cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4<br>输出: 2-&gt;0-&gt;1-&gt;NULL<br>解释:<br>向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL<br>向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL<br>向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL<br>向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-直观移位——每个节点向右移动K位"><a href="#1-直观移位——每个节点向右移动K位" class="headerlink" title="1. 直观移位——每个节点向右移动K位"></a>1. 直观移位——每个节点向右移动K位</h5><p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。</p>
+<blockquote>
+<p>（前向计算也是可以的，甚至更利于想出优化的第二步）</p>
+</blockquote>
+<h5 id="注意细节：一个是移动出了链头，要转到链尾继续移动。"><a href="#注意细节：一个是移动出了链头，要转到链尾继续移动。" class="headerlink" title="注意细节：一个是移动出了链头，要转到链尾继续移动。"></a>注意细节：一个是移动出了链头，要转到链尾继续移动。</h5><h5 id="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"><a href="#然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？" class="headerlink" title="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"></a>然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？</h5><p>一个很傻的方法是把链表数值做成vector…然后在vector中找相应的数值，然后赋给当前位置…<br>很傻，浪费空间时间= =</p>
+<h5 id="2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"><a href="#2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？" class="headerlink" title="2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"></a>2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？</h5><p>再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。</p>
+<h5 id="3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"><a href="#3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。" class="headerlink" title="3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"></a>3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。</h5><h5 id="4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"><a href="#4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。" class="headerlink" title="4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"></a>4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。</h5><p>例如 1-2-3-4-5，k=2    遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。</p>
+<h5 id="5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"><a href="#5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。" class="headerlink" title="5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"></a>5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。</h5><p>当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。</p>
+<blockquote>
+<p>你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
+</blockquote>
+<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开= =<br>当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可= =。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i&#x3D;head;</span><br><span class="line">        int L&#x3D;0;</span><br><span class="line">        if(head&#x3D;&#x3D;NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-&gt;next!&#x3D;NULL)&#x2F;&#x2F;找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-&gt;next&#x3D;head;&#x2F;&#x2F;首尾相连</span><br><span class="line">        &#x2F;&#x2F;缩小k</span><br><span class="line">        k%&#x3D;L;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;从末尾起移动L-k到达 i , i-&gt;next是新头</span><br><span class="line">        k&#x3D;L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head&#x3D;i-&gt;next;</span><br><span class="line">        i-&gt;next&#x3D;NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4. 效果图"></a>4. 效果图</h1><p>其中hole参数自己感受感受, 不同的参数有完全不同的效果体现.</p>
-<p><img src="https://wx3.sinaimg.cn/mw1024/b8e57787gy1ggttchpfoij205z0580sl.jpg" alt="猫狗混合"><br><img src="https://wx1.sinaimg.cn/mw1024/b8e57787gy1ggttchpsclj20jq0kumxt.jpg" alt="人像混合"></p>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-62-64/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-62-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-62-64/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-62-64/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="不同路径-I-amp-II"><a href="#不同路径-I-amp-II" class="headerlink" title="不同路径 I &amp; II"></a><a href="https://leetcode-cn.com/problems/unique-paths-ii" target="_blank" rel="noopener">不同路径 I &amp; II</a></h1><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？<br><img src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。<br>说明：m 和 n 的值均不超过 100。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入:<br>[<br>  [0,0,0],<br>  [0,1,0],<br>  [0,0,0]<br>]<br>输出: 2<br>解释:<br>3x3 网格的正中间有一个障碍物。<br>从左上角到右下角一共有 2 条不同的路径：</p>
+<ol>
+<li>向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</li>
+<li>向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</li>
+</ol>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="对没有障碍物的情况"><a href="#对没有障碍物的情况" class="headerlink" title="对没有障碍物的情况"></a>对没有障碍物的情况</h3><ol>
+<li>小学数学思想：走到终点总共需要的操作是  m-1个向下 和 n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。$$C_{m+n-2}^{m-1}$$</li>
+</ol>
+<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。<br>3.说到回溯，大概率我们可以想想能不能换成动态规划？</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
+<li><p>首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上 和 左 两个位置的解。</p>
+</li>
+<li><p>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</p>
+</li>
+<li><p>动态规划主体已经清晰了，再可以进一步优化空间细节。<br>我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。<br>而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。</p>
+</li>
+</ol>
+<p><strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong><br>4. 注意细节，dp数组要用long类型= =int会炸</p>
+<h3 id="No-64给每个位置加了权值，要求走到右下角的权值累计和最小"><a href="#No-64给每个位置加了权值，要求走到右下角的权值累计和最小" class="headerlink" title="No.64给每个位置加了权值，要求走到右下角的权值累计和最小"></a>No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3><ol>
+<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和 [i][j-1]的最小值发展而来，以此类推。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划</span><br><span class="line">        int m&#x3D;obstacleGrid.size();</span><br><span class="line">        int n&#x3D;obstacleGrid[0].size();</span><br><span class="line">        long temp[n];&#x2F;&#x2F;注意要用long 有样例爆int....</span><br><span class="line">        int i;</span><br><span class="line">        if(obstacleGrid[0][0]!&#x3D;1)</span><br><span class="line">            temp[0]&#x3D;1;</span><br><span class="line">        else</span><br><span class="line">            return 0;</span><br><span class="line">        for(i&#x3D;1;i&lt;n;i++)&#x2F;&#x2F;首行处理</span><br><span class="line">        &#123;</span><br><span class="line">            if(obstacleGrid[0][i]!&#x3D;1)</span><br><span class="line">                temp[i]&#x3D;temp[i-1];</span><br><span class="line">            else</span><br><span class="line">                temp[i]&#x3D;0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int row&#x3D;1;</span><br><span class="line">        for(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(obstacleGrid[row][0]&#x3D;&#x3D;1)&#x2F;&#x2F;首列障碍物处理</span><br><span class="line">                temp[0]&#x3D;0;</span><br><span class="line"></span><br><span class="line">            for(i&#x3D;1;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                if(obstacleGrid[row][i]&#x3D;&#x3D;1)</span><br><span class="line">                    temp[i]&#x3D;0;</span><br><span class="line">                else</span><br><span class="line">                    temp[i]+&#x3D;temp[i-1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return temp[n-1];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-65/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="有效数字"><a href="#有效数字" class="headerlink" title="有效数字"></a><a href="https://leetcode-cn.com/problems/valid-number" target="_blank" rel="noopener">有效数字</a></h1><p>验证给定的字符串是否可以解释为十进制数字。</p>
+<p>例如:</p>
+<p>“0” =&gt; true<br>“ 0.1 “ =&gt; true<br>“abc” =&gt; false<br>“1 a” =&gt; false<br>“2e10” =&gt; true<br>“ -90e3   “ =&gt; true<br>“ 1e” =&gt; false<br>“e3” =&gt; false<br>“ 6e-1” =&gt; true<br>“ 99e2.5 “ =&gt; false<br>“53.5e93” =&gt; true<br>“ –6 “ =&gt; false<br>“-+3” =&gt; false<br>“95a54e53” =&gt; false</p>
+<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
+<p>数字 0-9<br>指数 - “e”<br>正/负号 - “+”/“-“<br>小数点 - “.”<br>当然，在输入中，这些字符的上下文也很重要。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？<br>没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p>
+</li>
+<li><p><strong>字符特征</strong> ：<br>2.1 可能包含”0<del>9“，”e“，”.“，“+”，“-”，” “。<br>2.2  ”e” 允许出现的次数？还要考虑“e”后是否允许出现”.” ， ”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？<br>2.3  “.” 允许出现的次数？ ”.” 后是否允许出现 “e” , “+ “ ,”- “？是否允许作为开头结尾 ？前面是否一定要有数字？<br>2.4  ”+“ ，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾<br>2.5 ”0</del>9“ ，”0“是否允许在幂 或者 指数 或者 小数部分 的首部，是否允许”0“结尾的小数部分。<br>2.6 ” “，只能作为开头结尾。<br>2.7 整个数，必须要有数字出现。</p>
+</li>
+<li><p><strong>判断流程</strong></p>
+</li>
+<li><p>1 数前空格清除</p>
+</li>
+<li><p>2 首位判断+ - 号，然后进入幂部分/整数部分</p>
+</li>
+<li><p>3 正常判断数字，遇到 ”.” 进入小数部分，“e” 进入指数部分，其余false。</p>
+</li>
+<li><p>4.1 小数部分，标记小数点已经用过，不能再出现，其余照常。</p>
+</li>
+<li><p>4.2 指数部分，检查e前是否有数字，”+“ ”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。</p>
+</li>
+<li><p>5 检查到” “，” “只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。</p>
+</li>
+<li><p>6 数的结尾检查，不能是”e”, “+ “ “-“ ，但可以是“ . ”。 </p>
+</li>
+<li><p>7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。</p>
+</li>
+<li><p>8 检查全部通过，但它也要有数字才可能是数！return HasNum；</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isNumber(string s) </span><br><span class="line">    &#123;   &#x2F;&#x2F;0开头结尾 true</span><br><span class="line">        &#x2F;&#x2F;多个e  false</span><br><span class="line">        &#x2F;&#x2F;e左右两边要有数 </span><br><span class="line">        &#x2F;&#x2F;指数不能为小数</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        bool UsedSign&#x3D;false;</span><br><span class="line">        bool UsedCom&#x3D;false;</span><br><span class="line">        bool UsedExp&#x3D;false;</span><br><span class="line">        bool HasNum&#x3D;false;</span><br><span class="line">        &#x2F;&#x2F;首部空格清除</span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                break;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;首位判断符号位</span><br><span class="line">        if(i&lt;s.size() &amp;&amp; (s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;) )&#x2F;&#x2F;符号</span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign&#x3D;true;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;主体判断</span><br><span class="line">        for(;i&lt;s.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&gt;&#x3D;&#39;0&#39; &amp;&amp; s[i]&lt;&#x3D;&#39;9&#39;)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum&#x3D;true;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;主要用来判断指数的符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedSign&#x3D;&#x3D;false &amp;&amp; s[i-1]&#x3D;&#x3D;&#39;e&#39;)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;.&#39;)&#x2F;&#x2F;小数点</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedCom&#x3D;&#x3D;false)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;e&#39;)&#x2F;&#x2F;指数符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedExp&#x3D;&#x3D;false &amp;&amp; HasNum&#x3D;&#x3D;true) &#x2F;&#x2F;e前需有数字</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp&#x3D;true;</span><br><span class="line">                    UsedSign&#x3D;false;&#x2F;&#x2F;重置符号状态位,指数也可以带符号</span><br><span class="line">                    UsedCom&#x3D;true;&#x2F;&#x2F;指数不能是小数</span><br><span class="line">                    continue;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39; &#39;) &#x2F;&#x2F;尾部空格</span><br><span class="line">                break;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(s[i-1]&#x3D;&#x3D;&#39;e&#39; ||s[i-1]&#x3D;&#x3D;&#39;+&#39; || s[i-1]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;e + -结尾 不行</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())&#x2F;&#x2F;尾部空格清除</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                return false;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a><a href="https://leetcode-cn.com/problems/sqrtx" target="_blank" rel="noopener">x的平方根</a></h1><p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: 4<br>输出: 2</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: 8<br>输出: 2<br>说明: 8 的平方根是 2.82842…,<br>     由于返回类型是整数，小数部分将被舍去。</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
+<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
+<li><strong>递归缩小求解：</strong><br>$$\sqrt{x}=2*\sqrt{rac{x}{4}}$$<br>因此可以递归找到易解的小x，然后再回溯整合到原x。<blockquote>
+<p>注意为什么选择2作为系数进行递归呢？<br>——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</p>
+</blockquote>
+</li>
+</ol>
+<p>递归式为：<code>mySqrt(x)=mySqrt(x&gt;&gt;2)&lt;&lt;1</code><br>4. 针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：</p>
+<blockquote>
+<p><strong>牛顿法</strong>（英语：Newton’s method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数$f(x)$ 的泰勒级数的前面几项来寻找方程的根。</p>
+</blockquote>
+<p>$$x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]$$<br>根据精度要求，$x_k$和$x_{k+1}$收敛后差距小于1即可返回结果。</p>
+<p><strong>迭代求解示意</strong>：<img src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="迭代示意图，图源
+(https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)"></p>
+<p>如上图所示，想求$\sqrt{a}$，图示a=2<br>先随便取xi=4，然后找到过(xi,yi)的切线，且$f(x)=x^2-a$的导数是$2x$<br>即切线方程$f(x)-(x_i^2-a)=2x_i(x-xi)$<br>显而易见这个切线与x轴的交点得$x_{i+1}=rac {2x_i^2-(x_i^2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $<br>即得$x_{i+1}$比$x_{i}$更接近解$\sqrt{a}$。</p>
+<h1 id="牛顿迭代题解代码"><a href="#牛顿迭代题解代码" class="headerlink" title="牛顿迭代题解代码"></a>牛顿迭代题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    int mySqrt(int x) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;牛顿迭代</span><br><span class="line">        if(x&lt;&#x3D;1)</span><br><span class="line">            return x;</span><br><span class="line">        &#x2F;&#x2F;注意long类型</span><br><span class="line">        long last&#x3D;x&#x2F;2;</span><br><span class="line">        long cur &#x3D;(last+x&#x2F;last)&#x2F;2;</span><br><span class="line">        while(abs(last-cur)&gt;&#x3D;1)</span><br><span class="line">        &#123;   </span><br><span class="line">            last&#x3D;cur;</span><br><span class="line">            cur&#x3D;(cur +x&#x2F; cur) &#x2F; 2.0 ;</span><br><span class="line">            if(cur&lt;&#x3D;x&#x2F;cur)</span><br><span class="line">                return cur;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-68/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-68/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="文本左右对齐"><a href="#文本左右对齐" class="headerlink" title="文本左右对齐"></a><a href="https://leetcode-cn.com/problems/text-justification" target="_blank" rel="noopener">文本左右对齐</a></h1><p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 ‘ ‘ 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。<br>每个单词的长度大于 0，小于等于 maxWidth。<br>输入单词数组 words 至少包含一个单词。<br>示例:</p>
+<p>输入:<br>words = [“This”, “is”, “an”, “example”, “of”, “text”, “justification.”]<br>maxWidth = 16<br>输出:<br>[<br>   “This    is    an”,<br>   “example  of text”,<br>   “justification.  “<br>]<br>示例 2:</p>
+<p>输入:<br>words = [“What”,”must”,”be”,”acknowledgment”,”shall”,”be”]<br>maxWidth = 16<br>输出:<br>[<br>  “What   must   be”,<br>  “acknowledgment  “,<br>  “shall be        “<br>]<br>解释: 注意最后一行的格式应为 “shall be    “ 而不是 “shall     be”,<br>     因为最后一行应为左对齐，而不是左右两端对齐。<br>     第二行同样为左对齐，这是因为这行只包含一个单词。<br>示例 3:</p>
+<p>输入:<br>words = [“Science”,”is”,”what”,”we”,”understand”,”well”,”enough”,”to”,”explain”,<br>         “to”,”a”,”computer.”,”Art”,”is”,”everything”,”else”,”we”,”do”]<br>maxWidth = 20<br>输出:<br>[<br>  “Science  is  what we”,<br>  “understand      well”,<br>  “enough to explain to”,<br>  “a  computer.  Art is”,<br>  “everything  else  we”,<br>  “do                  “<br>]</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>也是没有突出思路的困难题….考验代码实现细节的功底。<h4 id="进入每行一轮的循环："><a href="#进入每行一轮的循环：" class="headerlink" title="进入每行一轮的循环："></a>进入每行一轮的循环：</h4></li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= =</li>
+</ol>
+<p><strong>2.1 注意每个单词后面要留个位置给空格</strong><br><strong>2.2 同时记得保存个末行标志位，以便后续末行特殊处理</strong><br><strong>2.3 这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong><br>3. 计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。<br><strong>3.1 注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong><br><strong>3.2 注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong><br>4. 末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。<br>5. 循环填入单词，填一个单词+vector[i]数量的空格。<br>6. 填入该行结果</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; fullJustify(vector&lt;string&gt;&amp; words, int maxWidth) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string&gt;  result;</span><br><span class="line">        int wordsFlag&#x3D;0;&#x2F;&#x2F;处理到的最远的单词</span><br><span class="line">        int StartFlag&#x3D;0;</span><br><span class="line">        int SpaceNum&#x3D;0;</span><br><span class="line">        int wordsNum&#x3D;0;&#x2F;&#x2F;每行单词数</span><br><span class="line">        int CurrentLength&#x3D;0;</span><br><span class="line">        bool isLast&#x3D;false;</span><br><span class="line">        vector&lt;int&gt; spaces;&#x2F;&#x2F;存储每行每处的空格数</span><br><span class="line">        while(wordsFlag&lt;words.size())&#x2F;&#x2F;行循环</span><br><span class="line">        &#123;   </span><br><span class="line">            StartFlag&#x3D;wordsFlag;</span><br><span class="line">            wordsNum&#x3D;0;</span><br><span class="line">            CurrentLength&#x3D;0;</span><br><span class="line">            while(CurrentLength&lt;maxWidth)&#x2F;&#x2F;判断一行最多能放几个单词</span><br><span class="line">            &#123;   </span><br><span class="line">                CurrentLength+&#x3D;words[wordsFlag].size();</span><br><span class="line">                </span><br><span class="line">                if(CurrentLength+wordsNum&gt;maxWidth)&#x2F;&#x2F;超过了 退掉最后一次</span><br><span class="line">                &#123;</span><br><span class="line">                    CurrentLength-&#x3D;words[wordsFlag].size();</span><br><span class="line">                    &#x2F;&#x2F; wordsFlag--; wordsFlag 停在下一行第一个</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                wordsNum++;</span><br><span class="line">                wordsFlag++;</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;末行判定</span><br><span class="line">                if(wordsFlag&gt;&#x3D;words.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    isLast&#x3D;true;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;计算所需空格数</span><br><span class="line">            SpaceNum&#x3D;maxWidth-CurrentLength;</span><br><span class="line">            </span><br><span class="line">            if(wordsNum&gt;1)&#x2F;&#x2F;1判断，wordsNum-1&#x3D;0时不能当除数</span><br><span class="line">            &#123;</span><br><span class="line">                 spaces&#x3D; vector&lt;int&gt;(wordsNum-1,SpaceNum&#x2F;(wordsNum-1));&#x2F;&#x2F;space有wordsNum-1处，每处平均有SpaceNum&#x2F;(wordsNum-1)个</span><br><span class="line">					for (int j &#x3D; 0; j &lt; SpaceNum%(wordsNum-1); ++j)&#x2F;&#x2F;多的从前往后填，填多少是多少，保证左边的空格大于等于右边的</span><br><span class="line">                        spaces[j] +&#x3D; 1;</span><br><span class="line">                spaces.push_back(0);&#x2F;&#x2F;最后一个数不要空格</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                spaces&#x3D; vector&lt;int&gt;(1,SpaceNum);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;末行处理</span><br><span class="line">            if(isLast&#x3D;&#x3D;true &amp;&amp; wordsNum&gt;1)</span><br><span class="line">            &#123;</span><br><span class="line">                int j&#x3D; 0;</span><br><span class="line">                for (; j &lt;wordsNum-1; j++)</span><br><span class="line">                    spaces[j]&#x3D;1;&#x2F;&#x2F;末行每处空都只有一个空格，最后是剩余空格，也是服了&#x3D; &#x3D;</span><br><span class="line">                spaces[j]&#x3D;SpaceNum-(wordsNum-1);&#x2F;&#x2F;剩余空格</span><br><span class="line">            &#125;</span><br><span class="line">                    </span><br><span class="line">            string temp;</span><br><span class="line">            int j&#x3D;0;</span><br><span class="line">            while(StartFlag&lt;wordsFlag)</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;填充单词</span><br><span class="line">                temp+&#x3D;words[StartFlag];&#x2F;&#x2F;填词</span><br><span class="line">                &#x2F;&#x2F;填充空格</span><br><span class="line">                for(int i&#x3D;0;i&lt;spaces[j];i++)&#x2F;&#x2F;填空格</span><br><span class="line">                    temp.push_back(&#39; &#39;);</span><br><span class="line">                StartFlag++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result.push_back(temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-75/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-75/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-75/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">颜色分类</a></h1><p>给定一个包含红色、白色和蓝色，一共 <em>n <em>个元素的数组，</em></em><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">原地</a>**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入:** [2,0,2,1,1,0]<br><strong>输出:</strong> [0,0,1,1,2,2]</pre></p>
+</blockquote>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li>
+<li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li>
+</ul>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000…111….2222的顺序。<blockquote>
+<p>正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。</p>
+</blockquote>
+</li>
+<li>对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。<blockquote>
+<p>三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。</p>
+</blockquote>
+</li>
+<li>确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。</li>
+</ol>
+<h5 id="针对cur的分类处理："><a href="#针对cur的分类处理：" class="headerlink" title="针对cur的分类处理："></a>针对cur的分类处理：</h5><ol>
+<li><p>是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。</p>
+</li>
+<li><p>是2，则和2的flag，right交换，同时right–。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。<br>同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。<br>因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。</p>
+</li>
+<li><p>是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了</p>
+</li>
+<li><p>那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？</p>
+<p> <strong>只有当left会在cur右边时</strong>，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。</p>
+<p>   <strong>当left在cur左边时，即left指向的必定经过了cur的洗礼</strong>，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。</p>
+</li>
+<li><p>当cur遇到right，即到达2的边界，则说明不需要处理了，结束。</p>
+</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void sortColors(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        int left&#x3D;0;</span><br><span class="line">        int right&#x3D;nums.size()-1;</span><br><span class="line">        int cur&#x3D;0;</span><br><span class="line">        while(cur&lt;&#x3D;right)</span><br><span class="line">        &#123;   </span><br><span class="line">            if(nums[cur]&#x3D;&#x3D;0)&#x2F;&#x2F;这个数字是0，移动0区域内，</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[left]);</span><br><span class="line">                &#x2F;&#x2F;假如cur&gt;left，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？</span><br><span class="line">                &#x2F;&#x2F;jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。</span><br><span class="line">                &#x2F;&#x2F;假如cur&#x3D;&#x3D;left&#x3D;&#x3D;0，没啥好说的，下一个</span><br><span class="line">                &#x2F;&#x2F;假如cur&lt;left, 可能吗？cur++的机会 &gt;&#x3D; left++的机会</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(nums[cur]&#x3D;&#x3D;2)&#x2F;&#x2F;这个数字是2，移到2区域内</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[right]);</span><br><span class="line">                right--;</span><br><span class="line">                &#x2F;&#x2F;交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变</span><br><span class="line">                cur--;</span><br><span class="line">            &#125;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">编辑距离</a></h1><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+<blockquote>
+<p>输入: word1 = “horse”, word2 = “ros”<br>输出: 3<br>解释:<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: word1 = “intention”, word2 = “execution”<br>输出: 5<br>解释:<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>和字符串匹配之类的差不多，都是 <strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划  dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+</ol>
+<h1 id="dp题解代码"><a href="#dp题解代码" class="headerlink" title="dp题解代码"></a>dp题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minDistance(string word1, string word2) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划  dp[i][j]状态</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span><br><span class="line">        &#x2F;&#x2F;对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span><br><span class="line">        int dp[word1.size()+1][word2.size()+1];</span><br><span class="line">        dp[0][0]&#x3D;0;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            dp[i][0]&#x3D;i;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word2.size();i++)</span><br><span class="line">            dp[0][i]&#x3D;i;</span><br><span class="line">        </span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">        for(i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            for(j&#x3D;1;j&lt;&#x3D;word2.size();j++)</span><br><span class="line">                if(word1[i-1]&#x3D;&#x3D;word2[j-1])</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]-1);</span><br><span class="line">                else</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);</span><br><span class="line"></span><br><span class="line">        return dp[word1.size()][word2.size()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:01" itemprop="dateModified" datetime="2020-07-16T19:35:01+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-92/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">反转链表</a></h1><p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
+<p>说明:<br>1 ≤ m ≤ n ≤ 链表长度。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4<br>输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>反转一段区域，首先肯定想到是一个一个反转<blockquote>
+<p>比如2-&gt;3-&gt;4  先3插前面去 3-&gt;2-&gt;4 ，然后4插前面去 4-&gt;3-&gt;2</p>
+</blockquote>
+</li>
+<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
+<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
+<li>遍历反转区域元素current，令temp=current-&gt;next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-&gt;next即可。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseBetween(ListNode* head, int m, int n) </span><br><span class="line">    &#123;</span><br><span class="line">        int count&#x3D;1;</span><br><span class="line">        ListNode* temp;</span><br><span class="line">        ListNode* current;</span><br><span class="line">        </span><br><span class="line">        ListNode First(0);</span><br><span class="line">        First.next&#x3D;head;</span><br><span class="line">        ListNode* pre&#x3D;&amp;First;</span><br><span class="line">        while(count&lt;m)&#x2F;&#x2F;pre停在原第m-1个数</span><br><span class="line">        &#123;</span><br><span class="line">            pre&#x3D;pre-&gt;next;</span><br><span class="line">            count++;   </span><br><span class="line">        &#125;</span><br><span class="line">        current&#x3D;pre-&gt;next;&#x2F;&#x2F;current指向当前处理数</span><br><span class="line">        </span><br><span class="line">        while(count&lt;n)&#x2F;&#x2F;count计数位，每次将current-&gt;next插入到pre-&gt;next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current&#x3D;2 pre&#x3D;1</span><br><span class="line">        &#123;</span><br><span class="line">            temp&#x3D;current-&gt;next;&#x2F;&#x2F;保留current后节点，temp&#x3D;3</span><br><span class="line">            current-&gt;next&#x3D;temp-&gt;next;&#x2F;&#x2F;2-&gt;next&#x3D;4</span><br><span class="line">            temp-&gt;next&#x3D;pre-&gt;next;&#x2F;&#x2F;逆转temp和current的前后关系。3-&gt;next&#x3D;2</span><br><span class="line">            pre-&gt;next&#x3D;temp;&#x2F;&#x2F;更新pre的后节点，1-&gt;next&#x3D;3</span><br><span class="line">            &#x2F;&#x2F;current</span><br><span class="line">            count++;&#x2F;&#x2F;完成[1,3,2,4,5]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return First.next;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-86/" class="post-title-link" itemprop="url">LeetCode-No-86</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="分隔链表"><a href="#分隔链表" class="headerlink" title="分隔链表"></a><a href="https://leetcode-cn.com/problems/partition-list/" target="_blank" rel="noopener">分隔链表</a></h1><p>给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。</p>
+<p>你应当保留两个分区中每个节点的初始相对位置。</p>
+<blockquote>
+<p>示例:</p>
+<p>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3<br>输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>直接思路是第一次遍历找到中间节点，并且划分为左右两边，然后再重新遍历链表元素，按大小分类到两边去。</li>
+<li>但这样要来回遍历链表，还要不停的交换节点很麻烦，换个<strong>逆向思路：既然是一个链表分成两个区域，不就相当于两个链表合成一个区域</strong></li>
+<li>因此，即构造两个链表，遍历原链表元素，分类接在两个链表上。</li>
+<li>遍历结束合成两个链表。</li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* partition(ListNode* head, int x) </span><br><span class="line">    &#123;   </span><br><span class="line">        &#x2F;&#x2F;逆向想问题，既然分成了两段，那也可以是两段连成了一段</span><br><span class="line"></span><br><span class="line">        ListNode lefthead(0);</span><br><span class="line">        ListNode* left&#x3D;&amp;lefthead;</span><br><span class="line">        ListNode righthead(0);</span><br><span class="line">        ListNode* right&#x3D;&amp;righthead;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        while(head!&#x3D;NULL)</span><br><span class="line">        &#123;</span><br><span class="line">           if(head-&gt;val&lt;x)</span><br><span class="line">           &#123;</span><br><span class="line">               left-&gt;next&#x3D;head;</span><br><span class="line">               left&#x3D;left-&gt;next;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               right-&gt;next&#x3D;head;</span><br><span class="line">               right&#x3D;right-&gt;next;</span><br><span class="line">           &#125;</span><br><span class="line">           head&#x3D;head-&gt;next;</span><br><span class="line"></span><br><span class="line">          </span><br><span class="line">        &#125;</span><br><span class="line">        right-&gt;next&#x3D;NULL;&#x2F;&#x2F;注意赋值null，否则下面的链表连接会无限循环超时</span><br><span class="line">        left-&gt;next&#x3D;righthead.next;</span><br><span class="line">        return lefthead.next;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1300,7 +1453,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1368,7 +1521,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1430,13 +1583,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">170k</span>
+    <span title="站点总字数">235k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:04</span>
+    <span title="站点阅读时长">9:46</span>
 </div>
 
         
@@ -1538,59 +1691,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '[object Object]';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

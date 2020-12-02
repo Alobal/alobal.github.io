@@ -30,7 +30,7 @@
 <meta property="og:description" content="快速排序原理：在数组中选定一个分界数pivot, 然后将所有其他的数和它进行比较，大于的小于的分成两部分，pivot放中间，这样这一轮就确定了一个数的位置，然后递归左右两边继续快排即可。 算法流程首先确定一个分界数可以直接固定取最开始或者最后的那个数，也可以用随机算法。随机取数会使效率更加稳定。然后把这个数交换到 end，以便前面进行分块。 如何将大于和小于的两部分分开？我们目标是让小于的部分在前">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-17T08:16:30.000Z">
-<meta property="article:modified_time" content="2020-08-29T08:36:16.419Z">
+<meta property="article:modified_time" content="2020-12-02T15:38:36.504Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="排序">
 <meta property="article:tag" content="算法">
@@ -247,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-29 16:36:16" itemprop="dateModified" datetime="2020-08-29T16:36:16+08:00">2020-08-29</time>
+                <time title="修改时间：2020-12-02 23:38:36" itemprop="dateModified" datetime="2020-12-02T23:38:36+08:00">2020-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -321,7 +321,7 @@
 <h3 id="递归两个分区"><a href="#递归两个分区" class="headerlink" title="递归两个分区"></a>递归两个分区</h3><p>获得了两个分区数组，一个固定位置的 pivot ，继续在两个分区里分别排序即可。</p>
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>这里使用的是第一种分割方法，比较常见和经典。</p>
 <p>实现上需要注意 while 循环出口时，lo 和 hi 的停留位置</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">sortArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//快速排序</span></span><br><span class="line">        sortArrayHelp(nums,<span class="number">0</span>,nums.size()<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortArrayHelp</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(start&gt;=end)</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">int</span> pivot=nums[end];<span class="comment">//end 为尾，不是尾后</span></span><br><span class="line">        <span class="keyword">int</span> lo=start,hi=end<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(lo&lt;=hi)<span class="comment">//出口时 lo 和 hi 重叠在 hi 区的第一个</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[lo]&gt;pivot)</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[lo],nums[hi]);<span class="comment">//交换两数</span></span><br><span class="line">                hi--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                lo++;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        swap(nums[lo],nums[end]);<span class="comment">//注意 lo 的停留位置</span></span><br><span class="line">        sortArrayHelp(nums,start,lo<span class="number">-1</span>);</span><br><span class="line">        sortArrayHelp(nums,lo+<span class="number">1</span>,end);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">sortArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="comment">//快速排序</span></span><br><span class="line">    sortArrayHelp(nums,<span class="number">0</span>,nums.size()<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> nums;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sortArrayHelp</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start&gt;=end)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">int</span> pivot=nums[end];<span class="comment">//end 为尾，不是尾后</span></span><br><span class="line">    <span class="keyword">int</span> lo=start,hi=end<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(lo&lt;=hi)<span class="comment">//出口时 lo 和 hi 重叠在 hi 区的第一个</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[lo]&gt;pivot)</span><br><span class="line">        &#123;</span><br><span class="line">            swap(nums[lo],nums[hi]);<span class="comment">//交换两数</span></span><br><span class="line">            hi--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            lo++;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    swap(nums[lo],nums[end]);<span class="comment">//注意 lo 的停留位置</span></span><br><span class="line">    sortArrayHelp(nums,start,lo<span class="number">-1</span>);</span><br><span class="line">    sortArrayHelp(nums,lo+<span class="number">1</span>,end);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h2><ul>
 <li><p>不稳定，存在打破 等值数 顺序的交换。</p>
@@ -505,7 +505,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -567,13 +567,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">170k</span>
+    <span title="站点总字数">235k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:04</span>
+    <span title="站点阅读时长">9:46</span>
 </div>
 
         
