@@ -214,6 +214,137 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:49" itemprop="dateModified" datetime="2020-07-16T19:34:49+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a><a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">两数之和</a></h1><blockquote>
+<p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。<br>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例:</p>
+<blockquote>
+<p>给定 nums = [2, 7, 11, 15], target = 9<br>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
+</blockquote>
+</blockquote>
+<h3 id="1-解决思路"><a href="#1-解决思路" class="headerlink" title="1.解决思路"></a>1.解决思路</h3><p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        for(i&#x3D;0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            for(j&#x3D;i+1;j&lt;nums.size();j++)</span><br><span class="line">                if(nums[i]+nums[j]&#x3D;&#x3D;target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j&#x3D;nums.size();</span><br><span class="line">                    i&#x3D;j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过</li>
+<li>472 ms</li>
+<li>9.2 MB</li>
+<li>Cpp </li>
+</ul>
+<h3 id="2-优化思路"><a href="#2-优化思路" class="headerlink" title="2.优化思路"></a>2.优化思路</h3><p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。<br><strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用 <strong>空间换时间</strong>。</p>
+<blockquote>
+<p>哈希表查找复杂度为O(1)</p>
+</blockquote>
+<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。</p>
+<blockquote>
+<p><strong><em>一遍哈希表</em></strong> ：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
+</blockquote>
+<h3 id="3-最终实现代码"><a href="#3-最终实现代码" class="headerlink" title="3.最终实现代码"></a>3.最终实现代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;int,int&gt; store;</span><br><span class="line">        vector&lt;int&gt; result;</span><br><span class="line">        for(int i&#x3D;0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            if(store.count(target-nums[i])&gt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result&#x3D;vector&lt;int&gt;(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;int,int&gt;::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过 </li>
+<li>20 ms</li>
+<li>10.1 MB </li>
+<li>Cpp</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1470,145 +1601,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-32/" class="post-title-link" itemprop="url">LeetCode-No-32</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-32/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-32/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最长有效括号"><a href="#最长有效括号" class="headerlink" title="最长有效括号"></a><a href="https://leetcode-cn.com/problems/longest-valid-parentheses" target="_blank" rel="noopener">最长有效括号</a></h1><blockquote>
-<p>给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: “(()”<br>输出: 2<br>解释: 最长有效括号子串为 “()”</p>
-</blockquote>
-<p>示例 2:</p>
-<blockquote>
-<p>输入: “)()())”<br>输出: 4<br>解释: 最长有效括号子串为 “()()”</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h5 id="错误思路规避"><a href="#错误思路规避" class="headerlink" title="错误思路规避"></a>错误思路规避</h5><p>刚看到括号对, 第一反应就是栈操作的括号匹配, 认为只要匹配到匹配失败的时候记录这条括号串的长度,<br>在遍历完整个串之后, 通过最大值筛选就获得了最长有效括号长度.<br><strong>然而事实证明困难题没有那么憨憨</strong></p>
-<blockquote>
-<p>对于”( ) ( ( )”显然简单的匹配栈会把这个长度定为4,实际上只有2</p>
-</blockquote>
-<h5 id="问题出在哪呢"><a href="#问题出在哪呢" class="headerlink" title="问题出在哪呢?"></a>问题出在哪呢?</h5><p> <strong>( )</strong> ((((((((( <strong>( )</strong> 在两个正常括号中间的压栈操作不会终止长度的累积</p>
-<blockquote>
-<p>当然也不能粗暴的终止,毕竟也有( ) ( ( ( ( ) ) ) ) ) 的情况</p>
-</blockquote>
-<h1 id="改良方法"><a href="#改良方法" class="headerlink" title="改良方法"></a>改良方法</h1><p>参考了题解大神的思路之后, 明白了单纯压char型 ‘ ( ‘入栈是一种很憨憨的行为……<br>同样是压栈匹配, 人家压的下标…..<strong>消耗一样,却额外带来了位置信息</strong></p>
-<p>匹配时括号对会产生一个位置差, 而对于这个差内部肯定是合法的括号串.</p>
-<blockquote>
-<p>( <del>~</del>) 假如是非法串,<br>要么是 ( 多了,那匹配时会匹配内部多的 ( ,而不是外部那个.<br>要么是 ) 多了, 那肯定已经把栈清空了, 外围也不会有匹配括号.</p>
-</blockquote>
-<p>每次匹配成功会通过位置差得到一个当前长度信息<code>length=i-stack.top()</code><br><strong>注意这里的top是已经匹配pop出一个( 之后,再取的top,此时的top为目前合法字符串的开始位置的前一个</strong></p>
-<blockquote>
-<p>假如top和pop为同一个,对于 ((())) 的嵌套形式是没问题的,<br>但对于连串形式如:<br>例如 ( ( ) ( ) ( ) ( ) <strong>( )</strong> ) )  string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1…实际上是10-0=10</p>
-</blockquote>
-<p><strong>也因为这个i-top的方法,我们需要在最开始的栈底压入一个-1, 代表字符串开头</strong></p>
-<blockquote>
-<p>针对 ( ) ( ) ( ) 的情况, 最后一个右括号pop完, 不压入一个-1你让人家减谁去算长度….</p>
-</blockquote>
-<p>顺带一提原方法错误的案例</p>
-<blockquote>
-<p>再看( ) ( ( ), 原方法因为是只要不匹配失败, 每过一位都会长度++,因此产生错误结果 4<br>而利用位置信息差算长度的方法, 只会算出两个长度为2 的括号对 ,最大也就是2.</p>
-</blockquote>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><p>算法比较简单, 但分析细节还是比较令人舒适的~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int longestValidParentheses(string s) </span><br><span class="line">    &#123;   </span><br><span class="line">        int result&#x3D;0;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        stack&lt;int&gt; left;</span><br><span class="line">        left.push(-1);&#x2F;&#x2F;压入字符串头，以防（）（）（）（）情况</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&#x3D;&#x3D;&#39;(&#39;)   &#x2F;&#x2F;左括号 下标 入栈</span><br><span class="line">                left.push(i);</span><br><span class="line">            else    &#x2F;&#x2F;右括号消除一个左括号，并用下标差计算长度</span><br><span class="line">            &#123;</span><br><span class="line">                left.pop();</span><br><span class="line">                if(left.empty()!&#x3D;true)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(i-left.top()&gt;result)</span><br><span class="line">                        result&#x3D;i-left.top();  </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    left.push(i);</span><br><span class="line">                  </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1680,7 +1672,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1693,7 +1685,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1742,13 +1734,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">251k</span>
+    <span title="站点总字数">253k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10:28</span>
+    <span title="站点阅读时长">10:32</span>
 </div>
 
         

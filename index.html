@@ -214,6 +214,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2021/01/28/%E5%B1%8F%E8%94%BDB%E7%AB%99%E9%A6%96%E9%A1%B5%E7%9B%B4%E6%92%AD%E5%9D%97%E8%88%9E%E8%B9%88%E5%8C%BA%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/28/%E5%B1%8F%E8%94%BDB%E7%AB%99%E9%A6%96%E9%A1%B5%E7%9B%B4%E6%92%AD%E5%9D%97%E8%88%9E%E8%B9%88%E5%8C%BA%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">屏蔽B站PC首页直播块舞蹈区元素</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-28 20:57:55 / 修改时间：21:36:20" itemprop="dateCreated datePublished" datetime="2021-01-28T20:57:55+08:00">2021-01-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/28/%E5%B1%8F%E8%94%BDB%E7%AB%99%E9%A6%96%E9%A1%B5%E7%9B%B4%E6%92%AD%E5%9D%97%E8%88%9E%E8%B9%88%E5%8C%BA%E5%85%83%E7%B4%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/28/%E5%B1%8F%E8%94%BDB%E7%AB%99%E9%A6%96%E9%A1%B5%E7%9B%B4%E6%92%AD%E5%9D%97%E8%88%9E%E8%B9%88%E5%8C%BA%E5%85%83%E7%B4%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一直以来喜欢没事挂在B站首页，然后看看有没有些有趣的人直播好玩的东西什么的。然而，B站首推的主播大多都是舞见唱见，视频陪聊什么的，流量至上没有错，但是让我目标信息获取率极低就很烦。</p>
+<p>因此找了找根据分区删除元素的方式：</p>
+<p><code>www.bilibili.com##.live-card:has-text(舞见)</code></p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li><p>Chrome系浏览器，可以用Chrome插件</p>
+</li>
+<li><p>浏览器安装一个广告拦截插件，如Ads Killer Plus</p>
+</li>
+</ul>
+<h2 id="添加屏蔽规则"><a href="#添加屏蔽规则" class="headerlink" title="添加屏蔽规则"></a>添加屏蔽规则</h2><p>通常广告拦截插件都支持自定义规则，而显然舞见直播什么的不会被内置定义为广告，虽然实际上差不多。<br>因此我们要自己写选择舞见的过滤器。<br>以Ads Killer Plus为例：</p>
+<p>首页直播块结构如下：.live-card &gt; a &gt; .up &gt; .txt &gt; . tag</p>
+<p>tag值即是主播分区名，如视频唱见、舞见…</p>
+<p>我们想要通过 tag=舞见 去删除.live-card元素，正常的类选择器好像只能根据父元素选择子元素，而不能反过来。</p>
+<p>这时候就需要用到插件的扩展语法功能，例如这款插件有如下两个选择语法：</p>
+<h3 id="subject-has-arg"><a href="#subject-has-arg" class="headerlink" title="subject:has(arg)"></a>subject:has(arg)</h3><p>如果subject自身及其子元素有arg元素，则选定subject元素</p>
+<p>使用方法即正常选择器选出一个subject对象，然后后面加上<code>:has(arg)</code>，arg 也是一个选择器对象。</p>
+<ul>
+<li>Description: Select element subject if and only if evaluating arg in the context of subject returns one or more elements.</li>
+<li>Chainable: Yes.</li>
+<li>subject: Can be a plain CSS selector, or a procedural cosmetic filter.</li>
+<li>arg: A valid plain CSS selector or procedural cosmetic filter, which is evaluated in the context of the subject element.</li>
+</ul>
+<h3 id="subject-has-text-needle"><a href="#subject-has-text-needle" class="headerlink" title="subject:has-text(needle)"></a>subject:has-text(needle)</h3><p>如果subject自身及其子元素有needle文本值，则选定subject元素。<br>needle可用正则表达式。</p>
+<ul>
+<li>Description: Select element subject if the text needle is found inside the element subject or its children.</li>
+<li>Chainable: Yes.</li>
+<li>subject: Can be a plain CSS selector, or a procedural cosmetic filter.</li>
+<li>needle: The literal text which must be found, or a literal regular expression. If using a literal regular expression, you can optionally use the i and/or m flags (version 1.15).</li>
+</ul>
+<blockquote>
+<p>注意冒号后面不能有空格</p>
+</blockquote>
+<p>我们只需判断分区文本值，因此用has-text即可，最终在自定义规则列表中添加如下规则应用：</p>
+<blockquote>
+<p><a href="http://www.bilibili.com##.live-card:has-text(/电台|陪伴学习|萌宠|唱见|舞见|视频|虚拟主播/)" target="_blank" rel="noopener">www.bilibili.com##.live-card:has-text(/电台|陪伴学习|萌宠|唱见|舞见|视频|虚拟主播/)</a></p>
+</blockquote>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>上述规则会选定整个live-card板块，因此删除后B站直播块可能会有点排版不整齐，如果仅删除live-card下的a元素，则删除后会在原位置保留一块空白，保持元素排版整齐。</p>
+<p>另外这种方式应该适用于所有通过子类屏蔽父类的想法。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2021/01/06/%E7%BB%88%E6%9C%AB%E4%B9%8B%E8%AF%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1273,112 +1406,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/" class="post-title-link" itemprop="url">阅读:Covid Children</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-09 08:17:37" itemprop="dateCreated datePublished" datetime="2020-09-09T08:17:37+08:00">2020-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-08 23:23:37" itemprop="dateModified" datetime="2020-10-08T23:23:37+08:00">2020-10-08</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Fatigue-and-headache-most-common-Covid-symptoms-in-children-–-study"><a href="#Fatigue-and-headache-most-common-Covid-symptoms-in-children-–-study" class="headerlink" title="Fatigue and headache most common Covid symptoms in children – study"></a>Fatigue and headache most common Covid symptoms in children – study</h1><p>研究表明，疲劳和头痛是儿童最普遍的新冠感染症状</p>
-<p><strong>Fatigue</strong>, headache and fever are the most common symptoms of coronavirus in children, with few developing a cough or losing their sense of taste or smell, researchers have found, adding to calls for age-specific symptom checklists.</p>
-<p>研究者们发现，疲劳、头痛和发烧是儿童感染新冠最普遍的症状，其中也有小部分会演变成咳嗽或者失去嗅觉或味觉。并且他们据此将这些症状添加到了根据年龄定制的症状检测清单中。</p>
-<p>The NHS lists three symptoms as signs of Covid-19 in adults and children: a high temperature, a new, continuous cough, and a loss or change in the sense of smell or taste.</p>
-<p>NHS列举了三项成人和儿童的感染标志性症状：体温过高，突然的连续不断的咳嗽，和嗅觉或者味觉的变化或缺失。</p>
-<p>However, the team behind the Covid symptom study app say new data shows that the disease presents differently in children compared with adults.</p>
-<p>然而，在新冠症状学习app背后的团队称，新的数据显示儿童表现的症状和成人有所区别。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1450,7 +1477,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1463,7 +1490,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1512,13 +1539,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">251k</span>
+    <span title="站点总字数">253k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">10:28</span>
+    <span title="站点阅读时长">10:32</span>
 </div>
 
         
