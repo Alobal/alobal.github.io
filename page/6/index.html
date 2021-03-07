@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.2.1">
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -51,7 +51,7 @@
   
 
 
-  <script>
+  <script data-pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -85,12 +85,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -611,6 +611,155 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-16/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a><a href="https://leetcode-cn.com/problems/3sum-closest" target="_blank" rel="noopener">最接近的三数之和</a></h1><blockquote>
+<p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+<blockquote>
+<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
+<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
+</blockquote>
+</blockquote>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
+<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
+<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
+</ul>
+<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while(i&lt;j)</span><br><span class="line">&#123;</span><br><span class="line">  if(sum&lt;target)</span><br><span class="line">    i++;</span><br><span class="line">  else if(sum&gt;target)</span><br><span class="line">    j--;</span><br><span class="line">  else if(sum&#x3D;&#x3D;target)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
+</ul>
+<blockquote>
+<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
+<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
+</blockquote>
+<ul>
+<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
+</ul>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	int threeSumClosest(vector&lt;int&gt;&amp; nums, int target)</span><br><span class="line">	&#123;</span><br><span class="line">		int result;</span><br><span class="line">		sort(nums.begin(), nums.end());</span><br><span class="line">		vector&lt;int&gt; sums;</span><br><span class="line">		int a;</span><br><span class="line">		int b;</span><br><span class="line">		int c;</span><br><span class="line">		int sum;</span><br><span class="line">		int resultdistance &#x3D; INT_MAX;</span><br><span class="line"></span><br><span class="line">		for (a &#x3D; 0; a &lt; nums.size() - 2; a++)</span><br><span class="line">		&#123;</span><br><span class="line">			b &#x3D; a + 1;</span><br><span class="line">			c &#x3D; nums.size() - 1;</span><br><span class="line"></span><br><span class="line">			while (b &lt; c)</span><br><span class="line">			&#123;</span><br><span class="line">				sum &#x3D; nums[a] + nums[b] + nums[c];</span><br><span class="line"></span><br><span class="line">				</span><br><span class="line">				sums.push_back(sum);</span><br><span class="line">				if (sum &lt; target)</span><br><span class="line">					b++;</span><br><span class="line">				else if (sum &gt; target)</span><br><span class="line">					c--;</span><br><span class="line">				else</span><br><span class="line">					return sum;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;i&lt;sums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(abs(target - sums[i]) &lt; resultdistance)</span><br><span class="line">				&#123;</span><br><span class="line">					result &#x3D; sums[i];</span><br><span class="line">					resultdistance &#x3D; abs(target - result);</span><br><span class="line">				&#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
+<table>
+<thead>
+<tr>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019.9.15</td>
+<td>通过</td>
+<td>12 ms</td>
+<td>8.7 MB</td>
+</tr>
+<tr>
+<td>2019.9.11</td>
+<td>通过</td>
+<td>16 ms</td>
+<td>12.9 MB</td>
+</tr>
+</tbody></table>
+<p>8ms可能是做不到了，量级上应该一样。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -778,7 +927,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-16/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-28-(KMP)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -792,7 +941,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
+            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
         </h2>
 
         <div class="post-meta">
@@ -809,7 +958,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:50" itemprop="dateModified" datetime="2020-07-16T19:34:50+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -830,8 +979,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-16/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-16/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -841,14 +990,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -860,54 +1009,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="最接近的三数之和"><a href="#最接近的三数之和" class="headerlink" title="最接近的三数之和"></a><a href="https://leetcode-cn.com/problems/3sum-closest" target="_blank" rel="noopener">最接近的三数之和</a></h1><blockquote>
-<p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
 <blockquote>
-<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
-<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
+<p>示例 1:</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
 </blockquote>
-</blockquote>
-<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ul>
-<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
-<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
-</ul>
-<h3 id="算法主体"><a href="#算法主体" class="headerlink" title="算法主体"></a>算法主体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while(i&lt;j)</span><br><span class="line">&#123;</span><br><span class="line">  if(sum&lt;target)</span><br><span class="line">    i++;</span><br><span class="line">  else if(sum&gt;target)</span><br><span class="line">    j--;</span><br><span class="line">  else if(sum&#x3D;&#x3D;target)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
-</ul>
 <blockquote>
-<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
-<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
+<p>示例 2:</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
 </blockquote>
-<ul>
-<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
+<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+</blockquote>
+<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
+<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
 </ul>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">	int threeSumClosest(vector&lt;int&gt;&amp; nums, int target)</span><br><span class="line">	&#123;</span><br><span class="line">		int result;</span><br><span class="line">		sort(nums.begin(), nums.end());</span><br><span class="line">		vector&lt;int&gt; sums;</span><br><span class="line">		int a;</span><br><span class="line">		int b;</span><br><span class="line">		int c;</span><br><span class="line">		int sum;</span><br><span class="line">		int resultdistance &#x3D; INT_MAX;</span><br><span class="line"></span><br><span class="line">		for (a &#x3D; 0; a &lt; nums.size() - 2; a++)</span><br><span class="line">		&#123;</span><br><span class="line">			b &#x3D; a + 1;</span><br><span class="line">			c &#x3D; nums.size() - 1;</span><br><span class="line"></span><br><span class="line">			while (b &lt; c)</span><br><span class="line">			&#123;</span><br><span class="line">				sum &#x3D; nums[a] + nums[b] + nums[c];</span><br><span class="line"></span><br><span class="line">				</span><br><span class="line">				sums.push_back(sum);</span><br><span class="line">				if (sum &lt; target)</span><br><span class="line">					b++;</span><br><span class="line">				else if (sum &gt; target)</span><br><span class="line">					c--;</span><br><span class="line">				else</span><br><span class="line">					return sum;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;i&lt;sums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(abs(target - sums[i]) &lt; resultdistance)</span><br><span class="line">				&#123;</span><br><span class="line">					result &#x3D; sums[i];</span><br><span class="line">					resultdistance &#x3D; abs(target - result);</span><br><span class="line">				&#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
-<table>
-<thead>
-<tr>
-<th>提交结果</th>
-<th>执行用时</th>
-<th>内存消耗</th>
-<th>语言</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2019.9.15</td>
-<td>通过</td>
-<td>12 ms</td>
-<td>8.7 MB</td>
-</tr>
-<tr>
-<td>2019.9.11</td>
-<td>通过</td>
-<td>16 ms</td>
-<td>12.9 MB</td>
-</tr>
-</tbody></table>
-<p>8ms可能是做不到了，量级上应该一样。</p>
+<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+</blockquote>
+<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
+<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
+<ol>
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
+</blockquote>
+<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
+</blockquote>
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">因为在0位失败肯定没法跳跃，令jump[0]&#x3D;-1 </span><br><span class="line">设置好跳跃定位标志 k&#x3D;-1</span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k&#x3D;&#x3D;-1</span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]&#x3D;k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]&#x3D;jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k&#x3D;jump[k]</span><br></pre></td></tr></table></figure>
+
+<h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
+<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int strStr(string haystack, string needle) </span><br><span class="line">    &#123;   </span><br><span class="line">        if(needle&#x3D;&#x3D;&quot;&quot;)</span><br><span class="line">            return 0;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;KMP</span><br><span class="line"> </span><br><span class="line">        int jump[needle.size()];</span><br><span class="line">        jump[0]&#x3D;-1;</span><br><span class="line">        int k&#x3D;-1;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;创建失效数组  abcabcd</span><br><span class="line">        while(i&lt;needle.size()-1)</span><br><span class="line">        &#123;</span><br><span class="line">            if(k&#x3D;&#x3D;-1 || needle[i]&#x3D;&#x3D;needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                if(needle[i]!&#x3D;needle[k])</span><br><span class="line">                    jump[i]&#x3D;k;</span><br><span class="line">                else</span><br><span class="line">                    jump[i]&#x3D;jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            else    &#x2F;&#x2F;内置kmp</span><br><span class="line">                k&#x3D;jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        int x&#x3D;0;</span><br><span class="line">        int y&#x3D;0;</span><br><span class="line">        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) &#x2F;&#x2F;注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span><br><span class="line">        &#123;</span><br><span class="line">            if(y&#x3D;&#x3D;-1 ||haystack[x]&#x3D;&#x3D;needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">               y&#x3D;jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(y&#x3D;&#x3D;needle.size())</span><br><span class="line">            return x-y;</span><br><span class="line">        else</span><br><span class="line">            return -1;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1047,7 +1188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-28-(KMP)/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1061,7 +1202,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+            <a href="/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
         </h2>
 
         <div class="post-meta">
@@ -1078,7 +1219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:51" itemprop="dateModified" datetime="2020-07-16T19:34:51+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1099,8 +1240,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-31/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-31/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1110,14 +1251,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1129,46 +1270,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="实现-strStr-函数"><a href="#实现-strStr-函数" class="headerlink" title="实现 strStr() 函数"></a><a href="https://leetcode-cn.com/problems/implement-strstr" target="_blank" rel="noopener">实现 strStr() 函数</a></h1><blockquote>
-<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
+<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
+<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
 <blockquote>
-<p>示例 1:</p>
-<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2</p>
+<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
 </blockquote>
+</blockquote>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
 <blockquote>
-<p>示例 2:</p>
-<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1</p>
+<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
 </blockquote>
-<p>说明:<br>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。<br>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
+<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
+<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
+<blockquote>
+<p>如  <strong>[1,2,5,4,3,6]</strong></p>
 </blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><ul>
-<li>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</li>
-</ul>
-<h1 id="KMP-（主要思想：不回退的主串标志位，有效利用失败信息）"><a href="#KMP-（主要思想：不回退的主串标志位，有效利用失败信息）" class="headerlink" title="KMP  （主要思想：不回退的主串标志位，有效利用失败信息）"></a><strong>KMP</strong>  （主要思想：<strong>不回退的主串标志位，有效利用失败信息</strong>）</h1><h3 id="暴力法存在的问题："><a href="#暴力法存在的问题：" class="headerlink" title="暴力法存在的问题："></a>暴力法存在的问题：</h3><blockquote>
-<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
+<blockquote>
+<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
 </blockquote>
-<p>  我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败<br>在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。<br>即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
-<h3 id="失败返回的有效信息"><a href="#失败返回的有效信息" class="headerlink" title="失败返回的有效信息"></a>失败返回的有效信息</h3><p>模式串在 e 处失败，可以带给我们什么有效信息：<br>      1. 主串前面有<code>abcdabc</code><br>      2.  主串这一位不为<code>e</code></p>
-<h3 id="利用信息"><a href="#利用信息" class="headerlink" title="利用信息"></a>利用信息</h3><h5 id="同缀的跳过"><a href="#同缀的跳过" class="headerlink" title="同缀的跳过"></a>同缀的跳过</h5><p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5 ~ 7位<code>abc</code>虽然是在匹配模式串的5 ~ 7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
-<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
-<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
-<h5 id="为什么恰巧可以跳过呢"><a href="#为什么恰巧可以跳过呢" class="headerlink" title="为什么恰巧可以跳过呢"></a>为什么恰巧可以跳过呢</h5><p>让我们来看一下跳过时的环境条件</p>
-<ol>
-<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
-<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
-</ol>
-<h5 id="因此我们可以找到跳过的思路："><a href="#因此我们可以找到跳过的思路：" class="headerlink" title="因此我们可以找到跳过的思路："></a>因此我们可以找到跳过的思路：</h5><h5 id="匹配失败时"><a href="#匹配失败时" class="headerlink" title="匹配失败时"></a>匹配失败时</h5><h5 id="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。"><a href="#假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i-不变，j-跳到整数几位的后一位接着匹配。" class="headerlink" title="假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。"></a>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i 不变，j 跳到整数几位的后一位接着匹配。</h5><h5 id="假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。"><a href="#假如不能形成这种前后缀的匹配，则直接让-i-，在下一位开始全新的匹配。" class="headerlink" title="假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。"></a>假如不能形成这种前后缀的匹配，则直接让 i ++，在下一位开始全新的匹配。</h5><blockquote>
-<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++ ，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax  pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。<br>然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的 j 处匹配就解决了这个情况。</p>
+<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
+<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
+<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
 </blockquote>
-<h3 id="创造跳跃数组"><a href="#创造跳跃数组" class="headerlink" title="创造跳跃数组"></a>创造跳跃数组</h3><p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。<br>而这个恰当的位置 k 满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
-<h5 id="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。"><a href="#所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位-j-进行前后缀检测，存在满足的前后缀即可令-jump-j-k-存储在该处失败可跳跃到的位置。不存在则存入-1-作为标志即可。" class="headerlink" title="所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。"></a>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位 j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k 存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可。</h5><blockquote>
-<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
+<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
+<blockquote>
+<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
 </blockquote>
-<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己…….作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">因为在0位失败肯定没法跳跃，令jump[0]&#x3D;-1 </span><br><span class="line">设置好跳跃定位标志 k&#x3D;-1</span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k&#x3D;&#x3D;-1</span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]&#x3D;k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]&#x3D;jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k&#x3D;jump[k]</span><br></pre></td></tr></table></figure>
-
-<h5 id="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"><a href="#处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配" class="headerlink" title="处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配"></a>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配</h5><p>匹配过程看下方代码即可，并不难</p>
-<h1 id="KMP解题代码"><a href="#KMP解题代码" class="headerlink" title="KMP解题代码"></a>KMP解题代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int strStr(string haystack, string needle) </span><br><span class="line">    &#123;   </span><br><span class="line">        if(needle&#x3D;&#x3D;&quot;&quot;)</span><br><span class="line">            return 0;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;KMP</span><br><span class="line"> </span><br><span class="line">        int jump[needle.size()];</span><br><span class="line">        jump[0]&#x3D;-1;</span><br><span class="line">        int k&#x3D;-1;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;创建失效数组  abcabcd</span><br><span class="line">        while(i&lt;needle.size()-1)</span><br><span class="line">        &#123;</span><br><span class="line">            if(k&#x3D;&#x3D;-1 || needle[i]&#x3D;&#x3D;needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                if(needle[i]!&#x3D;needle[k])</span><br><span class="line">                    jump[i]&#x3D;k;</span><br><span class="line">                else</span><br><span class="line">                    jump[i]&#x3D;jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            else    &#x2F;&#x2F;内置kmp</span><br><span class="line">                k&#x3D;jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        int x&#x3D;0;</span><br><span class="line">        int y&#x3D;0;</span><br><span class="line">        while(x&lt;haystack.size() &amp;&amp; y&lt;int(needle.size())) &#x2F;&#x2F;注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span><br><span class="line">        &#123;</span><br><span class="line">            if(y&#x3D;&#x3D;-1 ||haystack[x]&#x3D;&#x3D;needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">               y&#x3D;jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(y&#x3D;&#x3D;needle.size())</span><br><span class="line">            return x-y;</span><br><span class="line">        else</span><br><span class="line">            return -1;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        if(nums.size()&lt;&#x3D;1)</span><br><span class="line">            return ;</span><br><span class="line">        </span><br><span class="line">        int flag&#x3D;0;</span><br><span class="line">        int nextid&#x3D;nums.size()-1;</span><br><span class="line">        int currentid&#x3D;nextid-1;</span><br><span class="line">        </span><br><span class="line">        while(currentid&gt;&#x3D;0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[nextid]&gt;nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;从后往前，找到第一组 升序对</span><br><span class="line">               flag&#x3D;1;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(flag&#x3D;&#x3D;1)&#x2F;&#x2F;存在下一个更大排列</span><br><span class="line">        &#123;</span><br><span class="line">                &#x2F;&#x2F;交换生成新排列</span><br><span class="line">            while(nextid+1&lt;nums.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[nextid+1]&gt;nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            tempswap(nums[currentid],nums[nextid]);</span><br><span class="line">            &#x2F;&#x2F;currentid右边必然是降序</span><br><span class="line">            &#x2F;&#x2F;将currentid右边升序处理</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            while(currentid+1&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid+1]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        else</span><br><span class="line">        &#123;   &#x2F;&#x2F;不存在，则倒序</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            currentid&#x3D;0;</span><br><span class="line">            while(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void tempswap(int&amp; a,int&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp&#x3D;b;</span><br><span class="line">            b&#x3D;a;</span><br><span class="line">            a&#x3D;temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1469,138 +1601,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-31/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:52" itemprop="dateModified" datetime="2020-07-16T19:34:52+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-31/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-31/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="下一个排列"><a href="#下一个排列" class="headerlink" title="下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation" target="_blank" rel="noopener">下一个排列</a></h1><blockquote>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。<br>必须原地修改，只允许使用额外常数空间。</p>
-<blockquote>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。<br>1,2,3 → 1,3,2<br>3,2,1 → 1,2,3<br>1,1,5 → 1,5,1</p>
-</blockquote>
-</blockquote>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><h3 id="①是否存在更大的排列"><a href="#①是否存在更大的排列" class="headerlink" title="①是否存在更大的排列"></a>①是否存在更大的排列</h3><h5 id="更大的排列"><a href="#更大的排列" class="headerlink" title="更大的排列"></a>更大的排列</h5><p>考虑最大的字典序排列: 降序排列</p>
-<blockquote>
-<p><strong>[1,2,3]</strong> → <strong>[3,2,1]</strong>      对于  <strong>[3,2,1]</strong>  序列,已经是最大字典序了</p>
-</blockquote>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列<br>因此判断是否存在下一个排列的条件就是  <strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="②找到下一个排列"><a href="#②找到下一个排列" class="headerlink" title="②找到下一个排列"></a>②找到下一个排列</h3><p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5 id="为什么最后两位调换之后字典序会变大呢"><a href="#为什么最后两位调换之后字典序会变大呢" class="headerlink" title="为什么最后两位调换之后字典序会变大呢?"></a>为什么最后两位调换之后字典序会变大呢?</h5><p>我们可以发现一个本质: <strong>它们是升序的, 升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序</p>
-<blockquote>
-<p>如  <strong>[1,2,5,4,3,6]</strong></p>
-</blockquote>
-<h5 id="知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列"><a href="#知道了获得更大序的方法-接下来我们要确定什么操作能得到最小的更大序-下一个更大的序列" class="headerlink" title="知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)"></a>知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5><p>其实字典序类似于数的大小关系.</p>
-<blockquote>
-<p>比如<strong>[1,2,3]</strong> → <strong>[2,1,3]</strong>&gt;<strong>[1.3.2]</strong></p>
-</blockquote>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对"><a href="#找到最靠后的一对升序数对" class="headerlink" title="找到最靠后的一对升序数对"></a>找到最靠后的一对升序数对</h5><blockquote>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong><br>最靠后的/最小的 升序数对是 [3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong><br>显然这个结果还不太对.</p>
-</blockquote>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.<br>换句话说,其实再多加几步操作才能保证是下一个序列.<br>来看看我们还差些什么</p>
-<blockquote>
-<p><strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,<br>4的后面原本是降序,被整理成了升序</p>
-</blockquote>
-<p>首先在我们的算法里,我们从后往前找一个升序的”峰值”<br>换句话说,我们在找到””峰值””之前,也即从末尾到”峰值””,必然是降序的,也就是局部最大的序列.<br>因此我们调换了一对最小的升序对,整个序列在””峰值””之前已经是最小的了,<br>但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,<br>因此<strong>将””峰值””往后调整成升序,即后半段最小</strong>即可构成”最小+最小”的下一个排列.</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码:"></a>题解代码:</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        if(nums.size()&lt;&#x3D;1)</span><br><span class="line">            return ;</span><br><span class="line">        </span><br><span class="line">        int flag&#x3D;0;</span><br><span class="line">        int nextid&#x3D;nums.size()-1;</span><br><span class="line">        int currentid&#x3D;nextid-1;</span><br><span class="line">        </span><br><span class="line">        while(currentid&gt;&#x3D;0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(nums[nextid]&gt;nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                &#x2F;&#x2F;从后往前，找到第一组 升序对</span><br><span class="line">               flag&#x3D;1;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(flag&#x3D;&#x3D;1)&#x2F;&#x2F;存在下一个更大排列</span><br><span class="line">        &#123;</span><br><span class="line">                &#x2F;&#x2F;交换生成新排列</span><br><span class="line">            while(nextid+1&lt;nums.size())</span><br><span class="line">            &#123;</span><br><span class="line">                if(nums[nextid+1]&gt;nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                else</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            tempswap(nums[currentid],nums[nextid]);</span><br><span class="line">            &#x2F;&#x2F;currentid右边必然是降序</span><br><span class="line">            &#x2F;&#x2F;将currentid右边升序处理</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            while(currentid+1&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid+1]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        else</span><br><span class="line">        &#123;   &#x2F;&#x2F;不存在，则倒序</span><br><span class="line">            nextid&#x3D;nums.size()-1;</span><br><span class="line">            currentid&#x3D;0;</span><br><span class="line">            while(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                tempswap(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void tempswap(int&amp; a,int&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp&#x3D;b;</span><br><span class="line">            b&#x3D;a;</span><br><span class="line">            a&#x3D;temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1705,8 +1705,6 @@
 
 
       </div>
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
-    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=0&height=66"></iframe>
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
@@ -1745,7 +1743,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -1777,9 +1775,10 @@
   </div>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
@@ -1791,11 +1790,70 @@
 
 <script src="/js/next-boot.js"></script>
 
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
-  <script>
+  <script data-pjax>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -1839,6 +1897,7 @@
 
 
 
+    <div id="pjax">
   
 
   
@@ -1848,7 +1907,7 @@
 
 <script>
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     var GUEST = ['nick', 'mail', 'link'];
     var guest = 'nick,mail,';
     guest = guest.split(',').filter(item => {
@@ -1872,8 +1931,30 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
   }, window.Valine);
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
+    </div>
+
+
+<body>
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+</body>
+<!--如果将本体放在body里面，导致页面加载出现问题，请尝试放到body体后面-->
+<div class="aplayer" 
+	data-id="3036324986" 
+	data-server="tencent" 
+	data-type="playlist" 
+	data-fixed="true"	
+	data-order="random"
+	data-volume="0.65"
+	data-autoplay="false"   
+	date-preload="auto"
+	data-theme="#cc543a">
+</div>
 </body>
 </html>
 

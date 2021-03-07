@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.2.1">
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/main.css">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -51,7 +51,7 @@
   
 
 
-  <script>
+  <script data-pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -85,12 +85,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,116 +210,6 @@
 
           <div class="content index posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-49/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-49/" class="post-title-link" itemprop="url">LeetCode-No-49</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:55" itemprop="dateModified" datetime="2020-07-16T19:34:55+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-49/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-49/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>727</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字母异位分词"><a href="#字母异位分词" class="headerlink" title="字母异位分词"></a><a href="https://leetcode-cn.com/problems/group-anagrams" target="_blank" rel="noopener">字母异位分词</a></h1><blockquote>
-<p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
-<blockquote>
-<p>示例:</p>
-<p>输入: [“eat”, “tea”, “tan”, “ate”, “nat”, “bat”],<br>输出:<br>[<br>  [“ate”,”eat”,”tea”],<br>  [“nat”,”tan”],<br>  [“bat”]<br>]<br>说明：</p>
-</blockquote>
-<p>所有输入均为小写字母。<br>不考虑答案输出的顺序。</p>
-</blockquote>
-<h1 id="题解分析"><a href="#题解分析" class="headerlink" title="题解分析"></a>题解分析</h1><h3 id="1-怎么判断是不是异位分词呢-想想异位分词具有什么特点"><a href="#1-怎么判断是不是异位分词呢-想想异位分词具有什么特点" class="headerlink" title="1. 怎么判断是不是异位分词呢? 想想异位分词具有什么特点?"></a>1. 怎么判断是不是异位分词呢? 想想异位分词具有什么特点?</h3><h3 id="—-异位分词中-字母出现次数相同-字母顺序不同"><a href="#—-异位分词中-字母出现次数相同-字母顺序不同" class="headerlink" title="—- 异位分词中, 字母出现次数相同, 字母顺序不同"></a>—- 异位分词中, 字母出现次数相同, 字母顺序不同</h3><h3 id="—-因此我们可以-排序后观察-26字母次数统计-进行比较"><a href="#—-因此我们可以-排序后观察-26字母次数统计-进行比较" class="headerlink" title="—- 因此我们可以 排序后观察 / 26字母次数统计 进行比较."></a>—- 因此我们可以 排序后观察 / 26字母次数统计 进行比较.</h3><h3 id="当然注意别做一类扫一遍-用个字典自动分类就可以了"><a href="#当然注意别做一类扫一遍-用个字典自动分类就可以了" class="headerlink" title="当然注意别做一类扫一遍, 用个字典自动分类就可以了."></a>当然注意别做一类扫一遍, 用个字典自动分类就可以了.</h3><h1 id="题解代码—-排序-字典"><a href="#题解代码—-排序-字典" class="headerlink" title="题解代码—-排序+字典"></a>题解代码—-排序+字典</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; groupAnagrams(vector&lt;string&gt;&amp; strs) </span><br><span class="line">    &#123;   &#x2F;&#x2F;加字典的排序</span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; result;</span><br><span class="line">        unordered_map&lt;string, vector&lt;string&gt;&gt; hashmap;</span><br><span class="line">        for(string s : strs)</span><br><span class="line">        &#123;</span><br><span class="line">            string temp &#x3D; s;</span><br><span class="line">            sort(temp.begin(), temp.end());</span><br><span class="line">            hashmap[temp].push_back(s);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(auto i : hashmap)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(i.second);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
       
   
   
@@ -558,6 +448,129 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-56-No-57/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-56-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-21 20:09:40" itemprop="dateModified" datetime="2020-08-21T20:09:40+08:00">2020-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-56-No-57/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-56-No-57/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals"><a href="#合并区间-插入区间-https-leetcode-cn-com-problems-merge-intervals" class="headerlink" title="(合并区间 || 插入区间)[https://leetcode-cn.com/problems/merge-intervals]"></a>(合并区间 || 插入区间)[<a href="https://leetcode-cn.com/problems/merge-intervals]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-intervals]</a></h1><blockquote>
+<p>给出一个区间的集合，请合并所有重叠的区间。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><ol>
+<li>[a,b] [c,d]合并条件：b&gt;=c &amp;&amp; a&lt;=d 此时区间存在重复区段，可以合并</li>
+<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
+<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。<h3 id="插入区间"><a href="#插入区间" class="headerlink" title="插入区间"></a>插入区间</h3></li>
+<li>首先需要找到插入位置，即左边界 介于  前一个和后一个的左边界 中间。</li>
+<li>插入之后的收尾工作<br>插入时会不会和前一个发生和合并？<br>因为是按左边界顺序，因此<strong>往前只可能合并一个</strong><br>但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
+</ol>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><h3 id="合并区间-1"><a href="#合并区间-1" class="headerlink" title="合并区间"></a>合并区间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; merge(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; result;</span><br><span class="line">        int Len&#x3D;intervals.size();</span><br><span class="line">        if(Len&#x3D;&#x3D;0)</span><br><span class="line">            return result;</span><br><span class="line">        </span><br><span class="line">        sort(intervals.begin(),intervals.end(),cmp);</span><br><span class="line">        result.push_back(intervals[0]);</span><br><span class="line"></span><br><span class="line">        int i&#x3D;1;</span><br><span class="line">        while(i&lt;Len)</span><br><span class="line">        &#123;    &#x2F;&#x2F;可连接 [1,3] [2,4]</span><br><span class="line">            if(intervals[i][0]&lt;&#x3D;result.back()[1])</span><br><span class="line">                if(intervals[i][1]&gt;result.back()[1])</span><br><span class="line">                    result.back()[1]&#x3D;intervals[i][1];</span><br><span class="line">                else;</span><br><span class="line">            else&#x2F;&#x2F;不可连接 </span><br><span class="line">                result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        return a[0]&lt;b[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="插入区间-1"><a href="#插入区间-1" class="headerlink" title="插入区间"></a>插入区间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; insert(vector&lt;vector&lt;int&gt;&gt;&amp; intervals, vector&lt;int&gt;&amp; newInterval) </span><br><span class="line">    &#123;</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        int Len&#x3D;intervals.size();</span><br><span class="line">        bool IsInsert&#x3D;false;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; result;</span><br><span class="line">        while(i&lt;Len)</span><br><span class="line">        &#123;   &#x2F;&#x2F;找到插入的位置</span><br><span class="line">            if(intervals[i][1]&lt;newInterval[0])</span><br><span class="line">                i++;</span><br><span class="line">            else</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(i&#x3D;&#x3D;Len)&#x2F;&#x2F;插在末尾之后</span><br><span class="line">        &#123;</span><br><span class="line">            intervals.push_back(newInterval);</span><br><span class="line">            return intervals;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(int j&#x3D;0;j&lt;i;j++)&#x2F;&#x2F;无需检查的项直接插入</span><br><span class="line">            result.push_back(intervals[j]);</span><br><span class="line"></span><br><span class="line">        if(intervals[i][0]&lt;&#x3D;newInterval[1])&#x2F;&#x2F;可以合并</span><br><span class="line">        &#123;</span><br><span class="line">            intervals[i][0]&#x3D;min(intervals[i][0],newInterval[0]);</span><br><span class="line">            intervals[i][1]&#x3D;max(intervals[i][1],newInterval[1]);</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#x2F;&#x2F;插入 而不是合并</span><br><span class="line">            result.push_back(newInterval);</span><br><span class="line"></span><br><span class="line">        while(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;插入项往后 每一项都要检查是否要往前合并,直到不用合并</span><br><span class="line">            if(intervals[i][0]&lt;&#x3D;result.back()[1])</span><br><span class="line">            &#123;</span><br><span class="line">                if(result.back()[1]&lt;intervals[i][1])</span><br><span class="line">                    result.back()[1]&#x3D;intervals[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                break;</span><br><span class="line">            </span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;出来的i往后是无法合并的项</span><br><span class="line">        while(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        return result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-60/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -658,131 +671,6 @@
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用"><a href="#1-我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用" class="headerlink" title="1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用.."></a>1. 我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</h5><h5 id="2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"><a href="#2-可以复用-下一个排列-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。" class="headerlink" title="2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。"></a>2. 可以复用 下一个排列 的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</h5><h5 id="3-数学计算"><a href="#3-数学计算" class="headerlink" title="3. 数学计算"></a>3. 数学计算</h5><p>全排列每个位置的每个数其实是有数学特征的。<br>比如对 1 2 3<br>3.1 <strong>首位情况</strong>： 肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。<br>3.2 <strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现 <strong>尾部排列次数</strong> 次，然后是nums[1]…依次类推。</p>
 <h5 id="综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。"><a href="#综上：即我们知道每位的次数情况，比如-1-2-3中，我们要找第5个排列，因为首位1在前两个，-首位2-在3-4-个，因此-第5个排列必然是首位3。" class="headerlink" title="综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。"></a>综上：即我们知道每位的次数情况，比如 1 2 3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此 第5个排列必然是首位3。</h5><h5 id="再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。"><a href="#再看次位，第5个排列，除去-1-2-首位的四个，我们要找的是3首位的第一个，依次类推即可。" class="headerlink" title="再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。"></a>再看次位，第5个排列，除去 1 2 首位的四个，我们要找的是3首位的第一个，依次类推即可。</h5><h5 id="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"><a href="#即我们可以直接计算出每一位应该是什么数字。然后组成result即可。" class="headerlink" title="即我们可以直接计算出每一位应该是什么数字。然后组成result即可。"></a>即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</h5><h5 id="4-细节"><a href="#4-细节" class="headerlink" title="4.细节"></a>4.细节</h5><p>1.当前位 每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。<br>2. k/fac[n-1] 向上取整得i，此时该位应该是 nums里的第i个数（下标i-1），同时对nums删除这个数。<br>3. n==1  时，nums只剩一个数，直接连上并返回。</p>
 <h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string getPermutation(int n, int k) </span><br><span class="line">    &#123;   </span><br><span class="line">        &#x2F;&#x2F;题解数组</span><br><span class="line">        const vector&lt;int&gt; fac &#x3D; &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#39;0&#39;);</span><br><span class="line">        string nums(n,&#39;0&#39;);</span><br><span class="line">        for(int i&#x3D;0;i&lt;n;i++)</span><br><span class="line">            nums[i]&#x3D;&#39;1&#39;+i;</span><br><span class="line">        </span><br><span class="line">        for(int i&#x3D;0;n&gt;0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            int a;</span><br><span class="line">            int left&#x3D;0;</span><br><span class="line">            if(n&gt;&#x3D;2) &#x2F;&#x2F;计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left&#x3D;fac[n-1];</span><br><span class="line">                a&#x3D;k&#x2F;left;</span><br><span class="line">                if(k%left!&#x3D;0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]&#x3D;nums[a-1];</span><br><span class="line">                k-&#x3D;(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            else &#x2F;&#x2F;只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]&#x3D;nums[0];</span><br><span class="line">                return result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-61/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="旋转链表"><a href="#旋转链表" class="headerlink" title="旋转链表"></a><a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h1><blockquote>
-<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
-<blockquote>
-<p>示例 1:</p>
-<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2<br>输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL<br>解释:<br>向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL<br>向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</p>
-</blockquote>
-<blockquote>
-<p>示例 2:</p>
-<p>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4<br>输出: 2-&gt;0-&gt;1-&gt;NULL<br>解释:<br>向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL<br>向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL<br>向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL<br>向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
-</blockquote>
-</blockquote>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-直观移位——每个节点向右移动K位"><a href="#1-直观移位——每个节点向右移动K位" class="headerlink" title="1. 直观移位——每个节点向右移动K位"></a>1. 直观移位——每个节点向右移动K位</h5><p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。</p>
-<blockquote>
-<p>（前向计算也是可以的，甚至更利于想出优化的第二步）</p>
-</blockquote>
-<h5 id="注意细节：一个是移动出了链头，要转到链尾继续移动。"><a href="#注意细节：一个是移动出了链头，要转到链尾继续移动。" class="headerlink" title="注意细节：一个是移动出了链头，要转到链尾继续移动。"></a>注意细节：一个是移动出了链头，要转到链尾继续移动。</h5><h5 id="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"><a href="#然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？" class="headerlink" title="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"></a>然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？</h5><p>一个很傻的方法是把链表数值做成vector…然后在vector中找相应的数值，然后赋给当前位置…<br>很傻，浪费空间时间= =</p>
-<h5 id="2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"><a href="#2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？" class="headerlink" title="2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"></a>2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？</h5><p>再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。</p>
-<h5 id="3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"><a href="#3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。" class="headerlink" title="3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"></a>3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。</h5><h5 id="4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"><a href="#4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。" class="headerlink" title="4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"></a>4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。</h5><p>例如 1-2-3-4-5，k=2    遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。</p>
-<h5 id="5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"><a href="#5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。" class="headerlink" title="5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"></a>5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。</h5><p>当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。</p>
-<blockquote>
-<p>你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
-</blockquote>
-<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开= =<br>当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可= =。</p>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i&#x3D;head;</span><br><span class="line">        int L&#x3D;0;</span><br><span class="line">        if(head&#x3D;&#x3D;NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-&gt;next!&#x3D;NULL)&#x2F;&#x2F;找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-&gt;next&#x3D;head;&#x2F;&#x2F;首尾相连</span><br><span class="line">        &#x2F;&#x2F;缩小k</span><br><span class="line">        k%&#x3D;L;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;从末尾起移动L-k到达 i , i-&gt;next是新头</span><br><span class="line">        k&#x3D;L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head&#x3D;i-&gt;next;</span><br><span class="line">        i-&gt;next&#x3D;NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -932,7 +820,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-65/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -946,7 +834,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
+            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
         </h2>
 
         <div class="post-meta">
@@ -963,7 +851,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:57" itemprop="dateModified" datetime="2020-07-16T19:34:57+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -984,8 +872,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -995,14 +883,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1014,38 +902,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="有效数字"><a href="#有效数字" class="headerlink" title="有效数字"></a><a href="https://leetcode-cn.com/problems/valid-number" target="_blank" rel="noopener">有效数字</a></h1><p>验证给定的字符串是否可以解释为十进制数字。</p>
-<p>例如:</p>
-<p>“0” =&gt; true<br>“ 0.1 “ =&gt; true<br>“abc” =&gt; false<br>“1 a” =&gt; false<br>“2e10” =&gt; true<br>“ -90e3   “ =&gt; true<br>“ 1e” =&gt; false<br>“e3” =&gt; false<br>“ 6e-1” =&gt; true<br>“ 99e2.5 “ =&gt; false<br>“53.5e93” =&gt; true<br>“ –6 “ =&gt; false<br>“-+3” =&gt; false<br>“95a54e53” =&gt; false</p>
-<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
-<p>数字 0-9<br>指数 - “e”<br>正/负号 - “+”/“-“<br>小数点 - “.”<br>当然，在输入中，这些字符的上下文也很重要。</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？<br>没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p>
-</li>
-<li><p><strong>字符特征</strong> ：<br>2.1 可能包含”0<del>9“，”e“，”.“，“+”，“-”，” “。<br>2.2  ”e” 允许出现的次数？还要考虑“e”后是否允许出现”.” ， ”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？<br>2.3  “.” 允许出现的次数？ ”.” 后是否允许出现 “e” , “+ “ ,”- “？是否允许作为开头结尾 ？前面是否一定要有数字？<br>2.4  ”+“ ，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾<br>2.5 ”0</del>9“ ，”0“是否允许在幂 或者 指数 或者 小数部分 的首部，是否允许”0“结尾的小数部分。<br>2.6 ” “，只能作为开头结尾。<br>2.7 整个数，必须要有数字出现。</p>
-</li>
-<li><p><strong>判断流程</strong></p>
-</li>
-<li><p>1 数前空格清除</p>
-</li>
-<li><p>2 首位判断+ - 号，然后进入幂部分/整数部分</p>
-</li>
-<li><p>3 正常判断数字，遇到 ”.” 进入小数部分，“e” 进入指数部分，其余false。</p>
-</li>
-<li><p>4.1 小数部分，标记小数点已经用过，不能再出现，其余照常。</p>
-</li>
-<li><p>4.2 指数部分，检查e前是否有数字，”+“ ”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。</p>
-</li>
-<li><p>5 检查到” “，” “只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。</p>
-</li>
-<li><p>6 数的结尾检查，不能是”e”, “+ “ “-“ ，但可以是“ . ”。 </p>
-</li>
-<li><p>7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。</p>
-</li>
-<li><p>8 检查全部通过，但它也要有数字才可能是数！return HasNum；</p>
-</li>
-</ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isNumber(string s) </span><br><span class="line">    &#123;   &#x2F;&#x2F;0开头结尾 true</span><br><span class="line">        &#x2F;&#x2F;多个e  false</span><br><span class="line">        &#x2F;&#x2F;e左右两边要有数 </span><br><span class="line">        &#x2F;&#x2F;指数不能为小数</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        bool UsedSign&#x3D;false;</span><br><span class="line">        bool UsedCom&#x3D;false;</span><br><span class="line">        bool UsedExp&#x3D;false;</span><br><span class="line">        bool HasNum&#x3D;false;</span><br><span class="line">        &#x2F;&#x2F;首部空格清除</span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                break;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;首位判断符号位</span><br><span class="line">        if(i&lt;s.size() &amp;&amp; (s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;) )&#x2F;&#x2F;符号</span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign&#x3D;true;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;主体判断</span><br><span class="line">        for(;i&lt;s.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&gt;&#x3D;&#39;0&#39; &amp;&amp; s[i]&lt;&#x3D;&#39;9&#39;)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum&#x3D;true;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;主要用来判断指数的符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedSign&#x3D;&#x3D;false &amp;&amp; s[i-1]&#x3D;&#x3D;&#39;e&#39;)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;.&#39;)&#x2F;&#x2F;小数点</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedCom&#x3D;&#x3D;false)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;e&#39;)&#x2F;&#x2F;指数符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedExp&#x3D;&#x3D;false &amp;&amp; HasNum&#x3D;&#x3D;true) &#x2F;&#x2F;e前需有数字</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp&#x3D;true;</span><br><span class="line">                    UsedSign&#x3D;false;&#x2F;&#x2F;重置符号状态位,指数也可以带符号</span><br><span class="line">                    UsedCom&#x3D;true;&#x2F;&#x2F;指数不能是小数</span><br><span class="line">                    continue;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39; &#39;) &#x2F;&#x2F;尾部空格</span><br><span class="line">                break;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(s[i-1]&#x3D;&#x3D;&#39;e&#39; ||s[i-1]&#x3D;&#x3D;&#39;+&#39; || s[i-1]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;e + -结尾 不行</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())&#x2F;&#x2F;尾部空格清除</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                return false;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h1 id="旋转链表"><a href="#旋转链表" class="headerlink" title="旋转链表"></a><a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h1><blockquote>
+<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
+<blockquote>
+<p>示例 1:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2<br>输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL<br>解释:<br>向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL<br>向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</p>
+</blockquote>
+<blockquote>
+<p>示例 2:</p>
+<p>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4<br>输出: 2-&gt;0-&gt;1-&gt;NULL<br>解释:<br>向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL<br>向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL<br>向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL<br>向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</p>
+</blockquote>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><h5 id="1-直观移位——每个节点向右移动K位"><a href="#1-直观移位——每个节点向右移动K位" class="headerlink" title="1. 直观移位——每个节点向右移动K位"></a>1. 直观移位——每个节点向右移动K位</h5><p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。</p>
+<blockquote>
+<p>（前向计算也是可以的，甚至更利于想出优化的第二步）</p>
+</blockquote>
+<h5 id="注意细节：一个是移动出了链头，要转到链尾继续移动。"><a href="#注意细节：一个是移动出了链头，要转到链尾继续移动。" class="headerlink" title="注意细节：一个是移动出了链头，要转到链尾继续移动。"></a>注意细节：一个是移动出了链头，要转到链尾继续移动。</h5><h5 id="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"><a href="#然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？" class="headerlink" title="然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？"></a>然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？</h5><p>一个很傻的方法是把链表数值做成vector…然后在vector中找相应的数值，然后赋给当前位置…<br>很傻，浪费空间时间= =</p>
+<h5 id="2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"><a href="#2-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？" class="headerlink" title="2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？"></a>2. 我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？</h5><p>再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。</p>
+<h5 id="3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"><a href="#3-因此我们可以把链尾连向链头，即tail-gt-next-head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。" class="headerlink" title="3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。"></a>3. 因此我们可以把链尾连向链头，即tail-&gt;next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。</h5><h5 id="4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"><a href="#4-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。" class="headerlink" title="4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。"></a>4. 遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。</h5><p>例如 1-2-3-4-5，k=2    遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。</p>
+<h5 id="5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"><a href="#5-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。" class="headerlink" title="5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。"></a>5. 因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。</h5><p>当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。</p>
+<blockquote>
+<p>你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
+</blockquote>
+<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开= =<br>当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可= =。</p>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i&#x3D;head;</span><br><span class="line">        int L&#x3D;0;</span><br><span class="line">        if(head&#x3D;&#x3D;NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-&gt;next!&#x3D;NULL)&#x2F;&#x2F;找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-&gt;next&#x3D;head;&#x2F;&#x2F;首尾相连</span><br><span class="line">        &#x2F;&#x2F;缩小k</span><br><span class="line">        k%&#x3D;L;</span><br><span class="line">        int j&#x3D;0;</span><br><span class="line">        &#x2F;&#x2F;从末尾起移动L-k到达 i , i-&gt;next是新头</span><br><span class="line">        k&#x3D;L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i&#x3D;i-&gt;next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head&#x3D;i-&gt;next;</span><br><span class="line">        i-&gt;next&#x3D;NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1310,7 +1190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-75/">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-65/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1324,7 +1204,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
+            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
         </h2>
 
         <div class="post-meta">
@@ -1341,7 +1221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 19:35:00" itemprop="dateModified" datetime="2020-07-16T19:35:00+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-16 19:34:58" itemprop="dateModified" datetime="2020-07-16T19:34:58+08:00">2020-07-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1362,8 +1242,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-75/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-75/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1373,14 +1253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -1392,43 +1272,157 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="颜色分类"><a href="#颜色分类" class="headerlink" title="颜色分类"></a><a href="https://leetcode-cn.com/problems/sort-colors/" target="_blank" rel="noopener">颜色分类</a></h1><p>给定一个包含红色、白色和蓝色，一共 <em>n <em>个元素的数组，</em></em><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">原地</a>**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
-<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
-<p><strong>示例:</strong></p>
-<blockquote>
-<p>输入:** [2,0,2,1,1,0]<br><strong>输出:</strong> [0,0,1,1,2,2]</pre></p>
-</blockquote>
-<p><strong>进阶：</strong></p>
-<ul>
-<li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li>
-<li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li>
-</ul>
+          <h1 id="有效数字"><a href="#有效数字" class="headerlink" title="有效数字"></a><a href="https://leetcode-cn.com/problems/valid-number" target="_blank" rel="noopener">有效数字</a></h1><p>验证给定的字符串是否可以解释为十进制数字。</p>
+<p>例如:</p>
+<p>“0” =&gt; true<br>“ 0.1 “ =&gt; true<br>“abc” =&gt; false<br>“1 a” =&gt; false<br>“2e10” =&gt; true<br>“ -90e3   “ =&gt; true<br>“ 1e” =&gt; false<br>“e3” =&gt; false<br>“ 6e-1” =&gt; true<br>“ 99e2.5 “ =&gt; false<br>“53.5e93” =&gt; true<br>“ –6 “ =&gt; false<br>“-+3” =&gt; false<br>“95a54e53” =&gt; false</p>
+<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
+<p>数字 0-9<br>指数 - “e”<br>正/负号 - “+”/“-“<br>小数点 - “.”<br>当然，在输入中，这些字符的上下文也很重要。</p>
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000…111….2222的顺序。<blockquote>
-<p>正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。</p>
-</blockquote>
+<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？<br>没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p>
 </li>
-<li>对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。<blockquote>
-<p>三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。</p>
-</blockquote>
+<li><p><strong>字符特征</strong> ：<br>2.1 可能包含”0<del>9“，”e“，”.“，“+”，“-”，” “。<br>2.2  ”e” 允许出现的次数？还要考虑“e”后是否允许出现”.” ， ”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？<br>2.3  “.” 允许出现的次数？ ”.” 后是否允许出现 “e” , “+ “ ,”- “？是否允许作为开头结尾 ？前面是否一定要有数字？<br>2.4  ”+“ ，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾<br>2.5 ”0</del>9“ ，”0“是否允许在幂 或者 指数 或者 小数部分 的首部，是否允许”0“结尾的小数部分。<br>2.6 ” “，只能作为开头结尾。<br>2.7 整个数，必须要有数字出现。</p>
 </li>
-<li>确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。</li>
+<li><p><strong>判断流程</strong></p>
+</li>
+<li><p>1 数前空格清除</p>
+</li>
+<li><p>2 首位判断+ - 号，然后进入幂部分/整数部分</p>
+</li>
+<li><p>3 正常判断数字，遇到 ”.” 进入小数部分，“e” 进入指数部分，其余false。</p>
+</li>
+<li><p>4.1 小数部分，标记小数点已经用过，不能再出现，其余照常。</p>
+</li>
+<li><p>4.2 指数部分，检查e前是否有数字，”+“ ”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。</p>
+</li>
+<li><p>5 检查到” “，” “只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。</p>
+</li>
+<li><p>6 数的结尾检查，不能是”e”, “+ “ “-“ ，但可以是“ . ”。 </p>
+</li>
+<li><p>7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。</p>
+</li>
+<li><p>8 检查全部通过，但它也要有数字才可能是数！return HasNum；</p>
+</li>
 </ol>
-<h5 id="针对cur的分类处理："><a href="#针对cur的分类处理：" class="headerlink" title="针对cur的分类处理："></a>针对cur的分类处理：</h5><ol>
-<li><p>是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。</p>
-</li>
-<li><p>是2，则和2的flag，right交换，同时right–。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。<br>同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。<br>因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。</p>
-</li>
-<li><p>是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了</p>
-</li>
-<li><p>那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？</p>
-<p> <strong>只有当left会在cur右边时</strong>，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。</p>
-<p>   <strong>当left在cur左边时，即left指向的必定经过了cur的洗礼</strong>，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。</p>
-</li>
-<li><p>当cur遇到right，即到达2的边界，则说明不需要处理了，结束。</p>
-</li>
+<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isNumber(string s) </span><br><span class="line">    &#123;   &#x2F;&#x2F;0开头结尾 true</span><br><span class="line">        &#x2F;&#x2F;多个e  false</span><br><span class="line">        &#x2F;&#x2F;e左右两边要有数 </span><br><span class="line">        &#x2F;&#x2F;指数不能为小数</span><br><span class="line">        int i&#x3D;0;</span><br><span class="line">        bool UsedSign&#x3D;false;</span><br><span class="line">        bool UsedCom&#x3D;false;</span><br><span class="line">        bool UsedExp&#x3D;false;</span><br><span class="line">        bool HasNum&#x3D;false;</span><br><span class="line">        &#x2F;&#x2F;首部空格清除</span><br><span class="line">        while(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                break;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;首位判断符号位</span><br><span class="line">        if(i&lt;s.size() &amp;&amp; (s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;) )&#x2F;&#x2F;符号</span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign&#x3D;true;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;主体判断</span><br><span class="line">        for(;i&lt;s.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]&gt;&#x3D;&#39;0&#39; &amp;&amp; s[i]&lt;&#x3D;&#39;9&#39;)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum&#x3D;true;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;+&#39; || s[i]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;主要用来判断指数的符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedSign&#x3D;&#x3D;false &amp;&amp; s[i-1]&#x3D;&#x3D;&#39;e&#39;)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;.&#39;)&#x2F;&#x2F;小数点</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedCom&#x3D;&#x3D;false)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom&#x3D;true;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39;e&#39;)&#x2F;&#x2F;指数符号</span><br><span class="line">            &#123;</span><br><span class="line">                if(UsedExp&#x3D;&#x3D;false &amp;&amp; HasNum&#x3D;&#x3D;true) &#x2F;&#x2F;e前需有数字</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp&#x3D;true;</span><br><span class="line">                    UsedSign&#x3D;false;&#x2F;&#x2F;重置符号状态位,指数也可以带符号</span><br><span class="line">                    UsedCom&#x3D;true;&#x2F;&#x2F;指数不能是小数</span><br><span class="line">                    continue;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(s[i]&#x3D;&#x3D;&#39; &#39;) &#x2F;&#x2F;尾部空格</span><br><span class="line">                break;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if(s[i-1]&#x3D;&#x3D;&#39;e&#39; ||s[i-1]&#x3D;&#x3D;&#39;+&#39; || s[i-1]&#x3D;&#x3D;&#39;-&#39;)&#x2F;&#x2F;e + -结尾 不行</span><br><span class="line">            return false;</span><br><span class="line"></span><br><span class="line">        while(i&lt;s.size())&#x2F;&#x2F;尾部空格清除</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]!&#x3D;&#39; &#39;)</span><br><span class="line">                return false;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alobal.github.io/2020/02/17/LeetCode-No-72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-16 19:34:59" itemprop="dateModified" datetime="2020-07-16T19:34:59+08:00">2020-07-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a><a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">编辑距离</a></h1><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符<br>示例 1:</p>
+<blockquote>
+<p>输入: word1 = “horse”, word2 = “ros”<br>输出: 3<br>解释:<br>horse -&gt; rorse (将 ‘h’ 替换为 ‘r’)<br>rorse -&gt; rose (删除 ‘r’)<br>rose -&gt; ros (删除 ‘e’)</p>
+</blockquote>
+<p>示例 2:</p>
+<blockquote>
+<p>输入: word1 = “intention”, word2 = “execution”<br>输出: 5<br>解释:<br>intention -&gt; inention (删除 ‘t’)<br>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)<br>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)<br>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)<br>exection -&gt; execution (插入 ‘u’)</p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>和字符串匹配之类的差不多，都是 <strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划  dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
 </ol>
-<h1 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void sortColors(vector&lt;int&gt;&amp; nums) </span><br><span class="line">    &#123;</span><br><span class="line">        int left&#x3D;0;</span><br><span class="line">        int right&#x3D;nums.size()-1;</span><br><span class="line">        int cur&#x3D;0;</span><br><span class="line">        while(cur&lt;&#x3D;right)</span><br><span class="line">        &#123;   </span><br><span class="line">            if(nums[cur]&#x3D;&#x3D;0)&#x2F;&#x2F;这个数字是0，移动0区域内，</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[left]);</span><br><span class="line">                &#x2F;&#x2F;假如cur&gt;left，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？</span><br><span class="line">                &#x2F;&#x2F;jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。</span><br><span class="line">                &#x2F;&#x2F;假如cur&#x3D;&#x3D;left&#x3D;&#x3D;0，没啥好说的，下一个</span><br><span class="line">                &#x2F;&#x2F;假如cur&lt;left, 可能吗？cur++的机会 &gt;&#x3D; left++的机会</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(nums[cur]&#x3D;&#x3D;2)&#x2F;&#x2F;这个数字是2，移到2区域内</span><br><span class="line">            &#123;</span><br><span class="line">                swap(nums[cur],nums[right]);</span><br><span class="line">                right--;</span><br><span class="line">                &#x2F;&#x2F;交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变</span><br><span class="line">                cur--;</span><br><span class="line">            &#125;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="dp题解代码"><a href="#dp题解代码" class="headerlink" title="dp题解代码"></a>dp题解代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minDistance(string word1, string word2) </span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;动态规划  dp[i][j]状态</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span><br><span class="line">        &#x2F;&#x2F;对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span><br><span class="line">        &#x2F;&#x2F;对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span><br><span class="line">        int dp[word1.size()+1][word2.size()+1];</span><br><span class="line">        dp[0][0]&#x3D;0;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            dp[i][0]&#x3D;i;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;word2.size();i++)</span><br><span class="line">            dp[0][i]&#x3D;i;</span><br><span class="line">        </span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">        for(i&#x3D;1;i&lt;&#x3D;word1.size();i++)</span><br><span class="line">            for(j&#x3D;1;j&lt;&#x3D;word2.size();j++)</span><br><span class="line">                if(word1[i-1]&#x3D;&#x3D;word2[j-1])</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]-1);</span><br><span class="line">                else</span><br><span class="line">                    dp[i][j]&#x3D;1+min( min(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);</span><br><span class="line"></span><br><span class="line">        return dp[word1.size()][word2.size()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1548,8 +1542,6 @@
 
 
       </div>
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 
-    height=86 src="//music.163.com/outchain/player?type=2&id=528484544&auto=0&height=66"></iframe>
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
@@ -1588,7 +1580,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -1620,9 +1612,10 @@
   </div>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
@@ -1634,11 +1627,70 @@
 
 <script src="/js/next-boot.js"></script>
 
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
-  <script>
+  <script data-pjax>
     (function(){
       var canonicalURL, curProtocol;
       //Get the <link> tag
@@ -1682,6 +1734,7 @@
 
 
 
+    <div id="pjax">
   
 
   
@@ -1691,7 +1744,7 @@
 
 <script>
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     var GUEST = ['nick', 'mail', 'link'];
     var guest = 'nick,mail,';
     guest = guest.split(',').filter(item => {
@@ -1715,8 +1768,30 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
   }, window.Valine);
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
+    </div>
+
+
+<body>
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+</body>
+<!--如果将本体放在body里面，导致页面加载出现问题，请尝试放到body体后面-->
+<div class="aplayer" 
+	data-id="3036324986" 
+	data-server="tencent" 
+	data-type="playlist" 
+	data-fixed="true"	
+	data-order="random"
+	data-volume="0.65"
+	data-autoplay="false"   
+	date-preload="auto"
+	data-theme="#cc543a">
+</div>
 </body>
 </html>
 
