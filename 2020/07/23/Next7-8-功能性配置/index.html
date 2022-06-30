@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="环境信息：  Next 7.8.0 hexo 4.2.1 npm 6.14.5 Next 配置文件指 **项目根目录&#x2F;themes&#x2F;next&#x2F;_config.yml** 项目配置文件指 **项目根目录&#x2F;_config.yml** 安装命令没特别说明都在 项目根目录 下进行 注意在配置文件中配置字段时，请严格控制缩进  请根据目录章节按需阅读。所有配置都建立在2020年 7.8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+Next7.8 功能性配置">
+<meta property="og:url" content="https://www.sitchzou.com/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="环境信息：  Next 7.8.0 hexo 4.2.1 npm 6.14.5 Next 配置文件指 **项目根目录&#x2F;themes&#x2F;next&#x2F;_config.yml** 项目配置文件指 **项目根目录&#x2F;_config.yml** 安装命令没特别说明都在 项目根目录 下进行 注意在配置文件中配置字段时，请严格控制缩进  请根据目录章节按需阅读。所有配置都建立在2020年 7.8">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-22T17:36:25.000Z">
+<meta property="article:modified_time" content="2020-07-22T17:36:25.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hexo+Next7.8 功能性配置 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo+Next7.8 功能性配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-23 01:36:25" itemprop="dateCreated datePublished" datetime="2020-07-23T01:36:25+08:00">2020-07-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>环境信息：</p>
+<ul>
+<li>Next 7.8.0</li>
+<li>hexo 4.2.1</li>
+<li>npm 6.14.5</li>
+<li>Next 配置文件指 **项目根目录/themes/next/_config.yml**</li>
+<li>项目配置文件指 **项目根目录/_config.yml**</li>
+<li>安装命令没特别说明都在 项目根目录 下进行</li>
+<li>注意在配置文件中配置字段时，请严格控制缩进</li>
+</ul>
+<p><strong>请根据目录章节按需阅读。所有配置都建立在2020年 7.8
+版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
+<blockquote>
+<p>在吗？吐槽无数遍，2020 的人为什么写博客还抄的 Next4.0
+版本！就算你不想用 2020 大改版的版本，好歹和我一样用个 7.8
+吧！！至少来个 7.0+吧孩子们！！退一万步 6.0+也是可以的啊！！</p>
+</blockquote>
+<p>一些比较常规的功能性配置 Next
+文档里都有的。虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，比较全面。另外可以多摸摸
+Next
+配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
+<p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/">Next 官方手册</a></p>
+<p>友情建议：进行较大更改之前，先通过git等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式再生成，并且最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
+<p><span id="more"></span></p>
+<h2 id="站点概览描述">站点概览描述</h2>
+<p>在项目配置里，第一段填写相关描述，如果是 next
+主题，会显示在侧边栏中。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">我是一个标题</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;我是一段描述&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Sitch,Blog</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Sitch</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置头像">配置头像</h2>
+<p>在 Next 配置文件下找到 <code>avatar</code>字段，有如下配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sidebar Avatar</span></span><br><span class="line"><span class="attr">avatar:</span></span><br><span class="line">  <span class="comment"># Replace the default image and set the url here. 你的头像图片路径</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">/images/avatar.png</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be dispalyed in circle. 要不要圆化</span></span><br><span class="line">  <span class="attr">rounded:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># If true, the avatar will be rotated with the cursor. 要不要在指针悬停时旋转头像</span></span><br><span class="line">  <span class="attr">rotated:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>如上给了个示例路径，然后将头像放在 <strong>主题</strong>目录下的
+source/images/avatar.png 即可。</p>
+<p>另外两个属性可以按需配置。</p>
+<p>重新生成部署网站，瞅瞅你的大头照吧。</p>
+<blockquote>
+<p>头像图片大小没关系，会自动缩放，但是比例不变，即使圆化也会变成椭圆。因此请注意图片比例最好是正方形，美观。</p>
+</blockquote>
+<h2 id="next-的分类和标签">Next 的分类和标签</h2>
+<p>在 next
+主题配置里，选择下列字段进行注释和取消注释即可启用相关页面，例如分类页和标签页。
+&gt;分类有层级，标签没有层级。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="comment">#tags: /tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment"># schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment"># sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+<p>需要生成两个对应主页，在项目根目录下输入相应命令，创建相关页面。</p>
+<ul>
+<li><code>hexo new page categories</code></li>
+<li><code>hexo new page tags</code></li>
+</ul>
+<p>并且打开生成的页面，在元数据中相应添加字段</p>
+<ul>
+<li><code>type: categories</code></li>
+<li><code>type: tags</code>。</li>
+</ul>
+<p>想要为博客分类，即在自己的每篇博客描述头中，加入<code>categories:</code>
+<code>tags:</code>的相关字段，例如这篇：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories: </span><br><span class="line"><span class="bullet">-</span> 博客搭建</span><br></pre></td></tr></table></figure>
+<h2 id="hexo文章资源管理">hexo文章资源管理</h2>
+<p>想要简单使用懒得管理，直接放在
+<strong>项目目录/source/images</strong> 中。然后通过
+<strong>/images/something.jpg</strong> 路径进行调用。</p>
+<p>想要有规律的整理的话，hexo也有自带组织方式。资源管理功能打开后，Hexo会在hexo
+new的时候创建一个和文章同名文件夹，将文章相关资源放进去即可。生成网页时资源和文章在同一路径，因此可以利用相对路径直接调用资源。</p>
+<p><a
+target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">hexo文档相关章节</a></p>
+<p>项目配置中设置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>图片推荐使用Win10照片编辑器质量调整进行压缩。
+用照片编辑器打开图片，右键--调整大小--自定义尺寸--质量40%。压缩比高的惊人，粗略观感也没有太大区别。例如我1.8KB的图片质量40%可以变成0.09KB。</p>
+</blockquote>
+<h2 id="音乐">音乐</h2>
+<h3 id="网易云音乐">网易云音乐</h3>
+<p>先去网易云音乐里歌曲页面生成<strong>外链播放器</strong>，
+不能生成的可查找特殊方法生成。</p>
+<p>在 项目/themes/next/layout/_macro/sidebar.swig 中，
+插入复制的代码，比如插入在最下面某一段。 &gt;注意 2020 版本后缀不是
+swig，相关文件也不一样</p>
+<h3 id="aplayer全局音乐播放器">aplayer全局音乐播放器</h3>
+<p>虽然网易云音乐足够播放一首歌或一个歌单，但是仅限定于网易云可怜的版权库里。</p>
+<p>通过使用APlayer播放器，可以播放任意来源的音乐，例如QQ音乐【我喜欢】的歌单。</p>
+<blockquote>
+<p>注意是原版APlayer，不是hexo-tag-aplayer</p>
+</blockquote>
+<p>无基础偷懒可以复制以下代码至 **主题目录/layout/_layout.swig**
+中，我放在了<code>&lt;/html&gt;</code>的前一行。</p>
+<blockquote>
+<p>有基础可以去看看中文文档，安装npm包，并且自定义使用。</p>
+</blockquote>
+<p>可以通过文档查看各个参数的意义，进行播放的设置。
+示例代码中是以<strong>QQ音乐</strong>为服务器，以<strong>我自己的歌单</strong>为播放列表。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- require MetingJS --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--如果将本体放在body里面，导致页面加载出现问题，请尝试放到body体后面--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;aplayer&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">data-id</span>=<span class="string">&quot;3036324986&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">data-server</span>=<span class="string">&quot;tencent&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">data-type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">data-fixed</span>=<span class="string">&quot;true&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">data-order</span>=<span class="string">&quot;list&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">data-volume</span>=<span class="string">&quot;0.65&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">data-autoplay</span>=<span class="string">&quot;false&quot;</span>   </span></span><br><span class="line"><span class="tag"> <span class="attr">date-preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">data-theme</span>=<span class="string">&quot;#cc543a&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当然，全局播放器会在每一次切换站内页面时中断。
+要不中断播放请安装<strong>pjax</strong>功能，详见下一节。</p>
+<blockquote>
+<p>我为了百度统计，hexo-douban等功能不冲突，关闭了pjax。</p>
+</blockquote>
+<p>参考资料：<a
+target="_blank" rel="noopener" href="https://hakurei.red/2019/11/25/%E4%B8%BAHexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80APlayer%E6%92%AD%E6%94%BE%E5%99%A8/">Macyrate的APlyaer博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://aplayer.js.org/#/zh-Hans/">Aplayer文档</a></p>
+<h2 id="pjax">pjax</h2>
+<p>pjax可以使网页变成单页应用，即在站内切换页面并不会刷新网页，极大提高网页运行速度。</p>
+<p>但是！这么好的东西为什么不是默认开启的呢？
+pjax会扰乱网站的一些其他功能。如hexo-douban页面，百度统计的访客记录
+......</p>
+<p>如果网站没有其他功能需求，建议开Pjax，否则建议不安装。</p>
+<p>在Next配置文件中设置pjax为true，并且去对应网站查看安装插件的方法。
+如git
+clone安装：<code>git clone https://github.com/theme-next/theme-next-pjax themes/next/source/lib/pjax</code>。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Easily enable fast Ajax navigation on your website.</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/theme-next-pjax</span></span><br><span class="line"><span class="attr">pjax:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="数学公式支持">数学公式支持</h2>
+<p>参考官方文档，需要切换到带有渲染mathjax的渲染引擎</p>
+<p>安装pandoc软件，<a
+target="_blank" rel="noopener" href="https://github.com/jgm/pandoc/releases/">下载地址</a></p>
+<blockquote>
+<p>出现错误exit with code null
+大概是没有安装pandoc软件就直接安装了插件，补安装后如果还报错重启一下。</p>
+</blockquote>
+<p>命令行安装插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
+<p>在 主题/_config.yml中，打开mathjax功能：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Math Formulas Render Support</span></span><br><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="comment"># Default (true) will load mathjax / katex script on demand.</span></span><br><span class="line">  <span class="comment"># That is it only render those page which has `mathjax: true` in Front-matter.</span></span><br><span class="line">  <span class="comment"># If you set it to false, it will load mathjax / katex srcipt EVERY PAGE.</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># See: https://mhchem.github.io/MathJax-mhchem/</span></span><br><span class="line">    <span class="attr">mhchem:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><span
+class="math display">\[a^n+b^n=(a+b)(a^{n−1}b^0−a^{n−2}b^1+a^{n−3}b^2−…−ab^{n−2}+a^0b^{n−1})\]</span>
+<code>$$a^n+b^n=(a+b)(a^&#123;n−1&#125;b^0−a^&#123;n−2&#125;b^1+a^&#123;n−3&#125;b^2−…−ab^&#123;n−2&#125;+a^0b^&#123;n−1&#125;)$$</code></p>
+<p>最后重新运行即可</p>
+<h2 id="导入豆瓣评价页面">导入豆瓣评价页面</h2>
+<p>个人博客肯定想记录点自己生活向的东西，看过的电影，玩过的游戏,看过的书就是一个很好的记录对象。</p>
+<blockquote>
+<p>程序员大概很少有时间看文学书</p>
+</blockquote>
+<p>之前我是用 <strong>markdown</strong>
+写了个文本条目性质的，不说难看吧，但起码豆瓣条目自带一些影片介绍信息。..</p>
+<h3 id="安装-hexo-douban-插件">安装 hexo-douban 插件</h3>
+<p>命令行输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
+<p>将下面的配置写入<strong>项目</strong>配置文件：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">douban:</span> <span class="comment">#不想启用的页面注释掉即可</span></span><br><span class="line">  <span class="attr">user:</span> <span class="string">豆瓣</span> <span class="string">id</span>  </span><br><span class="line">  <span class="attr">builtin:</span> <span class="literal">false</span>  <span class="comment">#是否将生成豆瓣页面功能嵌入到 hexo s 和 hexo g</span></span><br><span class="line">  <span class="attr">book:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">&#x27;This is my book title&#x27;</span>  <span class="comment">#页面标题</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">&#x27;This is my book quote&#x27;</span>  <span class="comment">#页面序言</span></span><br><span class="line">  <span class="attr">movie:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">&#x27;This is my movie title&#x27;</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">&#x27;This is my movie quote&#x27;</span></span><br><span class="line">  <span class="attr">game:</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">&#x27;This is my game title&#x27;</span></span><br><span class="line">    <span class="attr">quote:</span> <span class="string">&#x27;This is my game quote&#x27;</span></span><br><span class="line">  <span class="attr">timeout:</span> <span class="number">10000</span> <span class="comment">#爬取豆瓣数据的超时时间，别管了</span></span><br></pre></td></tr></table></figure>
+<p>豆瓣 id 可以在进入你的豆瓣个人主页，观察网址获得。通常为：</p>
+<p><code>https://www.douban.com/people/你的id/</code></p>
+<h3 id="hexo-douban-命令">hexo douban 命令</h3>
+<p>用法如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">命令行输入</span> <span class="string">hexo</span> <span class="string">douban</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Description:</span></span><br><span class="line"><span class="string">爬取生成豆瓣相关页面</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Options:</span> <span class="comment">#默认参数 -bgm</span></span><br><span class="line">  <span class="string">-b,</span> <span class="string">--books</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">books</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-g,</span> <span class="string">--games</span>   <span class="string">Generate</span> <span class="string">douban</span> <span class="string">games</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-m,</span> <span class="string">--movies</span>  <span class="string">Generate</span> <span class="string">douban</span> <span class="string">movies</span> <span class="string">only</span></span><br><span class="line">  <span class="string">-h，显示帮助</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用方法">使用方法</h3>
+<ul>
+<li><code>hexo douban</code>生成相关页面再进行部署。</li>
+<li>builtin 开启时，直接 hexo s 和 hexo g 即包含生成过程。</li>
+</ul>
+<blockquote>
+<p>注意安装了 hexo-douban
+之后，我们多了个<code>hexo douban</code>的命令，因此不能再用<code>hexo d</code>作为<code>hexo deploy</code>的缩写了。</p>
+</blockquote>
+<h3 id="开个主页栏">开个主页栏</h3>
+<p>生成部署后就可以通过<code>/主网址/movies</code>类似的形式访问了，但这样显然不方便，因此我们开个主页栏给它。</p>
+<p>和之前开启分类页一样，在<strong>主题</strong>配置文件中，找到 menu
+字段，添加相应的值，如下以 movies 举例进行修改：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment"># 子链接 || font-font awesome 图标</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="attr">movies:</span> <span class="string">/movies/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-film</span>  <span class="comment">#添加了 movies 页</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>但是这样开启之后，显示的是 movies
+，想改成中文显示需要在<code>主题目录/languages/zh-CN</code>中配置一下，自己打开看看就懂得怎么配了，懒得贴实例了哈=。=</p>
+<h3 id="参考资料">参考资料</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/mythsman/hexo-douban">hexo-douban
+文档</a></p>
+<h2 id="字数统计和阅读时长已废弃">字数统计和阅读时长（已废弃）</h2>
+<p><strong>hexo-symbols-count-time 已失去维护，且其依赖项highlight
+version9 已经过时，无法使用。</strong></p>
+<p>在 next 主题配置文件中搜索 wordcount，可以看到它默认支持的插件是 <a
+target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-symbols-count-time">hexo-symbols-count-time</a></p>
+<p>使用命令行 npm
+输入命令进行安装：<code>npm i hexo-symbols-count-time --save</code></p>
+<p>项目_config.yml 里追加一段（没追加这一段导致统计为 NaN</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line"> <span class="attr">symbols:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">time:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">total_symbols:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">2</span>      <span class="comment">#设置 2 个字符看作一个字</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">200</span>    <span class="comment">#每分钟阅读字数</span></span><br></pre></td></tr></table></figure>
+<p>next 主题的_config.yml 里找到字段 symbols_count_time
+按需配置即可：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/hexo-symbols-count-time</span></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>重新生成部署即可，如果没有效果，试试 hexo clean 再重新生成</p>
+<h2 id="首页摘要-阅读全文">首页摘要 阅读全文</h2>
+<p>如果你是找了半天博客，发现他们都说 Next
+自带自动摘要功能，但自己这就是不起作用的时候，恭喜你，和我一起把那些馊饭博客砸了吧。</p>
+<p>7.6 以后的 Next 删除了自动摘要功能，原因是它觉得它负担了太多。..</p>
+<p>我 7.8 的 Next
+配置文件里只有个<code>excerpt_description</code>，这个功能是自动将博客头描述里的<code>description</code>字段当作摘要。</p>
+<p>所以现在首页摘要只有两种办法：</p>
+<ul>
+<li>为每个博客写好 description</li>
+<li>在博客中间手动添加<code>&lt;!-- more --&gt;</code>以截断</li>
+</ul>
+<h2 id="添加百度分析">添加百度分析</h2>
+<p>登陆 <a
+target="_blank" rel="noopener" href="https://tongji.baidu.com/web/10000256460/welcome/login">百度统计</a></p>
+<p>进入个人页，选择侧栏的代码获取页</p>
+<p>可以看到如下一段代码，找到<code>hm.js?</code>之后的序列号复制。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">&quot;script&quot;</span>);</span><br><span class="line">  hm.src = <span class="string">&quot;https://hm.baidu.com/hm.js? 复制这段&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;script&quot;</span>)[<span class="number">0</span>]; </span><br></pre></td></tr></table></figure>
+<p>填写在 next 配置里的百度分析字段中：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics</span></span><br><span class="line"><span class="attr">baidu_analytics:</span> <span class="string">粘贴到这里</span></span><br></pre></td></tr></table></figure>
+<p>之后等待一段时间就可以去百度分析主页看网站情况啦。</p>
+<p>然后你就能开心地发现几天，几十天，几百天，访问量蹭蹭蹭的涨，访问 ip
+一直都只有 1 个 hhhh。</p>
+<p>嗯，其实在被搜索引擎收录之前别人是搜不到你的博客的。</p>
+<p>请捞一捞下面的 Google 收录方法。</p>
+<h2 id="搜索引擎收录">搜索引擎收录</h2>
+<p>以 Next 主题配置 Google 收录为例。</p>
+<p>登录 <a target="_blank" rel="noopener" href="https://search.google.com/search-console/">Google
+Search Console</a></p>
+<blockquote>
+<p>当然，没有账号的话需要自己搞好 Google 账号</p>
+</blockquote>
+<h3 id="选择资源类型">选择资源类型</h3>
+<p>我是 GitHub Pages
+域名的个人网站，所以选右边的单网址的资源类型。把博客网址复制过去即可创建资源。</p>
+<h3 id="验证网站所有权">验证网站所有权</h3>
+<p>Goolge 推荐验证方法是下载 HTML
+文件。但是，我们不用。毕竟一个<code>hexo clean</code>网页就没了。..</p>
+<p>选下面的 HTML 标记验证，可以看到形如下面的一段代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;XXXXXXXXXXXXXXXXXXXXXXX&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把 xxxx 的东西复制好。</p>
+<p>打开 Next
+的配置文件，搜索到<code>google_site_verification</code>字段，把复制的字段填进去就好。</p>
+<p><code>hexo clean;hexo g;hexo d</code>一套刷新网站组合拳。</p>
+<p>回刚才的 Google 家里点击进行验证即可。</p>
+<p>验证成功后可以 Google
+搜索<code>site: 你的网址</code>试试，理应看到你的博客网址。</p>
+<blockquote>
+<p>这里很多看很多博客都是在抄几年前的方法，明明 2020 了啊哥哥们，Next
+已经传宗接代到 8.0
+了！！已经有内置<code>google-site-verification</code>字段了！！</p>
+<p>明明限制了搜索时间是半年以内，结果 2020 年这群人写的教程还是抄的 10
+年的东西看着好烦啊喂！！！！！！！！！！！！！！</p>
+</blockquote>
+<h3 id="添加站点地图-sitemap">添加站点地图 SiteMap</h3>
+<p>站点地图可以将我们网站的组织架构提供给 Google，都是为了搜索优化==</p>
+<p>安装 hexo 自动生成站点地图的插件：</p>
+<p><code>npm install hexo-generator-sitemap --save</code></p>
+<p>安装成功后在项目配置文件中添加：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
+<p>这样插件每次会在<code>hexo g</code>时自动生成 sitemap.xml
+文件，放在/public/下面。</p>
+<blockquote>
+<p>注意博客文件名带有<code>&amp;</code>时，生成的 sitemap.xml
+会有错误，我的解决办法是修改文件名。</p>
+</blockquote>
+<p>其实我们也知道每次部署出去的网站也就是/public/目录，所以 sitemap.xml
+相当于放在网站根目录下面。</p>
+<p>因此我们把<code>你的网站地址/sitemap.xml</code>这个链接提交给 Google
+即可。</p>
+<p>执行<code>hexo g;hexo d</code>生成 sitemap 并部署出去。</p>
+<p>在 <a
+target="_blank" rel="noopener" href="https://search.google.com/search-console/sitemaps/">Google
+SearchConsole</a> 侧栏找到站点地图，提交上面说的链接，完毕。</p>
+<h3 id="百度收录">百度收录</h3>
+<p>百度收录也是完全同理，next
+也内置了验证字段。需要注意的是，百度收录仅支持一级域名收录，所以假如没有自己的域名，GitHub
+Pages 必须是个人主页user.github.io。</p>
+<p>并且由于百度无法爬取github
+pages，因此需要自己主动提交网址供索引：</p>
+<ul>
+<li>next可以开启<strong>主动推送 baidu_push:
+true</strong>功能，每次点击你的某个网址时，会推送该网址给百度。(注意要在自己网站上关闭浏览器的广告拦截插件，这个会限制hexo脚本运行)</li>
+<li>自己去站点管理页主动提交sitemap。</li>
+</ul>
+<h2 id="站内本地搜索">站内本地搜索</h2>
+<p>安装插件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<p>编辑<strong>项目</strong>配置文件，新增字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span>  <span class="comment">#支持 json 或者 xml，默认 xml，但我用的有问题，推荐 json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+<p>编辑<strong>主题</strong>配置文件，修改字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="评论系统-valine">评论系统 Valine</h2>
+<blockquote>
+<p>“会有人讨论吗？”——好的，回来填评论系统的坑了。</p>
+</blockquote>
+<p>Next 支持多评论系统同时存在 ...
+虽然我不知道哪个憨憨会同时装躲个评论系统，评论数据又不能共享。</p>
+<p>Next 内建支持很多评论系统，我选择了在国内支持比较友好的 Valine。</p>
+<p>可以跟着 Next
+官方教程做，当然不愿意看英文也无所谓，欢迎继续跟着我~</p>
+<p><a
+target="_blank" rel="noopener" href="https://theme-next.js.org/docs/third-party-services/comments.html">Next-Valine</a></p>
+<p><strong><a
+target="_blank" rel="noopener" href="https://leancloud.cn/dashboard/login.html#/signin">LeanCloud
+注册登录</a></strong>： Valine 使用了 LeanCloud 作为数据段，因此去
+LeanCloud 注册登录就行，然后创建应用。虽然这个注册需要实名制 ...
+有点小小小在意。</p>
+<p><strong>获取 ID 和
+Key</strong>：进入创建好的应用，选择<code>设置-&gt;应用 Keys</code>子页，复制<code>APP ID</code>和<code>App Key</code>。</p>
+<p><strong>Next 配置</strong>，在<strong>主题</strong>配置文件中搜索
+comments, 找到字段如下，这里基本不用修改，按需看注释选择配置吧：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Multiple Comment System Support</span></span><br><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="comment"># Available values: tabs | buttons</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">tabs</span></span><br><span class="line">  <span class="comment"># Choose a comment system to be displayed by default.</span></span><br><span class="line">  <span class="comment"># Available values: changyan | disqus | disqusjs | gitalk | livere | valine</span></span><br><span class="line">  <span class="attr">active:</span> <span class="string">valine</span></span><br><span class="line">  <span class="comment"># Setting `true` means remembering the comment system selected by the visitor.</span></span><br><span class="line">  <span class="attr">storage:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Lazyload all comment systems.</span></span><br><span class="line">  <span class="attr">lazyload:</span> <span class="literal">false</span></span><br><span class="line">  <span class="comment"># Modify texts or order for any navs, here are some examples.</span></span><br><span class="line">  <span class="attr">nav:</span></span><br><span class="line">    <span class="comment">#disqus:</span></span><br><span class="line">    <span class="comment">#  text: Load Disqus</span></span><br><span class="line">    <span class="comment">#  order: -1</span></span><br><span class="line">    <span class="comment">#gitalk:</span></span><br><span class="line">    <span class="comment">#  order: -2</span></span><br></pre></td></tr></table></figure>
+<p>在<strong>主题</strong>配置文件中搜索 valine
+，找到相应的字段如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">appid:</span> <span class="comment">#你的 APPID</span></span><br><span class="line">  <span class="attr">appkey:</span> <span class="comment">#你的 APPkey</span></span><br><span class="line">  <span class="attr">notify:</span> <span class="literal">false</span> <span class="comment"># 邮件提醒</span></span><br><span class="line">  <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># 验证码</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">欢迎用你的脸滚一滚键盘~</span>  <span class="comment">#评论输入框预置文字</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">mm</span> <span class="comment"># Gravatar style</span></span><br><span class="line">  <span class="attr">guest_info:</span> <span class="string">nick,mail,link</span> <span class="comment"># 自定义评论区头部</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">10</span> <span class="comment"># 分页限制大小</span></span><br><span class="line">  <span class="attr">language:</span> <span class="comment"># 语言，可用值：en, zh-cn</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">false</span> <span class="comment"># Article reading statistic</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">true</span> <span class="comment"># If false, comment count will only be displayed in post page, not in home page</span></span><br><span class="line">  <span class="attr">recordIP:</span> <span class="literal">false</span> <span class="comment"># 是否记录 IP</span></span><br><span class="line">  <span class="attr">serverURLs:</span> <span class="comment"># 注意国际版需要填写这里。</span></span><br><span class="line">  <span class="comment">#post_meta_order: 0</span></span><br></pre></td></tr></table></figure>
+<p>把 enable 置 true，并且对应粘贴好之前的 AppID 和 AppKey。</p>
+<p>重新部署就可以用了，默认为每个页面开启评论系统。</p>
+<blockquote>
+<p>特别注意LeanCloud国际版需要填写serverURLs字段：在LeanCloud
+设置--应用凭证--REST API服务器地址。</p>
+</blockquote>
+<h3 id="页面单独关闭评论">页面单独关闭评论</h3>
+<p>在 markdown
+文件的元数据描述符中，添加<code>comments: false</code>，即可在当前页面关闭评论。</p>
+<blockquote>
+<p>推荐导航栏的那几个导航页都关掉，例如分类页、标签页、关于页。</p>
+</blockquote>
+<h3 id="管理评论数据">管理评论数据</h3>
+<p>登录 LeanCloud
+对应应用的管理页面，选择<code>存储-&gt;结构化数据-&gt;Comment</code>，即可看到评论数据，并且可以偷偷行使你的管理权限。</p>
+<h3 id="评论邮件通知-valine-admin">评论邮件通知 valine-admin</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/DesertsP/Valine-Admin">官网地址</a></p>
+<h2 id="更换自定义域名">更换自定义域名</h2>
+<p>首先，找一个卖域名的网站买好自己的域名= =并且做好DNS解析转到Github
+Pages，腾讯云是可以一键解析到目标网址如： alobal.github.io。</p>
+<p>然后在你的博客source文件夹下，新建一个CNAME文件，内容写上你的域名如：sitchzou.com，重新部署即可。</p>
+<blockquote>
+<p>注意Github
+pages设置里也可以改域名，但是只在那里改的话，你会发现每次部署域名都失效。因为它本质上就是在你的仓库根目录下创建了CNAME文件，但是你自己没在source里建的话，每次部署就把这个文件删除了。</p>
+</blockquote>
+<h2 id="hexo忽略文章">Hexo忽略文章</h2>
+<p>不要用Hexo配置文件的 exclude字段来忽略 'source/_posts/'
+中的文章，这样没有用。在要忽略的文件的文件名之前加一个下划线"_"即可忽略。</p>
+<blockquote>
+<p>使用 'skip_render'可跳过指定文件的渲染，即将文件原封不动发布。</p>
+</blockquote>
+<h2 id="错误排除">错误排除</h2>
+<h3 id="hexo升级到5.4引发bug">hexo升级到5.4引发BUG</h3>
+<p><strong>next7.8的目录跳转功能失效</strong>：<a
+target="_blank" rel="noopener" href="https://www.github.com/next-theme/hexo-theme-next/commit/0d2b3af50b3b597fb3d0ecd6a6ffdfbf6b92745b">参考该commit修改文件即可</a></p>
+<p><strong>阅读全文失效</strong>：严格按照<code>&lt;!-- more --&gt;</code>分割，之前的版本中格式比较随意也能兼容，5.4不行。</p>
+<h3 id="mathjax配置好但不渲染">Mathjax配置好但不渲染</h3>
+<p>主题_config中vendors下的mathjax误添加了enable字段，删掉留空即可。</p>
+<h1 id="参考资料-1">参考资料</h1>
+<p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/">Next Document</a>， <a
+target="_blank" rel="noopener" href="http://theme-next.iissnan.com/">Next 中文入门文档</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" rel="prev" title="LeetCode_剑指Offer No.39">
+      <i class="fa fa-chevron-left"></i> LeetCode_剑指Offer No.39
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/" rel="next" title="二叉树的四种遍历（迭代法）">
+      二叉树的四种遍历（迭代法） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E7%82%B9%E6%A6%82%E8%A7%88%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">站点概览描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%B4%E5%83%8F"><span class="nav-number">2.</span> <span class="nav-text">配置头像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next-%E7%9A%84%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">Next 的分类和标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo%E6%96%87%E7%AB%A0%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">hexo文章资源管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E4%B9%90"><span class="nav-number">5.</span> <span class="nav-text">音乐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90"><span class="nav-number">5.1.</span> <span class="nav-text">网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aplayer%E5%85%A8%E5%B1%80%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8"><span class="nav-number">5.2.</span> <span class="nav-text">aplayer全局音乐播放器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pjax"><span class="nav-number">6.</span> <span class="nav-text">pjax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%94%AF%E6%8C%81"><span class="nav-number">7.</span> <span class="nav-text">数学公式支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%B1%86%E7%93%A3%E8%AF%84%E4%BB%B7%E9%A1%B5%E9%9D%A2"><span class="nav-number">8.</span> <span class="nav-text">导入豆瓣评价页面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo-douban-%E6%8F%92%E4%BB%B6"><span class="nav-number">8.1.</span> <span class="nav-text">安装 hexo-douban 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-douban-%E5%91%BD%E4%BB%A4"><span class="nav-number">8.2.</span> <span class="nav-text">hexo douban 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">8.3.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E4%B8%AA%E4%B8%BB%E9%A1%B5%E6%A0%8F"><span class="nav-number">8.4.</span> <span class="nav-text">开个主页栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">8.5.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF%E5%B7%B2%E5%BA%9F%E5%BC%83"><span class="nav-number">9.</span> <span class="nav-text">字数统计和阅读时长（已废弃）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E9%A1%B5%E6%91%98%E8%A6%81-%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87"><span class="nav-number">10.</span> <span class="nav-text">首页摘要 阅读全文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%99%BE%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">11.</span> <span class="nav-text">添加百度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95"><span class="nav-number">12.</span> <span class="nav-text">搜索引擎收录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E8%B5%84%E6%BA%90%E7%B1%BB%E5%9E%8B"><span class="nav-number">12.1.</span> <span class="nav-text">选择资源类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%BD%91%E7%AB%99%E6%89%80%E6%9C%89%E6%9D%83"><span class="nav-number">12.2.</span> <span class="nav-text">验证网站所有权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE-sitemap"><span class="nav-number">12.3.</span> <span class="nav-text">添加站点地图 SiteMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95"><span class="nav-number">12.4.</span> <span class="nav-text">百度收录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E5%86%85%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2"><span class="nav-number">13.</span> <span class="nav-text">站内本地搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F-valine"><span class="nav-number">14.</span> <span class="nav-text">评论系统 Valine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%8D%95%E7%8B%AC%E5%85%B3%E9%97%AD%E8%AF%84%E8%AE%BA"><span class="nav-number">14.1.</span> <span class="nav-text">页面单独关闭评论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">14.2.</span> <span class="nav-text">管理评论数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E8%AE%BA%E9%82%AE%E4%BB%B6%E9%80%9A%E7%9F%A5-valine-admin"><span class="nav-number">14.3.</span> <span class="nav-text">评论邮件通知 valine-admin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="nav-number">15.</span> <span class="nav-text">更换自定义域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo%E5%BF%BD%E7%95%A5%E6%96%87%E7%AB%A0"><span class="nav-number">16.</span> <span class="nav-text">Hexo忽略文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">17.</span> <span class="nav-text">错误排除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo%E5%8D%87%E7%BA%A7%E5%88%B05.4%E5%BC%95%E5%8F%91bug"><span class="nav-number">17.1.</span> <span class="nav-text">hexo升级到5.4引发BUG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathjax%E9%85%8D%E7%BD%AE%E5%A5%BD%E4%BD%86%E4%B8%8D%E6%B8%B2%E6%9F%93"><span class="nav-number">17.2.</span> <span class="nav-text">Mathjax配置好但不渲染</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-1"><span class="nav-number"></span> <span class="nav-text">参考资料</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="数据结构 C语言标识符需要 字母 &#x2F; 下划线 开头，不能数字开头 中序和层序才能构成唯一的二叉树，先序和层序不能。 完全二叉树的叶子节点不一定在最后一层，最后两层都可能。下(n&#x2F;2)为最后的父节点。 查找 分块查找，块内取√n长度，ASL达到最小值。 Hash表删除元素，不能简单地删除，而是标记为删除。因为在开放定址法里面，会影响到后面的元素查找。 Hash表平均失败长度是对mod出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="408错题集">
+<meta property="og:url" content="https://www.sitchzou.com/2020/12/05/408%E9%94%99%E9%A2%98%E9%9B%86/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="数据结构 C语言标识符需要 字母 &#x2F; 下划线 开头，不能数字开头 中序和层序才能构成唯一的二叉树，先序和层序不能。 完全二叉树的叶子节点不一定在最后一层，最后两层都可能。下(n&#x2F;2)为最后的父节点。 查找 分块查找，块内取√n长度，ASL达到最小值。 Hash表删除元素，不能简单地删除，而是标记为删除。因为在开放定址法里面，会影响到后面的元素查找。 Hash表平均失败长度是对mod出">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-05T11:39:35.000Z">
+<meta property="article:modified_time" content="2020-12-05T11:39:35.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="杂记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2020/12/05/408%E9%94%99%E9%A2%98%E9%9B%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>408错题集 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/12/05/408%E9%94%99%E9%A2%98%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          408错题集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-05 19:39:35" itemprop="dateCreated datePublished" datetime="2020-12-05T19:39:35+08:00">2020-12-05</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/05/408%E9%94%99%E9%A2%98%E9%9B%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/05/408%E9%94%99%E9%A2%98%E9%9B%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数据结构">数据结构</h2>
+<p>C语言标识符需要 字母 / 下划线 开头，不能数字开头</p>
+<p>中序和层序才能构成唯一的二叉树，先序和层序不能。</p>
+<p>完全二叉树的叶子节点不一定在最后一层，最后两层都可能。下(n/2)为最后的父节点。</p>
+<h3 id="查找">查找</h3>
+<p>分块查找，块内取√n长度，ASL达到最小值。</p>
+<p>Hash表删除元素，不能简单地删除，而是标记为删除。因为在开放定址法里面，会影响到后面的元素查找。
+Hash表平均失败长度是对mod出的位置算，不是对所有表的位置都算。</p>
+<p>B树支持随机查找，B+支持随机和顺序。注意基础的是随机查找，特有的是顺序查找。</p>
+<p><strong>折半查找判定树</strong>
+是一种平衡二叉排序树，判定树的结构和总节点数N一一对应。 高度H=下(log2
+n)+1=查找成功最多比较次数=查找失败最多比较次数 N节点建树方法： -
+先判断高度H，构建好H-1层的满二叉树 - 对于剩下的节点： -
+mid<strong>向下</strong>取整时，从根节点开始，按照<strong>先右后左</strong>的顺序判断往哪边挂新节点。对子树也是递归同样的规则判断。
+- mid<strong>向上</strong>取整时，<strong>先左后右</strong> -
+最后按照中值遍历的顺序填充节点值。
+&gt;向上取整和向下取整体现在树中就是哪侧会多一个节点。</p>
+<h3 id="排序">排序</h3>
+<p>所有元素相等时的排序：简单选择排序是n^2, 基数排序是nd。</p>
+<p>插入排序，注意n趟之后是有n+1个元素有序。初始一个不算趟数。</p>
+<p>堆排序向下调整，先找出两个子节点中最厉害的那个，再换，递归继续向下。</p>
+<p>平衡二叉树[节点最少/层数最多]情况的递推：N1=1 N2=2
+Nh=N(h-1)+N(h-2)+1</p>
+<p>排序序列原始状态只影响快排的效率，不影响趟数，事实上每一趟确定一个数的位置。</p>
+<span id="more"></span>
+<h2 id="计组">计组</h2>
+<p>小心，CPI和时钟频率无关，只和执行速度有关</p>
+<p>RISC的体系结构并不等同于早期计算机的简单结构</p>
+<p>数据总线的位数一般等于机器字长，但也不绝对。大于的时候CPU可以分两次取数。</p>
+<p>翻译程序 -
+编译程序：将高级语言程序一次全部翻译成目标程序。每次执行只执行目标程序文件
+- 解释程序：将源程序每条语句翻译成机器目标代码，并立即执行。不产生文件。
+- 汇编程序：将汇编语言翻译成机器语言，和机器语言一一对应。</p>
+<h3 id="编码">编码</h3>
+<p>不是所有十进制小数都可以用二进制表示，如0.3</p>
+<p><strong>浮点数</strong></p>
+<p>浮点数运算，阶码双符号位判断溢出，尾数双符号位决定正负。
+阶码上溢需要中断处理，阶码小于最小阶码即下溢，看作机器零处理。</p>
+<p>最简单的浮点数舍入处理方法是直接截断法。</p>
+<p>IEEE754浮点数乘法运算结果肯定不需要左规处理。左规是数往左移动，好让小数点前面有个1。因为754尾数必然≥1，尾数运算结果也必然≥1，显然不会需要左规。</p>
+<p>IEEE754
+阶码全1尾数全0是±∞，阶码全0尾数全0是±0。如果尾数此时不是0，则是NaN非规格数。</p>
+<h3 id="存储系统">存储系统</h3>
+<p><strong>Cache</strong>
+Cache不能作为指令地址码，一般都是主存单元作为地址码，系统自动在Cache中查找，Cache对程序员透明。
+指令地址码一般是 主存单元/数据寄存器。</p>
+<p>Cache每行位数：数据bit+Tag位+(LRU 1)+(修改位 1)+(有效位
+1)。注意不需要组号位，假如是组相联映射，主存地址结构中间几位是组号，但是Cache每行里面不需要装组号，多路分组是地址结构解析的事。</p>
+<p>Cache采用N路组相联映射：组内有N行，组数=数据区容量/每组容量</p>
+<p>Cache完全由硬件实现，且Cache透明。
+虚存由软硬件实现。虚存对系统程序员不透明，对应用程序员也透明。虚存大小≤内存+外存
+Cache和TLB缺失都可以由硬件处理。</p>
+<p>对a[k]=a[k]+32;
+赋值也需要访问Cache，即需要访问两次Cache里的a[k]。</p>
+<p><strong>RAM</strong> RAM都是易失性存储器 SRAM 非破坏性读出，DRAM
+破坏性读出，。 SRAM 双稳态触发器，不需要再生，DRAM电容存储，需要再生。
+SRAM 更贵，功耗更大，集成度更低，速度更快。 DRAM
+地址复用，分两次送行列地址。</p>
+<p>高位交叉存储器也可能在一个存储周期内连续访问几个模块，只不过概率比较小...</p>
+<p>存取周期和存取时间是不同的概念，周期是连续两次操作的间隔，时间是一次操作的时间。周期＞时间。</p>
+<p><strong>分页管理和虚拟存储器</strong>
+TLB里存的是页表，访问完TLB还要访存访问页面。
+注意在统计TLB和主存访问次数的时候，缺页中断后，对原数据重新访问一次。</p>
+<p>分页存储解决的是不连续存储的问题，注意虚拟存储器的请求分页机制才是逻辑扩充容量。</p>
+<p>页面置换算法中，只有FIFO会出现Belady现象，队列类算法。
+LRU性能好，但需要寄存器和栈的硬件支持，是堆栈类算法。
+NRU=CLOCK，用较小的开销接近LRU性能。</p>
+<p>工作集窗口k是从当前时刻往前k个之内，是集合。不需要因为重复继续往前延伸。重复时工作集大小就小于k了。</p>
+<h3 id="指令系统">指令系统</h3>
+<p>指令字长通常都是存储字长的整数k倍，k≥1。注意只说一样长是错误的。</p>
+<h3 id="cpu">CPU</h3>
+<p>CPU数据通路由控制部件控制，因此数据通路内不包括控制部件。</p>
+<p>无论执行什么指令，CPU在指令周期首先是 取指，(PC)-&gt;MAR。</p>
+<p>CM控制存储器存储的是
+所有机器指令的微程序，也即所有微程序的所有微指令。
+CM容量=微指令数X微指令字长 注意水平型微指令字长 -
+操作控制字段，字段直接编码——互斥性微命令放在同一段进行编码，相容性微命令放在不同段。
+- 判断测试字段位数=外部条件数。比如外部条件3个，应该是3位，而不是2位。 -
+下地址字段位数N：即2^N≥所有微指令数。</p>
+<h3 id="总线">总线</h3>
+<p>地址总线是单向的，数据、控制总线是双向的。</p>
+<p>异步定时方式适合速度差异较大的设备之间。完全依靠双方的握手信号来实行定时控制。</p>
+<h3 id="io">IO</h3>
+<p>DMA中断只用来向CPU提出传输结束，可能报告数据错误，不会检查数据错误，不用来实现数据传送和申请总线。</p>
+<p>DMA中断请求可以在每个机器周期介乎，而普通中断需要在每条指令执行后。</p>
+<p>初始化中断向量表由操作系统完成，找中断向量由隐指令硬件完成。</p>
+<p>CPU通过IO指令控制通道。通道在通道程序执行结束产生IO中断向CPU报告。
+程序中断和通道都是软硬件结合的方式</p>
+<p>设备独立性=设备无关性=用户程序独立于具体物理设备=使用逻辑设备号
+设备驱动程序：与硬件直接相关，隐藏同类设备的设备控制器之间的差异。
+虚拟设备是指把一个物理设备变换成多个逻辑设备，但不是指把独占设备改成共享设备。</p>
+<h2 id="操作系统">操作系统</h2>
+<p>微内核比起单一大内核效率更低，因为需要频繁切换核心态和用户态，开销大。</p>
+<p>从操作系统内核空间读数据或指令是静态的，不需要保护。</p>
+<h3 id="进程管理">进程管理</h3>
+<p>线程共享进程的虚拟地址空间，但每个线程有自己的栈空间。
+子进程不共享父进程的虚拟地址空间，仅共享一部分资源。创建子进程时会分配相关资源。</p>
+<p>进程打开定时器是需要保护的操作，否则可能修改时间片。</p>
+<p>设备分配不会创建新进程，只是设置对应数据结构。</p>
+<p>死锁处理 -
+死锁避免：银行家算法，在进程执行过程中动态规避可能导致死锁的分配。 -
+死锁预防：从根本上破坏死锁条件，使死锁不可能成立。如限制进程申请资源的顺序，给资源编号分配。
+- 死锁检测：啥都不管，真死锁了检测到了，就强行处理掉...</p>
+<h3 id="内存管理">内存管理</h3>
+<p>地址变换时，可能因缺页、地址越界、内存保护发生中断，不会发生内存溢出。</p>
+<h3 id="文件系统">文件系统</h3>
+<p>Open()系统调用打开文件，读入文件的控制管理信息。文件内容是在打开之后，需要使用文件的时候，再读入。
+FAT表是在挂载文件系统的时候就读入到系统了。
+超级快是系统自举用，启动系统时读入。</p>
+<p>逻辑记录是对文件进行存取的基本单位。</p>
+<p>索引文件的表项装的是记录<strong>逻辑地址</strong>，不是物理地址，因为索引文件是逻辑结构。</p>
+<p>对文件访问权限的管理，通常由用户访问权限+文件属性限制，注意和用户优先级无关。</p>
+<p>直接存取是介于随机存取和顺序存取（磁带）之间的方式，直接存取存储器，例如磁盘，一般也可以顺序访问，但是比较低效。</p>
+<p>磁盘调度算法中，不会导致磁臂黏着的只有FCFS，考虑同一个磁道不停地申请。</p>
+<p>磁盘初始化：物理/低级格式化：扇区+校验码————柱面分磁盘区————逻辑格式化：文件系统+空闲盘块数据结构</p>
+<h2 id="计网">计网</h2>
+<p>虚电路分为永久性虚电路和交换型虚电路，所以不是所有虚电路都会在会话结束释放链接。</p>
+<p>网络线路吞吐量=单位时间内通过的数据量=发送bit/(发送时延+往返时延)</p>
+<p>OSI 网络层两种方式，传输层仅面向连接。 TCP/IP
+网络层无连接，传输层两种方式。</p>
+<p>交换机和路由器的线路，即没有主机的线路，也算交换机分割的一个冲突域。</p>
+<p>按照对等层通信原则，IP分组的重组由网络层完成，而排序则由传输层完成。</p>
+<p>端到端是指进程端口到进程端口，即TCP/IP传输层。
+点到点是网络节点到网络节点，数据链路层。</p>
+<p>计算信道最高数据传输率的时候，注意看清给的是信道频率还是信道带宽。两个公式要求的W都是带宽。例如给频率3.5~3.9MHz，带宽=3.9-3.5=0.4MHz</p>
+<h3 id="数据链路层">数据链路层</h3>
+<p>CSMA/CD 冲突时间=往返时间，最小帧长=最大帧碎片长</p>
+<p>以太网冲突时间=2τ=51.2μs 10Mb/s以太网最小帧长=10Mb/s X
+51.2μs=512bit=64B</p>
+<p>连续ARQ包括两种：GBN和SR选择重传</p>
+<p>以太网最小数据长度46B，因此封装的IP数据包总长度字段要≥46</p>
+<p><strong>无线局域网</strong>
+CTS和ACK确认帧的IFS都是SIFS。RTS之前有DIFS。 帧格式地址：RA(BSSID)+SA+DA
+= 目的地接入站地址+ 源地址 + 目的地址</p>
+<h3 id="网络层">网络层</h3>
+<p>ARP请求是广播的，ARP响应是单播的。作为对比，DHCP是四个广播：DHCP发现，DHCP提供，DHCP请求，DHCP确认。</p>
+<p>路由表中配置到互联网的路由即一般默认路由项：目的IP 0.0.0.0 + 子网掩码
+0.0.0.0 + 下一跳IP + 接口</p>
+<h3 id="传输层">传输层</h3>
+<p>TCP连接时，默认只有第一个序号是消耗的，第三次握手的序号也可以用作数据传送。</p>
+<p>注意IP分片需要是8B整数倍，偏移量=x/8B</p>
+<h3 id="应用层">应用层</h3>
+<p>HTTP 服务器是80端口，客户端不确定。</p>
+<p>WWW高速缓存将最近的一些请求和响应暂存在本地磁盘中，可以有效降低WWW延迟。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9D%82%E8%AE%B0/" rel="tag"># 杂记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/" rel="prev" title="英语作文句式整理">
+      <i class="fa fa-chevron-left"></i> 英语作文句式整理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/%E7%BB%88%E6%9C%AB%E4%B9%8B%E8%AF%97/" rel="next" title="终末之诗">
+      终末之诗 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">1.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">存储系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">指令系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpu"><span class="nav-number">2.4.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BA%BF"><span class="nav-number">2.5.</span> <span class="nav-text">总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#io"><span class="nav-number">2.6.</span> <span class="nav-text">IO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.</span> <span class="nav-text">文件系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">4.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">4.1.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.2.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">4.3.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">4.4.</span> <span class="nav-text">应用层</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

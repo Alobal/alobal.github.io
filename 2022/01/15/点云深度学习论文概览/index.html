@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="点云空间学习 PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation  Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for 3d classification and segmentation[C]&#x2F;&#x2F;Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点云深度学习论文概览">
+<meta property="og:url" content="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="点云空间学习 PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation  Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for 3d classification and segmentation[C]&#x2F;&#x2F;Pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/hRhgDLA.png">
+<meta property="og:image" content="https://i.imgur.com/CSh1yZu.png">
+<meta property="og:image" content="https://i.imgur.com/CbvUBIo.png">
+<meta property="og:image" content="https://i.imgur.com/msRVrEW.png">
+<meta property="og:image" content="https://i.imgur.com/2tkPCO8.png">
+<meta property="og:image" content="https://i.imgur.com/Fi3BjWH.png">
+<meta property="og:image" content="https://i.imgur.com/eqmq6lr.png">
+<meta property="og:image" content="https://i.imgur.com/QWhZZWr.png">
+<meta property="article:published_time" content="2022-01-15T03:24:12.000Z">
+<meta property="article:modified_time" content="2022-01-15T03:24:12.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="点云">
+<meta property="article:tag" content="序列学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/hRhgDLA.png">
+
+<link rel="canonical" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E6%A6%82%E8%A7%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>点云深度学习论文概览 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E6%A6%82%E8%A7%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          点云深度学习论文概览
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-15 11:24:12" itemprop="dateCreated datePublished" datetime="2022-01-15T11:24:12+08:00">2022-01-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E6%A6%82%E8%A7%88/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E6%A6%82%E8%A7%88/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="点云空间学习">点云空间学习</h2>
+<h3
+id="pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation">PointNet:
+Deep Learning on Point Sets for 3D Classification and Segmentation</h3>
+<ul>
+<li>Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for
+3d classification and segmentation[C]//Proceedings of the IEEE
+conference on computer vision and pattern recognition. 2017:
+652-660.</li>
+</ul>
+<p>PointNet首次基于原始点云进行深度学习,其提出了点云深度学习的<strong>三大原则:
+无序性、点间联系、变换一致性</strong>。基于此,
+PointNet在点云上逐点运用了MLP进行变换,
+并且构造了<strong>T-Net</strong>进行对抗点云的仿射变换, 最终使用max
+pool进行对称聚合。</p>
+<blockquote>
+<p>缺少对局部结构的特征学习</p>
+</blockquote>
+<h3
+id="pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space">PointNet++:
+Deep Hierarchical Feature Learning on Point Sets in a Metric Space</h3>
+<ul>
+<li>Qi C R, Yi L, Su H, et al. Pointnet++: Deep hierarchical feature
+learning on point sets in a metric space[J]. Advances in neural
+information processing systems, 2017, 30.</li>
+</ul>
+<p>PointNet没有捕捉到点的局部结构特征，限制了细粒度和复杂场景的识别、泛化能力。PointNet++则引出了一个<strong>set
+abstraction层</strong>对点云进行多级学习。set
+abstraction定义了多级多块的局部邻域结构,
+其在每一个局部邻域中都使用了mini-PointNet来进行特征抽取。然而由于点云是非均匀分布的,
+不同的局部邻域的密度不一样,
+因此PointNet++提出了两种自适应密度的特征融合模块: <strong>Multi-scale
+grouping（MSG）</strong> 和 <strong>Multi-resolution
+grouping（MRG）</strong>。</p>
+<p>另外由于部位分割等任务最终需要输出逐点的特征标签, 因此在set
+abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传播,
+另一方面自顶向下进行反向逐级的特征传播。在同一层内对两种传播特征进行拼接,
+即得到该层的逐点特征。</p>
+<span id="more"></span>
+<h3 id="pointconv">PointConv</h3>
+<ul>
+<li>Wu W, Qi Z, Fuxin L. Pointconv: Deep convolutional networks on 3d
+point clouds[C]//Proceedings of the IEEE/CVF Conference on Computer
+Vision and Pattern Recognition. 2019: 9621-9630.</li>
+</ul>
+<h3 id="pointcnn">PointCNN</h3>
+<ul>
+<li>Li Y, Bu R, Sun M, et al. Pointcnn: Convolution on x-transformed
+points[J]. Advances in neural information processing systems, 2018,
+31.</li>
+</ul>
+<h3 id="kpconv">KPConv</h3>
+<ul>
+<li>Thomas H, Qi C R, Deschaud J E, et al. Kpconv: Flexible and
+deformable convolution for point clouds[C]//Proceedings of the IEEE/CVF
+international conference on computer vision. 2019: 6411-6420.</li>
+</ul>
+<h3
+id="pointnet-based-hand-gesture-recognition">PointNet-Based-Hand-Gesture-Recognition</h3>
+<ul>
+<li>Mirsu R, Simion G, Caleanu C D, et al. A pointnet-based solution for
+3d hand gesture recognition[J]. Sensors, 2020, 20(11): 3226.</li>
+<li>SCIE</li>
+</ul>
+<p>工程论文, 其详细描述了如何对3D点云进行预处理, 提取手势,
+最终进入PointNet进行特征提取。</p>
+<h3 id="pointweb">PointWeb</h3>
+<ul>
+<li>Zhao H, Jiang L, Fu C W, et al. Pointweb: Enhancing local
+neighborhood features for point cloud processing[C]//Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition. 2019:
+5565-5573.</li>
+<li>MIT</li>
+</ul>
+<h3 id="deep-hough-voting-for-3d-object-detection-in-point-clouds">Deep
+Hough Voting for 3D Object Detection in Point Clouds</h3>
+<ul>
+<li>Qi C R, Litany O, He K, et al. Deep hough voting for 3d object
+detection in point clouds[C]//proceedings of the IEEE/CVF International
+Conference on Computer Vision. 2019: 9277-9286.</li>
+</ul>
+<h3 id="pct-point-cloud-transformer">PCT: Point cloud transformer</h3>
+<ul>
+<li>Guo M H, Cai J X, Liu Z N, et al. PCT: Point cloud transformer[J].
+Computational Visual Media, 2021, 7(2): 187-199.</li>
+<li>清华</li>
+</ul>
+<p>提出了基于Transformer的PCT网络。Transformer在NLP和图像处理取得了巨大成功，其内在的置换不变性也十分适合点云学习。为了更好的捕捉点云局部信息，使用了最远点采样和最近邻搜索来加强输入的embedding处理。实验证明PCT达到了分类分割和法向估计的SOTA。</p>
+<p>由于点云和自然语言是完全不同的数据类型，因此PCT对Transformer作出了几项调整：</p>
+<ul>
+<li><strong>Coordinate-based input
+embedding</strong>：Transformer里的positional encoding
+是为了区分不同位置的同一个词。然而点云没有位置顺序关系，因此PCT中将
+positional encoding 和 input embedding
+结合了起来，基于坐标进行编码。</li>
+<li><strong>Optimized offset-attention module</strong>：是原始
+self-attention 的升级模块。它把原来的attention
+feature换成了self-attention的输入和attention
+feature之间的offset。同一个物体在不同的变换下的绝对坐标完全不一样，因此相对坐标更鲁棒。</li>
+<li><strong>Neighbor embedding module</strong>：
+注意力机制有效捕捉全局特征，但可能忽视局部几何信息，而这在点云中很重要。句子中的每个单独的词都有基本的语义信息，但是点云中孤立的点不存在语义信息。因此使用了一个neighbor
+embedding
+策略来进行改良，让注意力机制着重于分析点局部邻域的信息，而不是孤立的点的信息。</li>
+</ul>
+<h3 id="point-transformer">Point Transformer</h3>
+<ul>
+<li>Zhao H, Jiang L, Jia J, et al. Point transformer[C]//Proceedings of
+the IEEE/CVF International Conference on Computer Vision. 2021:
+16259-16268.</li>
+<li>港中文</li>
+</ul>
+<p>self-attention是天然的一个集合操作：将位置信息作为元素属性，并且视作集合处理。而另一方面点云天然就是位置属性的集合，因此self-attention直觉上很适合点云数据。之前已经有一些工作在点云分析上使用了attention。他们在整个点云上使用全局的注意力机制，而这会带来昂贵的计算。并且他们使用了标量点积的注意力，即不同通道之间共享相同的聚合权重。</p>
+<p>相反，Point Transformer有以下优势：</p>
+<ul>
+<li><strong>局部应用注意力机制</strong>，使得拥有处理百万点数的大场景的能力。</li>
+<li>使用了<strong>vector
+attention</strong>，而这是实现高准确率的重要因素。</li>
+<li>阐述了<strong>position
+encoding</strong>的重要性，而不是像之前的工作一样忽略的位置信息。</li>
+</ul>
+<h2 id="点云时间学习">点云时间学习</h2>
+<h3 id="flownet3d">FlowNet3D</h3>
+<ul>
+<li>Liu X, Qi C R, Guibas L J. Flownet3d: Learning scene flow in 3d
+point clouds[C]//Proceedings of the IEEE/CVF Conference on Computer
+Vision and Pattern Recognition. 2019: 529-537.</li>
+</ul>
+<p>提出了flow embedding层，<strong>点对集合</strong>的matching
+cost。其先通过<strong>ball
+query</strong>找到邻域，然后计算邻域每个点对中心点的matching
+cost，并且使用max pooling进行邻域聚合。</p>
+<blockquote>
+<p>这种聚合的坏处就是会丢失一些运动信息。</p>
+</blockquote>
+<h3 id="meteornet">MeteorNet</h3>
+<ul>
+<li>Liu X, Yan M, Bohg J. Meteornet: Deep learning on dynamic 3d point
+cloud sequences[C]//Proceedings of the IEEE/CVF International Conference
+on Computer Vision. 2019: 9246-9255.</li>
+<li>卡耐基梅隆</li>
+</ul>
+<p>MeteorNet率先基于原始点云序列进行特征学习。由于点云的不规则性,
+其不存在帧与帧之间点的一一对应,
+因此也难以确定帧间点与点之间的时间联系。因此MeteorNet提出了两种聚类方法
+<strong>Direct grouping</strong>和 <strong>Chained-flow
+grouping</strong>来进行时间聚类。</p>
+<blockquote>
+<p>由于其需要显式的时空邻居, 这不利于提高准确率和泛化网络。</p>
+</blockquote>
+<h3 id="minkowskinet">MinkowskiNet</h3>
+<ul>
+<li>Choy C, Gwak J Y, Savarese S. 4d spatio-temporal convnets: Minkowski
+convolutional neural networks[C]//Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition. 2019: 3075-3084.</li>
+</ul>
+<p>针对点云的稀疏性, 提出了高效的时空4D CNN。</p>
+<blockquote>
+<p>但是既没有对时间规范化,
+也不能进行时空特征聚合。计算代价昂贵。存在体素化的量化误差</p>
+</blockquote>
+<h3 id="caspr">CaSPR</h3>
+<ul>
+<li>Rempe D, Birdal T, Zhao Y, et al. Caspr: Learning canonical
+spatiotemporal point cloud representations[J]. Advances in neural
+information processing systems, 2020, 33: 13688-13701.</li>
+<li>Stanford</li>
+</ul>
+<p>过去有一些工作做了动态点云的时间学习, 然而这些工作有一个致命限制:
+它们缺少时间连续性、鲁棒性、同类泛化性。有一些工作考虑了其中某一个方面,
+但没有对这三者整体进行统一的要求。</p>
+<p>Canonical Spatiotemporal Point Cloud Representations
+(CaSPR)致力于对3D形状的时空变化进行编码。</p>
+<ol type="1">
+<li>将输入的点云序列规范化到一个共享的4D container空间:
+其先构建了坐标空间Normalized Object Coordinate Space (NOCS),
+它能把同类中的一些外在属性引如位置、朝向和放缩程度给规范化。进一步的,
+CaSPR将NOCS扩展到4D <strong>Temporal-NOCS(T-NOCS)</strong>,
+额外将点云序列的持续时间归一化成一个单位时间。对于给定的点云序列,
+最终规范化后会给出在<strong>时间和空间</strong>上都规范化的点云。</li>
+<li>然后在规范化空间中学习连续的时空特征: 其使用了Neural Ordinary
+Differential Equations (Neural ODEs)。</li>
+</ol>
+<h3
+id="pointlstm-an-efficient-pointlstm-for-point-clouds-based-gesture-recognition">PointLSTM:
+An Efficient PointLSTM for Point Clouds Based Gesture Recognition</h3>
+<ul>
+<li>Min Y, Zhang Y, Chai X, et al. An efficient pointlstm for point
+clouds based gesture recognition[C]//Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition. 2020:
+5761-5770.</li>
+<li>中科院计算所</li>
+</ul>
+<p>之前的工作从时空领域中抽取运动特征和结构特征。然而这些工作仅局限于短期模型，缺乏捕捉长期联系的能力。PointLSTM通过在点云上构建LSTM模型来学习点云序列的长期联系。然而点云数据是无序的，因此直接在没有对齐的点云序列上应用一个权重共享的LSTM层会有更新困难的问题。因此，<strong>如何在保持空间结构的前提下利用时间信息就是主要的挑战</strong>。</p>
+<p>PointLSTM对于每帧每个点都计算隐状态, 并且对于第t帧的点,
+会在第t-1帧中找到其局部邻域所有点,
+并且结合它们的LSTM隐状态来更新第t帧中心点。</p>
+<p>简化版本PointLSTM-PSS将过去t-1帧整个点云视为一个隐状态,
+并且对于第t帧的每个点都会利用这个隐状态进行更新。</p>
+<p>另外也提出了一种基于密度采样点云的方法。</p>
+<h3 id="pstnet">PSTNet</h3>
+<ul>
+<li>Fan H, Yu X, Ding Y, et al. PSTNet: Point spatio-temporal
+convolution on point cloud sequences[C]//International Conference on
+Learning Representations. 2020.</li>
+<li>新加坡国立大学</li>
+</ul>
+<p>在聚合时间邻域上提出了<strong>Point tube</strong>的结构,
+对前后相邻帧的点进行时间聚类。另外在邻域定义的基础上,
+由于点云的不规则性,
+传统规则卷积无法计算连续变化的点云坐标差。因此提出了<strong>PSTConv</strong>稀疏4D卷积模块。其将卷积定义为根据偏移量计算权重的连续核函数。</p>
+<h3
+id="sequentialpointnet-a-strong-parallelized-point-cloud-sequence-network-for-3d-action-recognition">SequentialPointNet:
+A strong parallelized point cloud sequence network for 3D action
+recognition</h3>
+<ul>
+<li>Li X, Huang Q, Wang Z, et al. SequentialPointNet: A strong
+parallelized point cloud sequence network for 3D action recognition[J].
+arXiv preprint arXiv:2111.08492, 2021.</li>
+<li>河海大学计算机</li>
+</ul>
+<p>针对人类动作在空间上复杂，在时间上简单的特性，不平等的对待空间信息和时间信息。提出了一个强并行能力的点云序列网络SequentialPointNet：一个帧内appearance编码模块，一个帧间动作编码模块。</p>
+<ul>
+<li>为了对人体动作丰富的空间信息建模，每帧先在帧内的appearance
+encoding中并行处理，并且输出一个特征向量序列，描述静态的appearance在时间维度上的改变。</li>
+<li>为了建模简单的时间维度上的变化，在帧间的动作编码模块中，在特征向量序列中应用了
+时间上的位置编码和分层的池化策略。</li>
+<li>为了更好的挖掘时空内容，聚合人体动作的多级特征。</li>
+</ul>
+<h3 id="point4dtransformer">Point4DTransformer</h3>
+<ul>
+<li>Fan H, Yang Y, Kankanhalli M. Point 4D transformer networks for
+spatio-temporal modeling in point cloud videos[C]//Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021:
+14204-14213.</li>
+<li>新加坡国立大学/悉尼科技大学</li>
+</ul>
+<p>在PSTNet的PSTConv卷积提取局部特征的基础上,
+将各个局部特征连接到一个Transformer层进行权重提取。</p>
+<p>其中位置编码使用了一维卷积来实现</p>
+<h3 id="pst-transformer">PST-Transformer</h3>
+<ul>
+<li>Fan H, Yang Y, Kankanhalli M. Point Spatio-Temporal Transformer
+Networks for Point Cloud Video Modeling[J]. IEEE Transactions on Pattern
+Analysis and Machine Intelligence, 2022.</li>
+<li>JCR 一区</li>
+<li>新加坡国立大学</li>
+</ul>
+<p>相比于P4T的全局注意力搜索，和PST的局部建模能力，PST-Transformer集合了两者，进行时空邻域的建模。</p>
+<figure>
+<img src="https://i.imgur.com/hRhgDLA.png" alt="系列对比" />
+<figcaption aria-hidden="true">系列对比</figcaption>
+</figure>
+<p>首先，通过一个video-level的自注意力进行帧加权。对于<strong>frame-level</strong>，仅对一帧进行注意力计算，由于点的流动性，可能会损失较多轨迹信息。而<strong>video-level</strong>，对两个查询帧之间的所有帧进行注意力计算，更适合保留时空信息。</p>
+<p><span class="math display">\[
+\alpha_{p p^{\prime}}=\frac{e^{A_{p p^{\prime}}}}{\sum_{t^{\prime
+\prime}=1}^{L} \sum_{p^{\prime \prime} \in P_{t^{\prime \prime}}}
+e^{A_{p p^{\prime \prime}}}}
+\]</span></p>
+<p>其次通过一个和PST一样的point 4D conv进行时空编码。</p>
+<figure>
+<img src="https://i.imgur.com/CSh1yZu.png" alt="PST-T整体结构图" />
+<figcaption aria-hidden="true">PST-T整体结构图</figcaption>
+</figure>
+<h3 id="geometrymotion-net">GeometryMotion-Net</h3>
+<ul>
+<li>Liu J, Xu D. GeometryMotion-Net: A strong two-stream baseline for 3D
+action recognition[J]. IEEE Transactions on Circuits and Systems for
+Video Technology, 2021, 31(12): 4711-4721.</li>
+<li>北航计算机</li>
+<li>中科院二区</li>
+</ul>
+<p>GeometryMotion-Net用于在点云序列中抽取几何和运动信息，并且不依赖于任何体素化操作。主要思想是利用一个<strong>几何流</strong>和<strong>运动流</strong>组成的two-stream框架来进行动作识别。</p>
+<p><strong>几何流</strong>: 将所有帧点云合并成一个大点云,
+再进行传统的空间点云处理, 如PointNet++。</p>
+<p><strong>运动流</strong>:
+在所有帧之间插值计算出一个关于运动变化的虚拟帧。再在这些虚拟帧上进行空间点云处理,
+得到一组特征。</p>
+<p><strong>双流汇聚</strong>: 将一个几何流的特征和 N
+个运动流的特征拼接合并输出。</p>
+<h3 id="tranquil-clouds">Tranquil clouds</h3>
+<ul>
+<li>Prantl L, Chentanez N, Jeschke S, et al. Tranquil Clouds: Neural
+Networks for Learning Temporally Coherent Features in Point
+Clouds[C]//International Conference on Learning Representations.
+2020.</li>
+<li>慕尼黑工业大学</li>
+</ul>
+<p>基于推土机距离Earth Mover’s Distance (EMD)提出了一个新的损失函数,
+用于衡量两个点云之间的差异性:</p>
+<p><span class="math display">\[
+\mathcal{L}_{S}=\min _{\phi: \tilde{y} \rightarrow y}
+\sum_{\tilde{y}_{i} \in
+\tilde{Y}}\left\|\tilde{y}_{i}-\phi\left(\tilde{y}_{i}\right)\right\|_{2}^{2}
+\]</span></p>
+<h3 id="pointpwc-net">PointPWC-Net</h3>
+<ul>
+<li>Wu W, Wang Z Y, Li Z, et al. Pointpwc-net: Cost volume on point
+clouds for (self-) supervised scene flow estimation[C]//European
+conference on computer vision. Springer, Cham, 2020: 88-107.</li>
+<li>Oregon State University</li>
+</ul>
+<p>提出的<strong>可学习的相继两个点云的matching cost</strong>：找到<span
+class="math inline">\(p_t^j\)</span>在上一帧中的邻域，并且计算邻域所有点与其的特征差和坐标差。</p>
+<blockquote>
+<p>这种<strong>点对点</strong>的matching cost对异常点特别敏感。</p>
+</blockquote>
+<h3 id="spcm-net">SPCM-Net</h3>
+<ul>
+<li>He P, Emami P, Ranka S, et al. Learning Scene Dynamics from Point
+Cloud Sequences[J]. International Journal of Computer Vision, 2022:
+1-27.</li>
+<li>Q1 CCF-A</li>
+<li>University of Florida ，CS</li>
+</ul>
+<p>主要是做序列点云的场景流估计以及预测任务。之前的场景流估计一般都是t-1帧预测t帧，两帧之间的联系。本文定义了序列多帧联系的场景流估计问题。并且基于这个问题，提出了一些序列学习的方法。</p>
+<ul>
+<li>Intra-Frame Feature Pyramid
+(IFFP)：依照了PointPWC-Net的结构，由于不能直接对点云进行传统卷积，使用了PointConv层进行卷积处理。<strong>并且通过多次FPS采样卷积中心，构建了多个金字塔式特征</strong>。</li>
+<li>Inter-Frame Spatiotemporal Correlation (IFSC):
+为了能找到时空联系，很自然我们希望使时间维度上的receptive
+field能够尽可能覆盖到整个序列。因此借鉴了传统序列模型的<strong>LSTM结构</strong>,使用了一个
+<strong>recurrent cost volume</strong>
+结构来保存一定的时间信息。并且针对matching
+cost，提出了和PointPWC以及FlowNet不同的
+<strong>集合对集合</strong>的maching cost。</li>
+<li>Multi-scale Coarse-to-Fine Prediction: 两个帧的特征+cost
+volume的特征生成最低级(粗粒度)的预测点，然后通过Pointnet++的特征上采样传播逐渐生成细粒度特征。</li>
+</ul>
+<h3 id="pstt">PSTT</h3>
+<ul>
+<li>Wei Y, Liu H, Xie T, et al. Spatial-Temporal Transformer for 3D
+Point Cloud Sequences[C]//Proceedings of the IEEE/CVF Winter Conference
+on Applications of Computer Vision. 2022: 1171-1180.</li>
+<li>中山大学</li>
+<li>不在CCF h5指数62 排计算机视觉第12</li>
+</ul>
+<p>提出了<strong>Spatio-Temporal
+Self-Attention(STSA)</strong>模块和<strong>Resolution
+Embedding(RE)</strong>模块。STSA用于时空联系，RE用于聚合邻域特征，增强特征图的分辨率。</p>
+<p>现有的基于point的时空方法要么是使用注意力机制，要么是使用RNN模型。然而，这些方法依赖于长期联系，导致信息冗余。STSA使用了自注意力来提取帧间联系。这样会使冗余程度下降，鲁棒性提高(残差+layer
+normalization)，训练速度提升。</p>
+<p>另外，在语义分割上面的编码器-解码器结构，在编码器降维时会造成信息丢失。RE模块使用了注意力权重来加强分辨率。</p>
+<h2 id="基于其他三维数据">基于其他三维数据</h2>
+<h3 id="dgcnn">DGCNN</h3>
+<ul>
+<li>Wang Y, Sun Y, Liu Z, et al. Dynamic graph cnn for learning on point
+clouds[J]. Acm Transactions On Graphics (tog), 2019, 38(5): 1-12.</li>
+</ul>
+<h3
+id="ddgcn-a-dynamic-directed-graph-convolutional-network-for-action-recognition">DDGCN:
+A Dynamic Directed Graph Convolutional Network for Action
+Recognition</h3>
+<ul>
+<li>Korban M, Li X. Ddgcn: A dynamic directed graph convolutional
+network for action recognition[C]//European Conference on Computer
+Vision. Springer, Cham, 2020: 761-776.</li>
+<li>University of Virginia</li>
+</ul>
+<p>DDGCN认为骨架的空间层级结构和动作的时间序列结构都包含了顺序信息，然而大多数ST
+graph都是用了无向图结构，即无视了顺序信息，因此DDGCN提出了<strong>有向图骨架结构
+Directed Spatial-Temporal Graph (DSTG)</strong>
+。通过有向图中父子节点的定义，父节点的动作实际上会影响到子节点的动作，因此DDGCN在有向图的基础上定义了
+bone features来表示父子节点的影响特征。</p>
+<p>另外针对图卷积的邻域不确定性，DDGCN提出<strong>Dynamic Convolutional
+Sampling (DCS)</strong>
+来对一个节点的邻居列表进行动态的排序，形成动态邻域关系。然而卷积核的权重是有顺序的，而邻居列表是动态变化的，可能会造成权重分配的错序。因此DDGCN使用了一个<strong>Dynamic
+Convolutional Weights
+(DCW)</strong>模块来对邻居列表和权重列表进行一个<strong>Dynamic Time
+Warping (DTW)距离</strong>的最小化排序，再根据这个排序进行权重分配。</p>
+<h3 id="skeletontransformer">SkeletonTransformer</h3>
+<ul>
+<li>Plizzari C, Cannici M, Matteucci M. Skeleton-based action
+recognition via spatial and temporal transformer networks[J]. Computer
+Vision and Image Understanding, 2021, 208: 103219.</li>
+<li>Politecnico di Torino 意大利都灵理工大学</li>
+<li>三区</li>
+</ul>
+<p>空间Transformer: <strong>Spatial Self-Attention
+(SSA)</strong>模块，用于在骨架之间动态的建立联系，而独立于人体真实骨架结构。
+时间Transformer: <strong>Temporal Self-Attention
+(TSA)</strong>模块用于学习关节在时间上的变化。</p>
+<p>值得注意的是, 其空间时间的Transformer不是串行计算,
+而是使用<strong>Two-Stream</strong>方法分为两条管线独立运算。最终再对两个管线输出特征进行拼接处理。</p>
+<h3 id="dv">3DV</h3>
+<ul>
+<li>Wang Y, Xiao Y, Xiong F, et al. 3dv: 3d dynamic voxel for action
+recognition in depth video[C]//Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition. 2020: 511-520.</li>
+<li>华中科技大学</li>
+</ul>
+<p>3DV通过对点云视频进行体素化, 提取出3D动态体素的表示。</p>
+<blockquote>
+<p>体素化的问题: 体素是是计算消耗巨大的过程, 时间和空间距离相同不太可取,
+时间戳本身会影响效果。</p>
+</blockquote>
+<h2 id="基础设施">基础设施</h2>
+<h3 id="transformer">Transformer</h3>
+<ul>
+<li>Vaswani A, Shazeer N, Parmar N, et al. Attention is all you
+need[C]//Advances in neural information processing systems. 2017:
+5998-6008.</li>
+<li>Google</li>
+</ul>
+<p>RNN，LSTM，GNU是处理序列模型的几种最优方法。然而循环神经网络中总是沿着词元位置进行计算，这种<strong>顺序性阻碍了训练的并行化</strong>，这也严重影响了内存对batch的限制程度。因此<strong>Transformer</strong>完全依赖<strong>Self-Attention</strong>来抽取输入和输出的全局关系。并且能有更好的并行化。</p>
+<h3 id="external-attention">External Attention</h3>
+<ul>
+<li>Guo M H, Liu Z N, Mu T J, et al. Beyond self-attention: External
+attention using two linear layers for visual tasks[J]. arXiv preprint
+arXiv:2105.02358, 2021.</li>
+<li>清华</li>
+</ul>
+<p>自注意力机制在同一个样本内,
+任意一个部位的特征都可以聚合所有位置的特征进行加权输出。但是自注意力拥有<strong>二次复杂度</strong>,
+并且<strong>不能计算多个样本之间的潜在联系</strong>。</p>
+<p>External-Attention(EAT) 希望在学习某个数据集时,
+能够找到多个样本之间的潜在联系。其通过保持一定的<strong>key
+memory</strong>,
+以找到跨越所有样本的最具有辨识性的特征。这种思想类似于sparse coding 和
+dictionary learning。并且由于key memory设计的很小,
+因此EAT计算上具有O(n)的复杂度,
+比起自注意力<strong>高效</strong>很多。</p>
+<h3 id="vision-transformer-vit">Vision Transformer (ViT)</h3>
+<ul>
+<li>Dosovitskiy A, Beyer L, Kolesnikov A, et al. An Image is Worth 16x16
+Words: Transformers for Image Recognition at Scale[C]//International
+Conference on Learning Representations. 2020.</li>
+<li>Google</li>
+</ul>
+<figure>
+<img src="https://i.imgur.com/CbvUBIo.png" alt="模型结构" />
+<figcaption aria-hidden="true">模型结构</figcaption>
+</figure>
+<p>第一篇CV上的Transformer：</p>
+<ul>
+<li><strong>patch embedding</strong>:
+为了仿照NLP的输入结构，将图像划分为多个patches，并且展平为一维序列。由于Transformer层的输入长度固定为D，因此原patches组成的特征序列长度为N，通过线性层将长度映射成D。</li>
+<li><strong>position embeddings</strong>：由于2D的position
+embeddings没有体现出优越性，因此还是使用了标准的1D可学习的position
+embeddings。</li>
+<li><strong>Hybrid Architecture</strong>:
+patches的特征可以通过CNN来进行提取。</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{z}_{0} &amp;=\left[\mathbf{x}_{\text {class }} ;
+\mathbf{x}_{p}^{1} \mathbf{E} ; \mathbf{x}_{p}^{2} \mathbf{E} ; \cdots ;
+\mathbf{x}_{p}^{N} \mathbf{E}\right]+\mathbf{E}_{p o s}, &amp; &amp;
+\mathbf{E} \in \mathbb{R}^{\left(P^{2} \cdot C\right) \times D},
+\mathbf{E}_{p o s} \in \mathbb{R}^{(N+1) \times D} \\
+\mathbf{z}_{\ell}^{\prime}
+&amp;=\operatorname{MSA}\left(\operatorname{LN}\left(\mathbf{z}_{\ell-1}\right)\right)+\mathbf{z}_{\ell-1},
+&amp; &amp; \ell=1 \ldots L \\
+\mathbf{z}_{\ell}
+&amp;=\operatorname{MLP}\left(\operatorname{LN}\left(\mathbf{z}_{\ell}^{\prime}\right)\right)+\mathbf{z}_{\ell}^{\prime},
+&amp; &amp; \ell=1 \ldots L \\
+\mathbf{y} &amp;=\operatorname{LN}\left(\mathbf{z}_{L}^{0}\right) &amp;
+&amp;
+\end{aligned}
+\]</span></p>
+<blockquote>
+<p>分辨率单一，计算效率低。 class token是什么？</p>
+</blockquote>
+<h3 id="swim-transformer">Swim Transformer</h3>
+<ul>
+<li>Liu Z, Lin Y, Cao Y, et al. Swin transformer: Hierarchical vision
+transformer using shifted windows[C]//Proceedings of the IEEE/CVF
+International Conference on Computer Vision. 2021: 10012-10022.</li>
+</ul>
+<p>在ViT中，自注意力是全局计算的，但是图片分辨率比起句子往往较大，因此带来了计算效率低的问题。locality一直是视觉里的重要建模方式，因此这篇文章将图片切分为<strong>不重合的local
+window</strong>，并且在local
+window内部进行注意力计算。为了让window之间有信息交换，在相邻两层使用<strong>不同的window划分</strong>。</p>
+<p>金字塔层次化Transformer。</p>
+<h3 id="layer-normalization">Layer Normalization</h3>
+<ul>
+<li>Ba J L, Kiros J R, Hinton G E. Layer normalization[J]. arXiv
+preprint arXiv:1607.06450, 2016.</li>
+</ul>
+<h3 id="pre-layer-normalization">Pre Layer Normalization</h3>
+<ul>
+<li>Xiong R, Yang Y, He D, et al. On layer normalization in the
+transformer architecture[C]//International Conference on Machine
+Learning. PMLR, 2020: 10524-10533.</li>
+</ul>
+<p>本文分析了Transformer模型的初始化warmup问题，将layer
+normalization从原本的残差后移到了残差前，从实验和理论证明了pre-LN不需要warmup，并且收敛更好。</p>
+<h3 id="localvit">LocalViT</h3>
+<ul>
+<li>Li Y, Zhang K, Cao J, et al. Localvit: Bringing locality to vision
+transformers[J]. arXiv preprint arXiv:2104.05707, 2021.</li>
+<li>苏黎世联邦理工</li>
+</ul>
+<p>在Transformer的FeedForward层中添加inverted residual block以及
+depth-wise 卷积来增加local能力。</p>
+<p>FeedForward层可以有助于增加Transformer结构的泛化能力。</p>
+<figure>
+<img src="https://i.imgur.com/msRVrEW.png" alt="local feedforward" />
+<figcaption aria-hidden="true">local feedforward</figcaption>
+</figure>
+<h3 id="mobilenet">MobileNet</h3>
+<ul>
+<li>Howard A G, Zhu M, Chen B, et al. Mobilenets: Efficient
+convolutional neural networks for mobile vision applications[J]. arXiv
+preprint arXiv:1704.04861, 2017.</li>
+<li>Google</li>
+</ul>
+<p><strong>Depth wise
+卷积</strong>：将原来的<strong>多输入通道+多输出通道</strong>卷积拆分为
+<strong>逐通道卷积+1D卷积通道变换</strong>，极大节省计算量。其计算量从<span
+class="math inline">\(D_K \times D_K \times M \times N \times D_F \times
+D_F\)</span>变为<span class="math inline">\(D_K \times D_K \times M
+\times D_F \times D_F+M \times N \times D_F \times
+D_F\)</span>，论文模型在ImageNet上参数量大约缩小为1/10，准确率下降1%。</p>
+<figure>
+<img src="https://i.imgur.com/2tkPCO8.png" alt="DepthWise Conv" />
+<figcaption aria-hidden="true">DepthWise Conv</figcaption>
+</figure>
+<h3 id="resnet">ResNet</h3>
+<ul>
+<li>He K, Zhang X, Ren S, et al. Deep residual learning for image
+recognition[C]//Proceedings of the IEEE conference on computer vision
+and pattern recognition. 2016: 770-778.</li>
+</ul>
+<h3 id="位置编码">位置编码</h3>
+<ul>
+<li>T5编码 Raffel C, Shazeer N, Roberts A, et al. Exploring the limits
+of transfer learning with a unified text-to-text transformer[J]. arXiv
+preprint arXiv:1910.10683, 2019.</li>
+<li>Ke G, He D, Liu T Y. Rethinking Positional Encoding in Language
+Pre-training[C]//International Conference on Learning Representations.
+2020.</li>
+<li>相对位置编码基础 Shaw P, Uszkoreit J, Vaswani A. Self-Attention with
+Relative Position Representations[C]//Proceedings of the 2018 Conference
+of the North American Chapter of the Association for Computational
+Linguistics: Human Language Technologies, Volume 2 (Short Papers). 2018:
+464-468.</li>
+<li>训练式编码 Gehring J, Auli M, Grangier D, et al. Convolutional
+sequence to sequence learning[C]//International Conference on Machine
+Learning. PMLR, 2017: 1243-1252.</li>
+</ul>
+<h3 id="训练优化">训练优化</h3>
+<ul>
+<li><p>Goyal P, Dollár P, Girshick R, et al. Accurate, large minibatch
+sgd: Training imagenet in 1 hour[J]. arXiv preprint arXiv:1706.02677,
+2017.</p></li>
+<li><p>Smith L N. Cyclical learning rates for training neural
+networks[C]//2017 IEEE winter conference on applications of computer
+vision (WACV). IEEE, 2017: 464-472.</p></li>
+</ul>
+<p>传统的方法中认为学习率应该是一个单调缓慢减少的数，然而这篇文章指出在一个<strong>周期范围变化的学习率</strong>可以有更好的效果。其循环变化方式可以有三角式、余弦式，线性式等。</p>
+<p><strong>原理</strong>：通常造成loss下降困难的地方是
+<strong>鞍点</strong> 而不是简单的
+<strong>极小点</strong>，在鞍点附近梯度极小，导致更新缓慢。此时就可以通过增大学习率来跳出鞍点。</p>
+<p><strong>确定循环周期</strong>：实验表明半周期设置为2~10个epoch*iterations比较好。(按iteration迭代，而不是按epoch迭代)。最好使用3个以上的epoch来代替一个常量学习率下的epoch。</p>
+<p><strong>确定学习率上下界</strong>：所谓LR
+test，运行几个单独的epoch，同时线性增大学习率，观察准确率的变化，找到第一个增加点，和波动之前的最后一个点。</p>
+<ul>
+<li>Loshchilov I, Hutter F. Sgdr: Stochastic gradient descent with warm
+restarts[J]. arXiv preprint arXiv:1608.03983, 2016.</li>
+</ul>
+<p>实验表明，使用warm
+restart的学习率更新方法，收敛速度比寻常方法可以快2~4倍。其提出了<strong>余弦退火学习率调度器</strong>：</p>
+<p><span class="math display">\[
+\eta_{t}=\eta_{\min }^{i}+\frac{1}{2}\left(\eta_{\max }^{i}-\eta_{\min
+}^{i}\right)\left(1+\cos \left(\frac{T_{\text {cur }}}{T_{i}}
+\pi\right)\right),
+\]</span></p>
+<p>论文使用参数<span class="math inline">\(T_o=10\)</span>,<span
+class="math inline">\(T_{mult}=2\)</span>。</p>
+<h3 id="can-attention-enable-mlps-to-catch-up-with-cnns">Can attention
+enable MLPs to catch up with CNNs</h3>
+<ul>
+<li>Guo M H, Liu Z N, Mu T J, et al. Can attention enable MLPs to catch
+up with CNNs?[J]. Computational Visual Media, 2021, 7(3): 283-288.</li>
+</ul>
+<p>比较了几个新兴的MLP，CNN，Transformer模型，总结了以下几个共同点：</p>
+<ul>
+<li>通过将图片划分为Patch，可以更好地捕捉局部结构。</li>
+<li>注意力中的辅助结构也可以考虑应用在非注意力模型上，比如Multi-Head</li>
+<li>Residual 结构对于所有模型都很重要</li>
+<li>局部计算的CNN会导致归纳偏差(Inductive
+Bias)，而一维卷积和全域计算结构可以减少归纳偏差。</li>
+</ul>
+<h3 id="action-recognition-based-on-a-bag-of-3d-points">Action
+recognition Based on A Bag of 3D Points</h3>
+<ul>
+<li>Li W, Zhang Z, Liu Z. Action recognition based on a bag of 3d
+points[C]//2010 IEEE computer society conference on computer vision and
+pattern recognition-workshops. IEEE, 2010: 9-14.</li>
+<li>CVPRW</li>
+<li>University of Wollongong</li>
+</ul>
+<p>第一，其提出可以用整个点云bag来表示动作序列。并且点出每一帧之间，点的个数可能不同，并且点之间没有对应关系。更进一步，其假设一个点云帧是一个
+<strong>混合高斯模型</strong>，可以通过一系列的混合高斯分布来描述：</p>
+<p><span class="math display">\[
+p(x \mid \omega)=\prod_{i=1}^{m} \sum_{t=1}^{Q} \pi_{t}^{\omega}
+g\left(q_{i}, \mu_{t}^{\omega}, \Sigma_{t}^{\omega}\right)
+\]</span></p>
+<p>另外，由于点的数量太多容易造成noise和计算问题，需要对点进行采样。在2D的经验里，人体的边缘轮廓是最重要的形状信息。进而在3D中，提出了一种点云的<strong>投影采样法</strong>：通过将点云投影到三个正交2D面，再在2D上进行轮廓采样。</p>
+<figure>
+<img src="https://i.imgur.com/Fi3BjWH.png" alt="投影采样" />
+<figcaption aria-hidden="true">投影采样</figcaption>
+</figure>
+<h3
+id="dpdist-comparing-point-clouds-using-deep-point-cloud-distance">DPDist:
+Comparing Point Clouds Using Deep Point Cloud Distance</h3>
+<ul>
+<li>Urbach D, Ben-Shabat Y, Lindenbaum M. DPDist: Comparing point clouds
+using deep point cloud distance[C]//European Conference on Computer
+Vision. Springer, Cham, 2020: 545-560.</li>
+<li>澳大利亚国立大学</li>
+</ul>
+<p>本文提出了一种衡量点云距离的深度学习方法，不同于传统方法，其衡量的是点云A到点云B的surface
+representation的距离。介绍了几种传统点云距离度量方法，以及新的基于深度学习的改进方法。</p>
+<p><strong>Hausdorff distance</strong> 距离：点到点距离<span
+class="math inline">\(d(x,y)\)</span>，点到点云距离<span
+class="math inline">\(D(x,S)\)</span>，点云到点云距离<span
+class="math inline">\(D_H(S_A,S_B)\)</span>。</p>
+<p><span class="math display">\[
+\begin{aligned}
+d(x, y) &amp;=\|x-y\|_{2} \\
+D(x, S) &amp;=\min _{y \in S} d(x, y) \\
+\mathcal{D}_{H}\left(S_{A}, S_{B}\right)&amp;=\max \left\{\max _{a \in
+S_{A}} D\left(a, S_{B}\right), \max _{b \in S_{B}} D\left(b,
+S_{A}\right)\right\}
+\end{aligned}
+\]</span></p>
+<p><strong>Chamfer
+distance</strong>：相比于Hausdorff距离，Chamfer取平均距离而不是取最大距离。</p>
+<p><span class="math display">\[
+\mathcal{D}_{C D}\left(S_{A}, S_{B}\right)=\frac{1}{N_{A}} \sum_{a \in
+S_{A}} \min _{y \in S_{B}} d(a, y)^{2}+\frac{1}{N_{B}} \sum_{b \in
+S_{B}} \min _{y \in S_{A}} d(b, y)^{2}
+\]</span></p>
+<p>Earth Mover's Distance :
+在点云B中确定一种离点云A最近的映射关系，再累加欧拉距离。</p>
+<p><span class="math display">\[
+\mathcal{D}_{E M D}\left(S_{A}, S_{B}\right)=\min _{\xi: S_{A}
+\rightarrow S_{B}} \sum_{a \in S_{A}}\|a-\xi(a)\|_{2}
+\]</span></p>
+<h3 id="siamese-neural-network-triplet-network">Siamese Neural Network
+&amp; Triplet Network</h3>
+<ul>
+<li>Bromley J, Guyon I, LeCun Y, et al. Signature verification using a"
+siamese" time delay neural network[J]. Advances in neural information
+processing systems, 1993, 6.</li>
+</ul>
+<p>孪生神经网络，用于衡量两个小样本输入的相似程度。在输入数据属于训练数据集的情况下，通常我们可以通过数据识别分类来比较两个数据。然而对于小样本数据，其数据量根本不够成为训练数据集，甚至这个数据可能只有一份，此时则无法通过训练识别来进行分类。</p>
+<p>为了能够度量训练集以外的输入数据相似性，孪生神经网络在训练<strong>特征提取</strong>网络的基础上，还增加了<strong>同类相近、异类排斥</strong>的结构，以便于强调网络的<strong>数据匹配</strong>能力。其将一对输入<span
+class="math inline">\(X_1,X_2\)</span>给到同一个神经网络提取特征向量<span
+class="math inline">\(F_1,F_2\)</span>，并计算两个特征向量的相似度。如果是同类别的输入对，则期望相似度输出为1，如果是不同类别的输入对则期望输出0。</p>
+<figure>
+<img src="https://i.imgur.com/eqmq6lr.png" alt="孪生神经网络模型图" />
+<figcaption aria-hidden="true">孪生神经网络模型图</figcaption>
+</figure>
+<p>损失函数Contrastive Loss：<span
+class="math inline">\(D_W\)</span>为输入对的特征向量的距离度量，<span
+class="math inline">\(Y\)</span>指明输入对是同类还是异类。即通过<span
+class="math inline">\(Y\)</span>可以选择启用损失函数里的<strong>同类损失部分</strong>或者<strong>异类损失部分</strong>。<strong>同类距离需要尽可能的小，异类距离需要尽可能的大</strong>。</p>
+<p><span class="math display">\[
+D_{w}(X_{1}, X_{2}) = ||G(X_{1}) - G(X_{2})|| \\
+\mathcal{L} = (1-Y)\frac{1}{2}(D_W)^2+(Y)\frac{1}{2}\{max(0, m-D_W)\}^2
+\]</span></p>
+<p>在孪生网络中每一对输入要么是同类的，要么是异类的，即同类和异类的训练需要分PASS进行。而在Triplet三生网络中则将输入进行扩展，一组输入包含三个数据，既有同类，又有异类，进而可以将训练过程放在一个PASS完成。</p>
+<figure>
+<img src="https://i.imgur.com/QWhZZWr.png" alt="三生神经网络模型图" />
+<figcaption aria-hidden="true">三生神经网络模型图</figcaption>
+</figure>
+<p>同样，其损失函数<strong>三元组损失</strong>也改造成了一个PASS的形式：其本质上衡量了<span
+class="math inline">\((d_+,d_-)\)</span>与<span
+class="math inline">\((0,1)\)</span>的向量距离。</p>
+<p><span class="math display">\[
+d_{+} = \frac{e^{\Vert Net(x)-Net(x^{+})\Vert _2}}{e^{\Vert
+Net(x)-Net(x^{+})\Vert _2}+e^{\Vert Net(x)-Net(x^{-})\Vert _2}} \\
+Loss(d_{+},d_{-}) = \Vert (d_{+} , d_{-}-1)\Vert _2^2 = const\cdot d_+^2
+\\
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%82%B9%E4%BA%91/" rel="tag"># 点云</a>
+              <a href="/tags/%E5%BA%8F%E5%88%97%E5%AD%A6%E4%B9%A0/" rel="tag"># 序列学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/08/SkeletonTransformer/" rel="prev" title="SkeletonTransformer">
+      <i class="fa fa-chevron-left"></i> SkeletonTransformer
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="next" title="点云序列深度学习">
+      点云序列深度学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E4%BA%91%E7%A9%BA%E9%97%B4%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">点云空间学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation"><span class="nav-number">1.1.</span> <span class="nav-text">PointNet:
+Deep Learning on Point Sets for 3D Classification and Segmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space"><span class="nav-number">1.2.</span> <span class="nav-text">PointNet++:
+Deep Hierarchical Feature Learning on Point Sets in a Metric Space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointconv"><span class="nav-number">1.3.</span> <span class="nav-text">PointConv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointcnn"><span class="nav-number">1.4.</span> <span class="nav-text">PointCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kpconv"><span class="nav-number">1.5.</span> <span class="nav-text">KPConv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointnet-based-hand-gesture-recognition"><span class="nav-number">1.6.</span> <span class="nav-text">PointNet-Based-Hand-Gesture-Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointweb"><span class="nav-number">1.7.</span> <span class="nav-text">PointWeb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deep-hough-voting-for-3d-object-detection-in-point-clouds"><span class="nav-number">1.8.</span> <span class="nav-text">Deep
+Hough Voting for 3D Object Detection in Point Clouds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pct-point-cloud-transformer"><span class="nav-number">1.9.</span> <span class="nav-text">PCT: Point cloud transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#point-transformer"><span class="nav-number">1.10.</span> <span class="nav-text">Point Transformer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E4%BA%91%E6%97%B6%E9%97%B4%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">点云时间学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flownet3d"><span class="nav-number">2.1.</span> <span class="nav-text">FlowNet3D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#meteornet"><span class="nav-number">2.2.</span> <span class="nav-text">MeteorNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#minkowskinet"><span class="nav-number">2.3.</span> <span class="nav-text">MinkowskiNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#caspr"><span class="nav-number">2.4.</span> <span class="nav-text">CaSPR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointlstm-an-efficient-pointlstm-for-point-clouds-based-gesture-recognition"><span class="nav-number">2.5.</span> <span class="nav-text">PointLSTM:
+An Efficient PointLSTM for Point Clouds Based Gesture Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pstnet"><span class="nav-number">2.6.</span> <span class="nav-text">PSTNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequentialpointnet-a-strong-parallelized-point-cloud-sequence-network-for-3d-action-recognition"><span class="nav-number">2.7.</span> <span class="nav-text">SequentialPointNet:
+A strong parallelized point cloud sequence network for 3D action
+recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#point4dtransformer"><span class="nav-number">2.8.</span> <span class="nav-text">Point4DTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pst-transformer"><span class="nav-number">2.9.</span> <span class="nav-text">PST-Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geometrymotion-net"><span class="nav-number">2.10.</span> <span class="nav-text">GeometryMotion-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tranquil-clouds"><span class="nav-number">2.11.</span> <span class="nav-text">Tranquil clouds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointpwc-net"><span class="nav-number">2.12.</span> <span class="nav-text">PointPWC-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spcm-net"><span class="nav-number">2.13.</span> <span class="nav-text">SPCM-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pstt"><span class="nav-number">2.14.</span> <span class="nav-text">PSTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B6%E4%BB%96%E4%B8%89%E7%BB%B4%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">基于其他三维数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dgcnn"><span class="nav-number">3.1.</span> <span class="nav-text">DGCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddgcn-a-dynamic-directed-graph-convolutional-network-for-action-recognition"><span class="nav-number">3.2.</span> <span class="nav-text">DDGCN:
+A Dynamic Directed Graph Convolutional Network for Action
+Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skeletontransformer"><span class="nav-number">3.3.</span> <span class="nav-text">SkeletonTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dv"><span class="nav-number">3.4.</span> <span class="nav-text">3DV</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">4.</span> <span class="nav-text">基础设施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer"><span class="nav-number">4.1.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#external-attention"><span class="nav-number">4.2.</span> <span class="nav-text">External Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vision-transformer-vit"><span class="nav-number">4.3.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swim-transformer"><span class="nav-number">4.4.</span> <span class="nav-text">Swim Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">4.5.</span> <span class="nav-text">Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-layer-normalization"><span class="nav-number">4.6.</span> <span class="nav-text">Pre Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localvit"><span class="nav-number">4.7.</span> <span class="nav-text">LocalViT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobilenet"><span class="nav-number">4.8.</span> <span class="nav-text">MobileNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet"><span class="nav-number">4.9.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.10.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96"><span class="nav-number">4.11.</span> <span class="nav-text">训练优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can-attention-enable-mlps-to-catch-up-with-cnns"><span class="nav-number">4.12.</span> <span class="nav-text">Can attention
+enable MLPs to catch up with CNNs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#action-recognition-based-on-a-bag-of-3d-points"><span class="nav-number">4.13.</span> <span class="nav-text">Action
+recognition Based on A Bag of 3D Points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dpdist-comparing-point-clouds-using-deep-point-cloud-distance"><span class="nav-number">4.14.</span> <span class="nav-text">DPDist:
+Comparing Point Clouds Using Deep Point Cloud Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese-neural-network-triplet-network"><span class="nav-number">4.15.</span> <span class="nav-text">Siamese Neural Network
+&amp; Triplet Network</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

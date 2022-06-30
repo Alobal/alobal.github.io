@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。 listenfd.Listen（backl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程框架基础(Unity+C#)">
+<meta property="og:url" content="https://www.sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。 listenfd.Listen（backl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-20T10:09:55.000Z">
+<meta property="article:modified_time" content="2021-10-20T10:09:55.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络编程框架基础(Unity+C#) | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络编程框架基础(Unity+C#)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-20 18:09:55" itemprop="dateCreated datePublished" datetime="2021-10-20T18:09:55+08:00">2021-10-20</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基础流程">基础流程</h2>
+<h3 id="客户端流程">客户端流程</h3>
+<ol type="1">
+<li>socket.Connect（远程IP地址，远程端口）</li>
+<li>socket.Send/BenginSend发送数据</li>
+<li>socket.Receive/BeginReceive接收服务端数据</li>
+<li>socket.Close关闭连接</li>
+</ol>
+<h3 id="服务器流程">服务器流程</h3>
+<ol type="1">
+<li>listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。</li>
+<li>listenfd.Listen（backlog）开启监听</li>
+<li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接产生一个专门的Socket（connfd）用来处理该客户端的数据。</li>
+<li>connfd.Receive/BeginReceive 接受数据</li>
+</ol>
+<span id="more"></span>
+<h3 id="异步操作性能最优">异步操作（性能最优）</h3>
+<p>由BeginXXX开始，产生调用时转接到对应的回调函数。EndXXX放在回调函数里：EndXXX返回对应数据，处理完成后再在回调函数里BeginXXX开启新一轮的异步操作。</p>
+<h3 id="poll状态监测">Poll状态监测</h3>
+<p>比起异步程序，同步程序更简单明了，而且不会引发线程问题。因此先高频检测socket状态，后同步阻塞操作。但是CPU占用率会过高。</p>
+<p>public bool Poll（int microSeconds，SelectMode mode）</p>
+<p>Poll方法将会检查Socket的状态。<br />
+如果指定mode参数为SelectMode.SelectRead，则可确定Socket是否为可读；<br />
+指定参数为SelectMode.SelectWrite，可确定Socket是否为可写；<br />
+指定参数为SelectMode.SelectError，可以检测错误条件。<br />
+microSeconds设置阻塞时间，-1一直阻塞，0非阻塞。</p>
+<p><strong>使用框架</strong>：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始化listenfd</span><br><span class="line">初始化clients列表</span><br><span class="line"><span class="keyword">while</span>（<span class="literal">true</span>）&#123;</span><br><span class="line">　　<span class="keyword">if</span>（listenfd可读）　Accept获得连接socket;</span><br><span class="line">　　<span class="keyword">for</span>（遍历clients列表）&#123;</span><br><span class="line">　　　　<span class="keyword">if</span>（这个连接socket可读）　Receive消息处理;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即服务端使用主循环结构while（true）{……}，不断重复做两件事情：</p>
+<ol type="1">
+<li>判断监听Socket是否可读，如果监听Socket可读，意味着有客户端连接上来，调用Accept回应客户端，以及把客户端Socket加入客户端信息列表。</li>
+<li>如果某一个客户端Socket可读，处理它的消息（在聊天室中，服务端把消息广播给各个客户端）。</li>
+</ol>
+<h3 id="多路复用select">多路复用Select</h3>
+<p>同时Poll检测多个Socket（可以同时包含listen socket和connect
+socket），没有一个可用则根据参数进行阻塞。避免了CPU使用率过高。</p>
+<p>public static void Select(IList checkRead，IList check Write，IList
+checkError，int microSeconds)</p>
+<p>参数分别为三个待检测状态的Socket列表IList，以及阻塞时间。检测完成后IList只剩下满足状态的Socket。若阻塞超时则是返回空列表。</p>
+<p>使用框架：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">初始化listenfd</span><br><span class="line">初始化clients列表</span><br><span class="line"><span class="keyword">while</span>（<span class="literal">true</span>）</span><br><span class="line">&#123;</span><br><span class="line">　　checkList = 待检测Socket列表</span><br><span class="line">　　Select（checkList ……）</span><br><span class="line">　　<span class="keyword">for</span>（遍历可读checkList列表）<span class="comment">//可能同时包含listen socket和connect socket</span></span><br><span class="line">    &#123;</span><br><span class="line">    　　如果是listenfd -&gt; Accept获得连接socket;</span><br><span class="line">　　　　如果是连接socket -&gt; 消息处理;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="黏包问题">黏包问题</h2>
+<p>可选三种方法：</p>
+<ol type="1">
+<li>附带长度信息</li>
+<li>附带结束符号</li>
+<li>固定长度</li>
+</ol>
+<p>通常使用长度信息法</p>
+<h3 id="发送消息">发送消息</h3>
+<p>在头部利用2字节作为长度信息。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] bodyBytes = System.Text.Encoding.Default.GetBytes(sendStr);</span><br><span class="line">Int16 len =(Int16)bodyBytes.Length;</span><br><span class="line"><span class="built_in">byte</span>[] lenBytes = BitConverter.GetBytes(len);<span class="comment">//隐藏了大端小端问题</span></span><br><span class="line"><span class="built_in">byte</span>[] sendBytes = lenBytes.Concat(bodyBytes).ToArray();</span><br></pre></td></tr></table></figure>
+<h3 id="接收和处理消息">接收和处理消息</h3>
+<p>需提供接收缓冲区和缓冲区实际长度。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] readBuff = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="built_in">int</span> buffCount = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>Receive需要偏移到已存储消息尾部进行追加存储</li>
+<li>更新buffCount</li>
+</ol>
+<p>根据缓冲区长度处理数据：</p>
+<ol type="1">
+<li>小于等于2字节，长度信息不完整，不处理。</li>
+<li>大于2字节，读取长度，大于消息实际长度，等待后续消息，不处理。</li>
+<li>大于2字节，读取长度，小于等于消息实际长度：即存在一条完整消息。按长度读取。</li>
+</ol>
+<p>读取结束需要更新缓冲区，例如把缓冲区向前移位：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array.Copy(readBuff，msgStart，readBuff，<span class="number">0</span>，count);</span><br></pre></td></tr></table></figure>
+<p>但是数组移位是一个低效的办法，因此可以把缓冲数组做成循环数组,同时还可以考虑自动扩展等优化功能。</p>
+<h2 id="发送不完整">发送不完整</h2>
+<p>程序的Send功能其实是把字节交给操作系统的网络缓冲区处理。然而系统缓冲区不够时，可能Send没有将完整信息写入缓冲区，导致信息丢失，因此需要检查EndSend返回发送的字节数，然后进行修正。</p>
+<h3 id="多次send消息">多次Send消息</h3>
+<p>容易想到发送不成功就多发送几次。</p>
+<p>每次Send记录已进入系统缓冲的字节数，计算剩余字节数。如果剩余字节大于0，则再次调用Send，此时注意Send需要偏移已缓冲字节数。</p>
+<p>但这种方法有个问题，就是需要保证多次Send的过程中，存储的消息不变。比如在第一次发送不完整，第二次Send还没开始，此时有新的消息进入了程序覆盖掉了存储的消息，那么第二次Send就会出错。</p>
+<h3 id="消息队列">消息队列</h3>
+<p>因此在程序中我们需要多个存储消息的空间，即创建一个发送消息队列。队列的元素是程序原来的消息缓冲区。</p>
+<p>每次想要发送消息，进入Send的回调函数，在消息队列后追加一个消息缓冲区，并且填充好需要发送的消息。</p>
+<p>判断进入时是否在队列头部进行Send：</p>
+<ol type="1">
+<li>在队列头部，则进入上面【多次Send消息】的处理，保证这一条消息完整送达。直到完整发送完成，Pop队首，再提取下一条消息的发送。</li>
+<li>不在队列头部，不进行处理。</li>
+</ol>
+<p>这样保证了每次只发送一条消息，不会被后续消息干扰。但是还是有问题。</p>
+<p>写入队列是在各自的回调过程中进行的，因此写入队列时会有线程冲突：假如前一个线程执行到了【Pop队首】和【提取下一条】之间，后一个线程执行到【进入队列】——此时前一个线程会提取出下一条消息进行发送，后一个线程也会因为处在队列头部进行发送，导致重复。</p>
+<p>因此还要对上述会产生冲突的地方进行互斥锁处理，保证成原子操作。</p>
+<h2 id="协议类">协议类</h2>
+<p>对于通信协议，初级做法是两边都写上对等的协议解析具体步骤。但这种做法的前提是两边都是你自己写，因为只有你知道协议应该怎么去解析。</p>
+<p>因此我们需要一个协议类，独立于客户端和服务器，来描述一个协议的相关参数。</p>
+<h2 id="错误排除">错误排除</h2>
+<blockquote>
+<p>在Unity中，只有主线程可以操作UI组件。由于异步回调是在其他线程执行的，不能直接操作unityUI组件。</p>
+</blockquote>
+<blockquote>
+<p>启动8888端口的服务器后，总发现有一个不知名本地端口会连接上来，然后出现消息解析错误。想了半天代码哪里有问题，结果使用netstat
+-aon|findstr "8888"排查后发现是迅雷的后台服务和这个端口冲突了...</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/12/ffmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="ffmpeg常用命令">
+      <i class="fa fa-chevron-left"></i> ffmpeg常用命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/22/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CCNN/" rel="next" title="卷积神经网络CNN">
+      卷积神经网络CNN <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">客户端流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">服务器流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E6%80%A7%E8%83%BD%E6%9C%80%E4%BC%98"><span class="nav-number">1.3.</span> <span class="nav-text">异步操作（性能最优）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll%E7%8A%B6%E6%80%81%E7%9B%91%E6%B5%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Poll状态监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8select"><span class="nav-number">1.5.</span> <span class="nav-text">多路复用Select</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%8F%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">黏包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E5%92%8C%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">接收和处理消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">发送不完整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%AC%A1send%E6%B6%88%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">多次Send消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.2.</span> <span class="nav-text">消息队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">协议类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">5.</span> <span class="nav-text">错误排除</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

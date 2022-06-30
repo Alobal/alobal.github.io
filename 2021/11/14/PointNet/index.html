@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for 3d classification and segmentation[C]&#x2F;&#x2F;Proceedings">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PointNet">
+<meta property="og:url" content="https://www.sitchzou.com/2021/11/14/PointNet/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for 3d classification and segmentation[C]&#x2F;&#x2F;Proceedings">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/nnVKzLc.png">
+<meta property="og:image" content="https://i.imgur.com/KiBbOvL.png">
+<meta property="og:image" content="https://i.imgur.com/GxXDDfN.png">
+<meta property="og:image" content="https://i.imgur.com/NNo3Lpu.png">
+<meta property="article:published_time" content="2021-11-14T11:44:09.000Z">
+<meta property="article:modified_time" content="2021-11-14T11:44:09.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="点云">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/nnVKzLc.png">
+
+<link rel="canonical" href="https://www.sitchzou.com/2021/11/14/PointNet/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PointNet | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/11/14/PointNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PointNet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-14 19:44:09" itemprop="dateCreated datePublished" datetime="2021-11-14T19:44:09+08:00">2021-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/11/14/PointNet/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/14/PointNet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>PointNet: Deep Learning on Point Sets for 3D Classification
+and Segmentation</strong></p>
+<p>Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for
+3d classification and segmentation[C]//Proceedings of the IEEE
+conference on computer vision and pattern recognition. 2017:
+652-660.</p>
+<p>点云是重要的几何数据结构。由于点云的不规则形式，大部分人都将其转化为规则的3D体素网格，或者图像集合。这篇文章定义了一个全新的神经网络类型，其可以直接使用点云格式，并且很好的保持了点云输入中的置换不变性，即PointNet。</p>
+<p>PointNet为点云的各种应用如目标识别、部件分割、语义分割等，提供了统一的架构。</p>
+<p>PointNet虽然简单，但是十分高效。实验上，它和最先进的模型效果旗鼓相当，甚至更好。理论上，文章分析了网络在学习什么，并且分析了为什么网络对输入的置换和缺失具有很好的鲁棒性。</p>
+<span id="more"></span>
+<h1 id="introduction">Introduction</h1>
+<p>传统的卷积结构为实现权值共享和其他核优化方法，需要高度规则的输入数据格式，因此经常会把点云和网格转化为规则的去做。但是这样会造成数据不必要的冗余，并且引入了人为量化误差而掩盖了数据本身的不变性。</p>
+<p>点云十分简单，并且避免了网格的复杂性，因此网络容易从中学习。但是点云仅仅是点集，因此需要在网络计算中进行一些对称化，来保证其排列不变性。更进一步，还应该考虑到刚体运动的不变性。</p>
+<p><strong>single symmetric function: max pooling.</strong>
+网络可以学习到一系列用于筛选出兴趣点的优化方法，并且将其筛选条件进行编码。最后的全连接层收集了学习到的最优特征，整合进整个形状的全局描述子。</p>
+<p><strong>空间变换网络</strong>：输入数据容易进行刚体变换或仿射变换：因为每一个点的变换是独立的。因此可以在PointNet处理数据之前添加一个数据依赖的空间变换网络，来对数据进行规范化处理，有利于改善结果。</p>
+<p><strong>点云数据特征</strong>：</p>
+<ol type="1">
+<li>无序性：点云数据是一个无序的集合，因此网络如果要处理N个3D点的点云集合，需要对N!种不同的排列组合的输入保持不变性。</li>
+<li>点间联系：点云中的点并不是孤立存在的，一群邻近点可以形成一个有语义的子集。因此，网络必须要能够捕捉到这种邻近点群形成的局部结构特征，以及局部结构特征之间的联系。</li>
+<li>变换不变性：例如旋转和平移不应该影响点云的分类和分割。</li>
+</ol>
+<h1 id="亮点">亮点</h1>
+<p>三个关键点：</p>
+<ol type="1">
+<li>max pooling 层作为对称函数来聚合所有点云信息。</li>
+<li>一个局部和全局信息的组合结构。</li>
+<li>两个节点对齐T-net网络。用于对齐输入点和点特征。</li>
+</ol>
+<h2 id="针对无序输入的对称函数">针对无序输入的对称函数</h2>
+<p><strong>两个现有策略</strong>：</p>
+<ol type="1">
+<li>将输入进行规范化排序</li>
+</ol>
+<p>虽然排序听起来简单，但实际上无法找到一个在有扰动的情况下，依然稳定的排序顺序。因为这实际上是在把高维数据降维至一维直线，同时还要保证空间上的相似性（spatial
+proximity），而这是一件无法实现的事。因此排序依然无法解决无序性问题，如图5所示，对排序后的点集使用MLP进行训练效果依然很差，虽然比起不排序的好一点点。</p>
+<ol start="2" type="1">
+<li>将输入看作类似RNN那样的sequence，另外还通过各种排列组合来增强训练数据。</li>
+</ol>
+<p>考虑到点集可以看作是一种序列信号，因此引入了RNN的使用。并且期望通过随机排列序列来对RNN进行训练，这样RNN可以对输入顺序保有一定的不变性。然而《OrderMatters》[2]告诉我们RNN的输入顺序会影响网络的学习效果。尽管RNN对小批量序列有一定的顺序鲁棒性，但这很难在点云成千上万的数据批量上成立。从实验上，RNN为基础的模型依然表现的不够好。</p>
+<p><strong>PointNet策略</strong>：
+使用一个简单的对称函数来聚合每一个点的信息。</p>
+<blockquote>
+<p>对称函数：函数接收一系列的向量作为输入，输出一个新的向量。并且该输出不受输入向量间顺序的影响。例如+、*都是对称函数。</p>
+</blockquote>
+<p>本质上是对点集中变换过的每个元素使用一个对称函数，来近似等于一个通用函数(general
+function):</p>
+<p><span class="math display">\[
+f\left(\left\{x_{1}, \ldots, x_{n}\right\}\right) \approx
+g\left(h\left(x_{1}\right), \ldots, h\left(x_{n}\right)\right)
+\]</span></p>
+<p><span class="math inline">\(f: 2^{\mathbb{R}^{N}} \rightarrow
+\mathbb{R}, h: \mathbb{R}^{N} \rightarrow \mathbb{R}^{K}\)</span> 且
+<span class="math inline">\(g:\)</span> <span
+class="math inline">\(\underbrace{\mathbb{R}^{K} \times \cdots \times
+\mathbb{R}^{K}}_{n} \rightarrow \mathbb{R}\)</span> 为对称函数。</p>
+<p>主观上看，这种模型十分简单：h看作MLP，g看作一个一元函数和max
+pooling的结合体，实验证明这种模型十分有效。通过一系列的h，网络可以学习得到多种多样的f，来描述点云特性。</p>
+<h2 id="局部信息和全局信息整合">局部信息和全局信息整合</h2>
+<p>通过对无序输入的处理，可以得到一个<span
+class="math inline">\(f\)</span>的向量<span
+class="math inline">\([f_1,...,f_k]\)</span>，即算是一种全局特征描述子。为了进行点云分割，不仅需要全局信息，还需要和局部信息进行结合。</p>
+<p>PointNet将先得到的全局特征重新与每个点的特征连接起来，然后计算出新的每个点的特征，即产生局部特征和全局特征的整合。</p>
+<p>通过这种整合，PointNet能够给出有关于局部几何信息和全局语义信息的点的数量。例如，PointNet可以精准预测每个点的法线（即证明网络可以整合点的局部信息）。</p>
+<h2 id="节点对齐网络">节点对齐网络</h2>
+<p>为了让点云经过几何变换后依然有相同的语义标签，一个自然的做法是在特征抽取前将点云对齐到一个规范化空间。PointNet中通过一个小型网络T-net来预测一个仿射变换矩阵，并且直接将这个仿射变换应用在输入点云的坐标数据上，来实现对齐。</p>
+<p>在特征空间上也可以这样做，通过一个网络来预测特征的变换矩阵，来实现对不同输入点云的特征的对齐。不过由于特征空间的高纬度，这样的操作极大增加了网络更新的困难。因此PointNet在损失函数中添加了一个正则项，来迫使特征变换矩阵更像一个正交矩阵（正交变换不会损失数据信息）：</p>
+<p><span class="math display">\[
+L_{r e g}=\left\|I-A A^{T}\right\|_{F}^{2}
+\]</span></p>
+<p><span
+class="math inline">\(A\)</span>是特征变换矩阵。实验证明，这个正则化可以使网络变得更加稳定，且整体效果更好。</p>
+<figure>
+<img src="https://i.imgur.com/nnVKzLc.png"
+alt="表 5 在ModelNet40上的对齐变换测试" />
+<figcaption aria-hidden="true">表 5
+在ModelNet40上的对齐变换测试</figcaption>
+</figure>
+<h1 id="网络详细结构">网络详细结构</h1>
+<figure>
+<img src="https://i.imgur.com/KiBbOvL.png"
+alt="图1 PointNet结构图：Classification输出全局label。Segmentation网络最后输出每个点的分数。" />
+<figcaption aria-hidden="true">图1
+PointNet结构图：Classification输出全局label。Segmentation网络最后输出每个点的分数。</figcaption>
+</figure>
+<ul>
+<li>主体每一层都使用了ReLU和Batchnorm，最后一个输出为256的全连接层之后使用了dropout=0.7。</li>
+<li>一维卷积层（权值共享MLP）：
+使用多个大小为1，步长为1的卷积核，对每一个点进行卷积，不涉及到其他点。</li>
+<li>第一个T-Net：三层共享权值的MLP（64，128，1024）+ max pooling+
+两层全连接（512，256
+），最终输出3X3矩阵。除了最后一层都使用了ReLU和batch
+normalization。</li>
+<li>第二个T-Net：结构相同，最后输出64X64矩阵。</li>
+<li>softmax分类损失携带一个一个权重0.001的正则损失，以便于让矩阵接近正交。</li>
+</ul>
+<h1 id="理论支撑">理论支撑</h1>
+<p>证明过程有时间再看，目前先看对网络的理论性支撑。</p>
+<h2 id="集合函数万能近似定理">集合函数万能近似定理</h2>
+<p>证明了PointNet理论上拟合函数的正确性。</p>
+<p>对于 Hausdorff 距离 <span class="math inline">\(d_{H}(\cdot, \cdot)
+.\)</span> 假设<span class="math inline">\(f: \mathcal{X} \rightarrow
+\mathbb{R}\)</span> 是一个Hausdorff度量的连续集合函数。<span
+class="math inline">\(\quad \forall \epsilon&gt;\)</span> <span
+class="math inline">\(0, \exists\)</span> 一个连续函数<span
+class="math inline">\(h\)</span>和一个对称函数 <span
+class="math inline">\(g\left(x_{1}, \ldots, x_{n}\right)=\gamma \circ M
+A X\)</span>, 对于任意 <span class="math inline">\(S \in
+\mathcal{X}\)</span>有：</p>
+<p><span class="math display">\[
+\left|f(S)-\gamma\left(\underset{x_{i} \in
+S}{\operatorname{MAX}}\left\{h\left(x_{i}\right)\right\}\right)\right|&lt;\epsilon
+\]</span></p>
+<p>其中 <span class="math inline">\(x_{1}, \ldots, x_{n}\)</span> 是
+<span class="math inline">\(S\)</span>的无序子集元素 , <span
+class="math inline">\(\gamma\)</span> 是连续函数， <span
+class="math inline">\(M A X\)</span> 是 vector max operator：输入<span
+class="math inline">\(n\)</span>个向量并且输出一个每个元素位置都是最大值的向量.</p>
+<h2 id="维度瓶颈和稳定性">维度瓶颈和稳定性</h2>
+<p>证明了PointNet受max pooling层维度影响很大，且其鲁棒性也与max
+pooling层有关。表现结果是PointNet会学习到一个形状的<strong>关键点轮廓</strong>来表示这个形状。</p>
+<p>定义<span
+class="math inline">\(\bold{u}={\operatorname{MAX}}\left\{h\left(x_{i}\right)\right\}\)</span>为最后一层是输出K维的max
+pooling层的网络。假设有如上定义的<span class="math inline">\(\mathrm{u}:
+\mathcal{X} \rightarrow \mathbb{R}^{K}\)</span> 且 <span
+class="math inline">\(f=\gamma \circ\)</span> u。那么有：</p>
+<ol type="a">
+<li><p>输入数据是关键点集的超集，则运算不会产生损失：<span
+class="math inline">\(\forall S, \exists \mathcal{C}_{S},
+\mathcal{N}_{S} \subseteq \mathcal{X}, f(T)=f(S) if \mathcal{C}_{S}
+\subseteq T \subseteq \mathcal{N}_{S}\)</span></p></li>
+<li><p>关键点集元素数不超过K：<span
+class="math inline">\(\left|\mathcal{C}_{S}\right| \leq
+K\)</span></p></li>
+</ol>
+<h1 id="优缺点">优缺点</h1>
+<p>PointNet具有很强的鲁棒性，通过其对关键点集的提取，可以在有较多的点云损失的情况下依然保持分类能力。</p>
+<figure>
+<img src="https://i.imgur.com/GxXDDfN.png"
+alt="图 6 PointNet鲁棒性测试。中间的图是均匀分布异常点的结果。右边的图是给每个点数据添加不相关的高斯噪声的结果。" />
+<figcaption aria-hidden="true">图 6
+PointNet鲁棒性测试。中间的图是均匀分布异常点的结果。右边的图是给每个点数据添加不相关的高斯噪声的结果。</figcaption>
+</figure>
+<figure>
+<img src="https://i.imgur.com/NNo3Lpu.png"
+alt="图 7 PointNet学习到点云的关键点集：关键点集为那些对maxpooling特征有贡献的点。upper-bound点集为给定同样的全局特征信息，最多能包含的点。" />
+<figcaption aria-hidden="true">图 7
+PointNet学习到点云的关键点集：关键点集为那些对maxpooling特征有贡献的点。upper-bound点集为给定同样的全局特征信息，最多能包含的点。</figcaption>
+</figure>
+<p>PointNet只有全局特征和每个点的特征，丢失了局部点间特征。如网络结构所示，卷积层不涉及到任何点间联系。后续PointNet++[3]有关注点间联系的问题。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[2] O. Vinyals, S. Bengio, and M. Kudlur. Order matters: Sequence to
+sequence for sets. arXiv preprint arXiv:1511.06391, 2015.</p>
+<p>[3] Hao C R Q L Y, Guibas S L J. PointNet++: Deep Hierarchical
+Feature Learning on Point Sets in a Metric Space[J]. arXiv preprint
+arXiv:1706.02413, 2017.</p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27136953/article/details/109960161?utm_medium=distribute.wap_relevant.none-task-blog-2~default~baidujs_title~default-4.wap_blog_relevant_default&amp;spm=1001.2101.3001.4242.3">理论证明详解博客</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86331508">网络结构介绍博客</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%82%B9%E4%BA%91/" rel="tag"># 点云</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/30/GAN/" rel="prev" title="Generative Adversarial Nets">
+      <i class="fa fa-chevron-left"></i> Generative Adversarial Nets
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" rel="next" title="深度学习框架">
+      深度学习框架 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">亮点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E6%97%A0%E5%BA%8F%E8%BE%93%E5%85%A5%E7%9A%84%E5%AF%B9%E7%A7%B0%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">针对无序输入的对称函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E4%BF%A1%E6%81%AF%E5%92%8C%E5%85%A8%E5%B1%80%E4%BF%A1%E6%81%AF%E6%95%B4%E5%90%88"><span class="nav-number">2.2.</span> <span class="nav-text">局部信息和全局信息整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%AF%B9%E9%BD%90%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.</span> <span class="nav-text">节点对齐网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AF%A6%E7%BB%86%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">网络详细结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E6%94%AF%E6%92%91"><span class="nav-number">4.</span> <span class="nav-text">理论支撑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E5%87%BD%E6%95%B0%E4%B8%87%E8%83%BD%E8%BF%91%E4%BC%BC%E5%AE%9A%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">集合函数万能近似定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%B4%E5%BA%A6%E7%93%B6%E9%A2%88%E5%92%8C%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">维度瓶颈和稳定性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

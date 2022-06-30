@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="课程研讨讲稿，搜集资料的集合，完全非原创，仅供临时参考。  近年来，开源正在变得越来越火，我们经常会看到 “某企业宣布开源”、“某开源大会召开”、“某开源项目获得融资”。个人开发者与企业比以往任何时候都更愿意参与到开源项目的建设和贡献中，开源在国内 IT 领域获得了前所未有的热度，也获得了产业界和投资圈的广泛关注。 但总有些人听到开源一词时，就会误以为 “开源软件是免费的，因此我可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源协议(讲稿)">
+<meta property="og:url" content="https://www.sitchzou.com/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="课程研讨讲稿，搜集资料的集合，完全非原创，仅供临时参考。  近年来，开源正在变得越来越火，我们经常会看到 “某企业宣布开源”、“某开源大会召开”、“某开源项目获得融资”。个人开发者与企业比以往任何时候都更愿意参与到开源项目的建设和贡献中，开源在国内 IT 领域获得了前所未有的热度，也获得了产业界和投资圈的广泛关注。 但总有些人听到开源一词时，就会误以为 “开源软件是免费的，因此我可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/n0x5S9v.png">
+<meta property="og:image" content="https://i.imgur.com/LdcKipT.png">
+<meta property="og:image" content="https://i.imgur.com/bqc0c64.png">
+<meta property="og:image" content="https://i.imgur.com/dFsOCjk.png">
+<meta property="og:image" content="https://i.imgur.com/AR2BNJO.png">
+<meta property="og:image" content="https://i.imgur.com/8SBygKM.png">
+<meta property="og:image" content="https://i.imgur.com/RyVOFow.png">
+<meta property="article:published_time" content="2021-12-30T08:42:30.000Z">
+<meta property="article:modified_time" content="2021-12-30T08:42:30.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch,Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/n0x5S9v.png">
+
+<link rel="canonical" href="https://www.sitchzou.com/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>开源协议(讲稿) | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          开源协议(讲稿)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-30 16:42:30" itemprop="dateCreated datePublished" datetime="2021-12-30T16:42:30+08:00">2021-12-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>课程研讨讲稿，搜集资料的集合，完全非原创，仅供临时参考。</p>
+</blockquote>
+<p>近年来，开源正在变得越来越火，我们经常会看到
+“某企业宣布开源”、“某开源大会召开”、“某开源项目获得融资”。个人开发者与企业比以往任何时候都更愿意参与到开源项目的建设和贡献中，开源在国内
+IT 领域获得了前所未有的热度，也获得了产业界和投资圈的广泛关注。</p>
+<p>但总有些人听到开源一词时，就会误以为
+“<strong>开源软件是免费的，因此我可以不受限制地随意使用</strong>”。在开源诞生之初，自由软件是当时的主流提法，回顾开源的发展史，从自由软件到开源运动实现了非常大的跨越，前者更多的是一种精神的倡导，而后者着眼于软件的协同开放，因此会有非常严谨的开源许可证的规则和限制。开源软件能走到今天的发展程度，就是因为有了这么一套遵从开源精神的规则体系，才能够健康发展。开源精神的载体之一就是开源许可证，今天我们就来扒一扒开源许可证与开源的关系，以及它背后折射出的问题。</p>
+<span id="more"></span>
+<hr />
+<h1 id="自由软件和开源软件">自由软件和开源软件</h1>
+<p>开源软件与自由软件是两个不同的概念，只要符合开源软件定义的软件就能被称为开源软件。</p>
+<p>而自由软件有比开源软件更严格的概念，因此所有自由软件都是开放源代码的，但不是所有的开源软件都能被称为“自由”。但一般，绝大多数开源软件也都符合自由软件的定义。</p>
+<ol type="1">
+<li>开源代码是，使用开放的开发方式，尽可能的使软件优化，公开，但不一定给予自由权。</li>
+<li>自由软件的原意就是要给予用户运用软件的自由，这个‘自由’就是自由软件的精神所在。</li>
+</ol>
+<p><strong>免费软件</strong>：是一种不须付费就可获取的软件，但是通常有其他的限制，用户并没有使用、复制、研究、修改和分发的自由。该软件的源代码不一定会公开。</p>
+<h1 id="什么是开源协议">什么是开源协议？</h1>
+<p>OpenSource
+Software(OSS)：可以获取源代码的软件。如果一个程序员想将自己的代码开源，他有许多种选择，大致可以分成三类：</p>
+<ol type="1">
+<li>将代码放入"公共领域"（public domain），彻底放弃版权。</li>
+<li>选择谨慎的许可证，如GPL，要求衍生代码必须开源。</li>
+<li>选择更宽松的许可证，比如BSD和Apache许可证，不要求衍生代码开源。</li>
+</ol>
+<p>两大阵营，FSF和OSI，对开源有着不同的理念。</p>
+<h2 id="fsffree-software-foundation自由软件基金会">FSF（Free Software
+Foundation，自由软件基金会)</h2>
+<p>FSF 是开源泰斗 <strong>理查德·斯托曼 RMS</strong>
+创立的重要的开源软件基金会 (1985/10/04), FSF
+创立之初主要是为了筹集资金来建设 <strong>GNU：GNU is Not Unix</strong>
+的内核 Hurd 项目及工具链，虽然 GNU
+项目本身没有完成，但是该过程中创造出的大量软件工具，日后成为了 GNU/Linux
+的重要组成部分。</p>
+<p>FSF 建立了开源领域的第一个 <strong>copyleft</strong> 属性的许可证 -
+<strong>GPL (GNU Public License)</strong> 。</p>
+<figure>
+<img src="https://i.imgur.com/n0x5S9v.png" alt="RMS" />
+<figcaption aria-hidden="true">RMS</figcaption>
+</figure>
+<h3 id="copyleft">CopyLeft</h3>
+<figure>
+<img src="https://i.imgur.com/LdcKipT.png"
+alt="Copyleft：镜像而不是翻转。Copyleft保留著作权，而不是放弃著作权" />
+<figcaption
+aria-hidden="true">Copyleft：镜像而不是翻转。Copyleft保留著作权，而不是放弃著作权</figcaption>
+</figure>
+<p>Copyleft是指任何人都可以重新分发软件，不管有没有进行修改，但必须同时保留软件所具有的自由特性。即拥有著作权，仅用于保护其自由。</p>
+<blockquote>
+<p>The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works. By contrast,
+the GNU General Public License is intended to guarantee your freedom to
+share and change all versions of a program--to make sure it remains free
+software for all its
+users.（大多数软件许可是设计用以剥夺你的分享与修改软件的自由。相反地，GNU通用公共许可则是要保证您分享与修改自由软件的自由——确保软件对所有的用户而言都是自由的。）</p>
+</blockquote>
+<h3 id="gpl">GPL</h3>
+<figure>
+<img src="https://i.imgur.com/bqc0c64.png" alt="GPL" />
+<figcaption aria-hidden="true">GPL</figcaption>
+</figure>
+<p>GPL是第一个Copyleft类型的许可证，全身心追求软件的<strong>自由</strong>：</p>
+<ul>
+<li>基于任何目的，按你的意愿运行软件的<strong>自由</strong>。</li>
+<li>学习软件如何工作的自由，按你的意愿修改软件以符合你的计算的<strong>自由</strong>。</li>
+<li>分发软件副本的<strong>自由</strong>，因此你可以帮助你的好友。</li>
+<li>将你修改过的软件版本再分发给其他人的<strong>自由</strong>。这样可以让整个社区有机会共享你对软件的改动。</li>
+</ul>
+<p>GPL与其他一些更“许可的”自由软件许可证（比如BSD许可证）相比，主要区别就在于<strong>GPL寻求确保上述自由能在复制软件及派生作品中得到保障</strong>，要求GPL程序的派生作品也要在GPL之下。相反，BSD式的许可证并不禁止演绎作品变成专有软件。</p>
+<p>GPL保护的一个典型例子就是著名的 2009甲骨文收购SUN公司事件，Michael
+Widenius，MySQL创始人四处呼吁反对收购，因为他觉得甲骨文自己本来就做Oracle数据库，拥有了MySQL后只会杀死它。然而，MySQL是杀不死的：它的许可证是<strong>GPL</strong>。</p>
+<p>著名的应用：MySQL</p>
+<figure>
+<img src="https://i.imgur.com/dFsOCjk.png" alt="MySQL许可证" />
+<figcaption aria-hidden="true">MySQL许可证</figcaption>
+</figure>
+<h2 id="osiopen-source-initiative开放源代码促进会">OSI（Open Source
+Initiative，开放源代码促进会）</h2>
+<figure>
+<img src="https://i.imgur.com/AR2BNJO.png" alt="OSI" />
+<figcaption aria-hidden="true">OSI</figcaption>
+</figure>
+<p>OSI 由开源界泰斗 Bruce Perens 和 Eric S. Raymond (ESR) 在 1998
+年组建，目的是在理想的自由软件与商业之间达成一个平衡，务实的开源行动，负责管理各种开源规范。OSI
+组织认证过的许可大概有 80 种，包括 Apache License 、GPL 、MIT/BSD
+等。</p>
+<h1 id="开源许可证open-source-license">开源许可证(Open Source
+License)</h1>
+<h2 id="lesser-gpl">Lesser GPL</h2>
+<p>强制开源虽然很美好，但是现实不是理想国。除开一部分理想主义者，别人凭什么要居人篱下呢？LGPL允许LGPL授权的软件集成至他们自己的软件内（即使该软件是私有软件也被允许），同时不会受到Copyleft特性的许可证强制对软件开源的限制。该许可证常被用于一些（但不是全部）GNU程序库。</p>
+<blockquote>
+<p>"After all, there are plenty of other C libraries; using the GPL for
+ours would have driven proprietary software developers to use
+another--no problem for them, only for us."
+"毕竟，市场上的C库有的是。GPL许可证将迫使私有软件去使用他人的库，这不会给他们带来困扰，只会给我们带来困扰。"</p>
+</blockquote>
+<h2 id="bsd">BSD</h2>
+<p>是自由软件中使用最广泛的许可协议之一。从copyleft到copyright，BSD许可证往往认为是<strong>copycenter</strong>：</p>
+<ol type="1">
+<li>源代码传播，则必须带有原来的BSD协议。</li>
+<li>二进制传播，则需在版权声明中带有原来的BSD协议。</li>
+<li>传播产品不能用原来的信息来进行市场推广。</li>
+</ol>
+<p>因此是对商业集成很友好的协议，而很多的公司企业在选用开源产品的时候都首选BSD协议。</p>
+<p>有意思的小故事：</p>
+<blockquote>
+<p>3.所有提及该软件功能或者使用该软件的广告材料必须展示以下致谢：本产品包含由加州大学伯克利分校及其贡献者开发的软件。</p>
+</blockquote>
+<p>最初，令人反感的BSD广告条款只是在伯克利软件发行版中使用。因为在广告中包含一句话并不是十分困难，所以此条款并没有引起特别的问题。</p>
+<p>如果其他使用BSD类许可证的开发者逐字拷贝了BSD广告条款—包含了指向加州大学的句子—，那么他们也没有使问题变大。</p>
+<p>但是，可能正如你所预见，有些开发者不是逐字拷贝该条款。他们做了改动，把“加州大学”换成了他们自己机构的名称。结果就是有了太多的许可证，需要使用太多的句子。</p>
+<h2 id="apache-license-asl">Apache License (ASL)</h2>
+<p>ASL 也是商业公司偏爱的许可证，</p>
+<ol type="1">
+<li>每个被修改的文件中，都需要说明更改。</li>
+<li>对所有未修改部分，保留所有原有的著作权，专利，商标等归属。</li>
+</ol>
+<p>著名的应用有 Android：</p>
+<figure>
+<img src="https://i.imgur.com/8SBygKM.png" alt="Android许可证" />
+<figcaption aria-hidden="true">Android许可证</figcaption>
+</figure>
+<h2 id="mit-license">MIT License</h2>
+<p>特此授予任何人免费获得本软件和相关文档文件（“软件”）副本的许可，不受限制地处理本软件，包括但不限于使用、复制、修改、合并
+、发布、分发、再许可的权利，
+被许可人有权利使用、复制、修改、合并、出版发行、散布、再许可和/或贩售软件及软件的副本，及授予被供应人同等权利，惟服从以下义务。</p>
+<p>在软件和软件的所有副本中都必须包含以上著作权声明和本许可声明。</p>
+<figure>
+<img src="https://i.imgur.com/RyVOFow.png" alt="开源协议简单对比" />
+<figcaption aria-hidden="true">开源协议简单对比</figcaption>
+</figure>
+<h1 id="参考文献">参考文献</h1>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Copyleft">Copyleft维基百科</a>
+<a
+target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2010/02/why_gpl_is_a_better_choice.html">阮一峰-开源协议</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/30/DDGCN/" rel="prev" title="DDGCN">
+      <i class="fa fa-chevron-left"></i> DDGCN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/03/MeteorNet/" rel="next" title="MeteorNet">
+      MeteorNet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E7%94%B1%E8%BD%AF%E4%BB%B6%E5%92%8C%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">自由软件和开源软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">什么是开源协议？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fsffree-software-foundation%E8%87%AA%E7%94%B1%E8%BD%AF%E4%BB%B6%E5%9F%BA%E9%87%91%E4%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">FSF（Free Software
+Foundation，自由软件基金会)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copyleft"><span class="nav-number">2.1.1.</span> <span class="nav-text">CopyLeft</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpl"><span class="nav-number">2.1.2.</span> <span class="nav-text">GPL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#osiopen-source-initiative%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E4%BF%83%E8%BF%9B%E4%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">OSI（Open Source
+Initiative，开放源代码促进会）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF%E8%AF%81open-source-license"><span class="nav-number">3.</span> <span class="nav-text">开源许可证(Open Source
+License)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lesser-gpl"><span class="nav-number">3.1.</span> <span class="nav-text">Lesser GPL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bsd"><span class="nav-number">3.2.</span> <span class="nav-text">BSD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apache-license-asl"><span class="nav-number">3.3.</span> <span class="nav-text">Apache License (ASL)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mit-license"><span class="nav-number">3.4.</span> <span class="nav-text">MIT License</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

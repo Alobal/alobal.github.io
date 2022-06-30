@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="注意力机制三个核心要素：  Query：即主动注意力。 key：突出性的环境带给人的被动注意力 value：注意力汇聚之后得到的最终输入    通过注意力汇聚将query和key结合在一起，然后对value进行选择输出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注意力机制">
+<meta property="og:url" content="https://www.sitchzou.com/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="注意力机制三个核心要素：  Query：即主动注意力。 key：突出性的环境带给人的被动注意力 value：注意力汇聚之后得到的最终输入    通过注意力汇聚将query和key结合在一起，然后对value进行选择输出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/2ZgOmGZ.png">
+<meta property="og:image" content="https://i.imgur.com/Neqky4S.png">
+<meta property="og:image" content="https://i.imgur.com/LruLfaD.png">
+<meta property="og:image" content="https://i.imgur.com/JbL6hlb.png">
+<meta property="article:published_time" content="2021-12-21T03:42:39.000Z">
+<meta property="article:modified_time" content="2021-12-21T03:42:39.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/2ZgOmGZ.png">
+
+<link rel="canonical" href="https://www.sitchzou.com/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>注意力机制 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注意力机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-21 11:42:39" itemprop="dateCreated datePublished" datetime="2021-12-21T11:42:39+08:00">2021-12-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>注意力机制三个核心要素：</p>
+<ul>
+<li>Query：即主动注意力。</li>
+<li>key：突出性的环境带给人的被动注意力</li>
+<li>value：注意力汇聚之后得到的最终输入</li>
+</ul>
+<figure>
+<img src="https://i.imgur.com/2ZgOmGZ.png"
+alt="通过注意力汇聚将query和key结合在一起，然后对value进行选择输出" />
+<figcaption
+aria-hidden="true">通过注意力汇聚将query和key结合在一起，然后对value进行选择输出</figcaption>
+</figure>
+<span id="more"></span>
+<h1 id="注意力本质是一种加权平均">注意力——本质是一种加权平均</h1>
+<p>假设有<span class="math inline">\([(x_i,y_i), ...
+,(x_j,y_j)]\)</span> 一系列配对输入，对于一个新的 <span
+class="math inline">\(x\)</span> ，我们想要预测它的 <span
+class="math inline">\(y\)</span>
+。此时我们会想参考过往的所有配对情况，来试着加权平均出这个 <span
+class="math inline">\(y\)</span>，例如我们可以平等对待所有过往经验：</p>
+<p><span class="math display">\[
+f(x)=\frac{1}{n}\sum_{i=1}^{n} y_{i}
+\]</span></p>
+<p>显然这样是不准确的，对于任意输入<span
+class="math inline">\(x\)</span>都会得到同样的结果。因此我们还需要考虑<span
+class="math inline">\(x\)</span>的影响。继续直观地想，我们可以考虑<span
+class="math inline">\(x\)</span>与哪一个<span
+class="math inline">\(x_i\)</span>更接近，那么<span
+class="math inline">\(y\)</span>给到<span
+class="math inline">\(y_i\)</span>的权重也应该更大一些：</p>
+<p><span class="math display">\[
+f(x)=\sum_{i=1}^{n} \frac{K\left(x-x_{i}\right)}{\sum_{j=1}^{n}
+K\left(x-x_{j}\right)} y_{i}=\sum_{i=1}^{n} \alpha\left(x, x_{i}\right)
+y_{i}
+\]</span></p>
+<p>其中<span class="math inline">\(K\)</span>是一种核函数，来表示<span
+class="math inline">\(x_i\)</span>与<span
+class="math inline">\(x\)</span>的权重关系，分母是权重和（即对于<span
+class="math inline">\(x\)</span>来说的固定值）。缩写之后得到<span
+class="math inline">\(\alpha(x,x_i)\)</span>，即表示所谓的<strong>注意力权重</strong>，其累积和为1。回到注意力框架中，<span
+class="math inline">\(x\)</span>即是query,(x_i,y_i)即是(key,value)。<span
+class="math inline">\(\alpha\)</span>对<span
+class="math inline">\(y_i\)</span>的加权即是注意力汇聚，注意力权重即query和key的关系度量。</p>
+<p>对于核函数<span class="math inline">\(K\)</span>，如果<span
+class="math inline">\(K\)</span>中计算函数固定，这样得到的就是<strong>非参数的注意力汇聚</strong>。如果<span
+class="math inline">\(K\)</span>中带有一些可变可学习的参数<span
+class="math inline">\(w\)</span>，那么得到的就是
+<strong>带参数的注意力汇聚</strong>。</p>
+<p>有了核函数以及加权平均的概念，此时就可以来看更细致的注意力机制：</p>
+<figure>
+<img src="https://i.imgur.com/Neqky4S.png" alt="注意力机制的详细结构" />
+<figcaption aria-hidden="true">注意力机制的详细结构</figcaption>
+</figure>
+<p>其中核函数的单项计算部分可以看做是注意力评分函数（attention scoring
+function），核函数的多项累计部分可以看做softmax，转化评分为累计和为1的权重系数。最后与value数组进行加权计算，即是注意力汇聚的过程。</p>
+<h2 id="评分函数">评分函数</h2>
+<h3 id="masked-softmax">Masked Softmax</h3>
+<p>虽然是加权平均，但实际计算中存在很多value不需要进入加权计算。例如文本处理中的填充字符<pad>。因此可以使用一个Mask来过滤掉这些不必要的字符，再进行softmax。实际使用中对于想要去掉的元素，会赋值为一个非常大的负数，这样其softmax输出就是0.</p>
+<h3 id="additive-attention">Additive Attention</h3>
+<p>当query和key是同样形状的张量时，各种核函数都可以简单的应用。但是query和key是不同长度的时候呢？这时可以使用Additive
+Attention作为评分函数，本质上就是通过两个<strong>线性变换层</strong>将它们投影到统一长度空间：</p>
+<p><span class="math display">\[
+a(\mathbf{q}, \mathbf{k})=\mathbf{w}_{v}^{\top} \tanh
+\left(\mathbf{W}_{q} \mathbf{q}+\mathbf{W}_{k} \mathbf{k}\right) \in
+\mathbb{R},
+\]</span></p>
+<p><span class="math inline">\(\mathbf{W}_{q} \in \mathbb{R}^{h \times
+q} 、 \mathbf{W}_{k} \in \mathbb{R}^{h \times k}\)</span> 和 <span
+class="math inline">\(\mathbf{w}_{v} \in \mathbb{R}^{h}\)</span>
+是用于学习自适应调整的参数。</p>
+<h3 id="scaled-dot-product-attention">Scaled Dot-Product Attention</h3>
+<p>点积是一种很容易想到的计算query和key距离的方式，而且效率很高。因此结合缩放思想可以构造出方差为1的度量距离方式：</p>
+<p><span class="math display">\[
+a(\mathbf{q}, \mathbf{k})=\mathbf{q}^{\top}\mathbf{k}/\sqrt{d}
+\]</span></p>
+<p>其中<span
+class="math inline">\(d\)</span>为向量长度（显然query和key需要相同长度）。当然，为优化性能，实际计算会使用矩阵计算一个批量的点积。</p>
+<h2 id="编码器-解码器中的注意力机制">编码器-解码器中的注意力机制</h2>
+<p>在编码器-解码器框架中，会将这一批所有的输入做成一个不变的上下文，再通过这个上下文去计算这一批所有的预测。显然<strong>对于某些预测计算来说，可能会与一部分输入毫无关系</strong>，这样粗暴的使用一个统一的上下文并不合理。因此可以想到对每次预测计算，定制一个属于它的上下文，即<strong>基于注意力机制定制上下文</strong>：</p>
+<p><span class="math display">\[
+\mathbf{c}_{t^{\prime}}=\sum_{t=1}^{T}
+\alpha\left(\mathbf{s}_{t^{\prime}-1}, \mathbf{h}_{t}\right)
+\mathbf{h}_{t}
+\]</span></p>
+<p>对于某时刻<span class="math inline">\(t\)</span>的预测计算，<span
+class="math inline">\(s\)</span>为解码器上一时刻隐状态，<span
+class="math inline">\(h\)</span>为编码器该时刻隐状态。将<span
+class="math inline">\(s\)</span>视为query，<span
+class="math inline">\(h\)</span>视为key，同时也视为value，最终加权得到基于注意力的上下文<span
+class="math inline">\(c_{t^`}\)</span>,再与解码器的输入进行连接，送入RNN进行计算：</p>
+<figure>
+<img src="https://i.imgur.com/LruLfaD.png"
+alt="基于注意力的编码器-解码网络：其中解码器的每一次计算都需要（编码器隐状态，解码器上一时间隐状态），并且这里评分函数使用的是加性注意力。" />
+<figcaption
+aria-hidden="true">基于注意力的编码器-解码网络：其中解码器的每一次计算都需要（编码器隐状态，解码器上一时间隐状态），并且这里评分函数使用的是加性注意力。</figcaption>
+</figure>
+<h2 id="multihead-attention">MultiHead Attention</h2>
+<p>和多个卷积核学习多种特征一样，我们也可以想到使用多个Attention来学习到多种联系。其中每一个Attention被称作一个Head。而为了实现多个Head学习到不同的联系，需要给它们不完全相同的数据，如使用全连接层进行线性投影，取一部分原数据的子空间给一个Head。当然汇聚不同Head的输出也需要一种连接方式，即也采用一个线性变换将Multi
+Head组合起来：</p>
+<figure>
+<img src="https://i.imgur.com/JbL6hlb.png" alt="MultiHead Attention" />
+<figcaption aria-hidden="true">MultiHead Attention</figcaption>
+</figure>
+<p>因此可以容易给出MultiHead Attention的数学模型：给定query <span
+class="math inline">\(\mathbf{q} \in \mathbb{R}^{d_{q}}\)</span> 、key
+<span class="math inline">\(\mathbf{k} \in \mathbb{R}^{d_{k}}\)</span>
+和value <span class="math inline">\(\mathbf{v} \in
+\mathbb{R}^{d_{v}}\)</span>, <span class="math inline">\(\quad
+f\)</span> 为注意力汇聚操作，每个Head <span
+class="math inline">\(\mathbf{h}_{i}(i=1, \ldots, h)\)</span>
+的计算方法为:</p>
+<p><span class="math display">\[
+\mathbf{h}_{i}=f\left(\mathbf{W}_{i}^{(q)} \mathbf{q},
+\mathbf{W}_{i}^{(k)} \mathbf{k}, \mathbf{W}_{i}^{(v)} \mathbf{v}\right)
+\in \mathbb{R}^{p_{v}}
+\]</span></p>
+<h1 id="self-attention">Self-Attention</h1>
+<p>顾名思义，就是query，key，value都是同一个序列<span
+class="math inline">\([x_1,...,x_n]\)</span>。其输出结果<span
+class="math inline">\([y_1,...,y_n]\)</span>为：</p>
+<p><span class="math display">\[
+\mathbf{y}_i = f(\mathbf{x}_i, (\mathbf{x}_1, \mathbf{x}_1), \ldots,
+(\mathbf{x}_n, \mathbf{x}_n)) \in \mathbb{R}^d
+\]</span></p>
+<h1 id="注意力和卷积">注意力和卷积</h1>
+<p>从某种直观上来看，卷积的局部加权平均 和
+注意力的加权平均(特别是自注意力) 有点相似？</p>
+<h1 id="推荐资料">推荐资料</h1>
+<p><a target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-transformer/">The
+Illustrated Transformer</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/18/PointTransformer/" rel="prev" title="PointTransformer">
+      <i class="fa fa-chevron-left"></i> PointTransformer
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="next" title="循环神经网络">
+      循环神经网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%B8%80%E7%A7%8D%E5%8A%A0%E6%9D%83%E5%B9%B3%E5%9D%87"><span class="nav-number">1.</span> <span class="nav-text">注意力——本质是一种加权平均</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E5%88%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">评分函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#masked-softmax"><span class="nav-number">1.1.1.</span> <span class="nav-text">Masked Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#additive-attention"><span class="nav-number">1.1.2.</span> <span class="nav-text">Additive Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scaled-dot-product-attention"><span class="nav-number">1.1.3.</span> <span class="nav-text">Scaled Dot-Product Attention</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%99%A8-%E8%A7%A3%E7%A0%81%E5%99%A8%E4%B8%AD%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">编码器-解码器中的注意力机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multihead-attention"><span class="nav-number">1.3.</span> <span class="nav-text">MultiHead Attention</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#self-attention"><span class="nav-number">2.</span> <span class="nav-text">Self-Attention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%92%8C%E5%8D%B7%E7%A7%AF"><span class="nav-number">3.</span> <span class="nav-text">注意力和卷积</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">推荐资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

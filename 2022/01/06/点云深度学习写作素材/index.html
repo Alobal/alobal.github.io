@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Introduction 近年来，由于深度学习和计算机视觉领域取得的进展，以及在人机交互、老年人护理和医疗保健援助以及视频监控方面的应用，人类动作识别正获得越来越多的兴趣。最近在3D深度相机方面的进展，如微软Kinect (Zhang, 2012)和英特尔RealSense (Keselman等人，2017)传感器，以及先进的人体姿态估计算法(Cao等人，2019)，使得使用廉价设备快速准确">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点云深度学习写作素材">
+<meta property="og:url" content="https://www.sitchzou.com/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="Introduction 近年来，由于深度学习和计算机视觉领域取得的进展，以及在人机交互、老年人护理和医疗保健援助以及视频监控方面的应用，人类动作识别正获得越来越多的兴趣。最近在3D深度相机方面的进展，如微软Kinect (Zhang, 2012)和英特尔RealSense (Keselman等人，2017)传感器，以及先进的人体姿态估计算法(Cao等人，2019)，使得使用廉价设备快速准确">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-06T06:55:23.000Z">
+<meta property="article:modified_time" content="2022-01-06T06:55:23.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>点云深度学习写作素材 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          点云深度学习写作素材
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 14:55:23" itemprop="dateCreated datePublished" datetime="2022-01-06T14:55:23+08:00">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="introduction">Introduction</h1>
+<p>近年来，由于深度学习和计算机视觉领域取得的进展，以及在人机交互、老年人护理和医疗保健援助以及视频监控方面的应用，人类动作识别正获得越来越多的兴趣。最近在3D深度相机方面的进展，如微软Kinect
+(Zhang, 2012)和英特尔RealSense
+(Keselman等人，2017)传感器，以及先进的人体姿态估计算法(Cao等人，2019)，使得使用廉价设备快速准确地进行三维估计成为可能。</p>
+<p>Human Action Recognition is achieving increasing interest in recent
+years for the progress achieved in deep learning and computer vision and
+for the interest of its applications in human–computer interaction,
+eldercare and healthcare assistance, as well as video surveillance. Re-
+cent advances in 3D depth cameras such as Microsoft Kinect (Zhang, 2012)
+and Intel RealSense (Keselman et al., 2017) sensors, and ad- vanced
+human pose estimation algorithms (Cao et al., 2019) made it possible to
+estimate 3D skeleton coordinates quickly and accurately with cheap
+devices.</p>
+<h2 id="d数据格式">3D数据格式</h2>
+<p>3D Data Representation Real scanned data has a collection of 3D point
+coordinates. To adapt the data for con- volution, one straightforward
+approach is to voxelize it in a 3D grid structure [16, 23]. However, the
+representation is clearly inefficient, since most voxels are usually
+unoccupied. Later, OctNet [21] explored the sparsity of voxel data and
+alleviated this problem. However, the memory occupancy is still high
+when it comes to deeper neural networks. Moreover, since voxels are
+discrete representation of space, this method still requires high
+resolution grids with large memory consumption as a trade-off to keep a
+level of representation quality. Another common 3D representation is in
+multi-view [19, 24, 25], where the point data is projected to various
+specific image planes in the 3D space to form 2D images. By this means,
+point data can be processed using conventional convolution on 2D images.
+This approach, however, ignores the intrinsic geometric relationship of
+3D points, and the choice of image planes could heavily affect results.
+Occluded parts in the 3D data due to projection are not handled.</p>
+<h1 id="静态点云">静态点云</h1>
+<p>静态点云分析已经广泛应用在了多个任务之上，如分类，部件分割，语义分割等。(Qi
+et al., 2017a;b; Li et al., 2018b;Wu et al., 2019; Thomas et al.,
+2019;Wang et al.,
+2019),近期大部分工作都致力于直接处理点云，而不是转换成体素网格之类的。由于点云本质上是一个无序点集，具有置换不变性，因此静态点云的处理方法都需要着力于设计一个与点的顺序无关的空间操作。</p>
+<p>Static point cloud analysis has been widely investigated for many
+problems, such as classification, object part segmentation, scene
+semantic segmentation(Qi et al., 2017a;b; Li et al., 2018b;Wu et al.,
+2019; Thomas et al., 2019;Wang et al., 2019),</p>
+<p>Most recent works aim to directly manipulate point sets without
+transforming coordinates into regular voxel grids. Since a point cloud
+is essentially a set of unordered points and invariant to permutations
+of its points, static point cloud processing methods mainly focus on
+designing effective point based spatial correlation operations that do
+not rely on point orderings.</p>
+<p>These Lagrangian representations are challenging for learning methods
+due to their unordered nature, but are highly useful in a variety of
+settings from geometry processing and 3D scanning to physical
+simulations, and since the seminal work of Qi Charles et al. (2017), a
+range of powerful inference tasks can be achieved based on point
+sets.</p>
+<span id="more"></span>
+<h1 id="点云序列">点云序列</h1>
+<p>相比于静态点云，动态点云序列更是一个较新的任务，但是对于理解我们身处的三维世界十分重要。</p>
+<p>Point cloud videos are a rich source of visual information and can be
+seen as a window into the dynamics of the 3D world we live in, showing
+how objects move against backgrounds and what happens when we perform an
+action. Moreover, point cloud videos provide more flexibility for action
+recognition in poor visibility environments, and covers more precise
+geometry dynamics than conventional videos. Therefore, understanding
+point cloud videos is important for intelligent systems to interact with
+the world.Essentially, a point cloud video is a sequence of 3D
+coordinate sets. When point colors are available, they are often
+appended as additional features. However, because coordinate sets are
+irregular and unordered, and points emerge inconsistently across
+different sets/frames, modeling the spatiotemporal structure in point
+cloud videos is extremely challenging.</p>
+<p>Our world, and the objects within it, naturally move and change over
+time, and as such it is crucial for flexible point-based inference to
+take the time dimension into account.</p>
+<p>Point cloud videos are a rich source of visual information and can be
+seen as a window into the dynamics of the 3D world we live in, showing
+how objects move against backgrounds and what happens when we perform an
+action. Moreover, point cloud videos provide more flexibility for action
+recognition in poor visibility environments, and covers more precise
+geometry dynamics than conventional videos. Therefore, understanding
+point cloud videos is important for intelligent systems to interact with
+the world.Essentially, a point cloud video is a sequence of 3D
+coordinate sets. When point colors are available, they are often
+appended as additional features. However, because coordinate sets are
+irregular and unordered, and points emerge inconsistently across
+different sets/frames, modeling the spatiotemporal structure in point
+cloud videos is extremely challenging.</p>
+<p>直接处理点云序列。由于点云序列具有不规则性和无序性，其使得点云在不同帧之间不具有连续性。因此通常会使用point
+tracking来捕获动态点云，但这是一个很难的任务。而且tracking通常都是依赖于点的颜色，这也不容易扩展到无色点云。</p>
+<p>相比于骨架和深度投影方法：</p>
+<p>Note that, skeleton-based methods rely on additional body keypoint
+detection algorithms and cannot capture other objects’ motion except for
+human. Moreover, only using body keypoints ignores scene information
+that may also provide rich and important cues for action recognition.
+Depth-based methods project 3D data to 2D depth frame and thus distort
+the real 3D shape</p>
+<h2 id="相关工作">相关工作</h2>
+<h3 id="基于点云进行处理">基于点云进行处理</h3>
+<ul>
+<li>PointRNN (Fan &amp; Yang, 2019) leverages point based recurrent
+neural networks for raw point cloud sequence forecasting.</li>
+<li>MeteorNet (Liu et al., 2019e) extends 3D points to 4D points and
+then appends a temporal dimension to PointNet++ to process these 4D
+points.</li>
+<li>P4Transformer (Fan et al., 2021a) employs transformer to avoid point
+tracking for raw point cloud sequence modeling.</li>
+<li>Prantlet al. (2020) learned stable and temporal coherent feature
+spaces for point based super-resolution.</li>
+<li>CaSPR (Rempe et al., 2020) learns to encode spatio-temporal changes
+in object shape from point clouds for reconstruction and camera pose
+estimation.</li>
+<li>PSTNet(2021),to extract features of point cloud sequences in a
+hierarchical manner. Extensive experiments on widely-used 3D action
+recognition and 4D semantic segmentation datasets demonstrate the
+effectiveness of PSTNet to model point cloud sequences.</li>
+</ul>
+<h3 id="基于其他类型的3d序列识别">基于其他类型的3D序列识别</h3>
+<ul>
+<li>3DV (Wang et al., 2020) first integrates 3D motion information into
+a regular compact voxel set and then applies PointNet++ to extract
+representations from the set for 3D action recognition.</li>
+<li>Niemeyer et al. (2019) learned a temporal and spatial vector field
+for 4D reconstruction.</li>
+<li>Fast and Furious (FaF)converts 3D point cloud frames into 2D bird’s
+view voxels and then extracts features via 3D convolutions.</li>
+<li>MinkowskiNet uses 4D Spatio-Temporal ConvNets to extract appearance
+and motion from 4D occupancy voxel grids.</li>
+</ul>
+<p>骨架和深度</p>
+<p>The existing 3D action recognition methods can be roughly divided
+into skeleton-based methods and depth-based methods. For skeleton-based
+3D action recognition, the sequence-based methods and graph-based
+methods are the main-stream approaches. By representing the skeleton
+data as a sequence of skeleton joints based on the pre-designed
+traversal strategy, the sequence-based methods [2]–[5] adopted the RNN
+(Recur- rent Neural Network) based approaches to exploit temporal
+dependency among these skeleton joints. The graph-based methods [6], [7]
+employed GCN (Graph Convolution Net- work) to capture spatio-temporal
+dependency by represent- ing the skeleton data as a graph, in which
+joints are treated as the vertexes of the graph. For depth-based 3D
+action recognition, most works [9]–[14] extracted the appear- ance
+features from 2D depth maps directly. However, both lines of works
+cannot fully exploit complete geometry information, which may degrade
+the 3D action recognition performance. To this end, the recent work
+3DV-PointNet++ [15] devel- oped a new network together with a new 3D
+motion rep- resentation method referred to as 3D dynamic voxel (3DV) for
+3D action recognition. However, the whole network of 3DV-PointNet++ with
+the motion representation extraction module cannot be optimized in an
+end-to-end fashion. In con- trast, we propose a new fully end-to-end
+optimized two-stream framework, which achieves promising results for 3D
+action recognition.</p>
+<p>网格序列</p>
+<p>[PointLSTM]Deep neural networks have achieved excellent performance
+on spatio-temporal modeling in RGB/RGBD videos. To capture the
+complementary information about appearance and motion, two-stream
+convolutional neural networks [49, 56] use a spatial stream and an
+optical flow stream for video understanding. As video is a kind of
+sequence, recurrent neural networks [19, 7, 65] are employed to capture
+the temporal dependencies [38, 13]. Similar to recurrent neural
+networks, 1D convolutional neural networks [24] can also be used to
+model the temporal structure across frame features. Besides, pooling
+techniques [12] are also employed to select and merge frames into a
+global video representation. In addition, 3D convolutional neural
+networks [51, 4, 52] can directly learn spatio-temporal representations
+from videos by stacking 2D frames into 3D pixel tensors. Meanwhile,
+interpretable video or action reasoning methods [66, 16] are proposed by
+explicitly parsing changes in videos. For RGBD videos, grid based
+methods are also widely used to fuse RGB and depth information [30,
+20].</p>
+<h3 id="d-动作识别">2D 动作识别</h3>
+<p>With explosive growth of videos, a large number of meth- ods were
+proposed for various video understanding tasks, among which the 2D
+action recognition methods [18] aim to recognize human actions in
+videos. Before the deep learn- ing era, many researchers proposed
+different methods to design the hand-crafted features, such as HOG3D
+[19] and SIFT3D [18]. Recently, a large number of deep learning
+approaches [20]–[29] have been proposed for 2D action recog- nition and
+these methods have achieved promising results on the benchmark datasets.
+These methods can be roughly divided into two categories. The first line
+of works used 3D CNNs to directly exploit spatio-temporal information in
+videos. 3D CNN can jointly learn the spatio-temporal features, in which
+the representative works include C3D [21] and I3D [22]. C3D [21] is the
+first work to apply 3D CNN to the video understanding task. I3D [22]
+further extended the 2D filters into 3D convolution to better exploit
+spatio-temporal information. The second line of works adopted the
+two-stream strategy [20], in which the appearance and motion information
+are represented in the RGB stream and the flow stream, respec- tively.
+For example, in TSN [24], Wang et al. proposed to aggregate the
+appearance and motion features extracted from different frames of
+multiple segments for action recognition.——GeometryMotion-Net</p>
+<h3 id="其他领域序列模型">其他领域序列模型</h3>
+<ul>
+<li>Transformer，BERT</li>
+</ul>
+<p>The attention mechanism can be viewed as a mechanism for reallocating
+resources according to the importance of activation.</p>
+<p>Transformer是自然语言处理(NLP)的领先神经模型，由Vaswani等人(2017)提出，作为循环网络的替代方案。它的设计是为了解决两个关键问题:(1)处理非常长的序列，这对于lstm和rnn来说都是难以解决的问题;(2)在标准rnn体系结构中，并行化句子处理通常是按顺序逐字执行的。Transformer遵循通常的编码器解码器结构，但它仅依赖于多头自我注意(Vaswani等人，2017)。最近,Transformer应用到了很多CV任务上。</p>
+<p>The Transformer is the leading neural model for Natural Language
+Processing (NLP), proposed by Vaswani et al. (2017) as an alternative to
+recurrent networks. It has been designed to face two key problems: (i)
+the processing of very long sequences, which are often intractable both
+for LSTMs and RNNs, and (ii) the limitations in parallelizing sentence
+processing, which is usually performed sequentially, word by word, in
+standard RNNs architectures. The Transformer follows a usual
+encoder–decoder structure, but it relies solely on multi-head self-
+attention (Vaswani et al., 2017). Recently, Transformer self-attention
+has been applied in many popular computer vision tasks. Wang et al.
+(2018) proposed a differentiable non-local operator based on self-
+attention, which allows to capture long-range dependencies both in space
+and time for a more accurate video classification. After the first
+attempt of Bello et al. (2019b) to use self-attention as an alterna-
+tive to convolutional operators, Dosovitskiy et al. (2020) proposed
+a</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/06/PSTNet/" rel="prev" title="PSTNet">
+      <i class="fa fa-chevron-left"></i> PSTNet
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/08/SkeletonTransformer/" rel="next" title="SkeletonTransformer">
+      SkeletonTransformer <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#d%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">3D数据格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%82%B9%E4%BA%91"><span class="nav-number">2.</span> <span class="nav-text">静态点云</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">点云序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.1.</span> <span class="nav-text">相关工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%82%B9%E4%BA%91%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">基于点云进行处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8B%E7%9A%843d%E5%BA%8F%E5%88%97%E8%AF%86%E5%88%AB"><span class="nav-number">3.1.2.</span> <span class="nav-text">基于其他类型的3D序列识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-%E5%8A%A8%E4%BD%9C%E8%AF%86%E5%88%AB"><span class="nav-number">3.1.3.</span> <span class="nav-text">2D 动作识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%A2%86%E5%9F%9F%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.4.</span> <span class="nav-text">其他领域序列模型</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

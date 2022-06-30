@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="IGA 等几何分析 用同样的表示语言去表示几何和物理场。 比起有限元分析：避免了数据奇偶换，不存在几何离散误差，保证了 CAD 几何的光滑性和高阶性质。  曲面建模基础  二项式展开 Bernstein 多项式 Bezier 曲线 B 样条 NURBS 非均匀有理 B 样条  有限元求解  弱约束：拉格朗日乘子法 罚函数法 Nitsche 方法 刚度方程求解：线性——直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算几何GDC2021记录">
+<meta property="og:url" content="https://www.sitchzou.com/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="IGA 等几何分析 用同样的表示语言去表示几何和物理场。 比起有限元分析：避免了数据奇偶换，不存在几何离散误差，保证了 CAD 几何的光滑性和高阶性质。  曲面建模基础  二项式展开 Bernstein 多项式 Bezier 曲线 B 样条 NURBS 非均匀有理 B 样条  有限元求解  弱约束：拉格朗日乘子法 罚函数法 Nitsche 方法 刚度方程求解：线性——直接">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-10T15:37:43.000Z">
+<meta property="article:modified_time" content="2021-10-10T15:37:43.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="Sitch,Blog">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算几何GDC2021记录 | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算几何GDC2021记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-10 23:37:43" itemprop="dateCreated datePublished" datetime="2021-10-10T23:37:43+08:00">2021-10-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="iga-等几何分析">IGA 等几何分析</h2>
+<p>用同样的表示语言去表示几何和物理场。
+比起有限元分析：避免了数据奇偶换，不存在几何离散误差，保证了 CAD
+几何的光滑性和高阶性质。</p>
+<ol type="1">
+<li>曲面建模基础</li>
+</ol>
+<p>二项式展开 Bernstein 多项式 Bezier 曲线 B 样条 NURBS 非均匀有理 B
+样条</p>
+<ol start="2" type="1">
+<li>有限元求解</li>
+</ol>
+<p>弱约束：拉格朗日乘子法 罚函数法 Nitsche 方法</p>
+<p>刚度方程求解：线性——直接法和迭代法，非线性——牛顿迭代法。</p>
+<ol start="3" type="1">
+<li>结构拓扑优化</li>
+</ol>
+<p>连续体结构拓扑优化：用物理意义的场函数来连续表示变化。 SIMP
+各向同性材料罚函数法</p>
+<p>为什么拓扑优化需要 IGA：计算几何与计算力学结合是未来趋势。用 CAD
+的样条基函数代替纯铜有限元的型函数</p>
+<p>结合的挑战：隐式几何描述丧失 IGA 几何造型能力，</p>
+<p>——&gt;显示几何拓扑优化+IGA：</p>
+<p>MMC，简单组件形成拓扑。组件可以形状和尺寸变化，组件相互覆盖可以改变拓扑，可变形组件描述：拉格朗日（横向长肉），欧拉</p>
+<p>MMV，基于 B 样条描述孔洞。</p>
+<span id="more"></span>
+<h2 id="计图深度学习">计图深度学习</h2>
+<p><strong>元算子</strong></p>
+<p>18 个元算子，覆盖 TF 和 Pytorch 的 2000+算子的
+90%。大部分不用自己融合开发。</p>
+<ol type="1">
+<li>重索引算子——一对多映射——广播</li>
+<li>重索引化简算子</li>
+<li>元素级算子——一对一映射，逐个元素运算</li>
+</ol>
+<p><strong>统一计算图</strong>——对动态图进行切分，保证一定性能</p>
+<p>可微渲染库 Jrender</p>
+<p>NeRF 渲染，性能差，将整个场景参数编码到网络。 改进版本
+Recursive-NeRF——递归神经场，不确定性预测，动态生长，性能更好。</p>
+<h3 id="点云">点云</h3>
+<p><strong>困难</strong></p>
+<ol type="1">
+<li>不规则</li>
+<li>无序性 点的存储矩阵可以任意交换顺序</li>
+<li>稀疏性</li>
+<li>旋转不变性<br />
+</li>
+<li>泛化性不太好</li>
+</ol>
+<p><strong>原则</strong></p>
+<ol type="1">
+<li>排列不变</li>
+<li>聚合信息</li>
+<li>旋转不变</li>
+</ol>
+<p><strong>模型</strong></p>
+<ol type="1">
+<li>PointNet, 没有层次结构的问题，没有局部邻域关系。</li>
+<li>PointNet++，解决——最远点采样 n/2，K 近邻采样，再通过 MLP
+聚合邻域信息。</li>
+<li>PointCNN，预测置换矩阵保证一定排列不变性。</li>
+<li>PointConv &amp; RS-CNN，</li>
+<li>DGCNN，不同之前 XYZ 找邻域，通过空间结构找邻域。</li>
+<li><strong>Transformer
+</strong>可能会比传统卷积更适合点云处理，但是需要深度定制。计图改造：Position
+embedding 补足局部信息，offset-attention
+原有的自注意力机制不适合处理点云。</li>
+<li><strong>PointContrast
+</strong>自监督学习，怎么利用没有标注的数据。</li>
+</ol>
+<p><strong>展望</strong></p>
+<p>处理点云的结构：CNN/Transformer/MLP 百家争鸣</p>
+<p>2D 数据预训练的模型迁移 3D，利用无标注数据。</p>
+<p>https://web.stanford.edu/~rqi/</p>
+<h3 id="网格学习">网格学习</h3>
+<p>深度几何学习：多样的数据形式，特化的网格结构。</p>
+<ol type="1">
+<li>数据表达简洁高效，对算力更友好。</li>
+<li>提供更完整的邻域信息。</li>
+</ol>
+<p><strong>关键</strong></p>
+<ol type="1">
+<li>局部特征提取（卷积）：缺乏图像的规则结构</li>
+<li>层次特征聚合（Pooling）</li>
+</ol>
+<p><strong>模型</strong></p>
+<p>PointNet 架构，不适合</p>
+<p>GNN——离散 Laplacian/Dirac 算子，还是无法保证层次特征聚合。</p>
+<p>MeshCNN：边收缩构造层次结构</p>
+<p>SubdivNet：基于细分的网格卷积网络</p>
+<h2 id="兴趣论文">兴趣论文</h2>
+<p>时空融合网络骨架手势识别 虚拟签名系统</p>
+<p>三维卷积，图卷积，点云分割</p>
+<p>点云关键点估计</p>
+<p>点云法向估计</p>
+<p>ACSCNN 各向异性卷积算子</p>
+<h2 id="杂项">杂项</h2>
+<p>整车 CAE 分析：碰撞约束、驾驶员损伤分析、材料力学分析</p>
+<p>各种 CAE 理论数值方法的缺陷，以及高度的非线性。</p>
+<p>企业负担，不愿意迁移新系统</p>
+<p>汽车计算难点：计算效率，几何型面复杂，变形剧烈，多场耦合，交互迭代发展，没有几何清理工具</p>
+<p>基于虚几何修饰的网格生成：NURBS
+三线交化，背景网格封闭，网格点高速投影，超面的网格点修饰技术</p>
+<p>缺少 CAD
+可控的自主内核，脏几何问题，拓扑变换鲁棒性，复杂约束条件的适应性</p>
+<p>网格智能化，点云特征为输入特征探索三维网格</p>
+<p>航空发动机</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/" rel="prev" title="SIGGRAPH2021翻阅">
+      <i class="fa fa-chevron-left"></i> SIGGRAPH2021翻阅
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/12/ffmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="ffmpeg常用命令">
+      ffmpeg常用命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iga-%E7%AD%89%E5%87%A0%E4%BD%95%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">IGA 等几何分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">计图深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E4%BA%91"><span class="nav-number">2.1.</span> <span class="nav-text">点云</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.2.</span> <span class="nav-text">网格学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B4%E8%B6%A3%E8%AE%BA%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">兴趣论文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">杂项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

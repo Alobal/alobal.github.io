@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="xsdJPAJngu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前言 本文是我自己翻译 Microsoft 的 英文原文 因为自己刚学 C++的时候，直接是装的 Visual Studio 2017，一套 20G 的 IDE 解决所有事情，但是用着用着发现了 Visual Studio Code 这个极致现代美感的编辑器！再看 VS 那傻大粗的体量实在不想用。 然而 VSCode 只是个编辑器，要用来写 C++还需要配置相应的编译器环境。网上大部分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode 配置 Microsoft C++">
+<meta property="og:url" content="https://www.sitchzou.com/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="前言 本文是我自己翻译 Microsoft 的 英文原文 因为自己刚学 C++的时候，直接是装的 Visual Studio 2017，一套 20G 的 IDE 解决所有事情，但是用着用着发现了 Visual Studio Code 这个极致现代美感的编辑器！再看 VS 那傻大粗的体量实在不想用。 然而 VSCode 只是个编辑器，要用来写 C++还需要配置相应的编译器环境。网上大部分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-25T00:46:05.000Z">
+<meta property="article:modified_time" content="2020-08-25T00:46:05.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="VSCode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.sitchzou.com/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>VSCode 配置 Microsoft C++ | Sitch's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VSCode 配置 Microsoft C++
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-25 08:46:05" itemprop="dateCreated datePublished" datetime="2020-08-25T08:46:05+08:00">2020-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/25/VSCode%E9%85%8D%E7%BD%AEMicrosoftC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>本文是我自己翻译 Microsoft 的 <a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-msvc">英文原文</a></p>
+<p>因为自己刚学 C++的时候，直接是装的 Visual Studio 2017，一套 20G 的
+IDE 解决所有事情，但是用着用着发现了 Visual Studio Code
+这个极致现代美感的编辑器！再看 VS 那傻大粗的体量实在不想用。</p>
+<p>然而 VSCode 只是个编辑器，要用来写
+C++还需要配置相应的编译器环境。网上大部分配置教程都是从下一个 MinGW 出发
+... 然而我本身已经装过了 VS，Microsoft C++环境已经有了，想着能不能直接给
+VSCode 用。</p>
+<p>但是找了半天没发现什么有用的教程，最后在微软官方文档中找到了英文教程，虽然也不是很全面，但入门使用是够了的。</p>
+<span id="more"></span>
+<h2 id="预备环境">预备环境</h2>
+<h3 id="安装-visual-studio-code">安装 <a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/download">Visual Studio
+Code</a></h3>
+<p>希望代码业非代码业都能试试这个编辑器（笑</p>
+<p>无论敲 markdown 还是代码都很舒服。</p>
+<h3 id="安装-vscode-的-cc-扩展">安装 <a
+target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">VSCode
+的 C/C++ 扩展</a></h3>
+<p>如果已经安装好了 VSCode，可以直接在如下的扩展视图 (Ctrl+Shift+X)
+里搜索'C++'然后安装作者是 Microsoft 的即可。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/cpp-extension.png"
+alt="扩展视图" />
+<figcaption aria-hidden="true">扩展视图</figcaption>
+</figure>
+<h3 id="安装-microsoft-visual-c-编译工具集">安装 Microsoft Visual C++
+编译工具集</h3>
+<p>本身之前在 VS 写 C++的人已经安装好了，不用管。</p>
+<p>有 VS 的人可以直接在 VS Installer 中勾选 C++ 工具集进行安装即可。</p>
+<p>没有 VS 的人可以直接单独下载 Microsoft C++ 工具集，去 <a
+target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/downloads#other">下载页面</a>
+滚动到最底部，展开 All downloads 直到找到 <strong>Build Tools for Visual
+Studio</strong>，进行下载。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/build-tools-for-vs.png"
+alt="下载 Build Tools" />
+<figcaption aria-hidden="true">下载 Build Tools</figcaption>
+</figure>
+<p>点击这个会运行 Visual Studio Installer， 然后会展示 Visual Studio
+可用的构建工具集，选中 C++的安装即可。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/cpp-build-tools.png"
+alt="VS Installer 安装 C+=" />
+<figcaption aria-hidden="true">VS Installer 安装 C+=</figcaption>
+</figure>
+<h3 id="检查安装效果">检查安装效果</h3>
+<p>为了从命令行或者 VSCode 中使用 MSVC，你必须以 <strong>VS
+开发人员提示符 (Developer Command Prompt for Visual Studio)</strong>
+为基础运行。常规的 Shell，例如 PowerShell，Bash，或者 Windows
+命令行都不具有必须的路径环境变量集。</p>
+<p>为了打开 VS 开发人员提示符，在 Windows
+开始菜单中搜索“开发人员”（安装的英文版请搜索"developer"），即可在搜索结果中打开。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/developer-cmd-prompt-menu.png"
+alt="搜索“开发人员”" />
+<figcaption aria-hidden="true">搜索“开发人员”</figcaption>
+</figure>
+<p>你可以测试你是不是真的有了 C++
+编译器，<code>cl.exe</code>，在打开的提示符中输入
+'cl'，如果输出版权和版本信息，以及基础用法描述，则恭喜你安装正确。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/check-cl-exe.png"
+alt="安装正确" />
+<figcaption aria-hidden="true">安装正确</figcaption>
+</figure>
+<p>在开始使用之前，如果提示符的初始路径是在构建工具集所在的位置，请将提示符中的当前目录切换到你想要的项目目录，毕竟你不会想要把程序写在那个疙瘩角落。</p>
+<h2 id="创建-hello-world">创建 Hello World</h2>
+<p>请跟着下面的代码做，在提示符中，创造一个新文件夹
+“projects”，用于存储所有 VSCode
+项目，然后创建一个子文件夹名叫“helloworld”，并且用 VSCode
+打开这个子文件夹。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir projects</span><br><span class="line">cd projects</span><br><span class="line">mkdir helloworld</span><br><span class="line">cd helloworld</span><br><span class="line">code .</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意这里个人推荐你使用纯英文路径。你永远不知道什么时候会挖一天一个月的中文路径
+BUG。</p>
+</blockquote>
+<p><code>code .</code>命令会用 VSCode
+打开当前目录，并且构建成“工作区（workspace）”，当你继续跟着教程走，最终会在这个工作区中创建一个<code>.vscode</code>文件夹，里面有文件如下：
+- tasks.json （编译指令） - launch.json （调试器设置） -
+c_cpp_properties.json （编译器路径及 智能感知 IntelliSense 设置）</p>
+<h3 id="添加一个源代码文件">添加一个源代码文件</h3>
+<p>在 VSCode 资源管理器 (<code>Ctrl+Shift+E</code>)
+中，点击<strong>新建文件</strong>按钮，并且命名为<code>helloworld.cpp</code>。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/new-file-button.png"
+alt="new file" />
+<figcaption aria-hidden="true">new file</figcaption>
+</figure>
+<p>打开新建的文件，粘贴如下代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;string&gt; msg &#123;<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;C++&quot;</span>, <span class="string">&quot;World&quot;</span>, <span class="string">&quot;from&quot;</span>, <span class="string">&quot;VS Code&quot;</span>, <span class="string">&quot;and the C++ extension!&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> string&amp; word : msg)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; word &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后按下<code>Ctrl+S</code>保存文件。注意你可以看到刚添加的文件会在
+VSCode 的资源管理器中出现。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/file-explorer.png"
+alt="出现文件" />
+<figcaption aria-hidden="true">出现文件</figcaption>
+</figure>
+<p>你也可以在上方菜单栏的<strong>文件</strong>菜单下，打开<strong>自动保存</strong>，以自动保存文件的修改。</p>
+<p>最左边的活动栏可以让你打开不同的视图，例如<strong>搜索</strong>，<strong>源代码管理</strong>，和<strong>运行</strong>。待会你会用到<strong>运行</strong>，其他的你可以在
+VSCode 的 <a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/getstarted/userinterface">用户交互文档</a>
+中查阅相关信息。</p>
+<blockquote>
+<p>注意当你保存或打开一个 C++文件时，你可能可以看到一个来自
+C/C++扩展的关于测试版本的通知，这可以让你体验扩展的新特性。你可以点<code>X</code>无视它。</p>
+</blockquote>
+<h3 id="探索智能感知intellisense">探索智能感知（IntelliSense）</h3>
+<p>在你新建的<code>helloworld.cpp</code>文件中，鼠标悬浮在<code>vector</code>或<code>string</code>上可以看到相应的类型信息。在<code>msg</code>的声明语句之后，敲入<code>msg.</code>以尝试调用一个成员函数。这是你会立刻看到一个语法补全列表，展示了所有的成员函数，并且还能看到一个有关<code>msg</code>类型信息的窗口。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/wsl/msg-intellisense.png"
+alt="msg" />
+<figcaption aria-hidden="true">msg</figcaption>
+</figure>
+<p>你可以按下<code>Tab</code>直接插入选中的那一项。之后，当你输入小括号时，你可以看到有关函数参数的相关信息。</p>
+<h3 id="编译-helloworld.cpp">编译 helloworld.cpp</h3>
+<p>接下来，你将创建一个<code>tasks.json</code>文件，以告诉 VSCode
+怎么去编译这个程序。这个编译配置（task）会唤醒 Microsoft C++
+编译器，编译这个源代码生成可执行文件。</p>
+<p>在主菜单中，点击 <strong>终端 &gt;
+配置默认生成任务</strong>，这会展示一系列预定义好的 C++
+编译器编译配置，选择<code>C/C++ cl.exe build active file</code>，这会在当前目录中生成一个<code>.vscode</code>子文件夹，并且在里面创建<code>tasks.json</code>文件。</p>
+<p>你新建的<code>tasks.json</code>文件应该长得和下面差不多：
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;version&quot;</span>: <span class="string">&quot;2.0.0&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;tasks&quot;</span>: [</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;type&quot;</span>: <span class="string">&quot;shell&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;label&quot;</span>: <span class="string">&quot;C/C++: cl.exe build active file&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;command&quot;</span>: <span class="string">&quot;cl.exe&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;args&quot;</span>: [</span><br><span class="line">				<span class="string">&quot;/Zi&quot;</span>,</span><br><span class="line">				<span class="string">&quot;/EHsc&quot;</span>,</span><br><span class="line">				<span class="string">&quot;/Fe:&quot;</span>,</span><br><span class="line">				<span class="string">&quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;</span>,</span><br><span class="line">				<span class="string">&quot;$&#123;file&#125;&quot;</span></span><br><span class="line">			],</span><br><span class="line">			<span class="attr">&quot;options&quot;</span>: &#123;</span><br><span class="line">				<span class="attr">&quot;cwd&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span></span><br><span class="line">			&#125;,</span><br><span class="line">			<span class="attr">&quot;problemMatcher&quot;</span>: [</span><br><span class="line">				<span class="string">&quot;$msCompile&quot;</span></span><br><span class="line">			],</span><br><span class="line">			<span class="attr">&quot;group&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;kind&quot;</span>: <span class="string">&quot;build&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;isDefault&quot;</span>: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>command</strong> 指定了想要运行的程序是"cl.exe"</li>
+<li><strong>args</strong> 指定了 cl.exe
+的一系列命令行参数，这些参数必须按照编译器期望的顺序进行指定。</li>
+<li><strong>/Fe:</strong> 指定生成可执行文件的输出目录 这个配置告诉 C++
+编译器去找到<code>$&#123;file&#125;</code>文件，编译它，并且在当前目录<code>$&#123;fileDirname&#125;</code>下生成和源文件同名但扩展名是<code>.exe</code>的可执行文件<code>$&#123;fileBasenameNoExtension&#125;.exe</code>，在我们的例子中会得到<code>helloworld.exe</code>。</li>
+</ul>
+<blockquote>
+<p>你可以在 <a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/variables-reference">变量参考</a>
+中了解更多关于<code>tasks.json</code>的信息</p>
+</blockquote>
+<ul>
+<li>label
+的值是你在配置列表里看到的关于配置的描述，你可以随便乱改。</li>
+<li>problemMatcher 的值指定了用于查找错误或警告的输出解析器。对于 cl.exe
+，<code>$msCompile</code>是最好的选择。</li>
+<li>isDefault: true
+是指定了当你按下<code>Ctrl+Shift+B</code>时，会运行的配置。仅仅是图个方便而已。设为
+false 了一样可以从 <strong>终端 &gt; 运行生成任务</strong>中运行。</li>
+</ul>
+<h3 id="编译运行">编译运行</h3>
+<ol type="1">
+<li><p>返回<code>helloworld.cpp</code>页面。因为你想要编译<code>helloworld.cpp</code>，而你的配置会编译当前文件（the
+active file）。</p></li>
+<li><p>按下<code>Ctrl+Shift+B</code>或者从 <strong>终端 &gt;
+运行生成任务</strong>中运行编译任务。</p></li>
+<li><p>编译开始后，你可以看到 VSCode
+的集成终端面板会出现在源代码编辑器的下方。在编译完成后，可以看到编译成功或者失败。假如成功，输出应该长这样（中文环境应该是如图的对应翻译）</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/build-output-in-terminal.png"
+alt="successful output" />
+<figcaption aria-hidden="true">successful output</figcaption>
+</figure></li>
+<li><p>点击终端面板的<code>+</code>按钮创建一个新的终端。在里面输入运行<code>ls</code>，你可以看到<code>helloworld.exe</code>文件和一些
+C++ 中间文件已经生成了，并且还有 Debug
+相关文件（<code>helloworld.obj</code>,<code>helloworld.pbd</code>）</p></li>
+</ol>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/helloworld-in-terminal.png"
+alt="ls" />
+<figcaption aria-hidden="true">ls</figcaption>
+</figure>
+<ol start="5" type="1">
+<li>你可以命令行输入<code>./helloworld.exe</code>运行文件。</li>
+</ol>
+<h3 id="修改-tasks.json">修改 tasks.json</h3>
+<p>你可以用<code>$&#123;workspaceFolder&#125;\\*.cpp</code>代替<code>$&#123;file&#125;</code>，以同时编译多个
+C++ 文件。这回编译所有的当前目录下的
+<code>.cpp</code>文件。当然你也可以通过修改<code>$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe</code>，以替换输出文件的名字。</p>
+<h2 id="调试-helloworld.cpp">调试 helloworld.cpp</h2>
+<p>接下来你会创建一个<code>launch.json</code>文件，以配置当你按下<code>F5</code>进行调试时，VSCode
+怎么去运行 Microsoft C++
+调试器。在主菜单中，点击<code>运行 &gt;  添加配置</code>，选择
+<strong>C++ （Windows）</strong>。</p>
+<p>接下来可以看到一个预定义的调试配置列表，选择
+<code>cl.exe build and debug active file</code>。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/build-and-debug-active-file.png"
+alt="debug" />
+<figcaption aria-hidden="true">debug</figcaption>
+</figure>
+<p>这时 VSCode 会创建一个<code>launch.json</code>的文件如下：
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;cl.exe build and debug active file&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;cppvsdbg&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;program&quot;</span>: <span class="string">&quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;args&quot;</span>: [],</span><br><span class="line">      <span class="attr">&quot;stopAtEntry&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">&quot;cwd&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;environment&quot;</span>: [],</span><br><span class="line">      <span class="attr">&quot;externalConsole&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">&quot;preLaunchTask&quot;</span>: <span class="string">&quot;cl.exe build active file&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>program
+指定了想要调试的程序，即当前目录下，和当前文件同基础名的<code>.exe</code>文件。</li>
+<li>stopAtEntry 默认为
+false，调试器不会事先添加任何断点。我们修改为<code>true</code>，则会在进入<code>main</code>函数时暂停并等待我们的调试。</li>
+</ul>
+<h3 id="开始调试">开始调试</h3>
+<ol type="1">
+<li><p>返回<code>helloworld.cpp</code>，这样它就是“当前文件”了。</p></li>
+<li><p>按<code>F5</code>或者点击<code>运行 &gt; 启动调试</code>。此时会有一些
+UI 界面的变化：</p></li>
+</ol>
+<ul>
+<li><p>集成终端会在底部出现，在
+<code>调试输出</code>标签下，你可以看到体现调试器正在运行的输出。</p></li>
+<li><p>在<code>main</code>函数的第一行编辑器会产生高亮。这是之前的修改导致的
+C++ 扩展预先帮我们打好的断点。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/stopAtEntry.png"
+alt="main" />
+<figcaption aria-hidden="true">main</figcaption>
+</figure></li>
+<li><p>左边侧栏会出现<strong>运行</strong>视图</p></li>
+<li><p>编辑器上方会出现调试控制面板。你可以随便挪动。</p></li>
+</ul>
+<h3 id="逐步执行代码">逐步执行代码</h3>
+<p>现在我们已经做好了逐步执行代码的准备。</p>
+<ol type="1">
+<li><p>在调试控制面板点击<strong>单步跳过（F10）</strong>按钮，直到语句<code>for (const string&amp; word : msg)</code>高亮。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/step-over-button.png"
+alt="Step Over" />
+<figcaption aria-hidden="true">Step Over</figcaption>
+</figure>
+<p><strong>单步跳过</strong>命令会跳过在<code>msg</code>变量创建并初始化时，所有<code>vector</code>和<code>string</code>类的内部函数调用。注意到左边<strong>变量</strong>窗口，此时看起来可能有点不对劲。虽然调试器已经能看到循环控制的变量名了，但此时当前语句还没有执行，因此读取不到变量值。另一方面，因为<code>msg</code>的语句执行完了，它的值是可以看到的。</p></li>
+<li><p>再按一下<strong>单步跳过</strong>以进入下一条语句（跳过了所有内部代码）。此时**变量*窗口可以看到循环变量的信息了。</p></li>
+<li><p>再按一下<strong>单步跳过</strong>以执行<code>cout</code>语句。<strong>注意</strong>如果是
+2019.3 的扩展版本，直到循环完成前是看不到任何输出的。</p></li>
+<li><p>你可以一直按下去直到所有输出结束。当然如果你想要更细致一点，试着点击<strong>单步调试（F11）</strong>,
+以逐步执行 C++ 标准库中的内部代码。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/msvc-system-header-stepping.png"
+alt="incode" />
+<figcaption aria-hidden="true">incode</figcaption>
+</figure>
+<p>如果想要返回你自己的代码。可以一直按<strong>单步跳过</strong>直到返回。另外也可以切换到<code>helloworld.cpp</code>中在某个语句处按<code>F9</code>打一个断点，此时在左边会出现一个红点表明这一行已经打上了断点：</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/breakpoint-in-main.png"
+alt="breakpoint" />
+<figcaption aria-hidden="true">breakpoint</figcaption>
+</figure>
+<p>这时按下<code>F5</code>会自动执行到断点处再次暂停。再次在断点位置按<code>F9</code>也可以取消掉断点。</p></li>
+</ol>
+<h3 id="设置监视">设置监视</h3>
+<p>调试时，有些时候我们想要盯着程序中某些变量进行观察。可以通过<strong>监视变量</strong>功能实现这一想法。</p>
+<ol type="1">
+<li><p>在调试时，左侧的<strong>监视</strong>窗口，点击<code>+</code>按钮，即可创建一个新的监视对象，例如输入循环控制变量的名字<code>word</code>,此时监视窗口会一直显示这个变量的值。请在逐步执行循环时观察监视窗口的变化。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/watch-window.png"
+alt="watch" />
+<figcaption aria-hidden="true">watch</figcaption>
+</figure></li>
+<li><p>同样的，假如修改程序，在循环语句前假如<code>int i=0;</code>，在循环内部假如<code>++i;</code>。此时我们可以和刚才一样添加对<code>i</code>的监视。</p></li>
+<li><p>为了在暂停时快速查看任何变量的值，我们也可以把鼠标指针悬浮在变量上，即显示变量值。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/mouse-hover.png"
+alt="hover" />
+<figcaption aria-hidden="true">hover</figcaption>
+</figure></li>
+</ol>
+<h2 id="cc-配置">C/C++ 配置</h2>
+<p>如果你想要更多关于 C/C++
+扩展的配置，你可以创建一个<code>c_cpp_properties.json</code>文件，在其中你可以修改编译器路径、编译C++标准等等。</p>
+<p>通过（Ctrl+Shift+P）打开命令面板，输入<code>C/C++: 编辑配置(UI)（ C/C++: Edit configurations(UI) ）</code>，你可以查看
+C/C++ 的UI配置界面。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/cpp/command-palette.png"
+alt="C++ UI" />
+<figcaption aria-hidden="true">C++ UI</figcaption>
+</figure>
+<p>这会打开 <strong>C/C++ 配置页面</strong>
+，当你在这里进行修改，VSCode会把变动写进<code>.vscode</code>文件夹下的<code>c_cpp_properties.json</code>文件中。</p>
+<figure>
+<img
+src="https://code.visualstudio.com/assets/docs/cpp/msvc/configurations-ui.png"
+alt="C/C++" />
+<figcaption aria-hidden="true">C/C++</figcaption>
+</figure>
+<p>如果你直接打开json文件，可以看到长得如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Win32&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;includePath&quot;</span>: [<span class="string">&quot;$&#123;workspaceFolder&#125;/**&quot;</span>],</span><br><span class="line">      <span class="attr">&quot;defines&quot;</span>: [<span class="string">&quot;_DEBUG&quot;</span>, <span class="string">&quot;UNICODE&quot;</span>, <span class="string">&quot;_UNICODE&quot;</span>],</span><br><span class="line">      <span class="attr">&quot;windowsSdkVersion&quot;</span>: <span class="string">&quot;10.0.18362.0&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;compilerPath&quot;</span>: <span class="string">&quot;C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Tools/MSVC/14.24.28314/bin/Hostx64/x64/cl.exe&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;cStandard&quot;</span>: <span class="string">&quot;c11&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;cppStandard&quot;</span>: <span class="string">&quot;c++17&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;intelliSenseMode&quot;</span>: <span class="string">&quot;msvc-x64&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你的程序包含 不在当前目录或者不在标准库路径的
+头文件，则你只需要在这里添加<strong>IncludePath</strong>即可。</p>
+<h3 id="编译器路径">编译器路径</h3>
+<p><code>compilerPath</code>编译器路径配置是十分重要的一项配置。扩展会利用它推断
+C++
+标准库头文件的路径。只有当扩展知道怎么去找这些文件了，它才能提供<strong>智能补全</strong>和<strong>找到定义</strong>的相关功能。</p>
+<p>C/C++
+扩展会尝试通过它在你系统上找到的默认编译器位置，自动填充<code>compilePath</code>。</p>
+<p>一般搜索路径和顺序如下： - 首先检查 Microsoft Visual C++ compilerOpe
+- 然后检查 Windows Subsystem for Linux (WSL) 的g++ - 之后是 Mingw-w64的
+g++</p>
+<p>如果你安装了 g++ 或者
+WSL，你可能需要更改<code>compilerPath</code>以匹配项目偏好的编译器。对于
+Microsoft
+C++，编译器路径一般和下面差不多，但是根据特定安装版本不同而有差异：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，你可能不是安装在默认C盘位置。找到你的VS安装位置，然后找里面的VC子目录即可。</p>
+</blockquote>
+<h2 id="复用-c-配置">复用 C++ 配置</h2>
+<p>VSCode 现在已经配置好使用 Microsoft C++
+编译器了。这个配置目前仅对当前工作区生效。为了复用配置，请把<code>.vscode</code>中的JSON文件复制到新的项目文件夹中，并且按需修改相关源文件和可执行文件的名字。</p>
+<h2 id="错误排除">错误排除</h2>
+<h3 id="无法识别cl.exe">无法识别"cl.exe"</h3>
+<p>如果你看到：</p>
+<ul>
+<li>cl : 无法将“cl”项识别为
+cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。</li>
+<li>The term 'cl.exe' is not recognized as the name of a cmdlet,
+function, script file, or operable program.</li>
+</ul>
+<p>这通常意味着你不是通过 <strong>VS开发人员命令提示符（Developer
+Command Prompt for Visual Studio
+）</strong>打开的VSCode，因此VSCode不知道<code>cl.exe</code>编译器的路径。</p>
+<p>你总是可以通过在VSCode终端中输入<code>cl</code>检查有没有在开发人员提示符中打开VSCode。</p>
+<blockquote>
+<p>...这个官方解决方案和没说一样，可以自行配置全局Path系统变量。</p>
+</blockquote>
+<h2 id="更进一步">更进一步</h2>
+<ul>
+<li><p>探索<a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/codebasics">VSCode
+用户指南</a></p></li>
+<li><p>复习<a
+target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/languages/cpp">C++
+扩展概述</a></p></li>
+<li><p>创建一个新的工作区，复制<code>.vscode</code>下的JSON文件过去，并且对设置进行适当的调整，开始你的代码生活！</p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/VSCode/" rel="tag"># VSCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/24/%E9%98%85%E8%AF%BB-Global-Heating/" rel="prev" title="阅读：Global Heating">
+      <i class="fa fa-chevron-left"></i> 阅读：Global Heating
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/27/Hexo-Github-Codin%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2/" rel="next" title="Hexo Github+Coding 双线部署(已废弃,Coding已不支持免费部署)">
+      Hexo Github+Coding 双线部署(已废弃,Coding已不支持免费部署) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">预备环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-visual-studio-code"><span class="nav-number">2.1.</span> <span class="nav-text">安装 Visual Studio
+Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-vscode-%E7%9A%84-cc-%E6%89%A9%E5%B1%95"><span class="nav-number">2.2.</span> <span class="nav-text">安装 VSCode
+的 C&#x2F;C++ 扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-microsoft-visual-c-%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%9B%86"><span class="nav-number">2.3.</span> <span class="nav-text">安装 Microsoft Visual C++
+编译工具集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%89%E8%A3%85%E6%95%88%E6%9E%9C"><span class="nav-number">2.4.</span> <span class="nav-text">检查安装效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-hello-world"><span class="nav-number">3.</span> <span class="nav-text">创建 Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%BA%90%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">添加一个源代码文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%99%BA%E8%83%BD%E6%84%9F%E7%9F%A5intellisense"><span class="nav-number">3.2.</span> <span class="nav-text">探索智能感知（IntelliSense）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-helloworld.cpp"><span class="nav-number">3.3.</span> <span class="nav-text">编译 helloworld.cpp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C"><span class="nav-number">3.4.</span> <span class="nav-text">编译运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-tasks.json"><span class="nav-number">3.5.</span> <span class="nav-text">修改 tasks.json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95-helloworld.cpp"><span class="nav-number">4.</span> <span class="nav-text">调试 helloworld.cpp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%B0%83%E8%AF%95"><span class="nav-number">4.1.</span> <span class="nav-text">开始调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%90%E6%AD%A5%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text">逐步执行代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%9B%91%E8%A7%86"><span class="nav-number">4.3.</span> <span class="nav-text">设置监视</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cc-%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">C&#x2F;C++ 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E8%B7%AF%E5%BE%84"><span class="nav-number">5.1.</span> <span class="nav-text">编译器路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E7%94%A8-c-%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">复用 C++ 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">7.</span> <span class="nav-text">错误排除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%ABcl.exe"><span class="nav-number">7.1.</span> <span class="nav-text">无法识别&quot;cl.exe&quot;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="nav-number">8.</span> <span class="nav-text">更进一步</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/778377698/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;778377698&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'iDOgMG0ipnUYn4jWzwaCUT5z-MdYXbMMI',
+      appKey     : 'uQg5Azo0NYYfRQONV5szNoL8',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法，提供邮箱可以接受邮件回复提醒。\n关于使用头像：请用留言相同邮箱注册个Gravatar=。=",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://idogmg0i.api.lncldglobal.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+
