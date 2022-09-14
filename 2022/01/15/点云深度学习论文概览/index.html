@@ -32,6 +32,7 @@
 <meta property="og:image" content="https://i.imgur.com/hRhgDLA.png">
 <meta property="og:image" content="https://i.imgur.com/CSh1yZu.png">
 <meta property="og:image" content="https://i.imgur.com/fcsguio.png">
+<meta property="og:image" content="https://i.imgur.com/20tjGyc.png">
 <meta property="og:image" content="https://i.imgur.com/CbvUBIo.png">
 <meta property="og:image" content="https://i.imgur.com/msRVrEW.png">
 <meta property="og:image" content="https://i.imgur.com/2tkPCO8.png">
@@ -706,6 +707,36 @@ computer vision and pattern recognition. 2020: 511-520.</li>
 <p>体素化的问题: 体素是是计算消耗巨大的过程, 时间和空间距离相同不太可取,
 时间戳本身会影响效果。</p>
 </blockquote>
+<h3 id="histogram-of-motion-trajectory-feature">Histogram of motion
+trajectory feature</h3>
+<ul>
+<li>Li D, Jahan H, Huang X, et al. Human action recognition method based
+on historical point cloud trajectory characteristics[J]. The Visual
+Computer, 2022, 38(8): 2971-2979.</li>
+<li>四川大学 CS</li>
+<li>中科院JCR 3区</li>
+<li><strong>时间金字塔</strong>：即逐层分割时间序列，二分、四分......解释上一方面可以有助于识别不同长度的动作特征，另一方面，时间的片段化也能强化顺序信息。</li>
+</ul>
+<p><strong>分割四肢</strong>：通过kinect的骨骼坐标定位四肢点云并分割。</p>
+<p><strong>3D网格划分点云</strong>：将点云空间划分为 <span
+class="math inline">\(W \times H \times d\)</span>
+的网格空间以形成3D直方图。每个网格内的点云数量归一化到<span
+class="math inline">\([y_{min},y_{max}]\)</span>。</p>
+<figure>
+<img src="https://i.imgur.com/20tjGyc.png" alt="3D网格划分" />
+<figcaption aria-hidden="true">3D网格划分</figcaption>
+</figure>
+<p><span class="math display">\[
+\mathrm{HOMT}_{w i, h i, d i}=y_{\min }+\frac{\left(y_{\max }-y_{\min
+}\right)\left(num_{w i, h i, d i}-\operatorname{Min}(n u
+m)\right)}{\operatorname{Max}(\text { num })-\operatorname{Min}(\text {
+num })}
+\]</span></p>
+<p>最终以3D直方图特征<span class="math inline">\(HOMT \in \mathbb{R}^{t
+\times w \times h \times
+d}\)</span>作为特征描述子，再通过支持向量机进行特征分类。</p>
+<p>最终在UTD-MHAD上的分类结果到90.23%，不如SOTA
+91.13%，声称效率更高。</p>
 <h2 id="基础设施">基础设施</h2>
 <h3 id="transformer">Transformer</h3>
 <ul>
@@ -1080,7 +1111,8 @@ An Efficient PointLSTM for Point Clouds Based Gesture Recognition</span></a></li
 A strong parallelized point cloud sequence network for 3D action
 recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#point4dtransformer"><span class="nav-number">2.8.</span> <span class="nav-text">Point4DTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pst-transformer"><span class="nav-number">2.9.</span> <span class="nav-text">PST-Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geometrymotion-net"><span class="nav-number">2.10.</span> <span class="nav-text">GeometryMotion-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tranquil-clouds"><span class="nav-number">2.11.</span> <span class="nav-text">Tranquil clouds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointpwc-net"><span class="nav-number">2.12.</span> <span class="nav-text">PointPWC-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spcm-net"><span class="nav-number">2.13.</span> <span class="nav-text">SPCM-Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pstt"><span class="nav-number">2.14.</span> <span class="nav-text">PSTT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hyperpointnet"><span class="nav-number">2.15.</span> <span class="nav-text">HyperPointnet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B6%E4%BB%96%E4%B8%89%E7%BB%B4%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">基于其他三维数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dgcnn"><span class="nav-number">3.1.</span> <span class="nav-text">DGCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddgcn-a-dynamic-directed-graph-convolutional-network-for-action-recognition"><span class="nav-number">3.2.</span> <span class="nav-text">DDGCN:
 A Dynamic Directed Graph Convolutional Network for Action
-Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skeletontransformer"><span class="nav-number">3.3.</span> <span class="nav-text">SkeletonTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dv"><span class="nav-number">3.4.</span> <span class="nav-text">3DV</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">4.</span> <span class="nav-text">基础设施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer"><span class="nav-number">4.1.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#external-attention"><span class="nav-number">4.2.</span> <span class="nav-text">External Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vision-transformer-vit"><span class="nav-number">4.3.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swim-transformer"><span class="nav-number">4.4.</span> <span class="nav-text">Swim Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">4.5.</span> <span class="nav-text">Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-layer-normalization"><span class="nav-number">4.6.</span> <span class="nav-text">Pre Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localvit"><span class="nav-number">4.7.</span> <span class="nav-text">LocalViT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobilenet"><span class="nav-number">4.8.</span> <span class="nav-text">MobileNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet"><span class="nav-number">4.9.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.10.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96"><span class="nav-number">4.11.</span> <span class="nav-text">训练优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can-attention-enable-mlps-to-catch-up-with-cnns"><span class="nav-number">4.12.</span> <span class="nav-text">Can attention
+Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skeletontransformer"><span class="nav-number">3.3.</span> <span class="nav-text">SkeletonTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dv"><span class="nav-number">3.4.</span> <span class="nav-text">3DV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#histogram-of-motion-trajectory-feature"><span class="nav-number">3.5.</span> <span class="nav-text">Histogram of motion
+trajectory feature</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">4.</span> <span class="nav-text">基础设施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer"><span class="nav-number">4.1.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#external-attention"><span class="nav-number">4.2.</span> <span class="nav-text">External Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vision-transformer-vit"><span class="nav-number">4.3.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swim-transformer"><span class="nav-number">4.4.</span> <span class="nav-text">Swim Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">4.5.</span> <span class="nav-text">Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-layer-normalization"><span class="nav-number">4.6.</span> <span class="nav-text">Pre Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localvit"><span class="nav-number">4.7.</span> <span class="nav-text">LocalViT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobilenet"><span class="nav-number">4.8.</span> <span class="nav-text">MobileNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet"><span class="nav-number">4.9.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.10.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96"><span class="nav-number">4.11.</span> <span class="nav-text">训练优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can-attention-enable-mlps-to-catch-up-with-cnns"><span class="nav-number">4.12.</span> <span class="nav-text">Can attention
 enable MLPs to catch up with CNNs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#action-recognition-based-on-a-bag-of-3d-points"><span class="nav-number">4.13.</span> <span class="nav-text">Action
 recognition Based on A Bag of 3D Points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dpdist-comparing-point-clouds-using-deep-point-cloud-distance"><span class="nav-number">4.14.</span> <span class="nav-text">DPDist:
 Comparing Point Clouds Using Deep Point Cloud Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese-neural-network-triplet-network"><span class="nav-number">4.15.</span> <span class="nav-text">Siamese Neural Network
