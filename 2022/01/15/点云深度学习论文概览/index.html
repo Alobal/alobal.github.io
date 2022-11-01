@@ -30,6 +30,7 @@
 <meta property="og:description" content="点云空间学习 PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation  Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for 3d classification and segmentation[C]&#x2F;&#x2F;Pr">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/byWCQ3e.png">
+<meta property="og:image" content="https://i.imgur.com/CKOuOuc.png">
 <meta property="og:image" content="https://i.imgur.com/hRhgDLA.png">
 <meta property="og:image" content="https://i.imgur.com/CSh1yZu.png">
 <meta property="og:image" content="https://i.imgur.com/fcsguio.png">
@@ -451,8 +452,32 @@ Cross-Modal Training for Shape Analysis[J]. arXiv preprint
 arXiv:2210.04208, 2022.</li>
 <li>港中文</li>
 </ul>
-<p>单模态的点云模型已经基本走到尽头，如何利用多模态数据(如图片)更好地提升性能呢？一种直接的思路是构建多模态的特征融合网络，但这一方面要特地构建多模态模型结构，另一方面在推理阶段往往难以获得多模态数据。</p>
-<p>启发于知识蒸馏领域，这篇论文将多模态模型问题转化为知识蒸馏的"老师与学生"问题。PointCMT的知识蒸馏框架可以移植到任意Point模型上快速构建提升。</p>
+<figure>
+<img src="https://i.imgur.com/CKOuOuc.png" alt="PointCMT" />
+<figcaption aria-hidden="true">PointCMT</figcaption>
+</figure>
+<p>单模态的点云模型已经基本走到尽头，如何利用多模态数据(如图片)更好地提升性能呢？一种直接的思路是构建多模态的特征融合网络，但这一方面要特地构建多模态模型结构，另一方面在推理阶段往往难以获得多模态数据。启发于知识蒸馏领域，这篇论文将多模态模型问题转化为知识蒸馏的"老师与学生"问题。PointCMT的知识蒸馏框架可以移植到任意Point模型上快速构建提升。主要步骤：</p>
+<ol type="1">
+<li>预训练一个大型image-based编码器模型，作为老师。</li>
+<li>训练图像到点云的解码器CMPG：即将image-based编码的<span
+class="math inline">\(D\)</span>维特征映射成<span
+class="math inline">\(N \times 3\)</span>的点云形状</li>
+<li>点云模型接收上一步生成的点云作为输入进行训练，并且通过两个增强的损失函数Feature
+Enhancement和Classifier Enhancement加强训练。</li>
+</ol>
+<p>在Feature
+Enhancement监督下的CMPG：本质上是一个以EMD为损失函数的映射训练</p>
+<p><span class="math display">\[
+\mathcal{L}_{\mathrm{EMD}}\left(\mathcal{P}, \hat{\mathcal{P}}^{i m
+g}\right)=\min _\phi \sum_{p \in \mathcal{P}}\|p-\phi(p)\|
+\]</span></p>
+<p>Classifier Enhancement
+Loss：本质上就是迫使点云模型的输出靠近图像模型。注意图像特征依然交给点云模型进行使用，并且在训练中不对图像模型进行训练。</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text {Classifier }}=\mathcal{D}_{K L}\left(\mathrm{Cls}^{p
+t s}\left(\mathcal{F}^{i m g}\right) \| \mathrm{Cls}^{p t
+s}\left(\mathcal{F}^{p t s}\right)\right)
+\]</span></p>
 <h2 id="点云时间学习">点云时间学习</h2>
 <h3 id="flownet3d">FlowNet3D</h3>
 <ul>
