@@ -213,6 +213,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编辑距离"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/edit-distance">编辑距离</a></h1>
+<p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2
+所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符 删除一个字符 替换一个字符 示例 1:</p>
+<p>输入: word1 = "horse", word2 = "ros" 输出: 3 解释: horse - rorse (将
+'h' 替换为 'r') rorse - rose (删除 'r') rose - ros (删除 'e')</p>
+<p>示例 2:</p>
+<p>输入: word1 = "intention", word2 = "execution" 输出: 5 解释:
+intention - inention (删除 't') inention - enention (将 'i' 替换为 'e')
+enention - exention (将 'n' 替换为 'x') exention - exection (将 'n'
+替换为 'c') exection - execution (插入 'u')</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li>和字符串匹配之类的差不多，都是
+<strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划 dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和
+word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+</ol>
+<h1 id="dp题解代码">dp题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划  dp[i][j]状态</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span></span><br><span class="line">        <span class="comment">//对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span></span><br><span class="line">        <span class="keyword">int</span> dp[word1.<span class="built_in">size</span>()+<span class="number">1</span>][word2.<span class="built_in">size</span>()+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word2.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[<span class="number">0</span>][i]=i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=word2.<span class="built_in">size</span>();j++)</span><br><span class="line">                <span class="keyword">if</span>(word1[i<span class="number">-1</span>]==word2[j<span class="number">-1</span>])</span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[word1.<span class="built_in">size</span>()][word2.<span class="built_in">size</span>()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -472,7 +577,7 @@ id="总之精髓在于出栈过程从栈顶的右边界一直出栈到满足的�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-72/">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -486,7 +591,7 @@ id="总之精髓在于出栈过程从栈顶的右边界一直出栈到满足的�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+            <a href="/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
         </h2>
 
         <div class="post-meta">
@@ -517,8 +622,8 @@ id="总之精髓在于出栈过程从栈顶的右边界一直出栈到满足的�
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-92/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -533,31 +638,22 @@ id="总之精髓在于出栈过程从栈顶的右边界一直出栈到满足的�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="编辑距离"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/edit-distance">编辑距离</a></h1>
-<p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2
-所使用的最少操作数 。</p>
-<p>你可以对一个单词进行如下三种操作：</p>
-<p>插入一个字符 删除一个字符 替换一个字符 示例 1:</p>
-<p>输入: word1 = "horse", word2 = "ros" 输出: 3 解释: horse - rorse (将
-'h' 替换为 'r') rorse - rose (删除 'r') rose - ros (删除 'e')</p>
-<p>示例 2:</p>
-<p>输入: word1 = "intention", word2 = "execution" 输出: 5 解释:
-intention - inention (删除 't') inention - enention (将 'i' 替换为 'e')
-enention - exention (将 'n' 替换为 'x') exention - exection (将 'n'
-替换为 'c') exection - execution (插入 'u')</p>
+          <h1 id="反转链表"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii">反转链表</a></h1>
+<p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
+<p>说明: 1 ≤ m ≤ n ≤ 链表长度。</p>
+<p>示例:</p>
+<p>输入: 1-2-3-4-5-NULL, m = 2, n = 4 输出: 1-4-3-2-5-NULL</p>
 <h1 id="题目分析">题目分析</h1>
 <ol type="1">
-<li>和字符串匹配之类的差不多，都是
-<strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
-<li>动态规划 dp[i][j]状态</li>
-<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
-<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和
-word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
-<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+<li>反转一段区域，首先肯定想到是一个一个反转 比如2-3-4 先3插前面去 3-2-4
+，然后4插前面去 4-3-2</li>
+<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
+<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
+<li>遍历反转区域元素current，令temp=current-next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-next即可。</li>
 </ol>
-<h1 id="dp题解代码">dp题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划  dp[i][j]状态</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span></span><br><span class="line">        <span class="comment">//对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span></span><br><span class="line">        <span class="keyword">int</span> dp[word1.<span class="built_in">size</span>()+<span class="number">1</span>][word2.<span class="built_in">size</span>()+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word2.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[<span class="number">0</span>][i]=i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=word2.<span class="built_in">size</span>();j++)</span><br><span class="line">                <span class="keyword">if</span>(word1[i<span class="number">-1</span>]==word2[j<span class="number">-1</span>])</span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[word1.<span class="built_in">size</span>()][word2.<span class="built_in">size</span>()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseBetween(ListNode* head, int m, int n) </span><br><span class="line">    &#123;</span><br><span class="line">        int count=1;</span><br><span class="line">        ListNode* temp;</span><br><span class="line">        ListNode* current;</span><br><span class="line">        </span><br><span class="line">        ListNode First(0);</span><br><span class="line">        First.next=head;</span><br><span class="line">        ListNode* pre=&amp;First;</span><br><span class="line">        while(count&lt;m)//pre停在原第m-1个数</span><br><span class="line">        &#123;</span><br><span class="line">            pre=pre-next;</span><br><span class="line">            count++;   </span><br><span class="line">        &#125;</span><br><span class="line">        current=pre-next;//current指向当前处理数</span><br><span class="line">        </span><br><span class="line">        while(count&lt;n)//count计数位，每次将current-next插入到pre-next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current=2 pre=1</span><br><span class="line">        &#123;</span><br><span class="line">            temp=current-next;//保留current后节点，temp=3</span><br><span class="line">            current-next=temp-next;//2-next=4</span><br><span class="line">            temp-next=pre-next;//逆转temp和current的前后关系。3-next=2</span><br><span class="line">            pre-next=temp;//更新pre的后节点，1-next=3</span><br><span class="line">            //current</span><br><span class="line">            count++;//完成[1,3,2,4,5]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return First.next;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -654,102 +750,6 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-
 </ol>
 <h1 id="题解代码">题解代码</h1>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* partition(ListNode* head, int x) </span><br><span class="line">    &#123;   </span><br><span class="line">        //逆向想问题，既然分成了两段，那也可以是两段连成了一段</span><br><span class="line"></span><br><span class="line">        ListNode lefthead(0);</span><br><span class="line">        ListNode* left=&amp;lefthead;</span><br><span class="line">        ListNode righthead(0);</span><br><span class="line">        ListNode* right=&amp;righthead;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        while(head!=NULL)</span><br><span class="line">        &#123;</span><br><span class="line">           if(head-val&lt;x)</span><br><span class="line">           &#123;</span><br><span class="line">               left-next=head;</span><br><span class="line">               left=left-next;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">           &#123;</span><br><span class="line">               right-next=head;</span><br><span class="line">               right=right-next;</span><br><span class="line">           &#125;</span><br><span class="line">           head=head-next;</span><br><span class="line"></span><br><span class="line">          </span><br><span class="line">        &#125;</span><br><span class="line">        right-next=NULL;//注意赋值null，否则下面的链表连接会无限循环超时</span><br><span class="line">        left-next=righthead.next;</span><br><span class="line">        return lefthead.next;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-92/" class="post-title-link" itemprop="url">LeetCode-No-92</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-92/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-92/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="反转链表"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii">反转链表</a></h1>
-<p>反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</p>
-<p>说明: 1 ≤ m ≤ n ≤ 链表长度。</p>
-<p>示例:</p>
-<p>输入: 1-2-3-4-5-NULL, m = 2, n = 4 输出: 1-4-3-2-5-NULL</p>
-<h1 id="题目分析">题目分析</h1>
-<ol type="1">
-<li>反转一段区域，首先肯定想到是一个一个反转 比如2-3-4 先3插前面去 3-2-4
-，然后4插前面去 4-3-2</li>
-<li>怎么移过去呢？观察这个局部链表，可以知道我们每次把要处理的插入到链表头即可。</li>
-<li>因此保留一个pre指向反转区域头部，例如示例中是1</li>
-<li>遍历反转区域元素current，令temp=current-next保存下位，处理好current的前后指向关系，然后把temp插入到链表头，即pre-next即可。</li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* reverseBetween(ListNode* head, int m, int n) </span><br><span class="line">    &#123;</span><br><span class="line">        int count=1;</span><br><span class="line">        ListNode* temp;</span><br><span class="line">        ListNode* current;</span><br><span class="line">        </span><br><span class="line">        ListNode First(0);</span><br><span class="line">        First.next=head;</span><br><span class="line">        ListNode* pre=&amp;First;</span><br><span class="line">        while(count&lt;m)//pre停在原第m-1个数</span><br><span class="line">        &#123;</span><br><span class="line">            pre=pre-next;</span><br><span class="line">            count++;   </span><br><span class="line">        &#125;</span><br><span class="line">        current=pre-next;//current指向当前处理数</span><br><span class="line">        </span><br><span class="line">        while(count&lt;n)//count计数位，每次将current-next插入到pre-next，相当于利用pre做了个栈，[1,2,3,4,5]为例 current=2 pre=1</span><br><span class="line">        &#123;</span><br><span class="line">            temp=current-next;//保留current后节点，temp=3</span><br><span class="line">            current-next=temp-next;//2-next=4</span><br><span class="line">            temp-next=pre-next;//逆转temp和current的前后关系。3-next=2</span><br><span class="line">            pre-next=temp;//更新pre的后节点，1-next=3</span><br><span class="line">            //current</span><br><span class="line">            count++;//完成[1,3,2,4,5]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return First.next;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
