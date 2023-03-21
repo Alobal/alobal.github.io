@@ -208,120 +208,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/09/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8/" class="post-title-link" itemprop="url">矩阵的压缩存储</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-09 18:42:55" itemprop="dateCreated datePublished" datetime="2020-09-09T18:42:55+08:00">2020-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/09/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>矩阵在数据表示中举足轻重。为了方便提取矩阵元素通常都是用二维数组进行存储。但是矩阵并不总是满元素矩阵，里面很多的空元素浪费了很多存储空间，因此有几种特殊矩阵的压缩存储方式。</p>
-<h2 id="对称矩阵">对称矩阵</h2>
-<p>对一个 n 阶方阵，其元素 a_ij=a_ji, 则称其为对称矩阵。</p>
-<p>容易知道，对称矩阵其实只要记录半边的元素即可，使用二维数组会浪费大量空间。</p>
-<p>因此我们使用一个 A[n(n+1)/2] 的一维数组存储按行矩阵下三角部分。即
-A[0] 存储 a_11,A[1] 存储 a_21,A[2] 存储 a_22，A[3] 存储 a_31 ...
-依次按行存储。</p>
-<p>因此下三角元素 a_ij，在 A 中的下标即 k=1+2+ ... + (i-1) + j
--1=i*(i-1)/2+j-1。</p>
-<p>而上三角元素即反转行列序号进行下标计算即可。</p>
-<blockquote>
-<p>注意按行还是按列存储对存储下标计算有影响。</p>
-</blockquote>
-<h2 id="三角矩阵">三角矩阵</h2>
-<p>上/下三角矩阵一样，以下三角矩阵为例。下三角矩阵是下三角有任意元素，但上三角区元素均为同一常量。因此和对称矩阵的存储方式类似，只是在存储完下三角区后，追加一个元素表示上半区的所有元素。</p>
-<p>一维数组 A[n(n+1)/2+1]。下三角区元素 a_ij 下标
-k=i<em>(i-1)/2+j-1，上三角元素下标 k=n</em>(n+1)/2</p>
-<h2 id="三对角矩阵">三对角矩阵</h2>
-<p>三对角矩阵也叫做带状矩阵，矩阵内元素 a_ij, 当|i-j|&gt;1
-时，a_ij=0。即所有元素集中在主对角线中心的三条对角线上，其余元素为
-0。</p>
-<p>易知存储上首行和末行只有两个元素，其余每行有三个元素。因此也可以使用
-A[3*(n-2)+4] 的一维数组进行存储。</p>
-<p>A 中元素 a_ij 的存储下标 k=2i+j-3。</p>
-<h2 id="稀疏矩阵">稀疏矩阵</h2>
-<p>矩阵非零元素比零元素少得多得多，即为稀疏矩阵。例如 521X521
-的矩阵中，只有 802 个非零元素。</p>
-<p>因此我们肯定选择只存储非零元素即可，但是非零元素不像上面几个一样有分布规律，因此这里还需要记录非零元素的位置信息。</p>
-<p>所以采用三元组方式存储，每个存储结构保存位置 i，j，以及值
-v。至于实现可以采用结构体数组或是十字链表法。</p>
-<blockquote>
-<p>矩阵压缩的题目大多都是计算下标，注意按行按列的存储方式，注意矩阵起始下标是
-1 还是 0，注意存储数组的起始下标是 1 还是 0。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/09/09/%E9%98%85%E8%AF%BB-Covid-Children/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -750,6 +636,107 @@ the famous Wolfe Creek crater in the Kimberley.</p>
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/09/03/%E9%98%85%E8%AF%BB-cosmic-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/03/%E9%98%85%E8%AF%BB-cosmic-event/" class="post-title-link" itemprop="url">阅读：cosmic event</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-03 08:18:47" itemprop="dateCreated datePublished" datetime="2020-09-03T08:18:47+08:00">2020-09-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/03/%E9%98%85%E8%AF%BB-cosmic-event/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/03/%E9%98%85%E8%AF%BB-cosmic-event/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1
+id="it-just-sounds-like-a-thud-astronomers-hear-biggest-cosmic-event-since-big-bang">'It
+just sounds like a thud': astronomers hear biggest
+<strong>cosmic</strong> event since big bang</h1>
+<p>“就像雷鸣一样”：天文学家听到了自宇宙大爆炸以来最大的宇宙事件</p>
+<p>Scientists have announced the detection of a signal from a long-ago
+collision between two black holes that created a new one of a size never
+seen before.</p>
+<p>科学家们宣布检测到了一个来自远古的两个黑洞的碰撞信号，这个碰撞创造了一个前所未有的尺寸的新黑洞。</p>
+<p>"It’s the biggest bang since the big bang observed by humanity," said
+Caltech professor of physics Alan Weinstein, who was part of the
+discovery team.</p>
+<p>“这是人类观测到的自宇宙大爆炸以来最大的一次冲击，”勘测团队中的一员，Caltech
+物理教授 Alan Weinstein 说道。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/03/%E9%98%85%E8%AF%BB-cosmic-event/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -821,7 +808,7 @@ the famous Wolfe Creek crater in the Kimberley.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

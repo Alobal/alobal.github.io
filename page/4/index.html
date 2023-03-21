@@ -357,144 +357,6 @@ of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/" class="post-title-link" itemprop="url">点云深度学习写作素材</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-06 14:55:23" itemprop="dateCreated datePublished" datetime="2022-01-06T14:55:23+08:00">2022-01-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="introduction">Introduction</h1>
-<p>近年来，由于深度学习和计算机视觉领域取得的进展，以及在人机交互、老年人护理和医疗保健援助以及视频监控方面的应用，人类动作识别正获得越来越多的兴趣。最近在3D深度相机方面的进展，如微软Kinect
-(Zhang, 2012)和英特尔RealSense
-(Keselman等人，2017)传感器，以及先进的人体姿态估计算法(Cao等人，2019)，使得使用廉价设备快速准确地进行三维估计成为可能。</p>
-<p>Human Action Recognition is achieving increasing interest in recent
-years for the progress achieved in deep learning and computer vision and
-for the interest of its applications in human–computer interaction,
-eldercare and healthcare assistance, as well as video surveillance. Re-
-cent advances in 3D depth cameras such as Microsoft Kinect (Zhang, 2012)
-and Intel RealSense (Keselman et al., 2017) sensors, and ad- vanced
-human pose estimation algorithms (Cao et al., 2019) made it possible to
-estimate 3D skeleton coordinates quickly and accurately with cheap
-devices.</p>
-<h2 id="d数据格式">3D数据格式</h2>
-<p>3D Data Representation Real scanned data has a collection of 3D point
-coordinates. To adapt the data for con- volution, one straightforward
-approach is to voxelize it in a 3D grid structure [16, 23]. However, the
-representation is clearly inefficient, since most voxels are usually
-unoccupied. Later, OctNet [21] explored the sparsity of voxel data and
-alleviated this problem. However, the memory occupancy is still high
-when it comes to deeper neural networks. Moreover, since voxels are
-discrete representation of space, this method still requires high
-resolution grids with large memory consumption as a trade-off to keep a
-level of representation quality. Another common 3D representation is in
-multi-view [19, 24, 25], where the point data is projected to various
-specific image planes in the 3D space to form 2D images. By this means,
-point data can be processed using conventional convolution on 2D images.
-This approach, however, ignores the intrinsic geometric relationship of
-3D points, and the choice of image planes could heavily affect results.
-Occluded parts in the 3D data due to projection are not handled.</p>
-<h1 id="静态点云">静态点云</h1>
-<p>静态点云分析已经广泛应用在了多个任务之上，如分类，部件分割，语义分割等。(Qi
-et al., 2017a;b; Li et al., 2018b;Wu et al., 2019; Thomas et al.,
-2019;Wang et al.,
-2019),近期大部分工作都致力于直接处理点云，而不是转换成体素网格之类的。由于点云本质上是一个无序点集，具有置换不变性，因此静态点云的处理方法都需要着力于设计一个与点的顺序无关的空间操作。</p>
-<p>Static point cloud analysis has been widely investigated for many
-problems, such as classification, object part segmentation, scene
-semantic segmentation(Qi et al., 2017a;b; Li et al., 2018b;Wu et al.,
-2019; Thomas et al., 2019;Wang et al., 2019),</p>
-<p>Most recent works aim to directly manipulate point sets without
-transforming coordinates into regular voxel grids. Since a point cloud
-is essentially a set of unordered points and invariant to permutations
-of its points, static point cloud processing methods mainly focus on
-designing effective point based spatial correlation operations that do
-not rely on point orderings.</p>
-<p>These Lagrangian representations are challenging for learning methods
-due to their unordered nature, but are highly useful in a variety of
-settings from geometry processing and 3D scanning to physical
-simulations, and since the seminal work of Qi Charles et al. (2017), a
-range of powerful inference tasks can be achieved based on point
-sets.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/06/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%86%99%E4%BD%9C%E7%B4%A0%E6%9D%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/06/PSTNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -801,6 +663,111 @@ IT 领域获得了前所未有的热度，也获得了产业界和投资圈的�
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/30/DDGCN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/30/DDGCN/" class="post-title-link" itemprop="url">DDGCN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-30 10:01:43" itemprop="dateCreated datePublished" datetime="2021-12-30T10:01:43+08:00">2021-12-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/30/DDGCN/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/DDGCN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>DDGCN: A Dynamic Directed Graph Convolutional Network for Action
+Recognition</p>
+<ul>
+<li>Korban M, Li X. Ddgcn: A dynamic directed graph convolutional
+network for action recognition[C]//European Conference on Computer
+Vision. Springer, Cham, 2020: 761-776.</li>
+<li>University of Virginia</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>之前的时空图网络(ST
+graph)有着以下两点局限性：第一，人体骨架确实有时空联系性，但是这种联系在不同的人体动作下是不一样的。因此怎么有效地提取这种联系是困难的。传统的GCN卷积方法是静态的，无法描述动态时空结构。第二，骨架的空间层级结构和动作的时间序列结构都包含了顺序信息，然而大多数ST
+graph都是用了无向图结构，即无视了顺序信息。</p>
+<p>DDGCN提出用于自适应学习时空关系和动作的时空顺序信息。</p>
+<ul>
+<li>Dynamic Convolutional Sampling (DCS)</li>
+<li>Dynamic Convolutional Weights (DCW)</li>
+<li>Directed Spatial-Temporal Graph (DSTG) Features</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/30/DDGCN/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -872,7 +839,7 @@ IT 领域获得了前所未有的热度，也获得了产业界和投资圈的�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
