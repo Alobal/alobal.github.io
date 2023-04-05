@@ -54,6 +54,10 @@
 <meta property="og:image" content="https://i.imgur.com/NE0XABU.png">
 <meta property="og:image" content="https://i.imgur.com/zXpHetx.png">
 <meta property="og:image" content="https://i.imgur.com/gtCaHFs.png">
+<meta property="og:image" content="https://i.imgur.com/ohfXXMp.png">
+<meta property="og:image" content="https://i.imgur.com/1OGOb3t.png">
+<meta property="og:image" content="https://i.imgur.com/K8I1K4I.png">
+<meta property="og:image" content="https://i.imgur.com/RhcgMtJ.png">
 <meta property="og:image" content="https://i.imgur.com/i9xSHaC.png">
 <meta property="og:image" content="https://i.imgur.com/by9hU75.png">
 <meta property="og:image" content="https://i.imgur.com/CbvUBIo.png">
@@ -1122,6 +1126,55 @@ attentions[J]. The Visual Computer, 2020, 36(9): 1771-1781.</li>
 <figcaption aria-hidden="true">CT CS ST attention</figcaption>
 </figure>
 <h2 id="基础设施">基础设施</h2>
+<h3 id="deep-metric-learning-a-survey">deep metric learning a
+survey</h3>
+<ul>
+<li>Kaya M, Bilge H Ş. Deep metric learning: A survey[J]. Symmetry,
+2019, 11(9): 1066.</li>
+</ul>
+<p>度量学习概述。传统的度量学习需要采用各种核方法来将数据转换到一个特征空间中，然后进行合适的距离度量。传统方式的缺点很明显，对于很多数据我们难以找到一个合适的变换方法来进行特征降维，另一方面对于多样化的相似度计算也难以囊括：如文本语义相似度。借助于深度学习强大的抽象能力，近期的度量学习研究基本都是受Siamese和Triplet的深度度量网络启发，使用深度学习来代替传统的手工构造核函数。</p>
+<figure>
+<img src="https://i.imgur.com/ohfXXMp.png" alt="深度度量学习框架" />
+<figcaption aria-hidden="true">深度度量学习框架</figcaption>
+</figure>
+<figure>
+<img src="https://i.imgur.com/1OGOb3t.png" alt="深度度量学习效果示意" />
+<figcaption aria-hidden="true">深度度量学习效果示意</figcaption>
+</figure>
+<p>深度度量学习Pipeline难点主要分为两部分：</p>
+<ol type="1">
+<li>样本选择/数据集分割</li>
+</ol>
+<p>虽然最朴实的数据集分割方式是随机比例划分，但是在度量学习中，一方面由于我们的正样本对<span
+class="math inline">\(X\)</span>、<span
+class="math inline">\(X+\)</span>通常有限，而相对的负样本对<span
+class="math inline">\(X\)</span>、<span
+class="math inline">\(X-\)</span>会多很多，那么对于三元组合<span
+class="math inline">\(X\)</span>、<span
+class="math inline">\(X+\)</span>、<span
+class="math inline">\(X-\)</span>中，<span
+class="math inline">\(X+\)</span>会重复很多很多次，容易导致一定程度上的过拟合。</p>
+<p>另一方面，如果组合所有可能的情况去训练的话会有<span
+class="math inline">\(O(n_{sample}^3)\)</span>的组合数量级，这在时间上是难以接受的。</p>
+<p>而且，有些输入的pair的区分价值很小，会导致浪费计算效率，而寻找区分价值大的pair也能使网络在有限的训练中得到最好的测试效果。因此，业界提出了hard
+、semi-hard、easy三个层次的数据划分。以同类的距离为标志，hard处于同类距离以内，但其实是不同类数据，semi-hard和easy则以同类范围以外的一个margin作为边界划分。</p>
+<figure>
+<img src="https://i.imgur.com/K8I1K4I.png"
+alt="寻找困难负样本 hard negative mining" />
+<figcaption aria-hidden="true">寻找困难负样本 hard negative
+mining</figcaption>
+</figure>
+<ol start="2" type="1">
+<li>损失函数设计</li>
+</ol>
+<p>由于度量网络和普通的识别网络任务目标不同，其希望把所有同类的距离尽可能弄小，然后所有异类的距离尽可能弄大，因此单纯的使用交叉熵之类的多分类损失函数不可行。这一部分已经有比较充足的发展：</p>
+<figure>
+<img src="https://i.imgur.com/RhcgMtJ.png"
+alt="几种度量网络损失函数。ab是标准的目标设计。c希望在ab的基础上细分异类样本为：较为相似的异类、不相似的异类，加强区分效果。e认为一次只在n-1个异类中取一个负样本不合适，因此改为一次取n个输入，其中1个正样本，n-1个负样本。gf则是以cluster的视角来看待问题。其中f强调对类的重叠进行惩罚。h则是一个3倍版的Triplet Loss." />
+<figcaption
+aria-hidden="true">几种度量网络损失函数。ab是标准的目标设计。c希望在ab的基础上细分异类样本为：较为相似的异类、不相似的异类，加强区分效果。e认为一次只在n-1个异类中取一个负样本不合适，因此改为一次取n个输入，其中1个正样本，n-1个负样本。gf则是以cluster的视角来看待问题。其中f强调对类的重叠进行惩罚。h则是一个3倍版的Triplet
+Loss.</figcaption>
+</figure>
 <h3 id="human-motion-analysis-metric">Human motion analysis metric</h3>
 <ul>
 <li>Coskun H, Tan D J, Conjeti S, et al. Human motion analysis with deep
@@ -1160,12 +1213,31 @@ class="math inline">\(\alpha\)</span>则是一个需要寻找的超参数，判�
 \]</span></p>
 <p>另外为了避开<span
 class="math inline">\(\alpha\)</span>这个超参数，这篇论文提出了Neighbourhood
-Components Analysis(NCA)方法来改造损失函数：</p>
+Components Analysis(NCA)方法来改造损失函数。</p>
 <p><span class="math display">\[
 \mathcal{L}_{\mathrm{NCA}}=\frac{\exp
 \left(-\left\|f(X)-f\left(X^{+}\right)\right\|^2\right)}{\sum_{X-\epsilon
 C} \exp \left(-\left\|f(X)-f\left(X^{-}\right)\right\|^2\right)}
 \]</span></p>
+<blockquote>
+<p>NCA本质上是一种邻居投票方法。首先计算<span
+class="math inline">\(X_i\)</span>的邻居<span
+class="math inline">\(X_j\)</span>的分布概率<span
+class="math inline">\(p_{ij}\)</span>为： <span class="math display">\[
+\mathcal{L}_{\mathrm{NCA}}=\frac{\exp \left(-\left\|f(X_i)-f\left( X_j
+\right)\right\|^2\right)}{\sum_{X_k \epsilon C} \exp
+\left(-\left\|f(X_i)-f\left(X_k \right)\right\|^2\right)}\]</span>
+有了<span
+class="math inline">\(p_{ij}\)</span>之后，我们可以在邻域内采样，例如假如采样到<span
+class="math inline">\(X_j\)</span>，那就认为当前的<span
+class="math inline">\(X_i\)</span>的标签是<span
+class="math inline">\(y_j\)</span>。而当<span
+class="math inline">\(y_j=y_i\)</span>时，那么这种采样投票就是正确的，因此最终的采样投票正确概率为：
+<span class="math display">\[p_i=\sum_{j \in C}p_ij\]</span>
+其中C为所有投票正确的邻居，进而整个网络的目标就是让所有的<span
+class="math inline">\(p_i\)</span>尽可能的大，即： <span
+class="math display">\[p_i=\sum_{i=1}^n  \sum_{j \in C}p_ij\]</span></p>
+</blockquote>
 <p>最后result的衡量方式使用false positive rate(FPR)。</p>
 <h3 id="transformer">Transformer</h3>
 <ul>
@@ -1544,10 +1616,11 @@ Body and Hand Gesture Recognition for Natural Human-Computer
 Interaction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%B6%E4%BB%96%E4%B8%89%E7%BB%B4%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">基于其他三维数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dgcnn"><span class="nav-number">3.1.</span> <span class="nav-text">DGCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ddgcn-a-dynamic-directed-graph-convolutional-network-for-action-recognition"><span class="nav-number">3.2.</span> <span class="nav-text">DDGCN:
 A Dynamic Directed Graph Convolutional Network for Action
 Recognition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skeletontransformer"><span class="nav-number">3.3.</span> <span class="nav-text">SkeletonTransformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dv"><span class="nav-number">3.4.</span> <span class="nav-text">3DV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#histogram-of-motion-trajectory-feature"><span class="nav-number">3.5.</span> <span class="nav-text">Histogram of motion
-trajectory feature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-rans"><span class="nav-number">3.6.</span> <span class="nav-text">3D RANs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fine-grained"><span class="nav-number">3.7.</span> <span class="nav-text">Fine-grained</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">4.</span> <span class="nav-text">基础设施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#human-motion-analysis-metric"><span class="nav-number">4.1.</span> <span class="nav-text">Human motion analysis metric</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer"><span class="nav-number">4.2.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#external-attention"><span class="nav-number">4.3.</span> <span class="nav-text">External Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vision-transformer-vit"><span class="nav-number">4.4.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swim-transformer"><span class="nav-number">4.5.</span> <span class="nav-text">Swim Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">4.6.</span> <span class="nav-text">Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-layer-normalization"><span class="nav-number">4.7.</span> <span class="nav-text">Pre Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localvit"><span class="nav-number">4.8.</span> <span class="nav-text">LocalViT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobilenet"><span class="nav-number">4.9.</span> <span class="nav-text">MobileNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet"><span class="nav-number">4.10.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.11.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96"><span class="nav-number">4.12.</span> <span class="nav-text">训练优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can-attention-enable-mlps-to-catch-up-with-cnns"><span class="nav-number">4.13.</span> <span class="nav-text">Can attention
-enable MLPs to catch up with CNNs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#action-recognition-based-on-a-bag-of-3d-points"><span class="nav-number">4.14.</span> <span class="nav-text">Action
-recognition Based on A Bag of 3D Points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dpdist-comparing-point-clouds-using-deep-point-cloud-distance"><span class="nav-number">4.15.</span> <span class="nav-text">DPDist:
-Comparing Point Clouds Using Deep Point Cloud Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese-neural-network-triplet-network"><span class="nav-number">4.16.</span> <span class="nav-text">Siamese Neural Network
+trajectory feature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-rans"><span class="nav-number">3.6.</span> <span class="nav-text">3D RANs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fine-grained"><span class="nav-number">3.7.</span> <span class="nav-text">Fine-grained</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="nav-number">4.</span> <span class="nav-text">基础设施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#deep-metric-learning-a-survey"><span class="nav-number">4.1.</span> <span class="nav-text">deep metric learning a
+survey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#human-motion-analysis-metric"><span class="nav-number">4.2.</span> <span class="nav-text">Human motion analysis metric</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer"><span class="nav-number">4.3.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#external-attention"><span class="nav-number">4.4.</span> <span class="nav-text">External Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vision-transformer-vit"><span class="nav-number">4.5.</span> <span class="nav-text">Vision Transformer (ViT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swim-transformer"><span class="nav-number">4.6.</span> <span class="nav-text">Swim Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">4.7.</span> <span class="nav-text">Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-layer-normalization"><span class="nav-number">4.8.</span> <span class="nav-text">Pre Layer Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localvit"><span class="nav-number">4.9.</span> <span class="nav-text">LocalViT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobilenet"><span class="nav-number">4.10.</span> <span class="nav-text">MobileNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet"><span class="nav-number">4.11.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.12.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BC%98%E5%8C%96"><span class="nav-number">4.13.</span> <span class="nav-text">训练优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can-attention-enable-mlps-to-catch-up-with-cnns"><span class="nav-number">4.14.</span> <span class="nav-text">Can attention
+enable MLPs to catch up with CNNs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#action-recognition-based-on-a-bag-of-3d-points"><span class="nav-number">4.15.</span> <span class="nav-text">Action
+recognition Based on A Bag of 3D Points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dpdist-comparing-point-clouds-using-deep-point-cloud-distance"><span class="nav-number">4.16.</span> <span class="nav-text">DPDist:
+Comparing Point Clouds Using Deep Point Cloud Distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#siamese-neural-network-triplet-network"><span class="nav-number">4.17.</span> <span class="nav-text">Siamese Neural Network
 &amp; Triplet Network</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
