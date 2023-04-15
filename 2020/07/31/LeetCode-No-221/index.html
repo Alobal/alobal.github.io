@@ -242,7 +242,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -302,7 +302,7 @@ a a a x a a a x a a a x x x x 1</p>
 <p>当我们把正方形延展到[i][j]位时，其实[i]行和[j]列对应边也都扩展进去了，也就是上例的
 x 区域，也要是1才能延展构成新正方形。</p>
 <h5
-id="即我们现在知道延展正方形受限于哪些环境">即我们现在知道延展正方形受限于哪些环境：</h5>
+id="即我们现在知道延展正方形受限于哪些环境">即我们现在知道延展正方形受限于哪些环境</h5>
 <ul>
 <li><p>左上角的 a 区域的正方形有多大，新正方形则是边长++</p></li>
 <li><p>x 区域，从[i][j]分别往左和往上走，能提供的最大边长。</p>
@@ -403,7 +403,7 @@ id="即我们现在知道延展正方形受限于哪些环境">即我们现在�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2"><span class="nav-number">1.</span> <span class="nav-text">最大正方形</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">算法思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">2.0.1.</span> <span class="nav-text">状态转移方程的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E5%BB%B6%E5%B1%95%E8%BF%99%E4%B8%AA%E6%AD%A3%E6%96%B9%E5%BD%A2%E5%91%A2"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">我们什么时候可以延展这个正方形呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B3%E6%88%91%E4%BB%AC%E7%8E%B0%E5%9C%A8%E7%9F%A5%E9%81%93%E5%BB%B6%E5%B1%95%E6%AD%A3%E6%96%B9%E5%BD%A2%E5%8F%97%E9%99%90%E4%BA%8E%E5%93%AA%E4%BA%9B%E7%8E%AF%E5%A2%83"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">即我们现在知道延展正方形受限于哪些环境：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%97%E5%87%BA%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">2.0.1.0.3.</span> <span class="nav-text">得出状态转移方程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">题解代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2"><span class="nav-number">1.</span> <span class="nav-text">最大正方形</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">算法思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">2.0.1.</span> <span class="nav-text">状态转移方程的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E5%BB%B6%E5%B1%95%E8%BF%99%E4%B8%AA%E6%AD%A3%E6%96%B9%E5%BD%A2%E5%91%A2"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">我们什么时候可以延展这个正方形呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B3%E6%88%91%E4%BB%AC%E7%8E%B0%E5%9C%A8%E7%9F%A5%E9%81%93%E5%BB%B6%E5%B1%95%E6%AD%A3%E6%96%B9%E5%BD%A2%E5%8F%97%E9%99%90%E4%BA%8E%E5%93%AA%E4%BA%9B%E7%8E%AF%E5%A2%83"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">即我们现在知道延展正方形受限于哪些环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%97%E5%87%BA%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">2.0.1.0.3.</span> <span class="nav-text">得出状态转移方程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">题解代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -419,14 +419,14 @@ id="即我们现在知道延展正方形受限于哪些环境">即我们现在�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

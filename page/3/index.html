@@ -532,112 +532,6 @@ convolution，对点云序列的时空局部结构进行embedding处理。并且
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%B9%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%B9%A6/" class="post-title-link" itemprop="url">点云序列深度学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-15 11:24:12" itemprop="dateCreated datePublished" datetime="2022-01-15T11:24:12+08:00">2022-01-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%B9%A6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%B9%A6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="点云数据格式">点云数据格式</h1>
-<p>目前已有的大部分视觉识别工作都是在二维的基础上，而二维图像数据，本质上对环境鲁棒性不强，很容易受到光照等因素的影响。相对来说，三维数据则更好的描述了物体的几何结构信息，而且对环境影响更加鲁棒。</p>
-<p>点云是三维传感器的原始数据，同时表示格式简单。如果选择其他三维描述格式可能会损失很多精度，例如图像只能表达一个视角的3D数据。对于Mesh，可能要选择面片类型，面片大小，连接方式。对于网格，要选择网格大小，大了会损失精度。</p>
-<p>传统的点云特征都是人对于特定任务进行手工构造的，对于一个新的任务很难去继续使用这样的特征，因此进入到了深度学习时代，希望通过<strong>深度学习自动学习特征</strong>。</p>
-<p>点云是一种<strong>不规则</strong>的数据，因此有几种转换点云的方法来深度学习。</p>
-<p><strong>栅格化</strong>：的方式来表示点云，然后可以使用3D
-CNN[1]来抽取特征。然而有一些很大的缺点：</p>
-<ul>
-<li>3D CNN
-计算量非常大，空间时间复杂度随着分辨率都是三次方增长。因此分辨率提不了多高，一般30x30x30。</li>
-<li>量化噪声错误，本质上限制了识别精确度。</li>
-</ul>
-<figure>
-<img src="https://i.imgur.com/jsKaCiq.png" alt="栅格化点云" />
-<figcaption aria-hidden="true">栅格化点云</figcaption>
-</figure>
-<p><strong>投影法</strong>：将三维数据投影到二维平面，然后用2DCNN处理[11]，然而如何选择投影的方式，角度，都不是一个简单的问题。同时投影本质上也会丢失一些三维信息。</p>
-<p><strong>手工提取点云特征，再简单的应用全连接</strong>：然而这种网络的性能被手工特征的局限给限制住了，而不理想。</p>
-<p>近期的趋势则是<strong>直接在点云数据格式上进行深度学习</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/15/%E7%82%B9%E4%BA%91%E5%BA%8F%E5%88%97%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%B9%A6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -759,10 +653,159 @@ abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/08/SkeletonTransformer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/08/SkeletonTransformer/" class="post-title-link" itemprop="url">SkeletonTransformer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-08 11:23:55" itemprop="dateCreated datePublished" datetime="2022-01-08T11:23:55+08:00">2022-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/08/SkeletonTransformer/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/08/SkeletonTransformer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Plizzari C, Cannici M, Matteucci M. Skeleton-based action
+recognition via spatial and temporal transformer networks[J]. Computer
+Vision and Image Understanding, 2021, 208: 103219.</li>
+<li>Politecnico di Torino 意大利都灵理工大学</li>
+<li>Q3</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>尽管ST-GCN的结构已经在骨架动作识别中广泛应用，但是仍然有一些结构上的缺陷。</p>
+<p>本文设计了Spatial Self-Attention (SSA)
+模块，用于在骨架之间动态的建立联系，而独立于人体真实骨架结构。另外在时间维度上设计了Temporal
+Self-Attention (TSA)模块用于学习关节在时间上的变化。</p>
+<h1 id="spatialtemporal-transformer-st-tr">Spatial–Temporal Transformer
+(ST-TR)</h1>
+<p>Self-Attention最初的灵感是希望对句子中单词进行跨越距离的相关性编码。因此本文希望同样的方式也可以应用到骨架节点上。</p>
+<p><strong>空间上</strong>：节点之间的相关性是很重要的，<strong>因此抛弃了任何预定义的骨架结构</strong>，让self-attention自动查找关节关系，类似于动态边的图卷积。</p>
+<p><strong>时间上</strong>：也希望通过self-attention查找出不同帧的关系。</p>
+<figure>
+<img src="https://i.imgur.com/MYJ50cH.png"
+alt="时空两个Self-Attention，两者都使用了多头注意力机制" />
+<figcaption
+aria-hidden="true">时空两个Self-Attention，两者都使用了多头注意力机制</figcaption>
+</figure>
+<h2 id="spatial-self-attention-ssa">Spatial Self-Attention (SSA)</h2>
+<figure>
+<img src="https://i.imgur.com/7XzfJ4V.png" alt="SSA" />
+<figcaption aria-hidden="true">SSA</figcaption>
+</figure>
+<p>类似于文本的self-Attention，抛开图结构，对关节点进行注意力计算。，最终输出这个关节点经过注意力编码的特征：</p>
+<p><span class="math display">\[
+\mathbf{z}_{i}^{t}=\sum_{j}
+\operatorname{softmax}_{j}\left(\frac{\alpha_{i
+j}^{t}}{\sqrt{d_{\mathrm{k}}}}\right) \mathbf{v}_{j}^{t}
+\]</span></p>
+<figure>
+<img src="https://i.imgur.com/4eAkiFl.png" alt="详细结构" />
+<figcaption aria-hidden="true">详细结构</figcaption>
+</figure>
+<h2 id="temporal-self-attention-tsa">Temporal Self-Attention (TSA)</h2>
+<p>在时间计算中，每个关节点被视为独立的存在，去计算帧之间的注意力关联性：</p>
+<p><span class="math display">\[
+\alpha_{t u}^{v}=\mathbf{q}_{t}^{v} \cdot \mathbf{k}_{u}^{v} \quad
+\forall v \in V, \quad \mathbf{z}_{t}^{v}=\sum_{j}
+\operatorname{softmax}_{u}\left(\frac{\alpha_{t
+u}^{v}}{\sqrt{d_{\mathrm{k}}}}\right) \mathbf{v}_{u}^{v},
+\]</span></p>
+<h2 id="two-stream-spatialtemporal-transformer-st-tr-network">Two-Stream
+Spatial–Temporal Transformer (ST-TR) Network</h2>
+<figure>
+<img src="https://i.imgur.com/MqxcnCa.png" alt="ST-TR" />
+<figcaption aria-hidden="true">ST-TR</figcaption>
+</figure>
+<p>为了结合SSA和TSA模块，构造了一个 two-stream
+architecture(ST-TR)。SSA和TSA分别独立在S-TR stream和 T-TR
+stream进行应用，然后再融合。(Shi et al. 2019)</p>
+<p>两个streams中都先应用了三层的残差网络对特征进行提取。S-TR中在空间上使用了GCN进行提取特征，T-TR中使用了标准的2D卷积(TCN,Yan
+et al. 2018)。</p>
+<p>然后在后续的S-TR模块，T-TR模块(结构如上图)处理中分别用SSA和TSA来替换GCN和TCN。</p>
+<p>最后在经历一系列S-TR ,
+T-TR模块的处理后，通过累加起两个stream的softmax输出来获得最终的score。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] Shi, L., Zhang, Y., Cheng, J., Lu, H., 2019b. Two-stream adaptive
+graph convolutional networks for skeleton-based action recognition. In:
+Proceedings of the IEEE Conference on Computer Vision and Pattern
+Recognition. pp. 12026–12035.</p>
+<p>[2] Shi, L., Zhang, Y., Cheng, J., Lu, H., 2019a. Skeleton-based
+action recognition with directed graph neural networks. In: Proceedings
+of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
+7912–7921.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -830,14 +873,14 @@ abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
