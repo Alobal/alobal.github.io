@@ -208,503 +208,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">二叉树的四种遍历（迭代法）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-24 19:33:33" itemprop="dateCreated datePublished" datetime="2020-07-24T19:33:33+08:00">2020-07-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>假定树结构如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> </span></span><br><span class="line"><span class="class"> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="keyword">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">NULL</span>), <span class="built_in">right</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>递归思路很简单，只记录迭代思路。</p>
-<h1 id="前序遍历">前序遍历</h1>
-<p>先根，再左结点，再右结点。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    </span><br><span class="line">    stack&lt;TreeNode*&gt; s;</span><br><span class="line">    s.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode * current=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();</span><br><span class="line">        result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">        <span class="keyword">if</span>(current-&gt;right) s.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(current-&gt;left) s.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="中序遍历">中序遍历</h1>
-<p>先左，再根，再右。</p>
-<p>迭代时注意没有对左结点的输出，是把左结点继续往下看，看成以它为根的树根结点，然后统一用输出根结点的方式输出所有结点。</p>
-<blockquote>
-<p>根节点同时也是根父节点的左子结点，因此回溯上去的时候顺序是”父（左）-右“、”父（左）-右“。</p>
-<p>即输出当前根，然后进入右树，然后往上一层，此时上一层的左树就是刚刚解决好的。因此继续同样的"根
-- 右"顺序进行遍历。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    stack&lt;TreeNode*&gt; mem;</span><br><span class="line">    TreeNode *current=root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!mem.<span class="built_in">empty</span>()||current)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//左节点压栈</span></span><br><span class="line">        <span class="keyword">while</span>(current)</span><br><span class="line">        &#123;</span><br><span class="line">            mem.<span class="built_in">push</span>(current);</span><br><span class="line">            current=current-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        current=mem.<span class="built_in">top</span>();mem.<span class="built_in">pop</span>();<span class="comment">//输出当前子树根结点</span></span><br><span class="line">        result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">        current=current-&gt;right;<span class="comment">//进入当前子树右树</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="后序遍历">后序遍历</h1>
-<p>先左，再右，最后根。</p>
-<p>和中序遍历一样，首先要走到左树最深处。但是迭代很难控制从下一层返回上来的时候，不再压栈子结点，因此需要在第一次压栈时，断开根结点和子节点的链接。</p>
-<ol type="1">
-<li><p>取当前结点，先找左子树，左子树里面同样还要找左子树啊，因此是while找下去。</p></li>
-<li><p>直至左子树为NULL，再找右子树，注意右子树里面优先找的是<strong>左子树</strong>，因此<strong>不能while</strong>持续找右子树，而是进入右子树后当作全新的树，再同样的查找。</p></li>
-<li><p>迭代到某个结点后，左子树为NULL，右子树也为NULL，递归迭代停止，终于可以作为根结点进行输出了。</p></li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    stack&lt;TreeNode*&gt; s;<span class="comment">//递归栈</span></span><br><span class="line">    TreeNode* current;<span class="comment">//当前处理结点</span></span><br><span class="line">    s.<span class="built_in">push</span>(root);<span class="comment">//初始化栈</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        current=s.<span class="built_in">top</span>();<span class="comment">//取结点</span></span><br><span class="line">        root=current;<span class="comment">//保留父结点，后续断开连接要用</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//先遍历这结点的左结点，左左结点，左左左...结点</span></span><br><span class="line">        <span class="keyword">while</span>(current-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">            current=current-&gt;left;</span><br><span class="line">            root-&gt;left=<span class="literal">NULL</span>;<span class="comment">//断开连接，避免返回到这个结点时又递归左树死循环</span></span><br><span class="line">            root=current;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//然后进入右子树，注意进入右子树后还是优先找左子子树，因此不能无脑压栈右子树。</span></span><br><span class="line">        <span class="keyword">if</span>(current-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">            current=current-&gt;right;</span><br><span class="line">            root-&gt;right=<span class="literal">NULL</span>;</span><br><span class="line">            root=current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//已经走到最左端了，作为最外面的子树，它的左结点必然是空，并且else说明右子树也空，则可以输出自己了。</span></span><br><span class="line">        &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="层序遍历">层序遍历</h1>
-<p>即逐层的 从左到右访问所有结点。</p>
-<p>算法上主要是遍历一个结点，先把左右子节点装进去。</p>
-<p>值得考虑的是，怎么把每层结果分开？使用一个length在每层开始，检查队列长度获得该层长度，这样后面加入的子节点就不在长度范围内。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    vector&lt;vecotr&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">    queue&lt;TreeNode*&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(root);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())<span class="comment">//队列不空</span></span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">        <span class="keyword">int</span> length=q.<span class="built_in">size</span>();<span class="comment">//获取当前层结点</span></span><br><span class="line">        TreeNode* current=q.<span class="built_in">front</span>();q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)<span class="comment">//分层计数</span></span><br><span class="line">        &#123;       </span><br><span class="line">            <span class="keyword">if</span>(current!=<span class="literal">NULL</span>)<span class="comment">//当前为有效结点，加入result，检查子节点</span></span><br><span class="line">            &#123;</span><br><span class="line">                temp.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">                <span class="keyword">if</span>(current-&gt;left) q.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(current-&gt;right) q.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.<span class="built_in">push_back</span>(temp);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Hexo+Next7.8 功能性配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 01:36:25" itemprop="dateCreated datePublished" datetime="2020-07-23T01:36:25+08:00">2020-07-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>环境信息：</p>
-<ul>
-<li>Next 7.8.0</li>
-<li>hexo 4.2.1</li>
-<li>npm 6.14.5</li>
-<li>Next 配置文件指 **项目根目录/themes/next/_config.yml**</li>
-<li>项目配置文件指 **项目根目录/_config.yml**</li>
-<li>安装命令没特别说明都在 项目根目录 下进行</li>
-<li>注意在配置文件中配置字段时，请严格控制缩进</li>
-</ul>
-<p><strong>请根据目录章节按需阅读。所有配置都建立在2020年 7.8
-版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
-<blockquote>
-<p>在吗？吐槽无数遍，2020 的人为什么写博客还抄的 Next4.0
-版本！就算你不想用 2020 大改版的版本，好歹和我一样用个 7.8
-吧！！至少来个 7.0+吧孩子们！！退一万步 6.0+也是可以的啊！！</p>
-</blockquote>
-<p>一些比较常规的功能性配置 Next
-文档里都有的。虽然是英文文档，虽然可能和你的版本有一点点不同，但它是基本跟着最新版本，比较全面。另外可以多摸摸
-Next
-配置文件，里面注释写的蛮详细的，有些东西看注释就知道能开启什么功能，当然，有很多功能需要额外插件支持。</p>
-<p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/">Next 官方手册</a></p>
-<p>友情建议：进行较大更改之前，先通过git等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式再生成，并且最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" class="post-title-link" itemprop="url">LeetCode_剑指Offer No.39</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-20 23:50:03" itemprop="dateCreated datePublished" datetime="2020-07-20T23:50:03+08:00">2020-07-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="求数组中的众数"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof">求数组中的众数</a></h1>
-<p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
-<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
-<p>示例 1:</p>
-<p>输入: [1, 2, 3, 2, 2, 2, 5, 4, 2] 输出: 2</p>
-<p>限制：</p>
-<p>1 &lt;= 数组长度 &lt;= 50000</p>
-<h1 id="题目分析">题目分析</h1>
-<p>题目关键词：<strong>出现次数</strong>，即我们很容易想到对次数进行统计然后查找的暴力方式，当然，没有介绍的必要。</p>
-<p>另一个关键词：<strong>超过一半</strong>，超过一半的性质能带给我们什么优势？暴力法没有顾及到，下面介绍的<strong>抵消法</strong>/<strong>摩尔投票法</strong>则利用了这一性质进行提速。</p>
-<p>再仔细思考题目性质：</p>
-<p><strong>核心性质</strong>————寻找众数，众数次数超过一半————众数次数 -
-所有其他数字加起来出现的次数 0</p>
-<ol type="1">
-<li><p>我们可以拿出一个 众数，和 一个非众数
-匹配抵消。<strong>两两抵消</strong>后，最终剩下的肯定是众数。</p></li>
-<li><p>假设当前数是a，碰到下一个不同的数b，a和b抵消后，不管a b
-和众数是什么关系。之后的数组中依然有性质————众数次数 -
-所有其他数字加起来出现的次数 0
-，即a和b的抵消不影响我们在后续数组中找众数。</p></li>
-<li><p>即我们可以按序把两两不相同的数抵消，相同的数累计起来去抵消后续不同的数。并且后续的数组中依然可以继续抵消。</p></li>
-<li><p>这样即可递归下去，最终遍历完整个数组，把所有数抵消了一遍，我们得到剩下的数<code>remain=众数</code>。</p></li>
-</ol>
-<h1 id="算法流程">算法流程</h1>
-<ol type="1">
-<li><p>取第一个数作为当前<code>remain</code></p></li>
-<li><p>遍历到下一个数</p>
-<ul>
-<li>假如不同，则两两抵消，由上面分析可知，不影响后面数组中最后留下的是众数。</li>
-<li>假如相同，则在<code>count</code>中累计起来，后面可以抵消更多的不同的数。</li>
-</ul></li>
-<li><p>遍历完一整遍数组，全部抵消完毕，则最后<code>remain</code>保持为抵消后多余出来的众数</p></li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<p>抵消法做法很简单，值得注意的是理解算法的正确性，为什么这样做是对的。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//抵消思路，因为次数超过一半————众数次数 - 所有其他数字加起来出现的次数 0 ,</span></span><br><span class="line">        <span class="comment">//即取 众数一次 抵消 非众数一次 最终剩下来的就是众数</span></span><br><span class="line">        <span class="comment">//即 假设a是众数，碰到下个数不是a， 那么这两个数抵消，剩下的数组里依然有 众数次数 - 所有其他数字加起来出现的次数 0</span></span><br><span class="line">        <span class="comment">//最终全部抵消后，多余的是众数。</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> remain;<span class="comment">//最后剩下的肯定是全数组的众数</span></span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;<span class="comment">//记录当前假设的众数的次数 用于抵消</span></span><br><span class="line">        <span class="keyword">int</span> length=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (count==<span class="number">0</span>)<span class="comment">//更新假设对象</span></span><br><span class="line">            &#123;</span><br><span class="line">                remain=nums[i];</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i]!=remain)<span class="comment">//两两抵消</span></span><br><span class="line">                count--;</span><br><span class="line">            <span class="keyword">else</span><span class="comment">//相同数，count++</span></span><br><span class="line">                count++;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> remain;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">MarkDown简洁手册</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-17 16:59:34" itemprop="dateCreated datePublished" datetime="2020-07-17T16:59:34+08:00">2020-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="first-title-一级标题-markdown示例">First title 一级标题
-MarkDown示例</h1>
-<p><code># First title 一级标题  MarkDown示例</code></p>
-<h2 id="second-title-二级标题">Second title 二级标题</h2>
-<p><code>## Second title 二级标题</code></p>
-<h3 id="third-title-三级标题">Third title 三级标题</h3>
-<p><code>### Third title 三级标题</code></p>
-<h4 id="fourth-四级标题">Fourth 四级标题</h4>
-<p><code>#### Fourth 四级标题</code></p>
-<h5 id="fifth-五级标题-下面是分割线">Fifth 五级标题 下面是分割线</h5>
-<p><code>##### Fifth 五级标题 下面是分割线</code></p>
-<hr />
-<p><code>---</code></p>
-<h2 id="正文书写">1. 正文书写</h2>
-<p><code>## 1. 正文书写</code></p>
-<p>标准正文示例.</p>
-<p><code>标准正文示例.</code></p>
-<p><strong>粗体示例</strong></p>
-<p><code>**粗体示例**</code></p>
-<p><em>斜体示例</em></p>
-<p><code>*斜体示例*</code></p>
-<p><strong><em>粗斜体示例</em></strong></p>
-<p><code>***粗斜体示例***</code></p>
-<blockquote>
-<p>引用示例</p>
-<blockquote>
-<p>嵌套引用示例</p>
-</blockquote>
-<p>引用示例</p>
-</blockquote>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;引用示例</span><br><span class="line"><span class="quote">&gt;</span></span><br><span class="line"><span class="quote">&gt;&gt;嵌套引用示例</span></span><br><span class="line"><span class="quote">&gt;</span></span><br><span class="line"><span class="quote">&gt;引用示例</span></span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li><p>有序列表示例1</p>
-<p>1.1. 嵌套多级列表1.1</p>
-<p>1.2. 嵌套多级列表1.2</p>
-<ul>
-<li>有序列表嵌套无序列表</li>
-</ul></li>
-<li><p>有序列表示例2</p>
-<p>2.1. 嵌套多级列表2.1</p>
-<p>2.2. 嵌套多级列表2.2</p></li>
-</ol>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 有序列表示例1</span><br><span class="line"></span><br><span class="line"><span class="code">    1.1. 嵌套多级列表1.1</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    1.2. 嵌套多级列表1.2</span></span><br><span class="line"><span class="code">    </span></span><br><span class="line"><span class="code">    - 有序列表嵌套无序列表</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="bullet">2.</span> 有序列表示例2</span><br><span class="line"></span><br><span class="line"><span class="code">    2.1. 嵌套多级列表2.1</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    2.2. 嵌套多级列表2.2</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>无序列表示例1</p></li>
-<li><p>无序列表示例2</p></li>
-<li><ul>
-<li>嵌套无序列表2.1</li>
-</ul></li>
-<li><ol type="1">
-<li>无序嵌套有序</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>无序嵌套有序</li>
-</ol></li>
-</ul>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 无序列表示例1</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 无序列表示例2</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> - 嵌套无序列表2.1</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 1. 无序嵌套有序</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 2. 无序嵌套有序</span><br></pre></td></tr></table></figure>
-<hr />
-<h2 id="资源插入">2. 资源插入</h2>
-<ol type="1">
-<li>代码段插入示例<code>for day in time</code></li>
-</ol>
-<p><code>1. 代码段插入示例 ``for day in time``</code></p>
-<ol start="2" type="1">
-<li>代码块插入示例:</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码块示例 第一个```后加代码名即可进行语法识别</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;std;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">```C++</span></span><br><span class="line"><span class="code">//代码块示例 第一个```</span>后加代码名即可进行语法识别</span><br><span class="line"><span class="section">#include <span class="xml"><span class="tag">&lt;<span class="name">iostream</span>&gt;</span></span></span></span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"><span class="code">    cout&lt;&lt;std;</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><a href="www.lianjie.com">链接插入示例</a></li>
-</ol>
-<p><code>3. [链接插入示例](www.lianjie.com)</code></p>
-<ol start="4" type="1">
-<li>图片插入示例:</li>
-</ol>
-<figure>
-<img src="https://i.imgur.com/sVc8zeN.png" alt="这里是图片注释" />
-<figcaption aria-hidden="true">这里是图片注释</figcaption>
-</figure>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">这里是图片注释</span>](<span class="link">https://i.imgur.com/sVc8zeN.png</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -821,10 +324,537 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/maxincai/p/5146338.
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="github-pages-hexo-博客搭建">github Pages + Hexo 博客搭建</h1>
+<p>前置知识：git 使用，github 建库</p>
+<blockquote>
+<p>注意GitHub仓库最好建的是username.github.io仓库，这样GitHub Pages
+才能获得一级域名。而二级域名在进行某些扩展时有问题。可以去搜一下关于github
+pages两种域名的区别。</p>
+</blockquote>
+<h2 id="安装环境">安装环境</h2>
+<h3 id="安装-node.js">安装 node.JS</h3>
+<p><a
+target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网下载安装程序，默认安装即可</a></p>
+<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
+<h3 id="安装-hexo">安装 hexo</h3>
+<p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是
+git bash。</p>
+<blockquote>
+<p>可以使用 cmd，但我遇到了中文问题。</p>
+<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入
+<code>set-executionpolicy remotesigned</code>
+更改安全策略，允许运行脚本。</p>
+</blockquote>
+<p>运行<code>npm install -g hexo-cli</code>进行安装,再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
+<h2 id="配置项目">配置项目</h2>
+<h3 id="初始化">初始化</h3>
+<p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
+<p>运行<code>hexo init</code>初始化</p>
+<h3 id="本地测试">本地测试</h3>
+<p>运行以下命令部署默认网页进行测试：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">test_my_site</span> <span class="comment">#创建新 test_my_site 的 markdown 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>                <span class="comment"># 从 md 文件生成 html 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span>                <span class="comment"># 部署本地服务器</span></span><br></pre></td></tr></table></figure>
+<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
+<h3 id="部署到网络">部署到网络</h3>
+<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
+<p>最后一段为：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">仓库的完整路径，推荐使用</span> <span class="string">ssh</span> <span class="string">路径，这样可以有</span> <span class="string">ssh</span> <span class="string">免密登录。例如我的</span> <span class="string">git@github.com:Alobal/alobal.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>URL 小段为：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">访问网址，例如</span> <span class="string">https://alobal.github.io/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">仓库名，例如</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<p>保存关闭该文件</p>
+<p>安装 hexo 的 git
+部署插件<code>npm install hexo-deployer-git --save</code></p>
+<p>运行以下命令进行发布到网络</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
+</blockquote>
+<p>出现<code>Branch 'master' set up to track remote branch 'master' from 'https:..</code>大概就恭喜你成功了。此时可以在
+github 仓库看到 hexo
+提交的文件。以及能通过访问网址查看你刚才发布的默认博客。</p>
+<h2 id="选一个你喜欢的主题">选一个你喜欢的主题</h2>
+<h3 id="下载主题">下载主题</h3>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo 主题库</a></p>
+<p>挑选一个合适的主题，比如很常见的 Next，复制 git
+地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
+<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
+<blockquote>
+<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next
+项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19
+版本网上教程比较健全了。</p>
+</blockquote>
+<h3 id="配置主题">配置主题</h3>
+<p>打开 _config.yml，修改 theme 字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">主题名，例如</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。比如
+next
+主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找
+next 官方文档。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>输入<code>hexo g;hexo d</code>
+重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
+<blockquote>
+<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者
+Ctrl+F5 强制刷新。</p>
+</blockquote>
+<h2 id="helloblog">hello，blog</h2>
+<p>让我们试着发布第一篇博客。项目路径下，命令行输入<code>hexo n 博客名</code>
+, 可以在 项目名/source/_posts/ 下面找到新建的 markdown
+文件。打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。在文件头之后，即<code>------</code>下面写入你的
+markdown 格式内容即可。</p>
+<p>关于 markdown 怎么书写，可以看我的 <a
+target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown
+简洁手册</a>。</p>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">知乎经典贴</a></p>
+<h2 id="错误汇总">错误汇总</h2>
+<h3 id="can-not-find-module-xxx">can not find module xxx</h3>
+<p>命令行<code>npm install</code> 安装所有依赖包完事。</p>
+<h3 id="没有启用代码高亮">没有启用代码高亮</h3>
+<p>根目录 config 里，修改配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>next 主题配置里，选择自己要的高亮样式：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="attr">prism:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-05-15T01:01:11+08:00">2020-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</p>
+<h2 id="派生类私有成员-和-基类-同时初始化">派生类私有成员 和 基类
+同时初始化</h2>
+<p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？
+测试背景：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispb</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;x=&quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;base</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">derived</span> :</span> <span class="keyword">public</span> base</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i), <span class="built_in">base</span>(a) &#123;  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;a=&quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;derived</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="function">derived <span class="title">obj</span><span class="params">(<span class="number">8</span>)</span></span>;</span><br><span class="line"> base*p =&amp;obj;</span><br><span class="line"> p-&gt;<span class="built_in">dispb</span>();</span><br><span class="line"> <span class="built_in">system</span>(<span class="string">&quot;PAUSE&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：</p>
+<figure>
+<img src="https://i.imgur.com/8kIskTc.png" alt="x!=i" />
+<figcaption aria-hidden="true">x!=i</figcaption>
+</figure>
+<p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
+<blockquote>
+<p>想要正常构造，把base（a)改成base（i）即可。</p>
+</blockquote>
+<h2
+id="派生类初始化私有成员基类在函数体内构造">派生类初始化私有成员，基类在函数体内构造</h2>
+<p><strong>假如派生类的构造函数是这样的</strong>：初始化私有成员，体内构造基类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+<p>会提示类base不存在默认构造函数。</p>
+<p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
+<p><strong>假如基类有无参数的构造函数呢？</strong>讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？增加一个无参数的基类构造函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">.....</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+<p>报错：形参 i 重定义——明明只声明了一次 i
+，怎么就重定义了呢？把a(i)删去？还是报错重定义</p>
+<p>——<a
+target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000014553913">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</p>
+<p><strong>这里面存在 声明 语句 定义 等根本性语法的规则定义=
+=</strong>具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i)
+中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</p>
+<p>i 冲突那我不用 i
+了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</p>
+<p>派生类构造函数改成：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; cout &lt;&lt;<span class="string">&quot;base(int i): &quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">......</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i)：<span class="built_in">a</span>(i)&#123; cout &lt;&lt; <span class="string">&quot;a:&quot;</span> &lt;&lt; a &lt;&lt; endl; <span class="built_in">base</span>(a); &#125;</span><br></pre></td></tr></table></figure>
+<p>derived(8)运行，猜猜运行结果是什么？</p>
+<p>我们知道初始化a时，先会调用base（），然后初始化a，然后进入函数体内输出a值，然后a传参给base（int
+i），Really？</p>
+<figure>
+<img src="https://i.imgur.com/ZfXu4sR.png" alt="运行结果" />
+<figcaption aria-hidden="true">运行结果</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="两数之和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">两数之和</a></h1>
+<p>给定一个整数数组 <code>nums</code> 和一个目标值
+<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] =
+2 + 7 = 9 所以返回 [0, 1]</p>
+<h3 id="解决思路">1.解决思路</h3>
+<p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> j=0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=i+1;j&lt;nums.size();j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j=nums.size();</span><br><span class="line">                    i=j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过</li>
+<li>472 ms</li>
+<li>9.2 MB</li>
+<li>Cpp</li>
+</ul>
+<h3 id="优化思路">2.优化思路</h3>
+<p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。
+<strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用
+<strong>空间换时间</strong>。 哈希表查找复杂度为O(1)</p>
+<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。
+<strong><em>一遍哈希表</em></strong>
+：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
+<h3 id="最终实现代码">3.最终实现代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;<span class="keyword">int</span>,<span class="keyword">int</span> store;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(store.count(target-nums[i])0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result=vector&lt;<span class="keyword">int</span>(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过</li>
+<li>20 ms</li>
+<li>10.1 MB</li>
+<li>Cpp</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-11/" class="post-title-link" itemprop="url">LeetCode-No-11</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-11/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-11/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="盛最多水的容器"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water">盛最多水的容器</a></h1>
+<p>给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai)
+。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i,
+0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器，且 n 的值至少为 2。</p>
+<p>图中垂直线代表输入数组
+[1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
+<p> <img
+src="https://upload-images.jianshu.io/upload_images/19387483-4f82d6d77b0bc922.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="image.png" /></p>
+<p>示例:</p>
+<p>输入: [1,8,6,2,5,4,8,3,7] 输出: 49</p>
+<h1 id="解题分析">解题分析</h1>
+<ul>
+<li>双循环暴力法是人类本能,就不侃了,直接放上辣眼睛的效率结果</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>通过情况</th>
+<th>时间</th>
+<th>内存</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>通过</td>
+<td>2436 ms</td>
+<td>9.8 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>正解</strong>: 双指针向内收缩法.即一指针在头部,一指针在尾部,
+而收缩时面积由两端之短决定,我们要找到更大的面积,则必定要改变两端之短,所以每次将短的那边往里收缩,遍历O(n).</li>
+<li><strong>正确性</strong>: S=min(ai,aj)
+<em>(j-i),假如大的那一边往里收缩则S=min(bi,bj)</em> (j-i-1).
+则min(bi,bj)要么是比收缩前最小值还小的值,要么是收缩前的最小值,所以S必定变小.
+因此双指针移动大的一端时,得到的S2&lt;=S1,肯定不是正确方向,所以可以省略掉这一系列的遍历,即只移动每对中小的那一端即可,省下O(n)的遍历不需要尝试,最终的遍历效率是O(n).</li>
+</ul>
+<h1 id="解题代码">解题代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; height)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//双指针 思考正确性</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=height.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> Area;</span><br><span class="line">        <span class="keyword">int</span> MaxArea=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> minvalue=<span class="built_in">min</span>(height[i],height[j]);</span><br><span class="line">            Area=minvalue*(j-i);</span><br><span class="line">            <span class="keyword">if</span>(AreaMaxArea)</span><br><span class="line">                MaxArea=Area;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(height[i]==minvalue)</span><br><span class="line">                i++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                j--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> MaxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -892,20 +922,20 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/maxincai/p/5146338.
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1048,59 +1078,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/maxincai/p/5146338.
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

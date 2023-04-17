@@ -208,474 +208,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-56-No-57/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-56-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-56-No-57/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-56-No-57/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1
-id="合并区间-插入区间httpsleetcode-cn.comproblemsmerge-intervals">(合并区间
-|| 插入区间)[https://leetcode-cn.com/problems/merge-intervals]</h1>
-<p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]] 输出: [[1,6],[8,10],[15,18]] 解释:
-区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
-<p>示例 2:</p>
-<p>输入: [[1,4],[4,5]] 输出: [[1,5]] 解释: 区间 [1,4] 和 [4,5]
-可被视为重叠区间。</p>
-<h1 id="题目分析">题目分析</h1>
-<h3 id="合并区间">合并区间</h3>
-<ol type="1">
-<li>[a,b] [c,d]合并条件：b=c &amp;&amp; a&lt;=d
-此时区间存在重复区段，可以合并</li>
-<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
-<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。
-### 插入区间</li>
-<li>首先需要找到插入位置，即左边界 介于 前一个和后一个的左边界
-中间。</li>
-<li>插入之后的收尾工作 插入时会不会和前一个发生和合并？
-因为是按左边界顺序，因此<strong>往前只可能合并一个</strong>
-但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<h3 id="合并区间-1">合并区间</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> merge(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">if</span>(Len==0)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">        sort(intervals.begin(),intervals.end(),cmp);</span><br><span class="line">        result.push_back(intervals[0]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i=1;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;    //可连接 [1,3] [2,4]</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">                <span class="keyword">if</span>(intervals[i][1]result.back()[1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">                <span class="keyword">else</span>;</span><br><span class="line">            <span class="keyword">else</span>//不可连接 </span><br><span class="line">                result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> cmp(vector&lt;<span class="keyword">int</span>&amp; a,vector&lt;<span class="keyword">int</span>&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a[0]&lt;b[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="插入区间">插入区间</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> insert(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals, vector&lt;<span class="keyword">int</span>&amp; newInterval) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">bool</span> IsInsert=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;   //找到插入的位置</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][1]&lt;newInterval[0])</span><br><span class="line">                i++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i==Len)//插在末尾之后</span><br><span class="line">        &#123;</span><br><span class="line">            intervals.push_back(newInterval);</span><br><span class="line">            <span class="keyword">return</span> intervals;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=0;j&lt;i;j++)//无需检查的项直接插入</span><br><span class="line">            result.push_back(intervals[j]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(intervals[i][0]&lt;=newInterval[1])//可以合并</span><br><span class="line">        &#123;</span><br><span class="line">            intervals[i][0]=min(intervals[i][0],newInterval[0]);</span><br><span class="line">            intervals[i][1]=max(intervals[i][1],newInterval[1]);</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>//插入 而不是合并</span><br><span class="line">            result.push_back(newInterval);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            //插入项往后 每一项都要检查是否要往前合并,直到不用合并</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result.back()[1]&lt;intervals[i][1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        //出来的i往后是无法合并的项</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-60/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-60/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-60/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="第k个排列"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutation-sequence">第K个排列</a></h1>
-<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
-<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时,
-所有排列如下：</p>
-<p>"123" "132" "213" "231" "312" "321" 给定 n
-和 k，返回第 k 个排列。</p>
-<p>说明：</p>
-<p>给定 n 的范围是 [1, 9]。 给定 k 的范围是[1,  n!]。</p>
-<p>示例 1:</p>
-<p>输入: n = 3, k = 3 输出: "213"</p>
-<p>示例 2:</p>
-<p>输入: n = 4, k = 9 输出: "2314"</p>
-<h2 id="题目分析">题目分析</h2>
-<ol type="1">
-<li><p>我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</p></li>
-<li><p>可以复用 下一个排列
-的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</p></li>
-<li><p>数学计算。全排列每个位置的每个数其实是有数学特征的。比如对 1 2
-3</p>
-<p>3.1 <strong>首位情况</strong>：
-肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。</p>
-<p>3.2
-<strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现
-<strong>尾部排列次数</strong> 次，然后是nums[1]...依次类推。</p>
-<p>综上：即我们知道每位的次数情况，比如 1 2
-3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此
-第5个排列必然是首位3。 再看次位，第5个排列，除去 1 2
-首位的四个，我们要找的是3首位的第一个，依次类推即可。
-即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</p></li>
-<li><p>细节</p>
-<p>4.1 当前位
-每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。</p>
-<p>4.2 k/fac[n-1] 向上取整得i，此时该位应该是
-nums里的第i个数（下标i-1），同时对nums删除这个数。</p>
-<p>4.3 n==1 时，nums只剩一个数，直接连上并返回。</p></li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//题解数组</span></span><br><span class="line">        <span class="keyword">const</span> vector&lt;<span class="keyword">int</span> fac = &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#x27;0&#x27;);</span><br><span class="line">        string nums(n,&#x27;0&#x27;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;n;i++)</span><br><span class="line">            nums[i]=&#x27;1&#x27;+i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;n0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">int</span> a;</span><br><span class="line">            <span class="keyword">int</span> left=0;</span><br><span class="line">            <span class="keyword">if</span>(n=2) //计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left=fac[n-1];</span><br><span class="line">                a=k/left;</span><br><span class="line">                <span class="keyword">if</span>(k%left!=0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]=nums[a-1];</span><br><span class="line">                k-=(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> //只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]=nums[0];</span><br><span class="line">                <span class="keyword">return</span> result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-61/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="旋转链表"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list">旋转链表</a></h1>
-<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
-<p>示例 1:</p>
-<p>输入: 1-2-3-4-5-NULL, k = 2 输出: 4-5-1-2-3-NULL 解释: 向右旋转 1 步:
-5-1-2-3-4-NULL 向右旋转 2 步: 4-5-1-2-3-NULL</p>
-<p>示例 2:</p>
-<p>输入: 0-1-2-NULL, k = 4 输出: 2-0-1-NULL 解释: 向右旋转 1 步:
-2-0-1-NULL 向右旋转 2 步: 1-2-0-NULL 向右旋转 3 步: 0-1-2-NULL 向右旋转
-4 步: 2-0-1-NULL</p>
-<h1 id="题目分析">题目分析</h1>
-<h5 id="直观移位每个节点向右移动k位">1.
-直观移位——每个节点向右移动K位</h5>
-<p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。
-（前向计算也是可以的，甚至更利于想出优化的第二步） #####
-注意细节：一个是移动出了链头，要转到链尾继续移动。 #####
-然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？
-一个很傻的方法是把链表数值做成vector...然后在vector中找相应的数值，然后赋给当前位置...
-很傻，浪费空间时间= = ##### 2.
-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？
-再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。
-##### 3.
-因此我们可以把链尾连向链头，即tail-next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。
-##### 4.
-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。
-例如 1-2-3-4-5，k=2
-遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。
-##### 5.
-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。
-当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。
-你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
-<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开=
-=
-当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可=
-=。</p>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i=head;</span><br><span class="line">        int L=0;</span><br><span class="line">        if(head==NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-next!=NULL)//找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i=i-next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-next=head;//首尾相连</span><br><span class="line">        //缩小k</span><br><span class="line">        k%=L;</span><br><span class="line">        int j=0;</span><br><span class="line">        //从末尾起移动L-k到达 i , i-next是新头</span><br><span class="line">        k=L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i=i-next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head=i-next;</span><br><span class="line">        i-next=NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-62-64/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-62-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-62-64/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-62-64/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="不同路径-i-ii"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths-ii">不同路径 I &amp;
-II</a></h1>
-<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start”
-）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
-<img
-src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-alt="示例" /></p>
-<p>网格中的障碍物和空位置分别用 1 和 0 来表示。 说明：m 和 n
-的值均不超过 100。</p>
-<p>示例 1:</p>
-<p>输入: [   [0,0,0],   [0,1,0],   [0,0,0]] 输出: 2 解释: 3x3
-网格的正中间有一个障碍物。 从左上角到右下角一共有 2 条不同的路径： 1.
-向右 - 向右 - 向下 - 向下 2. 向下 - 向下 - 向右 - 向右</p>
-<h1 id="题目分析">题目分析</h1>
-<h3 id="对没有障碍物的情况">对没有障碍物的情况</h3>
-<ol type="1">
-<li>小学数学思想：走到终点总共需要的操作是 m-1个向下 和
-n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。<span
-class="math display">\[C_{m+n-2}^{m-1}\]</span></li>
-</ol>
-<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。
-3.说到回溯，大概率我们可以想想能不能换成动态规划？ ### 动态规划 1.
-首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上
-和 左 两个位置的解。</p>
-<ol start="2" type="1">
-<li>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</li>
-<li>动态规划主体已经清晰了，再可以进一步优化空间细节。
-我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。
-而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。
-<strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong></li>
-<li>注意细节，dp数组要用long类型= =int会炸</li>
-</ol>
-<h3
-id="no.64给每个位置加了权值要求走到右下角的权值累计和最小">No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3>
-<ol type="1">
-<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和
-[i][j-1]的最小值发展而来，以此类推。</li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&amp; obstacleGrid)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="keyword">int</span> m=obstacleGrid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n=obstacleGrid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">long</span> temp[n];<span class="comment">//注意要用long 有样例爆int....</span></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][<span class="number">0</span>]!=<span class="number">1</span>)</span><br><span class="line">            temp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)<span class="comment">//首行处理</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][i]!=<span class="number">1</span>)</span><br><span class="line">                temp[i]=temp[i<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                temp[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> row=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[row][<span class="number">0</span>]==<span class="number">1</span>)<span class="comment">//首列障碍物处理</span></span><br><span class="line">                temp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[row][i]==<span class="number">1</span>)</span><br><span class="line">                    temp[i]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    temp[i]+=temp[i<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> temp[n<span class="number">-1</span>];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-65/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -791,10 +323,486 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-numb
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-68/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-68/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="文本左右对齐"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/text-justification">文本左右对齐</a></h1>
+<p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 '
+' 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。 每个单词的长度大于
+0，小于等于 maxWidth。 输入单词数组 words 至少包含一个单词。 示例:</p>
+<p>输入: words = ["This", "is", "an", "example", "of", "text",
+"justification."] maxWidth = 16 输出: [    "This    is    an",  
+ "example  of text",    "justification.  "] 示例 2:</p>
+<p>输入: words = ["What","must","be","acknowledgment","shall","be"]
+maxWidth = 16 输出: [   "What   must   be",   "acknowledgment  ",  
+"shall be        "] 解释: 注意最后一行的格式应为 "shall be " 而不是
+"shall be",   因为最后一行应为左对齐，而不是左右两端对齐。<br />
+第二行同样为左对齐，这是因为这行只包含一个单词。 示例 3:</p>
+<p>输入: words =
+["Science","is","what","we","understand","well","enough","to","explain",
+  "to","a","computer.","Art","is","everything","else","we","do"]
+maxWidth = 20 输出: [   "Science  is  what we", "understand      well",
+  "enough to explain to",   "a  computer.  Art is",   "everything  else
+ we",   "do                  "]</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li>也是没有突出思路的困难题....考验代码实现细节的功底。 ####
+进入每行一轮的循环：</li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= = <strong>2.1
+注意每个单词后面要留个位置给空格</strong> <strong>2.2
+同时记得保存个末行标志位，以便后续末行特殊处理</strong> <strong>2.3
+这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong></li>
+<li>计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。
+<strong>3.1
+注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong>
+<strong>3.2
+注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong></li>
+<li>末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。</li>
+<li>循环填入单词，填一个单词+vector[i]数量的空格。</li>
+<li>填入该行结果</li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string fullJustify(vector&lt;string&amp; words, <span class="keyword">int</span> maxWidth) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string  result;</span><br><span class="line">        <span class="keyword">int</span> wordsFlag=0;//处理到的最远的单词</span><br><span class="line">        <span class="keyword">int</span> StartFlag=0;</span><br><span class="line">        <span class="keyword">int</span> SpaceNum=0;</span><br><span class="line">        <span class="keyword">int</span> wordsNum=0;//每行单词数</span><br><span class="line">        <span class="keyword">int</span> CurrentLength=0;</span><br><span class="line">        <span class="keyword">bool</span> isLast=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> spaces;//存储每行每处的空格数</span><br><span class="line">        <span class="keyword">while</span>(wordsFlag&lt;words.size())//行循环</span><br><span class="line">        &#123;   </span><br><span class="line">            StartFlag=wordsFlag;</span><br><span class="line">            wordsNum=0;</span><br><span class="line">            CurrentLength=0;</span><br><span class="line">            <span class="keyword">while</span>(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词</span><br><span class="line">            &#123;   </span><br><span class="line">                CurrentLength+=words[wordsFlag].size();</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(CurrentLength+wordsNummaxWidth)//超过了 退掉最后一次</span><br><span class="line">                &#123;</span><br><span class="line">                    CurrentLength-=words[wordsFlag].size();</span><br><span class="line">                    // wordsFlag--; wordsFlag 停在下一行第一个</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wordsNum++;</span><br><span class="line">                wordsFlag++;</span><br><span class="line"></span><br><span class="line">                //末行判定</span><br><span class="line">                <span class="keyword">if</span>(wordsFlag=words.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    isLast=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //计算所需空格数</span><br><span class="line">            SpaceNum=maxWidth-CurrentLength;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(wordsNum1)//1判断，wordsNum-1=0时不能当除数</span><br><span class="line">            &#123;</span><br><span class="line">                 spaces= vector&lt;<span class="keyword">int</span>(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个</span><br><span class="line">					<span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的</span><br><span class="line">                        spaces[j] += 1;</span><br><span class="line">                spaces.push_back(0);//最后一个数不要空格</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                spaces= vector&lt;<span class="keyword">int</span>(1,SpaceNum);</span><br><span class="line"></span><br><span class="line">            //末行处理</span><br><span class="line">            <span class="keyword">if</span>(isLast==<span class="literal">true</span> &amp;&amp; wordsNum1)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j= 0;</span><br><span class="line">                <span class="keyword">for</span> (; j &lt;wordsNum-1; j++)</span><br><span class="line">                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =</span><br><span class="line">                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格</span><br><span class="line">            &#125;</span><br><span class="line">                    </span><br><span class="line">            string temp;</span><br><span class="line">            <span class="keyword">int</span> j=0;</span><br><span class="line">            <span class="keyword">while</span>(StartFlag&lt;wordsFlag)</span><br><span class="line">            &#123;   </span><br><span class="line">                //填充单词</span><br><span class="line">                temp+=words[StartFlag];//填词</span><br><span class="line">                //填充空格</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;spaces[j];i++)//填空格</span><br><span class="line">                    temp.push_back(&#x27; &#x27;);</span><br><span class="line">                StartFlag++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result.push_back(temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="x的平方根"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sqrtx">x的平方根</a></h1>
+<p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<p>输入: 4 输出: 2</p>
+<p>示例 2:</p>
+<p>输入: 8 输出: 2 说明: 8 的平方根是 2.82842...,  
+由于返回类型是整数，小数部分将被舍去。</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
+<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
+<li><strong>递归缩小求解：</strong> <span
+class="math display">\[\sqrt{x}=2*\sqrt{rac{x}{4}}\]</span>
+因此可以递归找到易解的小x，然后再回溯整合到原x。
+注意为什么选择2作为系数进行递归呢？
+——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</li>
+</ol>
+<p>递归式为：<code>mySqrt(x)=mySqrt(x2)&lt;&lt;1</code> 4.
+针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：
+<strong>牛顿法</strong>（英语：Newton's
+method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson
+method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数<span
+class="math inline">\(f(x)\)</span>
+的泰勒级数的前面几项来寻找方程的根。</p>
+<p><span
+class="math display">\[x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]\]</span>
+根据精度要求，<span class="math inline">\(x_k\)</span>和<span
+class="math inline">\(x_{k+1}\)</span>收敛后差距小于1即可返回结果。</p>
+<p><strong>迭代求解示意</strong>：<img
+src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="迭代示意图，图源 (https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)" /></p>
+<p>如上图所示，想求<span
+class="math inline">\(\sqrt{a}\)</span>，图示a=2
+先随便取xi=4，然后找到过(xi,yi)的切线，且<span
+class="math inline">\(f(x)=x^2-a\)</span>的导数是<span
+class="math inline">\(2x\)</span> 即切线方程<span
+class="math inline">\(f(x)-(x_i^2-a)=2x_i(x-xi)\)</span>
+显而易见这个切线与x轴的交点得$x_{i+1}=rac
+{2x_i<sup>2-(x_i</sup>2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $
+即得<span class="math inline">\(x_{i+1}\)</span>比<span
+class="math inline">\(x_{i}\)</span>更接近解<span
+class="math inline">\(\sqrt{a}\)</span>。</p>
+<h1 id="牛顿迭代题解代码">牛顿迭代题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//牛顿迭代</span></span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        <span class="comment">//注意long类型</span></span><br><span class="line">        <span class="keyword">long</span> last=x/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">long</span> cur =(last+x/last)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">abs</span>(last-cur)=<span class="number">1</span>)</span><br><span class="line">        &#123;   </span><br><span class="line">            last=cur;</span><br><span class="line">            cur=(cur +x/ cur) / <span class="number">2.0</span> ;</span><br><span class="line">            <span class="keyword">if</span>(cur&lt;=x/cur)</span><br><span class="line">                <span class="keyword">return</span> cur;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编辑距离"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/edit-distance">编辑距离</a></h1>
+<p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2
+所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符 删除一个字符 替换一个字符 示例 1:</p>
+<p>输入: word1 = "horse", word2 = "ros" 输出: 3 解释: horse - rorse (将
+'h' 替换为 'r') rorse - rose (删除 'r') rose - ros (删除 'e')</p>
+<p>示例 2:</p>
+<p>输入: word1 = "intention", word2 = "execution" 输出: 5 解释:
+intention - inention (删除 't') inention - enention (将 'i' 替换为 'e')
+enention - exention (将 'n' 替换为 'x') exention - exection (将 'n'
+替换为 'c') exection - execution (插入 'u')</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li>和字符串匹配之类的差不多，都是
+<strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划 dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和
+word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+</ol>
+<h1 id="dp题解代码">dp题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划  dp[i][j]状态</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span></span><br><span class="line">        <span class="comment">//对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span></span><br><span class="line">        <span class="keyword">int</span> dp[word1.<span class="built_in">size</span>()+<span class="number">1</span>][word2.<span class="built_in">size</span>()+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word2.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[<span class="number">0</span>][i]=i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=word2.<span class="built_in">size</span>();j++)</span><br><span class="line">                <span class="keyword">if</span>(word1[i<span class="number">-1</span>]==word2[j<span class="number">-1</span>])</span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[word1.<span class="built_in">size</span>()][word2.<span class="built_in">size</span>()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-75/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-75/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-75/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="颜色分类"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-colors/">颜色分类</a></h1>
+<p>给定一个包含红色、白色和蓝色，一共 <em>n </em>个元素的数组，<strong><a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong>对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
+输入:** [2,0,2,1,1,0] <strong>输出:</strong> [0,0,1,1,2,2]
+</pre
+
+**进阶：**
+
+*   一个直观的解决方案是使用计数排序的两趟扫描算法。
+    首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
+*   你能想出一个仅使用常数空间的一趟扫描算法吗？
+
+# 题目分析
+1. 相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000...111....2222的顺序。
+正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。
+2. 对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。
+三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。
+3. 确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。
+
+#####     针对cur的分类处理：
+1. 是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。
+
+2.  是2，则和2的flag，right交换，同时right--。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。
+同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。
+因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。
+
+3. 是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了
+
+4. 那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？
+
+    **只有当left会在cur右边时**，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。
+
+      **当left在cur左边时，即left指向的必定经过了cur的洗礼**，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。
+
+5. 当cur遇到right，即到达2的边界，则说明不需要处理了，结束。
+
+# 题解代码
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> cur=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur&lt;=right)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">if</span>(nums[cur]==<span class="number">0</span>)<span class="comment">//这个数字是0，移动0区域内，</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[cur],nums[left]);</span><br><span class="line">                <span class="comment">//假如curleft，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？</span></span><br><span class="line">                <span class="comment">//jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。</span></span><br><span class="line">                <span class="comment">//假如cur==left==0，没啥好说的，下一个</span></span><br><span class="line">                <span class="comment">//假如cur&lt;left, 可能吗？cur++的机会 = left++的机会</span></span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[cur]==<span class="number">2</span>)<span class="comment">//这个数字是2，移到2区域内</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[cur],nums[right]);</span><br><span class="line">                right--;</span><br><span class="line">                <span class="comment">//交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变</span></span><br><span class="line">                cur--;</span><br><span class="line">            &#125;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -862,20 +870,20 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-numb
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
