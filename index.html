@@ -282,54 +282,14 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
 </ol>
 <p>即需要访存两次才能取到数据。因此，通常程序会对数据的布局作出内存对齐，以优化访存效率。例如还是INT8和INT64，对齐后地址分别为0000和0008-0015。这样取INT64就只需要访存一次。</p>
 <p>据此，业界给出了一个内存对齐的基本原则：<strong>将X字节的数据放在X倍数的起始地址上</strong>。这样即可在尽可能节约内存空间的情况下，减少访存指令。</p>
-<h1 id="代码分析">代码分析</h1>
-<p>再来看看实际中的内存对齐规则是什么。如上基本原则，每个数据会希望把自己放在<strong>对齐数</strong>倍数的起始地址上：</p>
-<ol type="1">
-<li>基本类型，对齐数 = sizeof(TYPE) ，即数据类型大小</li>
-<li>struct/class 作为一个类型，对齐数 = 最大的成员对齐数</li>
-<li>struct/class
-尾部填充。除了保证内部成员的对齐，由于数组的地址连续，我们还必须保证对于
-struct[5] 这样的数组，每一个 struct[i]
-的起始地址都是对齐的，因此会在struct的尾部填充字节，并且计算在sizeof内，使得sizeof的结果是struct的对齐数的倍数。</li>
-</ol>
-<p>按上述原则分下面的结构体：</p>
-<ol type="1">
-<li><code>short f</code>
-起始为0000，占据0000-0001，第一个元素不用考虑对齐。</li>
-<li><code>double s</code> 对齐数 = 8，因此对齐后占据 0008-0015。</li>
-<li><code>char i</code> 对齐数 = 1，因此对齐后占据 0016。</li>
-<li><code>int c</code> 对齐数 = 4，因此对齐后占据 0020-0023。</li>
-<li><code>char a</code> 对齐数 = 1，因此对齐后占据 0024。</li>
-<li>尾部填充。在没有进行尾部填充时，目前S1的大小为25字节(0000-0024)。S1的对齐数
-= 最大的成员对齐数 =
-8，根据对齐原则<code>sizeof(S1)</code>应该为8的倍数，所以最终将大小从25扩到32。</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">S1</span>() &#123; f = <span class="number">0</span>; s = <span class="number">0</span>; i = <span class="number">0</span>; c = <span class="number">0</span>; a = <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="keyword">short</span> f;</span><br><span class="line">    <span class="keyword">double</span> s;</span><br><span class="line">    <span class="keyword">char</span> i;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;S1各成员对齐后的起始字节：&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S1, f));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S1, s));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S1, i));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S1, c));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S1, a));</span><br><span class="line">std::cout &lt;&lt;std::endl&lt;&lt; <span class="string">&quot;S1 最终大小&quot;</span> &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(S1) &lt;&lt; std::endl;</span><br><span class="line">std::cout &lt;&lt;<span class="string">&quot;S1 对齐数&quot;</span> &lt;&lt; <span class="built_in"><span class="keyword">alignof</span></span>(S1) &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<p>再来看嵌套结构体：</p>
-<ol type="1">
-<li><code>int d</code> 起始为 0000，占据
-0000-0003，第一个元素不用考虑对齐。</li>
-<li><code>S1 s1</code> 对齐数为 8，大小为32字节，因此对齐后占据
-0008-0039。</li>
-<li><code>char c</code> 对齐数为 1，因此对齐后占据 0040。</li>
-<li><code>int i</code> 对齐数为 4，因此对齐后占据 0044-0047。</li>
-<li>尾部填充，S2 对齐数为
-8，目前大小为48字节，满足要求，不需要尾部填充。</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="built_in">S2</span>() &#123; d = <span class="number">0</span>; c = <span class="number">0</span>; i = <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="keyword">int</span> d;</span><br><span class="line">    S1 s1;<span class="comment">//24</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;S2各成员偏移后的起始字节：&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S2, d));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S2, s1));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S2, c));</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%zu &quot;</span>, <span class="built_in">offsetof</span>(S2, i));</span><br><span class="line">std::cout &lt;&lt; std::endl &lt;&lt; <span class="string">&quot;S2 最终大小&quot;</span> &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(S2) &lt;&lt; std::endl;</span><br><span class="line">std::cout &lt;&lt;<span class="string">&quot;S2 对齐数&quot;</span> &lt;&lt; <span class="built_in"><span class="keyword">alignof</span></span>(S2) &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<p>class和struct的对齐规则是一样的，不过需要注意两点：</p>
-<ol type="1">
-<li>继承了基类成员的class，其会在头部先排基类成员。</li>
-<li>拥有虚函数的class其会在头部添加一个指针成员<code>vfptr</code>，即虚函数表的指针。</li>
-</ol>
-<h1 id="餐后甜点">餐后甜点</h1>
-<ol type="1">
-<li>cpp中可以通过<code>#pragma pack(max_size)</code>命令强制设置一个对齐数的上限，例如在<code>#pragma pack(4)</code>的环境下S1中的double的对齐数会变为4。</li>
-<li>cpp中空class的大小为1，便于实例化。</li>
-<li>其他更详细的class在继承多态下的成员分析，请参考这位<a
-target="_blank" rel="noopener" href="https://huailiang.github.io/blog/2021/cpp/">病毒种的Blog</a></li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
