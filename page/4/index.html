@@ -208,6 +208,155 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/08/SkeletonTransformer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/08/SkeletonTransformer/" class="post-title-link" itemprop="url">SkeletonTransformer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-08 11:23:55" itemprop="dateCreated datePublished" datetime="2022-01-08T11:23:55+08:00">2022-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/08/SkeletonTransformer/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/08/SkeletonTransformer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Plizzari C, Cannici M, Matteucci M. Skeleton-based action
+recognition via spatial and temporal transformer networks[J]. Computer
+Vision and Image Understanding, 2021, 208: 103219.</li>
+<li>Politecnico di Torino 意大利都灵理工大学</li>
+<li>Q3</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>尽管ST-GCN的结构已经在骨架动作识别中广泛应用，但是仍然有一些结构上的缺陷。</p>
+<p>本文设计了Spatial Self-Attention (SSA)
+模块，用于在骨架之间动态的建立联系，而独立于人体真实骨架结构。另外在时间维度上设计了Temporal
+Self-Attention (TSA)模块用于学习关节在时间上的变化。</p>
+<h1 id="spatialtemporal-transformer-st-tr">Spatial–Temporal Transformer
+(ST-TR)</h1>
+<p>Self-Attention最初的灵感是希望对句子中单词进行跨越距离的相关性编码。因此本文希望同样的方式也可以应用到骨架节点上。</p>
+<p><strong>空间上</strong>：节点之间的相关性是很重要的，<strong>因此抛弃了任何预定义的骨架结构</strong>，让self-attention自动查找关节关系，类似于动态边的图卷积。</p>
+<p><strong>时间上</strong>：也希望通过self-attention查找出不同帧的关系。</p>
+<figure>
+<img src="https://i.imgur.com/MYJ50cH.png"
+alt="时空两个Self-Attention，两者都使用了多头注意力机制" />
+<figcaption
+aria-hidden="true">时空两个Self-Attention，两者都使用了多头注意力机制</figcaption>
+</figure>
+<h2 id="spatial-self-attention-ssa">Spatial Self-Attention (SSA)</h2>
+<figure>
+<img src="https://i.imgur.com/7XzfJ4V.png" alt="SSA" />
+<figcaption aria-hidden="true">SSA</figcaption>
+</figure>
+<p>类似于文本的self-Attention，抛开图结构，对关节点进行注意力计算。，最终输出这个关节点经过注意力编码的特征：</p>
+<p><span class="math display">\[
+\mathbf{z}_{i}^{t}=\sum_{j}
+\operatorname{softmax}_{j}\left(\frac{\alpha_{i
+j}^{t}}{\sqrt{d_{\mathrm{k}}}}\right) \mathbf{v}_{j}^{t}
+\]</span></p>
+<figure>
+<img src="https://i.imgur.com/4eAkiFl.png" alt="详细结构" />
+<figcaption aria-hidden="true">详细结构</figcaption>
+</figure>
+<h2 id="temporal-self-attention-tsa">Temporal Self-Attention (TSA)</h2>
+<p>在时间计算中，每个关节点被视为独立的存在，去计算帧之间的注意力关联性：</p>
+<p><span class="math display">\[
+\alpha_{t u}^{v}=\mathbf{q}_{t}^{v} \cdot \mathbf{k}_{u}^{v} \quad
+\forall v \in V, \quad \mathbf{z}_{t}^{v}=\sum_{j}
+\operatorname{softmax}_{u}\left(\frac{\alpha_{t
+u}^{v}}{\sqrt{d_{\mathrm{k}}}}\right) \mathbf{v}_{u}^{v},
+\]</span></p>
+<h2 id="two-stream-spatialtemporal-transformer-st-tr-network">Two-Stream
+Spatial–Temporal Transformer (ST-TR) Network</h2>
+<figure>
+<img src="https://i.imgur.com/MqxcnCa.png" alt="ST-TR" />
+<figcaption aria-hidden="true">ST-TR</figcaption>
+</figure>
+<p>为了结合SSA和TSA模块，构造了一个 two-stream
+architecture(ST-TR)。SSA和TSA分别独立在S-TR stream和 T-TR
+stream进行应用，然后再融合。(Shi et al. 2019)</p>
+<p>两个streams中都先应用了三层的残差网络对特征进行提取。S-TR中在空间上使用了GCN进行提取特征，T-TR中使用了标准的2D卷积(TCN,Yan
+et al. 2018)。</p>
+<p>然后在后续的S-TR模块，T-TR模块(结构如上图)处理中分别用SSA和TSA来替换GCN和TCN。</p>
+<p>最后在经历一系列S-TR ,
+T-TR模块的处理后，通过累加起两个stream的softmax输出来获得最终的score。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] Shi, L., Zhang, Y., Cheng, J., Lu, H., 2019b. Two-stream adaptive
+graph convolutional networks for skeleton-based action recognition. In:
+Proceedings of the IEEE Conference on Computer Vision and Pattern
+Recognition. pp. 12026–12035.</p>
+<p>[2] Shi, L., Zhang, Y., Cheng, J., Lu, H., 2019a. Skeleton-based
+action recognition with directed graph neural networks. In: Proceedings
+of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
+7912–7921.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/06/PSTNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -619,136 +768,6 @@ graph都是用了无向图结构，即无视了顺序信息。</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/26/SequentialPointNet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/SequentialPointNet/" class="post-title-link" itemprop="url">SequentialPointNet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-26 19:32:23" itemprop="dateCreated datePublished" datetime="2021-12-26T19:32:23+08:00">2021-12-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/26/SequentialPointNet/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/26/SequentialPointNet/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>SequentialPointNet: A strong parallelized point cloud
-sequence network for 3D action recognition</strong></p>
-<ul>
-<li>Li X, Huang Q, Wang Z, et al. SequentialPointNet: A strong
-parallelized point cloud sequence network for 3D action recognition[J].
-arXiv preprint arXiv:2111.08492, 2021.</li>
-<li>河海大学 CS</li>
-<li><a
-target="_blank" rel="noopener" href="https://github.com/XingLi1012/SequentialPointNet.git">源码仓库</a></li>
-</ul>
-<p>针对人类动作在空间上复杂，在时间上简单的特性，不平等的对待空间信息和时间信息。提出了一个强并行能力的点云序列网络SequentialPointNet：一个帧内appearance编码模块，一个帧间动作编码模块。</p>
-<ul>
-<li>为了对人体动作丰富的空间信息建模，每帧先在帧内的appearance
-encoding中并行处理，并且输出一个特征向量序列，描述静态的appearance在时间维度上的改变。</li>
-<li>为了建模简单的时间维度上的变化，在帧间的动作编码模块中，在特征向量序列中应用了
-时间上的位置编码和分层的池化策略。</li>
-<li>为了更好的挖掘时空内容，聚合人体动作的多级特征。</li>
-</ul>
-<h1 id="帧间编码">帧间编码</h1>
-<figure>
-<img src="https://i.imgur.com/AfhgtrM.png" alt="帧间编码" />
-<figcaption aria-hidden="true">帧间编码</figcaption>
-</figure>
-<p><strong>Temporal position
-embedding</strong>：和Transformer的positional
-encoding差不多。将时间上的位置进行encoding：</p>
-<p><span class="math display">\[
-\begin{gathered}
-P E_{t, 2 h}=\sin \left(t / 10000^{2 h / d_{\text {sout }}}\right) \\
-P E_{t, 2 h+1}=\cos \left(t / 10000^{2 h / d_{\text {sout }}}\right)\\
-\widehat{f}_{t, h}=f_{t, h}+P E_{t, h}
-\end{gathered}
-\]</span></p>
-<p><strong>共享MLP</strong>：在时间位置编码之后，再进行特征抽取，加强信息。</p>
-<p><strong>Hierarchical pyramid max
-pooling</strong>：类似于多卷积核操作。将时间序列化为不同的几个部分，并且使用max
-pooling分别抽取特征。</p>
-<figure>
-<img src="https://i.imgur.com/unueYdQ.png" alt="层级式max pooling" />
-<figcaption aria-hidden="true">层级式max pooling</figcaption>
-</figure>
-<p><strong>多级特征抽取</strong>：序列层级学习是帧间的分级策略，还有帧内的多级特征抽取：</p>
-<p><span class="math display">\[
-\begin{gathered}
-P=\underset{t=1, \ldots,
-T}{\operatorname{MAX}}\left\{\operatorname{MAX}_{j=1, \ldots,
-n_{2}}\left\{r_{j}^{t}\right\}\right\} \\
-R=\operatorname{MAX}_{t=1, \ldots, T}\left\{f_{t}\right\}
-\end{gathered}
-\]</span></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -820,7 +839,7 @@ R=\operatorname{MAX}_{t=1, \ldots, T}\left\{f_{t}\right\}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

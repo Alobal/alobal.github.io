@@ -208,6 +208,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">git使用相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-18 18:10:29" itemprop="dateCreated datePublished" datetime="2020-08-18T18:10:29+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="奇怪的问题汇总">奇怪的问题汇总</h1>
+<h2
+id="git连接github每次都需要输入账号密码">git连接GitHub每次都需要输入账号密码</h2>
+<h3 id="背景">背景</h3>
+<p>问题在于git clone
+的时候选择的链接是HTTPS的，因此在这个仓库中，git不会通过SSH密钥去进行免密认证。</p>
+<h3 id="解决方案">解决方案</h3>
+<p>命令行输入<code>git config  -l</code></p>
+<p>可以看到一大堆信息，关注其中一条与链接相关的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote.origin.url=https://...</span><br></pre></td></tr></table></figure>
+<p>我们需要url的https链接改回ssh即可。</p>
+<p>命令行输入 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config remote.origin.url git@github.com:你的仓库地址</span><br></pre></td></tr></table></figure></p>
+<p>试着<code>git push</code>一下=。=</p>
+<p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/08/17/C++%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -708,115 +809,6 @@ id="即我们现在知道延展正方形受限于哪些环境">即我们现在�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">二叉树的四种遍历（迭代法）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-24 19:33:33" itemprop="dateCreated datePublished" datetime="2020-07-24T19:33:33+08:00">2020-07-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9B%9B%E7%A7%8D%E9%81%8D%E5%8E%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>假定树结构如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> </span></span><br><span class="line"><span class="class"> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    TreeNode *left;</span><br><span class="line">    TreeNode *right;</span><br><span class="line">    <span class="built_in">TreeNode</span>(<span class="keyword">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">left</span>(<span class="literal">NULL</span>), <span class="built_in">right</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>递归思路很简单，只记录迭代思路。</p>
-<h1 id="前序遍历">前序遍历</h1>
-<p>先根，再左结点，再右结点。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    </span><br><span class="line">    stack&lt;TreeNode*&gt; s;</span><br><span class="line">    s.<span class="built_in">push</span>(root);</span><br><span class="line">    <span class="keyword">while</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode * current=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();</span><br><span class="line">        result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">        <span class="keyword">if</span>(current-&gt;right) s.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(current-&gt;left) s.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="中序遍历">中序遍历</h1>
-<p>先左，再根，再右。</p>
-<p>迭代时注意没有对左结点的输出，是把左结点继续往下看，看成以它为根的树根结点，然后统一用输出根结点的方式输出所有结点。</p>
-<blockquote>
-<p>根节点同时也是根父节点的左子结点，因此回溯上去的时候顺序是”父（左）-右“、”父（左）-右“。</p>
-<p>即输出当前根，然后进入右树，然后往上一层，此时上一层的左树就是刚刚解决好的。因此继续同样的"根
-- 右"顺序进行遍历。</p>
-</blockquote>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    stack&lt;TreeNode*&gt; mem;</span><br><span class="line">    TreeNode *current=root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!mem.<span class="built_in">empty</span>()||current)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//左节点压栈</span></span><br><span class="line">        <span class="keyword">while</span>(current)</span><br><span class="line">        &#123;</span><br><span class="line">            mem.<span class="built_in">push</span>(current);</span><br><span class="line">            current=current-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        current=mem.<span class="built_in">top</span>();mem.<span class="built_in">pop</span>();<span class="comment">//输出当前子树根结点</span></span><br><span class="line">        result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">        current=current-&gt;right;<span class="comment">//进入当前子树右树</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="后序遍历">后序遍历</h1>
-<p>先左，再右，最后根。</p>
-<p>和中序遍历一样，首先要走到左树最深处。但是迭代很难控制从下一层返回上来的时候，不再压栈子结点，因此需要在第一次压栈时，断开根结点和子节点的链接。</p>
-<ol type="1">
-<li><p>取当前结点，先找左子树，左子树里面同样还要找左子树啊，因此是while找下去。</p></li>
-<li><p>直至左子树为NULL，再找右子树，注意右子树里面优先找的是<strong>左子树</strong>，因此<strong>不能while</strong>持续找右子树，而是进入右子树后当作全新的树，再同样的查找。</p></li>
-<li><p>迭代到某个结点后，左子树为NULL，右子树也为NULL，递归迭代停止，终于可以作为根结点进行输出了。</p></li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    stack&lt;TreeNode*&gt; s;<span class="comment">//递归栈</span></span><br><span class="line">    TreeNode* current;<span class="comment">//当前处理结点</span></span><br><span class="line">    s.<span class="built_in">push</span>(root);<span class="comment">//初始化栈</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!s.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        current=s.<span class="built_in">top</span>();<span class="comment">//取结点</span></span><br><span class="line">        root=current;<span class="comment">//保留父结点，后续断开连接要用</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//先遍历这结点的左结点，左左结点，左左左...结点</span></span><br><span class="line">        <span class="keyword">while</span>(current-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">            current=current-&gt;left;</span><br><span class="line">            root-&gt;left=<span class="literal">NULL</span>;<span class="comment">//断开连接，避免返回到这个结点时又递归左树死循环</span></span><br><span class="line">            root=current;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//然后进入右子树，注意进入右子树后还是优先找左子子树，因此不能无脑压栈右子树。</span></span><br><span class="line">        <span class="keyword">if</span>(current-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            s.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">            current=current-&gt;right;</span><br><span class="line">            root-&gt;right=<span class="literal">NULL</span>;</span><br><span class="line">            root=current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//已经走到最左端了，作为最外面的子树，它的左结点必然是空，并且else说明右子树也空，则可以输出自己了。</span></span><br><span class="line">        &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">            s.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="层序遍历">层序遍历</h1>
-<p>即逐层的 从左到右访问所有结点。</p>
-<p>算法上主要是遍历一个结点，先把左右子节点装进去。</p>
-<p>值得考虑的是，怎么把每层结果分开？使用一个length在每层开始，检查队列长度获得该层长度，这样后面加入的子节点就不在长度范围内。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    vector&lt;vecotr&lt;<span class="keyword">int</span>&gt;&gt; result;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">    queue&lt;TreeNode*&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(root);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())<span class="comment">//队列不空</span></span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line">        <span class="keyword">int</span> length=q.<span class="built_in">size</span>();<span class="comment">//获取当前层结点</span></span><br><span class="line">        TreeNode* current=q.<span class="built_in">front</span>();q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)<span class="comment">//分层计数</span></span><br><span class="line">        &#123;       </span><br><span class="line">            <span class="keyword">if</span>(current!=<span class="literal">NULL</span>)<span class="comment">//当前为有效结点，加入result，检查子节点</span></span><br><span class="line">            &#123;</span><br><span class="line">                temp.<span class="built_in">push_back</span>(current-&gt;val);</span><br><span class="line">                <span class="keyword">if</span>(current-&gt;left) q.<span class="built_in">push</span>(current-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(current-&gt;right) q.<span class="built_in">push</span>(current-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.<span class="built_in">push_back</span>(temp);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -888,7 +880,7 @@ id="即我们现在知道延展正方形受限于哪些环境">即我们现在�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

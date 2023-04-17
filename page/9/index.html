@@ -208,6 +208,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/09/27/DeepFaceDrawing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/27/DeepFaceDrawing/" class="post-title-link" itemprop="url">DeepFaceDrawing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-27 15:08:53" itemprop="dateCreated datePublished" datetime="2021-09-27T15:08:53+08:00">2021-09-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/09/27/DeepFaceDrawing/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/27/DeepFaceDrawing/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="deepfacedrawing-人脸合成到几何建模">DeepFaceDrawing
+人脸合成到几何建模</h1>
+<p>草稿生成真实人脸图像</p>
+<h2 id="背景">背景</h2>
+<p>人画线稿不规则，已有的深度学习适配质量非常差。</p>
+<p>做整个人脸的工作还是比较少的。</p>
+<p>人的草稿没有约束，因此给出阴影引导用户。</p>
+<p>人脸图片数据 CelebAMask-HQ</p>
+<h2 id="主要思想">主要思想</h2>
+<p>可视媒体的结构化。对人脸进行分块，提高每一块的质量。人脸根据语义分成五块：左眼、右眼、鼻子、嘴巴、其余部分。</p>
+<p>得到每一块的特征向量，分别扩展成一个张量，然后拼起来，最终对全局计算一遍人脸生成的网络。</p>
+<p>也可以提供分块拼接功能。</p>
+<h3 id="分段训练">分段训练</h3>
+<p>对分块数据做了一个embedding，把人的不规则输入通过embedding正则化，可以提高鲁棒性。</p>
+<h3 id="流形投影">流形投影</h3>
+<p>embedding之后得到的向量和数据集向量有所差异，因此要让数据集已有的线稿去逼近，类似于LLE流形投影，既保留特征又去掉噪音。</p>
+<p>流形投影时选择两个点观察，发现是一个很好的连续分布。</p>
+<h3 id="阴影引导用户">阴影引导用户</h3>
+<p>实时绘画时，提供检索出来的阴影引导用户，同时用户可以调整自己和数据库之间的置信权重比例。</p>
+<h1 id="基于变形表示的深度几何学习">基于变形表示的深度几何学习</h1>
+<p>复杂的模型可以找很多结构化编码几何部件，通过变形刻画细节。</p>
+<h2 id="背景-1">背景</h2>
+<p>片网&amp;多重参数化： - 不光滑或者不连接 - 非结构化</p>
+<p>结构化的盒子： - 缺失几何细节 - 物理上不可靠</p>
+<h2 id="变形几何表示">变形几何表示</h2>
+<p>对几何进行分块，每一块得到一个包围盒进行非刚体注册，逼近部件。可以通过相同的拓扑盒子来逼近不同的几何细节，达到了相同的连接关系而不同几何细节，方便做卷积操作。（ACAP变形和ACAP网格图卷积）</p>
+<h2 id="支撑结构分析">支撑结构分析</h2>
+<p>不只是邻接关系，还有支撑关系。有向支撑图的支撑关系分析，获得对部件结构的刻画。</p>
+<p>对模型进行编码：支撑信息、对称信息、变形信息。进行联合结构化的部件编码。结构化部件变分自编码器（SPVAE）</p>
+<p>优化方向：对称约束、支撑关系约束、稳定支撑约束、相同长度约束</p>
+<p>模型可以通过PointNet++分割语义，然后分析学习结构关系。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/09/26/How-to-Read-a-Paper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -578,98 +689,6 @@ id="亚当可能是感觉转变最细腻的一个角色了">亚当，可能是�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/03/29/%E8%80%83%E7%A0%94%EF%BC%8C%E7%BB%93%E6%9D%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/%E8%80%83%E7%A0%94%EF%BC%8C%E7%BB%93%E6%9D%9F/" class="post-title-link" itemprop="url">考研，结束</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-29 16:26:25" itemprop="dateCreated datePublished" datetime="2021-03-29T16:26:25+08:00">2021-03-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/29/%E8%80%83%E7%A0%94%EF%BC%8C%E7%BB%93%E6%9D%9F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/29/%E8%80%83%E7%A0%94%EF%BC%8C%E7%BB%93%E6%9D%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="欢呼">欢呼</h2>
-<p>2020.9.1——2021.3.27</p>
-<p>3 月, 3 周, 4 天 + 3 月, 1 天 = 6 月, 3 周, 5 天</p>
-<p>116+91=207 天</p>
-<p>3.28 打电话通知预录取了。结束啦，我的仓促平凡的考研生活。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/29/%E8%80%83%E7%A0%94%EF%BC%8C%E7%BB%93%E6%9D%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -741,7 +760,7 @@ id="亚当可能是感觉转变最细腻的一个角色了">亚当，可能是�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

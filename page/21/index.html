@@ -208,6 +208,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-44/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-44/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-44/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="通配符匹配"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wildcard-matching">通配符匹配</a></h1>
+<p>------类似No.10的正则匹配</p>
+<p>给定一个字符串 (s) 和一个字符模式 (p)
+，实现一个支持 '?' 和 '*' 的通配符匹配。</p>
+<p>'?' 可以匹配任何单个字符。 '*' 可以匹配任意字符串（包括空字符串）。
+两个字符串完全匹配才算匹配成功。</p>
+<p>说明:</p>
+<p>s 可能为空，且只包含从 a-z 的小写字母。
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
+<h1 id="题目分析">题目分析</h1>
+<p>和正则一样, 重点在于 * 的任意位匹配</p>
+<ol type="1">
+<li><p>假如是一个没有 * 的串匹配,
+我们只要碰到一个匹配失败即可结束</p></li>
+<li><p>有了 <em>的情况,</em>
+可以用来干什么呢?-----帮你把匹配失败的地方干掉</p></li>
+<li><p>因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来,
+以便帮助后面</p></li>
+<li><p>当在某一位精确匹配失败时, 我们回去找 <em>的帮助,
+如果之前没有</em> , 帮不了, 匹配失败</p></li>
+<li><p>假如之前有 <em>,即需让</em>往后匹配来避免这个失败位, 但是因为*
+每向后扩展一位, 原本的精确匹配顺序全都挪动了一位,
+此时我们不知道是不是能匹配成功</p></li>
+<li><p>因此 <em>帮忙的时候,</em> 只向后扩展一位试试,
+此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配,
+再失败了就重复 6 即可</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//i,j指示当前匹配位置,iflag,jflag指示*号匹配位置</span></span><br><span class="line">        <span class="keyword">int</span> slength=s.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> plength=p.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> iflag=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> jflag=<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则</span></span><br><span class="line">        <span class="comment">//  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场</span></span><br><span class="line">        <span class="comment">//  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试</span></span><br><span class="line">        <span class="comment">// 没有*救场 , 那可以自闭了.over</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//循环内每次都确保当前匹配成功</span></span><br><span class="line">        <span class="comment">//注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;slength)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="comment">//准确匹配成功</span></span><br><span class="line">            <span class="keyword">if</span>(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==<span class="string">&#x27;?&#x27;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//匹配到*</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j&lt;plength &amp;&amp; p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                iflag=i;</span><br><span class="line">                jflag=j;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动</span></span><br><span class="line">                j++;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(jflag!=<span class="number">-1</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="comment">//*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配</span></span><br><span class="line">                i=++iflag;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1</span></span><br><span class="line">                j=jflag+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//连*都不能帮忙解决,s可以走了</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注意考虑s匹配完了,p剩余*则还能成功</span></span><br><span class="line">        <span class="keyword">while</span>(j&lt;plength)</span><br><span class="line">            <span class="keyword">if</span>(p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">                j++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> j==plength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -631,105 +741,6 @@ n.</td>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-49/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-49/" class="post-title-link" itemprop="url">LeetCode-No-49</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-49/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-49/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字母异位分词"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/group-anagrams">字母异位分词</a></h1>
-<p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
-<p>示例:</p>
-<p>输入: ["eat", "tea", "tan", "ate", "nat", "bat"], 输出: [
-["ate","eat","tea"], ["nat","tan"], ["bat"]] 说明：</p>
-<p>所有输入均为小写字母。 不考虑答案输出的顺序。</p>
-<h1 id="题解分析">题解分析</h1>
-<h3 id="怎么判断是不是异位分词呢-想想异位分词具有什么特点">1.
-怎么判断是不是异位分词呢? 想想异位分词具有什么特点?</h3>
-<h3 id="异位分词中-字母出现次数相同-字母顺序不同">---- 异位分词中,
-字母出现次数相同, 字母顺序不同</h3>
-<h3 id="因此我们可以-排序后观察-26字母次数统计-进行比较.">----
-因此我们可以 排序后观察 / 26字母次数统计 进行比较.</h3>
-<h3
-id="当然注意别做一类扫一遍-用个字典自动分类就可以了.">当然注意别做一类扫一遍,
-用个字典自动分类就可以了.</h3>
-<h1 id="题解代码----排序字典">题解代码----排序+字典</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string groupAnagrams(vector&lt;string&amp; strs) </span><br><span class="line">    &#123;   //加字典的排序</span><br><span class="line">        vector&lt;vector&lt;string result;</span><br><span class="line">        unordered_map&lt;string, vector&lt;string hashmap;</span><br><span class="line">        <span class="keyword">for</span>(string s : strs)</span><br><span class="line">        &#123;</span><br><span class="line">            string temp = s;</span><br><span class="line">            sort(temp.begin(), temp.end());</span><br><span class="line">            hashmap[temp].push_back(s);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : hashmap)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(i.second);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -801,7 +812,7 @@ id="当然注意别做一类扫一遍-用个字典自动分类就可以了.">当
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
