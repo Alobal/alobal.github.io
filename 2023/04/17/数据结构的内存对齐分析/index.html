@@ -302,10 +302,10 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
 struct[5] 这样的数组，每一个 struct[i]
 的起始地址都是对齐的，因此会在struct的尾部填充字节，并且计算在sizeof内，使得sizeof的结果是struct的对齐数的倍数。</li>
 </ol>
-<p>按上述原则分下面的结构体：</p>
+<p>按上述原则分析下面的结构体：</p>
 <ol type="1">
-<li><code>short f</code>
-起始为0000，占据0000-0001，第一个元素不用考虑对齐。</li>
+<li><code>short f</code> 起始为
+0000，占据0000-0001，第一个元素不用考虑对齐。</li>
 <li><code>double s</code> 对齐数 = 8，因此对齐后占据 0008-0015。</li>
 <li><code>char i</code> 对齐数 = 1，因此对齐后占据 0016。</li>
 <li><code>int c</code> 对齐数 = 4，因此对齐后占据 0020-0023。</li>
@@ -436,7 +436,7 @@ target="_blank" rel="noopener" href="https://huailiang.github.io/blog/2021/cpp/"
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -449,7 +449,7 @@ target="_blank" rel="noopener" href="https://huailiang.github.io/blog/2021/cpp/"
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
