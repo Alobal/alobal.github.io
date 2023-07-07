@@ -208,6 +208,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/30/GAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/30/GAN/" class="post-title-link" itemprop="url">Generative Adversarial Nets</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-30 20:29:15" itemprop="dateCreated datePublished" datetime="2021-10-30T20:29:15+08:00">2021-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/30/GAN/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/30/GAN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一个生成模型G：学习到数据分布，使得D犯错概率最大<br />
+一个判别模型D：判别一个样本是来自真实数据还是G<br />
+存在一个特解，使得G可以涵盖住真实训练数据分布，D的判别概率始终是<span
+class="math inline">\(\frac{1}{2}\)</span><br />
+对于MLP定义的G和D，可以使用反向传播训练整个系统，而不需要使用任何的马尔科夫链或者是展开的近似推理网络。</p>
+<h1 id="导论">导论</h1>
+<p>迄今为止，大多数深度学习伟大的成功都是在判别模型上，将高维复杂的输入映射到一个类别标签。<br />
+而生成模型则有着很多的困难，如很难在极大似然估计和相关策略中进行概率计算，并且生成模型的上下文中难以利用分层线性单元的优势。</p>
+<p>本文提出了一个新的规避了这些困难的生成模型。</p>
+<p>GAN框架能够给很多模型和优化问题提供一种训练方法。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/30/GAN/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/22/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CCNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -646,107 +743,6 @@ j+b, c},
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/" class="post-title-link" itemprop="url">SIGGRAPH2021翻阅</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-09 11:06:06" itemprop="dateCreated datePublished" datetime="2021-10-09T11:06:06+08:00">2021-10-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3
-id="unsupervised-learning-for-cuboid-shape-abstraction-via-joint-segmentation-from-point-clouds">Unsupervised
-Learning for Cuboid Shape Abstraction via Joint Segmentation from Point
-Clouds</h3>
-<p>KAIZHI YANG,XUEJIN CHEN, University of Science and Technology of
-China, China</p>
-<p>将复杂的3D物体表达成简单的几何图元，即<strong>形状提取</strong>（shape
-abstract），对于几何建模、结构分析、形状合成来说十分重要。这篇文章中提出了一个无监督的形状提取方法，可以把点云映射到紧凑的立方体表示。利用部件分割和立方体形态来联合预测立方体的分布，并且在自监督学习中加强形状提取和部件分割的一致性。</p>
-<p><strong>立方体提取</strong>，利用一种变分自动编码网络，将点云输入转换成一系列的参数化立方体。</p>
-<p><strong>分割网络</strong>，
-根据点和立方体的联系，将每一个点分配到一个立方体中。在没有人工标注点云部件的情况下，设计了四个新的损失函数，以联合监督有关
-<strong>立方体压缩和几何相似度</strong> 的两条线路。</p>
-<p><strong>评估</strong>，在大量的形状数据集上进行评估，并且证明了比起现有方法的优越性。另外，在网络架构和学习到的特征的基础上，此方法可以支持诸如结构化形状生成，形状插值，结构化形状聚类。</p>
-<p>3D形状提取，3D结构表达，点云，结构分割</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -818,7 +814,7 @@ abstract），对于几何建模、结构分析、形状合成来说十分重要
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

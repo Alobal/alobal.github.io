@@ -208,6 +208,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" class="post-title-link" itemprop="url">LeetCode_剑指Offer No.39</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-20 23:50:03" itemprop="dateCreated datePublished" datetime="2020-07-20T23:50:03+08:00">2020-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/20/LeetCode-%E5%89%91%E6%8C%87Offer-No-39/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="求数组中的众数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof">求数组中的众数</a></h1>
+<p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
+<p>示例 1:</p>
+<p>输入: [1, 2, 3, 2, 2, 2, 5, 4, 2] 输出: 2</p>
+<p>限制：</p>
+<p>1 &lt;= 数组长度 &lt;= 50000</p>
+<h1 id="题目分析">题目分析</h1>
+<p>题目关键词：<strong>出现次数</strong>，即我们很容易想到对次数进行统计然后查找的暴力方式，当然，没有介绍的必要。</p>
+<p>另一个关键词：<strong>超过一半</strong>，超过一半的性质能带给我们什么优势？暴力法没有顾及到，下面介绍的<strong>抵消法</strong>/<strong>摩尔投票法</strong>则利用了这一性质进行提速。</p>
+<p>再仔细思考题目性质：</p>
+<p><strong>核心性质</strong>————寻找众数，众数次数超过一半————众数次数 -
+所有其他数字加起来出现的次数 0</p>
+<ol type="1">
+<li><p>我们可以拿出一个 众数，和 一个非众数
+匹配抵消。<strong>两两抵消</strong>后，最终剩下的肯定是众数。</p></li>
+<li><p>假设当前数是a，碰到下一个不同的数b，a和b抵消后，不管a b
+和众数是什么关系。之后的数组中依然有性质————众数次数 -
+所有其他数字加起来出现的次数 0
+，即a和b的抵消不影响我们在后续数组中找众数。</p></li>
+<li><p>即我们可以按序把两两不相同的数抵消，相同的数累计起来去抵消后续不同的数。并且后续的数组中依然可以继续抵消。</p></li>
+<li><p>这样即可递归下去，最终遍历完整个数组，把所有数抵消了一遍，我们得到剩下的数<code>remain=众数</code>。</p></li>
+</ol>
+<h1 id="算法流程">算法流程</h1>
+<ol type="1">
+<li><p>取第一个数作为当前<code>remain</code></p></li>
+<li><p>遍历到下一个数</p>
+<ul>
+<li>假如不同，则两两抵消，由上面分析可知，不影响后面数组中最后留下的是众数。</li>
+<li>假如相同，则在<code>count</code>中累计起来，后面可以抵消更多的不同的数。</li>
+</ul></li>
+<li><p>遍历完一整遍数组，全部抵消完毕，则最后<code>remain</code>保持为抵消后多余出来的众数</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<p>抵消法做法很简单，值得注意的是理解算法的正确性，为什么这样做是对的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//抵消思路，因为次数超过一半————众数次数 - 所有其他数字加起来出现的次数 0 ,</span></span><br><span class="line">        <span class="comment">//即取 众数一次 抵消 非众数一次 最终剩下来的就是众数</span></span><br><span class="line">        <span class="comment">//即 假设a是众数，碰到下个数不是a， 那么这两个数抵消，剩下的数组里依然有 众数次数 - 所有其他数字加起来出现的次数 0</span></span><br><span class="line">        <span class="comment">//最终全部抵消后，多余的是众数。</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> remain;<span class="comment">//最后剩下的肯定是全数组的众数</span></span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;<span class="comment">//记录当前假设的众数的次数 用于抵消</span></span><br><span class="line">        <span class="keyword">int</span> length=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (count==<span class="number">0</span>)<span class="comment">//更新假设对象</span></span><br><span class="line">            &#123;</span><br><span class="line">                remain=nums[i];</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i]!=remain)<span class="comment">//两两抵消</span></span><br><span class="line">                count--;</span><br><span class="line">            <span class="keyword">else</span><span class="comment">//相同数，count++</span></span><br><span class="line">                count++;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> remain;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -775,117 +892,6 @@ i），Really？</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="两数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">两数之和</a></h1>
-<p>给定一个整数数组 <code>nums</code> 和一个目标值
-<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] =
-2 + 7 = 9 所以返回 [0, 1]</p>
-<h3 id="解决思路">1.解决思路</h3>
-<p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> j=0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=i+1;j&lt;nums.size();j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j=nums.size();</span><br><span class="line">                    i=j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>472 ms</li>
-<li>9.2 MB</li>
-<li>Cpp</li>
-</ul>
-<h3 id="优化思路">2.优化思路</h3>
-<p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。
-<strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用
-<strong>空间换时间</strong>。 哈希表查找复杂度为O(1)</p>
-<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。
-<strong><em>一遍哈希表</em></strong>
-：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
-<h3 id="最终实现代码">3.最终实现代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;<span class="keyword">int</span>,<span class="keyword">int</span> store;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(store.count(target-nums[i])0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result=vector&lt;<span class="keyword">int</span>(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>20 ms</li>
-<li>10.1 MB</li>
-<li>Cpp</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -957,7 +963,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

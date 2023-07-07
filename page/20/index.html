@@ -208,6 +208,164 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-4-/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-4-/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-4-/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="寻找两个有序数组的中位数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays">寻找两个有序数组的中位数</a></h1>
+<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
+请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m +
+n))。 你可以假设 nums1 和 nums2 不会同时为空。 示例 1: nums1 = [1, 3]
+nums2 = [2] 则中位数是 2.0</p>
+<p>示例 2: nums1 = [1, 2] nums2 = [3, 4] 则中位数是 (2 + 3)/2 = 2.5</p>
+<h2 id="思路分析">思路分析</h2>
+<p><strong>首先</strong>, 题目有 log
+时间复杂度限制，不能重组数组暴力解决</p>
+<p><strong>已知</strong>,
+两数组有序不为空，找到中位数的难点在于怎么把两个数组的数一起考虑</p>
+<p><strong>目标</strong>,
+中位数定义：将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法，把两个数组同时划分成两块，左边块的所有数都比右边块的所有数要小。
+若分割后左边有 k 个数，此时划分的边界有 LMax1,LMax2,RMin1,RMin2：</p>
+<ul>
+<li>Max(LMax1,LMax2) 必然是第 k 个数</li>
+<li>Min(RMin1,RMin2) 必然是第 k+1 个数</li>
+</ul>
+<p>即我们可以定位到第 k 个数，中位数的序号 k
+也可通过数组长度得到。因此，我们需要：</p>
+<p><strong>两个数组同时分割成有大小关系的两块，左块总共有 k 个数，k
+为中位数序号，此时中位数要么是第 k 个，要么是第 k 个和第 k+1
+个，都可以在边界找到</strong></p>
+<h2 id="题解分析-链接原高赞题解"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/">题解分析</a>
+（链接原高赞题解）</h2>
+<h3 id="分割主体思路">分割主体思路</h3>
+<p>要把两数组同时分割成两块，先看单一数组的内部。因为数组是有序的，所以假如在中间一割，同一数组的左边肯定小于右边。</p>
+<p>为了达到我们两个数组整体分割的目标，我们还需要满足对一个数组都有，分割的左边最大值小于另一个数组的右边最小值，这样左边的整体必然就会小于右边的整体。</p>
+<p>另外注意切割后要满足左大块总共有 k 个数。</p>
+<figure>
+<img
+src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="题解示意图，来自 LeetCode 扁扁熊" />
+<figcaption aria-hidden="true">题解示意图，来自 LeetCode
+扁扁熊</figcaption>
+</figure>
+<h3 id="边界数赋值">边界数赋值</h3>
+<p>假如分割点恰巧在有数的位置 C, 为方便比较大小，LMax=RMin=L[C],
+即中位数同时分给两边。</p>
+<p>假如分割点在两数之间，即 LMax 和 RMin 即分属两边。</p>
+<h3 id="假想放大数组">假想放大数组</h3>
+<p>因为无法用整数下标表示描述在两数之间的位置，但实际存在这种分割情况。
+所以我们不妨将每个数组<strong>放缩成 2m+1 的长度</strong>,
+即给两数之间也加入一个标识位置。 例如 [1,2,3] 假想放缩成 [#
+,1,#,2,#,3,#],</p>
+<p>此时：<strong>数的实际位置=假想位置/2</strong>，
+<strong>两数之间的假想位置=数的假想位置+-1</strong>。</p>
+<p>设放大后对一个数组切割的假想下标（虚位）为 C。 此时无论 C
+是<strong>数的虚位</strong>还是<strong>空的虚位</strong>, 都满足
+LMax=L[(C-1)/2] RMin=L[C/2],
+注意放缩产生的虚位是假想的，因此访问时要转换回实位</p>
+<p>例如对于 [# ,1,#,2,#,3,#] 2 的原下标是 1, 假想下标是 3, 3/2=1
+若此时以，C=3 为切割位置，即切在点上，则
+LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2 若以 C=4
+为分割处，即切在空上，LMax=L[1]=2,RMin=L[2]=3.</p>
+<p><strong>放大数组后，切点切空都可以用同一个式子正确给 LMax 和 RMin
+赋值</strong></p>
+<h3 id="左块确保有-k-个数">左块确保有 k 个数</h3>
+<p>因为放大后数组总长度是 2m+2n+2，所以中位数在是 第 m+n+1 数和第 m+n+2
+数相加的平均值。</p>
+<p>因此有 <code>k=m+n+1</code>，且 <code>C2=m+n-C1</code>。</p>
+<p>真实数组序号从 0 开始，所以 C1+C2=k-1, 左块才有 k 个数，<strong>不是
+C1+C2=m+n+1</strong>。</p>
+<h3 id="切割终止条件">切割终止条件</h3>
+<p>好，现在我们随便怎么切，都能确保左边是 k
+个数。但是注意为了维护左块所有数一定小于右块所有数，我们需要有<code>LMax&lt;=RMin</code></p>
+<h3 id="处理边界情况">处理边界情况</h3>
+<p>切割时切割点可能在数组最左边或者最右边，此时直观上理解可知，切最左边的时候，LMax=无穷小，切最右边的时候
+RMin=无穷大</p>
+<h3 id="切割点遍历方式">切割点遍历方式</h3>
+<p>切割点选择方式确定后，我们要逐步逼近正确的切割点
+类似于查找算法，此时可用二分法进行逼近，满足效率 O(log).</p>
+<h2 id="最终代码">最终代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> &lt;vector        <span class="comment">//注意头文件的加入，否则 INT_MIN 之类的可能无法使用</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> &lt;stdio.h</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums1, vector&lt;<span class="keyword">int</span>&amp; nums2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> length1=nums1.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> length2=nums2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(length1length2)        <span class="comment">//节省效率，以最短的数组为主切割 C1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">findMedianSortedArrays</span>(nums2,nums1);</span><br><span class="line">        <span class="keyword">int</span> LMax1;</span><br><span class="line">        <span class="keyword">int</span> LMax2;</span><br><span class="line">        <span class="keyword">int</span> RMin1;</span><br><span class="line">        <span class="keyword">int</span> RMin2;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">int</span> k=length1+length2;</span><br><span class="line">        <span class="keyword">int</span> c1;</span><br><span class="line">        <span class="keyword">int</span> c2;<span class="comment">//切割点</span></span><br><span class="line">        <span class="keyword">int</span> lo=<span class="number">0</span>;<span class="comment">//二分逼近变量</span></span><br><span class="line">        <span class="keyword">int</span> hi=length1*<span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//二分确定切割点</span></span><br><span class="line">        <span class="keyword">while</span>(lo&lt;=hi)  <span class="comment">//写 LMax1RMin2 || LMax2RMin1 为什么不可以</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//计算切割点，保持了左边都是 k 个数</span></span><br><span class="line">            c1=(lo+hi)/<span class="number">2</span>;</span><br><span class="line">            c2=k-c1;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//计算四个边界值</span></span><br><span class="line">           (c1==<span class="number">0</span>) ? LMax1=INT_MIN : LMax1=nums1[(c1<span class="number">-1</span>)/<span class="number">2</span>];</span><br><span class="line">            (c1==<span class="number">2</span>*length1) ? RMin1=INT_MAX : RMin1=nums1[c1/<span class="number">2</span>];</span><br><span class="line">             (c2==<span class="number">0</span>) ? LMax2=INT_MIN : LMax2=nums2[(c2<span class="number">-1</span>)/<span class="number">2</span>];</span><br><span class="line">            (c2==<span class="number">2</span>*length2) ? RMin2=INT_MAX : RMin2=nums2[c2/<span class="number">2</span>];</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(LMax1RMin2)<span class="comment">//左上大于右下，左下显然小于右下，切多了，hi 降低</span></span><br><span class="line">                hi=c1<span class="number">-1</span>;          </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(LMax2RMin1)<span class="comment">//左下大于右上，左上显然小于右上，少了。lo 升高</span></span><br><span class="line">                lo=c1+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span>       <span class="comment">//左上小于右上右下，左下小于右上右下，目标条件。</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> LMax,RMin;</span><br><span class="line">        LMax=(LMax1LMax2)?LMax1:LMax2;</span><br><span class="line">        RMin=(RMin1&lt;RMin2)?RMin1:RMin2;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (LMax+RMin)/<span class="number">2.0</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<p>这个题目细节比较复杂，代码相对来说挺清晰简洁。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-32/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -700,115 +858,6 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-46-47/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-46-47/" class="post-title-link" itemprop="url">LeetCode-No-46-47</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-46-47/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-46-47/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="全排列"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">全排列</a></h1>
-<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<p>示例:</p>
-<p>输入: [1,2,3] 输出: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2],
-[3,2,1]]</p>
-<h1 id="题目分析">题目分析</h1>
-<h3
-id="递归-顺着手工思路从后往前逐步交换.-固定前面的后面的全排列即可.">1.
-递归, 顺着手工思路,从后往前逐步交换. 固定前面的+后面的全排列即可.</h3>
-<h3
-id="用一个for循环表示该位与后面每一位交换-包括交换自己-等于不交换的情况-然后用递归表达后面的全排列.">2.
-用一个for循环表示该位与后面每一位交换, (包括交换自己, 等于不交换的情况),
-然后用递归表达后面的全排列.</h3>
-<p>注意递归出来后要把之前换的换回来, 要不然 [1 2 3 ] 换成 [2 1 3],
-递归到第二层 1 3 又会换成[2 3 1], 这已经不是全排列了, 是在顺序交换.
-容易出错</p>
-<h3 id="全排列ii-存在重复数字-要筛选掉重复的排列">3. 全排列II
-存在重复数字, 要筛选掉重复的排列</h3>
-<h4
-id="为什么会有重复序列呢-因为-i-交换了-j-递归出来后-接下来i又碰到一个-j-.-两次交换递归下去的结果一模一样-所以会重复-.">----为什么会有重复序列呢?
-因为 i 交换了 j, 递归出来后, 接下来i又碰到一个 j .
-两次交换递归下去的结果一模一样 , 所以会重复 .</h4>
-<h4
-id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j值-查重通过了才能继续递归-否则跳过.">----
-因此对每个j 我们要查重它是不是在i-j之间 (即已经交换过j值)
-,查重通过了才能继续递归, 否则跳过.</h4>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> permuteUnique(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        backtrace(nums,result,0);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> backtrace(vector&lt;<span class="keyword">int</span>&amp;nums,vector&lt;vector&lt;<span class="keyword">int</span>&amp;result,<span class="keyword">int</span> i)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span>(i==nums.size()-1)</span><br><span class="line">            result.push_back(nums);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;nums.size();j++)</span><br><span class="line">        &#123;   </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(i==j)//不需要交换的递归</span><br><span class="line">            &#123;</span><br><span class="line">                backtrace(nums,result,i+1);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;     </span><br><span class="line">            //检查要交换的这个,在已经交换过的里面,有没有相同的,有就不交换了</span><br><span class="line">            <span class="keyword">int</span> k;</span><br><span class="line">            <span class="keyword">for</span>(k=j-1;k=i;k--)</span><br><span class="line">                <span class="keyword">if</span>(nums[k]==nums[j])</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(k!=i-1)//查重没通过,跳过这个数</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            //正常交换递归</span><br><span class="line">            swap(nums[i],nums[j]);</span><br><span class="line">            backtrace(nums,result,i+1);</span><br><span class="line">            swap(nums[i],nums[j]);  //换回来？</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">void</span> swap(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=a;</span><br><span class="line">        a=b;</span><br><span class="line">        b=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -880,7 +929,7 @@ id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -208,6 +208,131 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">点云深度学习论文记录 (持续更新)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-15 11:24:12" itemprop="dateCreated datePublished" datetime="2022-01-15T11:24:12+08:00">2022-01-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="点云空间学习">点云空间学习</h2>
+<h3
+id="pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation">PointNet:
+Deep Learning on Point Sets for 3D Classification and Segmentation</h3>
+<ul>
+<li>Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for
+3d classification and segmentation[C]//Proceedings of the IEEE
+conference on computer vision and pattern recognition. 2017:
+652-660.</li>
+</ul>
+<p>PointNet首次基于原始点云进行深度学习,其提出了点云深度学习的<strong>三大原则:
+无序性、点间联系、变换一致性</strong>。基于此,
+PointNet在点云上逐点运用了MLP进行变换,
+并且构造了<strong>T-Net</strong>进行对抗点云的仿射变换, 最终使用max
+pool进行对称聚合。</p>
+<blockquote>
+<p>缺少对局部结构的特征学习</p>
+</blockquote>
+<h3
+id="pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space">PointNet++:
+Deep Hierarchical Feature Learning on Point Sets in a Metric Space</h3>
+<ul>
+<li>Qi C R, Yi L, Su H, et al. Pointnet++: Deep hierarchical feature
+learning on point sets in a metric space[J]. Advances in neural
+information processing systems, 2017, 30.</li>
+</ul>
+<p>PointNet没有捕捉到点的局部结构特征，限制了细粒度和复杂场景的识别、泛化能力。PointNet++则引出了一个<strong>set
+abstraction层</strong>对点云进行多级学习。set
+abstraction定义了多级多块的局部邻域结构,
+其在每一个局部邻域中都使用了mini-PointNet来进行特征抽取。然而由于点云是非均匀分布的,
+不同的局部邻域的密度不一样,
+因此PointNet++提出了两种自适应密度的特征融合模块: <strong>Multi-scale
+grouping（MSG）</strong> 和 <strong>Multi-resolution
+grouping（MRG）</strong>。</p>
+<p>另外由于部位分割等任务最终需要输出逐点的特征标签, 因此在set
+abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传播,
+另一方面自顶向下进行反向逐级的特征传播。在同一层内对两种传播特征进行拼接,
+即得到该层的逐点特征。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/08/SkeletonTransformer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -663,111 +788,6 @@ IT 领域获得了前所未有的热度，也获得了产业界和投资圈的�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/30/DDGCN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/30/DDGCN/" class="post-title-link" itemprop="url">DDGCN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-30 10:01:43" itemprop="dateCreated datePublished" datetime="2021-12-30T10:01:43+08:00">2021-12-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/30/DDGCN/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/DDGCN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>DDGCN: A Dynamic Directed Graph Convolutional Network for Action
-Recognition</p>
-<ul>
-<li>Korban M, Li X. Ddgcn: A dynamic directed graph convolutional
-network for action recognition[C]//European Conference on Computer
-Vision. Springer, Cham, 2020: 761-776.</li>
-<li>University of Virginia</li>
-</ul>
-<h1 id="introduction">Introduction</h1>
-<p>之前的时空图网络(ST
-graph)有着以下两点局限性：第一，人体骨架确实有时空联系性，但是这种联系在不同的人体动作下是不一样的。因此怎么有效地提取这种联系是困难的。传统的GCN卷积方法是静态的，无法描述动态时空结构。第二，骨架的空间层级结构和动作的时间序列结构都包含了顺序信息，然而大多数ST
-graph都是用了无向图结构，即无视了顺序信息。</p>
-<p>DDGCN提出用于自适应学习时空关系和动作的时空顺序信息。</p>
-<ul>
-<li>Dynamic Convolutional Sampling (DCS)</li>
-<li>Dynamic Convolutional Weights (DCW)</li>
-<li>Directed Spatial-Temporal Graph (DSTG) Features</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/30/DDGCN/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -839,7 +859,7 @@ graph都是用了无向图结构，即无视了顺序信息。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
