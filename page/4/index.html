@@ -208,6 +208,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/02/17/Point4DTransformer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/17/Point4DTransformer/" class="post-title-link" itemprop="url">Point4DTransformer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-17 08:02:07" itemprop="dateCreated datePublished" datetime="2022-02-17T08:02:07+08:00">2022-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/02/17/Point4DTransformer/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/02/17/Point4DTransformer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Fan H, Yang Y, Kankanhalli M. Point 4D transformer networks for
+spatio-temporal modeling in point cloud videos[C]//Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021:
+14204-14213.</li>
+<li>CVPR</li>
+<li>新加坡国立大学/悉尼科技大学</li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>想把点云转为规则数据再进行卷积，一方面由于其稀疏性，通常需要定义稀疏卷积[6]。另外体素化本身也需要额外的计算[59]，而这限制了实时处理的能力。</p>
+<p>另一种方案是直接处理点云序列。由于点云序列具有不规则性和无序性，其使得点云在不同帧之间不具有连续性。因此通常会使用point
+tracking来捕获动态点云[36]，但这是一个很难的任务。而且tracking通常都是依赖于点的颜色，这也不容易扩展到无色点云。Point
+4D Transformer 用于对原始点云序列进行建模，并在3D 动作识别和4D
+语义分割任务上证明了优越性。P4DTransformer主要包含：</p>
+<ol type="1">
+<li>4D
+convolution，对点云序列的时空局部结构进行embedding处理。并且通过这种时空聚合，减少了后续transformer需要处理的点数。</li>
+<li>transformer，通过自注意力学习序列全局的appearance和motion信息。相关的局部结构会通过注意力权重联系起来，而不需要显示的进行tracking。</li>
+</ol>
+<figure>
+<img src="https://i.imgur.com/6UPkPKK.png" alt="结构图" />
+<figcaption aria-hidden="true">结构图</figcaption>
+</figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/17/Point4DTransformer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2022/01/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -693,101 +803,6 @@ grouping</figcaption>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/" class="post-title-link" itemprop="url">开源协议(讲稿)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-30 16:42:30" itemprop="dateCreated datePublished" datetime="2021-12-30T16:42:30+08:00">2021-12-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>课程研讨讲稿，搜集资料的集合，完全非原创，仅供临时参考。</p>
-</blockquote>
-<p>近年来，开源正在变得越来越火，我们经常会看到
-“某企业宣布开源”、“某开源大会召开”、“某开源项目获得融资”。个人开发者与企业比以往任何时候都更愿意参与到开源项目的建设和贡献中，开源在国内
-IT 领域获得了前所未有的热度，也获得了产业界和投资圈的广泛关注。</p>
-<p>但总有些人听到开源一词时，就会误以为
-“<strong>开源软件是免费的，因此我可以不受限制地随意使用</strong>”。在开源诞生之初，自由软件是当时的主流提法，回顾开源的发展史，从自由软件到开源运动实现了非常大的跨越，前者更多的是一种精神的倡导，而后者着眼于软件的协同开放，因此会有非常严谨的开源许可证的规则和限制。开源软件能走到今天的发展程度，就是因为有了这么一套遵从开源精神的规则体系，才能够健康发展。开源精神的载体之一就是开源许可证，今天我们就来扒一扒开源许可证与开源的关系，以及它背后折射出的问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/30/%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -859,20 +874,20 @@ IT 领域获得了前所未有的热度，也获得了产业界和投资圈的�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

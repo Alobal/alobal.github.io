@@ -208,6 +208,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-60/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-60/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-60/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第k个排列"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutation-sequence">第K个排列</a></h1>
+<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时,
+所有排列如下：</p>
+<p>"123" "132" "213" "231" "312" "321" 给定 n
+和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。 给定 k 的范围是[1,  n!]。</p>
+<p>示例 1:</p>
+<p>输入: n = 3, k = 3 输出: "213"</p>
+<p>示例 2:</p>
+<p>输入: n = 4, k = 9 输出: "2314"</p>
+<h2 id="题目分析">题目分析</h2>
+<ol type="1">
+<li><p>我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</p></li>
+<li><p>可以复用 下一个排列
+的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</p></li>
+<li><p>数学计算。全排列每个位置的每个数其实是有数学特征的。比如对 1 2
+3</p>
+<p>3.1 <strong>首位情况</strong>：
+肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。</p>
+<p>3.2
+<strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现
+<strong>尾部排列次数</strong> 次，然后是nums[1]...依次类推。</p>
+<p>综上：即我们知道每位的次数情况，比如 1 2
+3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此
+第5个排列必然是首位3。 再看次位，第5个排列，除去 1 2
+首位的四个，我们要找的是3首位的第一个，依次类推即可。
+即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</p></li>
+<li><p>细节</p>
+<p>4.1 当前位
+每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。</p>
+<p>4.2 k/fac[n-1] 向上取整得i，此时该位应该是
+nums里的第i个数（下标i-1），同时对nums删除这个数。</p>
+<p>4.3 n==1 时，nums只剩一个数，直接连上并返回。</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//题解数组</span></span><br><span class="line">        <span class="keyword">const</span> vector&lt;<span class="keyword">int</span> fac = &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#x27;0&#x27;);</span><br><span class="line">        string nums(n,&#x27;0&#x27;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;n;i++)</span><br><span class="line">            nums[i]=&#x27;1&#x27;+i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;n0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">int</span> a;</span><br><span class="line">            <span class="keyword">int</span> left=0;</span><br><span class="line">            <span class="keyword">if</span>(n=2) //计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left=fac[n-1];</span><br><span class="line">                a=k/left;</span><br><span class="line">                <span class="keyword">if</span>(k%left!=0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]=nums[a-1];</span><br><span class="line">                k-=(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> //只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]=nums[0];</span><br><span class="line">                <span class="keyword">return</span> result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -686,133 +805,6 @@ maxWidth = 20 输出: [   "Science  is  what we", "understand      well",
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="x的平方根"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sqrtx">x的平方根</a></h1>
-<p>实现 int sqrt(int x) 函数。</p>
-<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
-<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
-<p>示例 1:</p>
-<p>输入: 4 输出: 2</p>
-<p>示例 2:</p>
-<p>输入: 8 输出: 2 说明: 8 的平方根是 2.82842...,  
-由于返回类型是整数，小数部分将被舍去。</p>
-<h1 id="题目分析">题目分析</h1>
-<ol type="1">
-<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
-<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
-<li><strong>递归缩小求解：</strong> <span
-class="math display">\[\sqrt{x}=2*\sqrt{rac{x}{4}}\]</span>
-因此可以递归找到易解的小x，然后再回溯整合到原x。
-注意为什么选择2作为系数进行递归呢？
-——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</li>
-</ol>
-<p>递归式为：<code>mySqrt(x)=mySqrt(x2)&lt;&lt;1</code> 4.
-针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：
-<strong>牛顿法</strong>（英语：Newton's
-method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson
-method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数<span
-class="math inline">\(f(x)\)</span>
-的泰勒级数的前面几项来寻找方程的根。</p>
-<p><span
-class="math display">\[x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]\]</span>
-根据精度要求，<span class="math inline">\(x_k\)</span>和<span
-class="math inline">\(x_{k+1}\)</span>收敛后差距小于1即可返回结果。</p>
-<p><strong>迭代求解示意</strong>：<img
-src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-alt="迭代示意图，图源 (https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)" /></p>
-<p>如上图所示，想求<span
-class="math inline">\(\sqrt{a}\)</span>，图示a=2
-先随便取xi=4，然后找到过(xi,yi)的切线，且<span
-class="math inline">\(f(x)=x^2-a\)</span>的导数是<span
-class="math inline">\(2x\)</span> 即切线方程<span
-class="math inline">\(f(x)-(x_i^2-a)=2x_i(x-xi)\)</span>
-显而易见这个切线与x轴的交点得$x_{i+1}=rac
-{2x_i<sup>2-(x_i</sup>2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $
-即得<span class="math inline">\(x_{i+1}\)</span>比<span
-class="math inline">\(x_{i}\)</span>更接近解<span
-class="math inline">\(\sqrt{a}\)</span>。</p>
-<h1 id="牛顿迭代题解代码">牛顿迭代题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//牛顿迭代</span></span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        <span class="comment">//注意long类型</span></span><br><span class="line">        <span class="keyword">long</span> last=x/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">long</span> cur =(last+x/last)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">abs</span>(last-cur)=<span class="number">1</span>)</span><br><span class="line">        &#123;   </span><br><span class="line">            last=cur;</span><br><span class="line">            cur=(cur +x/ cur) / <span class="number">2.0</span> ;</span><br><span class="line">            <span class="keyword">if</span>(cur&lt;=x/cur)</span><br><span class="line">                <span class="keyword">return</span> cur;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -884,20 +876,20 @@ class="math inline">\(\sqrt{a}\)</span>。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

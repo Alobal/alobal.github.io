@@ -208,6 +208,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-31/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-31/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="下一个排列"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-permutation">下一个排列</a></h1>
+<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
+<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+必须原地修改，只允许使用额外常数空间。</p>
+<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。 1,2,3 → 1,3,2
+3,2,1 → 1,2,3 1,1,5 → 1,5,1</p>
+<h1 id="思路分析">思路分析</h1>
+<h3 id="是否存在更大的排列">①是否存在更大的排列</h3>
+<h5 id="更大的排列">更大的排列</h5>
+<p>考虑最大的字典序排列: 降序排列 <strong>[1,2,3]</strong> →
+<strong>[3,2,1]</strong> 对于 <strong>[3,2,1]</strong>
+序列,已经是最大字典序了</p>
+<p>假如序列存在一个更大的排列,那它必然不是降序排列
+因此判断是否存在下一个排列的条件就是
+<strong>顺序遍历数组,判断是否完全降序</strong></p>
+<h3 id="找到下一个排列">②找到下一个排列</h3>
+<p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
+<h5
+id="为什么最后两位调换之后字典序会变大呢">为什么最后两位调换之后字典序会变大呢?</h5>
+<p>我们可以发现一个本质: <strong>它们是升序的,
+升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序
+如 <strong>[1,2,5,4,3,6]</strong></p>
+<h5
+id="知道了获得更大序的方法接下来我们要确定什么操作能得到最小的更大序下一个更大的序列">知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5>
+<p>其实字典序类似于数的大小关系. 比如<strong>[1,2,3]</strong> →
+<strong>[2,1,3][1.3.2]</strong></p>
+<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
+<h5 id="找到最靠后的一对升序数对">找到最靠后的一对升序数对</h5>
+<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong>
+最靠后的/最小的 升序数对是
+[3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong>
+显然这个结果还不太对.</p>
+<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.
+换句话说,其实再多加几步操作才能保证是下一个序列. 来看看我们还差些什么
+<strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,
+4的后面原本是降序,被整理成了升序</p>
+<p>首先在我们的算法里,我们从后往前找一个升序的"峰值"
+换句话说,我们在找到""峰值""之前,也即从末尾到"峰值"",必然是降序的,也就是局部最大的序列.
+因此我们调换了一对最小的升序对,整个序列在""峰值""之前已经是最小的了,
+但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,
+因此<strong>将""峰值""往后调整成升序,即后半段最小</strong>即可构成"最小+最小"的下一个排列.</p>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> currentid=nextid<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(currentid=<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[nextid]nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="comment">//从后往前，找到第一组 升序对</span></span><br><span class="line">               flag=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(flag==<span class="number">1</span>)<span class="comment">//存在下一个更大排列</span></span><br><span class="line">        &#123;</span><br><span class="line">                <span class="comment">//交换生成新排列</span></span><br><span class="line">            <span class="keyword">while</span>(nextid+<span class="number">1</span>&lt;nums.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[nextid+<span class="number">1</span>]nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">tempswap</span>(nums[currentid],nums[nextid]);</span><br><span class="line">            <span class="comment">//currentid右边必然是降序</span></span><br><span class="line">            <span class="comment">//将currentid右边升序处理</span></span><br><span class="line">            nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(currentid+<span class="number">1</span>&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">tempswap</span>(nums[nextid],nums[currentid+<span class="number">1</span>]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;   <span class="comment">//不存在，则倒序</span></span><br><span class="line">            nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            currentid=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">tempswap</span>(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">tempswap</span><span class="params">(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp; b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp=b;</span><br><span class="line">            b=a;</span><br><span class="line">            a=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-4-/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -751,113 +875,6 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-45/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-45/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-45/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="跳跃游戏"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii">跳跃游戏</a></h1>
-<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
-<p>示例:</p>
-<p>输入: [2,3,1,1,4] 输出: 2 解释: 跳到最后一个位置的最小跳跃数是 2。  
-从下标为 0 跳到下标为 1
-的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
-<p>说明:</p>
-<p>假设你总是可以到达数组的最后一个位置。</p>
-<h1 id="题目分析">题目分析</h1>
-<h3 id="假如不考虑最少次数-贪心法">1. 假如不考虑最少次数, 贪心法</h3>
-<h4 id="逐位扩展可跳最大距离-只要够到了末尾就好.">----
-逐位扩展可跳最大距离, 只要够到了末尾就好.</h4>
-<h4
-id="假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了.">----
-假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4>
-<h3 id="加上了最少次数要求">2. 加上了最少次数要求</h3>
-<h4 id="什么情况会多次数-就是之前的一次能跳到的-跳了几次.">----
-什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4>
-<h4
-id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数.-当然到末端也算一次.">----
-那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离,
-才算一次次数. 当然到末端也算一次.</h4>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">        <span class="comment">//参考题解大神思路: i每到达前一个max,完成一次跳跃</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxend = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">	    &#123;   <span class="comment">//i每到达前一个max,完成一次跳跃</span></span><br><span class="line">		    maxend = <span class="built_in">max</span>(nums[i] + i, maxend);</span><br><span class="line">            <span class="keyword">if</span> (i == end)</span><br><span class="line">            &#123;</span><br><span class="line">                end = maxend;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -929,20 +946,20 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

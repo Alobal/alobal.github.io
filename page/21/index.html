@@ -208,6 +208,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-45/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-45/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-45/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="跳跃游戏"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii">跳跃游戏</a></h1>
+<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
+<p>示例:</p>
+<p>输入: [2,3,1,1,4] 输出: 2 解释: 跳到最后一个位置的最小跳跃数是 2。  
+从下标为 0 跳到下标为 1
+的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
+<p>说明:</p>
+<p>假设你总是可以到达数组的最后一个位置。</p>
+<h1 id="题目分析">题目分析</h1>
+<h3 id="假如不考虑最少次数-贪心法">1. 假如不考虑最少次数, 贪心法</h3>
+<h4 id="逐位扩展可跳最大距离-只要够到了末尾就好.">----
+逐位扩展可跳最大距离, 只要够到了末尾就好.</h4>
+<h4
+id="假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了.">----
+假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4>
+<h3 id="加上了最少次数要求">2. 加上了最少次数要求</h3>
+<h4 id="什么情况会多次数-就是之前的一次能跳到的-跳了几次.">----
+什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4>
+<h4
+id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数.-当然到末端也算一次.">----
+那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离,
+才算一次次数. 当然到末端也算一次.</h4>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">        <span class="comment">//参考题解大神思路: i每到达前一个max,完成一次跳跃</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxend = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">	    &#123;   <span class="comment">//i每到达前一个max,完成一次跳跃</span></span><br><span class="line">		    maxend = <span class="built_in">max</span>(nums[i] + i, maxend);</span><br><span class="line">            <span class="keyword">if</span> (i == end)</span><br><span class="line">            &#123;</span><br><span class="line">                end = maxend;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-46-47/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -623,111 +730,6 @@ id="当然注意别做一类扫一遍-用个字典自动分类就可以了.">当
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-5/" class="post-title-link" itemprop="url">LeetCode-No-5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最长回文子串"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring">最长回文子串</a></h1>
-<p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为
-1000。 示例 1： 输入: "babad" 输出: "bab" 注意: "aba"
-也是一个有效答案。</p>
-<p>示例 2： 输入: "cbbd" 输出: "bb"</p>
-<h2 id="仿no.4切入">仿No.4切入</h2>
-<ul>
-<li>回文序列本质上还是一个切割问题</li>
-<li>以切割点为起始,逐步比较两边是否相等即可判断回文.</li>
-<li>注意切割处可以是数, 也可以是两数之间</li>
-</ul>
-<h2 id="求解代码">求解代码</h2>
-<p>题目思路较为简单,直接放出一遍撸过的代码. <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">string <span class="title">longestPalindrome</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		string result;</span><br><span class="line">		<span class="keyword">int</span> center;</span><br><span class="line">		<span class="keyword">int</span> left;</span><br><span class="line">		<span class="keyword">int</span> right;</span><br><span class="line">		<span class="keyword">if</span> (s.<span class="built_in">length</span>() == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//参考题4扩展</span></span><br><span class="line">		<span class="comment">//[1,2,3] [1,# ,2,#,3]</span></span><br><span class="line">		 <span class="comment">//[2,1,1,2] [2,# ,1,#,1,#,2]</span></span><br><span class="line">		<span class="keyword">for</span> (center = <span class="number">0</span>; center &lt; <span class="number">2</span>*s.<span class="built_in">length</span>()<span class="number">-1</span>; center++)</span><br><span class="line">		&#123;</span><br><span class="line">			left = center / <span class="number">2</span>;</span><br><span class="line">			right = (center + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">			<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (left &lt; <span class="number">0</span> || right = s.<span class="built_in">length</span>() || s[left] != s[right])</span><br><span class="line">				&#123;</span><br><span class="line">					left++;</span><br><span class="line">					right--;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				left--;</span><br><span class="line">				right++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (right - left + <span class="number">1</span>  result.<span class="built_in">length</span>())</span><br><span class="line">				result.<span class="built_in">assign</span>(s, left, right - left + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
------------------ ## 错误思路反省 #### 1.<strong>条件定义错误</strong>
-简单的将回文定义为 一个数在中间,两边相等 的序列,
-实际上回文序列最中间可能是<strong>空</strong>而不是<strong>数</strong>.
-#### 2.<strong>边界特殊情况考虑不周</strong>
-比如空字符串,比如没想到"aaaaa"这种字符串,
-当然使用扩展分割的算法时这些情况都可以求解,
-只不过如果自己能早点注意到这些特殊情况,就不需要绕弯子 ,
-可以直接上来就撸分割了. #### 3. <strong>自行测试</strong>
-自己在提交给OJ之前,应该自己尽量想出各种各样的测试样例,
-不能写出什么就随便丢上去跑,
-只有自己用心测试了之后才会发现自己的初始算法有那么多的错误.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -799,20 +801,20 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-pa
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

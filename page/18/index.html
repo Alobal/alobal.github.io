@@ -208,6 +208,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-05-15T01:01:11+08:00">2020-05-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</p>
+<h2 id="派生类私有成员-和-基类-同时初始化">派生类私有成员 和 基类
+同时初始化</h2>
+<p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？
+测试背景：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispb</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;x=&quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;base</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">derived</span> :</span> <span class="keyword">public</span> base</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i), <span class="built_in">base</span>(a) &#123;  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;a=&quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;derived</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="function">derived <span class="title">obj</span><span class="params">(<span class="number">8</span>)</span></span>;</span><br><span class="line"> base*p =&amp;obj;</span><br><span class="line"> p-&gt;<span class="built_in">dispb</span>();</span><br><span class="line"> <span class="built_in">system</span>(<span class="string">&quot;PAUSE&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：</p>
+<figure>
+<img src="https://i.imgur.com/8kIskTc.png" alt="x!=i" />
+<figcaption aria-hidden="true">x!=i</figcaption>
+</figure>
+<p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
+<blockquote>
+<p>想要正常构造，把base（a)改成base（i）即可。</p>
+</blockquote>
+<h2
+id="派生类初始化私有成员基类在函数体内构造">派生类初始化私有成员，基类在函数体内构造</h2>
+<p><strong>假如派生类的构造函数是这样的</strong>：初始化私有成员，体内构造基类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+<p>会提示类base不存在默认构造函数。</p>
+<p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
+<p><strong>假如基类有无参数的构造函数呢？</strong>讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？增加一个无参数的基类构造函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">.....</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
+<p>报错：形参 i 重定义——明明只声明了一次 i
+，怎么就重定义了呢？把a(i)删去？还是报错重定义</p>
+<p>——<a
+target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000014553913">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</p>
+<p><strong>这里面存在 声明 语句 定义 等根本性语法的规则定义=
+=</strong>具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i)
+中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</p>
+<p>i 冲突那我不用 i
+了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</p>
+<p>派生类构造函数改成：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; cout &lt;&lt;<span class="string">&quot;base(int i): &quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">......</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i)：<span class="built_in">a</span>(i)&#123; cout &lt;&lt; <span class="string">&quot;a:&quot;</span> &lt;&lt; a &lt;&lt; endl; <span class="built_in">base</span>(a); &#125;</span><br></pre></td></tr></table></figure>
+<p>derived(8)运行，猜猜运行结果是什么？</p>
+<p>我们知道初始化a时，先会调用base（），然后初始化a，然后进入函数体内输出a值，然后a传参给base（int
+i），Really？</p>
+<figure>
+<img src="https://i.imgur.com/ZfXu4sR.png" alt="运行结果" />
+<figcaption aria-hidden="true">运行结果</figcaption>
+</figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -702,136 +823,6 @@ MB, 在所有 C++ 提交中击败了7.53%的用户</td>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-16/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-16/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-16/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最接近的三数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum-closest">最接近的三数之和</a></h1>
-<p>给定一个包括 n 个整数的数组 nums 和
-一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
-<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
-<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
-<h1 id="解题思路">解题思路</h1>
-<ul>
-<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
-<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
-</ul>
-<h3 id="算法主体">算法主体</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">while(i&lt;j)</span><br><span class="line">&#123;</span><br><span class="line">  if(sum&lt;target)</span><br><span class="line">    i++;</span><br><span class="line">  else if(sumtarget)</span><br><span class="line">    j--;</span><br><span class="line">  else if(sum==target)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
-</ul>
-<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
-<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
-<ul>
-<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
-</ul>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result;</span><br><span class="line">  <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">  vector&lt;<span class="keyword">int</span> sums;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">int</span> c;</span><br><span class="line">  <span class="keyword">int</span> sum;</span><br><span class="line">  <span class="keyword">int</span> resultdistance = INT_MAX;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (a = 0; a &lt; nums.size() - 2; a++)</span><br><span class="line">  &#123;</span><br><span class="line">   b = a + 1;</span><br><span class="line">   c = nums.size() - 1;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span> (b &lt; c)</span><br><span class="line">   &#123;</span><br><span class="line">    sum = nums[a] + nums[b] + nums[c];</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    sums.push_back(sum);</span><br><span class="line">    <span class="keyword">if</span> (sum &lt; target)</span><br><span class="line">     b++;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sum  target)</span><br><span class="line">     c--;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">     <span class="keyword">return</span> sum;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;sums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(abs(target - sums[i]) &lt; resultdistance)</span><br><span class="line">    &#123;</span><br><span class="line">     result = sums[i];</span><br><span class="line">     resultdistance = abs(target - result);</span><br><span class="line">    &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr />
-<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
-<table>
-<thead>
-<tr class="header">
-<th>提交结果</th>
-<th>执行用时</th>
-<th>内存消耗</th>
-<th>语言</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2019.9.15</td>
-<td>通过</td>
-<td>12 ms</td>
-<td>8.7 MB</td>
-</tr>
-<tr class="even">
-<td>2019.9.11</td>
-<td>通过</td>
-<td>16 ms</td>
-<td>12.9 MB</td>
-</tr>
-</tbody>
-</table>
-<p>8ms可能是做不到了，量级上应该一样。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -903,20 +894,20 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum-close
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -208,6 +208,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">计算几何GDC2021记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-10 23:37:43" itemprop="dateCreated datePublished" datetime="2021-10-10T23:37:43+08:00">2021-10-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="iga-等几何分析">IGA 等几何分析</h2>
+<p>用同样的表示语言去表示几何和物理场。
+比起有限元分析：避免了数据奇偶换，不存在几何离散误差，保证了 CAD
+几何的光滑性和高阶性质。</p>
+<ol type="1">
+<li>曲面建模基础</li>
+</ol>
+<p>二项式展开 Bernstein 多项式 Bezier 曲线 B 样条 NURBS 非均匀有理 B
+样条</p>
+<ol start="2" type="1">
+<li>有限元求解</li>
+</ol>
+<p>弱约束：拉格朗日乘子法 罚函数法 Nitsche 方法</p>
+<p>刚度方程求解：线性——直接法和迭代法，非线性——牛顿迭代法。</p>
+<ol start="3" type="1">
+<li>结构拓扑优化</li>
+</ol>
+<p>连续体结构拓扑优化：用物理意义的场函数来连续表示变化。 SIMP
+各向同性材料罚函数法</p>
+<p>为什么拓扑优化需要 IGA：计算几何与计算力学结合是未来趋势。用 CAD
+的样条基函数代替纯铜有限元的型函数</p>
+<p>结合的挑战：隐式几何描述丧失 IGA 几何造型能力，</p>
+<p>——&gt;显示几何拓扑优化+IGA：</p>
+<p>MMC，简单组件形成拓扑。组件可以形状和尺寸变化，组件相互覆盖可以改变拓扑，可变形组件描述：拉格朗日（横向长肉），欧拉</p>
+<p>MMV，基于 B 样条描述孔洞。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/10/10/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95GDC2021%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/10/09/SIGGRAPH2021%E7%BF%BB%E9%98%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -626,99 +738,6 @@ abstract），对于几何建模、结构分析、形状合成来说十分重要
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2021/05/07/SexEducation%E8%A7%82%E5%90%8E%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/07/SexEducation%E8%A7%82%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url">《SexEducation 2》观后感</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-07 19:35:26" itemprop="dateCreated datePublished" datetime="2021-05-07T19:35:26+08:00">2021-05-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/07/SexEducation%E8%A7%82%E5%90%8E%E6%84%9F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/07/SexEducation%E8%A7%82%E5%90%8E%E6%84%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="爱恨分明的各路人色剧透吐槽">爱恨分明的各路人色（剧透吐槽）</h2>
-<h3
-id="亚当可能是感觉转变最细腻的一个角色了">亚当，可能是感觉转变最细腻的一个角色了</h3>
-<p>从一个整天面无表情的四肢发达头脑简单的霸凌大块头，逐渐展露出内心对自己取向的拒绝，被冷漠的父亲养成的外壳式自我坚强，高大的身体里好像一个弱小委屈的小男孩在迷茫地用最原始的粗暴探寻自己的道路。最后到面对自己面对外界，当着全校学生和家长的面，牵起埃里克的手，甚至开始温温柔柔地像邻家大男孩。</p>
-<p>最后在埃里克家长面前收获真爱并且被家长夸赞，嘴角第一次弧度上扬，可爱。当然埃里克说的其实也很有道理，欺凌了那么久，给埃里克造成了那么久的打击，别人不原谅他不和他做朋友是理所应当的，不过和梅芙一开始不原谅母亲不同，他勇敢地面对了自己的一切，努力地转变着自己的行为，最后大家都可以选择原谅和不原谅，都是合情合理的。</p>
-<p>相反梅芙妈那边就不一样了，明明没啥改变还指责别人不原谅自己？不原谅是人家的合情合理。更何况不值得原谅。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/07/SexEducation%E8%A7%82%E5%90%8E%E6%84%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -790,20 +809,20 @@ id="亚当可能是感觉转变最细腻的一个角色了">亚当，可能是�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
