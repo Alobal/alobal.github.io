@@ -24,7 +24,7 @@
 
   <meta name="description" content="参考Game Programming Patterns完成的设计模式总结笔记。 命令模式 命令模式本质上希望把一个硬编码的函数解耦成可配置的函数命令，尽可能将功能触发和具体功能分离。 如下有一个玩家对象的输入控制功能，其中按下X键对应jump动作。如果我们想要将X键绑定到fireGun功能，那还得去代码里修改对应的硬编码if语句，然后重新编译，重新链接。 1234567void Inpu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="游戏设计模式总结">
+<meta property="og:title" content="游戏中的代码设计模式总结">
 <meta property="og:url" content="https://www.sitchzou.com/2023/07/12/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
 <meta property="og:description" content="参考Game Programming Patterns完成的设计模式总结笔记。 命令模式 命令模式本质上希望把一个硬编码的函数解耦成可配置的函数命令，尽可能将功能触发和具体功能分离。 如下有一个玩家对象的输入控制功能，其中按下X键对应jump动作。如果我们想要将X键绑定到fireGun功能，那还得去代码里修改对应的硬编码if语句，然后重新编译，重新链接。 1234567void Inpu">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>游戏设计模式总结 | Sitch's Blog</title>
+  <title>游戏中的代码设计模式总结 | Sitch's Blog</title>
   
 
 
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          游戏设计模式总结
+          游戏中的代码设计模式总结
         </h1>
 
         <div class="post-meta">
@@ -316,10 +316,35 @@ aria-hidden="true">GPU渲染大量的树木时，可以把共享数据如网格�
 <strong>事件</strong>，然后由
 <strong>发布者</strong>发布该事件，<strong>订阅者</strong>则可以提前订阅好相关事件处理程序。每当数据改动时事件会被发布者Invoke，订阅者的事件处理程序即可响应执行。这在数据逻辑和UI分离的常规MVC开发模式下很常见。</p>
 <p><strong>事件的订阅执行并没有想象中的那么慢</strong>：实际上在C#中事件就是由委托类型(类似函数指针)完成的。订阅者用事件处理程序去订阅事件通知，即相当于在事件的数据结构里保存这个事件处理程序的函数指针，每次事件的Invoke无非是遍历事件保存的函数指针数组依次执行而已。不过需要小心的一点是事件发布者可能会被订阅者阻塞，例如某个前端事件处理程序去访问网络...因此小心UI线程相关！</p>
-<p><strong>对象销毁和垃圾处理</strong>：如上订阅者订阅事件时，发布者的内部其实是在引用订阅者对象。假如我们此时销毁了订阅者呢？那么事件Invoke时就会访问一个错误的野指针。所以订阅者需要注意在自己被释放时主动取消订阅。这个问题对垃圾回收语言有没有影响呢？C#中不需要主动销毁对象，因此倒不至于会得到一个野指针。但是由于发布者手握着一个引用，垃圾回收器只能认为订阅者对象是有用的，因此订阅者会一直存在于内存中，最终形成一种内存泄漏。更为严重的情况是，我们可能以为订阅者已经被回收了，之后又尝试加载一个新的订阅者示例，进行新的订阅，最终你的内存里可能有一万个订阅者！</p>
+<p><strong>对象销毁和垃圾处理</strong>：如上订阅者订阅事件时，发布者的内部其实是在引用订阅者对象。假如我们此时主动销毁了订阅者呢？那么事件Invoke时就会访问一个错误的野指针。所以订阅者需要注意在自己被释放时主动取消订阅。这个问题对垃圾回收语言有没有影响呢？C#中不需要主动销毁对象，因此倒不至于会得到一个野指针。但是由于发布者手握着一个引用，垃圾回收器只能认为订阅者对象是有用的，因此订阅者会一直存在于内存中，最终形成一种内存泄漏。更为严重的情况是，我们可能以为订阅者已经被回收了，之后又尝试加载一个新的订阅者示例，进行新的订阅，最终你的内存里可能有一万个订阅者！</p>
 <blockquote>
 <p>例如玩家在离开战斗场景时，我们可能会想要卸载战斗UI，但实际上由于事件订阅的存在，UI被隐藏后并没有被回收。而下一次玩家进入战斗场景时会创建新的战斗UI，现在，同样的UI就有两个了！之后还会有3个，4个....</p>
 </blockquote>
+<h2 id="单例模式">单例模式</h2>
+<p>单例模式：一方面限定一个类只有一个示例，另一方面为这个示例提供了静态的全局访问方式，示例如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">instance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="comment">// 惰性初始化</span></span><br><span class="line">    <span class="keyword">if</span> (instance_ == <span class="literal">NULL</span>) </span><br><span class="line">      instance_ = <span class="keyword">new</span> <span class="built_in">Singleton</span>();</span><br><span class="line">    <span class="keyword">return</span> *instance_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Singleton</span>() &#123;&#125;</span><br><span class="line">  <span class="keyword">static</span> Singleton* instance_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看出单例模式实现十分简单，并且带来的好处显而易见：</p>
+<ul>
+<li><strong>全局直接访问</strong>：所有调用对象都无需存储相关引用和指针。99.9%的单例模式都是为了创建全局访问的Manager类。</li>
+<li><strong>实例数量限定</strong>：避免不必要的重复。</li>
+<li>惰性初始化实例：如果没有发生访问，则Singleton类永远不会创建实例。就算程序后期发生访问，那也是在运行时才实例化，不会给前期带来不必要的垃圾。</li>
+<li>可动态实例化：这种全局访问的Manager类另一种类似的实现方法是<strong>C#的静态类</strong>，但是静态类很大的一个缺点就是初始化数据也只能是静态的。例如我不能写一个字段<code>static int a=ReadFromFile();</code>,而单例模式就没有这种动态依赖的困扰，想怎么初始化怎么初始化。</li>
+<li>拥有类的完整特性，继承和多态：这样我们可以把一个单例基类扩展成多种泛化单例，分别添加不同的功能，之后再按需创建对应的一种。</li>
+</ul>
+<p>每个了解单例模式的人都能很快的上手使用，并且觉得这个模式真是又快又好。但是难道把所有类都往单例上怼就行了吗？就像从我们学编程开始就被教导不要乱用全局变量一样，比起学会使用单例，我们更需要关注有没有<strong>滥用全局单例</strong>：</p>
+<ul>
+<li>全局共享 =
+<strong>类型安全降低</strong>：任何一个对单例的调用都可能对全局的数据进行更改。如果知道是哪个调用发生了错误的修改还好办，假如不知道是哪个调用呢？你开开心心的在单例的数据段打上断点，却发现这个单例会有几百次的相关调用，就算是007也很难从中找出错误的那一个。</li>
+<li>全局访问 =
+<strong>失去访问权限控制</strong>：增加耦合性。随便一个类，只要它想，就能在里面加上一笔单例的调用，导致代码的引用链简直乱七八糟，例如：逻辑功能
+ref 音频单例 ref 物理单例 ref 渲染单例 ref
+逻辑单例。有可能程序员只想做一个走路带声音的效果，但这段代码却把整个引擎系统都逛了一遍。之后维护的时候动了物理单例，可能音频单例就出错了，动了渲染单例，可能逻辑就跑出BUG了，失去了访问权限的控制，程序员不可能自觉的降低代码耦合。</li>
+<li>实例数量限定 =
+<strong>等等，我们真的需要单例的"单"吗？</strong>：正如上面所述，99.9%的单例模式都是为了全局访问，但我们往往就顺手给这个全局访问点加了个"限定唯一"的特性。我们真的需要唯一的访问点吗？好好想想。另一方面，当我们需要限定实例数量的时候，我们需要为它提供全局访问吗？换句话说，<strong>"全局"和"单例"有必要同时出现吗？</strong></li>
+<li>惰性初始化 =
+<strong>惰性加载还是预加载</strong>：在游戏开发中，预加载十分常见，有时候我们并不希望需要的时候再即时加载一个东西，而是希望提前在某个宽裕的点加载好。</li>
+</ul>
+<p>总而言之，比起把不方便访问的类一股脑的塞给单例模式，更优先想想是否需要<strong>全局变量</strong>，是否需要<strong>数量控制</strong>，如果是小范围的访问能不能用成员变量或者传递参数的方式解决？</p>
 
     </div>
 
@@ -401,7 +426,7 @@ aria-hidden="true">GPU渲染大量的树木时，可以把共享数据如网格�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">命令模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text">动态绑定功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E5%92%8C%E9%87%8D%E5%81%9A"><span class="nav-number">1.2.</span> <span class="nav-text">撤销和重做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">享元模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">观察者模式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">命令模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text">动态绑定功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E5%92%8C%E9%87%8D%E5%81%9A"><span class="nav-number">1.2.</span> <span class="nav-text">撤销和重做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">享元模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">单例模式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
