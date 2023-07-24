@@ -208,6 +208,225 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-53/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-53/" class="post-title-link" itemprop="url">LeetCode-No-53</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-53/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-53/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最大子序和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray">最大子序和</a></h1>
+<p>给定一个整数数组
+nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>示例:</p>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4], 输出: 6 解释: 连续子数组 [4,-1,2,1]
+的和最大，为 6。 进阶:</p>
+<p>如果你已经实现复杂度为 O(n)
+的解法，尝试使用更为精妙的分治法求解。</p>
+<h1 id="题目分析">题目分析</h1>
+<h5
+id="一开始我是想着尝试双指针往中间收缩只要收缩能增加和那就保留当前状态但不知道怎么描述收缩停止条件">1.
+一开始我是想着，尝试双指针往中间收缩，只要收缩能增加和，那就保留当前状态，但不知道怎么描述收缩停止条件。</h5>
+<h5 id="动态规划当累积到第i个数时有两种情况">2.
+动态规划，当累积到第i个数时,有两种情况:</h5>
+<p>2.1 吃掉之前的sum,变得更大 2.2 之前的sum为负,要它干嘛,不吃,自立门户
+#####
+所以很简单，只需要判断前面的sum是否有价值就行了，因为是不能跳跃的，没价值你只能丢弃这个包袱，不能挑几项走。</p>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//想着两边双指针逼近收缩,不过不知道怎么确定收缩停止条件,暂时搁置</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="comment">//当累积到第i个数时,有两种情况:</span></span><br><span class="line">        <span class="comment">//1.吃掉之前的sum,变得更大</span></span><br><span class="line">        <span class="comment">//2.之前的sum为负,要它干嘛,不吃,自立门户</span></span><br><span class="line">        <span class="keyword">int</span> sum=nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> maxResult=nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> L=nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;L;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(sum0)</span><br><span class="line">                sum+=nums[i];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                sum=nums[i];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(summaxResult)</span><br><span class="line">                maxResult=sum;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxResult;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-65/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="有效数字"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-number">有效数字</a></h1>
+<p>验证给定的字符串是否可以解释为十进制数字。</p>
+<p>例如:</p>
+<p>"0" = true " 0.1 " = true "abc" = false "1 a" = false "2e10" = true "
+-90e3   " = true " 1e" = false "e3" = false " 6e-1" = true "
+99e2.5 " = false "53.5e93" = true " --6 " = false "-+3" = false
+"95a54e53" = false</p>
+<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
+<p>数字 0-9 指数 - "e" 正/负号 - "+"/"-" 小数点 - "."
+当然，在输入中，这些字符的上下文也很重要。</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？
+没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p></li>
+<li><p><strong>字符特征</strong> ： 2.1
+可能包含”0~9“，”e“，”.“，“+”，“-”，” “。 2.2 ”e”
+允许出现的次数？还要考虑“e”后是否允许出现”." ，
+”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？ 2.3 “."
+允许出现的次数？ ”." 后是否允许出现 “e" , "+ " ,"-
+"？是否允许作为开头结尾 ？前面是否一定要有数字？ 2.4 ”+“
+，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾
+2.5 ”0~9“ ，”0“是否允许在幂 或者 指数 或者 小数部分
+的首部，是否允许”0“结尾的小数部分。 2.6 ” “，只能作为开头结尾。 2.7
+整个数，必须要有数字出现。</p></li>
+<li><p><strong>判断流程</strong> 3.1 数前空格清除 3.2 首位判断+ -
+号，然后进入幂部分/整数部分 3.3 正常判断数字，遇到 ”." 进入小数部分，“e”
+进入指数部分，其余false。 3.4.1
+小数部分，标记小数点已经用过，不能再出现，其余照常。 3.4.2
+指数部分，检查e前是否有数字，”+“
+”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。
+3.5 检查到” “，”
+“只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。 3.6
+数的结尾检查，不能是”e", "+ " "-" ，但可以是“ . ”。
+3.7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。 3.8
+检查全部通过，但它也要有数字才可能是数！return HasNum；</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isNumber</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//0开头结尾 true</span></span><br><span class="line">        <span class="comment">//多个e  false</span></span><br><span class="line">        <span class="comment">//e左右两边要有数 </span></span><br><span class="line">        <span class="comment">//指数不能为小数</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedSign=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedCom=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedExp=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> HasNum=<span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//首部空格清除</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首位判断符号位</span></span><br><span class="line">        <span class="keyword">if</span>(i&lt;s.<span class="built_in">size</span>() &amp;&amp; (s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>) )<span class="comment">//符号</span></span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign=<span class="literal">true</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//主体判断</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;s.<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]=<span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i]&lt;=<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//主要用来判断指数的符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedSign==<span class="literal">false</span> &amp;&amp; s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;.&#x27;</span>)<span class="comment">//小数点</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedCom==<span class="literal">false</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;e&#x27;</span>)<span class="comment">//指数符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedExp==<span class="literal">false</span> &amp;&amp; HasNum==<span class="literal">true</span>) <span class="comment">//e前需有数字</span></span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp=<span class="literal">true</span>;</span><br><span class="line">                    UsedSign=<span class="literal">false</span>;<span class="comment">//重置符号状态位,指数也可以带符号</span></span><br><span class="line">                    UsedCom=<span class="literal">true</span>;<span class="comment">//指数不能是小数</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27; &#x27;</span>) <span class="comment">//尾部空格</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span> ||s[i<span class="number">-1</span>]==<span class="string">&#x27;+&#x27;</span> || s[i<span class="number">-1</span>]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//e + -结尾 不行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())<span class="comment">//尾部空格清除</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-60/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -308,123 +527,6 @@ nums里的第i个数（下标i-1），同时对nums删除这个数。</p>
 </ol>
 <h1 id="题解代码">题解代码</h1>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//题解数组</span></span><br><span class="line">        <span class="keyword">const</span> vector&lt;<span class="keyword">int</span> fac = &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#x27;0&#x27;);</span><br><span class="line">        string nums(n,&#x27;0&#x27;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;n;i++)</span><br><span class="line">            nums[i]=&#x27;1&#x27;+i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;n0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">int</span> a;</span><br><span class="line">            <span class="keyword">int</span> left=0;</span><br><span class="line">            <span class="keyword">if</span>(n=2) //计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left=fac[n-1];</span><br><span class="line">                a=k/left;</span><br><span class="line">                <span class="keyword">if</span>(k%left!=0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]=nums[a-1];</span><br><span class="line">                k-=(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> //只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]=nums[0];</span><br><span class="line">                <span class="keyword">return</span> result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-61/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="旋转链表"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list">旋转链表</a></h1>
-<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
-<p>示例 1:</p>
-<p>输入: 1-2-3-4-5-NULL, k = 2 输出: 4-5-1-2-3-NULL 解释: 向右旋转 1 步:
-5-1-2-3-4-NULL 向右旋转 2 步: 4-5-1-2-3-NULL</p>
-<p>示例 2:</p>
-<p>输入: 0-1-2-NULL, k = 4 输出: 2-0-1-NULL 解释: 向右旋转 1 步:
-2-0-1-NULL 向右旋转 2 步: 1-2-0-NULL 向右旋转 3 步: 0-1-2-NULL 向右旋转
-4 步: 2-0-1-NULL</p>
-<h1 id="题目分析">题目分析</h1>
-<h5 id="直观移位每个节点向右移动k位">1.
-直观移位——每个节点向右移动K位</h5>
-<p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。
-（前向计算也是可以的，甚至更利于想出优化的第二步） #####
-注意细节：一个是移动出了链头，要转到链尾继续移动。 #####
-然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？
-一个很傻的方法是把链表数值做成vector...然后在vector中找相应的数值，然后赋给当前位置...
-很傻，浪费空间时间= = ##### 2.
-我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？
-再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。
-##### 3.
-因此我们可以把链尾连向链头，即tail-next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。
-##### 4.
-遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。
-例如 1-2-3-4-5，k=2
-遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。
-##### 5.
-因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。
-当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。
-你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
-<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开=
-=
-当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可=
-=。</p>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i=head;</span><br><span class="line">        int L=0;</span><br><span class="line">        if(head==NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-next!=NULL)//找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i=i-next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-next=head;//首尾相连</span><br><span class="line">        //缩小k</span><br><span class="line">        k%=L;</span><br><span class="line">        int j=0;</span><br><span class="line">        //从末尾起移动L-k到达 i , i-next是新头</span><br><span class="line">        k=L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i=i-next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head=i-next;</span><br><span class="line">        i-next=NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -548,125 +650,6 @@ id="no.64给每个位置加了权值要求走到右下角的权值累计和最�
 </ol>
 <h1 id="题解代码">题解代码</h1>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&amp; obstacleGrid)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="keyword">int</span> m=obstacleGrid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n=obstacleGrid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">long</span> temp[n];<span class="comment">//注意要用long 有样例爆int....</span></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][<span class="number">0</span>]!=<span class="number">1</span>)</span><br><span class="line">            temp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)<span class="comment">//首行处理</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][i]!=<span class="number">1</span>)</span><br><span class="line">                temp[i]=temp[i<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                temp[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> row=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[row][<span class="number">0</span>]==<span class="number">1</span>)<span class="comment">//首列障碍物处理</span></span><br><span class="line">                temp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[row][i]==<span class="number">1</span>)</span><br><span class="line">                    temp[i]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    temp[i]+=temp[i<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> temp[n<span class="number">-1</span>];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2020/02/17/LeetCode-No-65/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="有效数字"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-number">有效数字</a></h1>
-<p>验证给定的字符串是否可以解释为十进制数字。</p>
-<p>例如:</p>
-<p>"0" = true " 0.1 " = true "abc" = false "1 a" = false "2e10" = true "
--90e3   " = true " 1e" = false "e3" = false " 6e-1" = true "
-99e2.5 " = false "53.5e93" = true " --6 " = false "-+3" = false
-"95a54e53" = false</p>
-<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
-<p>数字 0-9 指数 - "e" 正/负号 - "+"/"-" 小数点 - "."
-当然，在输入中，这些字符的上下文也很重要。</p>
-<h1 id="题目分析">题目分析</h1>
-<ol type="1">
-<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？
-没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p></li>
-<li><p><strong>字符特征</strong> ： 2.1
-可能包含”0~9“，”e“，”.“，“+”，“-”，” “。 2.2 ”e”
-允许出现的次数？还要考虑“e”后是否允许出现”." ，
-”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？ 2.3 “."
-允许出现的次数？ ”." 后是否允许出现 “e" , "+ " ,"-
-"？是否允许作为开头结尾 ？前面是否一定要有数字？ 2.4 ”+“
-，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾
-2.5 ”0~9“ ，”0“是否允许在幂 或者 指数 或者 小数部分
-的首部，是否允许”0“结尾的小数部分。 2.6 ” “，只能作为开头结尾。 2.7
-整个数，必须要有数字出现。</p></li>
-<li><p><strong>判断流程</strong> 3.1 数前空格清除 3.2 首位判断+ -
-号，然后进入幂部分/整数部分 3.3 正常判断数字，遇到 ”." 进入小数部分，“e”
-进入指数部分，其余false。 3.4.1
-小数部分，标记小数点已经用过，不能再出现，其余照常。 3.4.2
-指数部分，检查e前是否有数字，”+“
-”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。
-3.5 检查到” “，”
-“只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。 3.6
-数的结尾检查，不能是”e", "+ " "-" ，但可以是“ . ”。
-3.7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。 3.8
-检查全部通过，但它也要有数字才可能是数！return HasNum；</p></li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isNumber</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//0开头结尾 true</span></span><br><span class="line">        <span class="comment">//多个e  false</span></span><br><span class="line">        <span class="comment">//e左右两边要有数 </span></span><br><span class="line">        <span class="comment">//指数不能为小数</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedSign=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedCom=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedExp=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> HasNum=<span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//首部空格清除</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首位判断符号位</span></span><br><span class="line">        <span class="keyword">if</span>(i&lt;s.<span class="built_in">size</span>() &amp;&amp; (s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>) )<span class="comment">//符号</span></span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign=<span class="literal">true</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//主体判断</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;s.<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]=<span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i]&lt;=<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//主要用来判断指数的符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedSign==<span class="literal">false</span> &amp;&amp; s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;.&#x27;</span>)<span class="comment">//小数点</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedCom==<span class="literal">false</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;e&#x27;</span>)<span class="comment">//指数符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedExp==<span class="literal">false</span> &amp;&amp; HasNum==<span class="literal">true</span>) <span class="comment">//e前需有数字</span></span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp=<span class="literal">true</span>;</span><br><span class="line">                    UsedSign=<span class="literal">false</span>;<span class="comment">//重置符号状态位,指数也可以带符号</span></span><br><span class="line">                    UsedCom=<span class="literal">true</span>;<span class="comment">//指数不能是小数</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27; &#x27;</span>) <span class="comment">//尾部空格</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span> ||s[i<span class="number">-1</span>]==<span class="string">&#x27;+&#x27;</span> || s[i<span class="number">-1</span>]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//e + -结尾 不行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())<span class="comment">//尾部空格清除</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
