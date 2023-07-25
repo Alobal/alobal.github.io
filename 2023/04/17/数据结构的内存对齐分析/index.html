@@ -19,13 +19,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="概念讨论 内存对齐是一个很基础的概念。虽然内存地址的单位是字节，但是CPU访存指令大部分都是以机器字长(64位的CPU机器字长即8字节)为单位，并且由于内存提供的访存电路接口限制，CPU只能从机器字长的倍数的地址开始访问。即CPU能够在一条指令中访存0000-0007，但是不能够从0003-0010，而必须拆分成两条访存指令，分别从0000和0008开始。  CPU按机器字长访存容易理解，但">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构的内存对齐分析">
-<meta property="og:url" content="https://www.sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="https://sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
 <meta property="og:description" content="概念讨论 内存对齐是一个很基础的概念。虽然内存地址的单位是字节，但是CPU访存指令大部分都是以机器字长(64位的CPU机器字长即8字节)为单位，并且由于内存提供的访存电路接口限制，CPU只能从机器字长的倍数的地址开始访问。即CPU能够在一条指令中访存0000-0007，但是不能够从0003-0010，而必须拆分成两条访存指令，分别从0000和0008开始。  CPU按机器字长访存容易理解，但">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/">
+<link rel="canonical" href="https://sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/">
 
 
 <script id="page-configurations">
@@ -211,7 +211,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/04/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
