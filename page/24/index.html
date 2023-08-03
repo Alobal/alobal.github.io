@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
+            <a href="/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
         </h2>
 
         <div class="post-meta">
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-68/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-68/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,53 +269,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="x的平方根"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sqrtx">x的平方根</a></h1>
-<p>实现 int sqrt(int x) 函数。</p>
-<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
-<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
-<p>示例 1:</p>
-<p>输入: 4 输出: 2</p>
-<p>示例 2:</p>
-<p>输入: 8 输出: 2 说明: 8 的平方根是 2.82842...,  
-由于返回类型是整数，小数部分将被舍去。</p>
+          <h1 id="文本左右对齐"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/text-justification">文本左右对齐</a></h1>
+<p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 '
+' 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
+<p>说明:</p>
+<p>单词是指由非空格字符组成的字符序列。 每个单词的长度大于
+0，小于等于 maxWidth。 输入单词数组 words 至少包含一个单词。 示例:</p>
+<p>输入: words = ["This", "is", "an", "example", "of", "text",
+"justification."] maxWidth = 16 输出: [    "This    is    an",  
+ "example  of text",    "justification.  "] 示例 2:</p>
+<p>输入: words = ["What","must","be","acknowledgment","shall","be"]
+maxWidth = 16 输出: [   "What   must   be",   "acknowledgment  ",  
+"shall be        "] 解释: 注意最后一行的格式应为 "shall be " 而不是
+"shall be",   因为最后一行应为左对齐，而不是左右两端对齐。<br />
+第二行同样为左对齐，这是因为这行只包含一个单词。 示例 3:</p>
+<p>输入: words =
+["Science","is","what","we","understand","well","enough","to","explain",
+  "to","a","computer.","Art","is","everything","else","we","do"]
+maxWidth = 20 输出: [   "Science  is  what we", "understand      well",
+  "enough to explain to",   "a  computer.  Art is",   "everything  else
+ we",   "do                  "]</p>
 <h1 id="题目分析">题目分析</h1>
 <ol type="1">
-<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
-<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
-<li><strong>递归缩小求解：</strong> <span
-class="math display">\[\sqrt{x}=2*\sqrt{rac{x}{4}}\]</span>
-因此可以递归找到易解的小x，然后再回溯整合到原x。
-注意为什么选择2作为系数进行递归呢？
-——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</li>
+<li>也是没有突出思路的困难题....考验代码实现细节的功底。 ####
+进入每行一轮的循环：</li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= = <strong>2.1
+注意每个单词后面要留个位置给空格</strong> <strong>2.2
+同时记得保存个末行标志位，以便后续末行特殊处理</strong> <strong>2.3
+这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong></li>
+<li>计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。
+<strong>3.1
+注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong>
+<strong>3.2
+注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong></li>
+<li>末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。</li>
+<li>循环填入单词，填一个单词+vector[i]数量的空格。</li>
+<li>填入该行结果</li>
 </ol>
-<p>递归式为：<code>mySqrt(x)=mySqrt(x2)&lt;&lt;1</code> 4.
-针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：
-<strong>牛顿法</strong>（英语：Newton's
-method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson
-method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数<span
-class="math inline">\(f(x)\)</span>
-的泰勒级数的前面几项来寻找方程的根。</p>
-<p><span
-class="math display">\[x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]\]</span>
-根据精度要求，<span class="math inline">\(x_k\)</span>和<span
-class="math inline">\(x_{k+1}\)</span>收敛后差距小于1即可返回结果。</p>
-<p><strong>迭代求解示意</strong>：<img
-src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-alt="迭代示意图，图源 (https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)" /></p>
-<p>如上图所示，想求<span
-class="math inline">\(\sqrt{a}\)</span>，图示a=2
-先随便取xi=4，然后找到过(xi,yi)的切线，且<span
-class="math inline">\(f(x)=x^2-a\)</span>的导数是<span
-class="math inline">\(2x\)</span> 即切线方程<span
-class="math inline">\(f(x)-(x_i^2-a)=2x_i(x-xi)\)</span>
-显而易见这个切线与x轴的交点得$x_{i+1}=rac
-{2x_i<sup>2-(x_i</sup>2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $
-即得<span class="math inline">\(x_{i+1}\)</span>比<span
-class="math inline">\(x_{i}\)</span>更接近解<span
-class="math inline">\(\sqrt{a}\)</span>。</p>
-<h1 id="牛顿迭代题解代码">牛顿迭代题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//牛顿迭代</span></span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        <span class="comment">//注意long类型</span></span><br><span class="line">        <span class="keyword">long</span> last=x/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">long</span> cur =(last+x/last)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">abs</span>(last-cur)=<span class="number">1</span>)</span><br><span class="line">        &#123;   </span><br><span class="line">            last=cur;</span><br><span class="line">            cur=(cur +x/ cur) / <span class="number">2.0</span> ;</span><br><span class="line">            <span class="keyword">if</span>(cur&lt;=x/cur)</span><br><span class="line">                <span class="keyword">return</span> cur;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string fullJustify(vector&lt;string&amp; words, <span class="keyword">int</span> maxWidth) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string  result;</span><br><span class="line">        <span class="keyword">int</span> wordsFlag=0;//处理到的最远的单词</span><br><span class="line">        <span class="keyword">int</span> StartFlag=0;</span><br><span class="line">        <span class="keyword">int</span> SpaceNum=0;</span><br><span class="line">        <span class="keyword">int</span> wordsNum=0;//每行单词数</span><br><span class="line">        <span class="keyword">int</span> CurrentLength=0;</span><br><span class="line">        <span class="keyword">bool</span> isLast=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> spaces;//存储每行每处的空格数</span><br><span class="line">        <span class="keyword">while</span>(wordsFlag&lt;words.size())//行循环</span><br><span class="line">        &#123;   </span><br><span class="line">            StartFlag=wordsFlag;</span><br><span class="line">            wordsNum=0;</span><br><span class="line">            CurrentLength=0;</span><br><span class="line">            <span class="keyword">while</span>(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词</span><br><span class="line">            &#123;   </span><br><span class="line">                CurrentLength+=words[wordsFlag].size();</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(CurrentLength+wordsNummaxWidth)//超过了 退掉最后一次</span><br><span class="line">                &#123;</span><br><span class="line">                    CurrentLength-=words[wordsFlag].size();</span><br><span class="line">                    // wordsFlag--; wordsFlag 停在下一行第一个</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wordsNum++;</span><br><span class="line">                wordsFlag++;</span><br><span class="line"></span><br><span class="line">                //末行判定</span><br><span class="line">                <span class="keyword">if</span>(wordsFlag=words.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    isLast=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //计算所需空格数</span><br><span class="line">            SpaceNum=maxWidth-CurrentLength;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(wordsNum1)//1判断，wordsNum-1=0时不能当除数</span><br><span class="line">            &#123;</span><br><span class="line">                 spaces= vector&lt;<span class="keyword">int</span>(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个</span><br><span class="line">					<span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的</span><br><span class="line">                        spaces[j] += 1;</span><br><span class="line">                spaces.push_back(0);//最后一个数不要空格</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                spaces= vector&lt;<span class="keyword">int</span>(1,SpaceNum);</span><br><span class="line"></span><br><span class="line">            //末行处理</span><br><span class="line">            <span class="keyword">if</span>(isLast==<span class="literal">true</span> &amp;&amp; wordsNum1)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j= 0;</span><br><span class="line">                <span class="keyword">for</span> (; j &lt;wordsNum-1; j++)</span><br><span class="line">                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =</span><br><span class="line">                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格</span><br><span class="line">            &#125;</span><br><span class="line">                    </span><br><span class="line">            string temp;</span><br><span class="line">            <span class="keyword">int</span> j=0;</span><br><span class="line">            <span class="keyword">while</span>(StartFlag&lt;wordsFlag)</span><br><span class="line">            &#123;   </span><br><span class="line">                //填充单词</span><br><span class="line">                temp+=words[StartFlag];//填词</span><br><span class="line">                //填充空格</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;spaces[j];i++)//填空格</span><br><span class="line">                    temp.push_back(&#x27; &#x27;);</span><br><span class="line">                StartFlag++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result.push_back(temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
