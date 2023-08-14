@@ -208,6 +208,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/" class="post-title-link" itemprop="url">PointNet-Based-Hand-Gesture-Recognition</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-11 14:00:32" itemprop="dateCreated datePublished" datetime="2021-12-11T14:00:32+08:00">2021-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>A PointNet-Based Solution for 3D Hand Gesture
+Recognition</strong></p>
+<p>Mirsu R, Simion G, Caleanu C D, et al. A pointnet-based solution for
+3d hand gesture recognition[J]. Sensors, 2020, 20(11): 3226.</p>
+<ol type="1">
+<li>在Kaggle上公开了<a
+target="_blank" rel="noopener" href="https://www.kaggle.com/cdcaleanu/upt-tof-3d-hand-gesture-database?select=01_amp.bin">手势数据集</a></li>
+<li>使用PCA进行手前臂分割</li>
+<li>使用基于直方图的邻域策略规范化点云大小</li>
+<li>使用PointNet架构完成3D DRGB图的手势识别</li>
+</ol>
+<h2 id="多级手部分割">多级手部分割</h2>
+<figure>
+<img src="https://i.imgur.com/6MCc6kE.png" alt="多级分割流程图" />
+<figcaption aria-hidden="true">多级分割流程图</figcaption>
+</figure>
+<h3 id="预处理">预处理</h3>
+<p>由于分类时直接对3D点云使用了深度学习，因此预处理好点云数据也很重要。详细工作可参考之前的paper[28]。</p>
+<p><strong>过滤平滑</strong>：使用中值滤波来去除斑点噪声。</p>
+<figure>
+<img src="https://i.imgur.com/LzqDVdk.png"
+alt="(a)未平滑原始深度图 (b)平滑过滤后" />
+<figcaption aria-hidden="true">(a)未平滑原始深度图
+(b)平滑过滤后</figcaption>
+</figure>
+<p><strong>筛选出手部区域</strong>：默认手部是屏幕最近的物体。因此从最近点开始，选取一个深度区间7cm左右的所有点。同时进行计数。若这个区间的点总数小于阈值，则说明最近的点是一个离群点，不可靠。因此将区间往后移动重新划分。</p>
+<p><strong>区域内聚类</strong>：
+通过区域，中心，等方式进行计算聚类。如果有多个类，则选择左上方的作为手部区域。</p>
+<p><strong>手前臂分割</strong>：通过PCA找到数据的对称轴。</p>
+<figure>
+<img src="https://i.imgur.com/7baQ8zl.png"
+alt="(a)(b)PCA找到的手前臂轴和手部区域轴，(c)PCA无效的状态" />
+<figcaption
+aria-hidden="true">(a)(b)PCA找到的手前臂轴和手部区域轴，(c)PCA无效的状态</figcaption>
+</figure>
+<p>并且利用一个手部检测窗口，一个手腕检测窗口来找到手腕分界线：计算两个窗口内点数的比例，找到一个比例极值处作为手腕分界线。</p>
+<figure>
+<img src="https://i.imgur.com/i2G6tHJ.png"
+alt="红框为手部检测窗口，每一轮增大一点。绿框为手腕检测窗口，大小固定。" />
+<figcaption
+aria-hidden="true">红框为手部检测窗口，每一轮增大一点。绿框为手腕检测窗口，大小固定。</figcaption>
+</figure>
+<p><strong>采样压缩点云</strong>：移除邻居最多的点，或者保留邻域最小的点</p>
+<figure>
+<img src="https://i.imgur.com/p9uOoIM.png" alt="点云采样示意图" />
+<figcaption aria-hidden="true">点云采样示意图</figcaption>
+</figure>
+<h1 id="参考文献">参考文献</h1>
+<p>[28] Simion, G.; Caleanu, C. Multi-stage 3D segmentation for ToF
+based gesture recognition system. In Proceedings of the 2014 11th
+International Symposium on Electronics and Telecommunications (ISETC),
+Timisoara, Romania, 15–16 November 2014; pp. 1–4.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/09/%E6%95%B0%E6%8D%AE%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -601,212 +733,6 @@ information processing systems, 2017, 30.</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">深度学习框架</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-24 14:37:42" itemprop="dateCreated datePublished" datetime="2021-11-24T14:37:42+08:00">2021-11-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="网络结构">网络结构</h1>
-<ul>
-<li>one-hot: 对离散的类别数据进行编码,
-如词元、标签等。通过编码可以将所有类别一视同仁,
-而避免造成label=5的标签比label=1的标签更重要。</li>
-<li>embedding:
-对词元进行one-hot编码之后，通常维度都会成千上万，并且除了一个维度是1以为，其他维度全都是0，编码很稀疏，效率很低。为了压缩维度使用embedding层进行维度压缩。</li>
-<li>残差层: 用于在网络F的基础上构造残差连接,
-如ReLU、GELU。在激活函数之前。</li>
-<li>Batch Normalization:
-每层网络运算之后的归一化。在网络计算与激活层之间。</li>
-<li>激活层:
-在两层神经网络之间，切断两层的线性联系，使网络组合可以变成非线性网络。</li>
-</ul>
-<h2 id="激活函数">激活函数</h2>
-<p><a
-target="_blank" rel="noopener" href="https://microsoft.github.io/ai-edu/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/A2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/%E7%AC%AC4%E6%AD%A5%20-%20%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/08.0-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.html">原理讲解</a></p>
-<h3 id="sigmoidlogistictanh">Sigmoid(Logistic/Tanh)</h3>
-<ul>
-<li>有输出概率的实际意义, 导数易求。</li>
-<li>但是计算需要指数运算, 效率低。而且梯度最大值≤0.25,
-在链式传播乘起来后会越来越小,
-最终网络一多就会造成梯度消失。另外Logistic均值不为0,
-会影响一点输入数据的均值分布, Tanh则不会。</li>
-</ul>
-<h3 id="reluleaky-relu">ReLU/Leaky ReLU</h3>
-<p><span class="math display">\[
-ReLU(z) = max(0,z) = \begin{cases}z, &amp; z \geq 0 \\\\0, &amp; z &lt;
-0\end{cases}
-\]</span></p>
-<ul>
-<li>正常的反向导数恒等于1, 收敛快。无论链式传播多少层梯度都为1,
-不存在梯度消失。且计算简单, 并且会造成神经元的稀疏性,
-降低计算成本。</li>
-<li>输出无界==&gt;输出可能很大==&gt;损失很大==&gt;梯度很大==&gt;梯度下降造成神经元参数W和b小于0==&gt;激活前的神经元输入小于0,
-激活时ReLU梯度恒为0, 即ReLU神经元死亡。</li>
-<li>在RNN中难以使用ReLU==RNN时间步中共享W参数矩阵, 相当于会对W做连乘,
-且ReLU不抑制输出, 最终输出结果很大。除非W初始化为I。</li>
-</ul>
-<blockquote>
-<p>ReLU不能接受小于0的输入, 不代表原始输入数据不能小于0,
-因为原始数据起码也在一层WX+b之后才会进入ReLU。而初始化的W是0对称分布,
-b则是恒为0, 因此会将输入数据变成有正有负, 不用担心。</p>
-</blockquote>
-<p><strong>Leaky ReLU</strong>: 在ReLU的基础上,
-给小于0的部分泄漏了一点点梯度,避免神经元死亡</p>
-<p><span class="math display">\[
-LReLU(z) = \begin{cases} z &amp; z \geq 0 \\\\ \alpha \cdot z &amp; z
-&lt; 0 \end{cases}
-\]</span></p>
-<h2 id="batch-normalization">Batch Normalization</h2>
-<p>网络每一层的计算都会使输入数据的分布发生一点变化，变化随着层数放大。因此最后训练中间层数据分布可能已经不是原始数据分布了，BN（BatchNormalization）就是为了解决这种分布变化，从而获得以下优点：</p>
-<ul>
-<li>可以选择比较大的初始学习率，让你的训练速度提高</li>
-<li>减少对初始化的依赖</li>
-<li>减少对正则的依赖</li>
-</ul>
-<p><strong>使用方法</strong>：nn.BatchNorm1d/2d/3d(num_features)</p>
-<ul>
-<li>全连接层：置于全连接计算和激活层之间</li>
-<li>卷积层：分通道处理，一个通道一个批量归一化</li>
-<li>测试和预测时：由于只有一个样本不能批量归一化，因此可以采用训练时的全局均值来做归一化。在pytorch中把模型置为eval会自动做好。</li>
-</ul>
-<p><a
-target="_blank" rel="noopener" href="https://microsoft.github.io/ai-edu/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/A2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/%E7%AC%AC7%E6%AD%A5%20-%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/15.5-%E6%89%B9%E9%87%8F%E5%BD%92%E4%B8%80%E5%8C%96%E7%9A%84%E5%8E%9F%E7%90%86.html">详细原理</a>：BN即是在每一层都把数据分布归一化到0点附近，使得每一层网络都有着相同分布的数据。具体做法：</p>
-<ol type="1">
-<li>先对方差、均值归一化，将数据分布移动0点附近：仅这一步还不够，由于区间在[-1,1]，可能会减弱激活函数效果，另外压缩了网络的学习空间，可能会破坏网络学习效果。</li>
-<li>通过可学习的参数
-γ，β，对数据进行可学习的线性变换来适当拉宽数据分布，解决上述问题。</li>
-</ol>
-<p><span class="math display">\[
-\mu_B = \frac{1}{m}\sum_1^m x_i\\
-\sigma^2_B = \frac{1}{m} \sum_1^m (x_i-\mu_B)^2\\
-n_i = \frac{x_i-\mu_B}{\sqrt{\sigma^2_B + \epsilon}} \\
-z_i = \gamma n_i + \beta
-\]</span></p>
-<h1 id="优化">优化</h1>
-<h2 id="网络参数">网络参数</h2>
-<h3 id="参数初始化">参数初始化</h3>
-<p>在自己的init_func中利用nn.init模块对不同的层定义不同的初始化方式。然后用net.apply(init_func)将函数应用到每一层。或者net[i].apply(init_func)单独应用：</p>
-<ul>
-<li>线性激活：Xavier，前提激活函数在零点附近线性，如tanh等。而ReLU不满足。</li>
-<li>ReLU：He，解决ReLU不能使用Xavier的问题。</li>
-</ul>
-<p><a
-target="_blank" rel="noopener" href="https://microsoft.github.io/ai-edu/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/A2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/%E7%AC%AC7%E6%AD%A5%20-%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/15.1-%E6%9D%83%E9%87%8D%E7%9F%A9%E9%98%B5%E5%88%9D%E5%A7%8B%E5%8C%96.html#1514-msra">详细介绍初始化方法</a></p>
-<h3 id="参数更新器">参数更新器</h3>
-<p><strong>SGD</strong>：随机梯度下降</p>
-<ul>
-<li><span class="math inline">\(\eta\)</span>：全局学习率</li>
-<li>收敛慢，在终点容易错左右跳，可能陷入局部最优。</li>
-</ul>
-<p><strong>Momentum</strong>：更新时在一定程度上保留之前的方向，再通过当前梯度进行微调方向，即带有一定的<strong>惯性</strong>。</p>
-<ul>
-<li><span class="math inline">\(\eta\)</span>：全局学习率；<span
-class="math inline">\(\alpha\)</span>：动量系数；<span
-class="math inline">\(v_t\)</span>：初始方向</li>
-<li>增加稳定性学习更快，有一定的摆脱局部最优能力。</li>
-</ul>
-<figure>
-<img src="https://i.imgur.com/lLjsl2V.png" alt="Momentum" />
-<figcaption aria-hidden="true">Momentum</figcaption>
-</figure>
-<p><strong>NAG</strong>：Nesterov Momentum/Nesterov Accelerated Gradient
-梯度加速算法。同Momentum，已知上一步的更新方向，那么在这次确定方向之前，先按之前的方向走一步，然后在新位置上求梯度，再用这个
-<strong>未来的梯度</strong> 在当前位置进行Momentum的方向计算。</p>
-<blockquote>
-<p>换句话说，就是把Momentum中计算当前梯度的步骤延后，先走一步看看，计算梯度，看看路顺不顺，再回到原位置决定要怎么走。</p>
-</blockquote>
-<ul>
-<li><span class="math inline">\(\eta\)</span>：全局学习率；<span
-class="math inline">\(\alpha\)</span>：动量系数；<span
-class="math inline">\(v_t\)</span>：初始方向</li>
-<li>相比于在原位置做方向的微调，NAG是先探好前方的路，再决定现在怎么走。因此更具有预见能力，未来的路更顺畅则加快速度，未来的路不好走则提前改变方向。</li>
-</ul>
-<figure>
-<img src="https://i.imgur.com/5Qx0WBN.png" alt="Nesterov Momentum" />
-<figcaption aria-hidden="true">Nesterov Momentum</figcaption>
-</figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -878,7 +804,7 @@ class="math inline">\(v_t\)</span>：初始方向</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

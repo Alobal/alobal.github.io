@@ -208,6 +208,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/03/03/LeetCode-No-264/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/03/LeetCode-No-264/" class="post-title-link" itemprop="url">LeetCode No.264</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-03 17:01:41" itemprop="dateCreated datePublished" datetime="2021-03-03T17:01:41+08:00">2021-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/03/LeetCode-No-264/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/03/LeetCode-No-264/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="丑数ii"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ugly-number-ii">丑数II</a></h1>
+<p>编写一个程序，找出第 n 个丑数。</p>
+<p>丑数就是质因数只包含 2, 3, 5 的正整数。</p>
+<p>示例:</p>
+<p>输入: n = 10 输出: 12 解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10
+个丑数。</p>
+<p>说明:  </p>
+<p>1 是丑数。 n 不超过1690。</p>
+<h1 id="算法思想">算法思想</h1>
+<p>显而易见，我们要找分解式为 2 3 5
+构成的数。也容易想到，<strong>后面的丑数必然是由前面的丑数乘 2 3 5
+得到的</strong>。</p>
+<p>但是从前往后顺序计算乘积，并且顺序存放的话，例如<code>2*5  3*3</code>。可以看出先后顺序错位了，10先存放，而9后存放。</p>
+<p>因此要取计算的所有乘积的最小值,
+这个最小值必然是从小到大的下一个ugly，解决了存放的错位问题。</p>
+<h3 id="但是对哪些乘积取最小值呢">但是对哪些乘积取最小值呢？</h3>
+<p>前面的数都计算一遍乘积的话计算量太大</p>
+<p>想一下，假如有 2*3， 那么对所有x2,x*3必然没有2*3小，因此对 3
+这个因子，只需要计算它和2的乘积即可。后面的肯定不是我们要找的最小乘积。</p>
+<p>因此，其实只要<strong>为每个因子找到当前最小的乘数即可</strong>。</p>
+<h3
+id="怎么确定每个因子的当前最小乘数呢">怎么确定每个因子的当前最小乘数呢？</h3>
+<p>要找当前最小的，首先要确定这个因子的候选乘数有哪些，然后在里面找最小的。</p>
+<h4 id="哪些是候选乘数">哪些是候选乘数？</h4>
+<p>我们找当前最小乘数是为了找出下一个最小的丑数。假如要生成所有丑数的话，每个因子都必然要遍历去乘每一个数。</p>
+<p>换句话说，对这个因子，所有数都是要乘的，跑不了的，即所有没乘过的数，都是它的候选乘数。</p>
+<h4 id="最小的候选乘数">最小的候选乘数</h4>
+<p>既然所有数都要乘，而我们的数又是从小到大排列的，那么从前往后，第一个没有乘过的就是当前最小乘数。</p>
+<p>代码角度来看，即当前乘数为nums[i]，每乘一次，即i++,准备乘下一个数即可。</p>
+<h1 id="解题代码">解题代码</h1>
+<p>注意我们有三个因子，因此需要用三个指针对三个因子维护他们的最小乘数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">nthUglyNumber</span><span class="params">(<span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划，后面的数必然是前面的数乘 2 3 5得到</span></span><br><span class="line">        <span class="comment">//但是顺序进行的话 2*5  3*3 ，可以看出大小顺序不能保证，因此要取几个乘积的最小值,这个最小值必然是从小到大的下一个ugly</span></span><br><span class="line">        <span class="comment">//但是对哪些乘积取最小值呢？前面的数都计算一遍的话计算量太大。</span></span><br><span class="line">        <span class="comment">//想一下，假如有 2*3， 那么对所有x2,x*3必然没有2*3小，因此对 3 这个乘积，其实只要找到最小的乘数即可，其他乘积也是一样</span></span><br><span class="line">        <span class="comment">//怎么确定每个乘积的最小乘数呢？显然每个乘积都要乘每个数，那么从前往后找没乘过的 就是当前最小乘数</span></span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="keyword">int</span> nums(n,0);</span><br><span class="line">        nums[0]=1;</span><br><span class="line">        <span class="keyword">int</span> p2=0,p3=0,p5=0;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=1;i&lt;n;i++)//除1外 生成n-1个丑数</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> ugly_i=min(min(nums[p2]*2,nums[p3]*3),nums[p5]*5);//取当前乘积最小值</span><br><span class="line">            nums[i]=ugly_i;</span><br><span class="line">            //判断用的是哪个乘积，它的最小乘数要变了，注意重复的也算</span><br><span class="line">            <span class="keyword">if</span>(ugly_i==nums[p2]*2) p2++;</span><br><span class="line">            <span class="keyword">if</span>(ugly_i==nums[p3]*3) p3++;</span><br><span class="line">            <span class="keyword">if</span>(ugly_i==nums[p5]*5) p5++;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums[n-1];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/01/28/%E5%B1%8F%E8%94%BDB%E7%AB%99%E9%A6%96%E9%A1%B5%E7%9B%B4%E6%92%AD%E5%9D%97%E8%88%9E%E8%B9%88%E5%8C%BA%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -605,104 +718,6 @@ that...</li>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/09/25/%E6%98%AF%E8%BA%81%E5%8A%A8%E5%90%A7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/25/%E6%98%AF%E8%BA%81%E5%8A%A8%E5%90%A7/" class="post-title-link" itemprop="url">是躁动吧</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-25 18:10:59" itemprop="dateCreated datePublished" datetime="2020-09-25T18:10:59+08:00">2020-09-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/09/25/%E6%98%AF%E8%BA%81%E5%8A%A8%E5%90%A7/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/25/%E6%98%AF%E8%BA%81%E5%8A%A8%E5%90%A7/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="生活线">生活线</h2>
-<p>　　最近突然变得烦躁了起来。突然意识到自己的机械生活持续了一个月、两个月，像个死人。</p>
-<p>　　本来之前还觉得这样早出晚归，每天不停地学不停地复习的生活还算充实，不会感到迷茫或者飘渺无聊。但最近不知道是啥拉动了我的脑神经，突然发现这一切好机械化啊。6：30
-起，吃饭背单词到 8：00
-等图书馆开门。然后学、吃饭、学、吃饭、学。忙碌是忙碌了，活得也像个齿轮了，每天唯一的新鲜感大概仅在于闭馆之后选择买啥夜宵吃。</p>
-<p>　　大概有点类似于【完形崩坏/语义饱和】？</p>
-<blockquote>
-<p>　语义饱和（英语：semantic
-satiation），又称字形饱和、完形崩坏（日语：ゲシュタルト崩壊，德语：Gestaltzerfall），是一种心理学现象，指的是人在重复盯着一个字或者一个单词长时间后，会发生突然不认识该字或者单词的情况。此过程仅为暂时，心理学上认为其原因是人的大脑神经如果短时间内接收到太多重复的刺激，就会引起神经活动的抑制，造成对常用字突然不认识的现象。——维基百科</p>
-</blockquote>
-<p>　　重复久了，整个生活轨迹突然就变得被我排斥拒绝。上一次这么机械还是在高三，不过那时候是整个班一起学，每天虽然轨迹差不多，但看着憨憨们的日常也还是挺多样化的。考研好像就完全不一样，全程是自己一个人为了不知道什么在努力。每天来到图书馆学自己的，学完自己走，下一天。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/25/%E6%98%AF%E8%BA%81%E5%8A%A8%E5%90%A7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -774,7 +789,7 @@ satiation），又称字形饱和、完形崩坏（日语：ゲシュタルト�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

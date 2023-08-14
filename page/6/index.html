@@ -208,6 +208,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">循环神经网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-21 19:22:18" itemprop="dateCreated datePublished" datetime="2021-12-21T19:22:18+08:00">2021-12-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="rnn">RNN</h2>
+<h3 id="循环层">循环层：</h3>
+<p><span class="math display">\[
+\mathbf{H}_t = \phi(\mathbf{X}_t \mathbf{W}_{xh} + \mathbf{H}_{t-1}
+\mathbf{W}_{hh}  + \mathbf{b}_h).
+\]</span></p>
+<figure>
+<img src="https://zh-v2.d2l.ai/_images/rnn.svg"
+alt="隐状态循环神经网络" />
+<figcaption aria-hidden="true">隐状态循环神经网络</figcaption>
+</figure>
+<h3 id="困惑度损失函数">困惑度损失函数：</h3>
+<p>一个更好的语言模型应该能让我们更准确地预测下一个词元。
+因此，它应该允许我们在压缩序列时花费更少的比特。
+所以我们可以通过一个序列中所有的 n
+个词元的交叉熵损失的平均值来衡量：</p>
+<p><span class="math display">\[
+\frac{1}{n} \sum_{t=1}^n -\log P(x_t \mid x_{t-1}, \ldots, x_1)
+\]</span></p>
+<p><strong>困惑度</strong>即更流行的指数形式交叉熵（历史原因）：</p>
+<p><span class="math display">\[
+\exp\left(-\frac{1}{n} \sum_{t=1}^n \log P(x_t \mid x_{t-1}, \ldots,
+x_1)\right).
+\]</span></p>
+<ul>
+<li>在最好的情况下，模型总是完美地估计标签词元的概率为1。
+在这种情况下，模型的困惑度为1。</li>
+<li>在最坏的情况下，模型总是预测标签词元的概率为0。
+在这种情况下，困惑度是正无穷大。</li>
+<li>Baseline：该模型的预测是词表的所有可用词元上的均匀分布？
+在这种情况下，困惑度等于词表中唯一词元的数量。
+事实上，如果我们在没有任何压缩的情况下存储序列，
+这将是我们能做的最好的编码方式。 因此，这种方式提供了一个重要的上限，
+而任何实际模型都必须超越这个上限。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/21/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/21/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -618,138 +740,6 @@ alt="手部骨架连续手语识别模型" />
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/" class="post-title-link" itemprop="url">PointNet-Based-Hand-Gesture-Recognition</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-11 14:00:32" itemprop="dateCreated datePublished" datetime="2021-12-11T14:00:32+08:00">2021-12-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/11/PointNet-Based-Hand-Gesture-Recognition/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>A PointNet-Based Solution for 3D Hand Gesture
-Recognition</strong></p>
-<p>Mirsu R, Simion G, Caleanu C D, et al. A pointnet-based solution for
-3d hand gesture recognition[J]. Sensors, 2020, 20(11): 3226.</p>
-<ol type="1">
-<li>在Kaggle上公开了<a
-target="_blank" rel="noopener" href="https://www.kaggle.com/cdcaleanu/upt-tof-3d-hand-gesture-database?select=01_amp.bin">手势数据集</a></li>
-<li>使用PCA进行手前臂分割</li>
-<li>使用基于直方图的邻域策略规范化点云大小</li>
-<li>使用PointNet架构完成3D DRGB图的手势识别</li>
-</ol>
-<h2 id="多级手部分割">多级手部分割</h2>
-<figure>
-<img src="https://i.imgur.com/6MCc6kE.png" alt="多级分割流程图" />
-<figcaption aria-hidden="true">多级分割流程图</figcaption>
-</figure>
-<h3 id="预处理">预处理</h3>
-<p>由于分类时直接对3D点云使用了深度学习，因此预处理好点云数据也很重要。详细工作可参考之前的paper[28]。</p>
-<p><strong>过滤平滑</strong>：使用中值滤波来去除斑点噪声。</p>
-<figure>
-<img src="https://i.imgur.com/LzqDVdk.png"
-alt="(a)未平滑原始深度图 (b)平滑过滤后" />
-<figcaption aria-hidden="true">(a)未平滑原始深度图
-(b)平滑过滤后</figcaption>
-</figure>
-<p><strong>筛选出手部区域</strong>：默认手部是屏幕最近的物体。因此从最近点开始，选取一个深度区间7cm左右的所有点。同时进行计数。若这个区间的点总数小于阈值，则说明最近的点是一个离群点，不可靠。因此将区间往后移动重新划分。</p>
-<p><strong>区域内聚类</strong>：
-通过区域，中心，等方式进行计算聚类。如果有多个类，则选择左上方的作为手部区域。</p>
-<p><strong>手前臂分割</strong>：通过PCA找到数据的对称轴。</p>
-<figure>
-<img src="https://i.imgur.com/7baQ8zl.png"
-alt="(a)(b)PCA找到的手前臂轴和手部区域轴，(c)PCA无效的状态" />
-<figcaption
-aria-hidden="true">(a)(b)PCA找到的手前臂轴和手部区域轴，(c)PCA无效的状态</figcaption>
-</figure>
-<p>并且利用一个手部检测窗口，一个手腕检测窗口来找到手腕分界线：计算两个窗口内点数的比例，找到一个比例极值处作为手腕分界线。</p>
-<figure>
-<img src="https://i.imgur.com/i2G6tHJ.png"
-alt="红框为手部检测窗口，每一轮增大一点。绿框为手腕检测窗口，大小固定。" />
-<figcaption
-aria-hidden="true">红框为手部检测窗口，每一轮增大一点。绿框为手腕检测窗口，大小固定。</figcaption>
-</figure>
-<p><strong>采样压缩点云</strong>：移除邻居最多的点，或者保留邻域最小的点</p>
-<figure>
-<img src="https://i.imgur.com/p9uOoIM.png" alt="点云采样示意图" />
-<figcaption aria-hidden="true">点云采样示意图</figcaption>
-</figure>
-<h1 id="参考文献">参考文献</h1>
-<p>[28] Simion, G.; Caleanu, C. Multi-stage 3D segmentation for ToF
-based gesture recognition system. In Proceedings of the 2014 11th
-International Symposium on Electronics and Telecommunications (ISETC),
-Timisoara, Romania, 15–16 November 2014; pp. 1–4.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -821,7 +811,7 @@ Timisoara, Romania, 15–16 November 2014; pp. 1–4.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

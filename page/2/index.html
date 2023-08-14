@@ -208,6 +208,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/" class="post-title-link" itemprop="url">四元数与三维旋转</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-13 17:07:33" itemprop="dateCreated datePublished" datetime="2022-05-13T17:07:33+08:00">2022-05-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在三维空间中描述旋转是一件挺麻烦的事。常用的<strong>欧拉角</strong>虽然直观简单，但是存在<strong>顺序依赖</strong>和<strong>万向节死锁</strong>的问题，在通用的旋转运算上并不可行。进而引入的<strong>四维数</strong>虽然在运算上很有效，但是对于第一次见到的人来说一点也不算直观、易懂。</p>
+<p><a
+target="_blank" rel="noopener" href="https://krasjet.github.io/quaternion/">Krasjet的文章</a>从二维复数出发，进而理解三维四元数的表示意义，循序渐进，通俗易懂，因此记录一下学习笔记。</p>
+<h1 id="复数与2d旋转">复数与2D旋转</h1>
+<p>复数的定义和运算性质不再赘述。对于$ z = a + bi $，相当于对复数基底 $
+(1,i) $ 的线性组合，因此可以表示为一个列向量 <span
+class="math inline">\(z=[a,b]^T\)</span>，但更进一步，其实我们能把复数表示为矩阵。</p>
+<p>对于两个复数<span class="math inline">\(z_1 = a + bi , z_2=c +
+di\)</span>，可以得到观察一下其乘法结果：</p>
+<p><span class="math display">\[
+\begin{aligned}
+z_1z_2&amp;=a \boldsymbol{c} -b \boldsymbol{d} \\
+    &amp;+(b \boldsymbol{c}+a \boldsymbol{d})i \\
+    &amp;=\left[\begin{array}{cc}
+        a &amp; -b \\
+        b &amp; a
+        \end{array}\right]\left[\begin{array}{l}
+        c \\
+        d
+        \end{array}\right]
+\end{aligned}
+\]</span></p>
+<p>我们知道右边的<span class="math inline">\([c,d]^T\)</span>是<span
+class="math inline">\(z_2\)</span>的列向量表示形式，而左边的矩阵，也只和<span
+class="math inline">\(z_1\)</span>的系数有关，因此也可以看做是<span
+class="math inline">\(z_1=a+bi\)</span>的矩阵表示。我们不妨尝试将两边都写成矩阵形式：</p>
+<p><span class="math display">\[
+z_1z_2=\left[\begin{array}{cc}
+        a &amp; -b \\
+        b &amp; a
+        \end{array}\right]
+        \left[\begin{array}{l}
+        c &amp; -d\\
+        d &amp; c
+        \end{array}\right]
+    =\left[\begin{array}{cc}
+        ac-bd &amp; -(bc+ad) \\
+        bc+ad &amp; ac-bd
+        \end{array}\right]
+    =ac-bd + (bc+ad)i
+\]</span></p>
+<p>上式可以看出<span
+class="math inline">\(z_1,z_2,z_1z_2\)</span>在矩阵表示下也同样满足复数基本运算。这时我们可以发现一个神奇的现象：<strong>复数可以表示为矩阵，复数乘法可以表示为矩阵乘法</strong>，而矩阵乘法进而可以让我们联想到矩阵表示的仿射变换：</p>
+<p><span class="math display">\[
+z=\left[\begin{array}{cc}
+        a &amp; -b \\
+        b &amp; a
+        \end{array}\right]
+=\sqrt{a^2+b^2}
+\left[\begin{array}{cc}
+        \frac{a}{\sqrt{a^2+b^2}} &amp; \frac{-b}{\sqrt{a^2+b^2}} \\
+        \frac{b}{\sqrt{a^2+b^2}} &amp; \frac{a}{\sqrt{a^2+b^2}}
+        \end{array}\right]
+\]</span></p>
+<p>这种式子是不是很眼熟——即以a，b为边的三角变换式：</p>
+<p><span class="math display">\[
+z=\sqrt{a^2+b^2}\left[\begin{array}{cc}
+        cos\theta &amp; -sin\theta \\
+        sin\theta &amp; cos\theta
+        \end{array}\right]
+=\left[\begin{array}{cc}
+        ||z|| &amp; 0 \\
+        0 &amp; ||z||
+        \end{array}\right]
+\left[\begin{array}{cc}
+        cos\theta &amp; -sin\theta \\
+        sin\theta &amp; cos\theta
+        \end{array}\right]
+\]</span></p>
+<p>此时复数<span class="math inline">\(z=a+bi=||z||(cos\theta+sin\theta
+i)\)</span>表示的二维变换水落石出，左边的矩阵是一个
+<strong>等比放缩矩阵</strong>，右边的矩阵是一个
+<strong>旋转矩阵</strong>。<strong>复数乘法，即是两个变换矩阵的作用。</strong></p>
+<p>并且再将复数的三角形式代回<span
+class="math inline">\(z_1z_2\)</span>可知，<span
+class="math inline">\(z_1z_2=cos(\theta+\alpha)+sin(\theta+\alpha)
+i\)</span> ，即复数的累乘，在变换上体现为旋转角度的累加<span
+class="math inline">\(\theta+\alpha\)</span>，以及缩放上的累乘。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/04/04/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%97%85%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -600,106 +765,6 @@ deco风格画面，不算精美但是让人沉浸</figcaption>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/03/21/PSTT/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/21/PSTT/" class="post-title-link" itemprop="url">PSTT</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-21 15:59:11" itemprop="dateCreated datePublished" datetime="2022-03-21T15:59:11+08:00">2022-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/21/PSTT/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/21/PSTT/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>Wei Y, Liu H, Xie T, et al. Spatial-Temporal Transformer for 3D
-Point Cloud Sequences[C]//Proceedings of the IEEE/CVF Winter Conference
-on Applications of Computer Vision. 2022: 1171-1180.</li>
-<li>中山大学</li>
-<li>不在CCF h5指数62 排计算机视觉第12</li>
-</ul>
-<p>提出了<strong>Spatio-Temporal
-Self-Attention(STSA)</strong>模块和<strong>Resolution
-Embedding(RE)</strong>模块。STSA用于时空联系，RE用于聚合邻域特征，增强特征图的分辨率。</p>
-<p>现有的基于point的时空方法要么是使用注意力机制，要么是使用RNN模型。然而，这些方法依赖于长期联系，导致信息冗余。STSA使用了自注意力来提取帧间联系。这样会使冗余程度下降，鲁棒性提高(残差+layer
-normalization)，训练速度提升。</p>
-<p>另外，在语义分割上面的编码器-解码器结构，在编码器降维时会造成信息丢失。RE模块使用了注意力权重来加强分辨率。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/21/PSTT/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -771,7 +836,7 @@ normalization)，训练速度提升。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

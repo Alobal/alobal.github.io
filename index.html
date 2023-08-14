@@ -208,6 +208,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Unity优化基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-08-14T22:10:22+08:00">2023-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ugui">UGUI</h2>
+<h3 id="动静分离">动静分离</h3>
+<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
+<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
+<blockquote>
+<p>嵌套子Canvas也不会和父Canvas合并</p>
+</blockquote>
+<h3 id="重ui的分解">重UI的分解</h3>
+<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
+<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
+<h3 id="加载优化">加载优化</h3>
+<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
+<h3 id="字体拆分">字体拆分</h3>
+<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/07/12/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -586,171 +680,6 @@ alt="透明物体之间的渲染顺序错误。交叉地带应该由A覆盖B，�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/" class="post-title-link" itemprop="url">四元数与三维旋转</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-13 17:07:33" itemprop="dateCreated datePublished" datetime="2022-05-13T17:07:33+08:00">2022-05-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在三维空间中描述旋转是一件挺麻烦的事。常用的<strong>欧拉角</strong>虽然直观简单，但是存在<strong>顺序依赖</strong>和<strong>万向节死锁</strong>的问题，在通用的旋转运算上并不可行。进而引入的<strong>四维数</strong>虽然在运算上很有效，但是对于第一次见到的人来说一点也不算直观、易懂。</p>
-<p><a
-target="_blank" rel="noopener" href="https://krasjet.github.io/quaternion/">Krasjet的文章</a>从二维复数出发，进而理解三维四元数的表示意义，循序渐进，通俗易懂，因此记录一下学习笔记。</p>
-<h1 id="复数与2d旋转">复数与2D旋转</h1>
-<p>复数的定义和运算性质不再赘述。对于$ z = a + bi $，相当于对复数基底 $
-(1,i) $ 的线性组合，因此可以表示为一个列向量 <span
-class="math inline">\(z=[a,b]^T\)</span>，但更进一步，其实我们能把复数表示为矩阵。</p>
-<p>对于两个复数<span class="math inline">\(z_1 = a + bi , z_2=c +
-di\)</span>，可以得到观察一下其乘法结果：</p>
-<p><span class="math display">\[
-\begin{aligned}
-z_1z_2&amp;=a \boldsymbol{c} -b \boldsymbol{d} \\
-    &amp;+(b \boldsymbol{c}+a \boldsymbol{d})i \\
-    &amp;=\left[\begin{array}{cc}
-        a &amp; -b \\
-        b &amp; a
-        \end{array}\right]\left[\begin{array}{l}
-        c \\
-        d
-        \end{array}\right]
-\end{aligned}
-\]</span></p>
-<p>我们知道右边的<span class="math inline">\([c,d]^T\)</span>是<span
-class="math inline">\(z_2\)</span>的列向量表示形式，而左边的矩阵，也只和<span
-class="math inline">\(z_1\)</span>的系数有关，因此也可以看做是<span
-class="math inline">\(z_1=a+bi\)</span>的矩阵表示。我们不妨尝试将两边都写成矩阵形式：</p>
-<p><span class="math display">\[
-z_1z_2=\left[\begin{array}{cc}
-        a &amp; -b \\
-        b &amp; a
-        \end{array}\right]
-        \left[\begin{array}{l}
-        c &amp; -d\\
-        d &amp; c
-        \end{array}\right]
-    =\left[\begin{array}{cc}
-        ac-bd &amp; -(bc+ad) \\
-        bc+ad &amp; ac-bd
-        \end{array}\right]
-    =ac-bd + (bc+ad)i
-\]</span></p>
-<p>上式可以看出<span
-class="math inline">\(z_1,z_2,z_1z_2\)</span>在矩阵表示下也同样满足复数基本运算。这时我们可以发现一个神奇的现象：<strong>复数可以表示为矩阵，复数乘法可以表示为矩阵乘法</strong>，而矩阵乘法进而可以让我们联想到矩阵表示的仿射变换：</p>
-<p><span class="math display">\[
-z=\left[\begin{array}{cc}
-        a &amp; -b \\
-        b &amp; a
-        \end{array}\right]
-=\sqrt{a^2+b^2}
-\left[\begin{array}{cc}
-        \frac{a}{\sqrt{a^2+b^2}} &amp; \frac{-b}{\sqrt{a^2+b^2}} \\
-        \frac{b}{\sqrt{a^2+b^2}} &amp; \frac{a}{\sqrt{a^2+b^2}}
-        \end{array}\right]
-\]</span></p>
-<p>这种式子是不是很眼熟——即以a，b为边的三角变换式：</p>
-<p><span class="math display">\[
-z=\sqrt{a^2+b^2}\left[\begin{array}{cc}
-        cos\theta &amp; -sin\theta \\
-        sin\theta &amp; cos\theta
-        \end{array}\right]
-=\left[\begin{array}{cc}
-        ||z|| &amp; 0 \\
-        0 &amp; ||z||
-        \end{array}\right]
-\left[\begin{array}{cc}
-        cos\theta &amp; -sin\theta \\
-        sin\theta &amp; cos\theta
-        \end{array}\right]
-\]</span></p>
-<p>此时复数<span class="math inline">\(z=a+bi=||z||(cos\theta+sin\theta
-i)\)</span>表示的二维变换水落石出，左边的矩阵是一个
-<strong>等比放缩矩阵</strong>，右边的矩阵是一个
-<strong>旋转矩阵</strong>。<strong>复数乘法，即是两个变换矩阵的作用。</strong></p>
-<p>并且再将复数的三角形式代回<span
-class="math inline">\(z_1z_2\)</span>可知，<span
-class="math inline">\(z_1z_2=cos(\theta+\alpha)+sin(\theta+\alpha)
-i\)</span> ，即复数的累乘，在变换上体现为旋转角度的累加<span
-class="math inline">\(\theta+\alpha\)</span>，以及缩放上的累乘。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -822,7 +751,7 @@ class="math inline">\(\theta+\alpha\)</span>，以及缩放上的累乘。</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1039,59 +968,6 @@ class="math inline">\(\theta+\alpha\)</span>，以及缩放上的累乘。</p>
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
