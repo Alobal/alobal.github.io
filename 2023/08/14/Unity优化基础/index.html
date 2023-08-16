@@ -29,11 +29,17 @@
 <meta property="og:site_name" content="Sitch&#39;s Blog">
 <meta property="og:description" content="UGUI 动静分离 如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。 合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.gif">
+<meta property="og:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image2.gif">
+<meta property="og:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.png">
+<meta property="og:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image-1.png">
+<meta property="og:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image-2.png">
 <meta property="article:published_time" content="2023-08-14T14:10:22.000Z">
 <meta property="article:modified_time" content="2023-08-14T14:10:22.000Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="Sitch,Blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.gif">
 
 <link rel="canonical" href="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
 
@@ -292,6 +298,70 @@
 <p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
 <h3 id="字体拆分">字体拆分</h3>
 <p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+<span id="more"></span>
+<h2 id="ai寻路">AI寻路</h2>
+<p>寻路算法中最经典的就是A星算法。虽然经典的最短路径算法有Dijkstra和Floyd，但是其复杂度分别是O(N<sup>2)和O(N</sup>3)，空间复杂度都是O(N^2)，因此根本不适合游戏这种大型路径搜索需求。并且更重要的一点是，游戏寻路根本不在乎是不是<strong>最短</strong>路径，只需要是一条能走通的路径就行，这就是A星算法的根本目标，其使用贪心算法寻找局部优解来寻路，平均时间复杂度为O(N
+logN)。然而，A星的具体实现中还有很多细节可以优化。</p>
+<h3 id="大场景分割">大场景分割</h3>
+<p>假如游戏场景很大，那么贪心搜索空间就会十分庞大，我们需要尽可能缩小搜索范围。回头想想，之所以我们要启用寻路算法，是因为出发点和目标点之间存在障碍物，不能直线到达。然而在大场景中，大部分路径是可以直接到达的，并不需要费劲寻路。</p>
+<p>因此，我们可以把大场景分割成数个内部无障碍的区域。在区域内部，可以直接直线寻路。在区域外部，则是一个区域与区域之间的固定寻路
+(从区域A到区域B，我们只需要提供一条固定路线即可)。而寻路既然已经不是动态的，那我们可以离线计算寻路路径，存储给实时使用，极大节省实时效率。</p>
+<blockquote>
+<p>当然，区域外部一旦发生改变，这些离线结果都需要重新计算。</p>
+</blockquote>
+<h3 id="堆存储openlist节点">堆存储openlist节点</h3>
+<p>在贪心搜索局部最优解时，我们需要维护一个排序列表来方便获得最优节点
+(最小损失的节点)。我们要么在每次插入新openlist节点时有序插入，要么每次确定最优节点时先排一次序。排序本身就是一件很慢的<span
+class="math inline">\(NlogN\)</span>行为，因此不可能每次都排序。而如果是有序插入，例如二分查找插入点插入，那么需要<span
+class="math inline">\(log N\)</span>的查找时间以及<span
+class="math inline">\(N\)</span> 的数组移动时间。
+为了避开数组移动的麻烦，同时保持有序插入的便捷，我们可以使用<strong>最小堆/优先队列来维护openlist节点列表</strong>，这样我们只有<span
+class="math inline">\(logN\)</span>的插入时间，而不需要移动原数据。</p>
+<h3 id="openlist搜索规则优化-jps"><a
+target="_blank" rel="noopener" href="https://www.guyuehome.com/35023">openlist搜索规则优化 JPS</a></h3>
+<p>贪心的一个问题在于它是一步一个脚印去走的，因此即使是从(0,0)到(0,50)这样的直线路径，也会存储至少50个寻路节点，并且消耗50次插入时间，以及openlist空间包含这50个节点的所有邻居。那我们是不是能简化这种直线路径呢？</p>
+<p>跳点算法 Jump Point Search (JPS)
+框架上还是A星的框架，同样是搜索节点，加入openlist，从openlist中取出最优节点寻路。JPS主要改动在于它的搜索节点策略，它不像贪心一样每一步都将所有邻居加入openlist。JPS只在openlist记录那些关键的<strong>跳点</strong>节点，也就是直线的拐点，而对于平常的直线路径节点则不记录。</p>
+<figure>
+<img src="image.gif" alt="贪心搜索" />
+<figcaption aria-hidden="true">贪心搜索</figcaption>
+</figure>
+<figure>
+<img src="image2.gif" alt="JPS搜索" />
+<figcaption aria-hidden="true">JPS搜索</figcaption>
+</figure>
+<p>JPS具体规则较为复杂，可以参考上文链接，这里简单概括下两个主要思路：</p>
+<ol type="1">
+<li>检查当前节点是否是跳点。</li>
+</ol>
+<p>简而言之，跳点就是发生拐弯的节点。那么什么时候会发生拐弯呢？如下图，我们从绿色父节点A出发，一路沿途检查节点是否为跳点
+(沿什么途则在后文)，经过若干次检查后，我们开始检查橙色节点B。我们首先知道B有一个邻居黄色节点C，且B和C中间有障碍物。此时我们检查A到C的最短路径，发现必须要经过B节点拐弯去C点，这时候B就是C的跳点，C就是B的强迫邻居(forced
+neighbor)，并且我们可以把B加入openlist。</p>
+<figure>
+<img src="image.png"
+alt="Current是Parent到Forced Neighbor唯一最短路径的必经点，因此它是跳点。假如把黑色障碍去掉，那么Parent到黄色节点就有多条路径，就不存在跳点，也不存在Forced Neighbor。" />
+<figcaption aria-hidden="true">Current是Parent到Forced
+Neighbor唯一最短路径的必经点，因此它是跳点。假如把黑色障碍去掉，那么Parent到黄色节点就有多条路径，就不存在跳点，也不存在Forced
+Neighbor。</figcaption>
+</figure>
+<p>同样，假如A到跳点B中间本身就需要在D点拐一次弯(即A与B非直线可达，D与B直线可达)，那么D也是跳点。注意这里要求B是跳点，D才是跳点，要不然这个拐弯就没有意义了是不是。</p>
+<blockquote>
+<p>因此整个跳点检查有点类似于栈模式，先确定最后一个跳点，然后才能认为之前的拐点是跳点。</p>
+</blockquote>
+<figure>
+<img src="image-1.png" alt="绿色到橙色需要在蓝色拐弯，蓝色则也是跳点" />
+<figcaption
+aria-hidden="true">绿色到橙色需要在蓝色拐弯，蓝色则也是跳点</figcaption>
+</figure>
+<ol start="2" type="1">
+<li>往什么方向搜索跳点</li>
+</ol>
+<p>现在我们知道了怎么检查一个点是否是跳点，但是去检查哪些点呢？由于JPS只关心直线走到尽头后的拐弯点，因此基本原则是先以直线方向一路检查是否为跳点，结束后再斜向进一步搜索内圈。具体细节则可另外搜索。</p>
+<figure>
+<img src="image-2.png" alt="先直线搜索，不行再斜向进一步。" />
+<figcaption
+aria-hidden="true">先直线搜索，不行再斜向进一步。</figcaption>
+</figure>
 
     </div>
 
@@ -370,7 +440,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ugui"><span class="nav-number">1.</span> <span class="nav-text">UGUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">1.1.</span> <span class="nav-text">动静分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8Dui%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">重UI的分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">加载优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E6%8B%86%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">字体拆分</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ugui"><span class="nav-number">1.</span> <span class="nav-text">UGUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">1.1.</span> <span class="nav-text">动静分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8Dui%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">重UI的分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">加载优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E6%8B%86%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">字体拆分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ai%E5%AF%BB%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">AI寻路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9C%BA%E6%99%AF%E5%88%86%E5%89%B2"><span class="nav-number">2.1.</span> <span class="nav-text">大场景分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%AD%98%E5%82%A8openlist%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">堆存储openlist节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openlist%E6%90%9C%E7%B4%A2%E8%A7%84%E5%88%99%E4%BC%98%E5%8C%96-jps"><span class="nav-number">2.3.</span> <span class="nav-text">openlist搜索规则优化 JPS</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -603,6 +673,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
