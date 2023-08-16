@@ -713,7 +713,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-so
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-28-(KMP)/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -727,7 +727,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-so
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+            <a href="/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
         </h2>
 
         <div class="post-meta">
@@ -758,8 +758,8 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-so
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -774,72 +774,32 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-so
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="实现-strstr-函数"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr">实现 strStr() 函数</a></h1>
-<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack
-字符串中找出 needle 字符串出现的第一个位置
-(从0开始)。如果不存在，则返回  -1。</p>
-<p>示例 1:</p>
-<p>输入: haystack = "hello", needle = "ll" 输出: 2</p>
-<p>示例 2:</p>
-<p>输入: haystack = "aaaaa", needle = "bba" 输出: -1</p>
-<p>说明:
-当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
-对于本题而言，当 needle 是空字符串时我们应当返回 0
-。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
-<blockquote>
-<p>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</p>
-</blockquote>
-<h2 id="kmp-主要思想不回退的主串查找位有效利用失败信息">KMP
-（主要思想：<strong>不回退的主串查找位，有效利用失败信息</strong>）</h2>
-<h3 id="暴力法存在的问题">暴力法存在的问题</h3>
-<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
-<p>我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败
-在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。
-即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
-<h3 id="失败返回的有效信息">失败返回的有效信息</h3>
-<p>模式串在 e 处失败，可以带给我们什么有效信息：</p>
+          <h1 id="无重复字符的最长子串"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters">无重复字符的最长子串</a></h1>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1: 输入: "abcabcbb" 输出: 3 解释: 因为无重复字符的最长子串是
+"abc"，所以其长度为 3。</p>
+<p>示例 2: 输入: "bbbbb" 输出: 1 解释: 因为无重复字符的最长子串是
+"b"，所以其长度为 1。</p>
+<p>示例 3: 输入: "pwwkew" 输出: 3 解释:
+因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
 <ol type="1">
-<li>主串前面有<code>abcdabc</code></li>
-<li>主串这一位不为<code>e</code></li>
+<li><p>判断重复字符
+用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点
+(数组初始化的时候没有想到更好的优化效率方案).</p></li>
+<li><p>子串检测
+数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p></li>
+<li><p>后事处理
+移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理
+直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可
+优化思路:
+可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p></li>
 </ol>
-<h3 id="利用返回的有效信息">利用返回的有效信息</h3>
-<p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5
-~ 7位<code>abc</code>虽然是在匹配模式串的5 ~
-7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
-<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
-<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
-<p><strong>为什么恰巧可以跳过呢</strong>？让我们来看一下跳过时的环境条件</p>
-<ol type="1">
-<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
-<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
-</ol>
-<p>因此我们可以找到跳过的思路，对于匹配失败时：</p>
-<ol type="1">
-<li>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i
-不变，j 跳到整数几位的后一位接着匹配</li>
-<li>假如不能形成这种前后缀的匹配，则直接让 i
-++，在下一位开始全新的匹配</li>
-</ol>
-<blockquote>
-<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++
-，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax
-pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的
-j 处匹配就解决了这个情况。</p>
-</blockquote>
-<h3 id="创造跳跃数组">创造跳跃数组</h3>
-<p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。
-而这个恰当的位置 k
-满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
-<p><strong>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位
-j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
-存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可</strong></p>
-<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
-<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己.......作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">因为在<span class="number">0</span>位失败肯定没法跳跃，令jump[<span class="number">0</span>]=<span class="number">-1</span> </span><br><span class="line">设置好跳跃定位标志 k=<span class="number">-1</span></span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k==<span class="number">-1</span></span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]=k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k=jump[k]</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-<p>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配.匹配过程看下方代码即可，并不难:</p>
-<h1 id="kmp解题代码">KMP解题代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span>(needle==<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//KMP</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> jump[needle.<span class="built_in">size</span>()];</span><br><span class="line">        jump[<span class="number">0</span>]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建失效数组  abcabcd</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;needle.<span class="built_in">size</span>()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">-1</span> || needle[i]==needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(needle[i]!=needle[k])</span><br><span class="line">                    jump[i]=k;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    jump[i]=jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>    <span class="comment">//内置kmp</span></span><br><span class="line">                k=jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x&lt;haystack.<span class="built_in">size</span>() &amp;&amp; y&lt;<span class="built_in"><span class="keyword">int</span></span>(needle.<span class="built_in">size</span>())) <span class="comment">//注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(y==<span class="number">-1</span> ||haystack[x]==needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">               y=jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(y==needle.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> x-y;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="最终代码">最终代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">int</span> flag[<span class="number">127</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">127</span>;i++)</span><br><span class="line">            flag[i]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            temp=<span class="built_in">getNO</span>(s[i]);</span><br><span class="line">            <span class="keyword">if</span>(flag[temp]&lt;start)</span><br><span class="line">            &#123;</span><br><span class="line">                result++;</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result=max)</span><br><span class="line">                    max=result;</span><br><span class="line">                </span><br><span class="line">                start=flag[temp]+<span class="number">1</span>;</span><br><span class="line">                result=i-flag[temp];</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(result=max)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNO</span><span class="params">(<span class="keyword">char</span> originchar)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> originchar-<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
