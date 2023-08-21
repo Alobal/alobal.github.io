@@ -22,22 +22,22 @@
     var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。 listenfd.Listen（backl">
+  <meta name="description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 listenfd.Listen（b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络编程框架基础(Unity+C#)">
-<meta property="og:url" content="https://sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:title" content="网络编程基础 (Unity+C#)">
+<meta property="og:url" content="https://sitchzou.com/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。 listenfd.Listen（backl">
+<meta property="og:description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 listenfd.Listen（b">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-20T10:09:55.000Z">
 <meta property="article:modified_time" content="2021-10-20T10:09:55.000Z">
 <meta property="article:author" content="Sitch">
 <meta property="article:tag" content="网络">
 <meta property="article:tag" content="C#">
-<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="unity">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">
+<link rel="canonical" href="https://sitchzou.com/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>网络编程框架基础(Unity+C#) | Sitch's Blog</title>
+  <title>网络编程基础 (Unity+C#) | Sitch's Blog</title>
   
 
 
@@ -213,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -226,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          网络编程框架基础(Unity+C#)
+          网络编程基础 (Unity+C#)
         </h1>
 
         <div class="post-meta">
@@ -264,8 +264,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -290,37 +290,32 @@
 </ol>
 <h3 id="服务器流程">服务器流程</h3>
 <ol type="1">
-<li>listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。</li>
+<li>listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。</li>
 <li>listenfd.Listen（backlog）开启监听</li>
-<li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接产生一个专门的Socket（connfd）用来处理该客户端的数据。</li>
+<li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接再创建一个专门的Socket（connfd）用来处理该客户端的数据。</li>
 <li>connfd.Receive/BeginReceive 接受数据</li>
 </ol>
 <span id="more"></span>
-<h3 id="异步操作性能最优">异步操作（性能最优）</h3>
-<p>由BeginXXX开始，产生调用时转接到对应的回调函数。EndXXX放在回调函数里：EndXXX返回对应数据，处理完成后再在回调函数里BeginXXX开启新一轮的异步操作。</p>
-<h3 id="poll状态监测">Poll状态监测</h3>
-<p>比起异步程序，同步程序更简单明了，而且不会引发线程问题。因此先高频检测socket状态，后同步阻塞操作。但是CPU占用率会过高。</p>
-<p>public bool Poll（int microSeconds，SelectMode mode）</p>
-<p>Poll方法将会检查Socket的状态。<br />
-如果指定mode参数为SelectMode.SelectRead，则可确定Socket是否为可读；<br />
-指定参数为SelectMode.SelectWrite，可确定Socket是否为可写；<br />
-指定参数为SelectMode.SelectError，可以检测错误条件。<br />
-microSeconds设置阻塞时间，-1一直阻塞，0非阻塞。</p>
-<p><strong>使用框架</strong>：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始化listenfd</span><br><span class="line">初始化clients列表</span><br><span class="line"><span class="keyword">while</span>（<span class="literal">true</span>）&#123;</span><br><span class="line">　　<span class="keyword">if</span>（listenfd可读）　Accept获得连接socket;</span><br><span class="line">　　<span class="keyword">for</span>（遍历clients列表）&#123;</span><br><span class="line">　　　　<span class="keyword">if</span>（这个连接socket可读）　Receive消息处理;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即服务端使用主循环结构while（true）{……}，不断重复做两件事情：</p>
-<ol type="1">
-<li>判断监听Socket是否可读，如果监听Socket可读，意味着有客户端连接上来，调用Accept回应客户端，以及把客户端Socket加入客户端信息列表。</li>
-<li>如果某一个客户端Socket可读，处理它的消息（在聊天室中，服务端把消息广播给各个客户端）。</li>
-</ol>
-<h3 id="多路复用select">多路复用Select</h3>
-<p>同时Poll检测多个Socket（可以同时包含listen socket和connect
-socket），没有一个可用则根据参数进行阻塞。避免了CPU使用率过高。</p>
-<p>public static void Select(IList checkRead，IList check Write，IList
-checkError，int microSeconds)</p>
-<p>参数分别为三个待检测状态的Socket列表IList，以及阻塞时间。检测完成后IList只剩下满足状态的Socket。若阻塞超时则是返回空列表。</p>
-<p>使用框架：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">初始化listenfd</span><br><span class="line">初始化clients列表</span><br><span class="line"><span class="keyword">while</span>（<span class="literal">true</span>）</span><br><span class="line">&#123;</span><br><span class="line">　　checkList = 待检测Socket列表</span><br><span class="line">　　Select（checkList ……）</span><br><span class="line">　　<span class="keyword">for</span>（遍历可读checkList列表）<span class="comment">//可能同时包含listen socket和connect socket</span></span><br><span class="line">    &#123;</span><br><span class="line">    　　如果是listenfd -&gt; Accept获得连接socket;</span><br><span class="line">　　　　如果是连接socket -&gt; 消息处理;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="服务器处理阻塞">服务器处理阻塞</h3>
+<p>由于服务器需要对接多个客户端，因此服务器不能在一个客户端处阻塞等待，而需要进行特殊的阻塞处理。</p>
+<p><strong>异步操作（性能最优）</strong>：使用Socket的异步API，把阻塞轮询交给内部。异步处理都由<code>BeginXXX</code>API进行异步等待开始，并且绑定一个回调函数<code>CustomCallback</code>，这样在异步响应时就会使用回调函数来进行处理。在回调函数内部，首先使用对应的<code>EndXXX</code>API来拿到响应数据，对数据处理完成后，可以在回调函数内再次调用<code>BeginXXX</code>，以串行开启新一轮的异步等待。代码示例如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Connect</span>(<span class="params"><span class="built_in">string</span> ip, <span class="built_in">int</span> port</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//进行连接准备操作</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//使用Begin API来开启异步等待，并绑定回调函数ConnectCallback</span></span><br><span class="line">    socket.BeginConnect(ip, port, ConnectCallback, socket);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Connect回调</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ConnectCallback</span>(<span class="params">IAsyncResult ar</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        Socket socket = (Socket) ar.AsyncState;</span><br><span class="line">        <span class="comment">//结束等待 收取响应数据</span></span><br><span class="line">        socket.EndConnect(ar);</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//进行一些数据处理操作</span></span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//再次调用Begin，开启新一轮的异步等待</span></span><br><span class="line">        socket.BeginReceive( readBuff.bytes, readBuff.writeIdx, </span><br><span class="line">                                        readBuff.remain, <span class="number">0</span>, ReceiveCallback, socket);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    catch (SocketException ex)&#123;</span><br><span class="line">        Debug.Log(<span class="string">&quot;Socket Connect fail &quot;</span> + ex.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>C#和.NET中的异步IO使用了操作系统的IOCP (IO Completion Ports)
+线程池，从结果来看，程序异步等待的代价可以忽略不计。<a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42847851/on-windows-c-does-socket-beginreceive-take-a-background-thread-before-or-af">参考</a></p>
+</blockquote>
+<p><strong>Poll和Select轮询</strong>：比起异步程序，同步程序更简单明了，而且不会引发线程问题。既然诸如Receive的Socket操作会阻塞，那为了避免阻塞，我们在正式的Socket操作之前可以先检查Socket状态，只有有效时才正式进入Socket的阻塞操作。而这就是<code>Poll</code>方法干的事:</p>
+<p><code>socket.Poll（int microSeconds，SelectMode mode）</code></p>
+<p>Poll会检查调用方socket的状态,
+microSeconds设置检查的阻塞时间，超时且状态无效则会返回fasle，以便跳过后续处理。<strong>Poll本质上就是轮询</strong>。相比于直接使用<code>socket.Receive</code>阻塞在一个socket上，使用poll可以不停地轮询所有的socket.但由于其本质上一直在循环查询，<strong>因此其CPU占用率会较高</strong>。</p>
+<p><strong>多路复用Select</strong>方法和Poll类似，其同时检测多个Socket，并返回通过检查的sockets。</p>
+<p><code>public static void Select(IList checkRead，IList check Write，IList checkError，int microSeconds)</code></p>
+<blockquote>
+<p>Poll/Select
+内部都是存储一个文件描述符fd集合来表示关注的sockets列表，然后通过操作系统去检查IO，并对应修改fd。回到用户程序时，程序则遍历检查修改后的fd集合，来检查哪些sockets完成IO，整个过程消耗O(n)时间。Poll和Select的区别在于存储fd集合的数据结构不同。</p>
+</blockquote>
+<p>linux中还有一种<strong>epoll</strong>的优化方法。从Poll/Select的函数调用可以看出，每次调用都会临时传入待检测的fd数据，而没有在内部持续保存。因此，一方面，epoll创建了一个内核中的红黑树来跟踪维护所有<code>epoll_ctl</code>注册的socket，避免重复的数据拷贝和内存管理。另一方面，epoll会维护一个就绪链表。当一个socket的IO事件触发时，就会把这个socket加入到就绪列表，这样在用户程序获取就绪socket时可以直接拿走链表数据，而不需要再去遍历检查所有socket。</p>
 <h2 id="黏包问题">黏包问题</h2>
 <p>可选三种方法：</p>
 <ol type="1">
@@ -368,6 +363,24 @@ checkError，int microSeconds)</p>
 <h2 id="协议类">协议类</h2>
 <p>对于通信协议，初级做法是两边都写上对等的协议解析具体步骤。但这种做法的前提是两边都是你自己写，因为只有你知道协议应该怎么去解析。</p>
 <p>因此我们需要一个协议类，独立于客户端和服务器，来描述一个协议的相关参数。</p>
+<h2 id="同步">同步</h2>
+<p>虽然已经实现了网络数据的传输，但由于传输中的延迟、丢包等问题，网络消息到达每一个客户端的时间并不统一、稳定，因此还需要额外的技术来保证客户端之间的同步。</p>
+<h3 id="状态同步">状态同步</h3>
+<p>状态同步就是数据同步，客户端A定时向其他客户端广播自身数据同步，然后进行强行数据处理。这样的缺点在于<strong>延迟越大也就会造成越大的瞬移</strong>，因此观感很不友好。</p>
+<p>为了平滑瞬移的观感，显而易见我们可以使用插值的方法，也就是所谓的
+<strong>跟随算法</strong>：收到目标数据后，用一段时间去插值更新，而不是一步到位。这样虽然视觉上更平滑了，但由于插值更新必然是发生在收到同步数据之后，再花上一段时间去更新，那么必然和真实的客户端A数据存在较大的延迟和误差。</p>
+<p>因此为了节省插值时间，我们可以在收到同步数据之前就开始插值，即
+<strong>预测算法</strong>：在其他客户端本地保持客户端A的运动轨迹，自行本地预测，然后在同步数据到来时再进行跟随同步或者瞬移同步。这在稳定运动状态时效果很好，不过在不稳定的运动时容易导致回滚、闪回。示例代码如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//收到位置同步消息时，顺便计算出预测位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SyncPos</span>(<span class="params">MsgSyncTank msg</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//同步位置</span></span><br><span class="line">    Vector3 pos = <span class="keyword">new</span> Vector3(msg.x, msg.y, msg.z);</span><br><span class="line">    Vector3 rot = <span class="keyword">new</span> Vector3(msg.ex, msg.ey, msg.ez);</span><br><span class="line">    <span class="comment">//计算匀速运动下的预测位置</span></span><br><span class="line">    forecastPos = pos + <span class="number">2</span>*(pos - lastPos);</span><br><span class="line">    forecastRot = rot + <span class="number">2</span>*(rot - lastRot);</span><br><span class="line">    <span class="comment">//跟随算法 强行同步</span></span><br><span class="line">    <span class="comment">// forecastPos = pos;  </span></span><br><span class="line">    <span class="comment">// forecastRot = rot;</span></span><br><span class="line">    <span class="comment">//更新</span></span><br><span class="line">    lastPos = pos;</span><br><span class="line">    lastRot = rot;</span><br><span class="line">    <span class="comment">//记录预测时的时间，以便后续插值</span></span><br><span class="line">    forecastTime = Time.time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SyncPos计算出预测位置之后，update中插值移动到预测位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ForecastUpdate</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//插值时间</span></span><br><span class="line">    <span class="built_in">float</span> t = (Time.time - forecastTime) / CtrlTank.syncInterval;</span><br><span class="line">    t = Mathf.Clamp(t, <span class="number">0f</span>, <span class="number">1f</span>);</span><br><span class="line">    <span class="comment">//插值位置</span></span><br><span class="line">    Vector3 pos = transform.position;</span><br><span class="line">    pos = Vector3.Lerp(pos, forecastPos, t);</span><br><span class="line">    transform.position = pos;</span><br><span class="line">    <span class="comment">//插值旋转</span></span><br><span class="line">    Quaternion quat = transform.rotation;</span><br><span class="line">    Quaternion forcastQuat = Quaternion.Euler(forecastRot);</span><br><span class="line">    quat = Quaternion.Lerp(quat, forcastQuat, t);</span><br><span class="line">    transform.rotation = quat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="帧同步">帧同步</h3>
+<p>帧同步即指令同步、操作同步，把客户端A的指令发送给其他客户端，然后让其他客户端在本地执行指令完成同步模拟。相比于状态同步会因为同步数据的庞大而导致延迟、阻塞，帧同步的好处在于只需要发送指令，因此网络数据量很小，有助于缓解网络延迟。当然，如果只是简单的逐指令转发，那和普通的网络转发就没有什么区别了，会因为各客户端执行情况的不一样，造成严重的偏离。为了统一度量同步时间，这里引入了
+<strong>同步帧</strong> 的服务器时间概念，来度量诸如 "客户端 A
+在第3同步帧发出向前指令，客户端 B 在第5同步帧收到指令"
+这样的同步事件。以下"帧"都代表"同步帧"。</p>
+<p>统一度量衡后，我们就能知道是不是发生了指令执行情况的延迟问题。因此一种解决方案是<strong>快机等待慢机</strong>：A在第3帧发出指令后，自己并不执行。直到其他客户端在第5帧收到指令后，服务器才在第5帧告诉所有客户端开始执行。</p>
+<blockquote>
+<p>这样还可以利用投票法防止作弊，因为客户端严格一致，服务器可以收集客户端操作的结果来进行投票表决如"是否击中"的消息。</p>
+</blockquote>
 <h2 id="错误排除">错误排除</h2>
 <blockquote>
 <p>在Unity中，只有主线程可以操作UI组件。由于异步回调是在其他线程执行的，不能直接操作unityUI组件。</p>
@@ -376,6 +389,9 @@ checkError，int microSeconds)</p>
 <p>启动8888端口的服务器后，总发现有一个不知名本地端口会连接上来，然后出现消息解析错误。想了半天代码哪里有问题，结果使用netstat
 -aon|findstr "8888"排查后发现是迅雷的后台服务和这个端口冲突了...</p>
 </blockquote>
+<h2 id="参考资料">参考资料</h2>
+<p><a
+target="_blank" rel="noopener" href="https://book.douban.com/subject/30432848/">Unity3D网络游戏实战(第2版)</a></p>
 
     </div>
 
@@ -387,7 +403,7 @@ checkError，int microSeconds)</p>
           <div class="post-tags">
               <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
               <a href="/tags/C/" rel="tag"># C#</a>
-              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/unity/" rel="tag"># unity</a>
           </div>
 
         
@@ -462,7 +478,7 @@ checkError，int microSeconds)</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">客户端流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">服务器流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E6%80%A7%E8%83%BD%E6%9C%80%E4%BC%98"><span class="nav-number">1.3.</span> <span class="nav-text">异步操作（性能最优）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll%E7%8A%B6%E6%80%81%E7%9B%91%E6%B5%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Poll状态监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8select"><span class="nav-number">1.5.</span> <span class="nav-text">多路复用Select</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%8F%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">黏包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E5%92%8C%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">接收和处理消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">发送不完整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%AC%A1send%E6%B6%88%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">多次Send消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.2.</span> <span class="nav-text">消息队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">协议类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">5.</span> <span class="nav-text">错误排除</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">客户端流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">服务器流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86%E9%98%BB%E5%A1%9E"><span class="nav-number">1.3.</span> <span class="nav-text">服务器处理阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%8F%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">黏包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E5%92%8C%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">接收和处理消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">发送不完整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%AC%A1send%E6%B6%88%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">多次Send消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.2.</span> <span class="nav-text">消息队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">协议类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%90%8C%E6%AD%A5"><span class="nav-number">5.1.</span> <span class="nav-text">状态同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A7%E5%90%8C%E6%AD%A5"><span class="nav-number">5.2.</span> <span class="nav-text">帧同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">6.</span> <span class="nav-text">错误排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

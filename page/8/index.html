@@ -757,7 +757,7 @@ j+b, c},
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -771,7 +771,7 @@ j+b, c},
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">网络编程框架基础(Unity+C#)</a>
+            <a href="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">网络编程基础 (Unity+C#)</a>
         </h2>
 
         <div class="post-meta">
@@ -802,8 +802,8 @@ j+b, c},
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -828,14 +828,14 @@ j+b, c},
 </ol>
 <h3 id="服务器流程">服务器流程</h3>
 <ol type="1">
-<li>listenfd.Bind（ipEp）将给listenfd套接字绑定IP和端口。</li>
+<li>listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。</li>
 <li>listenfd.Listen（backlog）开启监听</li>
-<li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接产生一个专门的Socket（connfd）用来处理该客户端的数据。</li>
+<li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接再创建一个专门的Socket（connfd）用来处理该客户端的数据。</li>
 <li>connfd.Receive/BeginReceive 接受数据</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/10/20/Socket%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/#more" rel="contents">
+              <a class="btn" href="/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
