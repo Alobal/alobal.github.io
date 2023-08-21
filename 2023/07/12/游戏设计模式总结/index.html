@@ -30,6 +30,7 @@
 <meta property="og:description" content="参考Game Programming Patterns完成的设计模式总结笔记。 命令模式 命令模式本质上希望把一个硬编码的函数解耦成可配置的函数命令，尽可能将功能触发和具体功能分离。 如下有一个玩家对象的输入控制功能，其中按下X键对应jump动作。如果我们想要将X键绑定到fireGun功能，那还得去代码里修改对应的硬编码if语句，然后重新编译，重新链接。 1234567void Inpu">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sitchzou.com/2023/07/12/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/flyweight-tree-model.png">
+<meta property="og:image" content="https://sitchzou.com/2023/07/12/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/state-flowchart.png">
 <meta property="article:published_time" content="2023-07-12T13:38:54.000Z">
 <meta property="article:modified_time" content="2023-07-12T13:38:54.000Z">
 <meta property="article:author" content="Sitch">
@@ -354,9 +355,7 @@ ref 音频单例 ref 物理单例 ref 渲染单例 ref
 这三个操作之间的互相耦合就已经非常难看了，如果还要加入攻击操作、道具操作、闪避操作等...可想而知代码中的<code>if</code>会爆炸式的增长，并且也根本理不清其中的避让关系。这时候就需要我们好好把所有的限定状态理清楚，迎接有限状态机的救援
 (这里不细谈有限状态机的基本定义)：</p>
 <figure>
-<img
-src="%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/state-flowchart.png"
-alt="有限状态机" />
+<img src="state-flowchart.png" alt="有限状态机" />
 <figcaption aria-hidden="true">有限状态机</figcaption>
 </figure>
 <p>这个时候我们需要顾虑的事情就变了：</p>
