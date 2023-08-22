@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 listenfd.Listen（b">
+  <meta name="description" content="基础流程 客户端流程:  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 网络操作(如心跳协议) socket.Close关闭连接  服务器流程:  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 li">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络编程基础 (Unity+C#)">
 <meta property="og:url" content="https://sitchzou.com/2021/10/20/Unity%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="基础流程 客户端流程  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 socket.Close关闭连接  服务器流程  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 listenfd.Listen（b">
+<meta property="og:description" content="基础流程 客户端流程:  socket.Connect（远程IP地址，远程端口） socket.Send&#x2F;BenginSend发送数据 socket.Receive&#x2F;BeginReceive接收服务端数据 网络操作(如心跳协议) socket.Close关闭连接  服务器流程:  listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。 li">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-20T10:09:55.000Z">
 <meta property="article:modified_time" content="2021-10-20T10:09:55.000Z">
@@ -281,22 +281,25 @@
 
       
         <h2 id="基础流程">基础流程</h2>
-<h3 id="客户端流程">客户端流程</h3>
+<p><strong>客户端流程</strong>:</p>
 <ol type="1">
 <li>socket.Connect（远程IP地址，远程端口）</li>
 <li>socket.Send/BenginSend发送数据</li>
 <li>socket.Receive/BeginReceive接收服务端数据</li>
+<li>网络操作(如心跳协议)</li>
 <li>socket.Close关闭连接</li>
 </ol>
-<h3 id="服务器流程">服务器流程</h3>
+<p><strong>服务器流程</strong>:</p>
 <ol type="1">
 <li>listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。</li>
 <li>listenfd.Listen（backlog）开启监听</li>
 <li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接再创建一个专门的Socket（connfd）用来处理该客户端的数据。</li>
 <li>connfd.Receive/BeginReceive 接受数据</li>
+<li>网络操作(如心跳协议)</li>
+<li>socket.Close关闭连接</li>
 </ol>
 <span id="more"></span>
-<h3 id="服务器处理阻塞">服务器处理阻塞</h3>
+<h3 id="服务器处理socket阻塞">服务器处理socket阻塞</h3>
 <p>由于服务器需要对接多个客户端，因此服务器不能在一个客户端处阻塞等待，而需要进行特殊的阻塞处理。</p>
 <p><strong>异步操作（性能最优）</strong>：使用Socket的异步API，把阻塞轮询交给内部。异步处理都由<code>BeginXXX</code>API进行异步等待开始，并且绑定一个回调函数<code>CustomCallback</code>，这样在异步响应时就会使用回调函数来进行处理。在回调函数内部，首先使用对应的<code>EndXXX</code>API来拿到响应数据，对数据处理完成后，可以在回调函数内再次调用<code>BeginXXX</code>，以串行开启新一轮的异步等待。代码示例如下：</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Connect</span>(<span class="params"><span class="built_in">string</span> ip, <span class="built_in">int</span> port</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//进行连接准备操作</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//使用Begin API来开启异步等待，并绑定回调函数ConnectCallback</span></span><br><span class="line">    socket.BeginConnect(ip, port, ConnectCallback, socket);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Connect回调</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ConnectCallback</span>(<span class="params">IAsyncResult ar</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        Socket socket = (Socket) ar.AsyncState;</span><br><span class="line">        <span class="comment">//结束等待 收取响应数据</span></span><br><span class="line">        socket.EndConnect(ar);</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//进行一些数据处理操作</span></span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//再次调用Begin，开启新一轮的异步等待</span></span><br><span class="line">        socket.BeginReceive( readBuff.bytes, readBuff.writeIdx, </span><br><span class="line">                                        readBuff.remain, <span class="number">0</span>, ReceiveCallback, socket);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    catch (SocketException ex)&#123;</span><br><span class="line">        Debug.Log(<span class="string">&quot;Socket Connect fail &quot;</span> + ex.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
@@ -316,53 +319,35 @@ microSeconds设置检查的阻塞时间，超时且状态无效则会返回fasle
 内部都是存储一个文件描述符fd集合来表示关注的sockets列表，然后通过操作系统去检查IO，并对应修改fd。回到用户程序时，程序则遍历检查修改后的fd集合，来检查哪些sockets完成IO，整个过程消耗O(n)时间。Poll和Select的区别在于存储fd集合的数据结构不同。</p>
 </blockquote>
 <p>linux中还有一种<strong>epoll</strong>的优化方法。从Poll/Select的函数调用可以看出，每次调用都会临时传入待检测的fd数据，而没有在内部持续保存。因此，一方面，epoll创建了一个内核中的红黑树来跟踪维护所有<code>epoll_ctl</code>注册的socket，避免重复的数据拷贝和内存管理。另一方面，epoll会维护一个就绪链表。当一个socket的IO事件触发时，就会把这个socket加入到就绪列表，这样在用户程序获取就绪socket时可以直接拿走链表数据，而不需要再去遍历检查所有socket。</p>
-<h2 id="黏包问题">黏包问题</h2>
-<p>可选三种方法：</p>
+<h2 id="消息通信">消息通信</h2>
+<p>当socket连接建立完成后，就需要让C/S两端进行消息的通信。而为了针对不同的消息响应不同的功能，我们首先需要定义一下通信协议如<code>消息长度消息名称|参数1，参数2，...</code>，这样我们就可以通过字符串分割或序列化处理解析消息。</p>
+<p>不过实际上发送消息时<code>socket.Send</code>并没有真的发出网络包，而是写入到了操作系统的socket发送缓冲区中，而什么时候发送则由操作系统决定，而<code>socket.Receive</code>也只是从socket接受缓冲区中提取数据，<strong>这两者都不保证消息的完整传输</strong>，因此就会出现缓冲区的<strong>黏包半包问题</strong>：比如多条消息累积在缓冲区，被接收方一次性提取。又或者由于网络是分包传输的，接收方可能先收到部分消息，一段时间后再收到剩余消息。总而言之，我们需要确保消息传送的完整性，通常会对消息协议进行以下几种改造：</p>
 <ol type="1">
-<li>附带长度信息</li>
-<li>附带结束符号</li>
+<li>附带长度信息，标识消息完整长度</li>
+<li>附带结束符号，标识消息的结束</li>
 <li>固定长度</li>
 </ol>
-<p>通常使用长度信息法</p>
-<h3 id="发送消息">发送消息</h3>
-<p>在头部利用2字节作为长度信息。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] bodyBytes = System.Text.Encoding.Default.GetBytes(sendStr);</span><br><span class="line">Int16 len =(Int16)bodyBytes.Length;</span><br><span class="line"><span class="built_in">byte</span>[] lenBytes = BitConverter.GetBytes(len);<span class="comment">//隐藏了大端小端问题</span></span><br><span class="line"><span class="built_in">byte</span>[] sendBytes = lenBytes.Concat(bodyBytes).ToArray();</span><br></pre></td></tr></table></figure>
-<h3 id="接收和处理消息">接收和处理消息</h3>
-<p>需提供接收缓冲区和缓冲区实际长度。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] readBuff = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="built_in">int</span> buffCount = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>最终，附带长度信息后的<strong>发送消息</strong>格式如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] bodyBytes = System.Text.Encoding.Default.GetBytes(sendStr);<span class="comment">//将消息本体 &quot;消息名称|参数1，参数2，...&quot; 转为字节</span></span><br><span class="line">Int16 len =(Int16)bodyBytes.Length;<span class="comment">//利用2字节作为长度信息，以便检查消息的完整性。  </span></span><br><span class="line"><span class="built_in">byte</span>[] lenBytes = BitConverter.GetBytes(len);<span class="comment">//将长度数据转为字节，内部根据大端小端设备分别转换</span></span><br><span class="line"><span class="built_in">byte</span>[] sendBytes = lenBytes.Concat(bodyBytes).ToArray();<span class="comment">//拼接完整的发送数据</span></span><br></pre></td></tr></table></figure>
+<p><strong>接收消息</strong>同样需要保证接收消息的完整性，因此可以先构造一个接收缓冲区存储<code>socket.Receive</code>的数据，并等待完整消息的到达。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] readBuff = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="built_in">int</span> buffCount = <span class="number">0</span>;<span class="comment">//已接收的字节，新收到的字节则在readBuff[buffCount]处开始写入。</span></span><br></pre></td></tr></table></figure>
+<p>有了缓冲区之后，接收放即可尝试在缓冲区里提取数据：</p>
 <ol type="1">
-<li>Receive需要偏移到已存储消息尾部进行追加存储</li>
-<li>更新buffCount</li>
+<li>缓冲区数据&lt;=2字节，连长度信息都不完整，等待。</li>
+<li>缓冲区数据&gt;2字节，读取头部2字节获取消息长度，接收字节&lt;消息长度，不完整，等待。</li>
+<li>缓冲区数据&gt;2字节，读取头部2字节获取消息长度，接收字节&gt;=消息长度：即存在一条完整消息。按长度取出该条数据，并挪动缓冲区：<code>Array.Copy(readBuff，msgStart，readBuff，0，count);</code></li>
 </ol>
-<p>根据缓冲区长度处理数据：</p>
-<ol type="1">
-<li>小于等于2字节，长度信息不完整，不处理。</li>
-<li>大于2字节，读取长度，大于消息实际长度，等待后续消息，不处理。</li>
-<li>大于2字节，读取长度，小于等于消息实际长度：即存在一条完整消息。按长度读取。</li>
-</ol>
-<p>读取结束需要更新缓冲区，例如把缓冲区向前移位：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array.Copy(readBuff，msgStart，readBuff，<span class="number">0</span>，count);</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>但是数组移位是一个低效的办法，因此可以把缓冲数组做成循环数组,同时还可以考虑自动扩展等优化功能。</p>
-<h2 id="发送不完整">发送不完整</h2>
-<p>程序的Send功能其实是把字节交给操作系统的网络缓冲区处理。然而系统缓冲区不够时，可能Send没有将完整信息写入缓冲区，导致信息丢失，因此需要检查EndSend返回发送的字节数，然后进行修正。</p>
-<h3 id="多次send消息">多次Send消息</h3>
-<p>容易想到发送不成功就多发送几次。</p>
-<p>每次Send记录已进入系统缓冲的字节数，计算剩余字节数。如果剩余字节大于0，则再次调用Send，此时注意Send需要偏移已缓冲字节数。</p>
-<p>但这种方法有个问题，就是需要保证多次Send的过程中，存储的消息不变。比如在第一次发送不完整，第二次Send还没开始，此时有新的消息进入了程序覆盖掉了存储的消息，那么第二次Send就会出错。</p>
-<h3 id="消息队列">消息队列</h3>
-<p>因此在程序中我们需要多个存储消息的空间，即创建一个发送消息队列。队列的元素是程序原来的消息缓冲区。</p>
-<p>每次想要发送消息，进入Send的回调函数，在消息队列后追加一个消息缓冲区，并且填充好需要发送的消息。</p>
-<p>判断进入时是否在队列头部进行Send：</p>
-<ol type="1">
-<li>在队列头部，则进入上面【多次Send消息】的处理，保证这一条消息完整送达。直到完整发送完成，Pop队首，再提取下一条消息的发送。</li>
-<li>不在队列头部，不进行处理。</li>
-</ol>
-<p>这样保证了每次只发送一条消息，不会被后续消息干扰。但是还是有问题。</p>
-<p>写入队列是在各自的回调过程中进行的，因此写入队列时会有线程冲突：假如前一个线程执行到了【Pop队首】和【提取下一条】之间，后一个线程执行到【进入队列】——此时前一个线程会提取出下一条消息进行发送，后一个线程也会因为处在队列头部进行发送，导致重复。</p>
-<p>因此还要对上述会产生冲突的地方进行互斥锁处理，保证成原子操作。</p>
-<h2 id="协议类">协议类</h2>
-<p>对于通信协议，初级做法是两边都写上对等的协议解析具体步骤。但这种做法的前提是两边都是你自己写，因为只有你知道协议应该怎么去解析。</p>
-<p>因此我们需要一个协议类，独立于客户端和服务器，来描述一个协议的相关参数。</p>
+</blockquote>
+<h3 id="大端小端问题">大端小端问题</h3>
+<p>完整的字节数据发送流程已经构建好了，但是字节数据本身还存在一些问题(虽然BitConverter已经给我们隐藏好了)。网络传输中我们一般习惯大端字节序，即一串字节数据中，高位在低地址：<code>A1=160+1</code>，这种模式更像我们平常阅读字符串的模式。然而，常见的x86、ARM处理器是小端字节序，即一串字节数据中，低位在低地址<code>A1=10+16</code>，这种模式更贴合内存读取的顺序。如果要手动解决两种模式的差异，可以在数据协议中规定好以一种模式为主，例如将所有字节数据都转换为小端存储。</p>
+<h3 id="发送不完整">发送不完整</h3>
+<p>我们已经知道<code>socket.Send</code>只是把数据写入缓冲区，其同时有一个返回值，告诉我们写入了多少字节。这说明即使是写入缓冲区，<code>Send</code>也并不保证消息的完整写入，同样需要我们自行处理。</p>
+<p><strong>重复Send</strong>：容易想到发送不成功就多发送几次。如果待发送的字节数&gt;0，则再次调用Send，此时注意<code>Send</code>需要偏移已写入的字节数。</p>
+<p>但这种方法有个问题，就是需要保证多次写入的过程中，存储的消息不变。比如在第一次发送不完整，第二次Send还没开始，此时有异步的新消息写入了了缓冲区，那么旧消息的第二次写入就会存在偏移位置的错误。</p>
+<p><strong>发送消息队列</strong>：因此类似于接收缓冲区的思路，发送方也会创建一个发送消息队列。每次想要发送消息，则将消息入队(队列操作记得加锁)，并且另一方面从队列中取出头部元素进行重复Send。</p>
+<p>通过队列的存在，其把异步的消息流整合为了同步顺序的消息流，这样保证了每次只发送一条消息，不会被后续消息干扰。</p>
 <h2 id="同步">同步</h2>
 <p>虽然已经实现了网络数据的传输，但由于传输中的延迟、丢包等问题，网络消息到达每一个客户端的时间并不统一、稳定，因此还需要额外的技术来保证客户端之间的同步。</p>
 <h3 id="状态同步">状态同步</h3>
@@ -381,6 +366,7 @@ microSeconds设置检查的阻塞时间，超时且状态无效则会返回fasle
 <blockquote>
 <p>这样还可以利用投票法防止作弊，因为客户端严格一致，服务器可以收集客户端操作的结果来进行投票表决如"是否击中"的消息。</p>
 </blockquote>
+<h2 id="示例类图">示例类图</h2>
 <h2 id="错误排除">错误排除</h2>
 <blockquote>
 <p>在Unity中，只有主线程可以操作UI组件。由于异步回调是在其他线程执行的，不能直接操作unityUI组件。</p>
@@ -478,7 +464,7 @@ target="_blank" rel="noopener" href="https://book.douban.com/subject/30432848/">
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">客户端流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">服务器流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86%E9%98%BB%E5%A1%9E"><span class="nav-number">1.3.</span> <span class="nav-text">服务器处理阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%8F%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">黏包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E5%92%8C%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">接收和处理消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">3.</span> <span class="nav-text">发送不完整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%AC%A1send%E6%B6%88%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">多次Send消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.2.</span> <span class="nav-text">消息队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">协议类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%90%8C%E6%AD%A5"><span class="nav-number">5.1.</span> <span class="nav-text">状态同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A7%E5%90%8C%E6%AD%A5"><span class="nav-number">5.2.</span> <span class="nav-text">帧同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">6.</span> <span class="nav-text">错误排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86socket%E9%98%BB%E5%A1%9E"><span class="nav-number">1.1.</span> <span class="nav-text">服务器处理socket阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1"><span class="nav-number">2.</span> <span class="nav-text">消息通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">大端小端问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">2.2.</span> <span class="nav-text">发送不完整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%90%8C%E6%AD%A5"><span class="nav-number">3.1.</span> <span class="nav-text">状态同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A7%E5%90%8C%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">帧同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E7%B1%BB%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">示例类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">5.</span> <span class="nav-text">错误排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

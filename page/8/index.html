@@ -819,19 +819,22 @@ j+b, c},
 
       
           <h2 id="基础流程">基础流程</h2>
-<h3 id="客户端流程">客户端流程</h3>
+<p><strong>客户端流程</strong>:</p>
 <ol type="1">
 <li>socket.Connect（远程IP地址，远程端口）</li>
 <li>socket.Send/BenginSend发送数据</li>
 <li>socket.Receive/BeginReceive接收服务端数据</li>
+<li>网络操作(如心跳协议)</li>
 <li>socket.Close关闭连接</li>
 </ol>
-<h3 id="服务器流程">服务器流程</h3>
+<p><strong>服务器流程</strong>:</p>
 <ol type="1">
 <li>listenfd.Bind（ipEp）将创建的空套接字listenfd绑定到IP+端口。</li>
 <li>listenfd.Listen（backlog）开启监听</li>
 <li>listenfd.Accept/BeginAccept接收客户端连接。Accept/EndAccept返回连接的Socket对象，对于服务器来说，它有一个监听Socket（listenfd）用来监听（Listen）和应答（Accept），对每个客户端的连接再创建一个专门的Socket（connfd）用来处理该客户端的数据。</li>
 <li>connfd.Receive/BeginReceive 接受数据</li>
+<li>网络操作(如心跳协议)</li>
+<li>socket.Close关闭连接</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
