@@ -276,8 +276,12 @@
 <p>在我们定义委托类型时，本质上编译器会生成一个继承自标准库的类，如下所示。这个类实际上会形成一个委托的闭包，其会包含调用所需的所有信息，如调用实例、待调用方法的位置。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyDelegateType</span> :<span class="title">System.MulticastDelegate</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一些继承的重要字段</span></span><br><span class="line">    <span class="keyword">internal</span> Object _target;<span class="comment">//当委托注册了实例方法时，这个字段会填充实例对象，以便调用实例方法。</span></span><br><span class="line">    <span class="keyword">internal</span> IntPtr _methodPtr;<span class="comment">//指针，单播时使用，指向那个注册的方法。</span></span><br><span class="line">    <span class="keyword">private</span> Object   _invocationList;<span class="comment">//方法链，多播时使用，指向多个单播委托实例。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//唤醒操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line">    <span class="comment">//...其余字段和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于单播委托，其会在<code>_methodPtr</code>中直接存储方法地址。然而正如上文所示，一个委托可以注册多个方法。实际上在注册多个方法后，C#会生成一个独立的委托实例，用来指向多个单播委托：</p>
-<p><a
-href="delegate.png">多播委托指向多个单播委托。每个单播委托才指向每个注册方法</a></p>
+<figure>
+<img src="delegate.png"
+alt="多播委托指向多个单播委托。每个单播委托才指向每个注册方法" />
+<figcaption
+aria-hidden="true">多播委托指向多个单播委托。每个单播委托才指向每个注册方法</figcaption>
+</figure>
 <p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
 <p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
           <!--noindex-->
