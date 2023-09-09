@@ -208,6 +208,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/09/09/Csharp%E7%BB%86%E8%8A%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/" class="post-title-link" itemprop="url">C#细节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-09 13:51:46" itemprop="dateCreated datePublished" datetime="2023-09-09T13:51:46+08:00">2023-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="机制">机制</h1>
+<h2 id="委托">委托</h2>
+<p>委托类似于函数指针：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义委托类型 / 定义函数指针类型</span></span><br><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegateType</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据类型创建实例对象</span></span><br><span class="line">MyDelegateType my_delegate_instance=<span class="keyword">new</span> ();</span><br><span class="line"><span class="comment">//注册指向函数</span></span><br><span class="line">my_delegate_instance+=Func1;</span><br><span class="line">my_delegate_instance+=Func2;</span><br><span class="line">my_delegate_instance+=Func3;</span><br><span class="line"><span class="comment">//删除函数</span></span><br><span class="line">my_delegate_instance-=Func3;</span><br><span class="line"><span class="comment">//唤醒函数</span></span><br><span class="line">my_delegate_instance.Invoke(int_variable);</span><br><span class="line">my_delegate_instance(int_variable);</span><br></pre></td></tr></table></figure>
+<p>在我们定义委托类型时，本质上编译器会生成一个继承自标准库的类，如下所示。这个类实际上会形成一个委托的闭包，其会包含调用所需的所有信息，如调用实例、待调用方法的位置。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyDelegateType</span> :<span class="title">System.MulticastDelegate</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一些继承的重要字段</span></span><br><span class="line">    <span class="keyword">internal</span> Object _target;<span class="comment">//当委托注册了实例方法时，这个字段会填充实例对象，以便调用实例方法。</span></span><br><span class="line">    <span class="keyword">internal</span> IntPtr _methodPtr;<span class="comment">//指针，单播时使用，指向那个注册的方法。</span></span><br><span class="line">    <span class="keyword">private</span> Object   _invocationList;<span class="comment">//方法链，多播时使用，指向多个单播委托实例。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//唤醒操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line">    <span class="comment">//...其余字段和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于单播委托，其会在<code>_methodPtr</code>中直接存储方法地址。然而正如上文所示，一个委托可以注册多个方法。实际上在注册多个方法后，C#会生成一个独立的委托实例，用来指向多个单播委托：</p>
+<p><a
+href="delegate.png">多播委托指向多个单播委托。每个单播委托才指向每个注册方法</a></p>
+<p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
+<p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -588,105 +686,6 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">UnityShader半透明物体问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-22 09:47:01" itemprop="dateCreated datePublished" datetime="2022-05-22T09:47:01+08:00">2022-05-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>为了写一个半透明物体的shader，有以下几点基础要求：</p>
-<ol type="1">
-<li>更近的不透明物体要挡住透明物体。因此透明物体<strong>需要深度测试</strong>来决定是否渲染。</li>
-<li>透明物体不能挡住透明物体。因此透明物体之间不能进行深度测试来剔除渲染，即透明物体<strong>不能写入深度</strong>。
-<img src="https://i.imgur.com/eRfC2Zz.png"
-alt="开启深度写入，透明物体错误地挡住透明物体" /></li>
-<li>既然不能写入深度，不透明物体与透明物体之间的渲染顺序就十分关键。如果更远的不透明物体晚一点渲染，其会不合理地挡住更近的透明物体(因为透明物体没有写入深度值)。因此需要<strong>分离渲染顺序队列</strong>。</li>
-<li>透明物体之间的顺序问题。当然Unity也知道顺序很关键，由于没有fragment-level的顺序信息，因此unity会对透明物体按object-level从远到近排序，再进行渲染。这通常没有问题，但是当两个透明物体的深度是交叉的时候就会产生错误。因此理想解决方案是<strong>顺序无关透明（order
-independent transparency, OIT）</strong>，即逐像素排序。 <img
-src="https://i.imgur.com/rcWdI9Y.png"
-alt="透明物体之间的渲染顺序错误。交叉地带应该由A覆盖B，实际上由于B的中心点更近，因此其所有fragment都在A之后渲染，导致B错误的覆盖A。" /></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -758,7 +757,7 @@ alt="透明物体之间的渲染顺序错误。交叉地带应该由A覆盖B，�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -771,7 +770,7 @@ alt="透明物体之间的渲染顺序错误。交叉地带应该由A覆盖B，�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

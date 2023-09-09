@@ -208,6 +208,126 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/03/17/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/17/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">基础算法总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-17 16:16:30" itemprop="dateCreated datePublished" datetime="2021-03-17T16:16:30+08:00">2021-03-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/17/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="排序">排序</h1>
+<h2 id="快速排序">快速排序</h2>
+<h3 id="原理">原理</h3>
+<p>在数组中选定一个分界数<code>pivot</code>,
+然后将所有其他的数和它进行比较，大于的小于的分成两部分，<code>pivot</code>放中间，这样这一轮就确定了一个数的位置，然后递归左右两边继续快排即可。</p>
+<h3 id="算法流程">算法流程</h3>
+<ol type="1">
+<li><p>首先确定一个分界数：可以直接固定取最开始或者最后的那个数，也可以用随机算法。随机取数会使效率更加稳定。然后把这个数交换到
+end，以便前面进行分块。</p></li>
+<li><p>如何将大于和小于的两部分分开：我们目标是让小于的部分在前，大于的部分在后————小于区
+和 大于区。两种分割方法：</p></li>
+</ol>
+<ul>
+<li><p>一种是利用两个标志位，<code>lo=start</code>和<code>hi=end-1</code>。思想是两个标志位互相
+把<strong>应该分配给对方的数</strong> 给对方。
+<code>if (nums[lo]&gt;pivot)</code>，显然 nums[lo] 的值不应该在 lo
+所处的小于区，因此我们把它丢到大于区<code>swap(nums[lo],nums[hi]);</code>。此时
+hi 所指的数是大于 pivot 的，是正确处于后半区的，因此 hi
+可以移动去处理下一个数，即 hi--。而 lo 获得了 hi
+交换过去的数，大于小于性未知，lo 不能动。</p>
+<p>else，nums[lo] 正确处于小于区，那么 lo
+去处理下一个数，lo++。</p></li>
+<li><p>另一种需要一个标志位和一个遍历位，即<code>lo=start</code>和<code>cur=start+1</code>。cur
+从 start+1 遍历到 end-1 ，lo
+指示着小于区的最后一个数的位置。思想是把所有小于区的全部分好，那么大于区的也自然而然分好了。</p>
+<p>if (nums[cur]&gt;pivot), 即当前数应该在大于区，即在 lo 之外，因为 cur
+本来就一定指在 lo 之外，因此不用移动当前数， cur 去处理下一个，
+cur++。</p>
+<p>else, 即当前数应该添加到小于区，即在 lo
+的下一个，因此交换<code>swap(nums[cur],nums[lo+1]);</code>, 同时 lo++
+更新到新边界。此时这个小于区的数已经分好。lo+1 换给 cur 的数，必然是 cur
+处理过的，因此 cur 只需要去下一个数处理，cur++。</p></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/17/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/03/03/LeetCode-No-264/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -607,117 +727,6 @@ Nh=N(h-1)+N(h-2)+1</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">考研英语作文句式整理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-09 08:52:17" itemprop="dateCreated datePublished" datetime="2020-11-09T08:52:17+08:00">2020-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="小作文">小作文</h1>
-<h2 id="开篇-12-句">开篇 (1~2 句）</h2>
-<h3 id="告示">告示</h3>
-<p>This is to notify that xxx will be held at XXX from xx:xx to xx:xx on
-June 28^th. We cordially invite you to attend the [ceremony/event] .</p>
-<h3 id="信件">信件</h3>
-<p>引出 This (letter) serves to</p>
-<ul>
-<li>邀请 (On behalf of ...) extend a warm invitation to you to attend
-the .... ,on August 13-20, 2018 at Peking University</li>
-<li>推荐/建议 make some [suggestions/recommendations] with regard
-to(prep.) ..., (since you asked for my advice)</li>
-<li>申请 apply for ...</li>
-<li>申请兴趣/道歉/感谢/慰问 express my deepest
-[interest/apology/gratitude/sympathies] [over the loss of .../for what
-happened], since ... <a href="#原因">原因</a></li>
-<li>辞职 make a hard decision to quit due to personal reasons.</li>
-<li>祝贺 congratulate your achievement ,since I heard the news
-that...</li>
-<li>投诉 draw your attention to the problem that ...</li>
-</ul>
-<p>感谢客套 I am so delighted that you trust me to arrange your ...</p>
-<p>道歉强调 I am terribly sorry for any inconvenience this causes you
-.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/09/%E8%8B%B1%E8%AF%AD%E5%8F%A5%E5%BC%8F%E6%90%AD%E9%85%8D%E6%95%B4%E7%90%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -789,7 +798,7 @@ that...</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -802,7 +811,7 @@ that...</li>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

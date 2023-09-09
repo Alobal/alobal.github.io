@@ -208,6 +208,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">UnityShader半透明物体问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-22 09:47:01" itemprop="dateCreated datePublished" datetime="2022-05-22T09:47:01+08:00">2022-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了写一个半透明物体的shader，有以下几点基础要求：</p>
+<ol type="1">
+<li>更近的不透明物体要挡住透明物体。因此透明物体<strong>需要深度测试</strong>来决定是否渲染。</li>
+<li>透明物体不能挡住透明物体。因此透明物体之间不能进行深度测试来剔除渲染，即透明物体<strong>不能写入深度</strong>。
+<img src="https://i.imgur.com/eRfC2Zz.png"
+alt="开启深度写入，透明物体错误地挡住透明物体" /></li>
+<li>既然不能写入深度，不透明物体与透明物体之间的渲染顺序就十分关键。如果更远的不透明物体晚一点渲染，其会不合理地挡住更近的透明物体(因为透明物体没有写入深度值)。因此需要<strong>分离渲染顺序队列</strong>。</li>
+<li>透明物体之间的顺序问题。当然Unity也知道顺序很关键，由于没有fragment-level的顺序信息，因此unity会对透明物体按object-level从远到近排序，再进行渲染。这通常没有问题，但是当两个透明物体的深度是交叉的时候就会产生错误。因此理想解决方案是<strong>顺序无关透明（order
+independent transparency, OIT）</strong>，即逐像素排序。 <img
+src="https://i.imgur.com/rcWdI9Y.png"
+alt="透明物体之间的渲染顺序错误。交叉地带应该由A覆盖B，实际上由于B的中心点更近，因此其所有fragment都在A之后渲染，导致B错误的覆盖A。" /></li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/22/UnityShader%E9%80%8F%E6%98%8E%E7%89%A9%E4%BD%93%E9%81%AE%E6%8C%A1%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/05/13/%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E4%B8%89%E7%BB%B4%E6%97%8B%E8%BD%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -667,104 +766,6 @@ alt="末世的静美" />
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/03/21/%E7%94%9F%E5%8C%96%E5%A5%87%E5%85%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/21/%E7%94%9F%E5%8C%96%E5%A5%87%E5%85%B5/" class="post-title-link" itemprop="url">生化奇兵：疯狂独特的反乌托邦</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-21 18:04:38" itemprop="dateCreated datePublished" datetime="2022-03-21T18:04:38+08:00">2022-03-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/21/%E7%94%9F%E5%8C%96%E5%A5%87%E5%85%B5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/21/%E7%94%9F%E5%8C%96%E5%A5%87%E5%85%B5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>生化奇兵 BioShock</p>
-<h1
-id="体验了天空之城的一年后回到最初的朝圣之旅">体验了天空之城的一年后，回到最初的朝圣之旅</h1>
-<p>当然相比无限来说，初代这部游玩体验肯定没有那种完美感，但是依然是为数不多的优质线性FPS。</p>
-<figure>
-<img
-src="https://cdn.akamai.steamstatic.com/steam/apps/409710/ss_002c690e40603e3bccec0d84256f99a5b03fdbec.jpg?t=1598321131"
-alt="art deco风格画面，不算精美但是让人沉浸" />
-<figcaption aria-hidden="true">art
-deco风格画面，不算精美但是让人沉浸</figcaption>
-</figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/21/%E7%94%9F%E5%8C%96%E5%A5%87%E5%85%B5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -836,7 +837,7 @@ deco风格画面，不算精美但是让人沉浸</figcaption>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -849,7 +850,7 @@ deco风格画面，不算精美但是让人沉浸</figcaption>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

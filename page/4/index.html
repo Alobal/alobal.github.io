@@ -208,6 +208,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/03/06/CaSPR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/06/CaSPR/" class="post-title-link" itemprop="url">CaSPR</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-06 10:58:49" itemprop="dateCreated datePublished" datetime="2022-03-06T10:58:49+08:00">2022-03-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/06/CaSPR/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/06/CaSPR/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Rempe D, Birdal T, Zhao Y, et al. Caspr: Learning canonical
+spatiotemporal point cloud representations[J]. Advances in neural
+information processing systems, 2020, 33: 13688-13701.</li>
+<li>Stanford</li>
+</ul>
+<p>过去有一些工作做了动态点云的时间学习, 然而这些工作有一个致命限制:
+它们缺少时间连续性、鲁棒性、同类泛化性。有一些工作考虑了其中某一个方面,
+但没有对这三者整体进行统一的要求。</p>
+<p>Canonical Spatiotemporal Point Cloud Representations
+(CaSPR)致力于对3D形状的时空变化进行编码。</p>
+<ol type="1">
+<li>将输入的点云序列规范化到一个共享的4D container空间:
+其先构建了坐标空间Normalized Object Coordinate Space (NOCS) [63],
+它能把同类中的一些外在属性引如位置、朝向和放缩程度给规范化。进一步的,
+CaSPR将NOCS扩展到4D <strong>Temporal-NOCS(T-NOCS)</strong>,
+额外将点云序列的持续时间归一化成一个单位时间。对于给定的点云序列,
+最终规范化后会给出在<strong>时间和空间</strong>上都规范化的点云。</li>
+<li>然后在规范化空间中学习连续的时空特征: 其使用了Neural Ordinary
+Differential Equations (Neural ODEs) [9]。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/06/CaSPR/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/02/24/GeometryMotion-Net/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -694,114 +802,6 @@ of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2022/01/06/PSTNet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/06/PSTNet/" class="post-title-link" itemprop="url">PSTNet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-01-06 14:37:47" itemprop="dateCreated datePublished" datetime="2022-01-06T14:37:47+08:00">2022-01-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/01/06/PSTNet/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/06/PSTNet/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>Fan H, Yu X, Ding Y, et al. PSTNet: Point spatio-temporal
-convolution on point cloud sequences[C]//International Conference on
-Learning Representations. 2020.</li>
-<li>National University of Singapore</li>
-</ul>
-<h1 id="introduction">Introduction</h1>
-<p>点云可以准确捕捉场景的集合信息，同时对不同的光照条件有较强的鲁棒性。另外，可以通过附带RGB图像来作为3D点的附加特征，以增强点云的能力。</p>
-<p>动态点云是不规则和无序的，为了建模点云的动力学，一种解决方案是将点云转换为3D体素序列，然后对体素序列应用4D卷积(Choy等人，2019)。然而，直接对体素序列执行卷积需要大量的计算。此外，在<strong>体素化过程中，量化误差是不可避免的</strong>，这可能会限制需要精确测量场景几何的应用。另一个解决方案MeteorNet
-(Liu et al.， 2019e)是扩展静态点云方法PointNet++ (Qi et al.，
-2017b)来处理原始点云序列。</p>
-<p>这篇文章的point spatio-temporal (PST)
-convolution用于直接处理点云序列。由于点云在空间上无序但在时间上有序，因此可以解耦空间和时间信息，来对点云序列进行建模。</p>
-<p>点云序列在帧之间没有对应关系，因此PSTNet提出了一个 point tube
-结构来保持时空上的局部结构。</p>
-<p>主要工作：</p>
-<ul>
-<li>首次尝试解耦点云序列的空间和时间信息，提出PST卷积来编码点云序列。</li>
-<li>PST transposed
-convolution，用于解码序列，完成point-level的预测任务</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/06/PSTNet/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -873,7 +873,7 @@ convolution，用于解码序列，完成point-level的预测任务</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -886,7 +886,7 @@ convolution，用于解码序列，完成point-level的预测任务</li>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

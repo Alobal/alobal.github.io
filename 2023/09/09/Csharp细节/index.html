@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="codeva-9sj0MAnGdB">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="机制 委托 委托类似于函数指针： 1234567891011121314&#x2F;&#x2F;定义委托类型 &#x2F; 定义函数指针类型delegate void MyDelegateType(int a);&#x2F;&#x2F;根据类型创建实例对象MyDelegateType my_delegate_instance&#x3D;new ();&#x2F;&#x2F;注册指向函数my_delegate_instance+&#x3D;Func1;my_delegate_ins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#细节">
+<meta property="og:url" content="https://sitchzou.com/2023/09/09/Csharp%E7%BB%86%E8%8A%82/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="机制 委托 委托类似于函数指针： 1234567891011121314&#x2F;&#x2F;定义委托类型 &#x2F; 定义函数指针类型delegate void MyDelegateType(int a);&#x2F;&#x2F;根据类型创建实例对象MyDelegateType my_delegate_instance&#x3D;new ();&#x2F;&#x2F;注册指向函数my_delegate_instance+&#x3D;Func1;my_delegate_ins">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-09T05:51:46.000Z">
+<meta property="article:modified_time" content="2023-09-09T05:51:46.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="c#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sitchzou.com/2023/09/09/Csharp%E7%BB%86%E8%8A%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C#细节 | Sitch's Blog</title>
+  
+
+
+  <script data-pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/09/09/Csharp%E7%BB%86%E8%8A%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C#细节
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-09 13:51:46" itemprop="dateCreated datePublished" datetime="2023-09-09T13:51:46+08:00">2023-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="机制">机制</h1>
+<h2 id="委托">委托</h2>
+<p>委托类似于函数指针：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义委托类型 / 定义函数指针类型</span></span><br><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegateType</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据类型创建实例对象</span></span><br><span class="line">MyDelegateType my_delegate_instance=<span class="keyword">new</span> ();</span><br><span class="line"><span class="comment">//注册指向函数</span></span><br><span class="line">my_delegate_instance+=Func1;</span><br><span class="line">my_delegate_instance+=Func2;</span><br><span class="line">my_delegate_instance+=Func3;</span><br><span class="line"><span class="comment">//删除函数</span></span><br><span class="line">my_delegate_instance-=Func3;</span><br><span class="line"><span class="comment">//唤醒函数</span></span><br><span class="line">my_delegate_instance.Invoke(int_variable);</span><br><span class="line">my_delegate_instance(int_variable);</span><br></pre></td></tr></table></figure>
+<p>在我们定义委托类型时，本质上编译器会生成一个继承自标准库的类，如下所示。这个类实际上会形成一个委托的闭包，其会包含调用所需的所有信息，如调用实例、待调用方法的位置。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyDelegateType</span> :<span class="title">System.MulticastDelegate</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一些继承的重要字段</span></span><br><span class="line">    <span class="keyword">internal</span> Object _target;<span class="comment">//当委托注册了实例方法时，这个字段会填充实例对象，以便调用实例方法。</span></span><br><span class="line">    <span class="keyword">internal</span> IntPtr _methodPtr;<span class="comment">//指针，单播时使用，指向那个注册的方法。</span></span><br><span class="line">    <span class="keyword">private</span> Object   _invocationList;<span class="comment">//方法链，多播时使用，指向多个单播委托实例。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//唤醒操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line">    <span class="comment">//...其余字段和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于单播委托，其会在<code>_methodPtr</code>中直接存储方法地址。然而正如上文所示，一个委托可以注册多个方法。实际上在注册多个方法后，C#会生成一个独立的委托实例，用来指向多个单播委托：</p>
+<p><a
+href="delegate.png">多播委托指向多个单播委托。每个单播委托才指向每个注册方法</a></p>
+<p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
+<p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
+<span id="more"></span>
+<h1 id="标准类型">标准类型</h1>
+<p><a target="_blank" rel="noopener" href="https://source.dot.net/">源码链接</a></p>
+<h2 id="string">string</h2>
+<p><strong>不可变</strong>的<strong>引用</strong>类型。注意字符串对象初始化之后就不会再修改，所有的修改操作都会new一个新的字符串对象，例如<code>str1+str2</code>。</p>
+<p>因此如果要构造变化的字符串，应该使用<code>System.Text.StringBuilder</code>。这是一个类似于<code>List&lt;char&gt;</code>的简单类，内部字段为<code>char[]</code>，其所有修改都是基于同一个对象的引用上。</p>
+<ul>
+<li>对于字面值字符串，编译器会不重复地写入到模块元数据中，以便复用，即<strong>字符串池</strong>。</li>
+<li>注意C#内char类型为2字节的Unicode码，而string的字节长度取决于你用的解码方式，例如默认UTF-8编码英文每字符1字节，中文每字符2字节。而UTF-16/Unicode编码内中英文都是每字符2字节。</li>
+<li>System.Object默认实现一个<code>ToString()</code>，返回当前对象的真实类型名称。</li>
+</ul>
+<h2 id="list">List</h2>
+<p>底层为动态2倍扩容的数组。</p>
+<ul>
+<li>由于扩容会频繁new数组，因此尽量在初始化时给定好一个合适的大小，减少扩容。</li>
+<li>增删操作Insert和Remove底层都会使用Array.Copy进行数组移动，没有什么特别优化，因此每次增删复杂度为O(N)。</li>
+<li>ToArray会new一个新的数组返回，而不是直接获取内部数组，因此会造成额外的内存分配。</li>
+<li>Find为线性查找，Sort为快速排序。</li>
+</ul>
+<blockquote>
+<p>衍生: LinkedList 是双向链表。
+SortedList&lt;TKey,TValue&gt;通过拆分key和value两个数组来维持有序结构。
+Queue 数组 + 队头队尾指针维护而成的队列。</p>
+</blockquote>
+<h2 id="dictionary">Dictionary</h2>
+<p>底层为<code>int[]? _buckets</code>和<code>Entry[] _entries</code>双数组的Hash结构，是旧的Hashtable的泛型版本。</p>
+<ul>
+<li><code>GetHashCode()</code>的默认实现：引用实例用<strong>内存地址当做Key</strong>计算Hash值，而值实例使用<strong>字段值来当做key</strong>。</li>
+<li>Hash值冲突时使用了拉链法解决。</li>
+<li>动态扩容与List类似，但是每次容量x2后会进一步选择一个贴近的素数。</li>
+<li>Remove只会重置目标条目，不会像List一样有数据移动。</li>
+<li>使用值作为Key比实例更快，因为不需要去计算内存地址。</li>
+</ul>
+<blockquote>
+<p>衍生： HashSet Value和Key合体的Dictionary。 SortedSet
+红黑树存储的有序HashSet。 SortedDictionary 红黑树存储的有序字典。</p>
+</blockquote>
+<h2 id="priorityqueue">PriorityQueue</h2>
+<p>底层为数组表示的D叉最小堆
+<code>(TElement, TPriority)[] _nodes;</code></p>
+<ul>
+<li>插入时从底层往上冒泡插入 (和大学实现一样 hhh。</li>
+<li>删除时弹出堆顶，并由上往下逐层更新。</li>
+<li>仅.NET 6以上可用，像Unity内就用不了。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" rel="prev" title="Unity优化基础">
+      <i class="fa fa-chevron-left"></i> Unity优化基础
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98"><span class="nav-number">1.1.</span> <span class="nav-text">委托</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">标准类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">2.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">2.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dictionary"><span class="nav-number">2.3.</span> <span class="nav-text">Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#priorityqueue"><span class="nav-number">2.4.</span> <span class="nav-text">PriorityQueue</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/sitchzou/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;sitchzou&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+// var pjax = new Pjax({
+//   selectors: [
+//     'head title',
+//     '#page-configurations',
+//     '.content-wrap',
+//     '.post-toc-wrap',
+//     '.languages',
+//     '#pjax'
+//   ],
+//   switches: {
+//     '.post-toc-wrap': Pjax.switches.innerHTML
+//   },
+//   analytics: false,
+//   cacheBust: false,
+//   scrollTo : !CONFIG.bookmark.enable
+// });
+
+// window.addEventListener('pjax:success', () => {
+//   document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+//     var code = element.text || element.textContent || element.innerHTML || '';
+//     var parent = element.parentNode;
+//     parent.removeChild(element);
+//     var script = document.createElement('script');
+//     if (element.id) {
+//       script.id = element.id;
+//     }
+//     if (element.className) {
+//       script.className = element.className;
+//     }
+//     if (element.type) {
+//       script.type = element.type;
+//     }
+//     if (element.src) {
+//       script.src = element.src;
+//       // Force synchronous loading of peripheral JS.
+//       script.async = false;
+//     }
+//     if (element.dataset.pjax !== undefined) {
+//       script.dataset.pjax = '';
+//     }
+//     if (code !== '') {
+//       script.appendChild(document.createTextNode(code));
+//     }
+//     parent.appendChild(script);
+//   });
+//   NexT.boot.refresh();
+//   // Define Motion Sequence & Bootstrap Motion.
+//   if (CONFIG.motion.enable) {
+//     NexT.motion.integrator
+//       .init()
+//       .add(NexT.motion.middleWares.subMenu)
+//       .add(NexT.motion.middleWares.postList)
+//       .bootstrap();
+//   }
+//   NexT.utils.updateSidebarPosition();
+// });
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'PcR31yj1TEn6z0UqyTXNP6NN-gzGzoHsz',
+      appKey     : 'LEQbv9t6GJ3BAdMOMXDh0blJ',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法,没有邮件提醒可能回复稍慢，抱歉~\n",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://pcr31yj1.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+

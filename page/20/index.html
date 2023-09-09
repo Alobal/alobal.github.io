@@ -208,6 +208,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-28-(KMP)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="实现-strstr-函数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr">实现 strStr() 函数</a></h1>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack
+字符串中找出 needle 字符串出现的第一个位置
+(从0开始)。如果不存在，则返回  -1。</p>
+<p>示例 1:</p>
+<p>输入: haystack = "hello", needle = "ll" 输出: 2</p>
+<p>示例 2:</p>
+<p>输入: haystack = "aaaaa", needle = "bba" 输出: -1</p>
+<p>说明:
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+对于本题而言，当 needle 是空字符串时我们应当返回 0
+。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+<blockquote>
+<p>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</p>
+</blockquote>
+<h2 id="kmp-主要思想不回退的主串查找位有效利用失败信息">KMP
+（主要思想：<strong>不回退的主串查找位，有效利用失败信息</strong>）</h2>
+<h3 id="暴力法存在的问题">暴力法存在的问题</h3>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+<p>我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败
+在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。
+即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息">失败返回的有效信息</h3>
+<p>模式串在 e 处失败，可以带给我们什么有效信息：</p>
+<ol type="1">
+<li>主串前面有<code>abcdabc</code></li>
+<li>主串这一位不为<code>e</code></li>
+</ol>
+<h3 id="利用返回的有效信息">利用返回的有效信息</h3>
+<p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5
+~ 7位<code>abc</code>虽然是在匹配模式串的5 ~
+7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<p><strong>为什么恰巧可以跳过呢</strong>？让我们来看一下跳过时的环境条件</p>
+<ol type="1">
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<p>因此我们可以找到跳过的思路，对于匹配失败时：</p>
+<ol type="1">
+<li>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i
+不变，j 跳到整数几位的后一位接着匹配</li>
+<li>假如不能形成这种前后缀的匹配，则直接让 i
+++，在下一位开始全新的匹配</li>
+</ol>
+<blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++
+，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax
+pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的
+j 处匹配就解决了这个情况。</p>
+</blockquote>
+<h3 id="创造跳跃数组">创造跳跃数组</h3>
+<p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。
+而这个恰当的位置 k
+满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<p><strong>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位
+j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
+存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可</strong></p>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己.......作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">因为在<span class="number">0</span>位失败肯定没法跳跃，令jump[<span class="number">0</span>]=<span class="number">-1</span> </span><br><span class="line">设置好跳跃定位标志 k=<span class="number">-1</span></span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k==<span class="number">-1</span></span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]=k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k=jump[k]</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+<p>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配.匹配过程看下方代码即可，并不难:</p>
+<h1 id="kmp解题代码">KMP解题代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span>(needle==<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//KMP</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> jump[needle.<span class="built_in">size</span>()];</span><br><span class="line">        jump[<span class="number">0</span>]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建失效数组  abcabcd</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;needle.<span class="built_in">size</span>()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">-1</span> || needle[i]==needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(needle[i]!=needle[k])</span><br><span class="line">                    jump[i]=k;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    jump[i]=jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>    <span class="comment">//内置kmp</span></span><br><span class="line">                k=jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x&lt;haystack.<span class="built_in">size</span>() &amp;&amp; y&lt;<span class="built_in"><span class="keyword">int</span></span>(needle.<span class="built_in">size</span>())) <span class="comment">//注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(y==<span class="number">-1</span> ||haystack[x]==needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">               y=jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(y==needle.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> x-y;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -712,165 +858,6 @@ RMin=无穷大</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-43/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-43/" class="post-title-link" itemprop="url">LeetCode-No-43</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-43/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-43/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字符串相乘"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/multiply-strings">字符串相乘</a></h1>
-<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
-<p>示例 1:</p>
-<p>输入: num1 = "2", num2 = "3" 输出: "6"</p>
-<p>示例 2:</p>
-<p>输入: num1 = "123", num2 = "456" 输出: "56088"</p>
-<p>说明：</p>
-<p>num1 和 num2 的长度小于110。 num1 和 num2 只包含数字 0-9。 num1
-和 num2 均不以零开头，除非是数字 0 本身。
-不能使用任何标准库的大数类型（比如
-BigInteger）或直接将输入转换为整数来处理。</p>
-<h1 id="题目分析">题目分析</h1>
-<p>//1 2 3 num1 //4 5 6 num2 //7 3 8+6 1 5 * 10+..... reverseresult</p>
-<h2 id="竖式暴力模拟">1. 竖式暴力模拟</h2>
-<p>因为现实竖式乘法是从右到左落位,
-程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
-<p>当然这个可以优化</p>
-<h4
-id="整数相乘直接思维是按竖式相乘-显而易见两次循环外层num2内层num1">1.1
-整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4>
-<h4 id="对num2的最后一位乘num1一遍currentresult保存这遍的结果">1.2
-对num2的最后一位,乘num1一遍,currentresult保存这遍的结果</h4>
-<h4 id="result累加上currentresult-加法也有点麻烦-还得写个加法函数">1.3
-result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4>
-<h4 id="因为最后一位乘过了就没用了num2.pop_back">1.4
-因为最后一位乘过了就没用了,num2.pop_back()</h4>
-<h4
-id="注意乘完一个数-下一个currentresult要向左移一位即x10尾部添0-而我们又是反向存储所以需要在currentresult头部加i个0-ipop次数">1.5
-注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0,
-而我们又是反向存储,所以需要在currentresult头部加i个"0", i=pop次数</h4>
-<h4 id="num2所有数都用过了即num2结束循环">1.6
-num2所有数都用过了即num2="",结束循环</h4>
-<h4 id="考虑一些收尾工作进位有没有多-要不要连续进位">1.7
-考虑一些收尾工作,进位有没有多, 要不要连续进位</h4>
-<h4 id="将累加结果result反转-得到真实结果">1.8 将累加结果result反转,
-得到真实结果</h4>
-<p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想,
-权当一个编码锻炼.</p>
-<h2 id="暴力代码">暴力代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">string <span class="title">multiply</span><span class="params">(string num1, string num2)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (num1 == <span class="string">&quot;0&quot;</span> || num2 == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line"></span><br><span class="line">  string result;</span><br><span class="line">  string tempresult;</span><br><span class="line">  string zerostring;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> cflag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (num2 != <span class="string">&quot;&quot;</span>)<span class="comment">//num1对num2每个数逐个相乘,每次result=result+currentresult*10</span></span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">for</span> (i = num1.<span class="built_in">size</span>() - <span class="number">1</span>; i = <span class="number">0</span>; i--)</span><br><span class="line">   &#123;</span><br><span class="line">    tempresult.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span> + ((num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2.<span class="built_in">back</span>() - <span class="string">&#x27;0&#x27;</span>) + cflag) % <span class="number">10</span>);</span><br><span class="line">    cflag = ((num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2.<span class="built_in">back</span>() - <span class="string">&#x27;0&#x27;</span>) + cflag) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//乘到最后一个数还剩下cflag</span></span><br><span class="line">   <span class="keyword">if</span> (cflag  <span class="number">0</span>)</span><br><span class="line">    tempresult.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span> + cflag);</span><br><span class="line">   <span class="comment">//用零串移位</span></span><br><span class="line">   tempresult = zerostring + tempresult;</span><br><span class="line">   <span class="comment">//相加上下两个字符串</span></span><br><span class="line">   <span class="built_in">ADDstring</span>(result, tempresult);</span><br><span class="line">   <span class="comment">//乘完num2的一个数num2把用过的数pop</span></span><br><span class="line">   num2.<span class="built_in">pop_back</span>();</span><br><span class="line">   <span class="comment">//临时数据清空</span></span><br><span class="line">   tempresult.<span class="built_in">clear</span>();</span><br><span class="line">   zerostring += <span class="string">&quot;0&quot;</span>;</span><br><span class="line">   cflag = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//1 2 3</span></span><br><span class="line">  <span class="comment">//4 5 6</span></span><br><span class="line">  <span class="comment">//7 3 8+6 1 5 * 10</span></span><br><span class="line">  string reverseresult;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = result.<span class="built_in">size</span>() - <span class="number">1</span>; j = <span class="number">0</span>; j--)</span><br><span class="line">   reverseresult.<span class="built_in">push_back</span>(result[j]);</span><br><span class="line">  <span class="keyword">return</span> reverseresult;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">ADDstring</span><span class="params">(string&amp; up, string&amp; down)</span><span class="comment">//up和down字符串数值相加,结果存在up里,仅适用倒序存储</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> cflag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//result接在up上面</span></span><br><span class="line">  <span class="keyword">while</span> (j &lt; down.<span class="built_in">size</span>())</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (j &lt; up.<span class="built_in">size</span>())<span class="comment">//up[j]存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    temp = (up[j] - <span class="string">&#x27;0&#x27;</span>) + (down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag;</span><br><span class="line">    up[j] = (temp) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    cflag = (temp) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span><span class="comment">//up[j]不存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    up.<span class="built_in">push_back</span>(((down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    cflag = ((down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   j++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (cflag != <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (j &lt; up.<span class="built_in">size</span>())<span class="comment">//up[j]存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    temp = (up[j] - <span class="string">&#x27;0&#x27;</span>) + cflag;</span><br><span class="line">    up[j] = (temp) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    cflag = (temp) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span><span class="comment">//up[j]不存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    up.<span class="built_in">push_back</span>(cflag % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    cflag = cflag / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="优化思路每一位数的乘法运算对result影响分析">2.
-优化思路——每一位数的乘法运算对result影响分析</h2>
-<p>//1 2 3 num1[i] //为示范简单,这里序号从右往左编码,程序中需要转换 //4
-5 6 num2[j] //例如num1[0]和num2[0]相乘 : 3X6=18
-肯定影响到了result[0+0],有进位则会影响到result[0+0+1],
-result其他的值则肯定不会改变</p>
-<h4
-id="优化分析-在竖式中从右向左编码-两个数num1i-num2j相乘-则只会影响到resultij-resultij1两位的结果">2.1
-优化分析: 在竖式中,从右向左编码, 两个数num1[i], num2[j]相乘,
-则只会影响到result[i+j] , result[i+j+1]两位的结果</h4>
-<h4
-id="因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可">2.2
-因此我们不需要临时存储的容器currentresult, 只需要在
-result中修改受影响的两位即可</h4>
-<h4
-id="另外num2.pop_back虽然符合直觉习惯但显然我们可以通过移动下标来代替反复的pop">2.3
-另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4>
-<p>事实证明对于一些修改字符串的操作还是小心为慎,
-虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 ,
-<strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%=
-=.</p>
-<h4
-id="反转问题-同上可知-乘法最远也就影响到resultlength1length21.-即result长度已知-因此可以反向填充result即可避免最后还得反转">2.4
-反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1].
-即result长度已知, 因此可以反向填充result即可避免最后还得反转</h4>
-<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
-<h4 id="另外还有一些小细节思考">2.5 另外还有一些小细节思考</h4>
-<h4 id="比如连续进位有没有问题">比如连续进位有没有问题</h4>
-<h4 id="循环结束需不需要有收尾整理">循环结束需不需要有收尾整理</h4>
-<h4
-id="我们现在result里填充了length1length21的-0-方便我们后续反向填充和累加-但是result0是最后一位进位的结果-假如最后没有进位呢">我们现在result里填充了[length1+length2+1]的
-'0' 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果,
-假如最后没有进位呢?</h4>
-<h1 id="优化代码-超越97时间86内存">优化代码, 超越97%时间,86%内存</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">string <span class="title">multiply</span><span class="params">(string num1, string num2)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (num1 == <span class="string">&quot;0&quot;</span> || num2 == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">  string result;</span><br><span class="line">        <span class="keyword">int</span> totallength=num1.<span class="built_in">size</span>()+num2.<span class="built_in">size</span>();<span class="comment">//result最大可能长度</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> cflag =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;<span class="comment">//i+j位和存储器</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;totallength;i++)<span class="comment">//初始化填充</span></span><br><span class="line">        &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//反向填充,可以不需要在最后reverse,....好像对效率影响不大</span></span><br><span class="line">        <span class="comment">//把num2.pop()删掉了,终于从8ms提到了4ms......</span></span><br><span class="line">  <span class="keyword">while</span> (j&lt;num2.<span class="built_in">size</span>())<span class="comment">//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤</span></span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">for</span> (i = num1.<span class="built_in">size</span>() - <span class="number">1</span>; i = <span class="number">0</span>; i--)</span><br><span class="line">   &#123;   <span class="comment">//因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)</span></span><br><span class="line">                temp=(result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j)]-<span class="string">&#x27;0&#x27;</span>)+ (num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2[num2.<span class="built_in">size</span>()<span class="number">-1</span>-j] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">                <span class="comment">//连续进位怎么办?临时存储?循环清理干净?</span></span><br><span class="line">                <span class="comment">//临时存储试试</span></span><br><span class="line">                result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j+<span class="number">1</span>)]+=temp/<span class="number">10</span>;</span><br><span class="line">    result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j)]=<span class="string">&#x27;0&#x27;</span>+temp%<span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            j++;</span><br><span class="line">  &#125;</span><br><span class="line">        <span class="comment">//不需要检查最后一位要不要进位</span></span><br><span class="line">       </span><br><span class="line">  <span class="comment">//1 2 3</span></span><br><span class="line">  <span class="comment">//4 5 6</span></span><br><span class="line">  <span class="comment">//7 3 8+6 1 5 * 10</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//跳过头部的0</span></span><br><span class="line">        <span class="keyword">if</span>(result[<span class="number">0</span>]!=<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> result.<span class="built_in">substr</span>(<span class="number">1</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr />
-<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换,
-就是卡在80% .......谨慎考虑库函数的效率.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -942,7 +929,7 @@ id="我们现在result里填充了length1length21的-0-方便我们后续反向�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -955,7 +942,7 @@ id="我们现在result里填充了length1length21的-0-方便我们后续反向�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
