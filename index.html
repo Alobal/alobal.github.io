@@ -208,209 +208,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/09/09/Csharp%E7%BB%86%E8%8A%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/" class="post-title-link" itemprop="url">C#细节</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-09 13:51:46" itemprop="dateCreated datePublished" datetime="2023-09-09T13:51:46+08:00">2023-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="机制">机制</h1>
-<h2 id="委托">委托</h2>
-<p>委托类似于函数指针：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义委托类型 / 定义函数指针类型</span></span><br><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegateType</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据类型创建实例对象</span></span><br><span class="line">MyDelegateType my_delegate_instance=<span class="keyword">new</span> ();</span><br><span class="line"><span class="comment">//注册指向函数</span></span><br><span class="line">my_delegate_instance+=Func1;</span><br><span class="line">my_delegate_instance+=Func2;</span><br><span class="line">my_delegate_instance+=Func3;</span><br><span class="line"><span class="comment">//删除函数</span></span><br><span class="line">my_delegate_instance-=Func3;</span><br><span class="line"><span class="comment">//唤醒函数</span></span><br><span class="line">my_delegate_instance.Invoke(int_variable);</span><br><span class="line">my_delegate_instance(int_variable);</span><br></pre></td></tr></table></figure>
-<p>在我们定义委托类型时，本质上编译器会生成一个继承自标准库的类，如下所示。这个类实际上会形成一个委托的闭包，其会包含调用所需的所有信息，如调用实例、待调用方法的位置。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyDelegateType</span> :<span class="title">System.MulticastDelegate</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一些继承的重要字段</span></span><br><span class="line">    <span class="keyword">internal</span> Object _target;<span class="comment">//当委托注册了实例方法时，这个字段会填充实例对象，以便调用实例方法。</span></span><br><span class="line">    <span class="keyword">internal</span> IntPtr _methodPtr;<span class="comment">//指针，单播时使用，指向那个注册的方法。</span></span><br><span class="line">    <span class="keyword">private</span> Object   _invocationList;<span class="comment">//方法链，多播时使用，指向多个单播委托实例。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//唤醒操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line">    <span class="comment">//...其余字段和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于单播委托，其会在<code>_methodPtr</code>中直接存储方法地址。然而正如上文所示，一个委托可以注册多个方法。实际上在注册多个方法后，C#会生成一个独立的委托实例，用来指向多个单播委托：</p>
-<figure>
-<img src="delegate.png"
-alt="多播委托指向多个单播委托。每个单播委托才指向每个注册方法" />
-<figcaption
-aria-hidden="true">多播委托指向多个单播委托。每个单播委托才指向每个注册方法</figcaption>
-</figure>
-<p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
-<p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/09/Csharp%E7%BB%86%E8%8A%82/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Unity优化基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-08-14T22:10:22+08:00">2023-08-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ugui">UGUI</h2>
-<h3 id="动静分离">动静分离</h3>
-<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
-<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
-<blockquote>
-<p>嵌套子Canvas也不会和父Canvas合并</p>
-</blockquote>
-<h3 id="重ui的分解">重UI的分解</h3>
-<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
-<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
-<h3 id="加载优化">加载优化</h3>
-<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
-<h3 id="字体拆分">字体拆分</h3>
-<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/07/12/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -504,7 +301,7 @@ Patterns</a>完成的设计模式总结笔记。</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/07/07/%E6%96%87%E7%AB%A0%E6%94%B6%E8%97%8F/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -518,7 +315,7 @@ Patterns</a>完成的设计模式总结笔记。</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/07/07/%E6%96%87%E7%AB%A0%E6%94%B6%E8%97%8F/" class="post-title-link" itemprop="url">文章收藏</a>
+            <a href="/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">点云深度学习论文记录 (持续更新)</a>
         </h2>
 
         <div class="post-meta">
@@ -528,7 +325,7 @@ Patterns</a>完成的设计模式总结笔记。</p>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-07-07 10:37:39" itemprop="dateCreated datePublished" datetime="2023-07-07T10:37:39+08:00">2023-07-07</time>
+              <time title="创建时间：2023-05-15 11:24:12" itemprop="dateCreated datePublished" datetime="2023-05-15T11:24:12+08:00">2023-05-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -536,7 +333,7 @@ Patterns</a>完成的设计模式总结笔记。</p>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
                 </span>
             </span>
 
@@ -549,8 +346,8 @@ Patterns</a>完成的设计模式总结笔记。</p>
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2023/07/07/%E6%96%87%E7%AB%A0%E6%94%B6%E8%97%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/07/%E6%96%87%E7%AB%A0%E6%94%B6%E8%97%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -565,17 +362,247 @@ Patterns</a>完成的设计模式总结笔记。</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>存放一些有所帮助、但又没写成自己的博客的网页文章。</p>
+          <h2 id="点云空间学习">点云空间学习</h2>
+<h3
+id="pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation">PointNet:
+Deep Learning on Point Sets for 3D Classification and Segmentation</h3>
+<ul>
+<li>Qi C R, Su H, Mo K, et al. Pointnet: Deep learning on point sets for
+3d classification and segmentation[C]//Proceedings of the IEEE
+conference on computer vision and pattern recognition. 2017:
+652-660.</li>
+</ul>
+<p>PointNet首次基于原始点云进行深度学习,其提出了点云深度学习的<strong>三大原则:
+无序性、点间联系、变换一致性</strong>。基于此,
+PointNet在点云上逐点运用了MLP进行变换,
+并且构造了<strong>T-Net</strong>进行对抗点云的仿射变换, 最终使用max
+pool进行对称聚合。</p>
+<blockquote>
+<p>缺少对局部结构的特征学习</p>
 </blockquote>
-<h1 id="unity">Unity</h1>
-<p><a
-target="_blank" rel="noopener" href="https://unity.com/how-to/advanced-programming-and-code-architecture">ADVANCED
-PROGRAMMING AND CODE ARCHITECTURE</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://blog.unity.com/cn/engine-platform/6-ways-scriptableobjects-can-benefit-your-team-and-your-code">ScriptableObject（可编程对象）为团队和代码带来的六个好处----Unity
-Blog</a></p>
+<h3
+id="pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space">PointNet++:
+Deep Hierarchical Feature Learning on Point Sets in a Metric Space</h3>
+<ul>
+<li>Qi C R, Yi L, Su H, et al. Pointnet++: Deep hierarchical feature
+learning on point sets in a metric space[J]. Advances in neural
+information processing systems, 2017, 30.</li>
+</ul>
+<p>PointNet没有捕捉到点的局部结构特征，限制了细粒度和复杂场景的识别、泛化能力。PointNet++则引出了一个<strong>set
+abstraction层</strong>对点云进行多级学习。set
+abstraction定义了多级多块的局部邻域结构,
+其在每一个局部邻域中都使用了mini-PointNet来进行特征抽取。然而由于点云是非均匀分布的,
+不同的局部邻域的密度不一样,
+因此PointNet++提出了两种自适应密度的特征融合模块: <strong>Multi-scale
+grouping（MSG）</strong> 和 <strong>Multi-resolution
+grouping（MRG）</strong>。</p>
+<p>另外由于部位分割等任务最终需要输出逐点的特征标签, 因此在set
+abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传播,
+另一方面自顶向下进行反向逐级的特征传播。在同一层内对两种传播特征进行拼接,
+即得到该层的逐点特征。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Unity优化基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-05-14T22:10:22+08:00">2023-05-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ugui">UGUI</h2>
+<h3 id="动静分离">动静分离</h3>
+<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
+<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
+<blockquote>
+<p>嵌套子Canvas也不会和父Canvas合并</p>
+</blockquote>
+<h3 id="重ui的分解">重UI的分解</h3>
+<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
+<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
+<h3 id="加载优化">加载优化</h3>
+<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
+<h3 id="字体拆分">字体拆分</h3>
+<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/09/Csharp%E7%BB%86%E8%8A%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/09/Csharp%E7%BB%86%E8%8A%82/" class="post-title-link" itemprop="url">C#细节</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-09 13:51:46" itemprop="dateCreated datePublished" datetime="2023-05-09T13:51:46+08:00">2023-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/05/09/Csharp%E7%BB%86%E8%8A%82/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/09/Csharp%E7%BB%86%E8%8A%82/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="机制">机制</h1>
+<h2 id="委托">委托</h2>
+<p>委托类似于函数指针：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义委托类型 / 定义函数指针类型</span></span><br><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegateType</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据类型创建实例对象</span></span><br><span class="line">MyDelegateType my_delegate_instance=<span class="keyword">new</span> ();</span><br><span class="line"><span class="comment">//注册指向函数</span></span><br><span class="line">my_delegate_instance+=Func1;</span><br><span class="line">my_delegate_instance+=Func2;</span><br><span class="line">my_delegate_instance+=Func3;</span><br><span class="line"><span class="comment">//删除函数</span></span><br><span class="line">my_delegate_instance-=Func3;</span><br><span class="line"><span class="comment">//唤醒函数</span></span><br><span class="line">my_delegate_instance.Invoke(int_variable);</span><br><span class="line">my_delegate_instance(int_variable);</span><br></pre></td></tr></table></figure>
+<p>在我们定义委托类型时，本质上编译器会生成一个继承自标准库的类，如下所示。这个类实际上会形成一个委托的闭包，其会包含调用所需的所有信息，如调用实例、待调用方法的位置。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MyDelegateType</span> :<span class="title">System.MulticastDelegate</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//一些继承的重要字段</span></span><br><span class="line">    <span class="keyword">internal</span> Object _target;<span class="comment">//当委托注册了实例方法时，这个字段会填充实例对象，以便调用实例方法。</span></span><br><span class="line">    <span class="keyword">internal</span> IntPtr _methodPtr;<span class="comment">//指针，单播时使用，指向那个注册的方法。</span></span><br><span class="line">    <span class="keyword">private</span> Object   _invocationList;<span class="comment">//方法链，多播时使用，指向多个单播委托实例。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//唤醒操作</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Invoke</span>(<span class="params"><span class="built_in">int</span> a</span>)</span>;</span><br><span class="line">    <span class="comment">//...其余字段和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于单播委托，其会在<code>_methodPtr</code>中直接存储方法地址。然而正如上文所示，一个委托可以注册多个方法。实际上在注册多个方法后，C#会生成一个独立的委托实例，用来指向多个单播委托：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/09/Csharp%E7%BB%86%E8%8A%82/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -693,7 +720,7 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -761,7 +788,7 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

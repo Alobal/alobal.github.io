@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-44/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,418 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/" class="post-title-link" itemprop="url">简书博客导入hexo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-16 19:02:54" itemprop="dateCreated datePublished" datetime="2020-07-16T19:02:54+08:00">2020-07-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/16/%E7%AE%80%E4%B9%A6%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%85%A5hexo/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="下载原markdown集">1. 下载原markdown集</h1>
-<p>登录简书作者后台，在个人设置--账号管理--打包下载所有文章。
-此时可以获得以文集为文件夹的所有markdown文章源文件</p>
-<h1 id="利用shell脚本添加hexo元数据">2. 利用shell脚本添加hexo元数据</h1>
-<p>需要掌握 <strong>sed修改文件</strong>，<strong>shell脚本运行</strong>
-- <a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/maxincai/p/5146338.html"><strong>sed命令用法</strong></a>
-- shell脚本只要你安装好了git环境，即可在命令行中通过
-<code>sh xxx.sh</code>
-运行相关脚本，至于怎么去写，有兴趣可以自己了解</p>
-<p>以下是我使用的shell脚本：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> ./*/*;<span class="keyword">do</span></span><br><span class="line">sed -i  <span class="string">&#x27;s/#####\([^#]\)/##### \1/&#x27;</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">&#x27;s/####\([^#]\)/#### \1/&#x27;</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">&#x27;s/###\([^#]\)/### \1/&#x27;</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">&#x27;s/##\([^#]\)/## \1/&#x27;</span> <span class="variable">$f</span></span><br><span class="line">sed -i  <span class="string">&#x27;s/#\([^#]\)/# \1/&#x27;</span> <span class="variable">$f</span></span><br><span class="line">base=$(basename <span class="variable">$f</span> .md)</span><br><span class="line">categories=$(basename $(dirname <span class="variable">$f</span>) <span class="variable">$PWD</span>)</span><br><span class="line">insert=<span class="string">&quot;---\ntitle: <span class="variable">$&#123;base&#125;</span>\ncategories:\n- <span class="variable">$&#123;categories&#125;</span>\ndate:2020-02-17 02:17:00\n---\n&quot;</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$&#123;insert&#125;</span><span class="subst">$(cat $f)</span>&quot;</span> &gt; <span class="variable">$f</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>前半段为sed在#字符后添加空格，因为在简书里 <code>#紧贴标题</code>
-也是可以成功识别的，但是其他的markdown不一定支持。这里注意需要用到的命令格式为<code>sed -i 's/old/new' file</code></li>
-<li><ul>
-<li>-i指在源文件上修改</li>
-</ul></li>
-<li><ul>
-<li>s
-指进行文本替换，但这里有一个巨大的坑点，假如old长度为3，new长度为4，那么该命令会吞掉原old后的一个字符，即它的替换是覆盖式替换，而不是删除old后插入new。</li>
-</ul></li>
-<li><ul>
-<li>因此需要使用到 ()
-格式，()在old中选定子字符串，然后在new中利用\number，获取第number个子字符串，即我们保存下来了会被覆盖掉的字符，然后又重新给他加了回去。</li>
-</ul></li>
-<li><ul>
-<li>为了避免在诸如#####中匹配出单个#，利用了[^c]，即不匹配c字符，在这段代码中就是下一个不能是#。</li>
-</ul></li>
-<li>后半段是hexo文档评论区的大神写的，获取了目录名作为hexo的分类名，并且插入元数据，<strong>注意无法自动维护简书的时间</strong>，因此我这自己选了个日期插入。</li>
-</ul>
-<h1 id="运行脚本并检查文档">3.运行脚本并检查文档</h1>
-<p>在简书文集解压出来的文件夹的根目录中，即在<code>user-xxxx</code>文件夹下，运行该脚本，等待运行完成后检查修改结果是否符合你的预期。</p>
-<h1 id="存在问题">4.存在问题</h1>
-<ol type="1">
-<li>无法维护时间</li>
-<li>简书代码块不需要注明语言，但是这样hexo的一些highlight就无法识别，想不到自动注明语言的办法。</li>
-<li>简述博客图片链接会失效，简书通过判断http请求头中的referer的值，如果来自本站才返回成功请求。因此可以通过修改referer复原图片链接，但是博客有些依赖referer的功能就会受影响。
-可以选用外部图床，但收费的挺贵，不收费的也难用，常规的发文网如微博、CSDN、简书都限制外链，挺难找图床的。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="github-pages-hexo-博客搭建">github Pages + Hexo 博客搭建</h1>
-<p>前置知识：git 使用，github 建库</p>
-<blockquote>
-<p>注意GitHub仓库最好建的是username.github.io仓库，这样GitHub Pages
-才能获得一级域名。而二级域名在进行某些扩展时有问题。可以去搜一下关于github
-pages两种域名的区别。</p>
-</blockquote>
-<h2 id="安装环境">安装环境</h2>
-<h3 id="安装-node.js">安装 node.JS</h3>
-<p><a
-target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网下载安装程序，默认安装即可</a></p>
-<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
-<h3 id="安装-hexo">安装 hexo</h3>
-<p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是
-git bash。</p>
-<blockquote>
-<p>可以使用 cmd，但我遇到了中文问题。</p>
-<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入
-<code>set-executionpolicy remotesigned</code>
-更改安全策略，允许运行脚本。</p>
-</blockquote>
-<p>运行<code>npm install -g hexo-cli</code>进行安装,再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
-<h2 id="配置项目">配置项目</h2>
-<h3 id="初始化">初始化</h3>
-<p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
-<p>运行<code>hexo init</code>初始化</p>
-<h3 id="本地测试">本地测试</h3>
-<p>运行以下命令部署默认网页进行测试：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">test_my_site</span> <span class="comment">#创建新 test_my_site 的 markdown 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>                <span class="comment"># 从 md 文件生成 html 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span>                <span class="comment"># 部署本地服务器</span></span><br></pre></td></tr></table></figure>
-<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
-<h3 id="部署到网络">部署到网络</h3>
-<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
-<p>最后一段为：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">仓库的完整路径，推荐使用</span> <span class="string">ssh</span> <span class="string">路径，这样可以有</span> <span class="string">ssh</span> <span class="string">免密登录。例如我的</span> <span class="string">git@github.com:Alobal/alobal.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>URL 小段为：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">访问网址，例如</span> <span class="string">https://alobal.github.io/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">仓库名，例如</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
-<p>保存关闭该文件</p>
-<p>安装 hexo 的 git
-部署插件<code>npm install hexo-deployer-git --save</code></p>
-<p>运行以下命令进行发布到网络</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
-</blockquote>
-<p>出现<code>Branch 'master' set up to track remote branch 'master' from 'https:..</code>大概就恭喜你成功了。此时可以在
-github 仓库看到 hexo
-提交的文件。以及能通过访问网址查看你刚才发布的默认博客。</p>
-<h2 id="选一个你喜欢的主题">选一个你喜欢的主题</h2>
-<h3 id="下载主题">下载主题</h3>
-<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo 主题库</a></p>
-<p>挑选一个合适的主题，比如很常见的 Next，复制 git
-地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
-<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
-<blockquote>
-<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next
-项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19
-版本网上教程比较健全了。</p>
-</blockquote>
-<h3 id="配置主题">配置主题</h3>
-<p>打开 _config.yml，修改 theme 字段：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">主题名，例如</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。比如
-next
-主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找
-next 官方文档。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
-<p>输入<code>hexo g;hexo d</code>
-重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
-<blockquote>
-<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者
-Ctrl+F5 强制刷新。</p>
-</blockquote>
-<h2 id="helloblog">hello，blog</h2>
-<p>让我们试着发布第一篇博客。项目路径下，命令行输入<code>hexo n 博客名</code>
-, 可以在 项目名/source/_posts/ 下面找到新建的 markdown
-文件。打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。在文件头之后，即<code>------</code>下面写入你的
-markdown 格式内容即可。</p>
-<p>关于 markdown 怎么书写，可以看我的 <a
-target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown
-简洁手册</a>。</p>
-<h2 id="参考">参考</h2>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">知乎经典贴</a></p>
-<h2 id="错误汇总">错误汇总</h2>
-<h3 id="can-not-find-module-xxx">can not find module xxx</h3>
-<p>命令行<code>npm install</code> 安装所有依赖包完事。</p>
-<h3 id="没有启用代码高亮">没有启用代码高亮</h3>
-<p>根目录 config 里，修改配置如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>next 主题配置里，选择自己要的高亮样式：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="attr">prism:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">C++派生类构造函数初始化顺序问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-05-15T01:01:11+08:00">2020-05-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>众所周知，派生类构造时先会初始化构造基类，然后构造自身。</p>
-<h2 id="派生类私有成员-和-基类-同时初始化">派生类私有成员 和 基类
-同时初始化</h2>
-<p>假如派生类的构造函数，初始化时显式初始化基类，同时显式初始化派生类成员，那么先后顺序是怎样的呢？
-测试背景：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"> <span class="keyword">int</span> x;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispb</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;x=&quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;base</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">derived</span> :</span> <span class="keyword">public</span> base</span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i), <span class="built_in">base</span>(a) &#123;  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">dispd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;a=&quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="string">&quot;derived</span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="function">derived <span class="title">obj</span><span class="params">(<span class="number">8</span>)</span></span>;</span><br><span class="line"> base*p =&amp;obj;</span><br><span class="line"> p-&gt;<span class="built_in">dispb</span>();</span><br><span class="line"> <span class="built_in">system</span>(<span class="string">&quot;PAUSE&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如上，派生类Derived构造时，基类初始化base(a)，用了派生类私有成员a，同时a也被参数i初始化。此时因为基类初始化在a初始化之前，传给base（）的a是随机值。输出结果是：</p>
-<figure>
-<img src="https://i.imgur.com/8kIskTc.png" alt="x!=i" />
-<figcaption aria-hidden="true">x!=i</figcaption>
-</figure>
-<p>所以我们可以知道，即使是初始化列表里，即使a的初始化排在前面，也一定是先初始化基类base，再调用派生类私有成员的初始化。</p>
-<blockquote>
-<p>想要正常构造，把base（a)改成base（i）即可。</p>
-</blockquote>
-<h2
-id="派生类初始化私有成员基类在函数体内构造">派生类初始化私有成员，基类在函数体内构造</h2>
-<p><strong>假如派生类的构造函数是这样的</strong>：初始化私有成员，体内构造基类</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
-<p>会提示类base不存在默认构造函数。</p>
-<p>我们可以得知，在派生类构造函数中，假如初始化了自己的变量成员，则会自动先调用基类构造，再对派生类的成员进行初始化，上例因为base没有无参数的默认构造函数所以报错。</p>
-<p><strong>假如基类有无参数的构造函数呢？</strong>讲道理会是先调用基类默认构造，再初始化a，再调用base(i)，是这样吗？增加一个无参数的基类构造函数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">.....</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i) :<span class="built_in">a</span>(i) &#123; <span class="built_in">base</span>(i); &#125;</span><br></pre></td></tr></table></figure>
-<p>报错：形参 i 重定义——明明只声明了一次 i
-，怎么就重定义了呢？把a(i)删去？还是报错重定义</p>
-<p>——<a
-target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000014553913">搜了一下类似问题，发现题解</a>，对base（i)在里面的时候：“此时编译器会把它解析成变量声明，由此局部变量i与函数参数重名。根据语法，它可以被解释成函数式显式类型转换或者声明，存在二义性。标准约定将其解释成声明。”</p>
-<p><strong>这里面存在 声明 语句 定义 等根本性语法的规则定义=
-=</strong>具体了解得看其他详细资料，不过我们知道了报错是因为在 base(i)
-中，i被当成了新的局部变量，和外面的函数参数重定义冲突。</p>
-<p>i 冲突那我不用 i
-了，我用base（a)可以吧？a是被初始化的变量拿去赋值没问题吧？</p>
-<p>派生类构造函数改成：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">base</span>(<span class="keyword">int</span> i) :<span class="built_in">x</span>(i) &#123; cout &lt;&lt;<span class="string">&quot;base(int i): &quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line"><span class="built_in">base</span>() &#123; cout &lt;&lt;<span class="string">&quot;This is base()&quot;</span>&lt;&lt; x &lt;&lt; endl; &#125;</span><br><span class="line">......</span><br><span class="line"><span class="built_in">derived</span>(<span class="keyword">int</span> i)：<span class="built_in">a</span>(i)&#123; cout &lt;&lt; <span class="string">&quot;a:&quot;</span> &lt;&lt; a &lt;&lt; endl; <span class="built_in">base</span>(a); &#125;</span><br></pre></td></tr></table></figure>
-<p>derived(8)运行，猜猜运行结果是什么？</p>
-<p>我们知道初始化a时，先会调用base（），然后初始化a，然后进入函数体内输出a值，然后a传参给base（int
-i），Really？</p>
-<figure>
-<img src="https://i.imgur.com/ZfXu4sR.png" alt="运行结果" />
-<figcaption aria-hidden="true">运行结果</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-10/" class="post-title-link" itemprop="url">LeetCode-No-10</a>
+            <a href="/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
         </h2>
 
         <div class="post-meta">
@@ -664,8 +253,8 @@ i），Really？</p>
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-10/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-10/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-44/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-44/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -680,72 +269,36 @@ i），Really？</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="正则表达式匹配"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/regular-expression-matching">正则表达式匹配</a></h1>
-<p>给你一个字符串 s 和一个字符规律 p，请你来实现一个支持
-'.' 和 '*' 的正则表达式匹配。</p>
-<p>'.' 匹配任意单个字符 '*' 匹配零个或多个前面的那一个元素
-所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。</p>
+          <h1 id="通配符匹配"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wildcard-matching">通配符匹配</a></h1>
+<p>------类似No.10的正则匹配</p>
+<p>给定一个字符串 (s) 和一个字符模式 (p)
+，实现一个支持 '?' 和 '*' 的通配符匹配。</p>
+<p>'?' 可以匹配任何单个字符。 '*' 可以匹配任意字符串（包括空字符串）。
+两个字符串完全匹配才算匹配成功。</p>
 <p>说明:</p>
 <p>s 可能为空，且只包含从 a-z 的小写字母。
-p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。 示例 1:</p>
-<p>输入: s = "aa" p = "a" 输出: false 解释: "a" 无法匹配 "aa"
-整个字符串。</p>
-<p>示例 2:</p>
-<p>输入: s = "aa" p = "a<em>" 输出: true 解释: 因为 '</em>'
-代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是
-'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。</p>
-<p>示例 3:</p>
-<p>输入: s = "ab" p = ".<em>" 输出: true 解释: ".</em>"
-表示可匹配零个或多个（'*'）任意字符（'.'）。</p>
-<p>示例 4:</p>
-<p>输入: s = "aab" p = "c<em>a</em>b" 输出: true 解释: 因为 '*'
-表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串
-"aab"。</p>
-<p>示例 5:</p>
-<p>输入: s = "mississippi" p = "mis<em>is</em>p*." 输出: false</p>
-<h1 id="解题分析">解题分析</h1>
-<h2 id="条件特性">条件特性</h2>
-<ul>
-<li>首先可知"." 和对应字符的匹配都很容易处理,关键要处理好这个" * ".</li>
-<li>" * "带来的变化有,
-使前一个字符匹配N次,<strong>N可为0</strong>,也就是说也可以忽略前一个字符.
-#### 错误思路
-~~由于我一开始没有注意到N可以为0,就采用了一个逐字符匹配的方法,假如遇到一个字符后面有"<em>",如果匹配错误则直接返回,匹配正确则维持pi不变,这样一步步推过去,在最后若两个字符串都到了结尾,则成功.后来提交错误后有针对性的修修补补浪费了很长时间,并且发现这种解法下再怎么改也不能AC,最终还是推盘重做T-T~~
-## 解题思路
-每一次带"</em>"的字符处,都会有两种可能的情况,要么匹配这个字符,要么不匹配这个字符.
-我们在测试一种情况发现不行之后,需要再退回测试另一种情况下的匹配.因此可以想到可以使用递归返回.</li>
-</ul>
-<h3 id="递归体设置">递归体设置</h3>
-<p>1.若pi+1处为" * ",则分情况处理 1.1.
-如果pi处可正确匹配,则分两个递归,一个是pi匹配1次,一个是pi匹配0次. 1.2.
-如果pi处不能匹配,则以pi匹配0次向后递归处理 1.3. 考虑特殊情况,s已经被带"
-*
-"字符匹配完,s为空,p还有至少两个字符存在,则p向后推进两个字符再和已经空的字符进行递归匹配.</p>
-<p>2.若pi处为"."或可匹配字符,则正常匹配成功,s和p都往后推进1个字符.</p>
-<p>3.若pi处为无法匹配字符,return false ### 递归出口
-因为我们的递归体若能成功匹配,则S在最底层的递归中,必定是一个空串 -
-此时<strong>若p为空串</strong>,则s和p恰好完全匹配成功,return true -
-<strong>若p不为空</strong>,则s肯定是被带" *
-"字符消化掉了,因此参考上面的递归体条件,进入下一次递归中p的带"<em>"字符被删掉,此时再进行出口判断.如果p仍不为空,即可return
-false. 注意p不为空时,有两种情况,并且后一种情况是前一种情况的递归结果
-因此<strong>不能简单的直接根据plength!=0直接返回false</strong>.
-要<strong>先判断p是否有字符</strong>,若有字符并且是带" </em>
-"字符,则是可匹配范围内的情况,需递归推两个字符进一步判断.
-若p有字符并且不是带"*"字符,则是无法正确匹配的情况,return false.</p>
-<h1 id="初版通过代码">初版通过代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> si = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> pi = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> slength = s.<span class="built_in">length</span>();</span><br><span class="line">		<span class="keyword">int</span> plength = p.<span class="built_in">length</span>();</span><br><span class="line">		<span class="keyword">if</span> (slength != <span class="number">0</span> &amp;&amp; plength == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (slength == <span class="number">0</span> &amp;&amp; plength == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;	</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (p[pi + <span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (slength == <span class="number">0</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="built_in">isMatch</span>(s.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">0</span>), p.<span class="built_in">substr</span>(pi + <span class="number">2</span>, plength - pi - <span class="number">2</span>));</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span>(p[pi] == <span class="string">&#x27;.&#x27;</span> || p[pi] == s[si])</span><br><span class="line">					<span class="comment">//pi匹配1次s前进p不变  pi匹配0次s不变p前进2</span></span><br><span class="line">					<span class="keyword">return</span> <span class="built_in">isMatch</span>(s.<span class="built_in">substr</span>(si + <span class="number">1</span>, slength - si - <span class="number">1</span>), p.<span class="built_in">substr</span>(pi, plength - pi)) || <span class="built_in">isMatch</span>(s.<span class="built_in">substr</span>(si, slength - si), p.<span class="built_in">substr</span>(pi + <span class="number">2</span>, plength - pi - <span class="number">2</span>));</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="keyword">return</span> <span class="built_in">isMatch</span>(s.<span class="built_in">substr</span>(si, slength - si), p.<span class="built_in">substr</span>(pi + <span class="number">2</span>, plength - pi - <span class="number">2</span>));</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (slength == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (p[pi] == <span class="string">&#x27;.&#x27;</span> || p[pi] == s[si])</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">isMatch</span>(s.<span class="built_in">substr</span>(si + <span class="number">1</span>, slength - si - <span class="number">1</span>), p.<span class="built_in">substr</span>(pi + <span class="number">1</span>, plength - pi - <span class="number">1</span>));</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>624 ms</li>
-<li>16.4 MB</li>
-<li>Cpp 虽然已经AC了,时间空间上还是很笨拙的,日后找时间探索优化解法.
--------------
-动态规划，以dp[i][j]为状态标志位，为1表示s的前i个字符和p的前j个字符可以匹配。
-注意dp[0][0]==1表示空字符串时可以匹配。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//两层for循环</span><br><span class="line">for(i)</span><br><span class="line">  for(j)</span><br></pre></td></tr></table></figure>
-通过判断当前字符匹配情况，加上前面的子串情况进行累积动态规划，最终达到dp[slength][plength]的值。</li>
-</ul>
-<h2
-id="理解了思路但实战这道题还是有细节方面思路不清继续挖坑">理解了思路，但实战这道题还是有细节方面思路不清，继续挖坑。</h2>
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
+<h1 id="题目分析">题目分析</h1>
+<p>和正则一样, 重点在于 * 的任意位匹配</p>
+<ol type="1">
+<li><p>假如是一个没有 * 的串匹配,
+我们只要碰到一个匹配失败即可结束</p></li>
+<li><p>有了 <em>的情况,</em>
+可以用来干什么呢?-----帮你把匹配失败的地方干掉</p></li>
+<li><p>因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来,
+以便帮助后面</p></li>
+<li><p>当在某一位精确匹配失败时, 我们回去找 <em>的帮助,
+如果之前没有</em> , 帮不了, 匹配失败</p></li>
+<li><p>假如之前有 <em>,即需让</em>往后匹配来避免这个失败位, 但是因为*
+每向后扩展一位, 原本的精确匹配顺序全都挪动了一位,
+此时我们不知道是不是能匹配成功</p></li>
+<li><p>因此 <em>帮忙的时候,</em> 只向后扩展一位试试,
+此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配,
+再失败了就重复 6 即可</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//i,j指示当前匹配位置,iflag,jflag指示*号匹配位置</span></span><br><span class="line">        <span class="keyword">int</span> slength=s.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> plength=p.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> iflag=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> jflag=<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则</span></span><br><span class="line">        <span class="comment">//  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场</span></span><br><span class="line">        <span class="comment">//  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试</span></span><br><span class="line">        <span class="comment">// 没有*救场 , 那可以自闭了.over</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//循环内每次都确保当前匹配成功</span></span><br><span class="line">        <span class="comment">//注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;slength)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="comment">//准确匹配成功</span></span><br><span class="line">            <span class="keyword">if</span>(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==<span class="string">&#x27;?&#x27;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//匹配到*</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j&lt;plength &amp;&amp; p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                iflag=i;</span><br><span class="line">                jflag=j;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动</span></span><br><span class="line">                j++;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(jflag!=<span class="number">-1</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="comment">//*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配</span></span><br><span class="line">                i=++iflag;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1</span></span><br><span class="line">                j=jflag+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//连*都不能帮忙解决,s可以走了</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注意考虑s匹配完了,p剩余*则还能成功</span></span><br><span class="line">        <span class="keyword">while</span>(j&lt;plength)</span><br><span class="line">            <span class="keyword">if</span>(p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">                j++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> j==plength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -765,7 +318,7 @@ id="理解了思路但实战这道题还是有细节方面思路不清继续挖�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-1/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -779,7 +332,7 @@ id="理解了思路但实战这道题还是有细节方面思路不清继续挖�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
+            <a href="/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
         </h2>
 
         <div class="post-meta">
@@ -810,8 +363,8 @@ id="理解了思路但实战这道题还是有细节方面思路不清继续挖�
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-45/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-45/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -826,37 +379,353 @@ id="理解了思路但实战这道题还是有细节方面思路不清继续挖�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="两数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">两数之和</a></h1>
-<p>给定一个整数数组 <code>nums</code> 和一个目标值
-<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] =
-2 + 7 = 9 所以返回 [0, 1]</p>
-<h3 id="解决思路">1.解决思路</h3>
-<p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> j=0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=i+1;j&lt;nums.size();j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j=nums.size();</span><br><span class="line">                    i=j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h1 id="跳跃游戏"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii">跳跃游戏</a></h1>
+<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
+<p>示例:</p>
+<p>输入: [2,3,1,1,4] 输出: 2 解释: 跳到最后一个位置的最小跳跃数是 2。  
+从下标为 0 跳到下标为 1
+的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
+<p>说明:</p>
+<p>假设你总是可以到达数组的最后一个位置。</p>
+<h1 id="题目分析">题目分析</h1>
+<h3 id="假如不考虑最少次数-贪心法">1. 假如不考虑最少次数, 贪心法</h3>
+<h4 id="逐位扩展可跳最大距离-只要够到了末尾就好.">----
+逐位扩展可跳最大距离, 只要够到了末尾就好.</h4>
+<h4
+id="假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了.">----
+假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4>
+<h3 id="加上了最少次数要求">2. 加上了最少次数要求</h3>
+<h4 id="什么情况会多次数-就是之前的一次能跳到的-跳了几次.">----
+什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4>
+<h4
+id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数.-当然到末端也算一次.">----
+那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离,
+才算一次次数. 当然到末端也算一次.</h4>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">        <span class="comment">//参考题解大神思路: i每到达前一个max,完成一次跳跃</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxend = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">	    &#123;   <span class="comment">//i每到达前一个max,完成一次跳跃</span></span><br><span class="line">		    maxend = <span class="built_in">max</span>(nums[i] + i, maxend);</span><br><span class="line">            <span class="keyword">if</span> (i == end)</span><br><span class="line">            &#123;</span><br><span class="line">                end = maxend;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-46-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-46-47/" class="post-title-link" itemprop="url">LeetCode-No-46-47</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-46-47/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-46-47/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="全排列"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">全排列</a></h1>
+<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
+<p>示例:</p>
+<p>输入: [1,2,3] 输出: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2],
+[3,2,1]]</p>
+<h1 id="题目分析">题目分析</h1>
+<h3
+id="递归-顺着手工思路从后往前逐步交换.-固定前面的后面的全排列即可.">1.
+递归, 顺着手工思路,从后往前逐步交换. 固定前面的+后面的全排列即可.</h3>
+<h3
+id="用一个for循环表示该位与后面每一位交换-包括交换自己-等于不交换的情况-然后用递归表达后面的全排列.">2.
+用一个for循环表示该位与后面每一位交换, (包括交换自己, 等于不交换的情况),
+然后用递归表达后面的全排列.</h3>
+<p>注意递归出来后要把之前换的换回来, 要不然 [1 2 3 ] 换成 [2 1 3],
+递归到第二层 1 3 又会换成[2 3 1], 这已经不是全排列了, 是在顺序交换.
+容易出错</p>
+<h3 id="全排列ii-存在重复数字-要筛选掉重复的排列">3. 全排列II
+存在重复数字, 要筛选掉重复的排列</h3>
+<h4
+id="为什么会有重复序列呢-因为-i-交换了-j-递归出来后-接下来i又碰到一个-j-.-两次交换递归下去的结果一模一样-所以会重复-.">----为什么会有重复序列呢?
+因为 i 交换了 j, 递归出来后, 接下来i又碰到一个 j .
+两次交换递归下去的结果一模一样 , 所以会重复 .</h4>
+<h4
+id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j值-查重通过了才能继续递归-否则跳过.">----
+因此对每个j 我们要查重它是不是在i-j之间 (即已经交换过j值)
+,查重通过了才能继续递归, 否则跳过.</h4>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> permuteUnique(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        backtrace(nums,result,0);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> backtrace(vector&lt;<span class="keyword">int</span>&amp;nums,vector&lt;vector&lt;<span class="keyword">int</span>&amp;result,<span class="keyword">int</span> i)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span>(i==nums.size()-1)</span><br><span class="line">            result.push_back(nums);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;nums.size();j++)</span><br><span class="line">        &#123;   </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(i==j)//不需要交换的递归</span><br><span class="line">            &#123;</span><br><span class="line">                backtrace(nums,result,i+1);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;     </span><br><span class="line">            //检查要交换的这个,在已经交换过的里面,有没有相同的,有就不交换了</span><br><span class="line">            <span class="keyword">int</span> k;</span><br><span class="line">            <span class="keyword">for</span>(k=j-1;k=i;k--)</span><br><span class="line">                <span class="keyword">if</span>(nums[k]==nums[j])</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(k!=i-1)//查重没通过,跳过这个数</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            //正常交换递归</span><br><span class="line">            swap(nums[i],nums[j]);</span><br><span class="line">            backtrace(nums,result,i+1);</span><br><span class="line">            swap(nums[i],nums[j]);  //换回来？</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">void</span> swap(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=a;</span><br><span class="line">        a=b;</span><br><span class="line">        b=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-46/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-46/" class="post-title-link" itemprop="url">LeetCode-No-46</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-46/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-46/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="全排列"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">全排列</a></h1>
+<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
+<p>示例:</p>
+<p>输入: [1,2,3] 输出: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2],
+[3,2,1]]</p>
+<h1 id="思路分析">思路分析</h1>
 <ul>
-<li>通过</li>
-<li>472 ms</li>
-<li>9.2 MB</li>
-<li>Cpp</li>
+<li><p>由排列特性我们的直觉思路是, 首先固定第一个数, 然后排列后面的数
+,同时后面的排列也是这种<strong>固定+排序</strong>的思路进行.
+因此很显然可以想到是一种递归回溯的算法.</p></li>
+<li><p>递归到字符串尾很简单,
+但需要注意的是怎么得到其他的组合情况.</p></li>
 </ul>
-<h3 id="优化思路">2.优化思路</h3>
-<p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。
-<strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用
-<strong>空间换时间</strong>。 哈希表查找复杂度为O(1)</p>
-<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。
-<strong><em>一遍哈希表</em></strong>
-：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
-<h3 id="最终实现代码">3.最终实现代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;<span class="keyword">int</span>,<span class="keyword">int</span> store;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(store.count(target-nums[i])0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result=vector&lt;<span class="keyword">int</span>(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>20 ms</li>
-<li>10.1 MB</li>
-<li>Cpp</li>
-</ul>
+<p><del>我首先设想的是进行一种遍历, 首先确定第一个数,
+然后选取未被排列过的剩下的数, 逐一形成n!个排列组合,
+但好像没想到简便的方法实现</del></p>
+<p>参考题解后得知, 想要不同的排列组合, 本质在于数的顺序不同,
+因此我们只要将数进行交换, 然后递归到底输出交换后的组合即可.</p>
+<h1 id="解答代码">解答代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> permute(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        backtrace(nums,result,0);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> backtrace(vector&lt;<span class="keyword">int</span>&amp;nums,vector&lt;vector&lt;<span class="keyword">int</span>&amp;result,<span class="keyword">int</span> i)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span>(i==nums.size()-1)</span><br><span class="line">            result.push_back(nums);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;nums.size();j++)  //逐一尝试与后面的数的交换组合</span><br><span class="line">        &#123;</span><br><span class="line">            swap(nums[i],nums[j]);//交换</span><br><span class="line">            backtrace(nums,result,i+1);//然后输出交换后的串</span><br><span class="line">            swap(nums[i],nums[j]);  //记得换回来保持原状, 否则换到最后会重复  比如ABC- CBA-ABC </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">void</span> swap(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=a;</span><br><span class="line">        a=b;</span><br><span class="line">        b=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">LeetCode-No-48-矩阵圈圈类型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-48-%E7%9F%A9%E9%98%B5%E5%9C%88%E5%9C%88%E7%B1%BB%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="旋转矩阵"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-image">旋转矩阵</a></h1>
+<p>给定一个 n × n 的二维矩阵表示一个图像。</p>
+<p>将图像顺时针旋转 90 度。</p>
+<p>说明：</p>
+<p>你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。</p>
+<p>示例 1:</p>
+<p>给定 matrix = [ [1,2,3], [4,5,6], [7,8,9]],</p>
+<p>原地旋转输入矩阵，使其变为: [ [7,4,1], [8,5,2], [9,6,3]]</p>
+<p>示例 2:</p>
+<p>给定 matrix = [ [ 5, 1, 9,11], [ 2, 4, 8,10], [13, 3, 6, 7],
+[15,14,12,16]],</p>
+<p>原地旋转输入矩阵，使其变为: [ [15,13, 2, 5], [14, 3, 4, 1], [12, 6,
+8, 9], [16, 7,10,11]]</p>
+<h2 id="题目分析">题目分析</h2>
+<p>矩阵圈圈式问题主要在于怎么确定问题需要的 圈。例如旋转矩阵这个问题,
+看似旋转, 实际上是一圈圈的边界互换, 上边界换到右边界, 以此类推。</p>
+<p>那么其实只要我们找到四个边界, 然后以边界去for遍历就好了。遍历完一圈
+,收缩上下左右边界, 继续遍历, 直到边界重合。</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>之后的顺时针遍历问题也是一样, 以边界为中心去做遍历.不断收缩边界,
+注意单行单列的圈 需要做避免重复处理, 旋转问题这里不需要, 因为是n x
+n.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="题解代码">题解代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&amp; matrix)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;       </span><br><span class="line">            <span class="comment">//确定四个边界,因为是nxn其实可以两个数就够了,但是为了可读性用四个数</span></span><br><span class="line">            <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> top=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> right=matrix[<span class="number">0</span>].<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">int</span> bottom=matrix.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">int</span> temp;</span><br><span class="line">            <span class="keyword">while</span>(left&lt;right)<span class="comment">//每次旋转外围四边,旋转完缩小外围定义</span></span><br><span class="line">            &#123;   <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;right-left;i++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//上到右</span></span><br><span class="line">                    temp=matrix[top+i][right];</span><br><span class="line">                    matrix[top+i][right]=matrix[top][left+i];</span><br><span class="line">                    <span class="comment">//左到上</span></span><br><span class="line">                    matrix[top][left+i]=matrix[bottom-i][left];</span><br><span class="line">                    <span class="comment">//下到左</span></span><br><span class="line">                    matrix[bottom-i][left]=matrix[bottom][right-i];</span><br><span class="line">                    <span class="comment">//右到下</span></span><br><span class="line">                    matrix[bottom][right-i]=temp;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                left++;</span><br><span class="line">                right--;</span><br><span class="line">                top++;</span><br><span class="line">                bottom--;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -875,7 +744,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -943,7 +812,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

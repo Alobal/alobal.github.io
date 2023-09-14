@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-43/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-43/" class="post-title-link" itemprop="url">LeetCode-No-43</a>
+            <a href="/2020/02/17/LeetCode-No-68/" class="post-title-link" itemprop="url">LeetCode-No-68</a>
         </h2>
 
         <div class="post-meta">
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-43/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-43/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-68/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-68/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,195 +269,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="字符串相乘"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/multiply-strings">字符串相乘</a></h1>
-<p>给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。</p>
-<p>示例 1:</p>
-<p>输入: num1 = "2", num2 = "3" 输出: "6"</p>
-<p>示例 2:</p>
-<p>输入: num1 = "123", num2 = "456" 输出: "56088"</p>
-<p>说明：</p>
-<p>num1 和 num2 的长度小于110。 num1 和 num2 只包含数字 0-9。 num1
-和 num2 均不以零开头，除非是数字 0 本身。
-不能使用任何标准库的大数类型（比如
-BigInteger）或直接将输入转换为整数来处理。</p>
-<h1 id="题目分析">题目分析</h1>
-<p>//1 2 3 num1 //4 5 6 num2 //7 3 8+6 1 5 * 10+..... reverseresult</p>
-<h2 id="竖式暴力模拟">1. 竖式暴力模拟</h2>
-<p>因为现实竖式乘法是从右到左落位,
-程序从左到右方便一些,所以运算过程中是反向存储的乘法结果,最后需要翻转.</p>
-<p>当然这个可以优化</p>
-<h4
-id="整数相乘直接思维是按竖式相乘-显而易见两次循环外层num2内层num1">1.1
-整数相乘直接思维是按竖式相乘, 显而易见两次循环,外层num2,内层num1</h4>
-<h4 id="对num2的最后一位乘num1一遍currentresult保存这遍的结果">1.2
-对num2的最后一位,乘num1一遍,currentresult保存这遍的结果</h4>
-<h4 id="result累加上currentresult-加法也有点麻烦-还得写个加法函数">1.3
-result累加上currentresult, (加法也有点麻烦, 还得写个加法函数</h4>
-<h4 id="因为最后一位乘过了就没用了num2.pop_back">1.4
-因为最后一位乘过了就没用了,num2.pop_back()</h4>
-<h4
-id="注意乘完一个数-下一个currentresult要向左移一位即x10尾部添0-而我们又是反向存储所以需要在currentresult头部加i个0-ipop次数">1.5
-注意乘完一个数, 下一个currentresult要向左移一位,即X10尾部添0,
-而我们又是反向存储,所以需要在currentresult头部加i个"0", i=pop次数</h4>
-<h4 id="num2所有数都用过了即num2结束循环">1.6
-num2所有数都用过了即num2="",结束循环</h4>
-<h4 id="考虑一些收尾工作进位有没有多-要不要连续进位">1.7
-考虑一些收尾工作,进位有没有多, 要不要连续进位</h4>
-<h4 id="将累加结果result反转-得到真实结果">1.8 将累加结果result反转,
-得到真实结果</h4>
-<p>可以看到暴力法虽然思路直接,但是需要处理的东西也不少,而且时间空间效率都不理想,
-权当一个编码锻炼.</p>
-<h2 id="暴力代码">暴力代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">string <span class="title">multiply</span><span class="params">(string num1, string num2)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (num1 == <span class="string">&quot;0&quot;</span> || num2 == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line"></span><br><span class="line">  string result;</span><br><span class="line">  string tempresult;</span><br><span class="line">  string zerostring;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> cflag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (num2 != <span class="string">&quot;&quot;</span>)<span class="comment">//num1对num2每个数逐个相乘,每次result=result+currentresult*10</span></span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">for</span> (i = num1.<span class="built_in">size</span>() - <span class="number">1</span>; i = <span class="number">0</span>; i--)</span><br><span class="line">   &#123;</span><br><span class="line">    tempresult.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span> + ((num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2.<span class="built_in">back</span>() - <span class="string">&#x27;0&#x27;</span>) + cflag) % <span class="number">10</span>);</span><br><span class="line">    cflag = ((num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2.<span class="built_in">back</span>() - <span class="string">&#x27;0&#x27;</span>) + cflag) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//乘到最后一个数还剩下cflag</span></span><br><span class="line">   <span class="keyword">if</span> (cflag  <span class="number">0</span>)</span><br><span class="line">    tempresult.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span> + cflag);</span><br><span class="line">   <span class="comment">//用零串移位</span></span><br><span class="line">   tempresult = zerostring + tempresult;</span><br><span class="line">   <span class="comment">//相加上下两个字符串</span></span><br><span class="line">   <span class="built_in">ADDstring</span>(result, tempresult);</span><br><span class="line">   <span class="comment">//乘完num2的一个数num2把用过的数pop</span></span><br><span class="line">   num2.<span class="built_in">pop_back</span>();</span><br><span class="line">   <span class="comment">//临时数据清空</span></span><br><span class="line">   tempresult.<span class="built_in">clear</span>();</span><br><span class="line">   zerostring += <span class="string">&quot;0&quot;</span>;</span><br><span class="line">   cflag = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//1 2 3</span></span><br><span class="line">  <span class="comment">//4 5 6</span></span><br><span class="line">  <span class="comment">//7 3 8+6 1 5 * 10</span></span><br><span class="line">  string reverseresult;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = result.<span class="built_in">size</span>() - <span class="number">1</span>; j = <span class="number">0</span>; j--)</span><br><span class="line">   reverseresult.<span class="built_in">push_back</span>(result[j]);</span><br><span class="line">  <span class="keyword">return</span> reverseresult;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">ADDstring</span><span class="params">(string&amp; up, string&amp; down)</span><span class="comment">//up和down字符串数值相加,结果存在up里,仅适用倒序存储</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> cflag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//result接在up上面</span></span><br><span class="line">  <span class="keyword">while</span> (j &lt; down.<span class="built_in">size</span>())</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (j &lt; up.<span class="built_in">size</span>())<span class="comment">//up[j]存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    temp = (up[j] - <span class="string">&#x27;0&#x27;</span>) + (down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag;</span><br><span class="line">    up[j] = (temp) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    cflag = (temp) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span><span class="comment">//up[j]不存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    up.<span class="built_in">push_back</span>(((down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    cflag = ((down[j] - <span class="string">&#x27;0&#x27;</span>) + cflag) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   j++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (cflag != <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (j &lt; up.<span class="built_in">size</span>())<span class="comment">//up[j]存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    temp = (up[j] - <span class="string">&#x27;0&#x27;</span>) + cflag;</span><br><span class="line">    up[j] = (temp) % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    cflag = (temp) / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span><span class="comment">//up[j]不存在</span></span><br><span class="line">   &#123;</span><br><span class="line">    up.<span class="built_in">push_back</span>(cflag % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    cflag = cflag / <span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="优化思路每一位数的乘法运算对result影响分析">2.
-优化思路——每一位数的乘法运算对result影响分析</h2>
-<p>//1 2 3 num1[i] //为示范简单,这里序号从右往左编码,程序中需要转换 //4
-5 6 num2[j] //例如num1[0]和num2[0]相乘 : 3X6=18
-肯定影响到了result[0+0],有进位则会影响到result[0+0+1],
-result其他的值则肯定不会改变</p>
-<h4
-id="优化分析-在竖式中从右向左编码-两个数num1i-num2j相乘-则只会影响到resultij-resultij1两位的结果">2.1
-优化分析: 在竖式中,从右向左编码, 两个数num1[i], num2[j]相乘,
-则只会影响到result[i+j] , result[i+j+1]两位的结果</h4>
-<h4
-id="因此我们不需要临时存储的容器currentresult-只需要在-result中修改受影响的两位即可">2.2
-因此我们不需要临时存储的容器currentresult, 只需要在
-result中修改受影响的两位即可</h4>
-<h4
-id="另外num2.pop_back虽然符合直觉习惯但显然我们可以通过移动下标来代替反复的pop">2.3
-另外num2.pop_back虽然符合直觉习惯,但显然我们可以通过移动下标来代替反复的pop</h4>
-<p>事实证明对于一些修改字符串的操作还是小心为慎,
-虽然pop这个操作看起来只需要剪掉尾巴就好, 应该耗时影响不大 ,
-<strong>但事实上我卡在80%就是因为它!!!!</strong>, 优化掉后直接97%=
-=.</p>
-<h4
-id="反转问题-同上可知-乘法最远也就影响到resultlength1length21.-即result长度已知-因此可以反向填充result即可避免最后还得反转">2.4
-反转问题: 同上可知, 乘法最远也就影响到result[length1+length2+1].
-即result长度已知, 因此可以反向填充result即可避免最后还得反转</h4>
-<p>暴力法时因为不清楚result到底会有多长, 所以不能反向填充.</p>
-<h4 id="另外还有一些小细节思考">2.5 另外还有一些小细节思考</h4>
-<h4 id="比如连续进位有没有问题">比如连续进位有没有问题</h4>
-<h4 id="循环结束需不需要有收尾整理">循环结束需不需要有收尾整理</h4>
-<h4
-id="我们现在result里填充了length1length21的-0-方便我们后续反向填充和累加-但是result0是最后一位进位的结果-假如最后没有进位呢">我们现在result里填充了[length1+length2+1]的
-'0' 方便我们后续反向填充和累加, 但是result[0]是最后一位进位的结果,
-假如最后没有进位呢?</h4>
-<h1 id="优化代码-超越97时间86内存">优化代码, 超越97%时间,86%内存</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function">string <span class="title">multiply</span><span class="params">(string num1, string num2)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (num1 == <span class="string">&quot;0&quot;</span> || num2 == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">  string result;</span><br><span class="line">        <span class="keyword">int</span> totallength=num1.<span class="built_in">size</span>()+num2.<span class="built_in">size</span>();<span class="comment">//result最大可能长度</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> cflag =<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;<span class="comment">//i+j位和存储器</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;totallength;i++)<span class="comment">//初始化填充</span></span><br><span class="line">        &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//反向填充,可以不需要在最后reverse,....好像对效率影响不大</span></span><br><span class="line">        <span class="comment">//把num2.pop()删掉了,终于从8ms提到了4ms......</span></span><br><span class="line">  <span class="keyword">while</span> (j&lt;num2.<span class="built_in">size</span>())<span class="comment">//num1[i]Xnum2[j] 只影响result的[i+j]和[i+j+1],因此相比暴力相加,可以优化中间步骤</span></span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">for</span> (i = num1.<span class="built_in">size</span>() - <span class="number">1</span>; i = <span class="number">0</span>; i--)</span><br><span class="line">   &#123;   <span class="comment">//因为要改变i+j位,所以先计算出i+j+1位,(程序用的i和注释i不是一个)</span></span><br><span class="line">                temp=(result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j)]-<span class="string">&#x27;0&#x27;</span>)+ (num1[i] - <span class="string">&#x27;0&#x27;</span>)*(num2[num2.<span class="built_in">size</span>()<span class="number">-1</span>-j] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">                <span class="comment">//连续进位怎么办?临时存储?循环清理干净?</span></span><br><span class="line">                <span class="comment">//临时存储试试</span></span><br><span class="line">                result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j+<span class="number">1</span>)]+=temp/<span class="number">10</span>;</span><br><span class="line">    result[totallength<span class="number">-1</span>-((num1.<span class="built_in">size</span>()-i<span class="number">-1</span>)+j)]=<span class="string">&#x27;0&#x27;</span>+temp%<span class="number">10</span>;</span><br><span class="line">   &#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            j++;</span><br><span class="line">  &#125;</span><br><span class="line">        <span class="comment">//不需要检查最后一位要不要进位</span></span><br><span class="line">       </span><br><span class="line">  <span class="comment">//1 2 3</span></span><br><span class="line">  <span class="comment">//4 5 6</span></span><br><span class="line">  <span class="comment">//7 3 8+6 1 5 * 10</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//跳过头部的0</span></span><br><span class="line">        <span class="keyword">if</span>(result[<span class="number">0</span>]!=<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> result.<span class="built_in">substr</span>(<span class="number">1</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr />
-<p>string.pop_back()真的卡了我好久, 左优化右优化, 去头部0的方法换了又换,
-就是卡在80% .......谨慎考虑库函数的效率.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-44/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-44/" class="post-title-link" itemprop="url">LeetCode-No-44</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-44/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-44/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="通配符匹配"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wildcard-matching">通配符匹配</a></h1>
-<p>------类似No.10的正则匹配</p>
-<p>给定一个字符串 (s) 和一个字符模式 (p)
-，实现一个支持 '?' 和 '*' 的通配符匹配。</p>
-<p>'?' 可以匹配任何单个字符。 '*' 可以匹配任意字符串（包括空字符串）。
-两个字符串完全匹配才算匹配成功。</p>
+          <h1 id="文本左右对齐"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/text-justification">文本左右对齐</a></h1>
+<p>给定一个单词数组和一个长度 maxWidth，重新排版单词，使其成为每行恰好有 maxWidth 个字符，且左右两端对齐的文本。</p>
+<p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 '
+' 填充，使得每行恰好有 maxWidth 个字符。</p>
+<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
+<p>文本的最后一行应为左对齐，且单词之间不插入额外的空格。</p>
 <p>说明:</p>
-<p>s 可能为空，且只包含从 a-z 的小写字母。
-p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。</p>
+<p>单词是指由非空格字符组成的字符序列。 每个单词的长度大于
+0，小于等于 maxWidth。 输入单词数组 words 至少包含一个单词。 示例:</p>
+<p>输入: words = ["This", "is", "an", "example", "of", "text",
+"justification."] maxWidth = 16 输出: [    "This    is    an",  
+ "example  of text",    "justification.  "] 示例 2:</p>
+<p>输入: words = ["What","must","be","acknowledgment","shall","be"]
+maxWidth = 16 输出: [   "What   must   be",   "acknowledgment  ",  
+"shall be        "] 解释: 注意最后一行的格式应为 "shall be " 而不是
+"shall be",   因为最后一行应为左对齐，而不是左右两端对齐。<br />
+第二行同样为左对齐，这是因为这行只包含一个单词。 示例 3:</p>
+<p>输入: words =
+["Science","is","what","we","understand","well","enough","to","explain",
+  "to","a","computer.","Art","is","everything","else","we","do"]
+maxWidth = 20 输出: [   "Science  is  what we", "understand      well",
+  "enough to explain to",   "a  computer.  Art is",   "everything  else
+ we",   "do                  "]</p>
 <h1 id="题目分析">题目分析</h1>
-<p>和正则一样, 重点在于 * 的任意位匹配</p>
 <ol type="1">
-<li><p>假如是一个没有 * 的串匹配,
-我们只要碰到一个匹配失败即可结束</p></li>
-<li><p>有了 <em>的情况,</em>
-可以用来干什么呢?-----帮你把匹配失败的地方干掉</p></li>
-<li><p>因此其实我们可以先正常逐个精确匹配, 遇到 * 可以记录下来,
-以便帮助后面</p></li>
-<li><p>当在某一位精确匹配失败时, 我们回去找 <em>的帮助,
-如果之前没有</em> , 帮不了, 匹配失败</p></li>
-<li><p>假如之前有 <em>,即需让</em>往后匹配来避免这个失败位, 但是因为*
-每向后扩展一位, 原本的精确匹配顺序全都挪动了一位,
-此时我们不知道是不是能匹配成功</p></li>
-<li><p>因此 <em>帮忙的时候,</em> 只向后扩展一位试试,
-此时是一个未知的匹配状态, 我们需要在 * 的边缘重新开始精确匹配,
-再失败了就重复 6 即可</p></li>
+<li>也是没有突出思路的困难题....考验代码实现细节的功底。 ####
+进入每行一轮的循环：</li>
+<li>计算每行能最多放多少个单词，贪心尝试，能放多少放多少= = <strong>2.1
+注意每个单词后面要留个位置给空格</strong> <strong>2.2
+同时记得保存个末行标志位，以便后续末行特殊处理</strong> <strong>2.3
+这里用到了两个指针，一个指向起始单词，一个探索结束单词</strong></li>
+<li>计算每行的所需空格数，用vector存储每空应该有多少个空格，注意空格多了先在左边填，因此可以实现类似个抽屉原理，先把能平均分的部分分了，然后多的从前往后填。
+<strong>3.1
+注意最后一个单词后面没有空格，计算每空空格数时可以先排除它，前面的空格全分完了，在vector后面push_back(0)即可</strong>
+<strong>3.2
+注意该行一个单词的时候需要特殊处理，把所有空格都填在vector[0]即可。</strong></li>
+<li>末行特殊处理，末行单词间空格数固定为1，最后一个单词之后的空格数为所有剩余空格。</li>
+<li>循环填入单词，填一个单词+vector[i]数量的空格。</li>
+<li>填入该行结果</li>
 </ol>
 <h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//i,j指示当前匹配位置,iflag,jflag指示*号匹配位置</span></span><br><span class="line">        <span class="keyword">int</span> slength=s.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> plength=p.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> iflag=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> jflag=<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//匹配到*之后的匹配中, 如果准确匹配,则进入了第一个if,失败则</span></span><br><span class="line">        <span class="comment">//  是* 则先保存现场, 在之后的匹配中如果失败则需要*来救场</span></span><br><span class="line">        <span class="comment">//  不是* ,则看之前有没有*,有可以用来救场,尝试增加*解决掉的位数,再继续试试</span></span><br><span class="line">        <span class="comment">// 没有*救场 , 那可以自闭了.over</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//循环内每次都确保当前匹配成功</span></span><br><span class="line">        <span class="comment">//注意j&lt;plength的处理,j==plength时,仍然要继续尝试用*解决的,不能无脑return false.</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;slength)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="comment">//准确匹配成功</span></span><br><span class="line">            <span class="keyword">if</span>(j&lt;plength &amp;&amp; (s[i]==p[j] || p[j]==<span class="string">&#x27;?&#x27;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//匹配到*</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j&lt;plength &amp;&amp; p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                iflag=i;</span><br><span class="line">                jflag=j;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p中*用掉了,j去下一位. s[i]因为 *可能用于匹配空串,所以暂时不移动</span></span><br><span class="line">                j++;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//准确匹配失败,但是进入下面的elseif内则说明之前有*,这时候就需要增加*匹配的一位 来尝试解决掉不能准确匹配的东西.</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(jflag!=<span class="number">-1</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="comment">//*匹配到原iflag走不通,尝试匹配到iflag++位置,再次开始匹配</span></span><br><span class="line">                i=++iflag;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//p因为是用*去匹配的,所以p下一个要匹配的位是*下一位,jflag+1</span></span><br><span class="line">                j=jflag+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//连*都不能帮忙解决,s可以走了</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//注意考虑s匹配完了,p剩余*则还能成功</span></span><br><span class="line">        <span class="keyword">while</span>(j&lt;plength)</span><br><span class="line">            <span class="keyword">if</span>(p[j]==<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">                j++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> j==plength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string fullJustify(vector&lt;string&amp; words, <span class="keyword">int</span> maxWidth) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string  result;</span><br><span class="line">        <span class="keyword">int</span> wordsFlag=0;//处理到的最远的单词</span><br><span class="line">        <span class="keyword">int</span> StartFlag=0;</span><br><span class="line">        <span class="keyword">int</span> SpaceNum=0;</span><br><span class="line">        <span class="keyword">int</span> wordsNum=0;//每行单词数</span><br><span class="line">        <span class="keyword">int</span> CurrentLength=0;</span><br><span class="line">        <span class="keyword">bool</span> isLast=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> spaces;//存储每行每处的空格数</span><br><span class="line">        <span class="keyword">while</span>(wordsFlag&lt;words.size())//行循环</span><br><span class="line">        &#123;   </span><br><span class="line">            StartFlag=wordsFlag;</span><br><span class="line">            wordsNum=0;</span><br><span class="line">            CurrentLength=0;</span><br><span class="line">            <span class="keyword">while</span>(CurrentLength&lt;maxWidth)//判断一行最多能放几个单词</span><br><span class="line">            &#123;   </span><br><span class="line">                CurrentLength+=words[wordsFlag].size();</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(CurrentLength+wordsNummaxWidth)//超过了 退掉最后一次</span><br><span class="line">                &#123;</span><br><span class="line">                    CurrentLength-=words[wordsFlag].size();</span><br><span class="line">                    // wordsFlag--; wordsFlag 停在下一行第一个</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                wordsNum++;</span><br><span class="line">                wordsFlag++;</span><br><span class="line"></span><br><span class="line">                //末行判定</span><br><span class="line">                <span class="keyword">if</span>(wordsFlag=words.size())</span><br><span class="line">                &#123;</span><br><span class="line">                    isLast=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //计算所需空格数</span><br><span class="line">            SpaceNum=maxWidth-CurrentLength;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(wordsNum1)//1判断，wordsNum-1=0时不能当除数</span><br><span class="line">            &#123;</span><br><span class="line">                 spaces= vector&lt;<span class="keyword">int</span>(wordsNum-1,SpaceNum/(wordsNum-1));//space有wordsNum-1处，每处平均有SpaceNum/(wordsNum-1)个</span><br><span class="line">					<span class="keyword">for</span> (<span class="keyword">int</span> j = 0; j &lt; SpaceNum%(wordsNum-1); ++j)//多的从前往后填，填多少是多少，保证左边的空格大于等于右边的</span><br><span class="line">                        spaces[j] += 1;</span><br><span class="line">                spaces.push_back(0);//最后一个数不要空格</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                spaces= vector&lt;<span class="keyword">int</span>(1,SpaceNum);</span><br><span class="line"></span><br><span class="line">            //末行处理</span><br><span class="line">            <span class="keyword">if</span>(isLast==<span class="literal">true</span> &amp;&amp; wordsNum1)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j= 0;</span><br><span class="line">                <span class="keyword">for</span> (; j &lt;wordsNum-1; j++)</span><br><span class="line">                    spaces[j]=1;//末行每处空都只有一个空格，最后是剩余空格，也是服了= =</span><br><span class="line">                spaces[j]=SpaceNum-(wordsNum-1);//剩余空格</span><br><span class="line">            &#125;</span><br><span class="line">                    </span><br><span class="line">            string temp;</span><br><span class="line">            <span class="keyword">int</span> j=0;</span><br><span class="line">            <span class="keyword">while</span>(StartFlag&lt;wordsFlag)</span><br><span class="line">            &#123;   </span><br><span class="line">                //填充单词</span><br><span class="line">                temp+=words[StartFlag];//填词</span><br><span class="line">                //填充空格</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;spaces[j];i++)//填空格</span><br><span class="line">                    temp.push_back(&#x27; &#x27;);</span><br><span class="line">                StartFlag++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result.push_back(temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -477,7 +331,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-46-47/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -491,7 +345,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-46-47/" class="post-title-link" itemprop="url">LeetCode-No-46-47</a>
+            <a href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" class="post-title-link" itemprop="url">LeetCode-No-69-（牛顿迭代法）</a>
         </h2>
 
         <div class="post-meta">
@@ -522,8 +376,8 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-46-47/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-46-47/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-69-%EF%BC%88%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -538,35 +392,53 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="全排列"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">全排列</a></h1>
-<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<p>示例:</p>
-<p>输入: [1,2,3] 输出: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2],
-[3,2,1]]</p>
+          <h1 id="x的平方根"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sqrtx">x的平方根</a></h1>
+<p>实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<p>示例 1:</p>
+<p>输入: 4 输出: 2</p>
+<p>示例 2:</p>
+<p>输入: 8 输出: 2 说明: 8 的平方根是 2.82842...,  
+由于返回类型是整数，小数部分将被舍去。</p>
 <h1 id="题目分析">题目分析</h1>
-<h3
-id="递归-顺着手工思路从后往前逐步交换.-固定前面的后面的全排列即可.">1.
-递归, 顺着手工思路,从后往前逐步交换. 固定前面的+后面的全排列即可.</h3>
-<h3
-id="用一个for循环表示该位与后面每一位交换-包括交换自己-等于不交换的情况-然后用递归表达后面的全排列.">2.
-用一个for循环表示该位与后面每一位交换, (包括交换自己, 等于不交换的情况),
-然后用递归表达后面的全排列.</h3>
-<p>注意递归出来后要把之前换的换回来, 要不然 [1 2 3 ] 换成 [2 1 3],
-递归到第二层 1 3 又会换成[2 3 1], 这已经不是全排列了, 是在顺序交换.
-容易出错</p>
-<h3 id="全排列ii-存在重复数字-要筛选掉重复的排列">3. 全排列II
-存在重复数字, 要筛选掉重复的排列</h3>
-<h4
-id="为什么会有重复序列呢-因为-i-交换了-j-递归出来后-接下来i又碰到一个-j-.-两次交换递归下去的结果一模一样-所以会重复-.">----为什么会有重复序列呢?
-因为 i 交换了 j, 递归出来后, 接下来i又碰到一个 j .
-两次交换递归下去的结果一模一样 , 所以会重复 .</h4>
-<h4
-id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j值-查重通过了才能继续递归-否则跳过.">----
-因此对每个j 我们要查重它是不是在i-j之间 (即已经交换过j值)
-,查重通过了才能继续递归, 否则跳过.</h4>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> permuteUnique(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        backtrace(nums,result,0);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> backtrace(vector&lt;<span class="keyword">int</span>&amp;nums,vector&lt;vector&lt;<span class="keyword">int</span>&amp;result,<span class="keyword">int</span> i)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span>(i==nums.size()-1)</span><br><span class="line">            result.push_back(nums);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;nums.size();j++)</span><br><span class="line">        &#123;   </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(i==j)//不需要交换的递归</span><br><span class="line">            &#123;</span><br><span class="line">                backtrace(nums,result,i+1);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;     </span><br><span class="line">            //检查要交换的这个,在已经交换过的里面,有没有相同的,有就不交换了</span><br><span class="line">            <span class="keyword">int</span> k;</span><br><span class="line">            <span class="keyword">for</span>(k=j-1;k=i;k--)</span><br><span class="line">                <span class="keyword">if</span>(nums[k]==nums[j])</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(k!=i-1)//查重没通过,跳过这个数</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            //正常交换递归</span><br><span class="line">            swap(nums[i],nums[j]);</span><br><span class="line">            backtrace(nums,result,i+1);</span><br><span class="line">            swap(nums[i],nums[j]);  //换回来？</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">void</span> swap(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=a;</span><br><span class="line">        a=b;</span><br><span class="line">        b=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>首先直接计算平方根不太现实，所以这是一个在有序的1~x中查找出平方根的问题。</li>
+<li>查找有序整数中的特定值，正常思路即<strong>二分查找</strong>，实现也简单。</li>
+<li><strong>递归缩小求解：</strong> <span
+class="math display">\[\sqrt{x}=2*\sqrt{rac{x}{4}}\]</span>
+因此可以递归找到易解的小x，然后再回溯整合到原x。
+注意为什么选择2作为系数进行递归呢？
+——x缩小和放大2的倍数，可以通过位操作实现，效率极高。</li>
+</ol>
+<p>递归式为：<code>mySqrt(x)=mySqrt(x2)&lt;&lt;1</code> 4.
+针对这个计算平方根的特定问题，有 <strong>牛顿迭代法</strong>：
+<strong>牛顿法</strong>（英语：Newton's
+method）又称为<strong>牛顿-拉弗森方法</strong>（英语：Newton-Raphson
+method），它是一种在实数域和复数域上近似求解方程的方法。方法使用函数<span
+class="math inline">\(f(x)\)</span>
+的泰勒级数的前面几项来寻找方程的根。</p>
+<p><span
+class="math display">\[x_{k+1}=rac{1}{2}[x_k+rac{x}{x_k}]\]</span>
+根据精度要求，<span class="math inline">\(x_k\)</span>和<span
+class="math inline">\(x_{k+1}\)</span>收敛后差距小于1即可返回结果。</p>
+<p><strong>迭代求解示意</strong>：<img
+src="https://upload-images.jianshu.io/upload_images/19387483-cf905b78f3551337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="迭代示意图，图源 (https://leetcode-cn.com/problems/sqrtx/solution/niu-dun-die-dai-fa-by-loafer/)" /></p>
+<p>如上图所示，想求<span
+class="math inline">\(\sqrt{a}\)</span>，图示a=2
+先随便取xi=4，然后找到过(xi,yi)的切线，且<span
+class="math inline">\(f(x)=x^2-a\)</span>的导数是<span
+class="math inline">\(2x\)</span> 即切线方程<span
+class="math inline">\(f(x)-(x_i^2-a)=2x_i(x-xi)\)</span>
+显而易见这个切线与x轴的交点得$x_{i+1}=rac
+{2x_i<sup>2-(x_i</sup>2-a)}{2x_i}= rac{1}{2} (x_i+rac{a}{x_i}) $
+即得<span class="math inline">\(x_{i+1}\)</span>比<span
+class="math inline">\(x_{i}\)</span>更接近解<span
+class="math inline">\(\sqrt{a}\)</span>。</p>
+<h1 id="牛顿迭代题解代码">牛顿迭代题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//牛顿迭代</span></span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        <span class="comment">//注意long类型</span></span><br><span class="line">        <span class="keyword">long</span> last=x/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">long</span> cur =(last+x/last)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">abs</span>(last-cur)=<span class="number">1</span>)</span><br><span class="line">        &#123;   </span><br><span class="line">            last=cur;</span><br><span class="line">            cur=(cur +x/ cur) / <span class="number">2.0</span> ;</span><br><span class="line">            <span class="keyword">if</span>(cur&lt;=x/cur)</span><br><span class="line">                <span class="keyword">return</span> cur;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -586,7 +458,7 @@ id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-45/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-72/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -600,7 +472,7 @@ id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-45/" class="post-title-link" itemprop="url">LeetCode-No-45</a>
+            <a href="/2020/02/17/LeetCode-No-72/" class="post-title-link" itemprop="url">LeetCode-No-72</a>
         </h2>
 
         <div class="post-meta">
@@ -631,8 +503,8 @@ id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-45/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-45/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-72/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-72/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -647,33 +519,31 @@ id="因此对每个j-我们要查重它是不是在i-j之间-即已经交换过j
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="跳跃游戏"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game-ii">跳跃游戏</a></h1>
-<p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>你的目标是使用最少的跳跃次数到达数组的最后一个位置。</p>
-<p>示例:</p>
-<p>输入: [2,3,1,1,4] 输出: 2 解释: 跳到最后一个位置的最小跳跃数是 2。  
-从下标为 0 跳到下标为 1
-的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</p>
-<p>说明:</p>
-<p>假设你总是可以到达数组的最后一个位置。</p>
+          <h1 id="编辑距离"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/edit-distance">编辑距离</a></h1>
+<p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2
+所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符 删除一个字符 替换一个字符 示例 1:</p>
+<p>输入: word1 = "horse", word2 = "ros" 输出: 3 解释: horse - rorse (将
+'h' 替换为 'r') rorse - rose (删除 'r') rose - ros (删除 'e')</p>
+<p>示例 2:</p>
+<p>输入: word1 = "intention", word2 = "execution" 输出: 5 解释:
+intention - inention (删除 't') inention - enention (将 'i' 替换为 'e')
+enention - exention (将 'n' 替换为 'x') exention - exection (将 'n'
+替换为 'c') exection - execution (插入 'u')</p>
 <h1 id="题目分析">题目分析</h1>
-<h3 id="假如不考虑最少次数-贪心法">1. 假如不考虑最少次数, 贪心法</h3>
-<h4 id="逐位扩展可跳最大距离-只要够到了末尾就好.">----
-逐位扩展可跳最大距离, 只要够到了末尾就好.</h4>
-<h4
-id="假如扩展的时候-最大距离到不了这个位-则不能从这个位扩展-即断路了.">----
-假如扩展的时候, 最大距离到不了这个位, 则不能从这个位扩展, 即断路了.</h4>
-<h3 id="加上了最少次数要求">2. 加上了最少次数要求</h3>
-<h4 id="什么情况会多次数-就是之前的一次能跳到的-跳了几次.">----
-什么情况会多次数? 就是之前的一次能跳到的, 跳了几次.</h4>
-<h4
-id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-只有到达最大距离-才算一次次数.-当然到末端也算一次.">----
-那么怎么知道之前能不能跳到呢? 记录能跳到的最大距离, 只有到达最大距离,
-才算一次次数. 当然到末端也算一次.</h4>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">        <span class="comment">//参考题解大神思路: i每到达前一个max,完成一次跳跃</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> maxend = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">	    &#123;   <span class="comment">//i每到达前一个max,完成一次跳跃</span></span><br><span class="line">		    maxend = <span class="built_in">max</span>(nums[i] + i, maxend);</span><br><span class="line">            <span class="keyword">if</span> (i == end)</span><br><span class="line">            &#123;</span><br><span class="line">                end = maxend;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>和字符串匹配之类的差不多，都是
+<strong>动态规划</strong>，观察子问题状态，考虑转移状态</li>
+<li>动态规划 dp[i][j]状态</li>
+<li><strong>对比dp[i-1][j]状态时</strong>，只需要把i代表的字母删除即可回到dp[i-1][j]</li>
+<li><strong>对比dp[i][j-1]状态</strong>，因为[i][j-1]代表word1 i位 和
+word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</li>
+<li><strong>对比dp[i-1][j-1]状态</strong>，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</li>
+</ol>
+<h1 id="dp题解代码">dp题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(string word1, string word2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划  dp[i][j]状态</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j]状态时，只需要把i代表的字母删除即可回到dp[i-1][j]</span></span><br><span class="line">        <span class="comment">//对比dp[i][j-1]状态，因为[i][j-1]代表word1 i位 和 word2 j-1 位匹配，因此word2还多个j位没有匹配到，对word1增加操作即可</span></span><br><span class="line">        <span class="comment">//对比dp[i-1][j-1]状态，双方都多出个第i位和第j位，如果这两个相等，则和dp[i-1][j-1]一样，不相等，则需要一次替换操作。</span></span><br><span class="line">        <span class="keyword">int</span> dp[word1.<span class="built_in">size</span>()+<span class="number">1</span>][word2.<span class="built_in">size</span>()+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[i][<span class="number">0</span>]=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=word2.<span class="built_in">size</span>();i++)</span><br><span class="line">            dp[<span class="number">0</span>][i]=i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=word1.<span class="built_in">size</span>();i++)</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=word2.<span class="built_in">size</span>();j++)</span><br><span class="line">                <span class="keyword">if</span>(word1[i<span class="number">-1</span>]==word2[j<span class="number">-1</span>])</span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    dp[i][j]=<span class="number">1</span>+<span class="built_in">min</span>( <span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>]),dp[i<span class="number">-1</span>][j<span class="number">-1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[word1.<span class="built_in">size</span>()][word2.<span class="built_in">size</span>()];                    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -693,7 +563,7 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-46/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-75/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -707,7 +577,7 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-46/" class="post-title-link" itemprop="url">LeetCode-No-46</a>
+            <a href="/2020/02/17/LeetCode-No-75/" class="post-title-link" itemprop="url">LeetCode-No-75</a>
         </h2>
 
         <div class="post-meta">
@@ -738,8 +608,8 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-46/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-46/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-75/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-75/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -754,27 +624,185 @@ id="那么怎么知道之前能不能跳到呢-记录能跳到的最大距离-�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="全排列"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">全排列</a></h1>
-<p>给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
-<p>示例:</p>
-<p>输入: [1,2,3] 输出: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2],
-[3,2,1]]</p>
-<h1 id="思路分析">思路分析</h1>
-<ul>
-<li><p>由排列特性我们的直觉思路是, 首先固定第一个数, 然后排列后面的数
-,同时后面的排列也是这种<strong>固定+排序</strong>的思路进行.
-因此很显然可以想到是一种递归回溯的算法.</p></li>
-<li><p>递归到字符串尾很简单,
-但需要注意的是怎么得到其他的组合情况.</p></li>
-</ul>
-<p><del>我首先设想的是进行一种遍历, 首先确定第一个数,
-然后选取未被排列过的剩下的数, 逐一形成n!个排列组合,
-但好像没想到简便的方法实现</del></p>
-<p>参考题解后得知, 想要不同的排列组合, 本质在于数的顺序不同,
-因此我们只要将数进行交换, 然后递归到底输出交换后的组合即可.</p>
-<h1 id="解答代码">解答代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> permute(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        backtrace(nums,result,0);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> backtrace(vector&lt;<span class="keyword">int</span>&amp;nums,vector&lt;vector&lt;<span class="keyword">int</span>&amp;result,<span class="keyword">int</span> i)</span><br><span class="line">    &#123;   </span><br><span class="line">        <span class="keyword">if</span>(i==nums.size()-1)</span><br><span class="line">            result.push_back(nums);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;nums.size();j++)  //逐一尝试与后面的数的交换组合</span><br><span class="line">        &#123;</span><br><span class="line">            swap(nums[i],nums[j]);//交换</span><br><span class="line">            backtrace(nums,result,i+1);//然后输出交换后的串</span><br><span class="line">            swap(nums[i],nums[j]);  //记得换回来保持原状, 否则换到最后会重复  比如ABC- CBA-ABC </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">   <span class="keyword">void</span> swap(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=a;</span><br><span class="line">        a=b;</span><br><span class="line">        b=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h1 id="颜色分类"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-colors/">颜色分类</a></h1>
+<p>给定一个包含红色、白色和蓝色，一共 <em>n </em>个元素的数组，<strong><a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong>对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p>
+<p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p>
+<p><strong>示例:</strong></p>
+输入:** [2,0,2,1,1,0] <strong>输出:</strong> [0,0,1,1,2,2]
+</pre
+
+**进阶：**
+
+*   一个直观的解决方案是使用计数排序的两趟扫描算法。
+    首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
+*   你能想出一个仅使用常数空间的一趟扫描算法吗？
+
+# 题目分析
+1. 相同元素相邻，换句话说即分区存放，一个颜色一个区域，但因为这里颜色使用0 ，1，2表示，即对一个012的无序序列进行排序，变成000...111....2222的顺序。
+正常排序算法都适用，只不过这里注意仅有三种可能的顺序值，可以有特殊做法。
+2. 对于一个元素，我们将他分区时，肯定是插在区域的末尾，换句话说，我们只要保留每个区域的末尾下标，插入的时候交换过去就可以了。
+三个区域，其实我们只要确定了两个区域即可确定第三个区域，因为0区域在最左边，2区域在最右边，方便程序定位，因此取0 2 的末尾指针保留下来。
+3. 确定了双指针确定区域，那么怎么进行遍历处理呢？确定了分类移动的位置，即cur遍历每一位的数值，分类处理遇到0放左边，遇到2放右边，02放好了，则1的区域也放好了。
+
+#####     针对cur的分类处理：
+1. 是0，则和0的flag ，left交换值，同时left++。此时cur获取的是之前的left交换过来的值。我们知道我们换过去的处理好了，那么这个换过来的还需要处理吗？目前还不知道，先看2的情况的处理。
+
+2.  是2，则和2的flag，right交换，同时right--。同样，此时cur获取了交换过来的值，由于这个值必然是在cur右边（因为它是原right，即cur的右边界），则cur肯定没有遍历过这个值。
+同时因为它在cur右边，它也不可能是交换过去的，因为交换过去的值肯定都在0 2 区域里了。
+因此这个值是野生的，所以cur在此停留，继续处理这个交换过来的值。
+
+3. 是1，因为我们把0 2 排序好，1的区域自然就出来了，因此1直接不处理，过就好了
+
+4. 那么看看0的情况交换过来的值？首先这个值的位置关系，即原left是在cur左边还是右边呢？
+
+    **只有当left会在cur右边时**，left指向的才可能是cur没处理过的，但此时cur在left内部？那cur就是把一个0换到了外边，把一个乱序的换进了0的内部，内鬼毫无意义。
+
+      **当left在cur左边时，即left指向的必定经过了cur的洗礼**，而且它必不是原来在后面被换到前面的，因为交换的肯定在left内部去了。所以它原值就是在那，且经过处理不用动，因此从left换到现在的cur之后，也是同样的处理，也不用动它，cur++拜拜嘞。
+
+5. 当cur遇到right，即到达2的边界，则说明不需要处理了，结束。
+
+# 题解代码
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> cur=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur&lt;=right)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">if</span>(nums[cur]==<span class="number">0</span>)<span class="comment">//这个数字是0，移动0区域内，</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[cur],nums[left]);</span><br><span class="line">                <span class="comment">//假如curleft，left交换过来的值肯定已经被处理过了，但是处理时产生交换，原left指向的，一定是不用处理的吗？</span></span><br><span class="line">                <span class="comment">//jeromememory：准确的说 cur 如果 与 p0 不是指向同一个索引，那 cur 指向的索引值如果发生交换，那交换过来的一定是 1（原因是只有当遍历过的节点有1，p0 和 cur 才不会同步），而 如果索引是 1 刚好也就不用有任何操作，所以可以直接++。</span></span><br><span class="line">                <span class="comment">//假如cur==left==0，没啥好说的，下一个</span></span><br><span class="line">                <span class="comment">//假如cur&lt;left, 可能吗？cur++的机会 = left++的机会</span></span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[cur]==<span class="number">2</span>)<span class="comment">//这个数字是2，移到2区域内</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[cur],nums[right]);</span><br><span class="line">                right--;</span><br><span class="line">                <span class="comment">//交换过来的值，是右边过来的，cur没处理过，因此还需要对这个位置处理，--抵消++，位置不变</span></span><br><span class="line">                cur--;</span><br><span class="line">            &#125;</span><br><span class="line">            cur++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-84/" class="post-title-link" itemprop="url">LeetCode-No-84</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最大矩形"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram">最大矩形</a></h1>
+<p>给定 n
+个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1
+。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。 <img
+src="https://upload-images.jianshu.io/upload_images/19387483-c76a635ea91ad61e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="LeetCode图" /></p>
+<p>以上是柱状图的示例，其中每个柱子的宽度为
+1，给定的高度为 [2,1,5,6,2,3]。 <img
+src="https://upload-images.jianshu.io/upload_images/19387483-4198f8b5095d233b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="LeetCode图" /></p>
+<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。</p>
+<p> </p>
+<p>示例: 输入: [2,1,5,6,2,3] 输出: 10</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li><p>想要知道最大矩形，肯定先要知道每根柱子怎么形成矩形的</p></li>
+<li><p>对柱子 i，高度为 hi，以i为中心往两边扩展，只要碰到的柱子高度
+Hj=hi，那么形成的矩形必然是以 hi 为高构造。</p></li>
+<li><p>假如 Hj&lt;hi，那么这个矩形的高就是新的 Hj，而这个 Hj
+构造的矩形必然会出现在以柱子 j
+为中心扩展的时候，所以不必考虑降低现在的高度。</p></li>
+<li><p>所以对柱子 i
+的扩展，往左右两边找，碰到矮的停下来，确定两边边界，边界高度
+Hj=hi，这个即是这个 i 自己能做出来的最大矩形。
+可以双重循环扫描，但不是重点，这里学习题解大神的栈思路。 #
+题解分析：栈保留边界</p></li>
+<li><p>首先有一层主循环遍历所有柱子，从左到右，当前柱子为 i。</p></li>
+<li><p>我们目的是要找i的两个边界，因为是从左到右扫描，即我们可以顺手找到
+i 的右边界。只要扫描时碰到比 i 矮的就知道这个是右边界了。</p></li>
+<li><p>但是碰到比 i 高或者相等的柱子 j 怎么办呢？j 不会是 i 的边界
+，但我们也要找 j 的边界。因此我们要把未处理的 i 和 j 都留下来。</p></li>
+<li><p>而继续往后找的时候， i 的右边界x 必然是 j 的右边界或者之外
+（hi&lt;=hj) 。 <strong>因此对于下一个柱子 x：</strong> 4.1
+假如我们先判断 x 是不是 i 的边界，假如它是，它也不一定就是 j 的右边界
+，我们还得用 x 和 j 比较一次。假如它不是，它也不一定就不是 j
+的右边界，还是得 x j 比较一次，<strong>所以先判定 i
+的边界很鸡肋</strong>。 4.2 假如先判断 x 是不是更高的 j
+的右边界，假如它不是，那么肯定也不是 i
+的边界，假如它是，那么可以继续判定是不是更矮的 i 的右边界。</p></li>
+<li><p>因此，我们的扫描过程是这样的，<strong>从左到右</strong>，且保留的柱子<strong>高度递增</strong>（因为只要更高的才会保留，否则是作为右边界判定）。
+且判定的顺序是高的在前，低的在后，即<strong>新的在前，旧的在后</strong>，因此<strong>保留柱子的数据结构是：栈</strong>。
+因此遇到一个新柱子，与栈顶比较，更高则继续压栈。更低则是栈顶的右边界，然后栈顶出栈，判定是不是下一个栈顶的右边界。</p></li>
+<li><p>右边界解决了，我们还需要确定每个柱子 i 的左边界，左边界肯定在左边
+， 并且左边界也要比 i 矮，而我们的栈又是高度递增的=
+=+显然，我们可以利用出栈过程。 在栈顶确定了右边界，然后出栈的时候： 6.1
+下面的那个柱子高度大于【栈顶右边界高度Hr】，那么这个柱子不是左边界，而可以组成这个矩形（因为有右边界后，矩形最低高度是Hr，只要高于Hr，都是）我们继续出栈寻找即可。
+6.2 即一直出栈，直到出了个高度小于等于【栈顶右边界高度Hr】的柱子 x
+，那么 x 就是上面这个矩形的左边界。
+出栈到边界了怎么办？在数组开头预备一个0作为栈底标志位结束出栈。
+同样压栈到边界了怎么办？在数组结尾预备一个0作为启动出栈的标志位。</p></li>
+<li><p>此时 i 的左右边界都能找到，高度为 i ，计算面积。</p></li>
+</ol>
+<h4
+id="总之精髓在于出栈过程从栈顶的右边界一直出栈到满足的左边界中间这些柱子形成当前最大矩形">总之精髓在于出栈过程，从栈顶的右边界，一直出栈到满足的左边界，中间这些柱子形成当前最大矩形。</h4>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; heights)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//题解学习</span></span><br><span class="line">        std::stack&lt;<span class="keyword">int</span> Lefts;</span><br><span class="line">        heights.insert(heights.begin(),0);//补0作为边界判断</span><br><span class="line">        heights.insert(heights.end(),0);</span><br><span class="line">        <span class="keyword">int</span> result=0;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;heights.size();i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            //栈单调递增，当碰到一个i 比栈顶矮，则它必是栈顶的右边界</span><br><span class="line">            //再逐渐出栈，每次出栈循环，都是栈顶作为中心，而栈单调递增，栈顶下面一个更矮的必是栈顶的左边界，左右边界确定，则栈顶位置能形成的矩阵面积可计算完毕。</span><br><span class="line">            //直到栈顶比 i 还矮，那 i 就不能作为右边界了 ，栈顶此时的右边界也找不到，则 i 入栈待命当左边界，然后<span class="keyword">for</span>下一轮</span><br><span class="line">            <span class="keyword">while</span>(Lefts.empty()!=<span class="literal">true</span> &amp;&amp; heights[Lefts.top()]heights[i])//找到比栈顶矮的柱子，即栈顶柱子的右边界</span><br><span class="line">            &#123;     </span><br><span class="line">                temp=Lefts.top();</span><br><span class="line">                Lefts.pop();</span><br><span class="line">                result = max(result, (i - Lefts.top()-1)*heights[temp]);</span><br><span class="line">            &#125;</span><br><span class="line">            Lefts.push(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -793,7 +821,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutatio
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -861,7 +889,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutatio
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

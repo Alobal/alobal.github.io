@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-28-(KMP)/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-56-No-57/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+            <a href="/2020/02/17/LeetCode-No-56-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
         </h2>
 
         <div class="post-meta">
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-56-No-57/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-56-No-57/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,72 +269,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="实现-strstr-函数"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr">实现 strStr() 函数</a></h1>
-<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack
-字符串中找出 needle 字符串出现的第一个位置
-(从0开始)。如果不存在，则返回  -1。</p>
+          <h1
+id="合并区间-插入区间httpsleetcode-cn.comproblemsmerge-intervals">(合并区间
+|| 插入区间)[https://leetcode-cn.com/problems/merge-intervals]</h1>
+<p>给出一个区间的集合，请合并所有重叠的区间。</p>
 <p>示例 1:</p>
-<p>输入: haystack = "hello", needle = "ll" 输出: 2</p>
-<p>示例 2:</p>
-<p>输入: haystack = "aaaaa", needle = "bba" 输出: -1</p>
-<p>说明:
-当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
-对于本题而言，当 needle 是空字符串时我们应当返回 0
-。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
-<blockquote>
-<p>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</p>
-</blockquote>
-<h2 id="kmp-主要思想不回退的主串查找位有效利用失败信息">KMP
-（主要思想：<strong>不回退的主串查找位，有效利用失败信息</strong>）</h2>
-<h3 id="暴力法存在的问题">暴力法存在的问题</h3>
-<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
-<p>我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败
-在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。
-即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
-<h3 id="失败返回的有效信息">失败返回的有效信息</h3>
-<p>模式串在 e 处失败，可以带给我们什么有效信息：</p>
+<p>输入: [[1,3],[2,6],[8,10],[15,18]] 输出: [[1,6],[8,10],[15,18]] 解释:
+区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
+<p>示例 2:</p>
+<p>输入: [[1,4],[4,5]] 输出: [[1,5]] 解释: 区间 [1,4] 和 [4,5]
+可被视为重叠区间。</p>
+<h1 id="题目分析">题目分析</h1>
+<h3 id="合并区间">合并区间</h3>
 <ol type="1">
-<li>主串前面有<code>abcdabc</code></li>
-<li>主串这一位不为<code>e</code></li>
+<li>[a,b] [c,d]合并条件：b=c &amp;&amp; a&lt;=d
+此时区间存在重复区段，可以合并</li>
+<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
+<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。
+### 插入区间</li>
+<li>首先需要找到插入位置，即左边界 介于 前一个和后一个的左边界
+中间。</li>
+<li>插入之后的收尾工作 插入时会不会和前一个发生和合并？
+因为是按左边界顺序，因此<strong>往前只可能合并一个</strong>
+但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
 </ol>
-<h3 id="利用返回的有效信息">利用返回的有效信息</h3>
-<p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5
-~ 7位<code>abc</code>虽然是在匹配模式串的5 ~
-7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
-<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
-<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
-<p><strong>为什么恰巧可以跳过呢</strong>？让我们来看一下跳过时的环境条件</p>
-<ol type="1">
-<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
-<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
-</ol>
-<p>因此我们可以找到跳过的思路，对于匹配失败时：</p>
-<ol type="1">
-<li>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i
-不变，j 跳到整数几位的后一位接着匹配</li>
-<li>假如不能形成这种前后缀的匹配，则直接让 i
-++，在下一位开始全新的匹配</li>
-</ol>
-<blockquote>
-<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++
-，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax
-pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的
-j 处匹配就解决了这个情况。</p>
-</blockquote>
-<h3 id="创造跳跃数组">创造跳跃数组</h3>
-<p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。
-而这个恰当的位置 k
-满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
-<p><strong>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位
-j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
-存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可</strong></p>
-<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
-<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己.......作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">因为在<span class="number">0</span>位失败肯定没法跳跃，令jump[<span class="number">0</span>]=<span class="number">-1</span> </span><br><span class="line">设置好跳跃定位标志 k=<span class="number">-1</span></span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k==<span class="number">-1</span></span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]=k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k=jump[k]</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-<p>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配.匹配过程看下方代码即可，并不难:</p>
-<h1 id="kmp解题代码">KMP解题代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span>(needle==<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//KMP</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> jump[needle.<span class="built_in">size</span>()];</span><br><span class="line">        jump[<span class="number">0</span>]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建失效数组  abcabcd</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;needle.<span class="built_in">size</span>()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">-1</span> || needle[i]==needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(needle[i]!=needle[k])</span><br><span class="line">                    jump[i]=k;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    jump[i]=jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>    <span class="comment">//内置kmp</span></span><br><span class="line">                k=jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x&lt;haystack.<span class="built_in">size</span>() &amp;&amp; y&lt;<span class="built_in"><span class="keyword">int</span></span>(needle.<span class="built_in">size</span>())) <span class="comment">//注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(y==<span class="number">-1</span> ||haystack[x]==needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">               y=jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(y==needle.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> x-y;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="题解代码">题解代码</h1>
+<h3 id="合并区间-1">合并区间</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> merge(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">if</span>(Len==0)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">        sort(intervals.begin(),intervals.end(),cmp);</span><br><span class="line">        result.push_back(intervals[0]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i=1;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;    //可连接 [1,3] [2,4]</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">                <span class="keyword">if</span>(intervals[i][1]result.back()[1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">                <span class="keyword">else</span>;</span><br><span class="line">            <span class="keyword">else</span>//不可连接 </span><br><span class="line">                result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> cmp(vector&lt;<span class="keyword">int</span>&amp; a,vector&lt;<span class="keyword">int</span>&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a[0]&lt;b[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="插入区间">插入区间</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> insert(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals, vector&lt;<span class="keyword">int</span>&amp; newInterval) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">bool</span> IsInsert=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;   //找到插入的位置</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][1]&lt;newInterval[0])</span><br><span class="line">                i++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i==Len)//插在末尾之后</span><br><span class="line">        &#123;</span><br><span class="line">            intervals.push_back(newInterval);</span><br><span class="line">            <span class="keyword">return</span> intervals;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=0;j&lt;i;j++)//无需检查的项直接插入</span><br><span class="line">            result.push_back(intervals[j]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(intervals[i][0]&lt;=newInterval[1])//可以合并</span><br><span class="line">        &#123;</span><br><span class="line">            intervals[i][0]=min(intervals[i][0],newInterval[0]);</span><br><span class="line">            intervals[i][1]=max(intervals[i][1],newInterval[1]);</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>//插入 而不是合并</span><br><span class="line">            result.push_back(newInterval);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            //插入项往后 每一项都要检查是否要往前合并,直到不用合并</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result.back()[1]&lt;intervals[i][1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        //出来的i往后是无法合并的项</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -354,7 +317,7 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-3/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-60/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -368,7 +331,7 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+            <a href="/2020/02/17/LeetCode-No-60/" class="post-title-link" itemprop="url">LeetCode-No-60</a>
         </h2>
 
         <div class="post-meta">
@@ -399,8 +362,8 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-3/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-60/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-60/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -415,152 +378,45 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="无重复字符的最长子串"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters">无重复字符的最长子串</a></h1>
-<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
-示例 1: 输入: "abcabcbb" 输出: 3 解释: 因为无重复字符的最长子串是
-"abc"，所以其长度为 3。</p>
-<p>示例 2: 输入: "bbbbb" 输出: 1 解释: 因为无重复字符的最长子串是
-"b"，所以其长度为 1。</p>
-<p>示例 3: 输入: "pwwkew" 输出: 3 解释:
-因为无重复字符的最长子串是 "wke"，所以其长度为 3。
-请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。</p>
-<h2 id="解题思路">解题思路</h2>
-<p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
-<ol type="1">
-<li><p>判断重复字符
-用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点
-(数组初始化的时候没有想到更好的优化效率方案).</p></li>
-<li><p>子串检测
-数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p></li>
-<li><p>后事处理
-移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理
-直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可
-优化思路:
-可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p></li>
-</ol>
-<h2 id="最终代码">最终代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">int</span> flag[<span class="number">127</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">127</span>;i++)</span><br><span class="line">            flag[i]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            temp=<span class="built_in">getNO</span>(s[i]);</span><br><span class="line">            <span class="keyword">if</span>(flag[temp]&lt;start)</span><br><span class="line">            &#123;</span><br><span class="line">                result++;</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result=max)</span><br><span class="line">                    max=result;</span><br><span class="line">                </span><br><span class="line">                start=flag[temp]+<span class="number">1</span>;</span><br><span class="line">                result=i-flag[temp];</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(result=max)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNO</span><span class="params">(<span class="keyword">char</span> originchar)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> originchar-<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-32/" class="post-title-link" itemprop="url">LeetCode-No-32</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-32/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-32/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="最长有效括号"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-valid-parentheses">最长有效括号</a></h1>
-<p>给定一个只包含 '(' 和
-')' 的字符串，找出最长的包含有效括号的子串的长度。</p>
+          <h1 id="第k个排列"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutation-sequence">第K个排列</a></h1>
+<p>给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<p>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时,
+所有排列如下：</p>
+<p>"123" "132" "213" "231" "312" "321" 给定 n
+和 k，返回第 k 个排列。</p>
+<p>说明：</p>
+<p>给定 n 的范围是 [1, 9]。 给定 k 的范围是[1,  n!]。</p>
 <p>示例 1:</p>
-<p>输入: "(()" 输出: 2 解释: 最长有效括号子串为 "()"</p>
-<p>示例 2:</p>
-<p>输入: ")()())" 输出: 4 解释: 最长有效括号子串为 "()()"</p>
-<h1 id="思路分析">思路分析</h1>
-<h5 id="错误思路规避">错误思路规避</h5>
-<p>刚看到括号对, 第一反应就是栈操作的括号匹配,
-认为只要匹配到匹配失败的时候记录这条括号串的长度, 在遍历完整个串之后,
-通过最大值筛选就获得了最长有效括号长度.
-<strong>然而事实证明困难题没有那么憨憨</strong> 对于"( ) ( (
-)"显然简单的匹配栈会把这个长度定为4,实际上只有2 ##### 问题出在哪呢?
-<strong>( )</strong> ((((((((( <strong>( )</strong>
-在两个正常括号中间的压栈操作不会终止长度的累积
-当然也不能粗暴的终止,毕竟也有( ) ( ( ( ( ) ) ) ) ) 的情况</p>
-<h1 id="改良方法">改良方法</h1>
-<p>参考了题解大神的思路之后, 明白了单纯压char型 ' (
-'入栈是一种很憨憨的行为...... 同样是压栈匹配,
-人家压的下标.....<strong>消耗一样,却额外带来了位置信息</strong></p>
-<p>匹配时括号对会产生一个位置差, 而对于这个差内部肯定是合法的括号串. (
-~~~~~~~) 假如是非法串, 要么是 ( 多了,那匹配时会匹配内部多的 (
-,而不是外部那个. 要么是 ) 多了, 那肯定已经把栈清空了,
-外围也不会有匹配括号.</p>
-<p>每次匹配成功会通过位置差得到一个当前长度信息<code>length=i-stack.top()</code>
-<strong>注意这里的top是已经匹配pop出一个(
-之后,再取的top,此时的top为目前合法字符串的开始位置的前一个</strong>
-假如top和pop为同一个,对于 ((())) 的嵌套形式是没问题的, 但对于连串形式如:
-例如 ( ( ) ( ) ( ) ( ) <strong>( )</strong> ) )
-string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1...实际上是10-0=10</p>
-<p><strong>也因为这个i-top的方法,我们需要在最开始的栈底压入一个-1,
-代表字符串开头</strong> 针对 ( ) ( ) ( ) 的情况, 最后一个右括号pop完,
-不压入一个-1你让人家减谁去算长度....</p>
-<p>顺带一提原方法错误的案例 再看( ) ( ( ), 原方法因为是只要不匹配失败,
-每过一位都会长度++,因此产生错误结果 4 而利用位置信息差算长度的方法,
-只会算出两个长度为2 的括号对 ,最大也就是2.</p>
+<p>输入: n = 3, k = 3 输出: "213"</p>
+<p>示例 2:</p>
+<p>输入: n = 4, k = 9 输出: "2314"</p>
+<h2 id="题目分析">题目分析</h2>
+<ol type="1">
+<li><p>我一开始想到的是全排列的函数的复用，我能找到全排列难道我找不到第k个排列？但我发现全排列那里并没有按序排列，因此不可复用..</p></li>
+<li><p>可以复用 下一个排列
+的函数，毕竟一直找找到第K个就好，效率较低，没尝试。</p></li>
+<li><p>数学计算。全排列每个位置的每个数其实是有数学特征的。比如对 1 2
+3</p>
+<p>3.1 <strong>首位情况</strong>：
+肯定先是1在首位两次，然后是2首位2次，然后是3首位两次。</p>
+<p>3.2
+<strong>次位情况</strong>：除掉首位数字，剩下的数字在nums[]中，同样也是先nums[0]作为次位，出现
+<strong>尾部排列次数</strong> 次，然后是nums[1]...依次类推。</p>
+<p>综上：即我们知道每位的次数情况，比如 1 2
+3中，我们要找第5个排列，因为首位1在前两个， 首位2 在3 4 个，因此
+第5个排列必然是首位3。 再看次位，第5个排列，除去 1 2
+首位的四个，我们要找的是3首位的第一个，依次类推即可。
+即我们可以直接计算出每一位应该是什么数字。然后组成result即可。</p></li>
+<li><p>细节</p>
+<p>4.1 当前位
+每个数字出现次数，由尾部的全排列次数决定，而全排列是n！，因此最好能预置个阶乘结果数组。</p>
+<p>4.2 k/fac[n-1] 向上取整得i，此时该位应该是
+nums里的第i个数（下标i-1），同时对nums删除这个数。</p>
+<p>4.3 n==1 时，nums只剩一个数，直接连上并返回。</p></li>
+</ol>
 <h1 id="题解代码">题解代码</h1>
-<p>算法比较简单, 但分析细节还是比较令人舒适的~ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        stack&lt;<span class="keyword">int</span> left;</span><br><span class="line">        left.push(-1);//压入字符串头，以防（）（）（）（）情况</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]==&#x27;(&#x27;)   //左括号 下标 入栈</span><br><span class="line">                left.push(i);</span><br><span class="line">            <span class="keyword">else</span>    //右括号消除一个左括号，并用下标差计算长度</span><br><span class="line">            &#123;</span><br><span class="line">                left.pop();</span><br><span class="line">                <span class="keyword">if</span>(left.empty()!=<span class="literal">true</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(i-left.top()result)</span><br><span class="line">                        result=i-left.top();  </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    left.push(i);</span><br><span class="line">                  </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">getPermutation</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="comment">//题解数组</span></span><br><span class="line">        <span class="keyword">const</span> vector&lt;<span class="keyword">int</span> fac = &#123;0,1,2,6,24,120,720,5040,40320,362880,3628800&#125;;</span><br><span class="line">        string result(n,&#x27;0&#x27;);</span><br><span class="line">        string nums(n,&#x27;0&#x27;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;n;i++)</span><br><span class="line">            nums[i]=&#x27;1&#x27;+i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;n0;i++)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">int</span> a;</span><br><span class="line">            <span class="keyword">int</span> left=0;</span><br><span class="line">            <span class="keyword">if</span>(n=2) //计算每个首位有多少个排列,跳过这些排列</span><br><span class="line">            &#123;   </span><br><span class="line">                left=fac[n-1];</span><br><span class="line">                a=k/left;</span><br><span class="line">                <span class="keyword">if</span>(k%left!=0)</span><br><span class="line">                    a++;</span><br><span class="line">                result[i]=nums[a-1];</span><br><span class="line">                k-=(a-1)*left;</span><br><span class="line">                nums.erase(a-1,1);</span><br><span class="line">                n--;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> //只剩一个数,直接修改返回</span><br><span class="line">            &#123;</span><br><span class="line">                result[i]=nums[0];</span><br><span class="line">                <span class="keyword">return</span> result;   </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -580,7 +436,7 @@ string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1...实际上
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-31/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-61/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -594,7 +450,7 @@ string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1...实际上
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-31/" class="post-title-link" itemprop="url">LeetCode-No-31</a>
+            <a href="/2020/02/17/LeetCode-No-61/" class="post-title-link" itemprop="url">LeetCode-No-61</a>
         </h2>
 
         <div class="post-meta">
@@ -625,8 +481,8 @@ string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1...实际上
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-31/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-31/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-61/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-61/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -641,50 +497,43 @@ string[9]和string[10]匹配了,目前合法长度肯定不是10-9=1...实际上
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="下一个排列"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-permutation">下一个排列</a></h1>
-<p>实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</p>
-<p>如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
-必须原地修改，只允许使用额外常数空间。</p>
-<p>以下是一些例子，输入位于左侧列，其相应输出位于右侧列。 1,2,3 → 1,3,2
-3,2,1 → 1,2,3 1,1,5 → 1,5,1</p>
-<h1 id="思路分析">思路分析</h1>
-<h3 id="是否存在更大的排列">①是否存在更大的排列</h3>
-<h5 id="更大的排列">更大的排列</h5>
-<p>考虑最大的字典序排列: 降序排列 <strong>[1,2,3]</strong> →
-<strong>[3,2,1]</strong> 对于 <strong>[3,2,1]</strong>
-序列,已经是最大字典序了</p>
-<p>假如序列存在一个更大的排列,那它必然不是降序排列
-因此判断是否存在下一个排列的条件就是
-<strong>顺序遍历数组,判断是否完全降序</strong></p>
-<h3 id="找到下一个排列">②找到下一个排列</h3>
-<p>首先对于<strong>[1,2,3,4,5,6]</strong>,假如我们要人工找到下一个排列,我们知道要把倒数两位调换一下<strong>[1,2,3,4,6,5]</strong>,这样值的变动最小,字典序大小变动也最小.</p>
-<h5
-id="为什么最后两位调换之后字典序会变大呢">为什么最后两位调换之后字典序会变大呢?</h5>
-<p>我们可以发现一个本质: <strong>它们是升序的,
-升序排列那么必然就存在可以调换成降序的操作空间</strong>,因此可以改动升序关系的任意两位来获取一个更大的字典序
-如 <strong>[1,2,5,4,3,6]</strong></p>
-<h5
-id="知道了获得更大序的方法接下来我们要确定什么操作能得到最小的更大序下一个更大的序列">知道了获得更大序的方法,接下来我们要确定什么操作能得到最小的更大序(下一个更大的序列)</h5>
-<p>其实字典序类似于数的大小关系. 比如<strong>[1,2,3]</strong> →
-<strong>[2,1,3][1.3.2]</strong></p>
-<p>所以为了找到最小的更大序列,我们操作的<strong>升序数对</strong>要尽可能的小.所以目标就变成了:</p>
-<h5 id="找到最靠后的一对升序数对">找到最靠后的一对升序数对</h5>
-<p><strong>[9,8,3,6,5,4]</strong>→<strong>[9,8,4,3,5,6]</strong>
-最靠后的/最小的 升序数对是
-[3,4],初步调换后是<strong>[9,8,4,6,5,3]</strong>
-显然这个结果还不太对.</p>
-<p>找到了最小的升序数对只是保证了在一步操作的范围内,我们增加的值是最小的.
-换句话说,其实再多加几步操作才能保证是下一个序列. 来看看我们还差些什么
-<strong>[9,8,4,6,5,3]</strong> →<strong>[9,8,4,3,5,6]</strong> ,
-4的后面原本是降序,被整理成了升序</p>
-<p>首先在我们的算法里,我们从后往前找一个升序的"峰值"
-换句话说,我们在找到""峰值""之前,也即从末尾到"峰值"",必然是降序的,也就是局部最大的序列.
-因此我们调换了一对最小的升序对,整个序列在""峰值""之前已经是最小的了,
-但在调换位置之后的局部仍然是降序,即现在的序是<strong>前半段最小+后半段最大</strong>,
-因此<strong>将""峰值""往后调整成升序,即后半段最小</strong>即可构成"最小+最小"的下一个排列.</p>
+          <h1 id="旋转链表"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-list">旋转链表</a></h1>
+<p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p>
+<p>示例 1:</p>
+<p>输入: 1-2-3-4-5-NULL, k = 2 输出: 4-5-1-2-3-NULL 解释: 向右旋转 1 步:
+5-1-2-3-4-NULL 向右旋转 2 步: 4-5-1-2-3-NULL</p>
+<p>示例 2:</p>
+<p>输入: 0-1-2-NULL, k = 4 输出: 2-0-1-NULL 解释: 向右旋转 1 步:
+2-0-1-NULL 向右旋转 2 步: 1-2-0-NULL 向右旋转 3 步: 0-1-2-NULL 向右旋转
+4 步: 2-0-1-NULL</p>
+<h1 id="题目分析">题目分析</h1>
+<h5 id="直观移位每个节点向右移动k位">1.
+直观移位——每个节点向右移动K位</h5>
+<p>遍历每个节点，都后向计算出该位置的新节点，即向左找K位，然后赋值过来。思路很简单。
+（前向计算也是可以的，甚至更利于想出优化的第二步） #####
+注意细节：一个是移动出了链头，要转到链尾继续移动。 #####
+然而链表头并没有指向链尾的指针，因此怎么从链头转到链尾呢？
+一个很傻的方法是把链表数值做成vector...然后在vector中找相应的数值，然后赋给当前位置...
+很傻，浪费空间时间= = ##### 2.
+我们的目标是从链头转到链尾，然而链头唯一的跳转指针next又必须连着链表，所以不太好修改头指针。但是链尾的next是空的，我们是不是可以利于一下呢？
+再看前向计算，每个节点向右移动K位，找到正确位置然后赋值，问题也在于怎么从链尾转移到链头。
+##### 3.
+因此我们可以把链尾连向链头，即tail-next=head，此时找位置的问题就不存在了，可以开开心心对每个节点遍历。
+##### 4.
+遍历移动完想想，移完虽然AC了，但好像憨憨的？链表顺序还是原来的样子，对链尾连着链头的循环链表来讲，移完看起来只不过是head从原节点，往前走了几步，然后停了下来选了一个新位置当head。
+例如 1-2-3-4-5，k=2
+遍历移动==》4-5-1-2-3，即head往前走了K步，停在了4的位置，然后以4为链头往后即是新链表。
+##### 5.
+因此我们不需要遍历移动每个节点，首先我们找到链尾，然后知道链尾往前K个（包括链尾本身）即是新head，找到新head时，把head前一个的next置为NULL，断开循环链表即是所需链表。
+当然，我们在链尾的时候同样不能往前走，因此往前找K个即相当于往后找L-K+1个（不包括链尾）。
+你可能会想既然是从链尾向后找L-K+1个，那不是相当于从最初的head过去找L-K个吗？</p>
+<p>但是没有先遍历到链尾，把链尾链头连接起来的话，我们是没有循环链表的，即使一开始从head找出新head，我们还是得再遍历到链尾，连上链头，再把新链头和新链尾断开=
+=
+当然直接从head开始找，可以沿途把新链尾和原链头都存储下来，然后遍历到链尾的时候，该连的连该断的断即可=
+=。</p>
 <h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>()&lt;=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> currentid=nextid<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(currentid=<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[nextid]nums[currentid])</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="comment">//从后往前，找到第一组 升序对</span></span><br><span class="line">               flag=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            nextid--;</span><br><span class="line">            currentid--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(flag==<span class="number">1</span>)<span class="comment">//存在下一个更大排列</span></span><br><span class="line">        &#123;</span><br><span class="line">                <span class="comment">//交换生成新排列</span></span><br><span class="line">            <span class="keyword">while</span>(nextid+<span class="number">1</span>&lt;nums.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[nextid+<span class="number">1</span>]nums[currentid] )</span><br><span class="line">                    nextid++;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">tempswap</span>(nums[currentid],nums[nextid]);</span><br><span class="line">            <span class="comment">//currentid右边必然是降序</span></span><br><span class="line">            <span class="comment">//将currentid右边升序处理</span></span><br><span class="line">            nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(currentid+<span class="number">1</span>&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">tempswap</span>(nums[nextid],nums[currentid+<span class="number">1</span>]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;   <span class="comment">//不存在，则倒序</span></span><br><span class="line">            nextid=nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">            currentid=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(currentid&lt;nextid)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">tempswap</span>(nums[nextid],nums[currentid]);</span><br><span class="line">                nextid--;</span><br><span class="line">                currentid++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">tempswap</span><span class="params">(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp; b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp=b;</span><br><span class="line">            b=a;</span><br><span class="line">            a=temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* rotateRight(ListNode* head, int k) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* i=head;</span><br><span class="line">        int L=0;</span><br><span class="line">        if(head==NULL)</span><br><span class="line">            return head;</span><br><span class="line">        </span><br><span class="line">        while(i-next!=NULL)//找链尾</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            i=i-next;</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">        L++;</span><br><span class="line"></span><br><span class="line">        i-next=head;//首尾相连</span><br><span class="line">        //缩小k</span><br><span class="line">        k%=L;</span><br><span class="line">        int j=0;</span><br><span class="line">        //从末尾起移动L-k到达 i , i-next是新头</span><br><span class="line">        k=L-k;</span><br><span class="line"></span><br><span class="line">        while(j&lt;k)</span><br><span class="line">        &#123;</span><br><span class="line">            i=i-next;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        head=i-next;</span><br><span class="line">        i-next=NULL;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">       return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -704,7 +553,7 @@ id="知道了获得更大序的方法接下来我们要确定什么操作能得�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-4-/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-62-64/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -718,7 +567,7 @@ id="知道了获得更大序的方法接下来我们要确定什么操作能得�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-4-/" class="post-title-link" itemprop="url">LeetCode-No-4-</a>
+            <a href="/2020/02/17/LeetCode-No-62-64/" class="post-title-link" itemprop="url">LeetCode-No-62-&-No-63-&-No-64</a>
         </h2>
 
         <div class="post-meta">
@@ -749,8 +598,8 @@ id="知道了获得更大序的方法接下来我们要确定什么操作能得�
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-4-/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-4-/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-62-64/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-62-64/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -765,84 +614,168 @@ id="知道了获得更大序的方法接下来我们要确定什么操作能得�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="寻找两个有序数组的中位数"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays">寻找两个有序数组的中位数</a></h1>
-<p>给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
-请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m +
-n))。 你可以假设 nums1 和 nums2 不会同时为空。 示例 1: nums1 = [1, 3]
-nums2 = [2] 则中位数是 2.0</p>
-<p>示例 2: nums1 = [1, 2] nums2 = [3, 4] 则中位数是 (2 + 3)/2 = 2.5</p>
-<h2 id="思路分析">思路分析</h2>
-<p><strong>首先</strong>, 题目有 log
-时间复杂度限制，不能重组数组暴力解决</p>
-<p><strong>已知</strong>,
-两数组有序不为空，找到中位数的难点在于怎么把两个数组的数一起考虑</p>
-<p><strong>目标</strong>,
-中位数定义：将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。所以我们其实是找一个方法，把两个数组同时划分成两块，左边块的所有数都比右边块的所有数要小。
-若分割后左边有 k 个数，此时划分的边界有 LMax1,LMax2,RMin1,RMin2：</p>
-<ul>
-<li>Max(LMax1,LMax2) 必然是第 k 个数</li>
-<li>Min(RMin1,RMin2) 必然是第 k+1 个数</li>
-</ul>
-<p>即我们可以定位到第 k 个数，中位数的序号 k
-也可通过数组长度得到。因此，我们需要：</p>
-<p><strong>两个数组同时分割成有大小关系的两块，左块总共有 k 个数，k
-为中位数序号，此时中位数要么是第 k 个，要么是第 k 个和第 k+1
-个，都可以在边界找到</strong></p>
-<h2 id="题解分析-链接原高赞题解"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/4-xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-shu/">题解分析</a>
-（链接原高赞题解）</h2>
-<h3 id="分割主体思路">分割主体思路</h3>
-<p>要把两数组同时分割成两块，先看单一数组的内部。因为数组是有序的，所以假如在中间一割，同一数组的左边肯定小于右边。</p>
-<p>为了达到我们两个数组整体分割的目标，我们还需要满足对一个数组都有，分割的左边最大值小于另一个数组的右边最小值，这样左边的整体必然就会小于右边的整体。</p>
-<p>另外注意切割后要满足左大块总共有 k 个数。</p>
-<figure>
+          <h1 id="不同路径-i-ii"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths-ii">不同路径 I &amp;
+II</a></h1>
+<p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start”
+）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
 <img
-src="https://upload-images.jianshu.io/upload_images/19387483-5f138dbbe56bdd7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
-alt="题解示意图，来自 LeetCode 扁扁熊" />
-<figcaption aria-hidden="true">题解示意图，来自 LeetCode
-扁扁熊</figcaption>
-</figure>
-<h3 id="边界数赋值">边界数赋值</h3>
-<p>假如分割点恰巧在有数的位置 C, 为方便比较大小，LMax=RMin=L[C],
-即中位数同时分给两边。</p>
-<p>假如分割点在两数之间，即 LMax 和 RMin 即分属两边。</p>
-<h3 id="假想放大数组">假想放大数组</h3>
-<p>因为无法用整数下标表示描述在两数之间的位置，但实际存在这种分割情况。
-所以我们不妨将每个数组<strong>放缩成 2m+1 的长度</strong>,
-即给两数之间也加入一个标识位置。 例如 [1,2,3] 假想放缩成 [#
-,1,#,2,#,3,#],</p>
-<p>此时：<strong>数的实际位置=假想位置/2</strong>，
-<strong>两数之间的假想位置=数的假想位置+-1</strong>。</p>
-<p>设放大后对一个数组切割的假想下标（虚位）为 C。 此时无论 C
-是<strong>数的虚位</strong>还是<strong>空的虚位</strong>, 都满足
-LMax=L[(C-1)/2] RMin=L[C/2],
-注意放缩产生的虚位是假想的，因此访问时要转换回实位</p>
-<p>例如对于 [# ,1,#,2,#,3,#] 2 的原下标是 1, 假想下标是 3, 3/2=1
-若此时以，C=3 为切割位置，即切在点上，则
-LMax=L[(C-1)/2]=L[1]=2,RMin=L[C/2]=L[1]=2 若以 C=4
-为分割处，即切在空上，LMax=L[1]=2,RMin=L[2]=3.</p>
-<p><strong>放大数组后，切点切空都可以用同一个式子正确给 LMax 和 RMin
-赋值</strong></p>
-<h3 id="左块确保有-k-个数">左块确保有 k 个数</h3>
-<p>因为放大后数组总长度是 2m+2n+2，所以中位数在是 第 m+n+1 数和第 m+n+2
-数相加的平均值。</p>
-<p>因此有 <code>k=m+n+1</code>，且 <code>C2=m+n-C1</code>。</p>
-<p>真实数组序号从 0 开始，所以 C1+C2=k-1, 左块才有 k 个数，<strong>不是
-C1+C2=m+n+1</strong>。</p>
-<h3 id="切割终止条件">切割终止条件</h3>
-<p>好，现在我们随便怎么切，都能确保左边是 k
-个数。但是注意为了维护左块所有数一定小于右块所有数，我们需要有<code>LMax&lt;=RMin</code></p>
-<h3 id="处理边界情况">处理边界情况</h3>
-<p>切割时切割点可能在数组最左边或者最右边，此时直观上理解可知，切最左边的时候，LMax=无穷小，切最右边的时候
-RMin=无穷大</p>
-<h3 id="切割点遍历方式">切割点遍历方式</h3>
-<p>切割点选择方式确定后，我们要逐步逼近正确的切割点
-类似于查找算法，此时可用二分法进行逼近，满足效率 O(log).</p>
-<h2 id="最终代码">最终代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> &lt;vector        <span class="comment">//注意头文件的加入，否则 INT_MIN 之类的可能无法使用</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> &lt;stdio.h</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums1, vector&lt;<span class="keyword">int</span>&amp; nums2)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> length1=nums1.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> length2=nums2.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(length1length2)        <span class="comment">//节省效率，以最短的数组为主切割 C1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">findMedianSortedArrays</span>(nums2,nums1);</span><br><span class="line">        <span class="keyword">int</span> LMax1;</span><br><span class="line">        <span class="keyword">int</span> LMax2;</span><br><span class="line">        <span class="keyword">int</span> RMin1;</span><br><span class="line">        <span class="keyword">int</span> RMin2;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">int</span> k=length1+length2;</span><br><span class="line">        <span class="keyword">int</span> c1;</span><br><span class="line">        <span class="keyword">int</span> c2;<span class="comment">//切割点</span></span><br><span class="line">        <span class="keyword">int</span> lo=<span class="number">0</span>;<span class="comment">//二分逼近变量</span></span><br><span class="line">        <span class="keyword">int</span> hi=length1*<span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//二分确定切割点</span></span><br><span class="line">        <span class="keyword">while</span>(lo&lt;=hi)  <span class="comment">//写 LMax1RMin2 || LMax2RMin1 为什么不可以</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//计算切割点，保持了左边都是 k 个数</span></span><br><span class="line">            c1=(lo+hi)/<span class="number">2</span>;</span><br><span class="line">            c2=k-c1;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//计算四个边界值</span></span><br><span class="line">           (c1==<span class="number">0</span>) ? LMax1=INT_MIN : LMax1=nums1[(c1<span class="number">-1</span>)/<span class="number">2</span>];</span><br><span class="line">            (c1==<span class="number">2</span>*length1) ? RMin1=INT_MAX : RMin1=nums1[c1/<span class="number">2</span>];</span><br><span class="line">             (c2==<span class="number">0</span>) ? LMax2=INT_MIN : LMax2=nums2[(c2<span class="number">-1</span>)/<span class="number">2</span>];</span><br><span class="line">            (c2==<span class="number">2</span>*length2) ? RMin2=INT_MAX : RMin2=nums2[c2/<span class="number">2</span>];</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(LMax1RMin2)<span class="comment">//左上大于右下，左下显然小于右下，切多了，hi 降低</span></span><br><span class="line">                hi=c1<span class="number">-1</span>;          </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(LMax2RMin1)<span class="comment">//左下大于右上，左上显然小于右上，少了。lo 升高</span></span><br><span class="line">                lo=c1+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span>       <span class="comment">//左上小于右上右下，左下小于右上右下，目标条件。</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> LMax,RMin;</span><br><span class="line">        LMax=(LMax1LMax2)?LMax1:LMax2;</span><br><span class="line">        RMin=(RMin1&lt;RMin2)?RMin1:RMin2;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (LMax+RMin)/<span class="number">2.0</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr />
-<p>这个题目细节比较复杂，代码相对来说挺清晰简洁。</p>
+src="https://upload-images.jianshu.io/upload_images/19387483-b32c8851464ff850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+alt="示例" /></p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。 说明：m 和 n
+的值均不超过 100。</p>
+<p>示例 1:</p>
+<p>输入: [   [0,0,0],   [0,1,0],   [0,0,0]] 输出: 2 解释: 3x3
+网格的正中间有一个障碍物。 从左上角到右下角一共有 2 条不同的路径： 1.
+向右 - 向右 - 向下 - 向下 2. 向下 - 向下 - 向右 - 向右</p>
+<h1 id="题目分析">题目分析</h1>
+<h3 id="对没有障碍物的情况">对没有障碍物的情况</h3>
+<ol type="1">
+<li>小学数学思想：走到终点总共需要的操作是 m-1个向下 和
+n-1个向右，那么即是一个组合数问题，在总共m-1+n-1的操作步中，选取m-1个操作步放置向下操作，剩下的放向右操作。<span
+class="math display">\[C_{m+n-2}^{m-1}\]</span></li>
+</ol>
+<p>2.当然，组合数是一个阶乘运算，不太理想。再用编程思想去想，直观上是一个深度遍历，或者说回溯遍历的问题。即尝试每种可能的走路方案，走到终点则计数+1。
+3.说到回溯，大概率我们可以想想能不能换成动态规划？ ### 动态规划 1.
+首先这显然是一个依赖子问题解决的问题。考虑位置[i][j]，有两种方式可以到达这，一种是从[i-1][j]向下，一种是[i][j-1]向右。即[i][j]位置解，即依赖于上
+和 左 两个位置的解。</p>
+<ol start="2" type="1">
+<li>考虑dp[i][j]为到达[i][j]位置的总方法数，那么假如[i-1][j]能往下，则dp[i][j]+=dp[i-1][j]，同理对dp[i][j-1]。</li>
+<li>动态规划主体已经清晰了，再可以进一步优化空间细节。
+我们是按行遍历列，而每行开头的dp[i][0]仅依赖于dp[i-1][0]，即每行开头的dp可由列方向上的第一个生成。
+而每行的除开头外任意一个，在行方向上又仅依赖于前一个dp[i][j-1]。换句话说，我们至始至终在行方向上只需要一个O（1）的存储空间，保留行前一个的dp结果即可。
+<strong>即我们只需要一个O（n）的一行大小的列dp组，一个常数大小的行dp存储数即可。</strong></li>
+<li>注意细节，dp数组要用long类型= =int会炸</li>
+</ol>
+<h3
+id="no.64给每个位置加了权值要求走到右下角的权值累计和最小">No.64给每个位置加了权值，要求走到右下角的权值累计和最小</h3>
+<ol type="1">
+<li>同样也是动态规划，到任意一位置的最小权值，必然是由[i-1][j] 和
+[i][j-1]的最小值发展而来，以此类推。</li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&amp; obstacleGrid)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//动态规划</span></span><br><span class="line">        <span class="keyword">int</span> m=obstacleGrid.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n=obstacleGrid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">long</span> temp[n];<span class="comment">//注意要用long 有样例爆int....</span></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][<span class="number">0</span>]!=<span class="number">1</span>)</span><br><span class="line">            temp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)<span class="comment">//首行处理</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][i]!=<span class="number">1</span>)</span><br><span class="line">                temp[i]=temp[i<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                temp[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> row=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;row&lt;m;row++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[row][<span class="number">0</span>]==<span class="number">1</span>)<span class="comment">//首列障碍物处理</span></span><br><span class="line">                temp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;i++)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[row][i]==<span class="number">1</span>)</span><br><span class="line">                    temp[i]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    temp[i]+=temp[i<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> temp[n<span class="number">-1</span>];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-65/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-65/" class="post-title-link" itemprop="url">LeetCode-No-65</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-65/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-65/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="有效数字"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-number">有效数字</a></h1>
+<p>验证给定的字符串是否可以解释为十进制数字。</p>
+<p>例如:</p>
+<p>"0" = true " 0.1 " = true "abc" = false "1 a" = false "2e10" = true "
+-90e3   " = true " 1e" = false "e3" = false " 6e-1" = true "
+99e2.5 " = false "53.5e93" = true " --6 " = false "-+3" = false
+"95a54e53" = false</p>
+<p>说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表：</p>
+<p>数字 0-9 指数 - "e" 正/负号 - "+"/"-" 小数点 - "."
+当然，在输入中，这些字符的上下文也很重要。</p>
+<h1 id="题目分析">题目分析</h1>
+<ol type="1">
+<li><p>这题我感觉是一种代码实现问题，考查考虑问题是否全面？
+没有什么特别的算法思想，想清楚判定数字的流程，然后一路判断下来即可。但是要实现你原计划的流程，还是要好好打理一下自己的代码。</p></li>
+<li><p><strong>字符特征</strong> ： 2.1
+可能包含”0~9“，”e“，”.“，“+”，“-”，” “。 2.2 ”e”
+允许出现的次数？还要考虑“e”后是否允许出现”." ，
+”+“，”-“？是否允许作为开头结尾？前面是否一定要有数字？ 2.3 “."
+允许出现的次数？ ”." 后是否允许出现 “e" , "+ " ,"-
+"？是否允许作为开头结尾 ？前面是否一定要有数字？ 2.4 ”+“
+，”-“，最多出现两次，一次在幂，一次在指数，且一定位于其他符号之前，且不能作为结尾
+2.5 ”0~9“ ，”0“是否允许在幂 或者 指数 或者 小数部分
+的首部，是否允许”0“结尾的小数部分。 2.6 ” “，只能作为开头结尾。 2.7
+整个数，必须要有数字出现。</p></li>
+<li><p><strong>判断流程</strong> 3.1 数前空格清除 3.2 首位判断+ -
+号，然后进入幂部分/整数部分 3.3 正常判断数字，遇到 ”." 进入小数部分，“e”
+进入指数部分，其余false。 3.4.1
+小数部分，标记小数点已经用过，不能再出现，其余照常。 3.4.2
+指数部分，检查e前是否有数字，”+“
+”-“可以再用，重置”+-“的标志位，小数点不能用了，小数点标志位置false，当然e也不能再用了。继续照常检查数字。
+3.5 检查到” “，”
+“只能作为末尾出现，因此直接跳出主体循环，进入尾部判断环节。 3.6
+数的结尾检查，不能是”e", "+ " "-" ，但可以是“ . ”。
+3.7尾部清洗，一路检查是否是“ ”，遇到个不是的则false。 3.8
+检查全部通过，但它也要有数字才可能是数！return HasNum；</p></li>
+</ol>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isNumber</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//0开头结尾 true</span></span><br><span class="line">        <span class="comment">//多个e  false</span></span><br><span class="line">        <span class="comment">//e左右两边要有数 </span></span><br><span class="line">        <span class="comment">//指数不能为小数</span></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedSign=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedCom=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> UsedExp=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> HasNum=<span class="literal">false</span>;</span><br><span class="line">        <span class="comment">//首部空格清除</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//首位判断符号位</span></span><br><span class="line">        <span class="keyword">if</span>(i&lt;s.<span class="built_in">size</span>() &amp;&amp; (s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>) )<span class="comment">//符号</span></span><br><span class="line">        &#123;</span><br><span class="line">            UsedSign=<span class="literal">true</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//主体判断</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;s.<span class="built_in">size</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]=<span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i]&lt;=<span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                HasNum=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;+&#x27;</span> || s[i]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//主要用来判断指数的符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedSign==<span class="literal">false</span> &amp;&amp; s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedSign=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;.&#x27;</span>)<span class="comment">//小数点</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedCom==<span class="literal">false</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    UsedCom=<span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27;e&#x27;</span>)<span class="comment">//指数符号</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(UsedExp==<span class="literal">false</span> &amp;&amp; HasNum==<span class="literal">true</span>) <span class="comment">//e前需有数字</span></span><br><span class="line">                &#123;</span><br><span class="line">                    UsedExp=<span class="literal">true</span>;</span><br><span class="line">                    UsedSign=<span class="literal">false</span>;<span class="comment">//重置符号状态位,指数也可以带符号</span></span><br><span class="line">                    UsedCom=<span class="literal">true</span>;<span class="comment">//指数不能是小数</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i]==<span class="string">&#x27; &#x27;</span>) <span class="comment">//尾部空格</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(s[i<span class="number">-1</span>]==<span class="string">&#x27;e&#x27;</span> ||s[i<span class="number">-1</span>]==<span class="string">&#x27;+&#x27;</span> || s[i<span class="number">-1</span>]==<span class="string">&#x27;-&#x27;</span>)<span class="comment">//e + -结尾 不行</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;s.<span class="built_in">size</span>())<span class="comment">//尾部空格清除</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i]!=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> HasNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -861,7 +794,7 @@ RMin=无穷大</p>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -929,7 +862,7 @@ RMin=无穷大</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

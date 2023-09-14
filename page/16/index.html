@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/08/20/LeetCode-No-136/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-15-/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/20/LeetCode-No-136/" class="post-title-link" itemprop="url">LeetCode No.136</a>
+            <a href="/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
         </h2>
 
         <div class="post-meta">
@@ -232,7 +232,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-20 18:09:47" itemprop="dateCreated datePublished" datetime="2020-08-20T18:09:47+08:00">2020-08-20</time>
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/08/20/LeetCode-No-136/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/20/LeetCode-No-136/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-15-/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-15-/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,32 +269,172 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="只出现一次的数字"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number">只出现一次的数字</a></h1>
-<p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
-<p>说明：</p>
-<p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
-<p>示例 1:</p>
-<p>输入：[2,2,1] 输出：1</p>
-<p>示例 2:</p>
-<p>输入：[4,1,2,1,2] 输出：4</p>
-<h1 id="算法思想">算法思想</h1>
-<p>老规矩找到问题给出的性质——目标元素只出现一次，剩余元素出现<strong>两次</strong>。</p>
-<p>不多不少，正好两次。显然这是一个主要的突破口。</p>
-<p>两次很容易让我们想到，假如非目标元素两两揍一顿互相抵消就好了。什么方式可以让相同的数抵消，不同的数保留呢？</p>
-<h3 id="数位的异或运算">数位的异或运算</h3>
-<p>位的角度来看：1^1=0 0^0=0 1<sup>0=0</sup>1=1</p>
-<p>即相同的位会清空，不相同的位会保留。</p>
-<p>并且多位运算时：1<sup>1</sup>0=1<sup>(1</sup>0)=(1<sup>0)</sup>1=0</p>
-<p>易知位的异或运算具有结合律和交换律——即运算顺序不影响运算结果</p>
-<h3 id="数的异或">数的异或</h3>
-<p>从数位异或中可以看出，偶数次的 1 或者 0 运算后都是
-0，在数的层面上也是一样，出现偶数次的数两两运算后也为 0。而 0
-和任何数异或等于数本身。</p>
-<p>因此对整个数组进行异或运算，相当于最后剩个 0
-和目标元素异或，结果就是目标值。</p>
+          <h1 id="三数之和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum">三数之和</a></h1>
+<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素
+a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2]]</p>
+<h1 id="思路分析">思路分析</h1>
+<ul>
+<li><p>暴力O(n3) 这样做还不如不做kj</p></li>
+<li><p>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</p></li>
+<li><p><strong>牺牲O(Nlog
+N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p></li>
+<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c--。
+这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p></li>
+<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p></li>
+<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p></li>
+</ul>
+<h1 id="解题代码">解题代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> threeSum(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        set&lt;vector&lt;<span class="keyword">int</span> resultset;</span><br><span class="line">        //剪枝</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt;= 2)</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">  sort(nums.begin(), nums.end());</span><br><span class="line">        </span><br><span class="line">        //不剪枝会被0吓死=.=</span><br><span class="line">  <span class="keyword">if</span> (nums[0]=0 ||nums[nums.size()-1]&lt;=0)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (nums[0] == 0 &amp;&amp;nums[nums.size()-1]==0)</span><br><span class="line">    result.push_back(&#123; 0,0,0 &#125;);</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">int</span> center;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(center=0;center&lt;nums.size();center++)</span><br><span class="line">        &#123;</span><br><span class="line">            i=0;</span><br><span class="line">            j=nums.size()-1;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span>(i!=center &amp;&amp;j!=center)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]0 || nums[j]&lt;0)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">int</span> sum=nums[i]+nums[center]+nums[j];</span><br><span class="line">                <span class="keyword">if</span>(sum==0)</span><br><span class="line">                &#123;</span><br><span class="line">                    vector&lt;<span class="keyword">int</span> temp =&#123;nums[i],nums[center],nums[j]&#125;;</span><br><span class="line">                    <span class="keyword">if</span>(resultset.count(temp)==0)</span><br><span class="line">                    &#123;   </span><br><span class="line">                        result.push_back(temp);</span><br><span class="line">                        resultset.insert(temp);</span><br><span class="line">                    &#125;</span><br><span class="line">                    i++;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum&lt;0)</span><br><span class="line">                    i++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum0)</span><br><span class="line">                    j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table style="width:10%;">
+<colgroup>
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>执行用时 : 424 ms, 在所有 C++ 提交中击败了5.01%的用户 内存消耗 :24.3
+MB, 在所有 C++ 提交中击败了7.53%的用户</td>
+</tr>
+<tr class="even">
+<td>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题
+看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。
+挖个坑，搞懂了再回来看看。</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-16/" class="post-title-link" itemprop="url">LeetCode-No-16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-16/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="最接近的三数之和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum-closest">最接近的三数之和</a></h1>
+<p>给定一个包括 n 个整数的数组 nums 和
+一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p>
+<p>例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.</p>
+<p>与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).</p>
+<h1 id="解题思路">解题思路</h1>
+<ul>
+<li>一开始我想分解问题，确定一个数，找最接近的两个数，其中找两个数的过程也是通过确定一个数，找最接近的最后一个数。解题不难，但复杂度很高。</li>
+<li>又是一个逼近问题，做了几道现在应该领悟到了<strong>双指针逼近</strong>的方法是一个很好的寻找逼近值的策略。</li>
+</ul>
+<h3 id="算法主体">算法主体</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">while(i&lt;j)</span><br><span class="line">&#123;</span><br><span class="line">  if(sum&lt;target)</span><br><span class="line">    i++;</span><br><span class="line">  else if(sumtarget)</span><br><span class="line">    j--;</span><br><span class="line">  else if(sum==target)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>算法简单，但实现细节需要考虑，并不是出口附近的sum就一定是最接近的sum。</li>
+</ul>
+<p>假如简单的取上面这个粗糙的循环，对于实例([-101,-100,0,2,3,4,5,6,7,8,9,10],-99)。当i从-100移到0之后，j一直减到i期间的sum都没有i=-100处的sum良好，但却会作为出口给人最优的错觉。</p>
+<p>错误经验：最优解也并不是取最后一次i变动的sum和最后一次j变动的sum，因为可能变i变j再变i反复变化，然而最优解其实一直停留在第一个变i之前。</p>
+<ul>
+<li>我自己的解决办法是把所有的sum都存储起来，最后统一遍历找出最优解，但显然这样需要花一点点时间。</li>
+</ul>
 <h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//异或运算 相同的数异或归 0 且异或具有交换律</span></span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> num :nums)</span><br><span class="line">        &#123;</span><br><span class="line">            result^=num;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> result;</span><br><span class="line">  <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">  vector&lt;<span class="keyword">int</span> sums;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">int</span> c;</span><br><span class="line">  <span class="keyword">int</span> sum;</span><br><span class="line">  <span class="keyword">int</span> resultdistance = INT_MAX;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (a = 0; a &lt; nums.size() - 2; a++)</span><br><span class="line">  &#123;</span><br><span class="line">   b = a + 1;</span><br><span class="line">   c = nums.size() - 1;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span> (b &lt; c)</span><br><span class="line">   &#123;</span><br><span class="line">    sum = nums[a] + nums[b] + nums[c];</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    sums.push_back(sum);</span><br><span class="line">    <span class="keyword">if</span> (sum &lt; target)</span><br><span class="line">     b++;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sum  target)</span><br><span class="line">     c--;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">     <span class="keyword">return</span> sum;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;sums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(abs(target - sums[i]) &lt; resultdistance)</span><br><span class="line">    &#123;</span><br><span class="line">     result = sums[i];</span><br><span class="line">     resultdistance = abs(target - result);</span><br><span class="line">    &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr />
+<p>不存储所有结果，直接在每个sum之后与result比较，效率比存储的高了4ms。</p>
+<table>
+<thead>
+<tr class="header">
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2019.9.15</td>
+<td>通过</td>
+<td>12 ms</td>
+<td>8.7 MB</td>
+</tr>
+<tr class="even">
+<td>2019.9.11</td>
+<td>通过</td>
+<td>16 ms</td>
+<td>12.9 MB</td>
+</tr>
+</tbody>
+</table>
+<p>8ms可能是做不到了，量级上应该一样。</p>
 
       
     </div>
@@ -314,7 +454,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/08/20/%E9%98%85%E8%AF%BB-USIsis/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -328,7 +468,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/20/%E9%98%85%E8%AF%BB-USIsis/" class="post-title-link" itemprop="url">阅读：Drop Death</a>
+            <a href="/2020/02/17/LeetCode-No-22/" class="post-title-link" itemprop="url">LeetCode-No-22</a>
         </h2>
 
         <div class="post-meta">
@@ -338,7 +478,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-20 08:30:20" itemprop="dateCreated datePublished" datetime="2020-08-20T08:30:20+08:00">2020-08-20</time>
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -346,7 +486,7 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">杂记</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -359,8 +499,8 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/08/20/%E9%98%85%E8%AF%BB-USIsis/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/20/%E9%98%85%E8%AF%BB-USIsis/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-22/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-22/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -375,304 +515,90 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-num
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1
-id="us-to-drop-death-penalty-for-british-isis-members-accused-of-beheadings">US
-to drop death penalty for British Isis members accused of
-beheadings</h1>
-<p>美国对被指控斩首的，英国 Isis 成员，处以死刑。</p>
-<p>The US has promised not to pursue the death penalty against two
-British Isis members accused of taking part in the beheadings of western
-hostages, in return for UK cooperation with the prosecution.</p>
-<p>美国保证不对——两名参与西方人质斩首的英国 Isis
-成员——追究死刑，以换取英国能与起诉方合作。</p>
-<p>The pledge was given in a letter from the US attorney general,
-William Barr, to UK home secretary Priti Patel, in the case of Alexanda
-Kotey and El Shafee Elsheikh, members of the “Beatles” group of British
-Isis members, who were captured by Syrian Kurds and then handed over to
-US custody in October last year. They are still being held at a US
-facility overseas.</p>
-<p>这个承诺是在美国总检察长 William Barr，致英国内政大臣 Priti Patel
-的一封信中作出的。此时在去年十月被 Syrian Kurds
-逮捕并转送至美国押守的，英国 Isis 的披头士团成员 Alexanda Kotey 和 El
-Shafee Elsheikh，他们仍然被拘留在一处美国海外设施中。</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/20/%E9%98%85%E8%AF%BB-USIsis/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">git使用相关</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-18 18:10:29" itemprop="dateCreated datePublished" datetime="2020-08-18T18:10:29+08:00">2020-08-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="奇怪的问题汇总">奇怪的问题汇总</h1>
-<h2
-id="git连接github每次都需要输入账号密码">git连接GitHub每次都需要输入账号密码</h2>
-<h3 id="背景">背景</h3>
-<p>问题在于git clone
-的时候选择的链接是HTTPS的，因此在这个仓库中，git不会通过SSH密钥去进行免密认证。</p>
-<h3 id="解决方案">解决方案</h3>
-<p>命令行输入<code>git config  -l</code></p>
-<p>可以看到一大堆信息，关注其中一条与链接相关的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote.origin.url=https://...</span><br></pre></td></tr></table></figure>
-<p>我们需要url的https链接改回ssh即可。</p>
-<p>命令行输入 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config remote.origin.url git@github.com:你的仓库地址</span><br></pre></td></tr></table></figure></p>
-<p>试着<code>git push</code>一下=。=</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/18/git%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%85%B3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/08/17/C++%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/17/C++%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">C++函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-17 09:08:19" itemprop="dateCreated datePublished" datetime="2020-08-17T09:08:19+08:00">2020-08-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/08/17/C++%E5%87%BD%E6%95%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/17/C++%E5%87%BD%E6%95%B0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="局部静态对象">局部静态对象</h2>
-<p>有些时候，我们需要保留一些对象在函数体结束后依然使用，定义时使用<code>static</code>将其声明为静态类型，直到程序终止才销毁。</p>
-<blockquote>
-<p>虽然在函数外没有销毁，但是其仍然是局部变量，外部不可访问，只不过其内存也不释放。</p>
-</blockquote>
-<p>局部静态变量如果没有显式的初始化值，将执行<strong>值初始化</strong>，内置类型的值初始化为0。</p>
-<p>一个简单的例子，这个程序会输出 1~10 的数字。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">count_calls</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">size_t</span> num=<span class="number">0</span>;</span><br><span class="line">    num++;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">        cout&lt;&lt;<span class="built_in">count_calls</span>()&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="指针变量传递">指针变量传递</h2>
-<p>指针变量作为参数和普通变量作为参数一样，都是值传递。即形参和实参是两个不同的指针变量，两个指针自己的地址不一样，但是它们的值一样——即它们指向的地址是一样的。因此可以通过传递指针修改实参。</p>
-<h2 id="const-参数">const 参数</h2>
-<p>实参传给形参会忽略掉<strong>顶层const</strong>，即从函数外部看函数，我们不知道这个函数的参数究竟有没有顶层const，也因此<strong>不能通过顶层const来重载函数</strong>。例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> i)</span></span>&#123;···&#125;     <span class="comment">//忽略顶层 const</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn1</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;···&#125;           <span class="comment">//错误，重复定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn2</span><span class="params">( <span class="keyword">int</span> * <span class="keyword">const</span> i)</span></span>&#123;···&#125;  <span class="comment">//忽略顶层 const</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn2</span><span class="params">(<span class="keyword">int</span> * i)</span></span>&#123;···&#125;         <span class="comment">//错误，重复定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn3</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> * i)</span></span>&#123;···&#125;   <span class="comment">//这是底层 const，不会造成重复定义</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn3</span><span class="params">(<span class="keyword">int</span> * i)</span></span>&#123;···&#125;         <span class="comment">//正确</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn4</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;i)</span></span>&#123;···&#125;    <span class="comment">//正确，也类似于底层const，const int 算作一种独立类型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn4</span><span class="params">(<span class="keyword">int</span> &amp;i)</span></span>&#123;···&#125;          <span class="comment">//int优先匹配int&amp;，其次匹配const int&amp;。 const int只能匹配const int&amp;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>顶层可以理解为离变量最近的一层，顶层 const
-修饰指针本身的值，即指向哪一个地址不能被修改，底层 const
-修饰指针指向的对象的值不能被修改。</p>
-</blockquote>
-<p>形参初始化和变量初始化一样，关于 const
-的要求都是可<strong>降格兼容，不能升格</strong>。即如上<code>int</code>可用于初始化<code>const int</code>变量，<code>const int</code>不能初始化<code>int</code>变量。引用和指针层面也是类似，<code>cont int</code>引用可绑定到<code>int</code>对象，<code>int</code>引用不可绑定到<code>const int</code>对象。</p>
-<p><strong>尽量使用常量引用</strong>。使用常量引用可以避免拷贝数据，同时阻止非必要的修改操作。另一方面由于外部的
-const 类型不能升格传参给非 const 形参，容易发生类型匹配错误。而外部的非
-const 类型可以传给 const 形参，因此使用 const
-引用，也可以有效减少这种类型错误的情况。</p>
-<h2 id="数组形参">数组形参</h2>
-<p>数组有两个特殊性质，影响我们对数组的传参操作：</p>
+          <h1 id="括号生成"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/generate-parentheses">括号生成</a></h1>
+<p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
+<p>例如，给出 n = 3，生成结果为：</p>
+<p>[ "((()))", "(()())", "(())()", "()(())", "()()()"]</p>
+<h1 id="题解分析">题解分析</h1>
 <ul>
-<li>数组不能进行拷贝</li>
-<li>使用数组时相当于使用指针</li>
+<li><p>一开始我想创建一个2n的string数组
+因为string（包括子串）第一个空位一定会是' ( ' 因此我的算法思路是
+第一位肯定是' ( ' 不变，然后在剩下的length-1空位中遍历选一处插入')'
+然后递归进入子串插入，也是子串第一位 '( ' 不变，遍历剩下的空位一次次插入
+')' ，直到递归完成括号串。
+这种算法不能避免重复，而且我在创建动态长度的字符串这里就失败了=。=
+但没看到相似的思路，因此写下来说不定以后能够优化一下。</p></li>
+<li><h3 id="标准思路">标准思路</h3></li>
 </ul>
-<p>所以我们不能值传递数组，但是我们可以通过指针进行传递，如下三个等价的传递数组的函数，看起来不一样，其实都是形参都是
-const int*，导致重复定义：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//会互相造成重复定义错误</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> * a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[<span class="number">10</span>])</span></span>;<span class="comment">//这里数组大小只是一个期望大小，有没有完全一样，和没有的会造成重复定义。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>但是正如示例所述，只传递指针的话，我们不知道传进来的数组有多大，因此可以通过别的途径传递长度信息：</p>
+<p>递归对每一位进行检测，如果' ( '数量少，则这一位插入' (
+'进入递归，否则插入' ）'进行递归，直到填满。</p>
+<p>因为这种方法会遍历完所有'（'可能的位置，进而能够确定括号串，因此不会重复也不会遗漏。</p>
 <ul>
-<li>加一个length变量
-<code>void fcn(const int a[],int length);//用另一个变量标记长度</code></li>
-<li>取得尾后迭代器
-<code>void fcn(const int *begin,const int * end)//标准库规范做法，传递尾后元素，进行尾后检测</code></li>
+<li><h3 id="递归法代码">递归法代码</h3></li>
 </ul>
-<h3 id="多维数组">多维数组</h3>
-<p>我们知道多维数组其实就是一维数组，只不过数组元素是新数组指针而已。多维数组即看作指针的指针进行传递。如下，首先明确传参的只是一个指针，指向首元素，这个指针的类型是首元素类型。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">int</span> (* matrix)[<span class="number">10</span>])</span></span>;   <span class="comment">//matrix 是一个指针，指向首元素类型为 int[10]</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">int</span> matrix[][<span class="number">10</span>])</span></span>;     <span class="comment">//等价形式，前面示例知道 matrix[] 其实也是看作指针。</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">int</span> * matrix[<span class="number">10</span>])</span>      <span class="comment">//错误，这是一个一维数组，数组元素类型是 int*</span></span></span><br></pre></td></tr></table></figure>
-<p>注意，虽然上述传递一维数组会忽略数组大小，但是<strong>第二维及以上的数组大小算作一种数据类型</strong>，需要严格对应:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">int</span> a[][<span class="number">2</span>])</span> <span class="comment">// == int (*a) [2]  , != int *a[2]</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> b[<span class="number">2</span>][<span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">fcn</span>(b);<span class="comment">//错误，int (*)[4] 和 int(*)[2] 类型的形参不兼容。a指向int [2],b指向int[4]。</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>另外注意 int ** 和 int (*) [10] 不是同一个类型。</p>
-</blockquote>
-<h2 id="变长形参">变长形参</h2>
-<p>有时候我们不确定要传递几个实参给函数，因此 C++提供了两种方法。</p>
-<h3 id="initializer_list">Initializer_list</h3>
-<p>Initializer_list
-是一个很简单的列表容器，有点像python的<code>*args</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string generateParenthesis(<span class="keyword">int</span> n)</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;string result;</span><br><span class="line">       </span><br><span class="line">        Recursion(n,&quot;&quot;,0,0,result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"> <span class="keyword">void</span>  Recursion(<span class="keyword">int</span> n,string temp,<span class="keyword">int</span> left ,<span class="keyword">int</span> right,vector&lt;string&amp; result)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.size()== 2*n)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        <span class="keyword">if</span>(left&lt;n)</span><br><span class="line">            Recursion(n,temp+&#x27;(&#x27;,left+1,right,result);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(right&lt;left)</span><br><span class="line">            Recursion(n,temp+&#x27;)&#x27;,left,right+1,result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th>提交时间</th>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2 天前</td>
+<td>通过</td>
+<td>20 ms</td>
+<td>17 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>形参使用<code>initializer_list&lt;T&gt;</code>来接受列表参数</li>
-<li>实参使用初始化列表传参<code>&#123;T1,T2,T3&#125;</code></li>
-<li>函数体内则和其他容器一样访问。</li>
+<li><h3 id="动态规划">动态规划</h3></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">error_msg</span><span class="params">(<span class="keyword">int</span> count,initializer_list&lt;string&gt; msg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> arg =msg.<span class="built_in">begin</span>();arg!=msg.<span class="built_in">end</span>();++arg)</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">error_msg</span>(<span class="number">217</span>,&#123;<span class="string">&quot;Hello&quot;</span>,<span class="string">&quot;,&quot;</span>,<span class="string">&quot;World&quot;</span>,<span class="string">&quot;!&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="省略符">省略符</h3>
-<p>省略符是为了兼容 C 而设置的。通常<strong>不建议在 C
-之外使用</strong>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(parm_list,...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(...)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="返回值">返回值</h2>
-<h3 id="返回数组指针">返回数组指针</h3>
-<p>函数返回一个普通指针很简单，返回值 <code>type *</code>
-即可，但是返回一个指向数组的指针呢？正常声明数组指针变量是<code>type (*var)[size]</code>
-： var是一个指针，指向一个大小为size的数组，数组元素类型是type。</p>
-<p>那么函数返回同理：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> (* <span class="built_in">func</span>(param...)) [size]</span><br></pre></td></tr></table></figure>
-<h3 id="decltype返回">decltype返回</h3>
-<p>如果已知返回的是什么变量的类型，可以使用decltype来推断返回类型：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">decltype</span>(somevar) * <span class="built_in">func</span>(<span class="keyword">int</span> i)</span><br><span class="line">&#123;</span><br><span class="line">    retrun &amp;somevar;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="尾置返回">尾置返回</h3>
-<p>C++11更方便的尾置返回，在返回复杂的东西时显得很方便，例如返回数组指针：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> i)</span> -&gt; <span class="title">int</span><span class="params">(*)</span> [size]</span></span><br></pre></td></tr></table></figure>
-<h2 id="函数指针">函数指针</h2>
-<p>和普通类型的指针<code>type *</code>一样，把函数看作一种类型，可以定义函数指针如下，并且可以将函数名赋值给该指针，然后当做函数一样使用：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">func</span> <span class="params">(string,string)</span></span>;<span class="comment">//原函数</span></span><br><span class="line"><span class="built_in"><span class="keyword">bool</span></span> (*p) (string,string);<span class="comment">//定义该函数的指针,注意括号，没有括号则是一个叫做p的函数。</span></span><br><span class="line"><span class="comment">//两种赋值方式等价</span></span><br><span class="line">p=<span class="number">0</span>; <span class="comment">//0不指向任何函数</span></span><br><span class="line">p=func;</span><br><span class="line">p=&amp;func;</span><br><span class="line"><span class="comment">//两种调用方式等价</span></span><br><span class="line"><span class="keyword">bool</span> a=<span class="built_in">p</span>(str1,str2);</span><br><span class="line"><span class="keyword">bool</span> b=(*p)(str1,str2);</span><br></pre></td></tr></table></figure>
-<p>拥有了指针，自然也能将函数指针作为 函数参数 和 函数返回值 使用。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//两种形参方式等价，自动将函数类型转为函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">bool</span> p(string,string))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">bool</span> (*p)(string,string))</span></span>;</span><br><span class="line"><span class="comment">//两种传参方式等价，自动将函数类型转为函数指针</span></span><br><span class="line"><span class="built_in">f</span>(func);</span><br><span class="line"><span class="built_in">f</span>(p);</span><br><span class="line"><span class="comment">//注意在作为返回值时，函数名不会自动转为函数指针</span></span><br><span class="line"><span class="built_in"><span class="keyword">bool</span></span> (*<span class="built_in">f</span>(<span class="keyword">int</span> a)) (string,string); <span class="comment">//f(int a)是一个函数，它返回一个指针，这个指针指向函数 bool func (string,string)。</span></span><br></pre></td></tr></table></figure>
-<p>显然上述的函数指针形式很繁琐，因此可以利用<code>typedef</code>和<code>decltype</code>等改名工具来简化：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//两种改名方式等价</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="title">f2</span><span class="params">(string,string)</span></span>;<span class="comment">//f2类型==func类型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(func)</span> f3</span>;     <span class="comment">//f3类型==func类型</span></span><br><span class="line"><span class="keyword">using</span> f4=<span class="built_in"><span class="keyword">bool</span></span> (string,string)  <span class="comment">//f4类型==func类型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in"><span class="keyword">bool</span></span> (*p2)(string,string);  <span class="comment">//p2类型==p类型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(func)</span> *p3</span>;         <span class="comment">//p3类型==p类型</span></span><br><span class="line"><span class="keyword">using</span> p4=<span class="built_in"><span class="keyword">bool</span></span> (*) (string,string)   <span class="comment">//p4类型==p类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//函数指针作为参数。两种方式等价，因为函数类型自动转换为函数指针类型</span></span><br><span class="line"><span class="keyword">void</span> <span class="built_in">f</span>(f3 afunc);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(p3 apoint)</span></span>;</span><br><span class="line"><span class="comment">//作为返回值时不等价。</span></span><br><span class="line"><span class="function">p3 <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span></span>;<span class="comment">//f(int a)是一个函数，返回p3类型，即指向func的函数指针类型。</span></span><br><span class="line"><span class="function">f3 <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span></span>;<span class="comment">//错误，不能将函数类型作为返回值</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span> -&gt; <span class="title">bool</span> <span class="params">(*)</span> <span class="params">(string,string)</span></span>;<span class="comment">//后置返回语法</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>类型别名</strong> 不是
-<strong>变量名</strong>，上述代码没有创建一个f3变量或者一个p3变量，应当看作类型名去使用。</p>
-</blockquote>
-<h1 id="参考资料">参考资料</h1>
-<p>C++ Primer 5 edition 中文版</p>
+<p>因为递归法效率还没有极致，因此看了看题解大神的解法，发现了一位用动态规划的人才。
+给上链接 ：</p>
+<h3 id="闭合数的合理解释-jerry-peng"><a
+href="%5Bhttps://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/%5D(https://leetcode-cn.com/problems/generate-parentheses/solution/bi-he-shu-de-he-li-jie-shi-by-jerry-peng/)">闭合数的合理解释-Jerry
+Peng</a></h3>
+<ul>
+<li><p>算法分析 对于每个n对括号的括号串S[n] 都可以划分为两个部分
+<code>S[n] = '(' + S[c] + ')' + S[n-c-1];</code>
+第一对括号里面带着c长度的子问题， 右边剩下部分n-c-1长度的子问题
+<strong>自底向上，存储子问题结果，逐步合并到n长度的问题</strong>。
+因为要找到所有可能结果，因此c的取值需要遍历所有可能。</p></li>
+<li><h3 id="动态规划代码">动态规划代码</h3></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;string generateParenthesis(<span class="keyword">int</span> n)</span><br><span class="line">    &#123;</span><br><span class="line">       map&lt;<span class="keyword">int</span>,vector&lt;string resultmap;</span><br><span class="line">        resultmap[0].push_back(&quot;&quot;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=1;i&lt;=n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=0;j&lt;i;j++)</span><br><span class="line">                <span class="keyword">for</span>(string left: resultmap[j])</span><br><span class="line">                    <span class="keyword">for</span>(string right: resultmap[i-j-1])</span><br><span class="line">                    resultmap[i].push_back(&quot;(&quot;+left+&quot;)&quot;+right);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> resultmap[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr class="header">
+<th>提交时间</th>
+<th>提交结果</th>
+<th>执行用时</th>
+<th>内存消耗</th>
+<th>语言</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2 天前</td>
+<td>通过</td>
+<td>12 ms</td>
+<td>9.6 MB</td>
+<td>Cpp</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>有想过为什么不直接分为left 和 right
+两个部分，一定要套个括号</strong> 　——假如只分两半left 和
+right，那在求解S[n]遍历的时候肯定要遍历到S[n]自身，因此需要先固定好一对括号，这样遍历会停止在S[n-1]的子问题，然后合并出待解的S[n]问题。</p>
 
       
     </div>
@@ -692,7 +618,7 @@ const int*，导致重复定义：</p>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -706,7 +632,7 @@ const int*，导致重复定义：</p>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/" class="post-title-link" itemprop="url">C++构造函数初始化列表</a>
+            <a href="/2020/02/17/LeetCode-No-23/" class="post-title-link" itemprop="url">LeetCode-No-23</a>
         </h2>
 
         <div class="post-meta">
@@ -716,7 +642,7 @@ const int*，导致重复定义：</p>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-05 10:55:57" itemprop="dateCreated datePublished" datetime="2020-08-05T10:55:57+08:00">2020-08-05</time>
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -724,7 +650,7 @@ const int*，导致重复定义：</p>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -737,8 +663,8 @@ const int*，导致重复定义：</p>
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-23/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-23/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -753,25 +679,168 @@ const int*，导致重复定义：</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="语法">语法</h1>
-<p>在构造函数的（）之后，冒号开头，逗号分隔，括号传参，这一段就是初始化列表，随后是在{}里写构造函数内容。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Example</span>(argv):<span class="built_in">a</span>(<span class="number">1</span>),<span class="built_in">b</span>(<span class="number">2</span>) </span><br><span class="line">&#123;</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="初始化作用">初始化作用</h1>
-<h2
-id="无法赋值的成员必须使用初始化列表进行初始化">无法赋值的成员，必须使用初始化列表进行初始化</h2>
-<p>例如假设有个类成员，它本身是个没有默认构造函数的类。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CMember</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">CMember</span>(<span class="keyword">int</span> x)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们都知道此时<code>CMember* pm=new CMember;</code>是错误的，必须调用有参数的构造函数。</p>
-<p>此时 CMember 是另一个类的成员时，我们怎么初始化呢？</p>
-<p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/05/C++%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h1 id="合并k个链表"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-sorted-lists">合并K个链表</a></h1>
+<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
+<p>输入: [ 　1-4-5,   　1-3-4,   　2-6] 输出: 1-1-2-3-4-4-5-6</p>
+<h1 id="解题分析">解题分析</h1>
+<ul>
+<li><p>因为之前做过2个排序链表的合并，所以这里主要想法是两两归并。
+两个链表合并：双指针判断对应节点大小，依次插入新链表，若一个链表用尽，则在result链表后接上另一个链表即可。</p></li>
+<li><p>归并其实也有讲究，我一开始直接用的是顺序归并<code>result=mergeTwoLists(result,temp)</code>，其实浪费了很多效率，把不必要的排序比较一遍又一遍的做。</p></li>
+<li><p>如下方题解代码，使用了折半归并（直观描述词）。每次合并<code>List i =mergeTwoLists(List i,List i+halflength)</code>.
+直到长度为1即完成。</p></li>
+</ul>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* mergeKLists(vector&lt;ListNode*&amp; lists) </span><br><span class="line">    &#123;</span><br><span class="line">        ListNode* result=NULL;</span><br><span class="line">        int length=lists.size();</span><br><span class="line">        if(length==0)</span><br><span class="line">            return NULL;</span><br><span class="line">        while(length1)</span><br><span class="line">        &#123;</span><br><span class="line">            int temp=(length+1)/2;</span><br><span class="line">            for(int i=0;i&lt;length/2;i++)</span><br><span class="line">                lists[i]=mergeTwoLists(lists[i],lists[i+temp]);</span><br><span class="line">            </span><br><span class="line">            length=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        return lists[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)</span><br><span class="line">   &#123;</span><br><span class="line">   </span><br><span class="line">    ListNode result(0);</span><br><span class="line">    ListNode* another = &amp;result;</span><br><span class="line"></span><br><span class="line">    while (l1 != NULL &amp;&amp; l2 != NULL)</span><br><span class="line">    &#123;</span><br><span class="line">   </span><br><span class="line">     if (l1-val &lt;= l2-val)</span><br><span class="line">     &#123;</span><br><span class="line">      another-next = l1;</span><br><span class="line">      l1 = l1-next;  </span><br><span class="line">     &#125;</span><br><span class="line">     else</span><br><span class="line">     &#123;</span><br><span class="line">      another-next = l2;</span><br><span class="line">      l2 = l2-next;</span><br><span class="line">     &#125;</span><br><span class="line">              </span><br><span class="line">              another = another-next;</span><br><span class="line">    &#125;</span><br><span class="line">                   </span><br><span class="line">          another-next=(l1==NULL)?l2:l1;</span><br><span class="line">    return (&amp;result)-next;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-28-(KMP)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-28-(KMP)/" class="post-title-link" itemprop="url">LeetCode-No-28-(KMP)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-28-(KMP)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-28-(KMP)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="实现-strstr-函数"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr">实现 strStr() 函数</a></h1>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack
+字符串中找出 needle 字符串出现的第一个位置
+(从0开始)。如果不存在，则返回  -1。</p>
+<p>示例 1:</p>
+<p>输入: haystack = "hello", needle = "ll" 输出: 2</p>
+<p>示例 2:</p>
+<p>输入: haystack = "aaaaa", needle = "bba" 输出: -1</p>
+<p>说明:
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+对于本题而言，当 needle 是空字符串时我们应当返回 0
+。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+<blockquote>
+<p>显然这题主要目标是在主串中找到一个模式串，而我在数据结构课中有学到<strong>KMP</strong>算法，因此我首选题解就是<strong>实现KMP</strong>。</p>
+</blockquote>
+<h2 id="kmp-主要思想不回退的主串查找位有效利用失败信息">KMP
+（主要思想：<strong>不回退的主串查找位，有效利用失败信息</strong>）</h2>
+<h3 id="暴力法存在的问题">暴力法存在的问题</h3>
+<p>主串abcdabcdabce，模式串abcdabce. 标志位 i，j</p>
+<p>我们可以知道第一次匹配会在abcdabc<code>d</code>abce，abcdabc<code>e</code>处失败
+在暴力法中，失败后 i ++，j=0，从i=1，j=0 处再次开始一轮匹配。
+即主串明明匹配到了第8位，失败后却还要回退到第二位开始新的匹配，无疑浪费了很多时间。</p>
+<h3 id="失败返回的有效信息">失败返回的有效信息</h3>
+<p>模式串在 e 处失败，可以带给我们什么有效信息：</p>
+<ol type="1">
+<li>主串前面有<code>abcdabc</code></li>
+<li>主串这一位不为<code>e</code></li>
+</ol>
+<h3 id="利用返回的有效信息">利用返回的有效信息</h3>
+<p>已经已知主串有了这七个字符，按人的思维去分析的话，可以知道主串前四位<code>abcd</code>都没必要去做新的匹配模式串的循环了，因为一定会失败，而5
+~ 7位<code>abc</code>虽然是在匹配模式串的5 ~
+7位匹配出来的，但是却也可以匹配模式串的前三位。因为这些都是已知信息，所以我们可以直接当失败处abcd<code>abc</code>d已经匹配了模式串的<code>abc</code>，只需要拿<code>d</code>去匹配<code>d</code>即可。</p>
+<p>相当于不仅没回退，还可以在当前位置上直接跳过模式串前三位进行后续匹配。</p>
+<p>而把上面的思路写成逻辑，我们就需要分析其产生的原因条件，以及导出的结果</p>
+<p><strong>为什么恰巧可以跳过呢</strong>？让我们来看一下跳过时的环境条件</p>
+<ol type="1">
+<li>失败前的倒数几位，刚好可以拿去匹配正数前几位，因此相当于匹配好了前几位</li>
+<li>这种在某一位失败之后能否产生跳跃的信息，只和模式串本身有关，和主串无关，因为我们是用失败的倒数几位去匹配前几位，全是模式串自己。</li>
+</ol>
+<p>因此我们可以找到跳过的思路，对于匹配失败时：</p>
+<ol type="1">
+<li>假如模式串在这个字符之前的倒数几位能和整数几位匹配，那就直接略过，i
+不变，j 跳到整数几位的后一位接着匹配</li>
+<li>假如不能形成这种前后缀的匹配，则直接让 i
+++，在下一位开始全新的匹配</li>
+</ol>
+<blockquote>
+<p>i 不用回到这次匹配的开头再i++，假如回到开头再 i++
+，我们的目标是当前匹配失败了，主串字符串匹配区间右移一位是不是能匹配成功。然而这种匹配成功的条件必须是<strong>区间右移后，和移动前的重叠区域字符相同。即在重叠区域内，pat[i+1]==pat[i]</strong>。用人话翻译就是，只有str=aaaaax
+pat=aaaax这种前部分字符只有一个的情况才有移动区间匹配成功的可能。然而我们可以从实例中看到，这种字符串情况也包含在跳过的思路中，也恰好满足跳过的条件，甚至不用回移不用使j=0开始匹配，只需要接着从跳到的
+j 处匹配就解决了这个情况。</p>
+</blockquote>
+<h3 id="创造跳跃数组">创造跳跃数组</h3>
+<p>我们知道，KMP主要算法就是在失败时，通过跳跃到恰当的位置接着匹配。
+而这个恰当的位置 k
+满足：k之前的所有k位，即前缀，和失败处的倒数k位，即后缀，恰好相同，此时失败即可跳到k处。</p>
+<p><strong>所以我们要解决的就是，在开始查找模式串之前，先对模式串每一位
+j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
+存储在该处失败可跳跃到的位置。不存在则存入 -1 作为标志即可</strong></p>
+<p>因为跳跃位置只与模式串本身有关，因此事先处理好一次即可对任何主串复用。</p>
+<p>当然检测前后缀也不是一个简单的事，KMP中构造跳跃数组的过程中也是用了KMP自己.......作为学习者只能对创造者表示敬佩，这里用伪代码描述一下。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">因为在<span class="number">0</span>位失败肯定没法跳跃，令jump[<span class="number">0</span>]=<span class="number">-1</span> </span><br><span class="line">设置好跳跃定位标志 k=<span class="number">-1</span></span><br><span class="line">对模式串每一位 i</span><br><span class="line">    假如 i  k 位相同，或者k==<span class="number">-1</span></span><br><span class="line">      即看作前后缀目前为止相同</span><br><span class="line">      i, k 到下一位</span><br><span class="line">      对于已经处理好前后缀之后的下一位，只需把跳跃信息给它即可</span><br><span class="line">          假如下一位与跳跃位不同</span><br><span class="line">              把已经处理好的k作为它的跳跃位即可，jump[i]=k</span><br><span class="line">          假如下一位与跳跃位相同</span><br><span class="line">              （比如在a失败，跳到的地方还是a，那就没有再比一次的必要了）</span><br><span class="line">              把跳跃位的跳跃位作为它的跳跃位hhh jump[i]=jump[k]</span><br><span class="line">   假如 i k 位不同 （他们的跳跃信息已经被处理好了）</span><br><span class="line">      （内用KMP，即相当于后缀作为主串，前缀作为模式串，此时匹配失败了，前缀跳到跳跃位接着匹配）</span><br><span class="line">      k=jump[k]</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+<p>处理好跳跃数组（失效数组）之后，即可按数组的跳跃信息进行利用匹配.匹配过程看下方代码即可，并不难:</p>
+<h1 id="kmp解题代码">KMP解题代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span>(needle==<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//KMP</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> jump[needle.<span class="built_in">size</span>()];</span><br><span class="line">        jump[<span class="number">0</span>]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建失效数组  abcabcd</span></span><br><span class="line">        <span class="keyword">while</span>(i&lt;needle.<span class="built_in">size</span>()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">-1</span> || needle[i]==needle[k])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(needle[i]!=needle[k])</span><br><span class="line">                    jump[i]=k;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    jump[i]=jump[k];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>    <span class="comment">//内置kmp</span></span><br><span class="line">                k=jump[k];</span><br><span class="line">        &#125;</span><br><span class="line">                </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x&lt;haystack.<span class="built_in">size</span>() &amp;&amp; y&lt;<span class="built_in"><span class="keyword">int</span></span>(needle.<span class="built_in">size</span>())) <span class="comment">//注意这里int化！！！！！！看bug看了好久，size返回值是unsignedint</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(y==<span class="number">-1</span> ||haystack[x]==needle[y])</span><br><span class="line">            &#123;</span><br><span class="line">                x++;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">               y=jump[y];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(y==needle.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> x-y;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -789,7 +858,7 @@ id="无法赋值的成员必须使用初始化列表进行初始化">无法赋�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -857,7 +926,7 @@ id="无法赋值的成员必须使用初始化列表进行初始化">无法赋�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

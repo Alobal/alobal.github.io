@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="hphqb-Td3Fl9WUNX1Pj-X3Y9yfsqpQUnH4eP6eAqS7Q">
+  <meta name="baidu-site-verification" content="codeva-9sj0MAnGdB">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="UGUI 动静分离 如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。 合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity优化基础">
+<meta property="og:url" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Sitch&#39;s Blog">
+<meta property="og:description" content="UGUI 动静分离 如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。 合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.gif">
+<meta property="og:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image2.gif">
+<meta property="og:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.png">
+<meta property="og:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image-1.png">
+<meta property="og:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image-2.png">
+<meta property="article:published_time" content="2023-05-14T14:10:22.000Z">
+<meta property="article:modified_time" content="2023-05-14T14:10:22.000Z">
+<meta property="article:author" content="Sitch">
+<meta property="article:tag" content="unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.gif">
+
+<link rel="canonical" href="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Unity优化基础 | Sitch's Blog</title>
+  
+
+
+  <script data-pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?13a5881f99caf50927823ae25a7cb3ee";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Sitch's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>影片</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unity优化基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-05-14T22:10:22+08:00">2023-05-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ugui">UGUI</h2>
+<h3 id="动静分离">动静分离</h3>
+<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
+<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
+<blockquote>
+<p>嵌套子Canvas也不会和父Canvas合并</p>
+</blockquote>
+<h3 id="重ui的分解">重UI的分解</h3>
+<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
+<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
+<h3 id="加载优化">加载优化</h3>
+<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
+<h3 id="字体拆分">字体拆分</h3>
+<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+<span id="more"></span>
+<h2 id="ai寻路">AI寻路</h2>
+<p>寻路算法中最经典的就是A星算法。虽然经典的最短路径算法有Dijkstra和Floyd，但是其复杂度分别是O(N<sup>2)和O(N</sup>3)，空间复杂度都是O(N^2)，因此根本不适合游戏这种大型路径搜索需求。并且更重要的一点是，游戏寻路根本不在乎是不是<strong>最短</strong>路径，只需要是一条能走通的路径就行，这就是A星算法的根本目标，其使用贪心算法寻找局部优解来寻路，平均时间复杂度为O(N
+logN)。然而，A星的具体实现中还有很多细节可以优化。</p>
+<h3 id="大场景分割">大场景分割</h3>
+<p>假如游戏场景很大，那么贪心搜索空间就会十分庞大，我们需要尽可能缩小搜索范围。回头想想，之所以我们要启用寻路算法，是因为出发点和目标点之间存在障碍物，不能直线到达。然而在大场景中，大部分路径是可以直接到达的，并不需要费劲寻路。</p>
+<p>因此，我们可以把大场景分割成数个内部无障碍的区域。在区域内部，可以直接直线寻路。在区域外部，则是一个区域与区域之间的固定寻路
+(从区域A到区域B，我们只需要提供一条固定路线即可)。而寻路既然已经不是动态的，那我们可以离线计算寻路路径，存储给实时使用，极大节省实时效率。</p>
+<blockquote>
+<p>当然，区域外部一旦发生改变，这些离线结果都需要重新计算。</p>
+</blockquote>
+<h3 id="堆存储openlist节点">堆存储openlist节点</h3>
+<p>在贪心搜索局部最优解时，我们需要维护一个排序列表来方便获得最优节点
+(最小损失的节点)。我们要么在每次插入新openlist节点时有序插入，要么每次确定最优节点时先排一次序。排序本身就是一件很慢的<span
+class="math inline">\(NlogN\)</span>行为，因此不可能每次都排序。而如果是有序插入，例如二分查找插入点插入，那么需要<span
+class="math inline">\(log N\)</span>的查找时间以及<span
+class="math inline">\(N\)</span> 的数组移动时间。
+为了避开数组移动的麻烦，同时保持有序插入的便捷，我们可以使用<strong>最小堆/优先队列来维护openlist节点列表</strong>，这样我们只有<span
+class="math inline">\(logN\)</span>的插入时间，而不需要移动原数据。</p>
+<h3 id="openlist搜索规则优化-jps"><a
+target="_blank" rel="noopener" href="https://www.guyuehome.com/35023">openlist搜索规则优化 JPS</a></h3>
+<p>贪心的一个问题在于它是一步一个脚印去走的，因此即使是从(0,0)到(0,50)这样的直线路径，也会存储至少50个寻路节点，并且消耗50次插入时间，以及openlist空间包含这50个节点的所有邻居。那我们是不是能简化这种直线路径呢？</p>
+<p>跳点算法 Jump Point Search (JPS)
+框架上还是A星的框架，同样是搜索节点，加入openlist，从openlist中取出最优节点寻路。JPS主要改动在于它的搜索节点策略，它不像贪心一样每一步都将所有邻居加入openlist。JPS只在openlist记录那些关键的<strong>跳点</strong>节点，也就是直线的拐点，而对于平常的直线路径节点则不记录。</p>
+<figure>
+<img src="image.gif" alt="贪心搜索" />
+<figcaption aria-hidden="true">贪心搜索</figcaption>
+</figure>
+<figure>
+<img src="image2.gif" alt="JPS搜索" />
+<figcaption aria-hidden="true">JPS搜索</figcaption>
+</figure>
+<p>JPS具体规则较为复杂，可以参考上文链接，这里简单概括下两个主要思路：</p>
+<p><strong>一，检查当前节点是否是跳点</strong>。简而言之，跳点就是发生拐弯的节点。那么什么时候会发生拐弯呢？如下图，我们从绿色父节点A出发，一路沿途检查节点是否为跳点
+(沿什么途则在后文)，经过若干次检查后，我们开始检查橙色节点B。我们首先知道B有一个邻居黄色节点C，且B和C中间有障碍物。此时我们检查A到C的最短路径，发现必须要经过B节点拐弯去C点，这时候B就是C的跳点，C就是B的强迫邻居(forced
+neighbor)，并且我们可以把B加入openlist。</p>
+<figure>
+<img src="image.png"
+alt="Current是Parent到Forced Neighbor唯一最短路径的必经点，因此它是跳点。假如把黑色障碍去掉，那么Parent到黄色节点就有多条路径，就不存在跳点，也不存在Forced Neighbor。" />
+<figcaption aria-hidden="true">Current是Parent到Forced
+Neighbor唯一最短路径的必经点，因此它是跳点。假如把黑色障碍去掉，那么Parent到黄色节点就有多条路径，就不存在跳点，也不存在Forced
+Neighbor。</figcaption>
+</figure>
+<p>同样，假如A到跳点B中间本身就需要在D点拐一次弯(即A与B非直线可达，D与B直线可达)，那么D也是跳点。注意这里要求B是跳点，D才是跳点，要不然这个拐弯就没有意义了是不是。</p>
+<blockquote>
+<p>因此整个跳点检查有点类似于栈模式，先确定最后一个跳点，然后才能认为之前的拐点是跳点。</p>
+</blockquote>
+<figure>
+<img src="image-1.png" alt="绿色到橙色需要在蓝色拐弯，蓝色则也是跳点" />
+<figcaption
+aria-hidden="true">绿色到橙色需要在蓝色拐弯，蓝色则也是跳点</figcaption>
+</figure>
+<p><strong>二，往什么方向搜索跳点</strong>。现在我们知道了怎么检查一个点是否是跳点，但是去检查哪些点呢？由于JPS只关心直线走到尽头后的拐弯点，因此基本原则是先以直线方向一路检查是否为跳点，结束后再斜向进一步搜索内圈。具体细节则可另外搜索。</p>
+<figure>
+<img src="image-2.png" alt="先直线搜索，不行再斜向进一步。" />
+<figcaption
+aria-hidden="true">先直线搜索，不行再斜向进一步。</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/unity/" rel="tag"># unity</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/09/Csharp%E7%BB%86%E8%8A%82/" rel="prev" title="C#细节">
+      <i class="fa fa-chevron-left"></i> C#细节
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/15/%E7%82%B9%E4%BA%91%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%BA%E6%96%87%E8%AE%B0%E5%BD%95/" rel="next" title="点云深度学习论文记录 (持续更新)">
+      点云深度学习论文记录 (持续更新) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ugui"><span class="nav-number">1.</span> <span class="nav-text">UGUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">1.1.</span> <span class="nav-text">动静分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8Dui%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">重UI的分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">加载优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E6%8B%86%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">字体拆分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ai%E5%AF%BB%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">AI寻路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9C%BA%E6%99%AF%E5%88%86%E5%89%B2"><span class="nav-number">2.1.</span> <span class="nav-text">大场景分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%AD%98%E5%82%A8openlist%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">堆存储openlist节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openlist%E6%90%9C%E7%B4%A2%E8%A7%84%E5%88%99%E4%BC%98%E5%8C%96-jps"><span class="nav-number">2.3.</span> <span class="nav-text">openlist搜索规则优化 JPS</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sitch"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Sitch</p>
+  <div class="site-description" itemprop="description">做好自己的现在</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alobal" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alobal" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:778377698@qq.com" title="E-Mail → mailto:778377698@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/sitchzou/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;sitchzou&#x2F;" rel="noopener" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sitch</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+// var pjax = new Pjax({
+//   selectors: [
+//     'head title',
+//     '#page-configurations',
+//     '.content-wrap',
+//     '.post-toc-wrap',
+//     '.languages',
+//     '#pjax'
+//   ],
+//   switches: {
+//     '.post-toc-wrap': Pjax.switches.innerHTML
+//   },
+//   analytics: false,
+//   cacheBust: false,
+//   scrollTo : !CONFIG.bookmark.enable
+// });
+
+// window.addEventListener('pjax:success', () => {
+//   document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+//     var code = element.text || element.textContent || element.innerHTML || '';
+//     var parent = element.parentNode;
+//     parent.removeChild(element);
+//     var script = document.createElement('script');
+//     if (element.id) {
+//       script.id = element.id;
+//     }
+//     if (element.className) {
+//       script.className = element.className;
+//     }
+//     if (element.type) {
+//       script.type = element.type;
+//     }
+//     if (element.src) {
+//       script.src = element.src;
+//       // Force synchronous loading of peripheral JS.
+//       script.async = false;
+//     }
+//     if (element.dataset.pjax !== undefined) {
+//       script.dataset.pjax = '';
+//     }
+//     if (code !== '') {
+//       script.appendChild(document.createTextNode(code));
+//     }
+//     parent.appendChild(script);
+//   });
+//   NexT.boot.refresh();
+//   // Define Motion Sequence & Bootstrap Motion.
+//   if (CONFIG.motion.enable) {
+//     NexT.motion.integrator
+//       .init()
+//       .add(NexT.motion.middleWares.subMenu)
+//       .add(NexT.motion.middleWares.postList)
+//       .bootstrap();
+//   }
+//   NexT.utils.updateSidebarPosition();
+// });
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'PcR31yj1TEn6z0UqyTXNP6NN-gzGzoHsz',
+      appKey     : 'LEQbv9t6GJ3BAdMOMXDh0blJ',
+      placeholder: "【留言板】  欢迎用你的脸滚一滚键盘~\n支持markdown语法,没有邮件提醒可能回复稍慢，抱歉~\n",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : 'https://pcr31yj1.lc-cn-n1-shared.com'
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+
+
+</html>
+
+<!--崩溃欺骗-->
+
+
