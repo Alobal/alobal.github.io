@@ -539,29 +539,20 @@ id="亚当可能是感觉转变最细腻的一个角色了">亚当，可能是�
 <ol type="1">
 <li><p>首先确定一个分界数：可以直接固定取最开始或者最后的那个数，也可以用随机算法。随机取数会使效率更加稳定。然后把这个数交换到
 end，以便前面进行分块。</p></li>
-<li><p>如何将大于和小于的两部分分开：我们目标是让小于的部分在前，大于的部分在后————小于区
-和 大于区。两种分割方法：</p></li>
+<li><p>如何将大于和小于的两部分分开：我们目标是让小于的部分在前，大于的部分在后————两种分割方法：</p></li>
 </ol>
 <ul>
-<li><p>一种是利用两个标志位，<code>lo=start</code>和<code>hi=end-1</code>。思想是两个标志位互相
-把<strong>应该分配给对方的数</strong> 给对方。
+<li><p>一种是利用两个标志位，<code>lo=start</code>和<code>hi=end-1</code>，然后两个标志位互相把<strong>不该在自己这里的数丢给对方</strong>。
 <code>if (nums[lo]&gt;pivot)</code>，显然 nums[lo] 的值不应该在 lo
-所处的小于区，因此我们把它丢到大于区<code>swap(nums[lo],nums[hi]);</code>。此时
-hi 所指的数是大于 pivot 的，是正确处于后半区的，因此 hi
-可以移动去处理下一个数，即 hi--。而 lo 获得了 hi
-交换过去的数，大于小于性未知，lo 不能动。</p>
-<p>else，nums[lo] 正确处于小于区，那么 lo
-去处理下一个数，lo++。</p></li>
-<li><p>另一种需要一个标志位和一个遍历位，即<code>lo=start</code>和<code>cur=start+1</code>。cur
-从 start+1 遍历到 end-1 ，lo
-指示着小于区的最后一个数的位置。思想是把所有小于区的全部分好，那么大于区的也自然而然分好了。</p>
-<p>if (nums[cur]&gt;pivot), 即当前数应该在大于区，即在 lo 之外，因为 cur
-本来就一定指在 lo 之外，因此不用移动当前数， cur 去处理下一个，
-cur++。</p>
-<p>else, 即当前数应该添加到小于区，即在 lo
-的下一个，因此交换<code>swap(nums[cur],nums[lo+1]);</code>, 同时 lo++
-更新到新边界。此时这个小于区的数已经分好。lo+1 换给 cur 的数，必然是 cur
-处理过的，因此 cur 只需要去下一个数处理，cur++。</p></li>
+所处的小于区，因此我们把它丢到大于区<code>swap(nums[lo],nums[hi]);hi--;</code>。而
+lo 获得了 hi 交换过去的数，大于小于性未知，lo 不能动。</p></li>
+<li><p>另一种利用一个标志位和一个遍历位，即<code>lo=start-1</code>和<code>cur=start</code>。cur
+从 start 遍历到 end-1 ，lo
+指示着小于区的边界。我们只要把小于区分好，那么大于区自然就分好了。</p>
+<p><code>if (nums[cur]&lt;pivot)</code>
+即当前数应该添加到小于区，因此交换<code>swap(nums[cur],nums[++lo]);</code>。注意从
+<code>++lo</code> 换给 <code>cur</code> 的数必然是 cur
+走过的，因此换完cur++即可。</p></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
