@@ -351,22 +351,50 @@ microSeconds设置检查的阻塞时间，超时且状态无效则会返回fasle
 <h2 id="同步">同步</h2>
 <p>虽然已经实现了网络数据的传输，但由于传输中的延迟、丢包等问题，网络消息到达每一个客户端的时间并不统一、稳定，因此还需要额外的技术来保证客户端之间的同步。</p>
 <h3 id="状态同步">状态同步</h3>
-<p>状态同步就是数据同步，客户端A定时向其他客户端广播自身数据同步，然后进行强行数据处理。这样的缺点在于<strong>延迟越大也就会造成越大的瞬移</strong>，因此观感很不友好。</p>
+<p>状态同步就是数据同步，服务器收集所有人的操作指令，在服务器自己做数据计算，然后向其他客户端广播数据信息，然后进行强行数据处理。这样的缺点在于<strong>延迟越大也就会造成越大的瞬移</strong>，因此观感很不友好。</p>
 <p>为了平滑瞬移的观感，显而易见我们可以使用插值的方法，也就是所谓的
 <strong>跟随算法</strong>：收到目标数据后，用一段时间去插值更新，而不是一步到位。这样虽然视觉上更平滑了，但由于插值更新必然是发生在收到同步数据之后，再花上一段时间去更新，那么必然和真实的客户端A数据存在较大的延迟和误差。</p>
 <p>因此为了节省插值时间，我们可以在收到同步数据之前就开始插值，即
-<strong>预测算法</strong>：在其他客户端本地保持客户端A的运动轨迹，自行本地预测，然后在同步数据到来时再进行跟随同步或者瞬移同步。这在稳定运动状态时效果很好，不过在不稳定的运动时容易导致回滚、闪回。示例代码如下：</p>
+<strong>预测算法</strong>：本机数据先根据本机输入进行响应，其他客户端在本机的数据则保持其原有运动轨迹，自行本地预测，然后在同步数据到来时再进行跟随同步或者瞬移同步。这在稳定运动状态时效果很好，不过在不稳定的运动时容易导致回滚、闪回。示例代码如下：</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//收到位置同步消息时，顺便计算出预测位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SyncPos</span>(<span class="params">MsgSyncTank msg</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//同步位置</span></span><br><span class="line">    Vector3 pos = <span class="keyword">new</span> Vector3(msg.x, msg.y, msg.z);</span><br><span class="line">    Vector3 rot = <span class="keyword">new</span> Vector3(msg.ex, msg.ey, msg.ez);</span><br><span class="line">    <span class="comment">//计算匀速运动下的预测位置</span></span><br><span class="line">    forecastPos = pos + <span class="number">2</span>*(pos - lastPos);</span><br><span class="line">    forecastRot = rot + <span class="number">2</span>*(rot - lastRot);</span><br><span class="line">    <span class="comment">//跟随算法 强行同步</span></span><br><span class="line">    <span class="comment">// forecastPos = pos;  </span></span><br><span class="line">    <span class="comment">// forecastRot = rot;</span></span><br><span class="line">    <span class="comment">//更新</span></span><br><span class="line">    lastPos = pos;</span><br><span class="line">    lastRot = rot;</span><br><span class="line">    <span class="comment">//记录预测时的时间，以便后续插值</span></span><br><span class="line">    forecastTime = Time.time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SyncPos计算出预测位置之后，update中插值移动到预测位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ForecastUpdate</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//插值时间</span></span><br><span class="line">    <span class="built_in">float</span> t = (Time.time - forecastTime) / CtrlTank.syncInterval;</span><br><span class="line">    t = Mathf.Clamp(t, <span class="number">0f</span>, <span class="number">1f</span>);</span><br><span class="line">    <span class="comment">//插值位置</span></span><br><span class="line">    Vector3 pos = transform.position;</span><br><span class="line">    pos = Vector3.Lerp(pos, forecastPos, t);</span><br><span class="line">    transform.position = pos;</span><br><span class="line">    <span class="comment">//插值旋转</span></span><br><span class="line">    Quaternion quat = transform.rotation;</span><br><span class="line">    Quaternion forcastQuat = Quaternion.Euler(forecastRot);</span><br><span class="line">    quat = Quaternion.Lerp(quat, forcastQuat, t);</span><br><span class="line">    transform.rotation = quat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优点：</p>
+<ul>
+<li>数据可靠，安全性高</li>
+<li>断线重连和观战好做：按照数据同步生成一遍就行。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>数据量巨大，进而容易导致延迟大，服务器压力大。</li>
+<li>回放不好做，需要服务器额外好每帧的战斗数据。</li>
+<li></li>
+</ul>
+<p>相关优化：</p>
+<ul>
+<li>延迟补偿：服务器对客户端数据保留快照，在需要确定性计算时根据快照时刻的数据计算。</li>
+<li>命令缓冲</li>
+<li></li>
+</ul>
 <h3 id="帧同步">帧同步</h3>
-<p>帧同步即指令同步、操作同步，把客户端A的指令发送给其他客户端，然后让其他客户端在本地执行指令完成同步模拟。相比于状态同步会因为同步数据的庞大而导致延迟、阻塞，帧同步的好处在于只需要发送指令，因此网络数据量很小，有助于缓解网络延迟。当然，如果只是简单的逐指令转发，那和普通的网络转发就没有什么区别了，会因为各客户端执行情况的不一样，造成严重的偏离。为了统一度量同步时间，这里引入了
+<p>帧同步即指令同步、操作同步，客户端上传指令，服务器广播给其他客户端，所有客户端根据指令在本地模拟逻辑。当然，如果只是简单的逐指令转发，会因为各客户端执行情况的不一样，造成严重的偏离。因此为了统一网络同步时间，引入了
 <strong>同步帧</strong> 的服务器时间概念，来度量诸如 "客户端 A
 在第3同步帧发出向前指令，客户端 B 在第5同步帧收到指令"
-这样的同步事件。以下"帧"都代表"同步帧"。</p>
-<p>统一度量衡后，我们就能知道是不是发生了指令执行情况的延迟问题。因此一种解决方案是<strong>快机等待慢机</strong>：A在第3帧发出指令后，自己并不执行。直到其他客户端在第5帧收到指令后，服务器才在第5帧告诉所有客户端开始执行。</p>
-<blockquote>
-<p>这样还可以利用投票法防止作弊，因为客户端严格一致，服务器可以收集客户端操作的结果来进行投票表决如"是否击中"的消息。</p>
-</blockquote>
-<h2 id="示例类图">示例类图</h2>
+这样的同步时间描述。</p>
+<p>统一时间单位后，我们就能知道是不是发生了指令执行情况的延迟问题。因此一种解决方案是<strong>快机等待慢机</strong>：A在第3帧发出指令后，自己并不执行。直到其他客户端在第5帧收到指令后，服务器才在第5帧告诉所有客户端开始执行。</p>
+<p>优点：</p>
+<ul>
+<li>数据量小。相比于状态同步会因为同步数据的庞大而导致延迟、阻塞，帧同步的好处在于只需要发送指令，因此网络数据量很小，有助于缓解网络延迟。</li>
+<li>服务器不需要做逻辑，开发方便</li>
+<li>回放系统好做：播放操作序列即可。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>数据逻辑在本地端，容易作弊，可以利用投票法防止作弊，因为客户端严格一致，服务器可以收集客户端操作的结果来进行投票表决如"是否击中"的消息。</li>
+<li>需要等待指令同步。</li>
+<li>物理和数值问题，不同客户端浮点数、随机数有差异，并且会累积。通常需要改成定点数模拟小数，固定随机数种子。</li>
+<li>断线重连不好做：需要把累积的帧指令加速模拟。</li>
+</ul>
+<h2 id="断线重连">断线重连</h2>
+<p>在ping有效期内，重复登录检测后重新发送战斗开始协议和同步协议。</p>
 <h2 id="错误排除">错误排除</h2>
 <blockquote>
 <p>在Unity中，只有主线程可以操作UI组件。由于异步回调是在其他线程执行的，不能直接操作unityUI组件。</p>
@@ -464,7 +492,7 @@ target="_blank" rel="noopener" href="https://book.douban.com/subject/30432848/">
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86socket%E9%98%BB%E5%A1%9E"><span class="nav-number">1.1.</span> <span class="nav-text">服务器处理socket阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1"><span class="nav-number">2.</span> <span class="nav-text">消息通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">大端小端问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">2.2.</span> <span class="nav-text">发送不完整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%90%8C%E6%AD%A5"><span class="nav-number">3.1.</span> <span class="nav-text">状态同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A7%E5%90%8C%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">帧同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E7%B1%BB%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">示例类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">5.</span> <span class="nav-text">错误排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">基础流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86socket%E9%98%BB%E5%A1%9E"><span class="nav-number">1.1.</span> <span class="nav-text">服务器处理socket阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E4%BF%A1"><span class="nav-number">2.</span> <span class="nav-text">消息通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">大端小端问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="nav-number">2.2.</span> <span class="nav-text">发送不完整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%90%8C%E6%AD%A5"><span class="nav-number">3.1.</span> <span class="nav-text">状态同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A7%E5%90%8C%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">帧同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%AD%E7%BA%BF%E9%87%8D%E8%BF%9E"><span class="nav-number">4.</span> <span class="nav-text">断线重连</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%8E%92%E9%99%A4"><span class="nav-number">5.</span> <span class="nav-text">错误排除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +508,7 @@ target="_blank" rel="noopener" href="https://book.douban.com/subject/30432848/">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

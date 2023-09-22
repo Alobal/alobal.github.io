@@ -426,107 +426,6 @@ abstraction之后, Pointnet++一方面在同一级内进行反距离的插值传
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Unity优化基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-05-14T22:10:22+08:00">2023-05-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="ugui">UGUI</h2>
-<h3 id="动静分离">动静分离</h3>
-<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
-<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
-<blockquote>
-<p>嵌套子Canvas也不会和父Canvas合并</p>
-</blockquote>
-<h3 id="重ui的分解">重UI的分解</h3>
-<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
-<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
-<h3 id="加载优化">加载优化</h3>
-<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
-<h3 id="字体拆分">字体拆分</h3>
-<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/05/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/05/09/Csharp%E7%BB%86%E8%8A%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -717,6 +616,107 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Unity优化基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-14 22:10:22" itemprop="dateCreated datePublished" datetime="2023-03-14T22:10:22+08:00">2023-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="ugui">UGUI</h2>
+<h3 id="动静分离">动静分离</h3>
+<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
+<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
+<blockquote>
+<p>嵌套子Canvas也不会和父Canvas合并</p>
+</blockquote>
+<h3 id="重ui的分解">重UI的分解</h3>
+<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
+<p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
+<h3 id="加载优化">加载优化</h3>
+<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
+<h3 id="字体拆分">字体拆分</h3>
+<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -788,7 +788,7 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3655926
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

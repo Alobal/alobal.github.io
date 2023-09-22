@@ -208,122 +208,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-15-/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-15-/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-15-/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="三数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum">三数之和</a></h1>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素
-a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2]]</p>
-<h1 id="思路分析">思路分析</h1>
-<ul>
-<li><p>暴力O(n3) 这样做还不如不做kj</p></li>
-<li><p>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</p></li>
-<li><p><strong>牺牲O(Nlog
-N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p></li>
-<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c--。
-这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p></li>
-<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p></li>
-<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p></li>
-</ul>
-<h1 id="解题代码">解题代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> threeSum(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        set&lt;vector&lt;<span class="keyword">int</span> resultset;</span><br><span class="line">        //剪枝</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt;= 2)</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">  sort(nums.begin(), nums.end());</span><br><span class="line">        </span><br><span class="line">        //不剪枝会被0吓死=.=</span><br><span class="line">  <span class="keyword">if</span> (nums[0]=0 ||nums[nums.size()-1]&lt;=0)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (nums[0] == 0 &amp;&amp;nums[nums.size()-1]==0)</span><br><span class="line">    result.push_back(&#123; 0,0,0 &#125;);</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">int</span> center;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(center=0;center&lt;nums.size();center++)</span><br><span class="line">        &#123;</span><br><span class="line">            i=0;</span><br><span class="line">            j=nums.size()-1;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span>(i!=center &amp;&amp;j!=center)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]0 || nums[j]&lt;0)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">int</span> sum=nums[i]+nums[center]+nums[j];</span><br><span class="line">                <span class="keyword">if</span>(sum==0)</span><br><span class="line">                &#123;</span><br><span class="line">                    vector&lt;<span class="keyword">int</span> temp =&#123;nums[i],nums[center],nums[j]&#125;;</span><br><span class="line">                    <span class="keyword">if</span>(resultset.count(temp)==0)</span><br><span class="line">                    &#123;   </span><br><span class="line">                        result.push_back(temp);</span><br><span class="line">                        resultset.insert(temp);</span><br><span class="line">                    &#125;</span><br><span class="line">                    i++;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum&lt;0)</span><br><span class="line">                    i++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum0)</span><br><span class="line">                    j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<table style="width:10%;">
-<colgroup>
-<col style="width: 9%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>执行用时 : 424 ms, 在所有 C++ 提交中击败了5.01%的用户 内存消耗 :24.3
-MB, 在所有 C++ 提交中击败了7.53%的用户</td>
-</tr>
-<tr class="even">
-<td>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题
-看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。
-挖个坑，搞懂了再回来看看。</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -855,6 +739,112 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-3/" class="post-title-link" itemprop="url">LeetCode-No-3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="无重复字符的最长子串"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters">无重复字符的最长子串</a></h1>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1: 输入: "abcabcbb" 输出: 3 解释: 因为无重复字符的最长子串是
+"abc"，所以其长度为 3。</p>
+<p>示例 2: 输入: "bbbbb" 输出: 1 解释: 因为无重复字符的最长子串是
+"b"，所以其长度为 1。</p>
+<p>示例 3: 输入: "pwwkew" 输出: 3 解释:
+因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>　这题也是思路比较直接的一题,分析以下几点需求:</p>
+<ol type="1">
+<li><p>判断重复字符
+用int构造一个<strong><em>hash表</em></strong>进行判断即可,注意字符总数,数组空间可以开大一点
+(数组初始化的时候没有想到更好的优化效率方案).</p></li>
+<li><p>子串检测
+数据结构课上有学过kmp算法,因此容易联想到这里为了最佳效率,也应采用<strong><em>窗口移动</em></strong>的算法.</p></li>
+<li><p>后事处理
+移动窗口之后,由于窗口之外的字符的位置信息还保留在表内,因此需要进行处理
+直接思路是使用一个滞后的位置符<code>behind</code>进行遍历清除即可
+优化思路:
+可以通过判断滞留的位置是否处于现有检测窗口之前,如果是则无视,不需要遍历处理,<strong>空间换时间</strong></p></li>
+</ol>
+<h2 id="最终代码">最终代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   </span><br><span class="line">        <span class="keyword">int</span> flag[<span class="number">127</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">127</span>;i++)</span><br><span class="line">            flag[i]=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start=<span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            temp=<span class="built_in">getNO</span>(s[i]);</span><br><span class="line">            <span class="keyword">if</span>(flag[temp]&lt;start)</span><br><span class="line">            &#123;</span><br><span class="line">                result++;</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result=max)</span><br><span class="line">                    max=result;</span><br><span class="line">                </span><br><span class="line">                start=flag[temp]+<span class="number">1</span>;</span><br><span class="line">                result=i-flag[temp];</span><br><span class="line">                flag[temp]=i;</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(result=max)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNO</span><span class="params">(<span class="keyword">char</span> originchar)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> originchar-<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -926,7 +916,7 @@ j 进行前后缀检测，存在满足的前后缀即可令 jump[j]=k
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
