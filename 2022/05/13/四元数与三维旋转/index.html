@@ -391,10 +391,12 @@ target="_blank" rel="noopener" href="https://krasjet.github.io/quaternion/">Kras
 <h1 id="四元数与三维旋转">四元数与三维旋转</h1>
 <p>四元数基本性质：</p>
 <p><span class="math display">\[
-q=a+bi+cj+dk \\
-i^2=j^2=k^2=ijk=-1 \\
-ij=k, jk=i, ki=j \\
-qq^{-1}=1
+\begin{aligned}
+q&amp;=a+bi+cj+dk \\
+i^2&amp;=j^2=k^2=ijk=-1 \\
+ij&amp;=k, jk=i, ki=j \\
+qq^{-1}&amp;=1
+\end{aligned}
 \]</span></p>
 <p>同样我们可以写成向量形式：<span
 class="math inline">\(q=[a,b,c,d]^T\)</span>。将实部和虚部分离，可以写为:</p>
@@ -464,25 +466,22 @@ class="math inline">\(v\)</span>和旋转轴向量<span
 class="math inline">\(u\)</span>。</p>
 </blockquote>
 <p>再看四元数乘积公式<span class="math inline">\(q_1q_2=[ae-\boldsymbol
-v \boldsymbol u, a\boldsymbol u+e\boldsymbol v+\boldsymbol v \times
-\boldsymbol u]\)</span>，<span
+v \boldsymbol u, a\boldsymbol u+e\boldsymbol v+\boldsymbol u \times
+\boldsymbol v]\)</span>，<span
 class="math inline">\(a,e\)</span>是两个四元数的实部，而在我们的替换中，所有的实部都为0，此时四元数乘积为<span
-class="math inline">\(q_1q_2=[0,\boldsymbol v \times \boldsymbol
-u]\)</span>。因此我们可以用四元数<span class="math inline">\(\dot u \dot
+class="math inline">\(q_1q_2=[0,\boldsymbol u \times \boldsymbol
+v]\)</span>。因此我们可以用四元数<span class="math inline">\(\dot u \dot
 v_\perp=[0,\boldsymbol u \times \boldsymbol v_\perp]\)</span> 来替换
 <span class="math inline">\(\mathbf{u} \times
 \mathbf{v}_{\perp}\)</span> 。</p>
 <p>至此，可以得到四元数版本的旋转公式：</p>
 <p><span class="math display">\[
 \begin{aligned}
-\dot v^`&amp;=\dot{\mathbf{v}_{\|}}+\cos (\theta)
-\dot{\mathbf{v}_{\perp}}+\sin (\theta)\left(\dot u \dot v_\perp\right)
-\\
-&amp;= \dot{\mathbf{v}_{\|}}+(\cos (\theta) +\sin (\theta)\dot u) \dot
-v_\perp \\
-&amp;= \dot{\mathbf{v}_{\|}} + \dot q \dot v_\perp, \ \ \ \ \ which \
-\   \dot q=[cos\theta,0]+[0,sin\theta u]=\cos (\theta) +\sin
-(\theta)\dot u
+\dot v^`&amp;=\dot{v_{\|}}+\cos (\theta) \dot{v_{\perp}}+\sin
+(\theta)\left(\dot u \dot v_\perp\right) \\
+&amp;= \dot{v_{\|}}+(\cos (\theta) +\sin (\theta)\dot u) \dot v_\perp \\
+&amp;= \dot{v_{\|}} + \dot q \dot v_\perp, \ \ \ \ \ where \ \   \dot
+q=[cos\theta,0]+[0,sin\theta u]=\cos (\theta) +\sin (\theta)\dot u
 \end{aligned}
 \]</span></p>
 <p>最终，我们实现通过一个额外的四元数<span class="math inline">\(\dot
@@ -499,7 +498,7 @@ class="math inline">\(\boldsymbol{u}\)</span></strong>。</p>
 class="math inline">\(\theta\)</span></strong> 角进一步化简为：</p>
 <p><span class="math display">\[
 \begin{aligned}
-\dot v^`&amp;=\dot p \dot v \dot p^* ,  \ \ \ which \ \ \ \ \dot
+\dot v^`&amp;=\dot p \dot v \dot p^* ,  \ \ \ where \ \ \ \ \dot
 p=[cos\frac{\theta}{2},sin\frac{\theta}{2} \boldsymbol{u}] \\
 &amp;= [0, \cos (\theta) \mathbf{v}+(1-\cos (\theta))(\mathbf{u} \cdot
 \mathbf{v}) \mathbf{u}+\sin (\theta)(\mathbf{u} \times \mathbf{v})]

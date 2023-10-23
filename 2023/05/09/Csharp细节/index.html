@@ -299,17 +299,18 @@ aria-hidden="true">多播委托指向多个单播委托。每个单播委托才�
 <h1 id="标准类型">标准类型</h1>
 <p><a target="_blank" rel="noopener" href="https://source.dot.net/">源码链接</a></p>
 <h2 id="string">string</h2>
-<p><strong>不可变</strong>的<strong>引用</strong>类型。注意字符串对象初始化之后就不会再修改，所有的修改操作都会new一个新的字符串对象，例如<code>str1+str2</code>。</p>
-<p>因此如果要构造变化的字符串，应该使用<code>System.Text.StringBuilder</code>。这是一个类似于<code>List&lt;char&gt;</code>的简单类，内部字段为<code>char[]</code>，其所有修改都是基于同一个对象的引用上。</p>
+<p><strong>不可变</strong>的<strong>引用</strong>类型。注意字符串对象初始化之后就不会再修改，所有的修改操作都会new一个新的字符串对象，例如<code>str1+str2</code>。因此如果要构造变化的字符串，应该使用<code>System.Text.StringBuilder</code>。这是一个类似于<code>List&lt;char&gt;</code>的简单类，内部字段为<code>char[]</code>，其所有修改都是基于同一个对象的引用上。</p>
 <ul>
-<li>对于字面值字符串，编译器会不重复地写入到模块元数据中，以便复用，即<strong>字符串池</strong>。</li>
+<li>为什么要设计为不可变？操作频繁，线程安全，并且如下可以留用复用。</li>
+<li>对于字面值字符串，编译器会不重复地写入到模块元数据中，以便复用，即<strong>字符串池</strong>。但是注意，其他动态创建的字符串不会引用字符串池，即ReferenceEqual为False。</li>
 <li>注意C#内char类型为2字节的Unicode码，而string的字节长度取决于你用的解码方式，例如默认UTF-8编码英文每字符1字节，中文每字符2字节。而UTF-16/Unicode编码内中英文都是每字符2字节。</li>
 <li>System.Object默认实现一个<code>ToString()</code>，返回当前对象的真实类型名称。</li>
+<li>string的GetHashCode基于字符串值计算。</li>
 </ul>
 <h2 id="list">List</h2>
-<p>底层为动态2倍扩容的数组。</p>
+<p>底层为动态2倍扩容的数组。注意与纯数组Array不同的是，<code>List&lt;Struct&gt;</code>返回值也为结构体，不可引用和修改，而Array可以。</p>
 <ul>
-<li>由于扩容会频繁new数组，因此尽量在初始化时给定好一个合适的大小，减少扩容。</li>
+<li>由于扩容会频繁new数组，因此尽量在初始化时给定好一个合适的大小，减少扩容。注意初始化给定的只是capacity，List的Count依然为0，直接访问会发生访问越界。</li>
 <li>增删操作Insert和Remove底层都会使用Array.Copy进行数组移动，没有什么特别优化，因此每次增删复杂度为O(N)。</li>
 <li>ToArray会new一个新的数组返回，而不是直接获取内部数组，因此会造成额外的内存分配。</li>
 <li>Find为线性查找，Sort为快速排序。</li>
@@ -318,6 +319,7 @@ aria-hidden="true">多播委托指向多个单播委托。每个单播委托才�
 <p>衍生: LinkedList 是双向链表。
 SortedList&lt;TKey,TValue&gt;通过拆分key和value两个数组来维持有序结构。
 Queue 数组 + 队头队尾指针维护而成的队列。</p>
+<p>另外由于List是引用类型，因此在Add(List)的地方需要注意这里Add的是引用，会随着List在外部的改变而改变。</p>
 </blockquote>
 <h2 id="dictionary">Dictionary</h2>
 <p>底层为<code>int[]? _buckets</code>和<code>Entry[] _entries</code>双数组的Hash结构，是旧的Hashtable的泛型版本。</p>
