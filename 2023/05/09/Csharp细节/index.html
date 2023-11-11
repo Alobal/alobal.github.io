@@ -296,6 +296,8 @@ aria-hidden="true">多播委托指向多个单播委托。每个单播委托才�
 </figure>
 <p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
 <p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
+<h2 id="装箱拆箱">装箱拆箱</h2>
+<p>装箱实际上就是把值类型转换为Object引用类型，并且将原数据复制过去，最终返回该引用类型的地址。拆箱则是从装箱的Object类型中复制到栈上，重新构造一个栈上的值类型。</p>
 <h1 id="标准类型">标准类型</h1>
 <p><a target="_blank" rel="noopener" href="https://source.dot.net/">源码链接</a></p>
 <h2 id="string">string</h2>
@@ -426,7 +428,7 @@ Queue 数组 + 队头队尾指针维护而成的队列。</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98"><span class="nav-number">1.1.</span> <span class="nav-text">委托</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">标准类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">2.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">2.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dictionary"><span class="nav-number">2.3.</span> <span class="nav-text">Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#priorityqueue"><span class="nav-number">2.4.</span> <span class="nav-text">PriorityQueue</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98"><span class="nav-number">1.1.</span> <span class="nav-text">委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1"><span class="nav-number">1.2.</span> <span class="nav-text">装箱拆箱</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">标准类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">2.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list"><span class="nav-number">2.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dictionary"><span class="nav-number">2.3.</span> <span class="nav-text">Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#priorityqueue"><span class="nav-number">2.4.</span> <span class="nav-text">PriorityQueue</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
