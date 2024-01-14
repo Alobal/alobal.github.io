@@ -297,7 +297,15 @@ aria-hidden="true">多播委托指向多个单播委托。每个单播委托才�
 <p>注意，<strong>每次</strong>注册方法<code>+=</code>，都会new一个新的多播实例，并且原有的多播实例会被废弃，等待垃圾回收。如上图中，如果再注册一个函数<code>Func3</code>，多播委托A会被丢弃，然后会新new一个多播委托B，并指向三个单播委托实例。</p>
 <p>另外在多播委托中，委托链的执行是顺序的，因此如果有一个抛出异常则会终止后续调用。</p>
 <h2 id="装箱拆箱">装箱拆箱</h2>
-<p>装箱实际上就是把值类型转换为Object引用类型，并且将原数据复制过去，最终返回该引用类型的地址。拆箱则是从装箱的Object类型中复制到栈上，重新构造一个栈上的值类型。</p>
+<p>装箱实际上就是把值类型转换为Object引用类型，并且将原数据复制过去，最终返回该引用类型的地址。拆箱则是从装箱的Object类型中复制到栈上，重新构造一个栈上的值类型。
+## JIT和AOT</p>
+<p><strong>JIT即时编译</strong>是默认的C#编译流程，即在发布程序时首先将C#代码作为IL代码存储，直到在程序需要执行某段IL代码时，当场将IL翻译成机器码并加载运行。<strong>AOT提前编译</strong>，类似于C++的编译流程，发布时就将C#代码编译成机器码存储。</p>
+<ul>
+<li>由于JIT会在用户端编译，因此可以收集用户CPU和指令频率等相关信息来优化代码编译，提供比AOT理论上更高效的运行机器码。但是由于是在运行时生成新代码并执行，有些平台（IOS）不允许这种执行生成代码的权限。</li>
+<li>JIT的用户端编译会大大增加应用的初始化启动时间，而AOT由于开箱即用，其启动时间有很明显的优势。同理，JIT的程序发布耗时和包体大小（不包含.NET运行时）比起AOT也有明显优势。</li>
+</ul>
+<p><a
+target="_blank" rel="noopener" href="https://dotnet9.com/2022/04/Influence-of-AOT-and-single-file-release-on-program-performance">参考相关性能数据</a></p>
 <h1 id="标准类型">标准类型</h1>
 <p><a target="_blank" rel="noopener" href="https://source.dot.net/">源码链接</a></p>
 <h2 id="string">string</h2>
@@ -308,6 +316,12 @@ aria-hidden="true">多播委托指向多个单播委托。每个单播委托才�
 <li>注意C#内char类型为2字节的Unicode码，而string的字节长度取决于你用的解码方式，例如默认UTF-8编码英文每字符1字节，中文每字符2字节。而UTF-16/Unicode编码内中英文都是每字符2字节。</li>
 <li>System.Object默认实现一个<code>ToString()</code>，返回当前对象的真实类型名称。</li>
 <li>string的GetHashCode基于字符串值计算。</li>
+</ul>
+<p>两个操作有效率上的坑点：</p>
+<ul>
+<li>String.Equals(str1 , str2,
+[StringComparison.Ordinal])：默认情况下，由于考虑了全球文化兼容性，string.Equals效率很慢。指定参数Ordinal使用字节比较模式，效率能够快10倍。</li>
+<li>正则表达式搜索：Regex.Match每次搜索会产生至少5000字节的堆垃圾，消耗巨大。如果要使用正则表达式最好分别构造模式串和匹配串，也能将内存消耗缩小到1/10。</li>
 </ul>
 <h2 id="list">List</h2>
 <p>底层为动态2倍扩容的数组。注意与纯数组Array不同的是，<code>List&lt;Struct&gt;</code>返回值也为结构体，不可引用和修改，而Array可以。</p>
@@ -494,7 +508,7 @@ Queue 数组 + 队头队尾指针维护而成的队列。</p>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

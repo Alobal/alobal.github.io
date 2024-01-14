@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"sitchzou.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="UGUI 动静分离 如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。 合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单">
+  <meta name="description" content="有哪些优化指标 项目的优化直接影响着应用的使用体验。首先我们需要选择一些指标来作为优化目标：  运行时指标：帧率FPS是我们最常接触，也是体验最明显的性能指标。一个项目15帧基本上是不能用的状态，30帧勉强能用，能做到60帧则会让用户体验有极大的提高。另一方面，运行时内存大小也十分重要，考虑到移动平台内存条件有限，过大的内存占用很容易造成杀后台和进程崩溃。 离线指标：Unity为了尽可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity优化基础">
 <meta property="og:url" content="https://sitchzou.com/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Sitch&#39;s Blog">
-<meta property="og:description" content="UGUI 动静分离 如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。 合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单">
+<meta property="og:description" content="有哪些优化指标 项目的优化直接影响着应用的使用体验。首先我们需要选择一些指标来作为优化目标：  运行时指标：帧率FPS是我们最常接触，也是体验最明显的性能指标。一个项目15帧基本上是不能用的状态，30帧勉强能用，能做到60帧则会让用户体验有极大的提高。另一方面，运行时内存大小也十分重要，考虑到移动平台内存条件有限，过大的内存占用很容易造成杀后台和进程崩溃。 离线指标：Unity为了尽可">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://sitchzou.com/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image.gif">
 <meta property="og:image" content="https://sitchzou.com/2023/03/14/Unity%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/image2.gif">
@@ -284,22 +284,156 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="ugui">UGUI</h2>
-<h3 id="动静分离">动静分离</h3>
-<p>如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以减少DC一次绘制。</p>
-<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新绘制，这样节省下来的DC全用在合并顶点上了，因此就需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
+        <span id="more"></span>
+<h1 id="有哪些优化指标">有哪些优化指标</h1>
+<p>项目的优化直接影响着应用的使用体验。首先我们需要选择一些指标来作为优化目标：</p>
+<ul>
+<li>运行时指标：帧率FPS是我们最常接触，也是体验最明显的性能指标。一个项目15帧基本上是不能用的状态，30帧勉强能用，能做到60帧则会让用户体验有极大的提高。另一方面，运行时内存大小也十分重要，考虑到移动平台内存条件有限，过大的内存占用很容易造成杀后台和进程崩溃。</li>
+<li>离线指标：Unity为了尽可能适配所有类型的资产，提供了丰富繁杂的资产导入设置。然而为了普适性，其中很多默认设置存在性能、存储大小、内存大小等方面的浪费，因此如何优化好一个资产的离线设置也对项目很有帮助。另一方面，减小包体大小对于项目的分发也有所帮助，毕竟没有人愿意动不动就下1G的APP。</li>
+</ul>
+<p>下面从离线资产优化开始介绍。</p>
+<h1 id="离线资产优化">离线资产优化</h1>
+<p>欲先行其事，必先利其器。如果你没有丰富的开发经验，很难去判断一个资产设置的合不合理，而且人工检查资产也费时费力。因此这里推荐自动化的资产检查工具<a
+target="_blank" rel="noopener" href="https://upr.unity.cn/instructions/assetchecker">UPR
+AssetChecker</a></p>
+<h2 id="常见资产优化">常见资产优化</h2>
+<p><strong>音频设置优化</strong>：一般我们下载到的原始音频资源都是无损的wav格式，因此体积较大。然而在绝大部分情况下，我们的APP不需要高精度的音频质量，并且可以做一些针对性的格式修改：</p>
+<ul>
+<li>立体声转为单声道：一些以Player为中心播放的音频其实不存在立体声的效果，因此可以把立体声通道去除，强制转为单声道音频。</li>
+<li>压缩格式：wav保留了最完整的音频细节但是体积巨大，因此我们可以选择Ogg或者Mp3格式，在保留90%的细节同时极大的压缩文件体积。</li>
+<li>音频采样率：通常电脑端的音频都是44K采样率，然而对于手机有限的处理性能和音响性能来说，44K通常是不必要的，改为22K能在不怎么影响音质的同时缩小一半的音频体积。
+[图片]</li>
+</ul>
+<p><strong>3D模型设置优化</strong>：</p>
+<ul>
+<li>Mesh Compression 设置压缩格式。</li>
+<li>Read/Write
+如果运行时需要修改网格才开启，开启后会在CPU内存中产生一份模型内存（本来仅在GPU中）。</li>
+<li>不必要的Rig、Animation、Material mode、法线等可以关闭</li>
+<li>Animation
+Type：Humanoid比Generic性能差30%，但提供Kinematices和Retargeting功能。</li>
+<li>Index Format 如果顶点数小于65535，可以用16位的索引。</li>
+<li>Player Settings中优化选项：Vertex Compression、Optimize Mesh
+Data</li>
+</ul>
+<p><strong>纹理设置：</strong></p>
+<ul>
+<li>设置压缩格式</li>
+<li>Read/Write
+用于脚本Texture2D接口访问纹理，开启会产生纹理的CPU拷贝。</li>
+<li>Mipmap 开启会产生1/3的额外内存</li>
+<li>重复纹理检测</li>
+<li>注意单色纹理设置为单色格式</li>
+<li>检查图集空间利用率，打包合适的图集。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://docs.unity3d.com/Manual/ModelingOptimizedCharacters.html">Unity
+- Creating models for optimal performance</a></li>
+</ul>
+<h1 id="运行时性能优化">运行时性能优化</h1>
+<p>指标检测工具：</p>
+<ul>
+<li>帧率分析工具 Unity Profiler</li>
+<li>内存分析工具 Memory Profiler</li>
+</ul>
+<h2 id="unity-api注意事项">Unity API注意事项</h2>
+<ul>
+<li><code>Gameobject.Find(“something”)</code>：这是一个写起来很方面，但是效率很低的API。它会在整个场景中搜索所有的对象进行匹配。想一下每次要在100000个阀门里找一个名字叫“FMAABB”的阀门。因此尽量不要使用Gameobject.Find。绝大部分Find都可以通过编辑器的预置序列化来实现，实在不行还能使用FindWithTag来替代。</li>
+<li>生命周期函数：尝试自己接管各个MonoBehaviour的回调如Update。Unity管理回调时是通过native层跟踪并唤醒C#层的Update方法，因此会存在两层之间的通信开销。即使是空的Update(){}也一样有开销。因此可以尝试不走MonoBehaviour的结构，定义一个普通的C#类和Update方法，并由自己的UpdateManager类来调用它们的Update。
+&gt;UpdateManager可以用委托+观察者模式来实现，但要小心C#委托在添加或移除订阅者时，会完全复制整套订阅者，和string一样。</li>
+<li>Null比较：减少UnityEngine.Object派生类的Null比较，因为这实际上会变成native
+code层的比较，比常规的C#对象慢。</li>
+<li>组件属性设置：尽量使用Hash
+ID：例如Animator的<code>SetFloat(string name)</code>，本质上会使用<code>Animator.StringToHash</code>把<code>name</code>转为<code>int id</code>，然后在Unity内部进行属性索引。因此我们可以手动计算好Hash
+ID，然后取调用<code>SetFloat(int ID);</code></li>
+<li>CullingGroup：可以用来hook物体的可见性和LOD层次更新，以便看情况关闭不可见对象的相关脚本。</li>
+<li>没有内联优化：Unity编译流程基本不会对C#函数做内联优化，因此可以考虑手动内联简单函数。</li>
+<li>小心array的复制：Unity中大部分返回array的API都是复制,因此注意不要重复调用访问器，如下：
+&gt;以下代码会生成3份vertices。 &gt; &gt;<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;x = mesh.vertices[i].x;</span><br><span class="line">&gt;y = mesh.vertices[i].y;</span><br><span class="line">&gt;z = mesh.vertices[i].z;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="ugui">UGUI</h2>
+<p>UI面板看起来很简单，但实际上也是性能消耗的一个大头:</p>
+<p><strong>小心透明通道</strong>：UGUI所有组件都是在透明通道绘制：有时候我们会偷懒没有关闭旧的UI，而直接把新的UI覆盖在了上面。然而由于UGUI是在透明通道，被挡住的UI依然会进行渲染操作，浪费性能。</p>
+<p><strong>减少UI输入事件的检查</strong>：在接受到输入信号如点击、拖动时，UGUI会遍历整个屏幕上所有的可交互UI对象，并检查它们的位置是否在输入信号的位置。类似于Gameobject.Find，整个遍历操作也是浪费性能的，因此对于不需要交互的UI组件，我们应该关闭Raycast
+Target或Interactable选项，减少遍历对象。</p>
+<p><strong>减少自动布局频率</strong>：
+Layout或AutoSize能够方便地实现自动布局，但是这些布局是要Unity通过CPU算出来的，每次对UI的相关改动都会导致layout的rebuild。</p>
+<blockquote>
+<p>另外特别注意TMP的AutoSize功能，其通过遍历迭代多个size来找到最合适的字体大小，效率极低，尽可能少用并且避免频繁更新autosize的TMP组件。<a
+target="_blank" rel="noopener" href="https://forum.unity.com/threads/tmp-autosize-performance-vs-uguis-bestfit.525979/">参考</a></p>
+</blockquote>
+<p><strong>动静分离</strong>：如果每个UI元素都独立一次drawcall的话，那显然会极大浪费渲染队列，因此UGUI在绘制UI时会将UI元素进行网格合并的操作，以尽量一次Drawcall绘制。</p>
+<p>合并的出发点没有问题，但因此只要任何一个UI元素一变，网格就需要重新合并，这样节省下来的drawcall
+cpu占用全用在合并顶点上了。因此，为了减少网格的重新合并，需要UI元素的动静分离。UGUI中以Canvas为合并网格的基础，因此我们需要尽可能把动态UI元素放在单独的Canvas中，把静止常态的UI放在另一个Canvas中。</p>
 <blockquote>
 <p>嵌套子Canvas也不会和父Canvas合并</p>
 </blockquote>
-<h3 id="重ui的分解">重UI的分解</h3>
-<p>随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
+<p><strong>重UI的分解</strong>：随着UI嵌套的越来越厚、越来越多，项目后期的一个UI对象可能会套着好几层UI面板，并且用的时候只显示某一个，隐藏其他的。因此虽然看起来没什么，但在对这个重UI实例化和销毁的时候会变得很慢，因此可以考虑把不必要的二级UI拆分成单独的对象，在需要时才实例化生成，而不是激活和隐藏。</p>
 <p>不管分不分解，加载这些对象的CPU时间都是需要的，但本质上我们把集中的大段CPU作业拆解成了多个小段，以降低卡顿。当然，也要注意如果拆分不当，导致小元素频繁实例化和销毁也会造成性能浪费。</p>
-<h3 id="加载优化">加载优化</h3>
-<p>UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
-<h3 id="字体拆分">字体拆分</h3>
-<p>字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
-<span id="more"></span>
-<h2 id="ai寻路">AI寻路</h2>
+<p><strong>加载优化</strong>：UI加载并实例化需要做完：加载GameObject对象、网格合并、组件初始化、素材资源加载等任务，并不算轻松。因此可以考虑在CPU缓和的情况下<strong>预加载</strong>UI：例如提前加载AB包素材。或者像上一节中对UI进行<strong>激活和隐藏处理</strong>，而不是生成和销毁。激活和隐藏不用再改变内存，但是组件的重新enable也会带来一定开销，因此再极端一点可以考虑直接把UI移出屏幕并且关闭部分更新，以形成隐藏。</p>
+<p><strong>字体拆分</strong>：字体图集也是一项比较重的资源，而UI中如果同时有几种不同的字体，也会对内存造成一定负担。因此可以针对于特定使用场景，提取出特定词汇单独生成一个字体图集使用，比较常见的有登录场景字体、数值字体、常用字字体。</p>
+<h2 id="渲染优化">渲染优化</h2>
+<p>除去渲染算法上的改动，我们能在渲染上做的优化大致分为两类：</p>
+<ul>
+<li>渲染剔除：减少渲染对象。</li>
+<li>渲染合批：减少CPU drawcall和GPU状态改变。</li>
+</ul>
+<h3 id="渲染剔除">渲染剔除</h3>
+<p>由于玩家视野有限，很多物体即使渲染出来玩家也根本看不到，是白白浪费性能。因此可以尽量减少玩家视野之外的物体渲染，来减轻GPU压力：</p>
+<ul>
+<li>相机视椎体剔除：这一点Unity已经默认做了。但是我们依然能够根据玩家所处场景，去动态修改相机视椎体大小，比如在房间内时使视椎体更小一点，充分发挥视椎体剔除的作用。</li>
+<li>Camera的Layer Mask和Layer
+Distance：根据情况，我们可以定制Camera渲染的层级。同样例如在房间内，可以只显示InHouse
+Layer。而Layer
+Distance则可以用来定制每个Layer的剔除距离，覆盖视椎体远平面的剔除。</li>
+<li>LOD：根据玩家距离，动态决定物体网格细节，以便节省一些不必要的模型顶点数和面数。推荐一个简单易上手的插件<a
+target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/tools/modeling/nanolod-automatic-lods-193314">NanoLOD</a></li>
+<li>遮挡剔除：如果一个物体被挡在其他物体后面完全看不到，我们也没必要去渲染它。不过需要CPU去判断物体的遮挡关系，因此实际上是用CPU换GPU</li>
+<li>像素剔除：即使渲染物体数不变，我们也可以从shader上挤出一些像素剔除来节省shader计算，例如选择是否开启背面剔除、Early
+Z。</li>
+</ul>
+<p>另外从更宏观的层面上，如果场景灯光数过多，会造成前向渲染的压力，可以考虑改成延迟渲染或者Forward+。</p>
+<h3 id="渲染合批">渲染合批</h3>
+<p>由于GPU是状态机模式运行，并且CPU和GPU中间存在着通信交换的开销，因此在渲染物体不变的情况下，减少CPU和GPU的drawcall通信，减少GPU状态的切换，也能够有效提升性能。（通常是节省CPU的时间）</p>
+<p>一方面我们可以对资源提前做好合批：</p>
+<ul>
+<li>网格合批：使用C#
+CombineMesh或者3D软件提前将进行网格层次的合并。</li>
+<li>纹理合批：使用Sprite Atlas和TextureArray对纹理进行打包管理。</li>
+<li>Shader属性合批：使用Material Property
+Block对同材质但有不同属性的大量物体进行属性修改。</li>
+</ul>
+<p>另一方面，Unity也提供了一些运行时渲染合批的方法：</p>
+<ul>
+<li>静态合批：对于标记为Static的物体都可以参与到静态合批中。不过需要一批最多顶点数为64000，并且合并后的超大网格也会影响到一些剔除判定。</li>
+<li>动态合批：对任何对象，Unity都可以提供运行时动态合批，但这需要消耗CPU即时计算，不一定会带来性能提升。并且限制条件也很多。</li>
+<li>静态合批和动态合批都会额外生成一份合并网格，导致网格内存占用翻倍。</li>
+<li>其他运行时合批技术：SRP Batching、GPU instance</li>
+</ul>
+<h2 id="资源加载优化">资源加载优化</h2>
+<p>另外一个很影响使用体验的点就是资源加载。一方面不合理的资源加载会导致读屏时间过长，另一方面不当的内存资源管理也会导致内存的浪费。</p>
+<p>举个例子：默认情况下，我们会把一个重复使用的模型做成Prefab资源，然后在其他代码中引用并Instantiate实例使用。然而在Instantiate之前，实际上由于Prefab的引用，我们会在APP启动时将prefab先加载到内存，之后再等待Instantiate。这样会造成启动加载时间过长，以及Instantiate之前不必要的内存占用。</p>
+<p>[图片]</p>
+<p>常见的导致启动时加载资源的原因有三类：</p>
+<ul>
+<li>场景预置资源：例如已经把房子、树木等摆在场景中了。那么在启动加载场景时，必须要先把房子、树木的纹理和模型等资源加载进入内存。</li>
+<li>C#序列化引用：例如我们平常引用的public
+Gameobject，如果上述的场景预置资源A上挂了一些代码，并且代码引用了一些其他资源B，那么B也会跟随A在启动时加载。</li>
+<li>Resources文件夹：所有放在Resources文件夹的资源都会在启动时加载。Unity建议不要使用Resources文件夹。</li>
+</ul>
+<p>那么我们应该怎么改造资源加载呢？使用AssetBundle/Addressable对资源进行按需加载。</p>
+<p>Addressable是对AssetBundle封装后更简洁易用的API，因此这里介绍<a
+target="_blank" rel="noopener" href="https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html">Addressable的使用方法</a>。首先需要将资源标记为Addressable，标记之后的路径则是这个资源的key，用于在之后加载资源：</p>
+<p>[图片]</p>
+<p>有了key之后，我们则可以在代码中动态进行资源加载和卸载：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">LoadAddress</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> key;</span><br><span class="line">    AsyncOperationHandle&lt;GameObject&gt; opHandle;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IEnumerator <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        opHandle = Addressables.LoadAssetAsync&lt;GameObject&gt;(key);</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> opHandle;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (opHandle.Status == AsyncOperationStatus.Succeeded)</span><br><span class="line">        &#123;</span><br><span class="line">            GameObject obj = opHandle.Result;</span><br><span class="line">            Instantiate(obj, transform);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnDestroy</span>(<span class="params"></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Addressables.Release(opHandle);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外考虑到public
+Gameobject形式的序列化引用在大部分情况下很有用，因此Addressable也提供了一个新的形式public
+AssetReference，使用方法如下所示：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">LoadAddress</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> AssetReference prefab;<span class="comment">//和以前一样，在编辑器中拖动预置。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 从Addressable中加载prefab的Asset，并返回实例化的Transform</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Transform <span class="title">GetInstance</span>(<span class="params">AssetReference prefab</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        AsyncOperationHandle&lt;GameObject&gt; handle = <span class="literal">default</span>;</span><br><span class="line">        <span class="comment">//已有Asset缓存handle</span></span><br><span class="line">        <span class="keyword">if</span> (prefab.Asset != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Instantiate(((GameObject)prefab.Asset).transform);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//没有Asset缓存则加载</span></span><br><span class="line">        &#123;</span><br><span class="line">            handle = prefab.LoadAssetAsync&lt;GameObject&gt;();</span><br><span class="line">            Transform instance = Instantiate(handle.WaitForCompletion().transform);</span><br><span class="line">            <span class="keyword">if</span> (instance == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Debug.LogError(<span class="string">&quot;场景对象模型未能初始化&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                cache_handles.Add(prefab, handle);</span><br><span class="line">                instance.gameObject.SetActive(<span class="literal">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ai寻路优化">AI寻路优化</h2>
 <p>寻路算法中最经典的就是A星算法。虽然经典的最短路径算法有Dijkstra和Floyd，但是其复杂度分别是O(N<sup>2)和O(N</sup>3)，空间复杂度都是O(N^2)，因此根本不适合游戏这种大型路径搜索需求。并且更重要的一点是，游戏寻路根本不在乎是不是<strong>最短</strong>路径，只需要是一条能走通的路径就行，这就是A星算法的根本目标，其使用贪心算法寻找局部优解来寻路，平均时间复杂度为O(N
 logN)。然而，A星的具体实现中还有很多细节可以优化。</p>
 <h3 id="大场景分割">大场景分割</h3>
@@ -356,26 +490,17 @@ aria-hidden="true">绿色到橙色需要在蓝色拐弯，蓝色则也是跳点<
 <figcaption
 aria-hidden="true">先直线搜索，不行再斜向进一步。</figcaption>
 </figure>
-<h2 id="场景渲染优化">场景渲染优化</h2>
-<p>首先需要对资源情况摸一个底，检查一下场景的性能数据 ：</p>
+<h2 id="参考-1">参考</h2>
 <ul>
-<li>摄像机数量、实时灯光数量</li>
-<li>渲染路径</li>
-<li>运行时信息 Batch、SetPass Call、三角形面数、顶点数。</li>
-<li>Memory Profiler：运行时内存分布情况</li>
-<li>Profiler：CPU和GPU耗时分布</li>
-<li>打包体积</li>
-</ul>
-<blockquote>
-<p>(以2023 URP sample Garden 为例) Batch在3000，setpass
-call在200，顶点数和面数在75W，内存占用在Resident 4.3G, Total Committed
-18.8G</p>
-</blockquote>
-<h3 id="静态资产检查">静态资产检查</h3>
-<p>使用UPR asset checker可以自动分析项目资产待优化的地方：</p>
-<ul>
-<li>音频：大部分音效可以开启单声道，降低采样频率至22050。优化后音频内存占用可以减少70M</li>
-<li>网格：</li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.unity3d.com/2023.3/Documentation/Manual/BestPracticeUnderstandingPerformanceInUnity.html">Unity
+Understanding optimization</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://docs.unity3d.com/Manual/performance-garbage-collection-best-practices.html">Unity
+垃圾回收优化</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://learn.unity.com/tutorial/fixing-performance-problems-2019-3#604590b0edbc2a3ba0d199d6">Unity
+Blog - 性能优化总览</a></li>
 </ul>
 
     </div>
@@ -461,7 +586,7 @@ call在200，顶点数和面数在75W，内存占用在Resident 4.3G, Total Comm
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ugui"><span class="nav-number">1.</span> <span class="nav-text">UGUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">1.1.</span> <span class="nav-text">动静分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8Dui%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">重UI的分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">加载优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E6%8B%86%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">字体拆分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ai%E5%AF%BB%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">AI寻路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9C%BA%E6%99%AF%E5%88%86%E5%89%B2"><span class="nav-number">2.1.</span> <span class="nav-text">大场景分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%AD%98%E5%82%A8openlist%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">堆存储openlist节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openlist%E6%90%9C%E7%B4%A2%E8%A7%84%E5%88%99%E4%BC%98%E5%8C%96-jps"><span class="nav-number">2.3.</span> <span class="nav-text">openlist搜索规则优化 JPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">场景渲染优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E4%BA%A7%E6%A3%80%E6%9F%A5"><span class="nav-number">3.1.</span> <span class="nav-text">静态资产检查</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">有哪些优化指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%BB%E7%BA%BF%E8%B5%84%E4%BA%A7%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">离线资产优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E8%B5%84%E4%BA%A7%E4%BC%98%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">常见资产优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">运行时性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#unity-api%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.1.</span> <span class="nav-text">Unity API注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ugui"><span class="nav-number">3.2.</span> <span class="nav-text">UGUI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">渲染优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%89%94%E9%99%A4"><span class="nav-number">3.3.1.</span> <span class="nav-text">渲染剔除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%90%88%E6%89%B9"><span class="nav-number">3.3.2.</span> <span class="nav-text">渲染合批</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">资源加载优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ai%E5%AF%BB%E8%B7%AF%E4%BC%98%E5%8C%96"><span class="nav-number">3.5.</span> <span class="nav-text">AI寻路优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9C%BA%E6%99%AF%E5%88%86%E5%89%B2"><span class="nav-number">3.5.1.</span> <span class="nav-text">大场景分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E5%AD%98%E5%82%A8openlist%E8%8A%82%E7%82%B9"><span class="nav-number">3.5.2.</span> <span class="nav-text">堆存储openlist节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openlist%E6%90%9C%E7%B4%A2%E8%A7%84%E5%88%99%E4%BC%98%E5%8C%96-jps"><span class="nav-number">3.5.3.</span> <span class="nav-text">openlist搜索规则优化 JPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83-1"><span class="nav-number">3.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -527,7 +652,7 @@ call在200，顶点数和面数在75W，内存占用在Resident 4.3G, Total Comm
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
