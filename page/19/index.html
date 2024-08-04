@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-50/">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-49/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
+            <a href="/2020/02/17/LeetCode-No-49/" class="post-title-link" itemprop="url">LeetCode-No-49</a>
         </h2>
 
         <div class="post-meta">
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/17/LeetCode-No-50/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-50/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/17/LeetCode-No-49/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-49/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -269,27 +269,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="powxn"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/powx-n">pow(x,n)</a></h1>
-<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
-<p>示例 1:</p>
-<p>输入: 2.00000, 10 输出: 1024.00000</p>
-<p>示例 2:</p>
-<p>输入: 2.10000, 3 输出: 9.26100</p>
-<p>示例 3:</p>
-<p>输入: 2.00000, -2 输出: 0.25000 解释: 2-2 = 1/22 = 1/4 = 0.25
-说明:</p>
-<p>-100.0 &lt; x &lt; 100.0 n 是 32
-位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
-<h1 id="题目分析">题目分析</h1>
-<h3 id="数学思路-快速幂算法">数学思路, 快速幂算法</h3>
-<h4
-id="因为xn可以分解成xn2-xn2-所以可以把n二分下去-变成logn的快速幂算法">----因为x<sup>n</sup>可以分解成x<sup>n/2</sup>
-* x<sup>n/2</sup>, 所以可以把n二分下去 变成logN的快速幂算法</h4>
-<h4 id="另外注意-数值越界-奇偶的二分的区别">另外注意: 数值越界,
-奇偶的二分的区别</h4>
-<h1 id="题解代码">题解代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//????通不过45,90啊</span></span><br><span class="line">        <span class="comment">//只有奇偶递归的话,数值变大了就有问题</span></span><br><span class="line">        <span class="keyword">if</span>(n==INT_MIN)<span class="comment">//注意-n 和 n 的越界范围不一样</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>/(<span class="built_in">myPow</span>(x,INT_MAX)*x);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n&lt;<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>/<span class="built_in">myPow</span>(x,-n);</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> half=<span class="built_in">myPow</span>(x,n/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> half*half;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//(n%2!=0)</span></span><br><span class="line">            <span class="keyword">return</span> half*half*x;            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h1 id="字母异位分词"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/group-anagrams">字母异位分词</a></h1>
+<p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
+<p>示例:</p>
+<p>输入: ["eat", "tea", "tan", "ate", "nat", "bat"], 输出: [
+["ate","eat","tea"], ["nat","tan"], ["bat"]] 说明：</p>
+<p>所有输入均为小写字母。 不考虑答案输出的顺序。</p>
+<h1 id="题解分析">题解分析</h1>
+<h3 id="怎么判断是不是异位分词呢-想想异位分词具有什么特点">1.
+怎么判断是不是异位分词呢? 想想异位分词具有什么特点?</h3>
+<h3 id="异位分词中-字母出现次数相同-字母顺序不同">---- 异位分词中,
+字母出现次数相同, 字母顺序不同</h3>
+<h3 id="因此我们可以-排序后观察-26字母次数统计-进行比较.">----
+因此我们可以 排序后观察 / 26字母次数统计 进行比较.</h3>
+<h3
+id="当然注意别做一类扫一遍-用个字典自动分类就可以了.">当然注意别做一类扫一遍,
+用个字典自动分类就可以了.</h3>
+<h1 id="题解代码----排序字典">题解代码----排序+字典</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string groupAnagrams(vector&lt;string&amp; strs) </span><br><span class="line">    &#123;   //加字典的排序</span><br><span class="line">        vector&lt;vector&lt;string result;</span><br><span class="line">        unordered_map&lt;string, vector&lt;string hashmap;</span><br><span class="line">        <span class="keyword">for</span>(string s : strs)</span><br><span class="line">        &#123;</span><br><span class="line">            string temp = s;</span><br><span class="line">            sort(temp.begin(), temp.end());</span><br><span class="line">            hashmap[temp].push_back(s);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : hashmap)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(i.second);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -524,6 +522,107 @@ id="需要注意怎么判断皇后在当前位置是否可放置呢使用状态�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-50/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-50/" class="post-title-link" itemprop="url">LeetCode-No-50</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-50/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-50/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="powxn"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/powx-n">pow(x,n)</a></h1>
+<p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。</p>
+<p>示例 1:</p>
+<p>输入: 2.00000, 10 输出: 1024.00000</p>
+<p>示例 2:</p>
+<p>输入: 2.10000, 3 输出: 9.26100</p>
+<p>示例 3:</p>
+<p>输入: 2.00000, -2 输出: 0.25000 解释: 2-2 = 1/22 = 1/4 = 0.25
+说明:</p>
+<p>-100.0 &lt; x &lt; 100.0 n 是 32
+位有符号整数，其数值范围是 [−231, 231 − 1] 。</p>
+<h1 id="题目分析">题目分析</h1>
+<h3 id="数学思路-快速幂算法">数学思路, 快速幂算法</h3>
+<h4
+id="因为xn可以分解成xn2-xn2-所以可以把n二分下去-变成logn的快速幂算法">----因为x<sup>n</sup>可以分解成x<sup>n/2</sup>
+* x<sup>n/2</sup>, 所以可以把n二分下去 变成logN的快速幂算法</h4>
+<h4 id="另外注意-数值越界-奇偶的二分的区别">另外注意: 数值越界,
+奇偶的二分的区别</h4>
+<h1 id="题解代码">题解代码</h1>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">myPow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;   <span class="comment">//????通不过45,90啊</span></span><br><span class="line">        <span class="comment">//只有奇偶递归的话,数值变大了就有问题</span></span><br><span class="line">        <span class="keyword">if</span>(n==INT_MIN)<span class="comment">//注意-n 和 n 的越界范围不一样</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>/(<span class="built_in">myPow</span>(x,INT_MAX)*x);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n&lt;<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>/<span class="built_in">myPow</span>(x,-n);</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> half=<span class="built_in">myPow</span>(x,n/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> half*half;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//(n%2!=0)</span></span><br><span class="line">            <span class="keyword">return</span> half*half*x;            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-53/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -620,115 +719,6 @@ id="一开始我是想着尝试双指针往中间收缩只要收缩能增加和�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-56-No-57/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-56-No-57/" class="post-title-link" itemprop="url">LeetCode-No-56-&-No-57</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-56-No-57/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-56-No-57/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1
-id="合并区间-插入区间httpsleetcode-cn.comproblemsmerge-intervals">(合并区间
-|| 插入区间)[https://leetcode-cn.com/problems/merge-intervals]</h1>
-<p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]] 输出: [[1,6],[8,10],[15,18]] 解释:
-区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</p>
-<p>示例 2:</p>
-<p>输入: [[1,4],[4,5]] 输出: [[1,5]] 解释: 区间 [1,4] 和 [4,5]
-可被视为重叠区间。</p>
-<h1 id="题目分析">题目分析</h1>
-<h3 id="合并区间">合并区间</h3>
-<ol type="1">
-<li>[a,b] [c,d]合并条件：b=c &amp;&amp; a&lt;=d
-此时区间存在重复区段，可以合并</li>
-<li>由于原区间序列是乱序，你合并了前两个，产生合并结果temp，但你不知道temp还可以和后续的什么合并，所以又需要遍历一遍，不现实。</li>
-<li>因此我们先按区间左边界进行排序，这样temp只需要考虑是否还要合并紧挨着的下一个即可。
-### 插入区间</li>
-<li>首先需要找到插入位置，即左边界 介于 前一个和后一个的左边界
-中间。</li>
-<li>插入之后的收尾工作 插入时会不会和前一个发生和合并？
-因为是按左边界顺序，因此<strong>往前只可能合并一个</strong>
-但是不知道新区间的右边界延伸到了哪里，因此对<strong>后续区间都要检查一遍是否需要合并</strong></li>
-</ol>
-<h1 id="题解代码">题解代码</h1>
-<h3 id="合并区间-1">合并区间</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> merge(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals) </span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">if</span>(Len==0)</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">        sort(intervals.begin(),intervals.end(),cmp);</span><br><span class="line">        result.push_back(intervals[0]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i=1;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;    //可连接 [1,3] [2,4]</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">                <span class="keyword">if</span>(intervals[i][1]result.back()[1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">                <span class="keyword">else</span>;</span><br><span class="line">            <span class="keyword">else</span>//不可连接 </span><br><span class="line">                result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> cmp(vector&lt;<span class="keyword">int</span>&amp; a,vector&lt;<span class="keyword">int</span>&amp; b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a[0]&lt;b[0];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="插入区间">插入区间</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> insert(vector&lt;vector&lt;<span class="keyword">int</span>&amp; intervals, vector&lt;<span class="keyword">int</span>&amp; newInterval) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> Len=intervals.size();</span><br><span class="line">        <span class="keyword">bool</span> IsInsert=<span class="literal">false</span>;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;   //找到插入的位置</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][1]&lt;newInterval[0])</span><br><span class="line">                i++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i==Len)//插在末尾之后</span><br><span class="line">        &#123;</span><br><span class="line">            intervals.push_back(newInterval);</span><br><span class="line">            <span class="keyword">return</span> intervals;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=0;j&lt;i;j++)//无需检查的项直接插入</span><br><span class="line">            result.push_back(intervals[j]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(intervals[i][0]&lt;=newInterval[1])//可以合并</span><br><span class="line">        &#123;</span><br><span class="line">            intervals[i][0]=min(intervals[i][0],newInterval[0]);</span><br><span class="line">            intervals[i][1]=max(intervals[i][1],newInterval[1]);</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>//插入 而不是合并</span><br><span class="line">            result.push_back(newInterval);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            //插入项往后 每一项都要检查是否要往前合并,直到不用合并</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][0]&lt;=result.back()[1])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(result.back()[1]&lt;intervals[i][1])</span><br><span class="line">                    result.back()[1]=intervals[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        //出来的i往后是无法合并的项</span><br><span class="line">        <span class="keyword">while</span>(i&lt;Len)</span><br><span class="line">        &#123;</span><br><span class="line">            result.push_back(intervals[i]);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -800,7 +790,7 @@ id="合并区间-插入区间httpsleetcode-cn.comproblemsmerge-intervals">(合�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -813,7 +803,7 @@ id="合并区间-插入区间httpsleetcode-cn.comproblemsmerge-intervals">(合�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

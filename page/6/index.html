@@ -208,6 +208,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/26/SequentialPointNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/26/SequentialPointNet/" class="post-title-link" itemprop="url">SequentialPointNet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-26 19:32:23" itemprop="dateCreated datePublished" datetime="2021-12-26T19:32:23+08:00">2021-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/26/SequentialPointNet/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/26/SequentialPointNet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>SequentialPointNet: A strong parallelized point cloud
+sequence network for 3D action recognition</strong></p>
+<ul>
+<li>Li X, Huang Q, Wang Z, et al. SequentialPointNet: A strong
+parallelized point cloud sequence network for 3D action recognition[J].
+arXiv preprint arXiv:2111.08492, 2021.</li>
+<li>河海大学 CS</li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/XingLi1012/SequentialPointNet.git">源码仓库</a></li>
+</ul>
+<p>针对人类动作在空间上复杂，在时间上简单的特性，不平等的对待空间信息和时间信息。提出了一个强并行能力的点云序列网络SequentialPointNet：一个帧内appearance编码模块，一个帧间动作编码模块。</p>
+<ul>
+<li>为了对人体动作丰富的空间信息建模，每帧先在帧内的appearance
+encoding中并行处理，并且输出一个特征向量序列，描述静态的appearance在时间维度上的改变。</li>
+<li>为了建模简单的时间维度上的变化，在帧间的动作编码模块中，在特征向量序列中应用了
+时间上的位置编码和分层的池化策略。</li>
+<li>为了更好的挖掘时空内容，聚合人体动作的多级特征。</li>
+</ul>
+<h1 id="帧间编码">帧间编码</h1>
+<figure>
+<img src="https://i.imgur.com/AfhgtrM.png" alt="帧间编码" />
+<figcaption aria-hidden="true">帧间编码</figcaption>
+</figure>
+<p><strong>Temporal position
+embedding</strong>：和Transformer的positional
+encoding差不多。将时间上的位置进行encoding：</p>
+<p><span class="math display">\[
+\begin{gathered}
+P E_{t, 2 h}=\sin \left(t / 10000^{2 h / d_{\text {sout }}}\right) \\
+P E_{t, 2 h+1}=\cos \left(t / 10000^{2 h / d_{\text {sout }}}\right)\\
+\widehat{f}_{t, h}=f_{t, h}+P E_{t, h}
+\end{gathered}
+\]</span></p>
+<p><strong>共享MLP</strong>：在时间位置编码之后，再进行特征抽取，加强信息。</p>
+<p><strong>Hierarchical pyramid max
+pooling</strong>：类似于多卷积核操作。将时间序列化为不同的几个部分，并且使用max
+pooling分别抽取特征。</p>
+<figure>
+<img src="https://i.imgur.com/unueYdQ.png" alt="层级式max pooling" />
+<figcaption aria-hidden="true">层级式max pooling</figcaption>
+</figure>
+<p><strong>多级特征抽取</strong>：序列层级学习是帧间的分级策略，还有帧内的多级特征抽取：</p>
+<p><span class="math display">\[
+\begin{gathered}
+P=\underset{t=1, \ldots,
+T}{\operatorname{MAX}}\left\{\operatorname{MAX}_{j=1, \ldots,
+n_{2}}\left\{r_{j}^{t}\right\}\right\} \\
+R=\operatorname{MAX}_{t=1, \ldots, T}\left\{f_{t}\right\}
+\end{gathered}
+\]</span></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/23/AttentionIsAllYouNeed/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -632,117 +762,6 @@ encoding</strong>的重要性，而不是像之前的工作一样忽略的位置
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2021/12/18/PCT/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/18/PCT/" class="post-title-link" itemprop="url">PCT</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-18 10:40:32" itemprop="dateCreated datePublished" datetime="2021-12-18T10:40:32+08:00">2021-12-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/12/18/PCT/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/18/PCT/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>PCT: Point cloud transformer</strong></p>
-<ul>
-<li>Guo M H, Cai J X, Liu Z N, et al. PCT: Point cloud transformer[J].
-Computational Visual Media, 2021, 7(2): 187-199.</li>
-<li>清华</li>
-<li>CVMJ</li>
-</ul>
-<p>提出了基于Transformer的PCT网络。Transformer在NLP和图像处理取得了巨大成功，其内在的置换不变性也十分适合点云学习。为了更好的捕捉点云局部信息，使用了最远点采样和最近邻搜索来加强输入的embedding处理。实验证明PCT达到了分类分割和法向估计的SOTA。</p>
-<p>由于点云和自然语言是完全不同的数据类型，因此PCT对Transformer作出了几项调整：</p>
-<ul>
-<li><strong>Coordinate-based input
-embedding</strong>：Transformer里的positional encoding
-是为了区分不同位置的同一个词。然而点云没有位置顺序关系，因此PCT中将
-positional encoding 和 input embedding
-结合了起来，基于坐标进行编码。</li>
-<li><strong>Optimized offset-attention module</strong>：是原始
-self-attention 的升级模块。它把原来的attention
-feature换成了self-attention的输入和attention
-feature之间的offset。同一个物体在不同的变换下的绝对坐标完全不一样，因此相对坐标更鲁棒。</li>
-<li><strong>Neighbor embedding module</strong>：
-注意力机制有效捕捉全局特征，但可能忽视局部几何信息，而这在点云中很重要。句子中的每个单独的词都有基本的语义信息，但是点云中孤立的点不存在语义信息。因此使用了一个neighbor
-embedding
-策略来进行改良，让注意力机制着重于分析点局部邻域的信息，而不是孤立的点的信息。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/18/PCT/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -814,7 +833,7 @@ embedding
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -827,7 +846,7 @@ embedding
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

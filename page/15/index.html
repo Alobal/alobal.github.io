@@ -208,6 +208,176 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="github-pages-hexo-博客搭建">github Pages + Hexo 博客搭建</h1>
+<p>前置知识：git 使用，github 建库</p>
+<blockquote>
+<p>注意GitHub仓库最好建的是username.github.io仓库，这样GitHub Pages
+才能获得一级域名。而二级域名在进行某些扩展时有问题。可以去搜一下关于github
+pages两种域名的区别。</p>
+</blockquote>
+<h2 id="安装环境">安装环境</h2>
+<h3 id="安装-node.js">安装 node.JS</h3>
+<p><a
+target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网下载安装程序，默认安装即可</a></p>
+<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
+<h3 id="安装-hexo">安装 hexo</h3>
+<p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是
+git bash。</p>
+<blockquote>
+<p>可以使用 cmd，但我遇到了中文问题。</p>
+<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入
+<code>set-executionpolicy remotesigned</code>
+更改安全策略，允许运行脚本。</p>
+</blockquote>
+<p>运行<code>npm install -g hexo-cli</code>进行安装,再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
+<h2 id="配置项目">配置项目</h2>
+<h3 id="初始化">初始化</h3>
+<p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
+<p>运行<code>hexo init</code>初始化</p>
+<h3 id="本地测试">本地测试</h3>
+<p>运行以下命令部署默认网页进行测试：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">test_my_site</span> <span class="comment">#创建新 test_my_site 的 markdown 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>                <span class="comment"># 从 md 文件生成 html 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span>                <span class="comment"># 部署本地服务器</span></span><br></pre></td></tr></table></figure>
+<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
+<h3 id="部署到网络">部署到网络</h3>
+<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
+<p>最后一段为：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">仓库的完整路径，推荐使用</span> <span class="string">ssh</span> <span class="string">路径，这样可以有</span> <span class="string">ssh</span> <span class="string">免密登录。例如我的</span> <span class="string">git@github.com:Alobal/alobal.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>URL 小段为：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">访问网址，例如</span> <span class="string">https://alobal.github.io/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">仓库名，例如</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<p>保存关闭该文件</p>
+<p>安装 hexo 的 git
+部署插件<code>npm install hexo-deployer-git --save</code></p>
+<p>运行以下命令进行发布到网络</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
+</blockquote>
+<p>出现<code>Branch 'master' set up to track remote branch 'master' from 'https:..</code>大概就恭喜你成功了。此时可以在
+github 仓库看到 hexo
+提交的文件。以及能通过访问网址查看你刚才发布的默认博客。</p>
+<h2 id="选一个你喜欢的主题">选一个你喜欢的主题</h2>
+<h3 id="下载主题">下载主题</h3>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo 主题库</a></p>
+<p>挑选一个合适的主题，比如很常见的 Next，复制 git
+地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
+<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
+<blockquote>
+<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next
+项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19
+版本网上教程比较健全了。</p>
+</blockquote>
+<h3 id="配置主题">配置主题</h3>
+<p>打开 _config.yml，修改 theme 字段：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">主题名，例如</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
+<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。比如
+next
+主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找
+next 官方文档。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
+<p>输入<code>hexo g;hexo d</code>
+重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
+<blockquote>
+<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者
+Ctrl+F5 强制刷新。</p>
+</blockquote>
+<h2 id="helloblog">hello，blog</h2>
+<p>让我们试着发布第一篇博客。项目路径下，命令行输入<code>hexo n 博客名</code>
+, 可以在 项目名/source/_posts/ 下面找到新建的 markdown
+文件。打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。在文件头之后，即<code>------</code>下面写入你的
+markdown 格式内容即可。</p>
+<p>关于 markdown 怎么书写，可以看我的 <a
+target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown
+简洁手册</a>。</p>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">知乎经典贴</a></p>
+<h2 id="错误汇总">错误汇总</h2>
+<h3 id="can-not-find-module-xxx">can not find module xxx</h3>
+<p>命令行<code>npm install</code> 安装所有依赖包完事。</p>
+<h3 id="没有启用代码高亮">没有启用代码高亮</h3>
+<p>根目录 config 里，修改配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>next 主题配置里，选择自己要的高亮样式：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="attr">prism:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/05/15/C++%E6%B4%BE%E7%94%9F%E7%B1%BB%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -310,6 +480,117 @@ i），Really？</p>
 <img src="https://i.imgur.com/ZfXu4sR.png" alt="运行结果" />
 <figcaption aria-hidden="true">运行结果</figcaption>
 </figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="两数之和"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">两数之和</a></h1>
+<p>给定一个整数数组 <code>nums</code> 和一个目标值
+<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] =
+2 + 7 = 9 所以返回 [0, 1]</p>
+<h3 id="解决思路">1.解决思路</h3>
+<p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> j=0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=i+1;j&lt;nums.size();j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j=nums.size();</span><br><span class="line">                    i=j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过</li>
+<li>472 ms</li>
+<li>9.2 MB</li>
+<li>Cpp</li>
+</ul>
+<h3 id="优化思路">2.优化思路</h3>
+<p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。
+<strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用
+<strong>空间换时间</strong>。 哈希表查找复杂度为O(1)</p>
+<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。
+<strong><em>一遍哈希表</em></strong>
+：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
+<h3 id="最终实现代码">3.最终实现代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;<span class="keyword">int</span>,<span class="keyword">int</span> store;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(store.count(target-nums[i])0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result=vector&lt;<span class="keyword">int</span>(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过</li>
+<li>20 ms</li>
+<li>10.1 MB</li>
+<li>Cpp</li>
+</ul>
 
       
     </div>
@@ -475,117 +756,6 @@ id="理解了思路但实战这道题还是有细节方面思路不清继续挖�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-1/" class="post-title-link" itemprop="url">LeetCode-No-1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="两数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum">两数之和</a></h1>
-<p>给定一个整数数组 <code>nums</code> 和一个目标值
-<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
-你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
-<p>示例: 给定 nums = [2, 7, 11, 15], target = 9 因为 nums[0] + nums[1] =
-2 + 7 = 9 所以返回 [0, 1]</p>
-<h3 id="解决思路">1.解决思路</h3>
-<p><strong>暴力遍历</strong>，我们需要找出两个数满足一个数值和的需求，我首先想到的就是通过遍历尝试，简单暴力。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">int</span> i=0;</span><br><span class="line">        <span class="keyword">int</span> j=0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;nums.size()-1;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j=i+1;j&lt;nums.size();j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    j=nums.size();</span><br><span class="line">                    i=j-1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>472 ms</li>
-<li>9.2 MB</li>
-<li>Cpp</li>
-</ul>
-<h3 id="优化思路">2.优化思路</h3>
-<p>显然暴力解法最容易想但效率也大量浪费在了无谓的二层循环中，直接导致了O(n^2)的复杂度。
-<strong>细化需求</strong>，当我们找到一个数，本来是要在二层循环中尝试找到可以组合的数，我们已知数值寻找位置，因此可以考虑到使用<strong>map哈希表</strong>来构造数据结构,使用
-<strong>空间换时间</strong>。 哈希表查找复杂度为O(1)</p>
-<p><strong><em>两遍哈希表</em></strong>，我们把数组遍历存入map中，消耗O(n)，然后再对每一个数进行遍历，每次只要在map中寻找其对应的数值是否存在即可，总时间复杂度为2O(n)。
-<strong><em>一遍哈希表</em></strong>
-：在存入map时即对对应的匹配数进行查找，优化复杂度至O(n)。</p>
-<h3 id="最终实现代码">3.最终实现代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span> twoSum(vector&lt;<span class="keyword">int</span>&amp; nums, <span class="keyword">int</span> target) </span><br><span class="line">    &#123;   </span><br><span class="line">        map&lt;<span class="keyword">int</span>,<span class="keyword">int</span> store;</span><br><span class="line">        vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=0;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(store.count(target-nums[i])0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">                result=vector&lt;<span class="keyword">int</span>(&#123;store[target-nums[i]],i&#125;);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            store.insert(map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>::value_type(nums[i],i));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过</li>
-<li>20 ms</li>
-<li>10.1 MB</li>
-<li>Cpp</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -707,122 +877,6 @@ alt="image.png" /></p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/02/17/LeetCode-No-15-/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/LeetCode-No-15-/" class="post-title-link" itemprop="url">LeetCode-No-15-</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 02:17:00" itemprop="dateCreated datePublished" datetime="2020-02-17T02:17:00+08:00">2020-02-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/LeetCode-No-15-/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/LeetCode-No-15-/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="三数之和"><a
-target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum">三数之和</a></h1>
-<p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素
-a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
-<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2]]</p>
-<h1 id="思路分析">思路分析</h1>
-<ul>
-<li><p>暴力O(n3) 这样做还不如不做kj</p></li>
-<li><p>联想<strong>两数之和</strong>那道题，可以采用map哈希来查找需要的值，但由于要先确定两个数之和，才能知道需要的值，所以有时间O(n2)+空间O(n)。</p></li>
-<li><p><strong>牺牲O(Nlog
-N)对数组sort，排序之后找数即可用双指针头尾同步进行</strong></p></li>
-<li><p>我的做法是，对于a&lt;=b&lt;=c，a+b+c=0，先确定b为<code>center</code>，然后对于center的每一次循环中，都让a,c分别从首尾开始，根据<code>sum=a+b+c</code>与0相比，判断是要a++还是c--。
-这里要注意人为考虑特殊情况，<strong>注意剪枝</strong>，否则像{0,0,0,0,0,0,0,0,0,0,0}会没意义的算很多遍。另外在每个center的内循环中，显然假如<strong>最小值大于0</strong>，或者<strong>最大值小于0</strong>，是不可能和为0，可以剪枝。</p></li>
-<li><p>另外，当数组中有重复数字时，会重复进行循环匹配，因此我额外使用了一个<code>set</code>。</p></li>
-<li><p><code>if(sum==0)</code>之后，额外加一个<code>if(set.count(vector)==0)</code>来判断是否已经有了相同的组合被存储了，如果没有，则<code>set</code>和<code>result</code>同时存储这个新组合，set中存储是为了对之后判重。</p></li>
-</ul>
-<h1 id="解题代码">解题代码</h1>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span> threeSum(vector&lt;<span class="keyword">int</span>&amp; nums) </span><br><span class="line">    &#123;   </span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span> result;</span><br><span class="line">        set&lt;vector&lt;<span class="keyword">int</span> resultset;</span><br><span class="line">        //剪枝</span><br><span class="line">        <span class="keyword">if</span> (nums.size() &lt;= 2)</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">  sort(nums.begin(), nums.end());</span><br><span class="line">        </span><br><span class="line">        //不剪枝会被0吓死=.=</span><br><span class="line">  <span class="keyword">if</span> (nums[0]=0 ||nums[nums.size()-1]&lt;=0)</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="keyword">if</span> (nums[0] == 0 &amp;&amp;nums[nums.size()-1]==0)</span><br><span class="line">    result.push_back(&#123; 0,0,0 &#125;);</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">int</span> center;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(center=0;center&lt;nums.size();center++)</span><br><span class="line">        &#123;</span><br><span class="line">            i=0;</span><br><span class="line">            j=nums.size()-1;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span>(i!=center &amp;&amp;j!=center)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i]0 || nums[j]&lt;0)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">int</span> sum=nums[i]+nums[center]+nums[j];</span><br><span class="line">                <span class="keyword">if</span>(sum==0)</span><br><span class="line">                &#123;</span><br><span class="line">                    vector&lt;<span class="keyword">int</span> temp =&#123;nums[i],nums[center],nums[j]&#125;;</span><br><span class="line">                    <span class="keyword">if</span>(resultset.count(temp)==0)</span><br><span class="line">                    &#123;   </span><br><span class="line">                        result.push_back(temp);</span><br><span class="line">                        resultset.insert(temp);</span><br><span class="line">                    &#125;</span><br><span class="line">                    i++;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum&lt;0)</span><br><span class="line">                    i++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum0)</span><br><span class="line">                    j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<table style="width:10%;">
-<colgroup>
-<col style="width: 9%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>执行用时 : 424 ms, 在所有 C++ 提交中击败了5.01%的用户 内存消耗 :24.3
-MB, 在所有 C++ 提交中击败了7.53%的用户</td>
-</tr>
-<tr class="even">
-<td>虽然好像剪枝也做了，但好像效率依然不够高，不知道是不是额外加了个set的问题
-看别人的题解，<strong>不以b以a为外循环可以避免重复</strong>，也就不需要set，但没懂是为什么。
-挖个坑，搞懂了再回来看看。</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -894,7 +948,7 @@ MB, 在所有 C++ 提交中击败了7.53%的用户</td>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -907,7 +961,7 @@ MB, 在所有 C++ 提交中击败了7.53%的用户</td>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

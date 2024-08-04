@@ -208,6 +208,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Sitch">
+      <meta itemprop="description" content="做好自己的现在">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sitch's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Hexo+Next7.8 美化性配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-24 20:19:42" itemprop="dateCreated datePublished" datetime="2020-07-24T20:19:42+08:00">2020-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前情提要">前情提要</h1>
+<ul>
+<li>Next 7.8.0</li>
+<li>hexo 4.2.1</li>
+<li>npm 6.14.5</li>
+<li>Next 配置文件指 项目根目录/themes/next/_config.yml</li>
+<li>项目配置文件指 项目根目录/_config.yml</li>
+<li>注意在配置文件中配置字段时，请严格控制缩进</li>
+<li>安装命令没特别说明都在 项目根目录 下进行</li>
+</ul>
+<p><strong>以下所有配置都建立在 7.8
+版本的基础之上实现的，保新保质，绝对不是复制偷搬那些祖传博客。</strong></p>
+<blockquote>
+<p>^_^ 友情建议：进行较大更改之前，先通过如 <code>git</code>
+等方式进行保存。并且更改后为了避免样式不刷新，尽量先<code>hexo clean</code>清除样式。生成后最好先在本地<code>hexo s</code>部署。确认没有千疮百孔再推到线上吧。</p>
+</blockquote>
+<h1 id="美化性配置">美化性配置</h1>
+<p>虽然功能有了，但没人想要自己的博客完全单调扁平，虽然 next
+的设计已经清新的挺舒服了，但人总有自定义的需求嘛。</p>
+<p>修改途径有两种：</p>
+<ul>
+<li><p>custom style
+文件，覆盖单点样式，一般用于进行几个小地方的自定义等</p></li>
+<li><p>custom variable
+文件，修改变量，变量会被其他样式引用到，因此一般修改都是整体性的，一般用于修改文章宽度，文章颜色等整体性的样式。
+&gt;注意我在 variable
+配置时发现，这里颜色字段只支持十六进制表示法，不支持 rgb 表示。</p></li>
+</ul>
+<p>以下样式修改大多是在 styles 和 variables 两个文件中进行。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/24/Next7-8-%E7%BE%8E%E5%8C%96%E6%80%A7%E9%85%8D%E7%BD%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/23/Next7-8-%E5%8A%9F%E8%83%BD%E6%80%A7%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -712,176 +828,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/maxincai/p/5146338.
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sitchzou.com/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Sitch">
-      <meta itemprop="description" content="做好自己的现在">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sitch's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Github+Hexo 搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-15 01:01:11" itemprop="dateCreated datePublished" datetime="2020-07-15T01:01:11+08:00">2020-07-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/15/Github-Hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="github-pages-hexo-博客搭建">github Pages + Hexo 博客搭建</h1>
-<p>前置知识：git 使用，github 建库</p>
-<blockquote>
-<p>注意GitHub仓库最好建的是username.github.io仓库，这样GitHub Pages
-才能获得一级域名。而二级域名在进行某些扩展时有问题。可以去搜一下关于github
-pages两种域名的区别。</p>
-</blockquote>
-<h2 id="安装环境">安装环境</h2>
-<h3 id="安装-node.js">安装 node.JS</h3>
-<p><a
-target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网下载安装程序，默认安装即可</a></p>
-<p>命令行运行<code>node -v</code> <code>npm -v</code>检查安装效果</p>
-<h3 id="安装-hexo">安装 hexo</h3>
-<p>注意以下命令推荐使用字符支持良好的命令行，最好给管理员权限。我使用的是
-git bash。</p>
-<blockquote>
-<p>可以使用 cmd，但我遇到了中文问题。</p>
-<p>powershell 运行会提示 “在此系统上禁止运行脚本”， 管理员权限下输入
-<code>set-executionpolicy remotesigned</code>
-更改安全策略，允许运行脚本。</p>
-</blockquote>
-<p>运行<code>npm install -g hexo-cli</code>进行安装,再运行<code>hexo -v</code>检查安装效果，有版本信息即安装成功</p>
-<h2 id="配置项目">配置项目</h2>
-<h3 id="初始化">初始化</h3>
-<p>安装成功后自己创建一个项目文件夹，命令行切换到文件夹路径进行以下初始化：</p>
-<p>运行<code>hexo init</code>初始化</p>
-<h3 id="本地测试">本地测试</h3>
-<p>运行以下命令部署默认网页进行测试：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">new</span> <span class="string">test_my_site</span> <span class="comment">#创建新 test_my_site 的 markdown 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span>                <span class="comment"># 从 md 文件生成 html 文件</span></span><br><span class="line"></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span>                <span class="comment"># 部署本地服务器</span></span><br></pre></td></tr></table></figure>
-<p>观察到命令行在持续运行时，则可打开浏览器输入本地服务器地址（默认是<code>localhost:4000</code>）访问试试看。</p>
-<h3 id="部署到网络">部署到网络</h3>
-<p>在文件夹根路径下面，找到_config.yml，打开修改</p>
-<p>最后一段为：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">仓库的完整路径，推荐使用</span> <span class="string">ssh</span> <span class="string">路径，这样可以有</span> <span class="string">ssh</span> <span class="string">免密登录。例如我的</span> <span class="string">git@github.com:Alobal/alobal.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>URL 小段为：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">访问网址，例如</span> <span class="string">https://alobal.github.io/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">仓库名，例如</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
-<p>保存关闭该文件</p>
-<p>安装 hexo 的 git
-部署插件<code>npm install hexo-deployer-git --save</code></p>
-<p>运行以下命令进行发布到网络</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">d</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在 hexo d 部署到 GitHub 时可能要求 GitHub 账号密码。</p>
-</blockquote>
-<p>出现<code>Branch 'master' set up to track remote branch 'master' from 'https:..</code>大概就恭喜你成功了。此时可以在
-github 仓库看到 hexo
-提交的文件。以及能通过访问网址查看你刚才发布的默认博客。</p>
-<h2 id="选一个你喜欢的主题">选一个你喜欢的主题</h2>
-<h3 id="下载主题">下载主题</h3>
-<p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">hexo 主题库</a></p>
-<p>挑选一个合适的主题，比如很常见的 Next，复制 git
-地址，在本地博客项目根目录下，命令行输入进行 git clone</p>
-<p>例如<code>git clone https://github.com/next-theme/hexo-theme-next themes/next</code></p>
-<blockquote>
-<p>如果使用 next 主题请注意， next 主题在 2020 之前是 theme-next
-项目，2020 版本是 next-theme 项目，配置字段有点不同，根据需要选择。19
-版本网上教程比较健全了。</p>
-</blockquote>
-<h3 id="配置主题">配置主题</h3>
-<p>打开 _config.yml，修改 theme 字段：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">主题名，例如</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-<p>其中主题也有自己的配置文件，项目名/themes/主题名/_config.yml，可以根据需要进行修改。比如
-next
-主题配置文件中，可以在四种风格中选一种，选一个取消注释就好了。想预览效果可以去找
-next 官方文档。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="attr">scheme:</span> <span class="string">Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
-<p>输入<code>hexo g;hexo d</code>
-重新生成网页并发布出去，可以自己偷偷欣赏欣赏。</p>
-<blockquote>
-<p>如果没看到生效，可能是因为浏览器缓存，关掉浏览器重新打开，或者
-Ctrl+F5 强制刷新。</p>
-</blockquote>
-<h2 id="helloblog">hello，blog</h2>
-<p>让我们试着发布第一篇博客。项目路径下，命令行输入<code>hexo n 博客名</code>
-, 可以在 项目名/source/_posts/ 下面找到新建的 markdown
-文件。打开文件可以发现有预置的文件头，暂时不用管，后续要添加<strong>分类</strong>和<strong>标签</strong>功能的时候可以写一写。在文件头之后，即<code>------</code>下面写入你的
-markdown 格式内容即可。</p>
-<p>关于 markdown 怎么书写，可以看我的 <a
-target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/MarkDown%E7%AE%80%E6%B4%81%E6%89%8B%E5%86%8C/">markdown
-简洁手册</a>。</p>
-<h2 id="参考">参考</h2>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">知乎经典贴</a></p>
-<h2 id="错误汇总">错误汇总</h2>
-<h3 id="can-not-find-module-xxx">can not find module xxx</h3>
-<p>命令行<code>npm install</code> 安装所有依赖包完事。</p>
-<h3 id="没有启用代码高亮">没有启用代码高亮</h3>
-<p>根目录 config 里，修改配置如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>next 主题配置里，选择自己要的高亮样式：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Code Highlight theme</span></span><br><span class="line">  <span class="comment"># All available themes: https://theme-next.js.org/highlight/</span></span><br><span class="line">  <span class="attr">theme:</span></span><br><span class="line">    <span class="attr">light:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span>  <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="attr">prism:</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">tomorrow-night-blue</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -953,7 +899,7 @@ target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/Ma
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -966,7 +912,7 @@ target="_blank" rel="noopener" href="https://alobal.github.io/Blog/2020/07/17/Ma
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
